@@ -62,6 +62,9 @@ class Strings extends Core\Base
 
 	public static function getSeparated( $string, $delimiters = NULL, $limit = NULL, $delimiter = '|' )
 	{
+		if ( empty( $string ) )
+			return [];
+
 		if ( is_array( $string ) )
 			return $string;
 

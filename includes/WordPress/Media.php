@@ -88,7 +88,7 @@ class Media extends Core\Base
 			return FALSE;
 
 		// filters the list of allowed file extensions when sideloading an image from a URL @since 5.6.0
-		$extensions = apply_filters( 'image_sideload_extensions', [ 'jpg', 'jpeg', 'jpe', 'png', 'gif' ], $url );
+		$extensions = apply_filters( 'image_sideload_extensions', [ 'jpg', 'jpeg', 'jpe', 'png', 'gif', 'webp' ], $url );
 
 		// set variables for storage, fix file filename for query strings
 		preg_match( '/[^\?]+\.(' . implode( '|', array_map( 'preg_quote', $extensions ) ) . ')\b/i', $url, $matches );

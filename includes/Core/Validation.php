@@ -66,8 +66,7 @@ class Validation extends Base
 		if ( empty( $input ) )
 			return FALSE;
 
-		// @SOURCE: `WC_Validation::is_phone()`
-		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $input ) ) ) )
+		if ( ! Phone::is( $input ) )
 			return FALSE;
 
 		return TRUE;
@@ -104,8 +103,7 @@ class Validation extends Base
 		if ( empty( $input ) )
 			return FALSE;
 
-		// @SOURCE: `WC_Validation::is_phone()`
-		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $input ) ) ) )
+		if ( ! Phone::is( $input ) )
 			return FALSE;
 
 		return TRUE;
@@ -124,8 +122,7 @@ class Validation extends Base
 		if ( empty( $input ) )
 			return FALSE;
 
-		// @SOURCE: `WC_Validation::is_phone()`
-		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $input ) ) ) )
+		if ( ! Phone::is( $input ) )
 			return FALSE;
 
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
@@ -154,8 +151,10 @@ class Validation extends Base
 		if ( ! preg_match( '/^\d{10}$/', $input ) )
 			return FALSE;
 
-		// if ( FALSE !== array_search( $input, [ '0000000000', '1111111111', '2222222222', '3333333333', '4444444444', '5555555555', '6666666666', '7777777777', '8888888888', '9999999999' ] ) )
-		// 	return FALSE;
+		if ( FALSE !== array_search( $input, array_map( function( $i ) {
+			return str_repeat( $i, 10 );
+		}, range( 0, 9 ) ) ) )
+			return FALSE;
 
 		$chk = (int) $input[9];
 		$sum = array_sum( array_map( function( $x ) use ( $input ) {
@@ -193,5 +192,29 @@ class Validation extends Base
 		}
 
 		return TRUE;
+	}
+
+	// @SOURCE: https://3v4l.org/fDgfo
+	// @REF: https://stackoverflow.com/questions/20983339/validate-iban-php#comment119408175_32612548
+	// @SEE: https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN
+	public static function checkIBAN( $input )
+	{
+		// normalize input: remove spaces and make uppercase
+		$input = strtoupper( str_replace( ' ', '', $input ) );
+
+		if ( ! preg_match( '/^([A-Z]{2})(\d{2})([A-Z\d]{1,30})$/', $input, $segments ) )
+			return FALSE;
+
+		[, $country, $check, $account ] = $segments;
+
+		$digits = str_split( strtr( $account.$country, array_combine( range( 'A', 'Z' ), range( 10, 35 ) ) ).'00' );
+		$first  = array_shift( $digits );
+
+		$checksum = array_reduce( $digits, function( $carry, $int ) {
+			$carry = ( $carry * 10 + (int) $int ) % 97;
+			return $carry;
+		}, (int) $first );
+
+		return ( 98 - $checksum ) == $check;
 	}
 }

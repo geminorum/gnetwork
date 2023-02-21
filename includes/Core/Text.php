@@ -2,30 +2,30 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-// TODO: rename `$string` to `$text`
-
 class Text extends Base
 {
 
 	// FIXME: move this to Orthography module
-	public static function formatSlug( $string )
+	public static function formatSlug( $text )
 	{
-		$string = (string) $string;
-		$string = trim( $string );
+		$text = (string) $text;
+		$text = trim( $text );
 
-		if ( 0 === strlen( $string ) )
+		if ( 0 === strlen( $text ) )
 			return '';
 
+		$text = strtolower( $text );
+
 		// remove more than one ZWNJs
-		$string = preg_replace( "/(\x{200C})+/u", "\xE2\x80\x8C", $string );
+		$text = preg_replace( "/(\x{200C})+/u", "\xE2\x80\x8C", $text );
 
 		// remove arabic/persian accents
-		$string = preg_replace( "/[\x{0618}-\x{061A}\x{064B}-\x{065F}]+/u", '', $string );
+		$text = preg_replace( "/[\x{0618}-\x{061A}\x{064B}-\x{065F}]+/u", '', $text );
 
 		// TODO: remove arabic question mark
 		// TODO: remove accents
 
-		$string = str_ireplace( [
+		$text = str_ireplace( [
 			"\xD8\x8C", // `،` // Arabic Comma
 			"\xD8\x9B", // `؛` // Arabic Semicolon
 			"\xD9\x94", // `ٔ` // Arabic Hamza Above
@@ -35,110 +35,116 @@ class Text extends Base
 			"\xC2\xAB",     // `«`
 			"\xC2\xBB",     // `»`
 			"\xE2\x80\xA6", // `…` // Horizontal Ellipsis
-		], '', $string );
 
-		$string = str_ireplace( [
+			"'",
+		], '', $text );
+
+		$text = str_ireplace( [
 			"\xE2\x80\x8C\x20", // zwnj + space
 			"\x20\xE2\x80\x8C", // space + znwj
-		], ' ', $string );
+		], ' ', $text );
 
 		// messes with zwnj
-		// $string = self::stripPunctuation( $string );
+		// $text = self::stripPunctuation( $text );
 
-		return $string;
+		$text = preg_replace( '/\.{2,}/', '.', $text );
+		$text = preg_replace( '/-{2,}/', '-', $text );
+		$text = trim( $text, '-.' );
+
+		return $text;
 	}
 
-	public static function nameFamilyFirst( $string, $separator = ', ' )
+	public static function nameFamilyFirst( $text, $separator = ', ' )
 	{
-		if ( empty( $string ) )
-			return $string;
+		if ( empty( $text ) )
+			return $text;
 
 		// already formatted
-		if ( FALSE !== stripos( $string, trim( $separator ) ) )
-			return $string;
+		if ( FALSE !== stripos( $text, trim( $separator ) ) )
+			return $text;
 
 		// remove NULL, FALSE and empty strings (""), but leave values of 0
-		$parts = array_filter( explode( ' ', trim( $string ), 2 ), 'strlen' );
+		$parts = array_filter( explode( ' ', trim( $text ), 2 ), 'strlen' );
 
 		if ( 1 == count( $parts ) )
-			return $string;
+			return $text;
 
 		return $parts[1].$separator.$parts[0];
 	}
 
-	public static function nameFamilyLast( $string, $separator = ', ' )
+	public static function nameFamilyLast( $text, $separator = ', ' )
 	{
-		if ( empty( $string ) )
-			return $string;
+		if ( empty( $text ) )
+			return $text;
 
-		return preg_replace( '/(.*), (.*)/', '$2 $1', $string );
-		// return preg_replace( '/(.*)([,،;؛]) (.*)/u', '$3'.$separator.'$1', $string ); // Wrong!
+		return preg_replace( '/(.*), (.*)/', '$2 $1', $text );
+		// return preg_replace( '/(.*)([,،;؛]) (.*)/u', '$3'.$separator.'$1', $text ); // Wrong!
 	}
 
-	public static function formatName( $string, $separator = ', ' )
+	public static function formatName( $text, $separator = ', ' )
 	{
-		return self::nameFamilyFirst( $string, $separator );
+		return self::nameFamilyFirst( $text, $separator );
 	}
 
-	public static function reFormatName( $string, $separator = ', ' )
+	public static function reFormatName( $text, $separator = ', ' )
 	{
-		return self::nameFamilyLast( $string, $separator );
+		return self::nameFamilyLast( $text, $separator );
 	}
 
-	public static function readableKey( $string )
+	public static function readableKey( $text )
 	{
-		return $string ? ucwords( trim( str_replace( [ '_', '-', '.' ], ' ', $string ) ) ) : $string;
+		return $text ? ucwords( trim( str_replace( [ '_', '-', '.' ], ' ', $text ) ) ) : $text;
 	}
 
 	// @REF: https://davidwalsh.name/php-email-encode-prevent-spam
-	public static function encodeEmail( $string )
+	public static function encodeEmail( $text )
 	{
 		$encoded = '';
 
-		for ( $i = 0; $i < strlen( $string ); $i++ )
-			$encoded.= '&#'.ord( $string[$i] ).';';
+		for ( $i = 0; $i < strlen( $text ); $i++ )
+			$encoded.= '&#'.ord( $text[$i] ).';';
 
 		return $encoded;
 	}
 
 	// @REF: http://php.net/manual/en/function.htmlspecialchars-decode.php#68962
 	// @REF: `htmlspecialchars_decode()`
-	public static function decodeHTML( $string )
+	public static function decodeHTML( $text )
 	{
-		return strtr( $string, array_flip( get_html_translation_table() ) );
+		return strtr( $text, array_flip( get_html_translation_table() ) );
 	}
 
 	// simpler version of `wpautop()`
 	// @REF: https://stackoverflow.com/a/5240825
 	// @SEE: https://stackoverflow.com/a/7409591
-	public static function autoP( $string )
+	public static function autoP( $text )
 	{
-		$string = (string) $string;
+		$text = (string) $text;
 
-		if ( 0 === strlen( $string ) )
+		if ( 0 === strlen( $text ) )
 			return '';
 
 		// standardize newline characters to "\n"
-		$string = str_replace( array( "\r\n", "\r" ), "\n", $string );
+		$text = str_replace( array( "\r\n", "\r" ), "\n", $text );
 
 		// remove more than two contiguous line breaks
-		$string = preg_replace( "/\n\n+/", "\n\n", $string );
+		$text = preg_replace( "/\n\n+/", "\n\n", $text );
 
-		$paraphs = preg_split( "/[\n]{2,}/", $string );
+		$paraphs = preg_split( "/[\n]{2,}/", $text );
 
 		foreach ( $paraphs as $key => $p )
 			$paraphs[$key] = '<p>'.str_replace( "\n", '<br />'."\n", $paraphs[$key] ).'</p>'."\n";
 
-		$string = implode( '', $paraphs );
+		$text = implode( '', $paraphs );
 
 		// remove a P of entirely whitespace
-		$string = preg_replace( '|<p>\s*</p>|', '', $string );
+		$text = preg_replace( '|<p>\s*</p>|', '', $text );
 
-		return trim( $string );
+		return trim( $text );
 	}
 
 	// @REF: https://github.com/michelf/php-markdown/issues/230#issuecomment-303023862
-	public static function removeP( $string )
+	public static function removeP( $text )
 	{
 		return str_replace( array(
 			"</p>\n\n<p>",
@@ -147,14 +153,14 @@ class Text extends Base
 		), array(
 			"\n\n",
 			"",
-		), $string );
+		), $text );
 	}
 
 	// removes empty paragraph tags, and remove broken paragraph tags from around block level elements
 	// @SOURCE: https://github.com/ninnypants/remove-empty-p
-	public static function noEmptyP( $string )
+	public static function noEmptyP( $text )
 	{
-		$string = preg_replace( array(
+		$text = preg_replace( array(
 			'#<p>\s*<(div|aside|section|article|header|footer)#',
 			'#</(div|aside|section|article|header|footer)>\s*</p>#',
 			'#</(div|aside|section|article|header|footer)>\s*<br ?/?>#',
@@ -166,27 +172,27 @@ class Text extends Base
 			'</$1>',
 			'<$1$2>',
 			'</$1',
-		), $string );
+		), $text );
 
-		return preg_replace( '#<p>(\s|&nbsp;)*+(<br\s*/*>)*(\s|&nbsp;)*</p>#i', '', $string );
+		return preg_replace( '#<p>(\s|&nbsp;)*+(<br\s*/*>)*(\s|&nbsp;)*</p>#i', '', $text );
 	}
 
 	// removes paragraph from around images
 	// @SOURCE: https://css-tricks.com/?p=15293
-	public static function noImageP( $string )
+	public static function noImageP( $text )
 	{
-		return preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $string );
+		return preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $text );
 	}
 
 	// like wp but without check for func_overload
 	// @SOURCE: `seems_utf8()`
-	public static function seemsUTF8( $string )
+	public static function seemsUTF8( $text )
 	{
-		$length = strlen( $string );
+		$length = strlen( $text );
 
 		for ( $i = 0; $i < $length; $i++ ) {
 
-			$c = ord( $string[$i] );
+			$c = ord( $text[$i] );
 
 			if ( $c < 0x80 )
 				$n = 0; // 0bbbbbbb
@@ -211,7 +217,7 @@ class Text extends Base
 
 			for ( $j = 0; $j < $n; $j++ ) // n bytes matching 10bbbbbb follow ?
 				if ( ( ++$i == $length )
-					|| ( ( ord( $string[$i] ) & 0xC0 ) != 0x80 ) )
+					|| ( ( ord( $text[$i] ) & 0xC0 ) != 0x80 ) )
 						return FALSE;
 		}
 
@@ -219,34 +225,34 @@ class Text extends Base
 	}
 
 	// @REF: `normalize_whitespace()`
-	public static function normalizeWhitespace( $string, $multiline = FALSE )
+	public static function normalizeWhitespace( $text, $multiline = FALSE )
 	{
-		$string = (string) $string;
+		$text = (string) $text;
 
-		if ( 0 === strlen( $string ) )
+		if ( 0 === strlen( $text ) )
 			return '';
 
-		$string = str_replace( "\r", "\n", trim( $string ) );
+		$text = str_replace( "\r", "\n", trim( $text ) );
 
 		return $multiline
-			? preg_replace( [ "/\n\n+/", "/[ \t]+/" ], [ "\n\n", ' ' ], $string )
-			: preg_replace( [ "/\n+/", "/[ \t]+/" ], [ "\n", ' ' ], $string);
+			? preg_replace( [ "/\n\n+/", "/[ \t]+/" ], [ "\n\n", ' ' ], $text )
+			: preg_replace( [ "/\n+/", "/[ \t]+/" ], [ "\n", ' ' ], $text);
 	}
 
 	// @REF: http://stackoverflow.com/a/3226746
-	public static function normalizeWhitespaceUTF8( $string, $check = FALSE )
+	public static function normalizeWhitespaceUTF8( $text, $check = FALSE )
 	{
-		if ( $check && ! self::seemsUTF8( $string ) )
-			return self::normalizeWhitespace( $string );
+		if ( $check && ! self::seemsUTF8( $text ) )
+			return self::normalizeWhitespace( $text );
 
-		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $string );
+		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $text );
 	}
 
-	public static function stripPrefix( $string, $prefix )
+	public static function stripPrefix( $text, $prefix )
 	{
-		return 0 === strpos( $string, $prefix )
-			? substr( $string, strlen( $prefix ) ).''
-			: $string;
+		return 0 === strpos( $text, $prefix )
+			? substr( $text, strlen( $prefix ) ).''
+			: $text;
 	}
 
 	public static function has( $haystack, $needles, $operator = 'OR' )
@@ -305,19 +311,19 @@ class Text extends Base
 	}
 
 	// @SEE: `mb_convert_case()`
-	public static function strToLower( $string, $encoding = 'UTF-8' )
+	public static function strToLower( $text, $encoding = 'UTF-8' )
 	{
-		return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string, $encoding ) : strtolower( $string );
+		return function_exists( 'mb_strtolower' ) ? mb_strtolower( $text, $encoding ) : strtolower( $text );
 	}
 
-	public static function strLen( $string, $encoding = 'UTF-8' )
+	public static function strLen( $text, $encoding = 'UTF-8' )
 	{
-		return function_exists( 'mb_strlen' ) ? mb_strlen( $string, $encoding ) : strlen( $string );
+		return function_exists( 'mb_strlen' ) ? mb_strlen( $text, $encoding ) : strlen( $text );
 	}
 
-	public static function subStr( $string, $start = 0, $length = 1, $encoding = 'UTF-8' )
+	public static function subStr( $text, $start = 0, $length = 1, $encoding = 'UTF-8' )
 	{
-		return function_exists( 'mb_substr' ) ? mb_substr( $string, $start, $length, $encoding ) : substr( $string, $start, $length );
+		return function_exists( 'mb_substr' ) ? mb_substr( $text, $start, $length, $encoding ) : substr( $text, $start, $length );
 	}
 
 	// @SOURCE: https://github.com/alecgorge/PHP-String-Class
@@ -327,9 +333,9 @@ class Text extends Base
 	}
 
 	// @SOURCE: https://github.com/alecgorge/PHP-String-Class
-	public static function strSplit( $string, $length = 1 )
+	public static function strSplit( $text, $length = 1 )
 	{
-		preg_match_all( '/.{1,'.$length.'}/us', $string, $matches );
+		preg_match_all( '/.{1,'.$length.'}/us', $text, $matches );
 		return $matches[0];
 	}
 
@@ -429,9 +435,9 @@ class Text extends Base
 	}
 
 	// http://stackoverflow.com/a/3161830
-	public static function truncateString( $string, $length = 15, $dots = '&hellip;' )
+	public static function truncateString( $text, $length = 15, $dots = '&hellip;' )
 	{
-		return ( strlen( $string ) > $length ) ? substr( $string, 0, $length - strlen( $dots ) ).$dots : $string;
+		return ( strlen( $text ) > $length ) ? substr( $text, 0, $length - strlen( $dots ) ).$dots : $text;
 	}
 
 	public static function firstSentence( $text )
@@ -580,49 +586,49 @@ class Text extends Base
 			$text );
 	}
 
-	public static function utf8StripBOM( $string )
+	public static function utf8StripBOM( $text )
 	{
-		return preg_replace( '/\x{FEFF}/u', '', $string );
+		return preg_replace( '/\x{FEFF}/u', '', $text );
 	}
 
 	// @SOURCE: http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness
 	// @SEE: http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
 	// @SEE: `wp_check_invalid_utf8()`
-	public static function utf8Compliant( $string )
+	public static function utf8Compliant( $text )
 	{
-		if ( 0 === strlen( $string ) )
+		if ( 0 === strlen( $text ) )
 			return TRUE;
 
 		// If even just the first character can be matched, when the /u
 		// modifier is used, then it's valid UTF-8. If the UTF-8 is somehow
 		// invalid, nothing at all will match, even if the string contains
 		// some valid sequences
-		return ( 1 === @preg_match( '/^.{1}/us', $string ) );
+		return ( 1 === @preg_match( '/^.{1}/us', $text ) );
 	}
 
 	// @SOURCE: http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#htmlspecialchars
 	// @SOURCE: `_wp_specialchars()`
 	// converts a number of special characters into their HTML entities
 	// specifically deals with: &, <, >, ", and '
-	public static function utf8SpecialChars( $string, $flags = ENT_COMPAT )
+	public static function utf8SpecialChars( $text, $flags = ENT_COMPAT )
 	{
-		$string = (string) $string;
+		$text = (string) $text;
 
-		if ( 0 === strlen( $string ) )
+		if ( 0 === strlen( $text ) )
 			return '';
 
-		if ( preg_match( '/[&<>"\']/', $string ) )
-			$string = @htmlspecialchars( $string, $flags, 'UTF-8' );
+		if ( preg_match( '/[&<>"\']/', $text ) )
+			$text = @htmlspecialchars( $text, $flags, 'UTF-8' );
 
-		return $string;
+		return $text;
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.ord.php#109812
 	// As ord() doesn't work with utf-8,
 	// and if you do not have access to mb_* functions
-	public static function utf8Ord( $string, &$offset )
+	public static function utf8Ord( $text, &$offset )
 	{
-		$code = ord( substr( $string, $offset, 1 ) );
+		$code = ord( substr( $text, $offset, 1 ) );
 
 		if ( $code >= 128 ) { // otherwise 0xxxxxxx
 
@@ -638,7 +644,7 @@ class Text extends Base
 			for ( $i = 2; $i <= $bytesnumber; $i++ ) {
 				$offset++;
 
-				$code2    = ord( substr( $string, $offset, 1 ) ) - 128; // 10xxxxxx
+				$code2    = ord( substr( $text, $offset, 1 ) ) - 128; // 10xxxxxx
 				$codetemp = $codetemp * 64 + $code2;
 			}
 
@@ -647,7 +653,7 @@ class Text extends Base
 
 		$offset += 1;
 
-		if ( $offset >= strlen( $string ) )
+		if ( $offset >= strlen( $text ) )
 			$offset = -1;
 
 		return $code;
@@ -657,9 +663,9 @@ class Text extends Base
 	// @REF: https://www.php.net/manual/en/function.preg-match-all.php#81559
 	// [:print:] - printing characters, including space
 	// \pL - UTF-8 Letter
-	public static function utf8Len( $string )
+	public static function utf8Len( $text )
 	{
-		return preg_match_all( '/[[:print:]\pL]/u', $string, $$matches );
+		return preg_match_all( '/[[:print:]\pL]/u', $text, $$matches );
 	}
 
 	public static function wordCount( $text, $normalize = TRUE )
@@ -741,20 +747,20 @@ class Text extends Base
 		return trim( $html );
 	}
 
-	public static function noLineBreak( $string )
+	public static function noLineBreak( $text )
 	{
-		return preg_replace( '/[\r\n\t ]+/', ' ', $string );
+		return preg_replace( '/[\r\n\t ]+/', ' ', $text );
 	}
 
-	public static function stripWidthHeight( $string )
+	public static function stripWidthHeight( $text )
 	{
-		return preg_replace( '/(width|height)="\d*"\s/', '', $string );
+		return preg_replace( '/(width|height)="\d*"\s/', '', $text );
 	}
 
 	// @SOURCE: `wp_strip_all_tags()`
-	public static function stripTags( $string )
+	public static function stripTags( $text )
 	{
-		return trim( strip_tags( preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $string ) ) );
+		return trim( strip_tags( preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $text ) ) );
 	}
 
 	public static function stripHTMLforEmail( $html )
@@ -778,7 +784,7 @@ class Text extends Base
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#96899
-	public static function hex2str( $string )
+	public static function hex2str( $text )
 	{
 		return preg_replace_callback( '#\%[a-zA-Z0-9]{2}#', static function( $hex ) {
 			$hex = substr( $hex[0], 1 );
@@ -786,13 +792,13 @@ class Text extends Base
 			for ( $i = 0; $i < strlen( $hex ); $i += 2 )
 				$str.= chr( hexdec( substr( $hex, $i, 2 ) ) );
 			return $str;
-		}, (string) $string );
+		}, (string) $text );
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#91950
-	// USAGE: echo Text::replaceWords( $words, $string, static function( $matched ) { return "<strong>{$matched}</strong>"; } );
+	// USAGE: echo Text::replaceWords( $words, $text, static function( $matched ) { return "<strong>{$matched}</strong>"; } );
 	// FIXME: maybe space before/after the words
-	public static function replaceWords( $words, $string, $callback, $skip_links = TRUE )
+	public static function replaceWords( $words, $text, $callback, $skip_links = TRUE )
 	{
 		$pattern = '(^|[^\\w\\-])('.implode( '|', array_map( 'preg_quote', $words ) ).')($|[^\\w\\-])';
 
@@ -801,15 +807,15 @@ class Text extends Base
 
 		return preg_replace_callback( '/'.$pattern.'/miu', static function( $matched ) use ( $callback ) {
 			return $matched[1].call_user_func( $callback, $matched[2] ).$matched[3];
-		}, $string );
+		}, $text );
 	}
 
-	// USAGE: echo Text::replaceSymbols( [ '#', '$' ], $string, static function( $matched, $string ) { return "<strong>{$matched}</strong>"; });
-	public static function replaceSymbols( $symbols, $string, $callback, $skip_links = TRUE )
+	// USAGE: echo Text::replaceSymbols( [ '#', '$' ], $text, static function( $matched, $text ) { return "<strong>{$matched}</strong>"; });
+	public static function replaceSymbols( $symbols, $text, $callback, $skip_links = TRUE )
 	{
 		return preg_replace_callback( self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ), static function( $matches ) use ( $callback ) {
 			return call_user_func( $callback, $matches[0], $matches[1] );
-		}, $string );
+		}, $text );
 	}
 
 	// @REF: https://stackoverflow.com/a/381001/
@@ -824,16 +830,16 @@ class Text extends Base
 
 	// @REF: https://regex101.com/r/5K24IU/1
 	// @REF: https://stackoverflow.com/a/42551826
-	public static function linkifyHashtags( $string, $callback )
+	public static function linkifyHashtags( $text, $callback )
 	{
 		return preg_replace_callback( "/(?:^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,})(?:\b|\r)/gmu", static function( $matches ) use ( $callback ) {
 			return call_user_func( $callback, $matches[0], $matches[1] );
-		}, $string );
+		}, $text );
 	}
 
-	public static function replaceOnce( $search, $replace, $string )
+	public static function replaceOnce( $search, $replace, $text )
 	{
-		return preg_replace( ( '/'.preg_quote( $search, '/' ).'/' ), $replace, $string, 1 );
+		return preg_replace( ( '/'.preg_quote( $search, '/' ).'/' ), $replace, $text, 1 );
 	}
 
 	// @SOURCE: http://snipplr.com/view/3618/
@@ -880,48 +886,48 @@ class Text extends Base
 	}
 
 	// @SOURCE: `_deep_replace()`
-	public static function deepStrip( $search, $string )
+	public static function deepStrip( $search, $text )
 	{
-		$string = (string) $string;
+		$text = (string) $text;
 
 		$count = 1;
 		while ( $count )
-			$string = str_replace( $search, '', $string, $count );
+			$text = str_replace( $search, '', $text, $count );
 
-		return $string;
+		return $text;
 	}
 
 	// @REF: https://en.wikipedia.org/wiki/Control_character
 	// @REF: https://en.wikipedia.org/wiki/Unicode_control_characters
 	// @SEE: `wp_kses_no_null()`
-	public static function stripControlChars( $string )
+	public static function stripControlChars( $text )
 	{
 		// remove control chars, the first 32 ascii characters and \x7F
 		// @REF: http://stackoverflow.com/a/1497928
-		$string = preg_replace( '/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $string );
-		// $string = preg_replace('/[\p{Cc}]/', '', $string );
+		$text = preg_replace( '/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $text );
+		// $text = preg_replace('/[\p{Cc}]/', '', $text );
 
 		// removes any instance of the '\0' string
-		$string = preg_replace( '/\\\\+0+/', '', $string );
+		$text = preg_replace( '/\\\\+0+/', '', $text );
 
-		return $string;
+		return $text;
 	}
 
 	// @SOURCE: https://wp.me/p1ylL1-9
-	public static function stripImages( $string )
+	public static function stripImages( $text )
 	{
-		return preg_replace( '/<img[^>]+./', '', $string );
+		return preg_replace( '/<img[^>]+./', '', $text );
 	}
 
 	// @SOURCE: `bp_core_replace_tokens_in_text()`
-	public static function replaceTokens( $string, $tokens )
+	public static function replaceTokens( $text, $tokens, $callback_args = [] )
 	{
 		$unescaped = $escaped = array();
 
 		foreach ( $tokens as $token => $value ) {
 
 			if ( ! is_string( $value ) && is_callable( $value ) )
-				$value = call_user_func( $value );
+				$value = call_user_func_array( $value, [ $token, $callback_args ] );
 
 			// tokens can not be objects or arrays
 			if ( ! is_scalar( $value ) )
@@ -931,10 +937,10 @@ class Text extends Base
 			$escaped['{{'.$token.'}}']     = self::utf8SpecialChars( $value, ENT_QUOTES );
 		}
 
-		$string = strtr( $string, $unescaped );  // do first
-		$string = strtr( $string, $escaped );
+		$text = strtr( $text, $unescaped );  // do first
+		$text = strtr( $text, $escaped );
 
-		return $string;
+		return $text;
 	}
 
 	// NOTE: the order is important!
@@ -1004,25 +1010,25 @@ class Text extends Base
 	// @REF: https://gist.github.com/man4toman/029f43b802f4ee52d5fab2526cdd3cbd
 	// @SEE: https://gist.github.com/man4toman/f69a8bbf0c51b77f4202af7f2c0e7754
 	// @SEE: https://github.com/neitanod/forceutf8
-	public static function correctMixedEncoding( $string )
+	public static function correctMixedEncoding( $text )
 	{
 		return preg_replace_callback( '/\\P{Arabic}+/u', static function( $matches ) {
 			return iconv( 'UTF-8', 'ISO-8859-1', $matches[0] );
-		}, hex2bin( bin2hex( $string ) ) );
+		}, hex2bin( bin2hex( $text ) ) );
 	}
 
 	// FIXME: address the other attrs
 	// @REF: https://gist.github.com/man4toman/a645c4022f741c879110d09834f73d12
-	public static function unlinkify( $string )
+	public static function unlinkify( $text )
 	{
-		// return preg_replace( '/<a href=\"(.*?)\">(.*?)<\/a>/', "\\2", $string );
-		return preg_replace( '/<a.*?>(.*?)</a>/i', '\1', $string );
+		// return preg_replace( '/<a href=\"(.*?)\">(.*?)<\/a>/', "\\2", $text );
+		return preg_replace( '/<a.*?>(.*?)</a>/i', '\1', $text );
 	}
 
 	// case insensitive version of strtr
 	// by Alexander Peev
 	// @REF: https://www.php.net/manual/en/function.strtr.php#82051
-	public static function strtr( $string, $one = NULL, $two = NULL )
+	public static function strtr( $text, $one = NULL, $two = NULL )
 	{
 		if ( is_string( $one ) ) {
 
@@ -1030,12 +1036,12 @@ class Text extends Base
 			$one = substr( $one, 0, min( strlen( $one ), strlen( $two ) ) );
 			$two = substr( $two, 0, min( strlen( $one ), strlen( $two ) ) );
 
-			return strtr( $string, ( strtoupper( $one ).strtolower( $one ) ), ( $two.$two ) );
+			return strtr( $text, ( strtoupper( $one ).strtolower( $one ) ), ( $two.$two ) );
 
 		} else if ( is_array( $one ) ) {
 
 			$pos1    = 0;
-			$product = $string;
+			$product = $text;
 
 			while ( count( $one ) > 0 ) {
 
@@ -1061,7 +1067,7 @@ class Text extends Base
 			return $product;
 		}
 
-		return $string;
+		return $text;
 	}
 
 	// it has the exact same interface as str_split, but works with any UTF-8 string
@@ -1072,7 +1078,7 @@ class Text extends Base
 	 * E.g. mb_str_split("Hello Friend");
 	 * returns ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
 	 *
-	 * @param string $string The input string.
+	 * @param string $text The input string.
 	 * @param int $split_length Maximum length of the chunk. If specified, the returned array will be broken down
 	 *        into chunks with each being split_length in length, otherwise each chunk will be one character in length.
 	 * @return array|boolean
@@ -1081,18 +1087,18 @@ class Text extends Base
 	 *           as the first (and only) array element.
 	 *         - False is returned if split_length is less than 1.
 	 */
-	public static function str_split( $string, $split_length = 1 )
+	public static function str_split( $text, $split_length = 1 )
 	{
 		if ( 1 === $split_length )
-			return preg_split( '//u', $string, -1, PREG_SPLIT_NO_EMPTY );
+			return preg_split( '//u', $text, -1, PREG_SPLIT_NO_EMPTY );
 
 		if ( $split_length > 1 ) {
 
 			$return_value  = [];
-			$string_length = mb_strlen( $string, 'UTF-8' );
+			$string_length = mb_strlen( $text, 'UTF-8' );
 
 			for ( $i = 0; $i < $string_length; $i += $split_length )
-				$return_value[] = mb_substr( $string, $i, $split_length, 'UTF-8' );
+				$return_value[] = mb_substr( $text, $i, $split_length, 'UTF-8' );
 
 			return $return_value;
 		}

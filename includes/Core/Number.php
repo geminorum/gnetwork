@@ -170,7 +170,7 @@ class Number extends Base
 		return max( 0, (int) $number );
 	}
 
-	// @SOURCE: WP's `zeroise()`
+	// @SOURCE: `zeroise()` from WordPress
 	public static function zeroise( $number, $threshold, $locale = NULL )
 	{
 		return sprintf( '%0'.$threshold.'s', $number );
@@ -278,7 +278,7 @@ class Number extends Base
 			return floatval( $value );
 		}, preg_split('/[\s-]+/', $string ) );
 
-		$stack = new \SplStack; // current work stack
+		$stack = new \SplStack(); // current work stack
 		$sum   = 0; // running total
 		$last  = NULL;
 
@@ -345,5 +345,54 @@ class Number extends Base
 			$val = floatval( $val );
 
 		return round( $val, $precision, $mode );
+	}
+
+
+	/**
+	 * get modulus (substitute for bcmod)
+	 * by Andrius Baranauskas and Laurynas Butkus
+	 *
+	 * left_operand can be really big, but be carefull with modulus
+	 *
+	 * @source https://www.php.net/manual/en/function.bcmod.php#38474
+	 *
+	 * @param  string $left_operand
+	 * @param  int $modulus
+	 *
+	 * @return string
+	 */
+	public static function bcmod( $left_operand, $modulus )
+	{
+		// how many numbers to take at once? carefull not to exceed (int)
+		$take = 5;
+		$mod  = '';
+
+		do {
+			$a = (int) $mod.substr( $left_operand, 0, $take );
+			$left_operand = substr( $left_operand, $take );
+			$mod = $a % $modulus;
+		} while ( strlen( $left_operand ) );
+
+		return (int) $mod;
+	}
+
+	/**
+	 * average value from array excluding empty
+	 *
+	 * @source https://stackoverflow.com/a/63839420
+	 *
+	 * @param  array $list
+	 * @param  bool  $includeEmpties
+	 * @return float
+	 */
+	public static function average( array $numbers, bool $roundUp = FALSE, bool $includeEmpties = TRUE )
+	{
+		$numbers = array_filter( $numbers, function( $v ) use ( $includeEmpties ) {
+			$includeEmpties ? is_numeric( $v ) : is_numeric( $v ) && ( $v > 0 );
+		} );
+
+		$average = array_sum( $numbers ) / count( $numbers );
+
+		return $roundUp ? ceil( $average ) : $average;
 	}
 }

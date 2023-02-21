@@ -134,7 +134,7 @@ class Taxonomy extends Core\Base
 		if ( $object_id )
 			$args['object_ids'] = (array) $object_id;
 
-		$query = new \WP_Term_Query;
+		$query = new \WP_Term_Query();
 		return $query->query( $args );
 	}
 
@@ -312,7 +312,7 @@ class Taxonomy extends Core\Base
 			'update_term_meta_cache' => FALSE,
 		], $extra );
 
-		$query = new \WP_Term_Query;
+		$query = new \WP_Term_Query();
 		return $query->query( $args );
 	}
 
@@ -651,6 +651,84 @@ class Taxonomy extends Core\Base
 			return array();
 
 		return $query->terms;
+	}
+
+	public static function getTerm( $term_or_id, $taxonomy = '' )
+	{
+		if ( $term_or_id instanceof \WP_Term )
+			return $term_or_id;
+
+		if ( ! $term_or_id ) {
+
+			if ( is_admin() )
+				return FALSE;
+
+			if ( 'category' == $taxonomy && ! is_category() )
+				return FALSE;
+
+			if ( 'post_tag' == $taxonomy && ! is_tag() )
+				return FALSE;
+
+			if ( ! in_array( $taxonomy, array( 'category', 'post_tag' ) )
+				&& ! is_tax( $taxonomy ) )
+					return FALSE;
+
+			if ( ! $term_or_id = get_queried_object_id() )
+				return FALSE;
+		}
+
+		if ( is_numeric( $term_or_id ) )
+			// $term = get_term_by( 'id', $term_or_id, $taxonomy );
+			$term = get_term( (int) $term_or_id, $taxonomy ); // allows for empty taxonomy
+
+		else if ( $taxonomy )
+			$term = get_term_by( 'slug', $term_or_id, $taxonomy );
+
+		else
+			$term = get_term( $term_or_id, $taxonomy ); // allows for empty taxonomy
+
+		if ( ! $term || is_wp_error( $term ) )
+			return FALSE;
+
+		return $term;
+	}
+
+	/**
+	 * retrieves meta-data for a given term.
+	 *
+	 * @param  object|int $term
+	 * @param  bool|array $keys `false` for all meta
+	 * @param  bool $single
+	 * @return array
+	 */
+	public static function getTermMeta( $term, $keys = FALSE, $single = TRUE )
+	{
+		if ( ! $term = self::getTerm( $term ) )
+			return FALSE;
+
+		$list = [];
+
+		if ( FALSE === $keys ) {
+
+			if ( $single ) {
+
+				foreach ( (array) get_term_meta( $term->term_id ) as $key => $meta )
+					$list[$key] = maybe_unserialize( $meta[0] );
+
+			} else {
+
+				foreach ( (array) get_term_meta( $term->term_id ) as $key => $meta )
+					foreach ( $meta as $offset => $value )
+						$list[$key][$offset] = maybe_unserialize( $value );
+			}
+
+		} else {
+
+			foreach ( $keys as $key => $default )
+				$list[$key] = get_term_meta( $term->term_id, $key, $single ) ?: $default;
+		}
+
+		return $list;
 	}
 
 	public static function disableTermCounting()

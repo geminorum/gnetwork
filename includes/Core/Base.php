@@ -166,7 +166,7 @@ class Base
 		}
 
 		// http://stackoverflow.com/a/7039409
-		$e = new Exception;
+		$e = new Exception();
 		self::dump( $e->getTraceAsString() );
 		die();
 	}

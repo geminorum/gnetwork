@@ -163,6 +163,11 @@ class WordPress extends Base
 		return FALSE !== strstr( get_option( 'home' ), 'https:' );
 	}
 
+	public static function isImporting()
+	{
+		return defined( 'WP_IMPORTING' ) && WP_IMPORTING;
+	}
+
 	public static function isCLI()
 	{
 		return defined( 'WP_CLI' ) && WP_CLI;
@@ -203,9 +208,17 @@ class WordPress extends Base
 		return FALSE;
 	}
 
+	public static function isExport()
+	{
+		if ( defined( 'GNETWORK_IS_WP_EXPORT' ) && GNETWORK_IS_WP_EXPORT )
+			return TRUE;
+
+		return FALSE;
+	}
+
 	public static function doNotCache()
 	{
-		defined( 'DONOTCACHEPAGE' ) || define( 'DONOTCACHEPAGE', TRUE );
+		self::define( 'DONOTCACHEPAGE', TRUE );
 	}
 
 	// @REF: `wp_referer_field()`

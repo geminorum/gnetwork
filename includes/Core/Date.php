@@ -111,6 +111,23 @@ class Date extends Base
 		);
 	}
 
+	public static function calculateAge( $date, $calendar = 'gregorian', $timezone = NULL )
+	{
+		if ( is_null( $timezone ) )
+			$timezone = self::currentTimeZone();
+
+		$tz   = new \DateTimeZone( $timezone );
+		$dob  = new \DateTime( $date, $tz );
+		$now  = new \DateTime( 'now', $tz );
+		$diff = $now->diff( $dob );
+
+		return [
+			'month' => $diff->format( '%m' ),
+			'day'   => $diff->format( '%d' ),
+			'year'  => $diff->format( '%y' ),
+		];
+	}
+
 	// @SOURCE: `bp_core_get_iso8601_date()`
 	// EXAMPLE: `2005-08-15T15:52:01+0000`
 	// timezone should be UTC before using this

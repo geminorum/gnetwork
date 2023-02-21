@@ -18,6 +18,10 @@ class Phone extends Base
 		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $text ) ) ) )
 			return FALSE;
 
+		// all zeros!
+		if ( ! intval( $text ) )
+			return FALSE;
+
 		return TRUE;
 	}
 
@@ -37,5 +41,20 @@ class Phone extends Base
 		$number = trim( preg_replace( '/[^\d|\+]/', '', $text ) );
 
 		return $number ? '<a href="tel:'.esc_attr( $number ).'">'.esc_html( $text ).'</a>' : '';
+	}
+
+	public static function prepMobileForUsername( $text )
+	{
+		if ( ! ( $text = trim( $text ) ) )
+			return '';
+
+		$text = preg_replace( '/^\+98(\d{10})$/', '$1', $text );
+		$text = preg_replace( '/^98(\d{10})$/', '$1', $text );
+		$text = preg_replace( '/^0(\d{10})$/', '$1', $text );
+
+		if ( preg_replace( '/\d{10}/', '', $text ) )
+			return '';
+
+		return trim( $text );
 	}
 }

@@ -23,9 +23,9 @@ class Arraay extends Base
 		return empty( $args ) ? [] : array_unique( array_filter( array_map( 'intval', array_merge( ...$args ) ) ) );
 	}
 
-	public static function prepSplitters( $string, $default = '|' )
+	public static function prepSplitters( $text, $default = '|' )
 	{
-		return empty( $string ) ? [ $default ] : self::prepString( preg_split( '//u', $string, -1, PREG_SPLIT_NO_EMPTY ), [ $default ] );
+		return empty( $text ) ? [ $default ] : self::prepString( preg_split( '//u', $text, -1, PREG_SPLIT_NO_EMPTY ), [ $default ] );
 	}
 
 	// deep array_filter()
@@ -112,6 +112,12 @@ class Arraay extends Base
 		return ! array_diff_key( $one, $two ) && ! array_diff_key( $two, $one );
 	}
 
+	// @REF: https://stackoverflow.com/a/56428184
+	public static function getByKeyLike( $array, $pattern )
+	{
+		return array_intersect_key( $array, array_flip( preg_grep( $pattern, array_keys( $array ) ) ) );
+	}
+
 	// `$a == $b` TRUE if $a and $b have the same key/value pairs
 	// `$a === $b` TRUE if $a and $b have the same key/value pairs in the same order and of the same types
 	// @REF: https://stackoverflow.com/a/5678990
@@ -140,12 +146,12 @@ class Arraay extends Base
 	// @REF: http://api.jquery.com/serializeArray/
 	// @INPUT: [{name:"a",value:"1"},{name:"b",value:"2"}]
 	// @OLD: `parseJSArray()`
-	public static function parseSerialized( $array )
+	public static function parseSerialized( $array, $name = 'name', $value = 'value' )
 	{
 		$parsed = array();
 
 		foreach ( $array as $part )
-			$parsed[$part['name']] = $part['value'];
+			$parsed[$part[$name]] = $part[$value];
 
 		return $parsed;
 	}

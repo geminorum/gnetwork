@@ -283,6 +283,9 @@ class File extends Base
 	// WP core `size_format()` function without `number_format_i18n()`
 	public static function formatSize( $bytes, $decimals = 0 )
 	{
+		if ( 0 === $bytes )
+			return number_format( 0, $decimals ).' B';
+
 		$quant = [
 			'YB' => 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
 			'ZB' => 1024 * 1024 * 1024 * 1024 * 1024 * 1024 * 1024,
@@ -294,9 +297,6 @@ class File extends Base
 			'KB' => 1024,
 			'B'  => 1,
 		];
-
-		if ( 0 === $bytes )
-			return number_format( 0, $decimals ).' B';
 
 		foreach ( $quant as $unit => $mag )
 			if ( (float) $bytes >= $mag )
