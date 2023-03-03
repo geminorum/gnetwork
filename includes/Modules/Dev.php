@@ -47,7 +47,7 @@ class Dev extends gNetwork\Module
 	{
 		echo '<br />';
 
-		self::generateCustomTax();
+		// self::generateCustomTax();
 		// self::generateDropinFile();
 	}
 

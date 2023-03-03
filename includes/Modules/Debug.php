@@ -616,7 +616,7 @@ class Debug extends gNetwork\Module
 		if ( ! $info = ob_get_clean() )
 			return FALSE;
 
-		$dom = new \domDocument;
+		$dom = new \domDocument();
 		@$dom->loadHTML( $info );
 
 		$body = $dom->documentElement->lastChild;

@@ -653,8 +653,7 @@ class Blog extends gNetwork\Module
 	{
 		@set_time_limit( 0 );
 
-		defined( 'GNETWORK_IS_WP_EXPORT' )
-			or define( 'GNETWORK_IS_WP_EXPORT', TRUE );
+		self::define( 'GNETWORK_IS_WP_EXPORT', TRUE );
 	}
 
 	public function wp_headers( $headers )
@@ -872,5 +871,4 @@ class Blog extends gNetwork\Module
 
 		return $template;
 	}
-
 }

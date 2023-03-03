@@ -343,7 +343,7 @@ class Locale extends gNetwork\Module
 			'ewww-image-optimizer-queue-debug'              => 'page',
 
 			// [Members](https://github.com/justintadlock/members)
-			// 'members-settings' => 'page',
+			'members-settings' => 'page',
 			// 'roles'            => 'page',
 			// 'role-new'         => 'page',
 

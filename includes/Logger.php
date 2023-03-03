@@ -88,7 +88,7 @@ class Logger
 			if ( empty( $gNetworkAnalog ) )
 				$gNetworkAnalog = [];
 
-			$gNetworkAnalog[$path] = new \Analog\Logger;
+			$gNetworkAnalog[$path] = new \Analog\Logger();
 			$gNetworkAnalog[$path]->handler( \Analog\Handler\File::init( $path ) );
 
 			// format to use with `Debug::displayErrorLogs()` : machine, date, level, message

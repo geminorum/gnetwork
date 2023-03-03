@@ -472,20 +472,20 @@ class Settings extends Core\Base
 		];
 	}
 
-	public static function showOptionNone( $string = NULL )
+	public static function showOptionNone( $text = NULL )
 	{
-		if ( $string )
+		if ( $text )
 			/* translators: %s: options */
-			return sprintf( _x( '&ndash; Select %s &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' ), $string );
+			return sprintf( _x( '&ndash; Select %s &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' ), $text );
 
 		return _x( '&ndash; Select &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' );
 	}
 
-	public static function showOptionAll( $string = NULL )
+	public static function showOptionAll( $text = NULL )
 	{
-		if ( $string )
+		if ( $text )
 			/* translators: %s: options */
-			return sprintf( _x( '&ndash; All %s &ndash;', 'Settings: Dropdown Select Option All', 'gnetwork' ), $string );
+			return sprintf( _x( '&ndash; All %s &ndash;', 'Settings: Dropdown Select Option All', 'gnetwork' ), $text );
 
 		return _x( '&ndash; All &ndash;', 'Settings: Dropdown Select Option All', 'gnetwork' );
 	}
@@ -941,7 +941,7 @@ class Settings extends Core\Base
 							'id'       => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'name'     => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'value'    => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
-							'checked'  => in_array( $args['none_value'], (array) $value ),
+							'checked'  => FALSE === $value || in_array( $args['none_value'], (array) $value ),
 							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox', '-option-none' ),
 							'disabled' => HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
 							'readonly' => HTML::attrBoolean( $args['readonly'], $args['none_value'] ),
@@ -963,7 +963,7 @@ class Settings extends Core\Base
 							'id'       => $id.'-'.$value_name,
 							'name'     => $name.'['.$value_name.']',
 							'value'    => '1',
-							'checked'  => in_array( $value_name, (array) $value ),
+							'checked'  => TRUE === $value || in_array( $value_name, (array) $value ),
 							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox' ),
 							'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
 							'readonly' => HTML::attrBoolean( $args['readonly'], $value_name ),
@@ -998,7 +998,7 @@ class Settings extends Core\Base
 							'id'       => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'name'     => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'value'    => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
-							'checked'  => in_array( $args['none_value'], (array) $value ),
+							'checked'  => FALSE === $value || in_array( $args['none_value'], (array) $value ),
 							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox', '-option-none' ),
 							'disabled' => HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
 							'readonly' => HTML::attrBoolean( $args['readonly'], $args['none_value'] ),
@@ -1020,7 +1020,7 @@ class Settings extends Core\Base
 							'id'       => $id.'-'.$value_name,
 							'name'     => $name.'['.$value_name.']',
 							'value'    => '1',
-							'checked'  => in_array( $value_name, (array) $value ),
+							'checked'  => TRUE === $value || in_array( $value_name, (array) $value ),
 							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox' ),
 							'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
 							'readonly' => HTML::attrBoolean( $args['readonly'], $value_name ),

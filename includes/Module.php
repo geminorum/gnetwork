@@ -437,10 +437,10 @@ class Module extends Core\Base
 	}
 
 	// USAGE: $this->filter_string( 'parent_file', 'options-general.php' );
-	protected function filter_string( $hook, $string, $priority = 10 )
+	protected function filter_string( $hook, $text, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) use ( $string ) {
-			return $string;
+		add_filter( $hook, static function( $first ) use ( $text ) {
+			return $text;
 		}, $priority, 1 );
 	}
 
@@ -478,12 +478,12 @@ class Module extends Core\Base
 
 	protected function hash()
 	{
-		$string = '';
+		$text = '';
 
 		foreach ( func_get_args() as $arg )
-			$string.= maybe_serialize( $arg );
+			$text.= maybe_serialize( $arg );
 
-		return md5( $this->base.$this->key.$string );
+		return md5( $this->base.$this->key.$text );
 	}
 
 	protected function hashwithsalt()
@@ -954,8 +954,8 @@ class Module extends Core\Base
 
 							// multiple texts
 							foreach ( $_POST[$options_key][$setting] as $key => $value )
-								if ( $string = trim( self::unslash( $value ) ) )
-									$options[$setting][sanitize_key( $key )] = $string;
+								if ( $text = trim( self::unslash( $value ) ) )
+									$options[$setting][sanitize_key( $key )] = $text;
 
 						} else {
 
@@ -1746,7 +1746,7 @@ class Module extends Core\Base
 		if ( 'attachment' == $args['post_type'] && is_array( $args['post_status'] ) )
 			$args['post_status'][] = 'inherit';
 
-		$query = new \WP_Query;
+		$query = new \WP_Query();
 		$posts = $query->query( $args );
 
 		$pagination = HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged, $extra );

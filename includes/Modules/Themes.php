@@ -285,14 +285,14 @@ class Themes extends gNetwork\Module
 		$scripts->add( 'jquery', FALSE, $deps, ( $remote ? NULL : $jquery_ver ), $bottom );
 	}
 
-	// 2022-08-27 11:08:44
-	// 6.1-alpha-53344-src
+	// 2023-02-10 00:52:17
+	// 6.2-beta1-55292-src
 	// NOTE: latest & core versions can be equal
 	private static function getjQueryVersions( $latest = FALSE )
 	{
 		return $latest
-			? [ '3.6.1', '3.4.0' ]
-			: [ '3.6.0', '3.3.2' ];
+			? [ '3.6.3', '3.4.0' ]
+			: [ '3.6.3', '3.4.0' ];
 	}
 
 	public function init_optimize()
@@ -523,8 +523,7 @@ class Themes extends gNetwork\Module
 
 		} else if ( $this->isTheme( 'revera' ) ) {
 
-			defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' )
-				|| define( 'GNETWORK_DISABLE_JQUERY_MIGRATE', FALSE );
+			self::define( 'GNETWORK_DISABLE_JQUERY_MIGRATE', FALSE );
 
 			if ( $this->rtl ) {
 				add_theme_support( 'post-thumbnails' );

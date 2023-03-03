@@ -319,7 +319,7 @@ class Login extends gNetwork\Module
 	{
 		$GLOBALS['pagenow'] = 'index.php';
 
-		defined( 'WP_USE_THEMES' ) || define( 'WP_USE_THEMES', TRUE );
+		self::define( 'WP_USE_THEMES', TRUE );
 
 		wp();
 

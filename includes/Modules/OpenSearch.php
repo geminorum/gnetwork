@@ -170,18 +170,16 @@ class OpenSearch extends gNetwork\Module
 
 	public function rss2_ns()
 	{
-		if ( defined( 'GNETWORK_IS_WP_EXPORT' )
-			&& GNETWORK_IS_WP_EXPORT )
-				return;
+		if ( WordPress::isExport() )
+			return;
 
 		echo 'xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/"'."\n";
 	}
 
 	public function rss2_head()
 	{
-		if ( defined( 'GNETWORK_IS_WP_EXPORT' )
-			&& GNETWORK_IS_WP_EXPORT )
-				return;
+		if ( WordPress::isExport() )
+			return;
 
 		echo "\t".'<atom:link rel="search" type="application/opensearchdescription+xml" href="'
 			.esc_url( self::getManifestURL() ).'" title="'.$this->options['shortname'].'" />'."\n";

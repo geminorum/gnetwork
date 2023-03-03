@@ -200,7 +200,13 @@ class Comments extends gNetwork\Module
 
 	public function template_redirect()
 	{
-		if ( is_singular() && 'open' == $GLOBALS['wp_query']->post->comment_status )
+		if ( ! is_singular() )
+			return;
+
+		if ( empty( $GLOBALS['wp_query']->post ) )
+			return;
+
+		if ( 'open' == $GLOBALS['wp_query']->post->comment_status )
 			Scripts::pkgAutosize();
 	}
 
@@ -309,7 +315,7 @@ class Comments extends gNetwork\Module
 
 	protected function get_count( $post_id )
 	{
-		$query = new \WP_Comment_Query;
+		$query = new \WP_Comment_Query();
 
 		return $query->query( [
 			'post_id' => $post_id,

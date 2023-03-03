@@ -25,6 +25,8 @@ class Taxonomy extends gNetwork\Module
 
 	protected $priority_current_screen = 12;
 
+	private $_terms_search = '';
+
 	protected function setup_actions()
 	{
 		$this->filter_append( 'query_vars', 't' );
@@ -229,7 +231,7 @@ class Taxonomy extends gNetwork\Module
 	public function get_terms_args( $args, $taxonomies )
 	{
 		if ( ! empty( $args['search'] ) ) {
-			$this->terms_search = $args['search'];
+			$this->_terms_search = $args['search'];
 			unset( $args['search'] );
 		}
 
@@ -238,15 +240,15 @@ class Taxonomy extends gNetwork\Module
 
 	public function terms_clauses( $clauses, $taxonomies, $args )
 	{
-		if ( ! empty( $this->terms_search ) ) {
+		if ( ! empty( $this->_terms_search ) ) {
 
 			global $wpdb;
 
-			$like = '%'.$wpdb->esc_like( $this->terms_search ).'%';
+			$like = '%'.$wpdb->esc_like( $this->_terms_search ).'%';
 
 			$clauses['where'].= $wpdb->prepare( ' AND ((t.name LIKE %s) OR (t.slug LIKE %s) OR (tt.description LIKE %s))', $like, $like, $like );
 
-			$this->terms_search = '';
+			$this->_terms_search = '';
 		}
 
 		return $clauses;
@@ -973,7 +975,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</tr>';
 	}
 
-	public function edit_form_fields_actions( $tag, $taxonomy )
+	public function edit_form_fields_actions( $term, $taxonomy )
 	{
 		echo '<tr class="form-field term-actions-wrap actions">';
 			echo '<th scope="row" valign="top"><label for="extra-action-selector">';
@@ -1614,7 +1616,7 @@ class Taxonomy extends gNetwork\Module
 		], $taxonomy );
 	}
 
-	// FIXME: deal with line-breaks on descrioptions
+	// FIXME: deal with line-breaks on descriptions
 	private function get_csv_terms( $taxonomy, $fields = NULL, $metas = NULL )
 	{
 		global $wpdb;

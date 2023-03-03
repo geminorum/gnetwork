@@ -63,7 +63,7 @@ class AdminBar extends gNetwork\Module
 	// overrided to avoid core styles
 	public function initialize()
 	{
-		$user = new \stdClass;
+		$user = new \stdClass();
 
 		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
 			$super_admin       = WordPress::isSuperAdmin();

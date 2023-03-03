@@ -541,7 +541,7 @@ class BuddyPress extends gNetwork\Module
 			break;
 			case 'username':
 
-				$name = $user->user_login;
+				$name = $userdata->user_login;
 
 			break;
 			case 'first_name':

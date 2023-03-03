@@ -130,8 +130,7 @@ class NotFound extends gNetwork\Module
 			status_header( 404 );
 			nocache_headers();
 
-			defined( 'GNETWORK_IS_CUSTOM_404' )
-				or define( 'GNETWORK_IS_CUSTOM_404', $page_id );
+			self::define( 'GNETWORK_IS_CUSTOM_404', $page_id );
 		}
 
 		return $template;
