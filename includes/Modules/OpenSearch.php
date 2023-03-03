@@ -13,38 +13,25 @@ class OpenSearch extends gNetwork\Module
 	protected $key     = 'opensearch';
 	protected $network = FALSE;
 
-	private $ajax_action = 'opensearch_suggestions';
-
 	protected function setup_actions()
 	{
 		if ( ! $this->options['opensearch'] )
 			return;
 
 		if ( ! constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
-			$this->action( 'rss2_ns' );
-			add_action( 'atom_ns', [ $this, 'rss2_ns' ] );
+			$this->action( [ 'rss2_ns', 'atom_ns' ] );
 			$this->action( 'rss2_head' );
-			add_action( 'atom_head', [ $this, 'do_link_tag' ] );
+			$this->action( 'atom_head' );
 		}
 
-		// $this->action( 'rewrite_rules_array', 1, 8 );
-
-		if ( ! is_admin() ) {
-			// $this->filter( 'pre_handle_404', 2 );
-			$this->action( 'parse_request', 1, 1 );
-			$this->filter( 'redirect_canonical', 2 );
-		}
+		$this->action( 'init', 0, 99, 'late' );
+		$this->action( 'template_redirect', 0, 1 );
+		$this->filter( 'redirect_canonical', 2 );
 	}
 
 	public function setup_menu( $context )
 	{
 		$this->register_menu( _x( 'OpenSearch', 'Modules: Menu Name', 'gnetwork' ) );
-	}
-
-	protected function setup_ajax( $request )
-	{
-		// if ( $this->options['suggestions'] )
-		// 	$this->_hook_ajax( NULL, 'opensearch_suggestions' );
 	}
 
 	public function default_options()
@@ -200,43 +187,24 @@ class OpenSearch extends gNetwork\Module
 			.esc_url( self::getManifestURL() ).'" title="'.$this->options['shortname'].'" />'."\n";
 	}
 
-	// TODO: make suggestions an AJAX call
-	public function parse_request( $request )
+	public function atom_head()
 	{
-		if ( 'osd.xml' == $request->request )
-			$this->render_xml();
-
-		else if ( 'oss.json' == $request->request )
-			$this->render_suggestions();
+		$this->do_link_tag();
 	}
 
-	// DISABLED: not working on every permalink setup
-	public function pre_handle_404( $preempt, $wp_query )
+	public function init_late()
 	{
-		if ( $preempt )
-			return $preempt;
-
-		// 'pagename' is for most permalink types, name is for when
-		// the %postname% is used as a top-level field
-		if ( 'osd-xml' === $wp_query->get( 'pagename' )
-			|| 'osd-xml' === $wp_query->get( 'name' ) )
-				$this->render_xml();
-
-		if ( 'oss-json' === $wp_query->get( 'pagename' )
-			|| 'oss-json' === $wp_query->get( 'name' ) )
-				$this->render_suggestions();
-
-		return $preempt;
+		add_rewrite_tag( "%{$this->key}%", '([^&]+)' );
+		add_rewrite_rule( 'osd\.xml$', sprintf( 'index.php?%s=description', $this->key ), 'top' );
+		add_rewrite_rule( 'oss\.json$', sprintf( 'index.php?%s=suggestions', $this->key ), 'top' );
 	}
 
-	// DISABLED
-	public function rewrite_rules_array( $rules )
+	public function template_redirect()
 	{
-		return array_merge( [
-			'osd\.xml$'  => 'index.php?opensearch=1',
-			'oss\.json$' => 'index.php?opensearch_suggestions=1',
-			// 'oss\.json$' => 'wp-admin/admin-ajax.php?action=opensearch_suggestions', // NOT WORKING
-		], $rules );
+		switch ( sanitize_text_field( get_query_var( $this->key ) ) ) {
+			case 'description': $this->render_description(); break;
+			case 'suggestions': $this->render_suggestions(); break;
+		}
 	}
 
 	public function redirect_canonical( $redirect_url, $requested_url )
@@ -284,7 +252,7 @@ class OpenSearch extends gNetwork\Module
 
 	// http://www.opensearch.org/Specifications/OpenSearch/1.1
 	// https://developer.mozilla.org/en-US/Add-ons/Creating_OpenSearch_plugins_for_Firefox
-	private function render_xml()
+	private function render_description()
 	{
 		// _donot_cache_page();
 
@@ -467,17 +435,5 @@ class OpenSearch extends gNetwork\Module
 			$descriptions,
 			$query_urls,
 		] );
-	}
-
-	// FIXME: UNFINISHED
-	// DISABLED
-	public function ajax()
-	{
-		if ( WP_DEBUG_LOG )
-			error_log( print_r( $_REQUEST, TRUE ) );
-
-		return;
-		$post = self::unslash( $_POST );
-		$what = isset( $post['what'] ) ? $post['what'] : 'nothing';
 	}
 }
