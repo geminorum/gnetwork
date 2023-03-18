@@ -18,24 +18,22 @@ class Cron extends gNetwork\Module
 {
 	protected $key     = 'cron';
 	protected $network = FALSE;
-	protected $front   = FALSE;
 	protected $ajax    = TRUE;
 	protected $cron    = TRUE;
 
 	protected function setup_actions()
 	{
+		$this->filter( 'cron_schedules', 1, 20 );
+		$this->action_module( 'cron', 'status_check', 2 );
+
 		if ( ! is_blog_admin() )
 			return FALSE;
-
-		$this->action_module( 'cron', 'status_check', 2 );
 
 		if ( function_exists( 'wp_get_ready_cron_jobs' ) )
 			$this->filter_module( 'dashboard', 'pointers', 1, 4 );
 
 		if ( ! $this->options['dashboard_widget'] )
 			$this->action( 'activity_box_end', 0, 12 );
-
-		$this->filter( 'cron_schedules', 1, 20 );
 
 		if ( $this->options['schedule_revision'] )
 			add_action( $this->hook( 'clean_revisions' ), [ $this, 'do_clean_revisions' ], 10, 2 );
