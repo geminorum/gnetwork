@@ -48,6 +48,14 @@ class Notify extends gNetwork\Module
 
 		// `wp_send_new_user_notification_to_admin`
 		// `wp_send_new_user_notification_to_user`
+
+
+		// @REF: https://make.wordpress.org/core/2020/07/30/controlling-plugin-and-theme-auto-update-email-notifications-and-site-health-infos-in-wp-5-5/
+		// Disable auto-update email notifications for plugins.
+		$this->filter_false( 'auto_plugin_update_send_email' );
+
+		// Disable auto-update email notifications for themes.
+		$this->filter_false( 'auto_theme_update_send_email' );
 	}
 
 	public function setup_menu( $context )
