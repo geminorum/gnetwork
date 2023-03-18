@@ -42,7 +42,6 @@ class Admin extends gNetwork\Module
 		}
 
 		$this->action( 'doing_dark_mode' );
-		$this->action( 'admin_head', 0, 1 );
 		$this->action( 'admin_print_styles', 0, 999 );
 		$this->filter( 'admin_footer_text', 1, 9999 );
 		$this->filter( 'update_footer', 1, 9999 );
@@ -502,12 +501,6 @@ class Admin extends gNetwork\Module
 
 		// @REF: https://github.com/johnbillion/query-monitor/issues/366
 		self::define( 'QM_DARK_MODE', TRUE );
-	}
-
-	public function admin_head()
-	{
-		if ( gNetwork()->module( 'optimize' ) )
-			gNetwork()->optimize->do_html_head();
 	}
 
 	public function admin_print_styles()

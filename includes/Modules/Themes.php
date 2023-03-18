@@ -42,9 +42,7 @@ class Themes extends gNetwork\Module
 		} else {
 
 			if ( ! SCRIPT_DEBUG && ( $this->options['jquery_cdn'] || $this->options['jquery_latest'] ) )
-				$this->action( 'init', 0, 10, 'optimize' );
-
-			$this->action( 'wp_head', 0, 1 );
+				$this->filter( 'wp_resource_hints', 2 );
 
 			if ( $this->options['header_code'] && $this->options['header_html'] )
 				$this->action( 'wp_head', 0, 9999, 'html' );
@@ -295,16 +293,13 @@ class Themes extends gNetwork\Module
 			: [ '3.6.3', '3.4.0' ];
 	}
 
-	public function init_optimize()
-	{
-		do_action( sprintf( '%s_%s_%s', $this->base, 'optimize', 'preconnect_domains' ), 'https://code.jquery.com/' );
-		do_action( sprintf( '%s_%s_%s', $this->base, 'optimize', 'dns_prefetch_domains' ), 'https://code.jquery.com/' );
 	}
 
-	public function wp_head()
+	public function wp_resource_hints(  $urls, $relation_type )
 	{
-		if ( gNetwork()->module( 'optimize' ) )
-			gNetwork()->optimize->do_html_head();
+		return in_array( $relation_type, [ 'preconnect', 'dns-prefetch' ], TRUE )
+			? array_merge( $urls, [ 'href' =>'https://code.jquery.com/', 'crossorigin' ] )
+			: $urls;
 	}
 
 	public function wp_head_html()

@@ -133,7 +133,6 @@ class Plugin extends Base
 			// 'Bot',
 			// 'Remote',
 			'Navigation',
-			'Optimize',
 			'Themes',
 			'Extend',
 			// 'DB',
