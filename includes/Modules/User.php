@@ -619,6 +619,7 @@ class User extends gNetwork\Module
 		return get_network_option( NULL, $this->hook( 'spam_count' ) );
 	}
 
+	// @SEE: https://make.wordpress.org/core/2022/10/09/introducing-wp_list_tableget_views_links-in-wordpress-6-1/
 	public function views_users_network( $views )
 	{
 		// FIXME: remove current class from other views

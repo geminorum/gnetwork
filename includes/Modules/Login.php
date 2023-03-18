@@ -535,7 +535,7 @@ class Login extends gNetwork\Module
 	public function get_html_math( $label = NULL )
 	{
 		if ( is_null( $label ) )
-			$label = _x( 'Prove your humanity:', 'Modules: Login', 'gnetwork' );
+			$label = _x( 'Prove your humanity:', 'Modules: Login', 'gnetwork' ); // FIXME: make this customizable
 
 		$one = wp_rand( 0, 10 );
 		$two = wp_rand( 1, 10 );

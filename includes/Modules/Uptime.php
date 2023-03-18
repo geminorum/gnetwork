@@ -13,6 +13,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Uptime extends gNetwork\Module
 {
 
+	// TODO: sidebox with string to check to copy on the uptime control panel
+
 	protected $key     = 'uptime';
 	protected $network = FALSE;
 

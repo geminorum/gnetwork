@@ -27,6 +27,7 @@ class Media extends gNetwork\Module
 	protected $ajax    = TRUE;
 
 	private $posttype_sizes = [];
+	private $taxonomy_sizes = [];
 
 	protected function setup_actions()
 	{
@@ -37,7 +38,7 @@ class Media extends gNetwork\Module
 		$this->filter( 'wp_editor_set_quality', 2, 12 );
 		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
 
-		if ( ! empty( $this->option['output_format'] ) )
+		if ( ! empty( $this->options['output_format'] ) )
 			$this->filter( 'image_editor_output_format', 3, 12 );
 
 		if ( function_exists( 'normalizer_normalize' ) )
@@ -1412,6 +1413,8 @@ class Media extends gNetwork\Module
 			'mobi'      => 'application/x-mobipocket-ebook', // 'application/octet-stream'
 			'epub'      => 'application/epub+zip', // 'application/octet-stream'
 			'bib'       => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
+			// 'woff'      => 'font/woff', // 'application/font-woff', // @REEF: https://core.trac.wordpress.org/ticket/56817
+
 		] );
 	}
 
@@ -1429,7 +1432,7 @@ class Media extends gNetwork\Module
 	// @REF: https://github.com/adamsilverstein/modern-images-wp
 	public function image_editor_output_format( $map, $filename, $mime_type )
 	{
-		foreach ( $this->option['output_format'] as $format )
+		foreach ( $this->options['output_format'] as $format )
 			$map['image/'.$format] = 'image/webp';
 
 		return $map;

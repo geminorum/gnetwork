@@ -8,7 +8,6 @@ use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;

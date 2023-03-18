@@ -283,16 +283,14 @@ class Themes extends gNetwork\Module
 		$scripts->add( 'jquery', FALSE, $deps, ( $remote ? NULL : $jquery_ver ), $bottom );
 	}
 
-	// 2023-02-10 00:52:17
-	// 6.2-beta1-55292-src
+	// 2023-03-12 14:14:10
+	// 6.3-alpha-55505-src
 	// NOTE: latest & core versions can be equal
 	private static function getjQueryVersions( $latest = FALSE )
 	{
 		return $latest
-			? [ '3.6.3', '3.4.0' ]
-			: [ '3.6.3', '3.4.0' ];
-	}
-
+			? [ '3.6.4', '3.4.1' ]
+			: [ '3.6.4', '3.4.0' ];
 	}
 
 	public function wp_resource_hints(  $urls, $relation_type )

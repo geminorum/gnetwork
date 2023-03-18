@@ -160,9 +160,9 @@ class Admin extends gNetwork\Module
 			_x( 'Network Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
 		];
 
-		// HACK: Sensei LMS menu title
-		if ( ! empty( $GLOBALS['menu'][50][2] ) && 'sensei' == $GLOBALS['menu'][50][2] )
-			$GLOBALS['menu'][50][0] = _x( 'Sensei', 'Modules: Admin: Page Menu', 'gnetwork' );
+		// NOTE: Sensei LMS menu title
+		// if ( ! empty( $GLOBALS['menu'][50][2] ) && 'sensei' == $GLOBALS['menu'][50][2] )
+		// 	$GLOBALS['menu'][50][0] = _x( 'Sensei', 'Modules: Admin: Page Menu', 'gnetwork' );
 
 		// @REF: http://justintadlock.com/?p=3320
 		if ( ! WordPress::cuc( 'update_plugins' ) )

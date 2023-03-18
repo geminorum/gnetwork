@@ -20,6 +20,8 @@ class Profile extends gNetwork\Module
 	protected $key  = 'profile';
 	protected $ajax = TRUE;
 
+	private $_display_name = [];
+
 	protected function setup_actions()
 	{
 		$this->action( 'init', 0, 12 );
@@ -667,13 +669,13 @@ class Profile extends gNetwork\Module
 
 	public function get_display_name( $user_id, $current = '' )
 	{
-		if ( ! isset( $this->display_name[$user_id] ) )
-			$this->display_name[$user_id] = get_user_meta( $user_id, 'custom_display_name', TRUE );
+		if ( ! isset( $this->_display_name[$user_id] ) )
+			$this->_display_name[$user_id] = get_user_meta( $user_id, 'custom_display_name', TRUE );
 
 		$site = get_current_blog_id();
 
-		if ( ! empty( $this->display_name[$user_id][$site] ) )
-			return $this->display_name[$user_id][$site];
+		if ( ! empty( $this->_display_name[$user_id][$site] ) )
+			return $this->_display_name[$user_id][$site];
 
 		return $current;
 	}

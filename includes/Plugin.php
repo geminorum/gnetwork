@@ -6,6 +6,7 @@ use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\WordPress\Plugin as Base;
 
+#[\AllowDynamicProperties] // TODO: implement the magic methods `__get()` and `__set()`
 class Plugin extends Base
 {
 
