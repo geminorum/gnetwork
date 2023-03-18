@@ -27,6 +27,10 @@ class BuddyPress extends gNetwork\Module
 		$this->filter( 'register_url' );
 		$this->action( 'before_signup_header' );
 
+		// @REF: https://bpdevel.wordpress.com/2022/11/21/buddypress-will-soon-only-load-its-javascript-and-style-assets-into-the-community-area-of-your-site/
+		// @REF: https://buddypress.trac.wordpress.org/ticket/8679
+		$this->filter_true( 'bp_enqueue_assets_in_bp_pages_only' );
+
 		if ( $this->options['disable_mentions'] )
 			$this->filter_false( 'bp_activity_do_mentions' );
 
