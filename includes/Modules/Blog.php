@@ -64,6 +64,10 @@ class Blog extends gNetwork\Module
 			$this->action( 'wp_head', 0, 12 );
 			$this->action( 'embed_head', 0, 12 );
 
+			if ( $this->options['thrift_mode'] )
+				// @REF: https://core.trac.wordpress.org/ticket/37114
+				$this->filter_empty_array( 'post_class_taxonomies', 5 );
+
 			if ( $this->options['shortlink_numeric'] ) {
 				$this->action( 'template_redirect', 0, 5, 'shortlink' );
 				$this->filter( 'pre_get_shortlink', 4 );
