@@ -319,7 +319,9 @@ class Restricted extends gNetwork\Module
 
 	public function rest_authentication_errors( $null )
 	{
-		return new Error( 'restricted', $this->get_restricted_notice(), [ 'status' => $this->status_code ] );
+		return self::isRestricted()
+			? new Error( 'restricted', $this->get_restricted_notice(), [ 'status' => $this->status_code ] )
+			: $null;
 	}
 
 	public function login_message()
