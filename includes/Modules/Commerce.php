@@ -60,6 +60,7 @@ class Commerce extends gNetwork\Module
 			'custom_string_outofstock' => '',
 			'quantity_price_preview'   => '0',
 			'mobile_field'             => '1',
+			'no_products_found'        => '0',
 		];
 	}
 
@@ -114,6 +115,14 @@ class Commerce extends gNetwork\Module
 					'title'       => _x( 'Mobile Number Field', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'description' => _x( 'Adds extra required field for mobile number after checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
 					'default'     => '1',
+				],
+			],
+			'_misc' => [
+				[
+					'field'       => 'no_products_found',
+					'type'        => 'textarea-quicktags',
+					'title'       => _x( 'No Products Found', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'description' => _x( 'Adds a message on no products found page.', 'Modules: Commerce: Settings', 'gnetwork' ),
 				],
 			],
 		];
@@ -251,6 +260,9 @@ class Commerce extends gNetwork\Module
 
 		if ( is_admin() )
 			return;
+
+		if ( $this->options['no_products_found'] )
+			$this->action( 'woocommerce_no_products_found', 0, 15 );
 
 		if ( $this->options['hide_catalog_ordering'] )
 			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
@@ -624,5 +636,11 @@ class Commerce extends gNetwork\Module
 			wc_get_page_id( 'checkout' ),
 			wc_get_page_id( 'myaccount' ),
 		] ) );
+	}
+
+	// @REF: https://www.cssigniter.com/upgrade-your-woocommerce-no-products-found-page/
+	public function woocommerce_no_products_found()
+	{
+		echo Utilities::prepDescription( $this->options['no_products_found'] );
 	}
 }
