@@ -752,6 +752,13 @@ class User extends gNetwork\Module
 			}
 		}
 
+		if ( GNETWORK_COMMERCE_MOBILE_METAKEY && ( $mobile = get_user_meta( $user->ID, GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) ) ) {
+			echo '<li class="-row -mobile">';
+				echo $this->get_column_icon( FALSE, 'smartphone', _x( 'Mobile', 'Modules: User', 'gnetwork' ) );
+				echo apply_shortcodes(  sprintf( '[tel title="%s"]%s[/tel]', _x( 'Click to Call', 'Modules: User', 'gnetwork' ), $mobile ) );
+			echo '</li>';
+		}
+
 		if ( $user->user_email ) {
 			echo '<li class="-row -email">';
 				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', 'gnetwork' ) );
