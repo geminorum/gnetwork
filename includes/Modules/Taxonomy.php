@@ -53,6 +53,7 @@ class Taxonomy extends gNetwork\Module
 		return [
 			'management_tools'   => '1',
 			'taxonomy_tabs'      => '0',
+			'term_tabs'          => '0',
 			'slug_actions'       => '0',
 			'description_editor' => '0',
 			'description_column' => '1',
@@ -74,6 +75,11 @@ class Taxonomy extends gNetwork\Module
 					'field'       => 'taxonomy_tabs',
 					'title'       => _x( 'Taxonomy Tabs', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 					'description' => _x( 'Extends taxonomy default user interface with extra features.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'term_tabs',
+					'title'       => _x( 'Term Tabs', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'description' => _x( 'Extends term default user interface with extra features.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'slug_actions',
@@ -163,6 +169,9 @@ class Taxonomy extends gNetwork\Module
 
 				if ( $this->options['description_editor'] )
 					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_editor' ], 1, 2 );
+
+				if ( $this->options['term_tabs'] )
+					$this->term_tabs( $screen );
 			}
 		}
 	}
@@ -252,6 +261,135 @@ class Taxonomy extends gNetwork\Module
 		}
 
 		return $clauses;
+	}
+
+	private function term_tabs( $screen )
+	{
+		if ( 'term' != $screen->base )
+			return FALSE;
+
+		$object = get_taxonomy( $screen->taxonomy );
+
+		add_action( $object->name.'_term_edit_form_top', [ $this, 'term_edit_form_top' ], 1, 2 );
+		add_action( $object->name.'_edit_form', [ $this, 'term_edit_form' ], 99, 2 );
+	}
+
+	private function get_term_tabs( $taxonomy, $term )
+	{
+		$tabs = [];
+
+		if ( $this->hooked( 'term_tab_maintenance_content' ) )
+			$tabs['maintenance'] = [ 'title' => _x( 'Maintenance', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
+		$tabs['metadata'] = [ 'title' => _x( 'Meta-data', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+		$tabs['posts']    = [ 'title' => _x( 'Posts', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+		$tabs['search'] = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
+		if ( $this->hooked( 'term_tab_tools_content' ) )
+			$tabs['tools'] = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
+		if ( $this->hooked( 'term_tab_extra_content' ) )
+			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
+		return $this->filters( 'term_tabs', $tabs, $taxonomy, $term );
+	}
+
+	public function term_edit_form_top( $term, $taxonomy )
+	{
+		$object = get_taxonomy( $taxonomy );
+		$tabs   = $this->get_term_tabs( $taxonomy, $term );
+
+		echo '<div class="base-tabs-list -base nav-tab-base">';
+
+		Settings::message( $this->filters( 'tabs_messages', Settings::messages() ) );
+
+		HTML::tabNav( 'edititem', [ 'edititem' => $object->labels->edit_item ] + wp_list_pluck( $tabs, 'title' ) );
+
+		echo '<div class="nav-tab-content -content nav-tab-active -active" data-tab="edititem">';
+	}
+
+	public function term_edit_form( $term, $taxonomy )
+	{
+		echo '</div>'; // `.div.nav-tab-content`
+
+		$tabs = $this->get_term_tabs( $taxonomy, $term );
+
+		foreach ( wp_list_pluck( $tabs, 'callback' ) as $tab => $callback ) {
+
+			if ( FALSE === $callback )
+				continue;
+
+			if ( is_null( $callback ) )
+				$callback = [ $this, 'callback_term_tab_content_'.$tab ];
+
+			if ( ! is_callable( $callback ) )
+				continue;
+
+			echo '<div class="nav-tab-content -content -content-tab-'.$tab.'" data-tab="'.$tab.'">';
+				call_user_func_array( $callback, [ $taxonomy, $tab, get_taxonomy( $taxonomy ), $term ] );
+			echo '</div>';
+		}
+
+		echo '</div>'; // `.div.nav-tab-base`
+	}
+
+	// TODO: search for similar name on othe taxonomies/posttypes
+	public function callback_term_tab_content_search( $taxonomy, $tab, $object, $term )
+	{
+		$this->actions( 'term_tab_search_content_before', $taxonomy, $object, $term );
+
+		echo $this->wrap_open( '-tab-tools-search' );
+			HTML::desc( gNetwork()->na() ); // FIXME
+		echo '</div>';
+
+		$this->actions( 'term_tab_search_content', $taxonomy, $object, $term );
+	}
+
+	public function callback_term_tab_content_maintenance( $taxonomy, $tab, $object, $term )
+	{
+		$this->actions( 'term_tab_maintenance_content', $taxonomy, $object, $term );
+	}
+
+	public function callback_term_tab_content_metadata( $taxonomy, $tab, $object, $term )
+	{
+		$this->actions( 'term_tab_metadata_content_before', $taxonomy, $object, $term );
+
+		HTML::tableSide( WPTaxonomy::getTermMeta( $term, FALSE, FALSE ) );
+
+		$this->actions( 'term_tab_metadata_content', $taxonomy, $object, $term );
+	}
+
+	public function callback_term_tab_content_posts( $taxonomy, $tab, $object, $term )
+	{
+		$this->actions( 'term_tab_posts_content_before', $taxonomy, $object, $term );
+
+		$posts = get_posts( [
+			'post_type' => self::req( 'post_type', 'any' ),
+			'tax_query' => [
+				[
+					'taxonomy' => $taxonomy,
+					'field'    => 'term_id',
+					'terms'    => $term->term_id,
+				]
+			],
+		] );
+
+		// FIXME: table-list with edit/view links
+		HTML::tableSide( wp_list_pluck( $posts, 'post_title', 'ID' ) );
+
+		$this->actions( 'term_tab_posts_content', $taxonomy, $object, $term );
+	}
+
+	public function callback_term_tab_content_tools( $taxonomy, $tab, $object, $term )
+	{
+		$this->actions( 'term_tab_tools_content_before', $taxonomy, $object, $term );
+
+		$this->actions( 'term_tab_tools_content', $taxonomy, $object, $term );
+	}
+
+	public function callback_term_tab_content_extras( $taxonomy, $tab, $object, $term )
+	{
+		$this->actions( 'term_tab_extra_content', $taxonomy, $object, $term );
 	}
 
 	private function taxonomy_tabs( $screen )
