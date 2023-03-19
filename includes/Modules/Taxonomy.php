@@ -1601,10 +1601,12 @@ class Taxonomy extends gNetwork\Module
 	private function get_export_term_fields( $taxonomy )
 	{
 		return $this->filters( 'export_term_fields', [
-			'parent'      => _x( 'Parent', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
 			'name'        => _x( 'Name', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
 			'slug'        => _x( 'Slug', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
 			'description' => _x( 'Description', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+			'parent'      => _x( 'Parent', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+			'parent_name' => _x( 'Parent Name', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+			'parent_slug' => _x( 'Parent Slug', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
 			'count'       => _x( 'Count', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
 		], $taxonomy );
 	}
@@ -1627,7 +1629,7 @@ class Taxonomy extends gNetwork\Module
 		if ( is_null( $metas ) )
 			$metas = array_keys( $this->get_export_term_meta( $taxonomy ) );
 
-		$terms = $wpdb->get_results( $wpdb->prepare( "
+		$raw = $wpdb->get_results( $wpdb->prepare( "
 			SELECT * FROM {$wpdb->term_taxonomy}
 			INNER JOIN {$wpdb->terms} ON {$wpdb->terms}.term_id = {$wpdb->term_taxonomy}.term_id
 			WHERE {$wpdb->term_taxonomy}.taxonomy = %s
@@ -1636,13 +1638,30 @@ class Taxonomy extends gNetwork\Module
 
 		// FIXME: handle empty results
 
-		$data = [ array_merge( [ 'term_id' ], $fields, Arraay::prefixValues( $metas, 'meta_' ) ) ];
+		$data  = [ array_merge( [ 'term_id' ], $fields, Arraay::prefixValues( $metas, 'meta_' ) ) ];
+		$terms = Arraay::reKey( $raw, 'term_id' );
 
 		foreach ( $terms as $term ) {
+
 			$row = [ $term->term_id ];
 
-			foreach ( $fields as $field )
-				$row[] = trim( $term->{$field} );
+			foreach ( $fields as $field ) {
+
+				if ( 'slug' === $field )
+					$row[] = urldecode( $term->{$field} );
+
+				else if ( property_exists( $term, $field ) )
+					$row[] = trim( $term->{$field} );
+
+				else if ( 'parent_name' === $field )
+					$row[] = ( $term->parent && array_key_exists( $term->parent, $terms ) ) ? $terms[$term->parent]->name : '';
+
+				else if ( 'parent_slug' === $field )
+					$row[] = ( $term->parent && array_key_exists( $term->parent, $terms ) ) ? urldecode( $terms[$term->parent]->slug ) : '';
+
+				else
+					$row[] = ''; // unknown field!
+			}
 
 			$saved = get_term_meta( $term->term_id );
 
