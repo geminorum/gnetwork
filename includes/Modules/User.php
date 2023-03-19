@@ -31,6 +31,9 @@ class User extends gNetwork\Module
 		if ( ! in_array( $this->options['apppass_accesscap'], [ '_member_of_network', '_member_of_site'] ) )
 			$this->filter( 'wp_is_application_passwords_available_for_user', 2, 9 );
 
+		if ( $this->options['enhanced_search'] && is_admin() )
+			$this->action( 'pre_user_query', 1, 1, 'enhanced_search' );
+
 		if ( $this->options['disable_avatars'] )
 			$this->filter_zero( 'pre_option_show_avatars' );
 
@@ -88,6 +91,9 @@ class User extends gNetwork\Module
 		return [
 			'site_user_id'      => '0', // GNETWORK_SITE_USER_ID
 			'site_user_role'    => 'editor', // GNETWORK_SITE_USER_ROLE
+			'enhanced_search'   => '0',
+			'search_values'     => [],
+			'search_metas'      => [],
 			'apppass_accesscap' => is_multisite() ? '_member_of_network' : '_member_of_site',
 			'disable_avatars'   => '0',
 			'network_roles'     => '0',
@@ -99,7 +105,7 @@ class User extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$settings  = array_fill_keys( [ '_general', '_dashboard' ], [] );
+		$settings  = array_fill_keys( [ '_general', '_search', '_dashboard' ], [] );
 		$multisite = is_multisite();
 
 		$settings['_general'][] = [
@@ -154,6 +160,40 @@ class User extends gNetwork\Module
 				'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', 'gnetwork' ),
 				'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', 'gnetwork' ),
 			];
+
+		$settings['_search'][] = [
+			'field'       => 'enhanced_search',
+			'title'       => _x( 'Enhanced Search', 'Modules: User: Settings', 'gnetwork' ),
+			'description' => _x( 'Improves the admin users search.', 'Modules: User: Settings', 'gnetwork' ),
+		];
+
+		$settings['_search'][] = [
+			'field'       => 'search_values',
+			'type'        => 'checkboxes-values',
+			'title'       => _x( 'Search Values', 'Modules: User: Settings', 'gnetwork' ),
+			'description' => _x( 'Default values used by WordPress to do the search.', 'Modules: User: Settings', 'gnetwork' ),
+			'values'      => [
+				'user_login'    => _x( 'User Login', 'Modules: User: Settings: Search Value', 'gnetwork' ),
+				'user_url'      => _x( 'User URL', 'Modules: User: Settings: Search Value', 'gnetwork' ),
+				'user_email'    => _x( 'User Email', 'Modules: User: Settings: Search Value', 'gnetwork' ),
+				'user_nicename' => _x( 'User Nicename', 'Modules: User: Settings: Search Value', 'gnetwork' ),
+				'display_name'  => _x( 'Display Name', 'Modules: User: Settings: Search Value', 'gnetwork' ),
+			],
+		];
+
+		$settings['_search'][] = [
+			'field'       => 'search_metas',
+			'type'        => 'checkboxes-values',
+			'title'       => _x( 'Search Metas', 'Modules: User: Settings', 'gnetwork' ),
+			'description' => _x( 'Default metas used by WordPress to do the search.', 'Modules: User: Settings', 'gnetwork' ),
+			'values'      => $this->filters( 'enhanced_search_metakeys', [
+				'mobile'          => _x( 'Mobile', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
+				'identity_number' => _x( 'Identity Number', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
+				'first_name'      => _x( 'First Name', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
+				'last_name'       => _x( 'Last Name', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
+				'nickname'        => _x( 'Nickname', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
+			] ),
+		];
 
 		if ( $multisite )
 			$settings['_dashboard'][] = [
@@ -779,5 +819,69 @@ class User extends gNetwork\Module
 			'timestamps' => 'user_registered',
 			'extra'      => 'user_email',
 		] );
+	}
+
+	// @SOURCE: Better Admin Users Search by Applelo - v1.2.0 - 20221211
+	// @REF: https://wordpress.org/plugins/better-admin-users-search/
+	public function pre_user_query_enhanced_search( &$user_query )
+	{
+		global $wpdb;
+
+		if ( empty( $_GET['s'] ) || 'WHERE 1=1' === $user_query->query_where )
+			return;
+
+		if ( ! count( $this->options['search_values'] ) )
+			return;
+
+		$where  = 'WHERE 1=1';
+		$search = htmlspecialchars( '%'.trim( $user_query->query_vars['search'], '*' ).'%' );
+
+		if ( count( $this->options['search_values'] ) + count( $this->options['search_metas'] ) > 0 )
+			$where .= ' AND (';
+
+		if ( count( $this->options['search_values'] ) > 0 ) {
+
+			$i = 0;
+
+			foreach ( $this->options['search_values'] as $default_value ) {
+
+				if ( $i > 0 )
+					$where.= ' OR ';
+
+				$where.= $wpdb->prepare( $default_value.' LIKE %s', $search );
+
+				$i++;
+			}
+		}
+
+		if ( count( $this->options['search_metas'] ) > 0 ) {
+
+			$search_metas = "ID IN ( SELECT user_id FROM {$wpdb->usermeta} WHERE ( (";
+
+			$i = 0;
+
+			foreach ( $this->options['search_metas'] as $meta_value ) {
+
+				if ( $i > 0 )
+					$search_metas .= ' OR ';
+
+				$search_metas.= $wpdb->prepare( 'meta_key=%s', $meta_value );
+
+				$i++;
+			}
+
+			$search_metas.= ") AND {$wpdb->usermeta}.meta_value LIKE %s))";
+			$search_metas = $wpdb->prepare( $search_metas, $search );
+
+			if ( count( $this->options['search_values'] ) )
+				$where .= ' OR ';
+
+			$where .= $search_metas;
+		}
+
+		if ( count( $this->options['search_values'] ) + count( $this->options['search_metas'] ) )
+			$where .= ')';
+
+		$user_query->query_where = $where;
 	}
 }
