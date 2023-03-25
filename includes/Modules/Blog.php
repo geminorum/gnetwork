@@ -59,6 +59,12 @@ class Blog extends gNetwork\Module
 					remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
 				} );
 
+			if ( $this->options['disable_globalstyles'] )
+				add_action( 'admin_init', static function() {
+					remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_global_styles_css_custom_properties' );
+					remove_action( 'in_admin_header', 'wp_global_styles_render_svg_filters' );
+				} );
+
 		} else {
 
 			$this->action( 'wp_head', 0, 12 );
@@ -80,6 +86,14 @@ class Blog extends gNetwork\Module
 
 			if ( $this->options['feed_delay'] )
 				$this->filter( 'posts_where', 2 );
+
+			if ( $this->options['disable_globalstyles'] )
+				add_action( 'init', static function() {
+					remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
+					remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
+					remove_action( 'wp_enqueue_scripts', 'wp_common_block_scripts_and_styles' );
+					remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
+				}, 99 );
 		}
 
 		if ( ! $this->options['xmlrpc_enabled'] ) {
@@ -124,6 +138,7 @@ class Blog extends gNetwork\Module
 			'feed_delay'           => '10',
 			'disable_emojis'       => '1',
 			'disable_pointers'     => '1',
+			'disable_globalstyles' => '1', // @REF: https://github.com/WordPress/gutenberg/issues/36834
 			'ga_override'          => '',
 			'from_email'           => '',
 			'from_name'            => '',
@@ -267,6 +282,15 @@ class Blog extends gNetwork\Module
 			'type'        => 'disabled',
 			'title'       => _x( 'Admin Pointers', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Removes all admin pointer tooltips.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'default'     => '1',
+		];
+
+		$settings['_front'][] = [
+			'field'       => 'disable_globalstyles',
+			'type'        => 'disabled',
+			'title'       => _x( 'Global Styles', 'Modules: Blog: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes all admin pointer tooltips.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'after'       => Settings::fieldAfterIcon( 'https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/#presets' ),
 			'default'     => '1',
 		];
 
