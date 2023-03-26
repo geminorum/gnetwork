@@ -4,7 +4,7 @@
 
     editor.addCommand('gnetworkref', function () {
       var text = editor.selection.getContent();
-      editor.insertContent('[ref]' + (text ? text.trim() : '') + '[/ref]');
+      editor.insertContent('[ref]' + (text ? text.trim().replace(/^\(([^)]*)\)$/g, '$1').trim() : '') + '[/ref]');
     });
 
     editor.addButton('gnetworkref', {
@@ -22,7 +22,7 @@
             type: 'textbox',
             name: 'text',
             label: editor.getLang('gnetwork.gnetworkref-text'),
-            value: selected.trim(),
+            value: selected.trim().replace(/^\(([^)]*)\)$/g, '$1').trim(),
             multiline: true,
             minHeight: 130
           }, {
