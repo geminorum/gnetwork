@@ -1,6 +1,5 @@
 .build
 .idea
-.sass-cache
 .gulp
 .imdone
 .temp
@@ -12,7 +11,6 @@
 /assets/css/maps
 /assets/components
 /assets/views/cache/*.php
-/assets/packages/jquery
 /assets/vendor
 
 *.deps.json

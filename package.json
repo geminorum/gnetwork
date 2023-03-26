@@ -84,7 +84,7 @@
   "optionalDependencies": {
     "autosize": "^6.0.1",
     "chosen-js": "^1.8.7",
-    "github-markdown-css": "^5.1.0",
+    "github-markdown-css": "^5.2.0",
     "multiple-audio-player-plugin": "^0.0.3",
     "pdfobject": "^2.2.8",
     "vazirmatn": "^33.0.3"
