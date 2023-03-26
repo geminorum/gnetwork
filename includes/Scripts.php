@@ -150,7 +150,7 @@ class Scripts extends Core\Base
 		wp_style_add_data( static::BASE.'-github-markdown', 'rtl', 'replace' );
 	}
 
-	public static function pkgAutosize( $ver = '4.0.2' )
+	public static function pkgAutosize( $ver = '6.0.1' )
 	{
 		$handle = static::BASE.'-autosize';
 

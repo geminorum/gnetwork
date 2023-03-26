@@ -82,7 +82,7 @@
     "xtend": "^4.0.2"
   },
   "optionalDependencies": {
-    "autosize": "^5.0.1",
+    "autosize": "^6.0.1",
     "chosen-js": "^1.8.7",
     "github-markdown-css": "^5.1.0",
     "multiple-audio-player-plugin": "^0.0.3",
