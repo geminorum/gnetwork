@@ -126,6 +126,7 @@ class Plugin extends Base
 			'Maintenance',
 			'Restricted',
 			'Editor',
+			'Feed',
 			'Captcha',
 			'OpenSearch',
 			'Support',

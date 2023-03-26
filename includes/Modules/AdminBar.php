@@ -337,6 +337,13 @@ class AdminBar extends gNetwork\Module
 
 				$wp_admin_bar->add_node( [
 					'parent' => static::BASE.'-current-post',
+					'id'     => static::BASE.'-current-post-json',
+					'title'  => _x( 'JSON Endpoint', 'Modules: AdminBar: Nodes', 'gnetwork' ),
+					'href'   => trailingslashit( get_permalink( $post ) ).user_trailingslashit( 'json' ),
+				] );
+
+				$wp_admin_bar->add_node( [
+					'parent' => static::BASE.'-current-post',
 					'id'     => static::BASE.'-current-post-embed',
 					'title'  => _x( 'Embed Endpoint', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 					'href'   => get_post_embed_url( $post ),

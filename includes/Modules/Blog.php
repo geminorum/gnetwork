@@ -84,9 +84,6 @@ class Blog extends gNetwork\Module
 				$this->filter( 'posts_clauses', 2 );
 			}
 
-			if ( $this->options['feed_delay'] )
-				$this->filter( 'posts_where', 2 );
-
 			if ( $this->options['disable_globalstyles'] )
 				add_action( 'init', static function() {
 					remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
@@ -134,8 +131,6 @@ class Blog extends gNetwork\Module
 			'content_width'        => '',
 			'meta_revised'         => '0',
 			'noindex_attachments'  => '0',
-			'feed_json'            => '0',
-			'feed_delay'           => '10',
 			'disable_emojis'       => '1',
 			'disable_pointers'     => '1',
 			'disable_globalstyles' => '1', // @REF: https://github.com/WordPress/gutenberg/issues/36834
@@ -249,23 +244,6 @@ class Blog extends gNetwork\Module
 			'field'       => 'wlw_enabled',
 			'title'       => _x( 'WLW', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Whether Windows Live Writer manifest enabled on this site.', 'Modules: Blog: Settings', 'gnetwork' ),
-		];
-
-		$settings['_front'][] = [
-			'field'       => 'feed_delay',
-			'type'        => 'select',
-			'title'       => _x( 'Delay Feeds', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Delays appearing published posts on the site feeds.', 'Modules: Blog: Settings', 'gnetwork' ),
-			'none_title'  => _x( 'No Delay', 'Modules: Blog: Settings', 'gnetwork' ),
-			'values'      => Settings::minutesOptions(),
-			'default'     => '10',
-		];
-
-		$settings['_misc'][] = [
-			'field'       => 'feed_json',
-			'title'       => _x( 'JSON Feed', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Adds JSON as new type of feed that anyone can subscribe to.', 'Modules: Blog: Settings', 'gnetwork' ),
-			'after'       => $this->options['feed_json'] ? Settings::fieldAfterLink( get_feed_link( 'json' ) ) : '',
 		];
 
 		$settings['_services'][] = [
@@ -489,12 +467,6 @@ class Blog extends gNetwork\Module
 
 			$this->filter_false( 'wp_should_replace_insecure_home_url' );
 			$this->filter_false( 'https_local_ssl_verify' );
-		}
-
-		if ( $this->options['feed_json'] ) {
-			add_feed( 'json', [ $this, 'do_feed_json' ] );
-			$this->filter( 'template_include', 1, 9, 'feed_json' );
-			$this->filter_append( 'query_vars', [ 'callback', 'limit' ] );
 		}
 
 		// originally from: Disable Emojis v1.7.2 - 2018-10-03
@@ -765,23 +737,6 @@ class Blog extends gNetwork\Module
 		return str_replace( 'http://', 'https://', $url );
 	}
 
-	public function posts_where( $where, $query )
-	{
-		if ( $query->is_main_query()
-			&& $query->is_feed() ) {
-
-			global $wpdb;
-
-			$now  = gmdate( 'Y-m-d H:i:s' );
-			$wait = $this->options['feed_delay'];
-			$unit = 'MINUTE'; // MINUTE, HOUR, DAY, WEEK, MONTH, YEAR
-
-			$where.= " AND TIMESTAMPDIFF( {$unit}, {$wpdb->posts}.post_date_gmt, '{$now}' ) > {$wait} ";
-		}
-
-		return $where;
-	}
-
 	public function pre_get_posts( $wp_query )
 	{
 		$wp_query->set( 'no_found_rows', TRUE );
@@ -877,26 +832,5 @@ class Blog extends gNetwork\Module
 			$id = Crypto::encodeBijection( $id );
 
 		return empty( $id ) ? $return : home_url( '/'.$id );
-	}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-/// Originally Based on: [Feed JSON](https://wordpress.org/plugins/feed-json/)
-/// By wokamoto : http://twitter.com/wokamoto
-/// Updated on: 20150918 / v1.0.9
-
-	public function do_feed_json()
-	{
-		Utilities::getLayout( 'feed.json', TRUE );
-	}
-
-	public function template_include_feed_json( $template )
-	{
-		if ( 'json' === get_query_var( 'feed' )
-			&& $layout = Utilities::getLayout( 'feed.json' ) )
-				return $layout;
-
-		return $template;
 	}
 }
