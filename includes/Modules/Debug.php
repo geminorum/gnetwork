@@ -1116,14 +1116,13 @@ class Debug extends gNetwork\Module
 		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
 
 		if ( ini_get( 'zlib.output_compression' ) )
-			add_action( 'shutdown', function() {
+			add_action( 'shutdown', static function() {
 
 				$start  = (int) ini_get( 'zlib.output_compression' );
 				$levels = ob_get_level();
 
 				for ( $i = $start; $i < $levels; $i++ )
 					ob_end_flush();
-
 			}, 1 );
 	}
 

@@ -48,7 +48,10 @@ class Login extends gNetwork\Module
 		if ( $this->options['login_hide'] ) {
 			$this->action( 'plugins_loaded', 0, 9 );
 			$this->action( 'wp_loaded', 0, 9 );
-			remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+
+			add_action( 'init', static function() {
+				remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+			}, 99 );
 
 			$this->filter( 'site_url', 4 );
 			$this->filter( 'network_site_url', 3 );

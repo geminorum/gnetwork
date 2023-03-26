@@ -730,7 +730,7 @@ class User extends gNetwork\Module
 		echo '<ul class="-rows">';
 
 		if ( $user->first_name || $user->last_name ) {
-			echo '<li class="-row -name">';
+			echo '<li class="-row -fullname">';
 				echo $this->get_column_icon( FALSE, 'nametag', _x( 'Name', 'Modules: User', 'gnetwork' ) );
 				printf( '%s %s', $user->first_name, $user->last_name );
 			echo '</li>';
@@ -744,7 +744,7 @@ class User extends gNetwork\Module
 
 				$blogname = empty( $blogs[$blog] ) ? '#'.$blog : $blogs[$blog]->blogname;
 
-				echo '<li class="-row -name">';
+				echo '<li class="-row -displayname">';
 					echo $this->get_column_icon( FALSE, 'nametag', _x( 'Custom Name', 'Modules: User', 'gnetwork' ) );
 					/* translators: %1$s: blog name, %2$s: custom display name */
 					printf( _x( 'In %1$s as: %2$s', 'Modules: User: Custom Name', 'gnetwork' ), $blogname, $custom );

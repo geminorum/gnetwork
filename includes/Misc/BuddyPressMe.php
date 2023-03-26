@@ -8,6 +8,11 @@ use geminorum\gNetwork\Core\WordPress;
 class BuddyPressMe extends \BP_Component
 {
 
+	public $id        = '';  // BP
+	public $root_slug = '';  // BP
+
+	protected $current_action = '';
+
 	public function __construct()
 	{
 		parent::start( 'me', _x( 'gNetwork Me', 'BuddyPress Me: Component Name', 'gnetwork' ) );
@@ -45,6 +50,7 @@ class BuddyPressMe extends \BP_Component
 		WordPress::doNotCache();
 
 		$this->current_action = bp_current_action();
+
 		if ( empty( $this->current_action ) )
 			$this->current_action = 'profile';
 

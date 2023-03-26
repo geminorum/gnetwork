@@ -432,6 +432,7 @@ class Mail extends gNetwork\Module
 		Logger::INFO( sprintf( 'EMAIL-LOGS: logged email to: %s', $recipient ) );
 	}
 
+	// TODO: migrate to `wp_mail_succeeded ` action @since WP5.9.0
 	public function wp_mail( $mail )
 	{
 		$this->do_log_mail( $mail );

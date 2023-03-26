@@ -69,6 +69,9 @@ class Utilities extends Core\Base
 
 	public static function htmlHumanTime( $timestamp, $flip = FALSE )
 	{
+		if ( ! $timestamp )
+			return $timestamp;
+
 		if ( ! Date::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 

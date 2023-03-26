@@ -458,7 +458,6 @@ class Restricted extends gNetwork\Module
 		<status>{$this->status_code}</status>
 	</data>
 </error>
-
 EOD;
 
 			if ( ! headers_sent() ) {

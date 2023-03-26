@@ -1003,6 +1003,8 @@ function wp_admin_bar_class( $class ) {
 
 	class WP_Admin_Bar extends \WP_Admin_Bar
 	{
+		public $user;
+
 		public function initialize()
 		{
 			$this->user = gNetwork()->adminbar->initialize();

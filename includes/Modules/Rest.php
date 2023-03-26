@@ -135,8 +135,7 @@ class Rest extends gNetwork\Module
 
 		foreach ( get_object_taxonomies( $object_type, 'objects' ) as $taxonomy ) {
 
-			// @REF: `is_taxonomy_viewable()`
-			if ( ! $taxonomy->publicly_queryable )
+			if ( ! is_taxonomy_viewable( $taxonomy ) )
 				continue;
 
 			if ( in_array( $taxonomy->name, $ignored, TRUE ) )
