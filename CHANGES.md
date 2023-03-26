@@ -1,3 +1,45 @@
+### 3.16.0
+* main/module: cache options by site id
+* main/scripts: :up: autosize v6.0.1
+* main/scripts: :up: prism.js v1.29.0
+* main/settings: method for page excludes
+* module/authors: force multi author option
+* module/blog: avoid post classes on thrift mode
+* module/blog: disable global styles
+* module/buddypress: enqueue assets in bp pages only
+* module/cleanup: removing orphaned post meta
+* module/commerce: custom no products found message
+* module/commerce: display mobile data on order details
+* module/commerce: hide results count/catalog ordering
+* module/commerce: ssn support removed
+* module/cron: run hooks on front-end
+* module/debug: better handling end flush on shutdown
+* module/debug: wc log directory size via pointers api
+* module/embed: support for balad maps
+* module/feed: :new: module
+* module/feed: json feed enhanced
+* module/images: :new: module
+* module/locale: avoid caching the default paths
+* module/media: better handling alt/caption on attachment page titles
+* module/notfound: better log 404s
+* module/notfound: disable/strict guessing 404 permalinks
+* module/notfound: display page state for the custom 404 page
+* module/notify: disable auto update emails
+* module/opensearch: manifest serving revised
+* module/optimize: deprecated in favor of wp resource hints
+* module/profile: get user from global user id
+* module/restricted: check restricted on rest
+* module/restricted: more details on robots text
+* module/shortcodes: filtering headings toc for ref lists
+* module/shortcodes: trim inside ref
+* module/taxonomy: :new: term tab interface
+* module/taxonomy: export terms revised
+* module/taxonomy: force term id type on empty post action
+* module/themes: jquery migrate version updated
+* module/user: disable avatars across network
+* module/user: display mobile info on admin
+* module/user: enhanced search on admin
+
 ### 3.15.1
 * main/module: rename helpers for request action
 * main/module: render tools html after
