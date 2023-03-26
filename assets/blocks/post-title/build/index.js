@@ -36,17 +36,32 @@
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -83,20 +98,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
-var registerBlockType = wp.blocks.registerBlockType;
-var _wp$editor = wp.editor,
-    InspectorControls = _wp$editor.InspectorControls,
-    BlockControls = _wp$editor.BlockControls,
-    AlignmentToolbar = _wp$editor.AlignmentToolbar;
-var _wp$components = wp.components,
-    ServerSideRender = _wp$components.ServerSideRender,
-    TextControl = _wp$components.TextControl,
-    ToggleControl = _wp$components.ToggleControl;
-
-var _wp$data$select = wp.data.select('core/editor'),
-    getCurrentPostId = _wp$data$select.getCurrentPostId;
-
-var _x = wp.i18n._x;
+const {
+  registerBlockType
+} = wp.blocks;
+const {
+  InspectorControls,
+  BlockControls,
+  AlignmentToolbar
+} = wp.editor;
+const {
+  ServerSideRender,
+  TextControl,
+  ToggleControl
+} = wp.components;
+const {
+  getCurrentPostId
+} = wp.data.select('core/editor');
+const {
+  _x
+} = wp.i18n;
 registerBlockType('gnetwork/post-title', {
   title: _x('Post Title', 'Blocks: Post Title', 'gnetwork'),
   description: _x('Displays selected post title in an HTML tag.', 'Blocks: Post Title', 'gnetwork'),
@@ -125,15 +145,19 @@ registerBlockType('gnetwork/post-title', {
       type: 'string'
     }
   },
-  edit: function edit(props) {
-    var _props$attributes = props.attributes,
-        post = _props$attributes.post,
-        link = _props$attributes.link,
-        wrap = _props$attributes.wrap,
-        alignment = _props$attributes.alignment;
+  edit: props => {
+    const {
+      // className,
+      attributes: {
+        post,
+        link,
+        wrap,
+        alignment
+      }
+    } = props;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(AlignmentToolbar, {
       value: alignment,
-      onChange: function onChange(value) {
+      onChange: value => {
         props.setAttributes({
           alignment: value === undefined ? 'none' : value
         });
@@ -143,7 +167,7 @@ registerBlockType('gnetwork/post-title', {
       help: _x('Leave empty for current post.', 'Blocks: Post Title', 'gnetwork'),
       className: "gnetwork-component -code",
       value: post,
-      onChange: function onChange(value) {
+      onChange: value => {
         props.setAttributes({
           post: value
         });
@@ -153,7 +177,7 @@ registerBlockType('gnetwork/post-title', {
       help: _x('Use any HTML tags for wrapping.', 'Blocks: Post Title', 'gnetwork'),
       className: "gnetwork-component -code",
       value: wrap,
-      onChange: function onChange(value) {
+      onChange: value => {
         props.setAttributes({
           wrap: value
         });
@@ -161,7 +185,7 @@ registerBlockType('gnetwork/post-title', {
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ToggleControl, {
       label: _x('Link to Post', 'Blocks: Post Title', 'gnetwork'),
       checked: link,
-      onChange: function onChange(value) {
+      onChange: value => {
         props.setAttributes({
           link: value
         });
@@ -176,7 +200,7 @@ registerBlockType('gnetwork/post-title', {
 
     }));
   },
-  save: function save(props) {
+  save: props => {
     return null;
   },
   transforms: {
@@ -190,13 +214,13 @@ registerBlockType('gnetwork/post-title', {
 /***/ }),
 
 /***/ "@wordpress/element":
-/*!******************************************!*\
-  !*** external {"this":["wp","element"]} ***!
-  \******************************************/
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-(function() { module.exports = this["wp"]["element"]; }());
+(function() { module.exports = window["wp"]["element"]; }());
 
 /***/ })
 
