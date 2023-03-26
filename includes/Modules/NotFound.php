@@ -27,6 +27,12 @@ class NotFound extends gNetwork\Module
 			$this->filter( 'wpseo_exclude_from_sitemap_by_post_ids', 1, 12 );
 		}
 
+		if ( $this->options['disable_guessing'] )
+			$this->filter_false( 'do_redirect_guess_404_permalink' );
+
+		if ( $this->options['strict_guessing'] )
+			$this->filter_true( 'strict_redirect_guess_404_permalink' );
+
 		if ( ! GNETWORK_NOTFOUND_LOG )
 			return;
 
@@ -41,7 +47,9 @@ class NotFound extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'page_404' => '0',
+			'page_404'         => '0',
+			'disable_guessing' => '0',
+			'strict_guessing'  => '0',
 		];
 	}
 
@@ -57,6 +65,19 @@ class NotFound extends gNetwork\Module
 			'default'     => '0',
 			'exclude'     => Settings::getPageExcludes(),
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
+		];
+
+		$settings['_front'][] = [
+			'field'       => 'disable_guessing',
+			'type'        => 'disabled',
+			'title'       => _x( 'Disable 404 Guessing', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'description' => _x( 'Attempts to guess a redirect URL for a 404 request.', 'Modules: NotFound: Settings', 'gnetwork' ),
+		];
+
+		$settings['_front'][] = [
+			'field'       => 'strict_guessing',
+			'title'       => _x( 'Strict 404 Guessing', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'description' => _x( 'Whether to perform a strict guess for a 404 redirect.', 'Modules: NotFound: Settings', 'gnetwork' ),
 		];
 
 		return $settings;
