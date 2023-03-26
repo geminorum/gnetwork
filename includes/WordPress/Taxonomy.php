@@ -12,6 +12,22 @@ class Taxonomy extends Core\Base
 		return is_object( $taxonomy ) ? $taxonomy : get_taxonomy( $taxonomy );
 	}
 
+	public static function viewable( $taxonomy )
+	{
+		return is_taxonomy_viewable( $taxonomy );
+	}
+
+	// @REF: `is_term_publicly_viewable()` @since WP6.1.0
+	public static function viewableTerm( $term )
+	{
+		$term = get_term( $term );
+
+		if ( ! $term || is_wp_error( $term ) )
+			return FALSE;
+
+		return self::viewable( $term->taxonomy );
+	}
+
 	public static function can( $taxonomy, $capability = 'manage_terms', $user_id = NULL )
 	{
 		if ( is_null( $capability ) )
@@ -75,30 +91,6 @@ class Taxonomy extends Core\Base
 		}
 
 		return $list;
-	}
-
-	// @REF: `is_taxonomy_viewable()`
-	public static function isViewable( $taxonomy )
-	{
-		if ( ! $taxonomy = self::object( $taxonomy ) )
-			return FALSE;
-
-		return $taxonomy->publicly_queryable
-			|| ( $taxonomy->_builtin && $taxonomy->public );
-	}
-
-	public static function isTermViewable( $term_id )
-	{
-		$term = get_term( $term_id );
-
-		if ( ! $term || is_wp_error( $term ) )
-			return FALSE;
-
-		if ( ! $taxonomy = self::object( $term->taxonomy ) )
-			return FALSE;
-
-		return $taxonomy->publicly_queryable
-			|| ( $taxonomy->_builtin && $taxonomy->public );
 	}
 
 	public static function getDefaultTermID( $taxonomy, $fallback = FALSE )
@@ -216,15 +208,15 @@ class Taxonomy extends Core\Base
 	public static function getTheTermList( $taxonomy, $post = NULL, $before = '', $after = '' )
 	{
 		if ( ! $terms = self::getPostTerms( $taxonomy, $post ) )
-			return FALSE;
+			return [];
 
 		$list = [];
 
 		foreach ( $terms as $term )
-			$list[] = Core\HTML::tag( 'a', [
+			$list[] = $before.Core\HTML::tag( 'a', [
 				'href'  => get_term_link( $term, $taxonomy ),
 				'class' => '-term',
-			], sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy, 'display' ) );
+			], sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy, 'display' ) ).$after;
 
 		return apply_filters( 'term_links-'.$taxonomy, $list );
 	}
@@ -316,18 +308,12 @@ class Taxonomy extends Core\Base
 		return $query->query( $args );
 	}
 
-	// @SEE: https://make.wordpress.org/core/2022/04/28/taxonomy-performance-improvements-in-wordpress-6-0/
-	// @SOURCE: OLD VERSION OF `term_exists()`
 	/**
 	 * Determines whether a taxonomy term exists.
-	 *
 	 * Formerly is_term(), introduced in 2.3.0.
 	 *
-	 * For more information on this and similar theme functions, check out
-	 * the {@link https://developer.wordpress.org/themes/basics/conditional-tags/
-	 * Conditional Tags} article in the Theme Developer Handbook.
-	 *
-	 * @since 3.0.0
+	 * @SEE: https://make.wordpress.org/core/2022/04/28/taxonomy-performance-improvements-in-wordpress-6-0/
+	 * @SOURCE: OLD VERSION OF `term_exists()`
 	 *
 	 * @global wpdb $wpdb WordPress database abstraction object.
 	 *

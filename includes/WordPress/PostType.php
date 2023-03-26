@@ -21,6 +21,28 @@ class PostType extends Core\Base
 		return get_post_type_object( $posttype_or_post );
 	}
 
+	// TODO: also passing a post
+	public static function viewable( $posttype )
+	{
+		return is_post_type_viewable( $posttype );
+	}
+
+	// TODO: also passing a post
+	public static function viewableStatus( $status )
+	{
+		return is_post_status_viewable( $status );
+	}
+
+	// @REF: `is_post_publicly_viewable()` @since WP5.7.0
+	public static function viewablePost( $post )
+	{
+		if ( ! $post = self::getPost( $post ) )
+			return FALSE;
+
+		return self::viewable( $post->post_type )
+			&& self::viewableStatus( get_post_status( $post ) );
+	}
+
 	public static function can( $posttype, $capability = 'edit_posts', $user_id = NULL )
 	{
 		if ( is_null( $capability ) )

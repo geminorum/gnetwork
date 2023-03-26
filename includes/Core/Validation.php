@@ -210,7 +210,7 @@ class Validation extends Base
 		$digits = str_split( strtr( $account.$country, array_combine( range( 'A', 'Z' ), range( 10, 35 ) ) ).'00' );
 		$first  = array_shift( $digits );
 
-		$checksum = array_reduce( $digits, function( $carry, $int ) {
+		$checksum = array_reduce( $digits, static function( $carry, $int ) {
 			$carry = ( $carry * 10 + (int) $int ) % 97;
 			return $carry;
 		}, (int) $first );

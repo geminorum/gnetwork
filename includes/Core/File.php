@@ -197,36 +197,46 @@ class File extends Base
 		return file_put_contents( self::join( $dir, $filename ), $contents.PHP_EOL );
 	}
 
-	// @SOURCE: http://stackoverflow.com/a/6451391
-	// read the last n lines of a file without reading through all of it
+	/**
+	 * Reads the last n lines of a file without reading through all of it.
+	 *
+	 * @source http://stackoverflow.com/a/6451391
+	 *
+	 * @param  string $path
+	 * @param  int    $count
+	 * @param  int    $block_size
+	 * @return array  $lines
+	 */
 	public static function getLastLines( $path, $count, $block_size = 512 )
 	{
-		$lines = array();
-
 		// we will always have a fragment of a non-complete line
 		// keep this in here till we have our next entire line.
 		$leftover = '';
 
-		$fh = fopen( $path, 'r' );
+		$lines  = [];
+		$handle = fopen( $path, 'r' );
 
 		// go to the end of the file
-		fseek( $fh, 0, SEEK_END );
+		fseek( $handle, 0, SEEK_END );
 
 		do {
 
 			// need to know whether we can actually go back
 			$can_read = $block_size; // $block_size in bytes
 
-			if ( ftell( $fh ) < $block_size )
-				$can_read = ftell( $fh );
+			if ( ftell( $handle ) < $block_size )
+				$can_read = ftell( $handle );
+
+			if ( ! $can_read )
+				break;
 
 			// go back as many bytes as we can
 			// read them to $data and then move the file pointer
 			// back to where we were.
-			fseek( $fh, -$can_read, SEEK_CUR );
-			$data = fread( $fh, $can_read );
+			fseek( $handle, -$can_read, SEEK_CUR );
+			$data = fread( $handle, $can_read );
 			$data.= $leftover;
-			fseek( $fh, -$can_read, SEEK_CUR );
+			fseek( $handle, -$can_read, SEEK_CUR );
 
 			// split lines by \n. Then reverse them,
 			// now the last line is most likely not a complete
@@ -236,14 +246,13 @@ class File extends Base
 			$new_lines  = array_slice( $split_data, 0, -1 );
 			$lines      = array_merge( $lines, $new_lines );
 			$leftover   = $split_data[count( $split_data ) - 1];
-		}
 
-		while ( count( $lines ) < $count && 0 != ftell( $fh ) );
+		} while ( count( $lines ) < $count && 0 != ftell( $handle ) );
 
-		if ( 0 == ftell( $fh ) )
+		if ( 0 === ftell( $handle ) )
 			$lines[] = $leftover;
 
-		fclose( $fh );
+		fclose( $handle );
 
 		// usually, we will read too many lines, correct that here.
 		return array_slice( $lines, 0, $count );

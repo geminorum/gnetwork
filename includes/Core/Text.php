@@ -971,7 +971,7 @@ class Text extends Base
 					continue;
 				}
 
-				$row[] = preg_match( "/(?:${delimiter_esc}|${enclosure_esc}|\s)/", $field )
+				$row[] = preg_match( "/(?:{$delimiter_esc}|{$enclosure_esc}|\s)/", $field )
 					? ( $enclosure.str_replace( $enclosure, $enclosure.$enclosure, $field ).$enclosure )
 					: $field;
 			}
@@ -1104,5 +1104,22 @@ class Text extends Base
 		}
 
 		return FALSE;
+	}
+
+	/**
+	 * Strips tags and HTML-encode double and single quotes,
+	 * and special characters.
+	 * replaces for `filter_var( $text, FILTER_SANITIZE_STRING );`
+	 *
+	 * @see https://benhoyt.com/writings/dont-sanitize-do-escape/
+	 *
+	 * @source https://stackoverflow.com/a/69207369
+	 *
+	 * @param  [type] $string
+	 * @return void
+	 */
+	public static function filterSanitizeString( $string )
+	{
+		return str_replace( [ "'", '"' ], [ '&#39;', '&#34;' ], preg_replace( '/\x00|<[^>]*>?/', '', $string ) );
 	}
 }
