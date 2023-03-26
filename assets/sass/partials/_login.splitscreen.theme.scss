@@ -53,6 +53,10 @@ body.login.splitscreen {
           font-size: 5rem;
           color: #fff;
           margin: 0;
+
+          &:focus {
+            box-shadow: none;
+          }
         }
       }
     }

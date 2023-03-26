@@ -2,7 +2,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Wrap
-//
 
 ////////////////////////////////////////////////////////////////////////////////
 @use "sass:math"; // @REF: https://sass-lang.com/d/slash-div
@@ -127,31 +126,31 @@ $spacer: 1rem !default;
 
   // .-field-after {
   //   vertical-align: middle;
-  //
+  ///
   //   // &.-text-wrap {}
   //   // &.-link-wrap {}
-  //
+  ///
   //   &.-constant-wrap {
   //     cursor: pointer;
   //   }
-  //
+  ///
   //   &.-icon-wrap {
   //     a {
   //       color: $gray-light;
   //       display: inline-block;
   //       line-height: 22px;
   //       text-decoration: none;
-  //
+  ///
   //       &:hover {
   //         color: #0073aa;
   //       }
-  //
+  ///
   //       &:focus {
   //         outline: none;
   //         box-shadow: none;
   //       }
   //     }
-  //
+  ///
   //     .dashicons {
   //       width: 22px;
   //       height: 22px;

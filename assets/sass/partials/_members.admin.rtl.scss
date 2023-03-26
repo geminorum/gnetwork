@@ -4,6 +4,12 @@
 /// gNetwork Partials: Members: RTL
 
 ////////////////////////////////////////////////////////////////////////////////
+#members-upgrade-header,
+#members-admin-header {
+  display: none;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 .members-tabs,
 .members-cap-tabs {
   width: 100%;
@@ -12,6 +18,12 @@
     float: right;
     border-right: none;
     border-left: 1px solid #eee;
+
+    li a svg,
+    li a .dashicons {
+      margin-right: 0;
+      margin-left: 3px;
+    }
   }
 
   .members-tab-wrap {
@@ -26,6 +38,14 @@
   .members-tab-content {
     border-left: none;
     border-right: 1px solid #e5e5e5;
+  }
+}
+
+#members-cp,
+#members-cp-side {
+  h2.hndle svg {
+    margin-right: 0;
+    margin-left: 5px;
   }
 }
 

@@ -20,8 +20,20 @@ $spacer: 1rem !default;
     margin: .75rem 0 .5rem;
   }
 
-  .title + .description {
-    margin-top: -($spacer * .5);
+  .title {
+    + .description {
+      margin-top: -($spacer * .5);
+    }
+
+    span.-icon-wrap {
+      font-weight: 400;
+
+      .dashicons {
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+      }
+    }
   }
 
   .-wrap-buttons.-toolbox-buttons {

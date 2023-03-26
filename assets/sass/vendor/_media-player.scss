@@ -8,28 +8,24 @@
 ////////////////////////////////////////////////////////////////////////////////
 .mediPlayer {
   *,
-  *:after,
-  *:before {
-      box-sizing             : border-box;
-      -webkit-box-sizing     : border-box;
-      -moz-box-sizing        : border-box;
-      -webkit-font-smoothing : antialiased;
-      -moz-font-smoothing    : antialiased;
-      -o-font-smoothing      : antialiased;
-      font-smoothing         : antialiased;
-      text-rendering         : optimizeLegibility;
-
+  *::after,
+  *::before {
+    box-sizing: border-box;
+    /* stylelint-disable-next-line property-no-unknown */
+    font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
   }
 
   .control {
     opacity: 0;
 
-    /* transition: opacity .2s linear; */
+    // /* transition: opacity .2s linear; */
     pointer-events: none;
     cursor: pointer;
   }
 
-  .not-started .play, .paused .play {
+  .not-started .play,
+  .paused .play {
     opacity: 1;
   }
 
@@ -66,7 +62,8 @@
     }
   }
 
-  .progress-bar, .precache-bar {
+  .progress-bar,
+  .precache-bar {
     transition: stroke-dashoffset 500ms;
     stroke-dasharray: 298.1371428256714;
     stroke-dashoffset: 298.1371428256714;

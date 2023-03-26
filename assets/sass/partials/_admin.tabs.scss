@@ -17,7 +17,12 @@ div.base-tabs-list {
     display: none;
     padding: 0.5em;
 
-    > .card:first-of-type {
+    .card {
+      margin-top: 1em;
+    }
+
+    > *:first-child,
+    > form > .card:first-of-type {
       margin-top: 0;
     }
   }
