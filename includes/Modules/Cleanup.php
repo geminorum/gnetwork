@@ -422,15 +422,56 @@ class Cleanup extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$count = 0;
+		$count    = 0;
+		$metakeys = array_merge( array_keys( wp_get_user_contact_methods() ), [
+			'feed_key',
+			'first_name',
+			'last_name',
+			'nickname',
+			'description',
+			'locale',
+			'aim',     // old wp contact method
+			'yim',     // old wp contact method
+			'jabber',  // old wp contact method
+			'ssn',
+			'identity_number',
+			'identity',
+			'mobile',
+			'phone',
+			'googleplus',
+			'instagram',
+			'telegram',
+			'facebook',
+			'twitter',
 
-		// old wp contact methods
-		$meta_keys = array_merge( wp_get_user_contact_methods(), [
-			'yim'    => '',
-			'jabber' => '',
+			// WooCommerce
+			'shipping_first_name',
+			'shipping_last_name',
+			'shipping_address_1',
+			'shipping_address_2',
+			'shipping_company',
+			'shipping_city',
+			'shipping_state',
+			'shipping_postcode',
+			'shipping_country',
+			'shipping_method',
+			'shipping_phone',
+			'billing_last_name',
+			'billing_first_name',
+			'billing_postcode',
+			'billing_country',
+			'billing_district',
+			'billing_address_1',
+			'billing_address_2',
+			'billing_city',
+			'billing_state',
+			'billing_email',
+			'billing_phone',
+			'billing_company',
+			'_billing_mobile',
 		] );
 
-		foreach ( $meta_keys as $key => $val )
+		foreach ( $metakeys as $key )
 			$count += $wpdb->query( $wpdb->prepare( "
 				DELETE FROM {$wpdb->usermeta}
 				WHERE meta_key = %s
