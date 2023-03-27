@@ -577,7 +577,9 @@ class Module extends Core\Base
 		$network = sprintf( '%sNetwork_%d_Options', $this->base, $network_id );
 
 		if ( empty( $GLOBALS[$site] ) )
-			$GLOBALS[$site] = get_blog_option( $site_id, $this->base.'_blog', [] ); // TODO: migrate to `_site` key
+			$GLOBALS[$site] = function_exists( 'get_blog_option' )
+				? get_blog_option( $site_id, $this->base.'_blog', [] ) // NOTE: only available on multisite
+				: get_option( $this->base.'_blog', [] ); // TODO: migrate to `_site` key
 
 		if ( empty( $GLOBALS[$network] ) )
 			$GLOBALS[$network] = get_network_option( $network_id, $this->base.'_site', [] ); // TODO: migrate to `_network` key
