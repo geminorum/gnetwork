@@ -35,12 +35,15 @@ class Commerce extends gNetwork\Module
 
 		$this->filter_true( 'pre_transient_pws_notice_all' ); // persian woocommerce shipping notices!
 
-		if ( is_readable( GNETWORK_DIR.'includes/Misc/CommercePluggable.php' ) )
-			require_once GNETWORK_DIR.'includes/Misc/CommercePluggable.php';
-
 		if ( ! defined( 'GNETWORK_WPLANG' ) )
 			return;
 
+	}
+
+	public function plugin_loaded()
+	{
+		if ( is_readable( GNETWORK_DIR.'includes/Misc/CommercePluggable.php' ) )
+			require_once GNETWORK_DIR.'includes/Misc/CommercePluggable.php';
 	}
 
 	public function setup_menu( $context )
