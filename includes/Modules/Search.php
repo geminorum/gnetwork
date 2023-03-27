@@ -47,6 +47,9 @@ class Search extends gNetwork\Module
 		if ( '-' !== $this->options['exclusion_prefix'] )
 			$this->filter( 'wp_query_search_exclusion_prefix' );
 
+		if ( ! empty( $this->options['search_columns'] ) )
+			$this->filter( 'post_search_columns' );
+
 		$this->filter( 'get_search_form' );
 	}
 
@@ -58,6 +61,7 @@ class Search extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'search_columns'      => [],
 			'search_context'      => 'default',
 			'include_taxonomies'  => [],
 			'redirect_single'     => '1',
@@ -71,6 +75,17 @@ class Search extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'search_columns',
+					'type'        => 'checkboxes-values',
+					'title'       => _x( 'Search Columns', 'Modules: Search: Settings', 'gnetwork' ),
+					'description' => _x( 'Controls which fields are searched in a search query. Select none for default.', 'Modules: Search: Settings', 'gnetwork' ),
+					'values'      => [
+						'post_title'   => _x( 'Post Title', 'Modules: Search: Settings', 'gnetwork' ),
+						'post_excerpt' => _x( 'Post Excerpt', 'Modules: Search: Settings', 'gnetwork' ),
+						'post_content' => _x( 'Post Content', 'Modules: Search: Settings', 'gnetwork' ),
+					],
+				],
 				[
 					'field'   => 'search_context',
 					'type'    => 'radio',
@@ -351,6 +366,13 @@ class Search extends gNetwork\Module
 	public function wp_query_search_exclusion_prefix( $prefix )
 	{
 		return $this->options['exclusion_prefix'] ?: FALSE;
+	}
+
+	// @SEE: https://core.trac.wordpress.org/ticket/43867
+	// The supported columns are `post_title`, `post_excerpt` and `post_content`.
+	public function post_search_columns( $search_columns, $search, $query )
+	{
+		return $this->options['search_columns'];
 	}
 
 	public function get_search_form( $form )
