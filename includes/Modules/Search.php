@@ -92,10 +92,10 @@ class Search extends gNetwork\Module
 					'title'   => _x( 'Search Context', 'Modules: Search: Settings', 'gnetwork' ),
 					'default' => 'default',
 					'values'  => [
+						'default'       => _x( 'WordPress Default &ndash; Does not alter core search.', 'Modules: Search: Settings', 'gnetwork' ),
+						'titles_only'   => _x( 'Titles Only &ndash; Limits search to post titles only.', 'Modules: Search: Settings', 'gnetwork' ),
 						'include_meta'  => _x( 'Include Metadata &ndash; Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
 						'include_terms' => _x( 'Include Terms &ndash; Expands search results into terms of selected taxonomies.', 'Modules: Search: Settings', 'gnetwork' ),
-						'titles_only'   => _x( 'Titles Only &ndash; Limits search to post titles only.', 'Modules: Search: Settings', 'gnetwork' ),
-						'default'       => _x( 'WordPress Default &ndash; Does not alter core search.', 'Modules: Search: Settings', 'gnetwork' ),
 					],
 				],
 				[

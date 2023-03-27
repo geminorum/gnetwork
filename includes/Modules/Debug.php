@@ -901,6 +901,7 @@ class Debug extends gNetwork\Module
 		if ( defined( 'WC_LOG_DIR' ) )
 			$logs['wc-logs'] = [
 				WC_LOG_DIR,
+				/* translators: %s: log file size */
 				_x( '%s in WooCommerce Logs', 'Modules: Debug', 'gnetwork' ),
 				add_query_arg( [ 'page' => 'wc-settings' ], admin_url( 'admin.php' ) ),
 				TRUE, // is it folder?
