@@ -47,6 +47,7 @@ class Plugin extends Core\Base
 		}
 
 		$this->actions();
+		$this->loaded();
 	}
 
 	protected function defines( $constants )
@@ -69,4 +70,10 @@ class Plugin extends Core\Base
 	protected function actions() {}
 	protected function modules() { return [ [], '' ]; }
 	protected function constants() { return []; }
+
+	protected function loaded()
+	{
+		if ( $this->base )
+			do_action( sprintf( '%s_loaded', $this->base ) );
+	}
 }

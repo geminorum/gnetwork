@@ -141,6 +141,9 @@ class Module extends Core\Base
 		if ( $this->get_option( 'load_providers' ) )
 			$this->setup_providers();
 
+		if ( method_exists( $this, 'plugin_loaded' ) )
+			add_action( sprintf( '%s_loaded', $this->base ), [ $this, 'plugin_loaded' ] );
+
 		if ( ! WordPress::mustRegisterUI() )
 			return;
 
