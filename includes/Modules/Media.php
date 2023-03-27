@@ -35,11 +35,7 @@ class Media extends gNetwork\Module
 		$this->action( 'init', 0, 999, 'late' );
 
 		$this->filter( 'upload_mimes' );
-		$this->filter( 'wp_editor_set_quality', 2, 12 );
 		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
-
-		if ( ! empty( $this->options['output_format'] ) )
-			$this->filter( 'image_editor_output_format', 3, 12 );
 
 		if ( function_exists( 'normalizer_normalize' ) )
 			$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
@@ -47,9 +43,6 @@ class Media extends gNetwork\Module
 		$this->filter( 'sanitize_file_name', 2, 12 );
 		$this->filter( 'image_send_to_editor', 9 );
 		$this->filter( 'media_send_to_editor', 3, 12 );
-
-		if ( $this->options['skip_exifmeta'] )
-			$this->filter( 'wp_update_attachment_metadata', 2, 12 );
 
 		if ( is_admin() ) {
 
@@ -82,10 +75,6 @@ class Media extends gNetwork\Module
 	{
 		return [
 			'tools_accesscap'     => 'edit_others_posts',
-			'skip_exifmeta'       => '1',
-			'quality_jpeg'        => 60,
-			'quality_webp'        => 75,
-			'output_format'       => [],
 			'dashboard_widget'    => '0',
 			'dashboard_accesscap' => 'edit_others_posts',
 			'dashboard_intro'     => '',
@@ -102,52 +91,6 @@ class Media extends gNetwork\Module
 					'title'       => _x( 'Tools Access', 'Modules: Media: Settings', 'gnetwork' ),
 					'description' => _x( 'Selected and above can access the image tools.', 'Modules: Media: Settings', 'gnetwork' ),
 					'default'     => 'edit_others_posts',
-				],
-				[
-					'field'       => 'skip_exifmeta',
-					'title'       => _x( 'Strip EXIF', 'Modules: Media: Settings', 'gnetwork' ),
-					'description' => _x( 'Skips storing unused EXIF metadata for image attachments.', 'Modules: Media: Settings', 'gnetwork' ),
-					'default'     => '1',
-				],
-			],
-			'_quality' => [
-				[
-					'field'       => 'quality_jpeg',
-					'type'        => 'number',
-					'title'       => _x( 'JPEG Quality', 'Modules: Media: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets the compression quality setting used for JPEG images.', 'Modules: Media: Settings', 'gnetwork' ),
-					'placeholder' => 90,
-					'default'     => 60,
-					'min_attr'    => 1,
-					'max_attr'    => 100,
-				],
-				[
-					'field'       => 'quality_webp',
-					'type'        => 'number',
-					'title'       => _x( 'WebP Quality', 'Modules: Media: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets the compression quality setting used for WebP images.', 'Modules: Media: Settings', 'gnetwork' ),
-					'placeholder' => 90,
-					'default'     => 75,
-					'min_attr'    => 1,
-					'max_attr'    => 100,
-				],
-			],
-			'_format' => [
-				[
-					'field'       => 'output_format',
-					'type'        => 'checkboxes',
-					'title'       => _x( 'Output Format', 'Modules: Media: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets WebP as default format for selected image sub-sizes.', 'Modules: Media: Settings', 'gnetwork' ),
-					// 'after'       => Settings::fieldAfterIcon( 'https://caniuse.com/webp' ),
-					'values'      => [
-						'jpeg'   => 'JPEG',
-						'gif'    => 'GIF',
-						'png'    => 'PNG',
-						'bmp'    => 'BMP',
-						'tiff'   => 'TIFF',
-						'avif'   => 'AVIF',
-						'jpegxl' => 'JPEG XL',
-					],
 				],
 			],
 			'_uploader' => [
@@ -1418,26 +1361,6 @@ class Media extends gNetwork\Module
 		] );
 	}
 
-	public function wp_editor_set_quality( $quality, $mime_type )
-	{
-		switch ( $mime_type ) {
-			case 'image/jpeg': return $this->options['quality_jpeg'] ?: $quality;
-			case 'image/webp': return $this->options['quality_webp'] ?: $quality;
-		}
-
-		return $quality;
-	}
-
-	// @REF: https://core.trac.wordpress.org/ticket/52867
-	// @REF: https://github.com/adamsilverstein/modern-images-wp
-	public function image_editor_output_format( $map, $filename, $mime_type )
-	{
-		foreach ( $this->options['output_format'] as $format )
-			$map['image/'.$format] = 'image/webp';
-
-		return $map;
-	}
-
 	// @REF: https://gist.github.com/rmpel/e1e2452ca06ab621fe061e0fde7ae150
 	// @SEE: https://core.trac.wordpress.org/ticket/45615
 	// @SEE: https://make.wordpress.org/core/2018/12/13/backwards-compatibility-breaks-in-5-0-1/
@@ -1523,12 +1446,6 @@ class Media extends gNetwork\Module
 		$html = isset( $data['post_title'] ) ? $data['post_title'] : strip_tags( $html );
 
 		return WPMedia::htmlAttachmentShortLink( $id, $html );
-	}
-
-	public function wp_update_attachment_metadata( $data, $post_id )
-	{
-		unset( $data['image_meta'] );
-		return $data;
 	}
 
 	// tries to set correct size for thumbnail metabox
