@@ -58,7 +58,7 @@ class Search extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'search_context'      => 'include_meta',
+			'search_context'      => 'default',
 			'include_taxonomies'  => [],
 			'redirect_single'     => '1',
 			'linkify_hashtags'    => '0',
@@ -75,7 +75,7 @@ class Search extends gNetwork\Module
 					'field'   => 'search_context',
 					'type'    => 'radio',
 					'title'   => _x( 'Search Context', 'Modules: Search: Settings', 'gnetwork' ),
-					'default' => 'include_meta',
+					'default' => 'default',
 					'values'  => [
 						'include_meta'  => _x( 'Include Metadata &ndash; Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
 						'include_terms' => _x( 'Include Terms &ndash; Expands search results into terms of selected taxonomies.', 'Modules: Search: Settings', 'gnetwork' ),
