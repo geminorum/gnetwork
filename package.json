@@ -27,7 +27,7 @@
     "i18n:mo": "wp i18n make-mo ./languages --skip-plugins --skip-themes --skip-packages",
     "i18n:json": "wp i18n make-json languages --no-purge --skip-plugins --skip-themes --skip-packages",
     "i18n:core:old": "wp i18n make-json assets/locale/core assets/locale/core/json --no-purge --skip-plugins --skip-themes --skip-packages",
-    "i18n:supported": "wp i18n make-json assets/locale --no-purge --pretty-print --skip-plugins --skip-themes --skip-packages",
+    "i18n:supported": "wp i18n make-json assets/locale --no-purge --skip-plugins --skip-themes --skip-packages",
     "i18n:core": "gulp i18n:core",
     "watch": "gulp watch:styles",
     "patch": "gulp bump --patch",
@@ -35,14 +35,16 @@
     "changes": "echo ### > CHANGES.temp && git changelog >> CHANGES.temp && (echo. & echo.) >> CHANGES.temp && type CHANGES.md >> CHANGES.temp && type CHANGES.temp > CHANGES.md && del CHANGES.temp",
     "release": "gulp github:package && start https://github.com/geminorum/gnetwork/releases",
     "home": "start https://github.com/geminorum/gnetwork/",
-    "issues": "start https://github.com/geminorum/gnetwork/issues"
+    "issues": "start https://github.com/geminorum/gnetwork/issues",
+    "comp:show": "composer show --tree",
+    "comp:deps": "composer-require-checker check composer.json"
   },
   "devDependencies": {
     "@wordpress/browserslist-config": "^5.12.0",
     "@wordpress/stylelint-config": "^21.12.0",
     "autoprefixer": "^10.4.14",
     "browserslist": "^4.21.5",
-    "cssnano": "^5.1.15",
+    "cssnano": "^6.0.0",
     "del": "^7.0.0",
     "fancy-log": "^2.0.0",
     "fs-extra": "^11.1.1",
