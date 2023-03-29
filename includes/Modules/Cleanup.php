@@ -550,7 +550,7 @@ class Cleanup extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$count = $wpdb->query( "UPDATE {$wpdb->comments} SET comment_agent = ''" );
+		$count = $wpdb->query( "UPDATE {$wpdb->comments} SET comment_agent = '' WHERE comment_type = 'comment'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->comments}" );
 
