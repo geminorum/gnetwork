@@ -400,7 +400,8 @@ class Typography extends gNetwork\Module
 
 	public function linkify_content( $content )
 	{
-		if ( gNetwork()->option( 'linkify_hashtags', 'search' ) ) {
+		if ( gNetwork()->option( 'linkify_hashtags', 'search' )
+			&& ! self::const( 'GNETWORK_DISABLE_LINKIFY_CONTENT' ) ) {
 
 			$content = Text::replaceSymbols( '#', $content, static function( $matched, $string ) {
 				return HTML::link( str_replace( '_', ' ', $matched ), WordPress::getSearchLink( $matched ) );
