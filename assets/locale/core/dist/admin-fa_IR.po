@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-03-16 03:46+0330\n"
+"PO-Revision-Date: 2023-03-29 02:09+0330\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
 "X-Generator: Poedit 3.2.2\n"
@@ -156,7 +156,7 @@ msgstr ""
 #. translators: %s: Documentation URL.
 #: wp-admin/includes/meta-boxes.php:847
 msgid "Allow <a href=\"%s\">trackbacks and pingbacks</a>"
-msgstr ""
+msgstr "پذیرفتن <a href=\"%s\">بازتاب و بازخوان</a>"
 
 #: wp-admin/includes/meta-boxes.php:824
 msgid "https://wordpress.org/documentation/article/assign-custom-fields/"
@@ -331,12 +331,12 @@ msgid "WordPress 6.2 includes more than %1$s enhancements and %2$s bug fixes. Th
 msgstr ""
 
 #. translators: The localized WordPress download URL.
-#: wp-admin/about.php:345
+#: wp-admin/about.php:343
 msgid "https://wordpress.org/download/"
 msgstr ""
 
 #. translators: %s: The major version of WordPress for this branch.
-#: wp-admin/about.php:342
+#: wp-admin/about.php:340
 msgid "This is the final release of WordPress %s"
 msgstr ""
 
@@ -345,7 +345,7 @@ msgid "Site Editor"
 msgstr ""
 
 #. translators: 1: Learn WordPress link.
-#: wp-admin/about.php:230
+#: wp-admin/about.php:228
 msgid "Explore <a href=\"%s\">learn.wordpress.org</a> for tutorial videos, online workshops, courses, and lesson plans for Meetup organizers, including new features in WordPress."
 msgstr ""
 
@@ -438,16 +438,16 @@ msgstr "سلامت سایت %s"
 
 #: wp-admin/includes/file.php:24
 msgid "Theme Styles & Block Settings"
-msgstr ""
+msgstr "شیوه‌بندی‌های پوسته و تنظیمات بلوک"
 
 #. translators: %s: The minimum recommended PHP version.
 #: wp-admin/includes/dashboard.php:1887
 msgid "The minimum recommended version of PHP is %s."
-msgstr ""
+msgstr "%s، کمینه نگارش توصیه‌شده برای PHP‌ است."
 
 #: wp-admin/includes/dashboard.php:1882
 msgid "PHP is one of the programming languages used to build WordPress. Newer versions of PHP receive regular security updates and may increase your site&#8217;s performance."
-msgstr ""
+msgstr "PHP یکی زبان‌های برنامه‌نویسی است که برای ساخت وردپرس استفاده می‌شود. نگارش‌های تازه‌تر PHP به‌روزرسانی‌های امنیتی منظم را دریافت می‌کنند و ممکن است کیفیت عمل‌کرد سایت شما را افزایش دهند."
 
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/dashboard.php:1867
@@ -457,7 +457,7 @@ msgstr ""
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/dashboard.php:1854
 msgid "Your site is running on an outdated version of PHP (%s), which does not receive security updates and soon will not be supported by WordPress. Ensure that PHP is updated on your server as soon as possible. Otherwise you will not be able to upgrade WordPress."
-msgstr ""
+msgstr "سایت شما بر روی نگارش قدیمی (%s) از PHP اجرا می‌شود که به‌روزرسانی امنیتی دریافت نمی‌کند و به‌زودی توسط وردپرس پشتیبانی نخواهد شد. مطمئن شوید که PHP روی سرور شما در اولین فرصت به‌روز شود. در غیر این‌صورت نمی‌توانید وردپرس را ارتقاء دهید."
 
 #: wp-admin/includes/class-wp-site-health.php:2650
 msgid "Persistent object cache"
@@ -678,32 +678,28 @@ msgid "Reach out to WordPress Core developers to ensure you'll never have this p
 msgstr ""
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:339
+#: wp-admin/about.php:337
 msgid "Important! Your version of WordPress (%1$s) will stop receiving security updates in the near future. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr ""
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:336
+#: wp-admin/about.php:334
 msgid "Important! Your version of WordPress (%1$s) is no longer supported, you will not receive any security updates for your website. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr ""
 
 #. translators: 1: WordPress Release Notes link, 2: WordPress version number.
-#: wp-admin/about.php:268
+#: wp-admin/about.php:266
 msgid "<a href=\"%1$s\">Read the WordPress %2$s Release Notes</a> for more information on the included enhancements and issues fixed, installation information, developer notes and resources, release contributors, and the list of file changes in this release."
 msgstr ""
 
 #. translators: %s: WordPress Field Guide link.
-#: wp-admin/about.php:250
+#: wp-admin/about.php:248
 msgid "Check out the latest version of the <a href=\"%s\">WordPress Field Guide</a>. It is overflowing with detailed developer notes to help you build with WordPress."
 msgstr ""
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:221
+#: wp-admin/about.php:219
 msgid "Learn more about WordPress %s"
-msgstr ""
-
-#: wp-admin/about.php:213
-msgid "Exploring WordPress 6.2 video"
 msgstr ""
 
 #: wp-admin/includes/ajax-actions.php:1337
@@ -870,20 +866,16 @@ msgid_plural "This will grant access to <a href=\"%1$s\">all %2$s sites on the n
 msgstr[0] ""
 msgstr[1] ""
 
-#: wp-admin/includes/dashboard.php:2102
+#: wp-admin/includes/dashboard.php:2101
 msgid "Learn about block themes"
 msgstr ""
 
-#: wp-admin/includes/dashboard.php:2101
+#: wp-admin/includes/dashboard.php:2100
 msgid "There is a new kind of WordPress theme, called a block theme, that lets you build the site you&#8217;ve always wanted &#8212; with blocks and styles."
 msgstr ""
 
-#: wp-admin/includes/dashboard.php:2100
+#: wp-admin/includes/dashboard.php:2099
 msgid "Discover a new way to build your site."
-msgstr ""
-
-#: wp-admin/includes/dashboard.php:2098
-msgid "Edit styles"
 msgstr ""
 
 #: wp-admin/includes/dashboard.php:2097
@@ -1561,7 +1553,7 @@ msgstr ""
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/dashboard.php:1873
 msgid "Your site is running on an outdated version of PHP (%s), which should be updated."
-msgstr ""
+msgstr "سایت شما در حال اجرای نگارش تاریخ‌گذشته‌ای (%s) از PHP است که باید به‌روز شود."
 
 #: wp-admin/includes/dashboard.php:52
 msgid "PHP Update Recommended"
@@ -1643,7 +1635,7 @@ msgstr "افزودن رمز برنامه تازه"
 msgid "Required to create an Application Password, but not to update the user."
 msgstr "برای ایجاد یک رمز برنامه الزامی است، اما نه برای به‌روزرسانی کاربر."
 
-#: wp-admin/about.php:286
+#: wp-admin/about.php:284
 msgid "Go to Updates"
 msgstr "بازگشت به به‌روزرسانی‌ها"
 
@@ -3264,7 +3256,7 @@ msgstr ""
 msgid "https://wordpress.org/documentation/article/introduction-to-blogging/#comments"
 msgstr ""
 
-#: wp-admin/includes/dashboard.php:2102
+#: wp-admin/includes/dashboard.php:2101
 msgid "https://wordpress.org/documentation/article/block-themes/"
 msgstr ""
 
@@ -5030,7 +5022,7 @@ msgstr "نصب ناممکن است"
 
 #. translators: %s: WordPress version number.
 #. translators: %s: WordPress version.
-#: wp-admin/about.php:271
+#: wp-admin/about.php:269
 #: wp-admin/includes/update.php:306
 #: wp-admin/index.php:119
 #: wp-admin/install.php:247
@@ -7474,7 +7466,7 @@ msgid "(Currently set to: %s)"
 msgstr "(تنظیم کنونی: %s)"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:310
+#: wp-admin/about.php:308
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr ""
 
@@ -7487,15 +7479,15 @@ msgstr "https://fa.gravatar.com/"
 msgid "Profile Picture"
 msgstr "تصویر نمایه"
 
-#: wp-admin/about.php:307
+#: wp-admin/about.php:305
 msgid "Maintenance and Security Releases"
 msgstr ""
 
-#: wp-admin/about.php:304
+#: wp-admin/about.php:302
 msgid "Security Releases"
 msgstr ""
 
-#: wp-admin/about.php:301
+#: wp-admin/about.php:299
 msgid "Maintenance Releases"
 msgstr ""
 
@@ -10912,13 +10904,13 @@ msgid "Show Toolbar when viewing site"
 msgstr "هنگام مشاهده سایت، نوارابزار نمایش داده شود"
 
 #. translators: %s: Documentation URL.
-#: wp-admin/about.php:333
+#: wp-admin/about.php:331
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "برای اطلاعات بیشتر، <a href=\"%s\">یادداشت‌های این انتشار</a> را ببینید."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:327
+#: wp-admin/about.php:325
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] ""
@@ -10926,33 +10918,33 @@ msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:321
+#: wp-admin/about.php:319
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs.
-#: wp-admin/about.php:315
+#: wp-admin/about.php:313
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:312
+#: wp-admin/about.php:310
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr ""
 
-#: wp-admin/about.php:306
+#: wp-admin/about.php:304
 msgid "Maintenance and Security Release"
 msgstr ""
 
-#: wp-admin/about.php:303
+#: wp-admin/about.php:301
 msgid "Security Release"
 msgstr ""
 
-#: wp-admin/about.php:300
+#: wp-admin/about.php:298
 msgid "Maintenance Release"
 msgstr ""
 
@@ -11242,11 +11234,11 @@ msgstr "به دلیل نصب وردپرس چندسایته، می‌توانید
 msgid "Welcome to WordPress %s"
 msgstr ""
 
-#: wp-admin/about.php:289
+#: wp-admin/about.php:287
 msgid "Go to Dashboard &rarr; Home"
 msgstr ""
 
-#: wp-admin/about.php:286
+#: wp-admin/about.php:284
 msgid "Go to Dashboard &rarr; Updates"
 msgstr ""
 
@@ -13159,7 +13151,7 @@ msgstr "به‌روزرسانی‌های وردپرس"
 msgid "Edit menu item"
 msgstr "ویرایش گزینه فهرست"
 
-#: wp-admin/about.php:289
+#: wp-admin/about.php:287
 #: wp-admin/includes/network.php:148
 msgid "Go to Dashboard"
 msgstr "بازگشت به پیشخوان"

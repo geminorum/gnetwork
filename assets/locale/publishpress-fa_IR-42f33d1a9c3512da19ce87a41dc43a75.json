@@ -1,0 +1,1 @@
+{"translation-revision-date":"2021-04-15 22:58+0430","generator":"WP-CLI\/2.7.1","source":"node_modules\/yargs-parser\/index.js","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","lang":"fa_IR","plural-forms":"nplurals=2; plural=n != 1;"},"Not enough arguments following: %s":[""],"Invalid JSON config file: %s":[""]}}}
