@@ -1,3 +1,20 @@
+### 3.16.1
+* main/module: :warning: check for multisite function
+* main/module: auto hook for plugin loaded action
+* module/cleanup: clean agents only for comment type
+* module/cleanup: cleanup more user metas
+* module/cleanup: drop obsolete db tables
+* module/cleanup: more empty contact methods
+* module/cleanup: more obsolete keys on postmeta
+* module/commerce: delay pluggables after plugin loaded
+* module/embed: custom ratio for aparat/balad
+* module/image: move quality/format options
+* module/notfound: check registered objects slugs
+* module/search: default post search columns
+* module/search: search context disabled by default
+* module/taxonomy: taxonomy tabs enabled by default
+* module/typography: constant for disable linkify content
+
 ### 3.16.0
 * main/module: cache options by site id
 * main/scripts: :up: autosize v6.0.1
