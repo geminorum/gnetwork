@@ -717,6 +717,11 @@ class Taxonomy extends Core\Base
 		return $list;
 	}
 
+	public static function getArchiveLink( $taxonomy )
+	{
+		return apply_filters( 'gnetwork_taxonomy_archive_link', FALSE, $taxonomy );
+	}
+
 	public static function disableTermCounting()
 	{
 		wp_defer_term_counting( TRUE );

@@ -114,4 +114,9 @@ class PostType extends Core\Base
 
 		return $statuses;
 	}
+
+	public static function getArchiveLink( $posttype )
+	{
+		return apply_filters( 'gnetwork_posttype_archive_link', get_post_type_archive_link( $posttype ), $posttype );
+	}
 }
