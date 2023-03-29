@@ -679,19 +679,17 @@ class Update extends gNetwork\Module
 			$filename = $this->get_data_filename( $package, $data );
 
 			foreach ( $data['assets'] as $asset ) {
-				if ( 'application/zip' == $asset['content_type'] && $filename == $asset['name'] ) {
 
-					// the old way!
-					// FIXME: DROP THIS
-					// $response = wp_remote_get( $this->add_token( $asset['url'], $package ), [ 'headers' => [ 'Accept' => 'application/octet-stream' ] ] );
-					//
-					// if ( ! $response || self::isError( $response ) )
-					// 	return FALSE;
-					//
-					// return $response->history[0]->headers->getValues( 'location' );
+				if ( ! in_array( $asset['content_type'], [
+					'application/zip',
+					'application/x-zip-compressed',
+				], TRUE ) )
+					continue;
 
-					return $asset['browser_download_url'];
-				}
+				if ( $filename !== $asset['name'])
+					continue;
+
+				return $asset['browser_download_url'];
 			}
 
 			return $this->add_token( $data['zipball_url'], $package );
@@ -723,9 +721,19 @@ class Update extends gNetwork\Module
 
 			$filename = $this->get_data_filename( $package, $data );
 
-			foreach ( $data['assets'] as $asset )
-				if ( 'application/zip' == $asset['content_type'] && $filename == $asset['name'] )
-					return $asset['download_count'];
+			foreach ( $data['assets'] as $asset ) {
+
+				if ( ! in_array( $asset['content_type'], [
+					'application/zip',
+					'application/x-zip-compressed',
+				], TRUE ) )
+					continue;
+
+				if ( $filename !== $asset['name'])
+					continue;
+
+				return $asset['download_count'];
+			}
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
