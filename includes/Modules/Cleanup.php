@@ -520,9 +520,29 @@ class Cleanup extends gNetwork\Module
 	{
 		global $wpdb;
 
-		$count = 0;
+		$count    = 0;
+		$metakeys = [
+			'closedpostboxes_',
+			'dismissed_update_notice',
+			'dismissed_wp_pointers',
+			'_yoast_alerts_dismissed',
+			'elementor_introduction',
+			'elementor_admin_notices',
+			'wppb_review_request_dismiss_notification',
+			'tgmpa_dismissed_notice_tgmpa',
+			'wooccm-user-rating',
+			'wc_last_active',
+			'gform_recent_forms',
+			'dark_mode',
+			'ef_calendar_filters',
+			'gmember_display_name',
+		];
 
-		$count+= $wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key = 'dismissed_wp_pointers' AND meta_value = 'wp350_media,wp360_revisions,wp360_locks,wp390_widgets'" );
+		foreach ( $metakeys as $key )
+			$count += $wpdb->query( $wpdb->prepare( "
+				DELETE FROM {$wpdb->usermeta}
+				WHERE meta_key = %s
+			", $key ) );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
