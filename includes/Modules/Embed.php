@@ -287,7 +287,9 @@ class Embed extends gNetwork\Module
 			'data'            => [ 'source' => esc_url( $url ) ],
 		], NULL );
 
-		$html = '<div class="gnetwork-wrap-embed -video -aparat -responsive -ratio16x9">'.$html.'</div>';
+		$class = Utilities::getAspectRatioClass( empty( $rawattr['ratio'] ) ? NULL : $rawattr['ratio'], '16x9' );
+		$html  = '<div class="gnetwork-wrap-embed -video -aparat '.$class.'">'.$html.'</div>';
+
 		return $this->filters( 'aparat_video', $html, $matches, $attr, $url, $rawattr );
 	}
 
@@ -377,7 +379,9 @@ class Embed extends gNetwork\Module
 			'aria-hidden'     => 'false',
 		], NULL );
 
-		$html = '<div class="gnetwork-wrap-embed -balad -responsive -ratio1x1">'.$html.'</div>';
+		$class = Utilities::getAspectRatioClass( empty( $rawattr['ratio'] ) ? NULL : $rawattr['ratio'], '4x3' );
+		$html  = '<div class="gnetwork-wrap-embed -balad '.$class.'">'.$html.'</div>';
+
 		return $this->filters( 'balad', $html, $matches, $attr, $url, $rawattr );
 	}
 

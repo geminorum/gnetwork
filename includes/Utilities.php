@@ -791,4 +791,22 @@ class Utilities extends Core\Base
 			'alt'    => '', // strip_tags( $data ),
 		] ) : $url;
 	}
+
+	public static function getAspectRatioClass( $ratio = NULL, $fallback = '4x3', $mainclass = '-responsive' )
+	{
+		$supported = [
+			'64x27',
+			'16x9',
+			'4x3',
+			'1x1',
+		];
+
+		if ( empty( $ratio ) )
+			$suffix = $fallback;
+
+		else if ( in_array( $ratio, $supported, TRUE ) )
+			$suffix = $ratio;
+
+		return sprintf( '%s -ration%s', $mainclass, $suffix );
+	}
 }
