@@ -1341,7 +1341,7 @@ class Media extends gNetwork\Module
 			'docx|docm' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 			'xls'       => 'application/vnd.ms-excel', // @SEE: https://core.trac.wordpress.org/ticket/39550#comment:156
 			'xlsx'      => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-			'csv'       => 'text/csv',
+			// 'csv'       => 'text/csv', // already in core
 			'json'      => 'text/plain', // 'application/json', // @REF: https://stackoverflow.com/a/477819/
 			'xml'       => 'text/xml',
 			'md'        => 'text/markdown',

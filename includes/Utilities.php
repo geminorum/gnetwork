@@ -807,6 +807,6 @@ class Utilities extends Core\Base
 		else if ( in_array( $ratio, $supported, TRUE ) )
 			$suffix = $ratio;
 
-		return sprintf( '%s -ration%s', $mainclass, $suffix );
+		return sprintf( '%s -ratio%s', $mainclass, $suffix );
 	}
 }

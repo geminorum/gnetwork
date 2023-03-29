@@ -14,6 +14,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Update extends gNetwork\Module
 {
 
+	// TODO: filter `file_mod_allowed` for non super admins
+
 	protected $key        = 'update';
 	protected $front      = FALSE;
 	protected $ajax       = TRUE;

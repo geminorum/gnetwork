@@ -438,11 +438,6 @@ class Cleanup extends gNetwork\Module
 		$count    = 0;
 		$metakeys = array_merge( array_keys( wp_get_user_contact_methods() ), [
 			'feed_key',
-			'first_name',
-			'last_name',
-			'nickname',
-			'description',
-			'locale',
 			'aim',     // old wp contact method
 			'yim',     // old wp contact method
 			'jabber',  // old wp contact method
@@ -456,6 +451,16 @@ class Cleanup extends gNetwork\Module
 			'telegram',
 			'facebook',
 			'twitter',
+			'wikipedia',
+			'youtube',
+			'tumblr',
+			'soundcloud',
+			'pinterest',
+			'myspace',
+			'linkedin',
+			'url',
+			'email',
+			'mail',
 
 			// WooCommerce
 			'shipping_first_name',
@@ -740,7 +745,13 @@ class Cleanup extends gNetwork\Module
 		$count = 0;
 
 		$options = [
-			'1_log-viewer_settings',
+			// 'finished_updating_comment_type',
+			// 'finished_splitting_shared_terms',
+			// 'show_comments_cookies_opt_in',
+
+			'use_balanceTags',
+			'fileupload_url', // old upload path
+			// 'hack_file', // dep since wp1.5.0
 
 			'gletter_components',
 			'gnetwork_redirect',
@@ -753,21 +764,28 @@ class Cleanup extends gNetwork\Module
 			'mps_calendar_widget',
 
 			// 'theme_mods_',
+			// 'theme_mods_twentyeleven',
+			// 'theme_mods_twentyfifteen',
+			// 'theme_mods_twentysixteen',
+			// 'theme_mods_publish',
+			// 'theme_mods_bp-default',
 			'theme_mods_gtwentyeleven',
 			'theme_mods_gtwentytwelve',
+			'theme_mods_gbp-default',
 			'theme_mods_gari',
 			'theme_mods_k2',
 			'mods_K2',
 
 			'loginlockdownAdminOptions',
-			'loginlockdown_db2_version',
 			'loginlockdown_db1_version',
+			'loginlockdown_db2_version',
 
 			// GoogleSitemapGenerator
 			'sm_options',
 			'sm_status',
 
 			'mps_jd_options_4.1',
+			'1_log-viewer_settings',
 
 			'dashboard_widget_options', // @REF: https://developer.wordpress.org/apis/handbook/dashboard-widgets/
 
@@ -791,9 +809,27 @@ class Cleanup extends gNetwork\Module
 			'k2asidescategory',
 			'k2version',
 
-			'fileupload_url', // old upload path
-
 			'dnh_dismissed_notices',
+
+			// '_bp_ignore_deprecated_code',
+			// '_bp_enable_heartbeat_refresh',
+			// '_bp_force_buddybar',
+			// '_bp_retain_bp_default',
+			// 'bp-blogs-first-install',
+			// 'bp-deactivated-components',
+			// 'bp-xprofile-base-group-name',
+			// 'bp-xprofile-fullname-field-name',
+			// 'bp-emails-unsubscribe-salt',
+			// 'bp_disable_blogforum_comments',
+			// 'bp-disable-account-deletion',
+
+			'bb-config-location',
+
+			'bxcft_activated',
+			'bxcft_notices',
+
+			// [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/)
+			'rlrsssl_options',
 		];
 
 		if ( ! is_main_site() )
