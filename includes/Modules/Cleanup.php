@@ -221,6 +221,16 @@ class Cleanup extends gNetwork\Module
 				'values'      => $confirm,
 			];
 
+		if ( $superadmin )
+			$settings['_tables'][] = [
+				'field'       => 'db_table_obsolete',
+				'type'        => 'button',
+				'title'       => _x( 'DB Tables', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'description' => _x( 'Removes obsolete database tables on your WordPress install.', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'default'     => _x( 'Drop Obsolete Tables', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'values'      => $confirm,
+			];
+
 		return $settings;
 	}
 
@@ -308,6 +318,9 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['comments_oldposts'] ) )
 				$message = $this->comments_oldposts();
+
+			else if ( isset( $_POST['db_table_obsolete'] ) )
+				$message = $this->db_table_obsolete();
 
 			else if ( isset( $_POST['files_clean_core'] ) )
 				$message = self::files_clean_core();
@@ -801,6 +814,25 @@ class Cleanup extends gNetwork\Module
 			'message' => 'closed',
 			'count'   => $count,
 		] : 'optimized';
+	}
+
+	private function db_table_obsolete()
+	{
+		global $wpdb;
+
+		$count  = 0;
+		$tables = [
+			"{$wpdb->prefix}login_fails",
+			"{$wpdb->prefix}lockdowns",
+		];
+
+		foreach ( $tables as $table )
+			$count += $wpdb->query( 'DROP TABLE IF EXISTS '.$table );
+
+		return $count ? [
+			'message' => 'emptied',
+			'count'   => $count,
+		] : 'nochange';
 	}
 
 	// public-static is for `_core_updated_successfully` hook
