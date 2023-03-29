@@ -7,6 +7,9 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
+use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\PostType as WPPostType;
+use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 
 class NotFound extends gNetwork\Module
 {
@@ -47,6 +50,7 @@ class NotFound extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'check_slugs'      => '1',
 			'page_404'         => '0',
 			'disable_guessing' => '0',
 			'strict_guessing'  => '0',
@@ -56,6 +60,13 @@ class NotFound extends gNetwork\Module
 	public function default_settings()
 	{
 		$settings = [];
+
+		$settings['_front'][] = [
+			'field'       => 'check_slugs',
+			'title'       => _x( 'Check Slugs', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'description' => _x( 'Tries to redirect uknown posttype to it&#8217;s archive.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'default'     => '1',
+		];
 
 		$settings['_front'][] = [
 			'field'       => 'page_404',
@@ -100,6 +111,9 @@ class NotFound extends gNetwork\Module
 		if ( ! is_404() )
 			return;
 
+		if ( $this->options['check_slugs'] )
+			$this->_do_check_object_slugs();
+
 		if ( $this->options['page_404'] && is_page( $this->options['page_404'] ) )
 			return;
 
@@ -107,6 +121,54 @@ class NotFound extends gNetwork\Module
 			return;
 
 		Logger::siteNotFound( '404', HTML::escapeURL( rawurldecode( $_SERVER['REQUEST_URI'] ) ) );
+	}
+
+	private function _do_check_object_slugs()
+	{
+		if ( FALSE === ( $query = get_query_var( 'pagename', FALSE ) ) )
+			return;
+
+		$posttypes = get_post_types( [
+			'has_archive' => TRUE,
+			'public'      => TRUE,
+			'_builtin'    => FALSE, // NOTE: is this a good idea?
+		], 'objects' );
+
+		foreach ( $posttypes as $posttype ) {
+
+			if ( empty( $posttype->rewrite['slug'] ) )
+				continue;
+
+			if ( $query !== $posttype->rewrite['slug'] )
+				continue;
+
+			if ( ! $link = WPPostType::getArchiveLink( $posttype->name ) )
+				return;
+
+			WordPress::redirect( $link, 303 );
+
+			break;
+		}
+
+		$taxonomies = get_taxonomies( [
+			'public' => TRUE,
+		], 'objects' );
+
+		foreach ( $taxonomies as $taxonomy ) {
+
+			if ( empty( $taxonomy->rewrite['slug'] ) )
+				continue;
+
+			if ( $query !== $taxonomy->rewrite['slug'] )
+				continue;
+
+			if ( ! $link = WPTaxonomy::getArchiveLink( $taxonomy->name ) )
+				return;
+
+			WordPress::redirect( $link, 303 );
+
+			break;
+		}
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
