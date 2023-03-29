@@ -632,6 +632,18 @@ class Cleanup extends gNetwork\Module
 
 		$count = 0;
 
+		$keys = $this->filters( 'postmeta_obsolete_keys', [
+			'_pingme',
+			'_encloseme',
+			'_trackbackme',
+		] );
+
+		foreach ( $keys as $key )
+			$count += $wpdb->query( $wpdb->prepare( "
+				DELETE FROM {$wpdb->postmeta}
+				WHERE meta_key = %s
+			", $key ) );
+
 		$ins = $this->filters( 'postmeta_obsolete_ins', [
 			'_gmeta' => [ '', 'a:1:{i:0;s:0:\"\";}' ],
 		] );
