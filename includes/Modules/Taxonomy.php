@@ -334,13 +334,56 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>'; // `.div.nav-tab-base`
 	}
 
-	// TODO: search for similar name on othe taxonomies/posttypes
+	// TODO: search for similar name on *posttypes*
 	public function callback_term_tab_content_search( $taxonomy, $tab, $object, $term )
 	{
 		$this->actions( 'term_tab_search_content_before', $taxonomy, $object, $term );
 
-		echo $this->wrap_open( '-tab-tools-search' );
-			HTML::desc( gNetwork()->na() ); // FIXME
+		echo $this->wrap_open( '-tab-search-names card -toolbox-card' );
+
+			HTML::h4( _x( 'Similar Names', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+
+			$terms = get_terms( [
+				'exclude'    => $term->term_id,
+				'name__like' => $term->name,
+				'hide_empty' => FALSE,
+			] );
+
+			// FIXME: table-list with edit/view links
+			// TODO: show taxonomy name
+			if ( ! empty( $terms ) )
+				HTML::tableSide( wp_list_pluck( $terms, 'name', 'term_id' ) );
+
+			else
+				HTML::desc( _x( 'There are no terms available with similar name.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+
+		echo '</div>';
+
+		echo $this->wrap_open( '-tab-search-descriptions card -toolbox-card' );
+
+			HTML::h4( _x( 'Similar Descriptions', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+
+			if ( ! empty( $term->description ) ) {
+
+				$terms = get_terms( [
+					'exclude'           => $term->term_id,
+					'description__like' => $term->description,
+					'hide_empty'        => FALSE,
+				] );
+
+				// FIXME: table-list with edit/view links
+				// TODO: show taxonomy name
+				if ( ! empty( $terms ) )
+					HTML::tableSide( wp_list_pluck( $terms, 'name', 'term_id' ) );
+
+				else
+					HTML::desc( _x( 'There are no terms available with similar description.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+
+			} else {
+
+				HTML::desc( _x( 'There is no description available.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+			}
+
 		echo '</div>';
 
 		$this->actions( 'term_tab_search_content', $taxonomy, $object, $term );
@@ -376,6 +419,7 @@ class Taxonomy extends gNetwork\Module
 		] );
 
 		// FIXME: table-list with edit/view links
+		// TODO: show posttype name
 		HTML::tableSide( wp_list_pluck( $posts, 'post_title', 'ID' ) );
 
 		$this->actions( 'term_tab_posts_content', $taxonomy, $object, $term );
