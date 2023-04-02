@@ -1,4 +1,7 @@
 {
+  "root": {
+    "changelog": "CHANGES.md"
+  },
   "input": {
     "php": [
       "./**/*.php",
