@@ -1,3 +1,8 @@
+### 3.16.2
+* module/taxonomy: query similar terms by name/desc on term tabs
+* module/typography: title sanitize enabled by default
+* module/update: better check for zip mime-type
+
 ### 3.16.1
 * main/module: :warning: check for multisite function
 * main/module: auto hook for plugin loaded action
