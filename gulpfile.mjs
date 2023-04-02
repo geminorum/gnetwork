@@ -332,10 +332,10 @@ task('github:package:old', function (done) {
 });
 
 task('github:package', function (done) {
-  if (!env.github) {
-    log.error('Error: missing required token for github');
-    return done();
-  }
+  // if (!env.github) {
+  //   log.error('Error: missing required token for github');
+  //   return done();
+  // }
 
   const file = pkg.name + '-' + pkg.version + '.zip';
 
