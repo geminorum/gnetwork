@@ -5,6 +5,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 @use "sass:math"; // @REF: https://sass-lang.com/d/slash-div
+@use "sass:color";
 
 $spacer: 1rem !default;
 
@@ -16,7 +17,7 @@ $spacer: 1rem !default;
     color: $brand-danger;
 
     &:hover {
-      color: darken($brand-danger, 20%);
+      color: color.adjust($brand-danger, $lightness: -20%);
     }
   }
 

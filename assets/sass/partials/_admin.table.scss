@@ -1,8 +1,58 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: Table ---------------------------------------------------
+/// gNetwork Partials: Table
 
+////////////////////////////////////////////////////////////////////////////////
+@use "sass:math"; // @REF: https://sass-lang.com/d/slash-div
+@use "sass:color";
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+table.wp-list-table, // WordPress Core
+table.base-table-list { // Plugin Core
+
+  td {
+    > .-wrap.-icon-list {
+      ul {
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+
+        li {
+          margin-left: $spacer * .5;
+        }
+      }
+
+      a.-icon.-link {
+        padding: $spacer * .25;
+        display: inline-block;
+
+        &:focus {
+          box-shadow: none;
+        }
+
+        // svg {
+        //   width: $spacer;
+        //   height: $spacer;
+        //   // fill: currentColor;
+        //   fill: red !important;
+        // }
+
+        // &:hover {
+        //   svg {
+        //     fill: green !important;
+        //   }
+        // }
+
+        // &.-valid-url {}
+        // &.-invalid-url {}
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 div.base-table-wrap {
   &[dir="ltr"] {
     th {
@@ -12,6 +62,7 @@ div.base-table-wrap {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 table {
   &.base-table-simple,
   &.base-table-code,
@@ -47,6 +98,7 @@ p.base-table-empty {
   margin: 0 !important;
 }
 
+////////////////////////////////////////////////////////////////////////////////
 div.base-table-actions {
   &.base-table-list-before {
     margin-bottom: 4px;
@@ -119,6 +171,7 @@ div.base-table-actions {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 table.base-table-list {
 
   // > .-before {}
@@ -140,7 +193,7 @@ table.base-table-list {
   }
 
   .-row-color-danger {
-    background-color: lighten($brand-danger, 20%) !important;
+    background-color: color.adjust($brand-danger, $lightness: 20%) !important;
   }
 
   td,
@@ -258,12 +311,14 @@ table.base-table-list {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 table.base-table-simple {
   > tbody > tr > td {
     padding: 5px 2px;
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 table.base-table-raw,
 table.base-table-code {
   > caption {}
@@ -288,6 +343,7 @@ table.base-table-code {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 table.base-table-side {
   border: 1px solid #ccc;
   border-spacing: 0;
@@ -322,6 +378,7 @@ table.base-table-side {
   .-empty {}
 }
 
+////////////////////////////////////////////////////////////////////////////////
 table.base-table-side-wrap {
   border: 1px solid #ccc;
   border-width: 1px 1px 1px 0;

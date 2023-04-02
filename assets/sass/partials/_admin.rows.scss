@@ -4,6 +4,10 @@
 /// gNetwork Partials: Admin Rows
 
 ////////////////////////////////////////////////////////////////////////////////
+@use "sass:color";
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 ul.-rows {
 
   list-style: none;
@@ -19,49 +23,60 @@ ul.-rows {
       margin: 0 4px 0 0;
     }
 
-    > code {
-      vertical-align: middle;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.-wrap.-icon-list ul li,
+ul.-rows .-row {
+  > code {
+    vertical-align: middle;
+  }
+
+  svg,
+  span.dashicons {
+    color: #b4b9be;
+    width: $spacer;
+    height: $spacer;
+    font-size: $spacer;
+    // vertical-align: middle;
+    vertical-align: text-top;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    svg {
+      fill: $gray-dark;
+      transition: all 0.1s ease;
     }
 
-    span.dashicons {
-      color: #b4b9be;
-      width: 16px;
-      height: 16px;
-      font-size: 16px;
-      // vertical-align: middle;
-      vertical-align: text-top;
-      transition: all 0.3s ease;
-    }
-
-    &:hover {
-      .-icon span.dashicons {
-        color: $gray-dark;
-        transition: all 0.1s ease;
-      }
-    }
-
-    a:focus {
-      box-shadow: none;
-    }
-
-    .-valid {
-      color: $brand-success;
-
-      &:hover {
-        color: darken($brand-success, 20%);
-      }
-    }
-
-    .-not-valid {
-      color: $brand-danger;
-
-      &:hover {
-        color: darken($brand-danger, 20%);
-      }
+    .-icon span.dashicons {
+      color: $gray-dark;
+      transition: all 0.1s ease;
     }
   }
 
-  .-row:last-child {
-    margin-bottom: 0;
+  a:focus {
+    box-shadow: none;
+  }
+
+  .-is-valid,
+  .-valid {
+    color: $brand-success;
+
+    &:hover {
+      color: color.adjust($brand-success, $lightness: -20%);
+    }
+  }
+
+  .-is-invalid,
+  .-not-valid {
+    color: $brand-danger;
+
+    &:hover {
+      color: color.adjust($brand-danger, $lightness: -20%);
+    }
   }
 }

@@ -111,10 +111,10 @@
     // .-privacy-notice {
     //   margin-bottom: 1em !important;
     //   font-size: smaller;
-    //
+    ///
     //   a {
     //     color: $gray-dark;
-    //
+    ///
     //     &:hover {
     //       color: $gray-darker;
     //     }
@@ -166,12 +166,19 @@
       /*rtl:end:ignore*/
     }
 
-    .-month-day {
+    th.-month-day {
       width: 15px;
     }
 
-    .-time-ago {
+    th.-time-ago {
       width: 65px;
+    }
+
+    td.-name-email {
+      > .-wrap {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 

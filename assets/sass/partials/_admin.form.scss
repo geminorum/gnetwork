@@ -6,6 +6,10 @@
 // TODO: check new core styles: https://make.wordpress.org/core/2019/10/18/noteworthy-admin-css-changes-in-wordpress-5-3/
 
 ////////////////////////////////////////////////////////////////////////////////
+@use "sass:color";
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 .-description {
   &.-empty {
     display: block;
@@ -21,7 +25,7 @@
     color: $brand-danger;
 
     &:hover {
-      color: darken($brand-danger, 20);
+      color: color.adjust($brand-danger, $lightness: -20%);
     }
   }
 }
@@ -73,7 +77,7 @@
     max-width: 380px;
     margin: 0 0 1em 0;
     padding: 1em;
-    background: lighten($gray-light, 50%);
+    background: color.adjust($gray-light, $lightness: 50%);
     border: 1px solid $gray-lighter;
     border-radius: 2px;
 
