@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-03-29 02:09+0330\n"
+"PO-Revision-Date: 2023-04-01 08:16+0330\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
 "X-Generator: Poedit 3.2.2\n"
@@ -192,7 +192,7 @@ msgstr ""
 
 #: wp-admin/includes/class-wp-screen.php:1119
 msgid "Expand or collapse the elements by clicking on their headings, and arrange them by dragging their headings or by clicking on the up and down arrows."
-msgstr ""
+msgstr "عناصر صفحه را با کلیک روی عنوان، پهن یا جمع کنید و با کشیدن عنوان آن‌ها یا با کلیک بر روی فلش‌های بالا و پایین، مرتب کنید."
 
 #. translators: %s: Attachment title.
 #: wp-admin/includes/class-wp-media-list-table.php:870
@@ -11129,7 +11129,7 @@ msgstr ""
 
 #: wp-admin/edit-tags.php:254
 msgid "You can create groups of links by using Link Categories. Link Category names must be unique and Link Categories are separate from the categories you use for posts."
-msgstr "با استفاده از دسته‌های پیوند می‌توانید پیوندهای خود را دسته‌بندی کنید. نام دستهٔ پیوند‌ها باید یکتا باشد. دسته‌های پیوند از دسته‌هایی که شما برای نوشته‌ها استفاده می‌کنید متمایز هستند."
+msgstr ""
 
 #: wp-admin/widgets-form.php:62
 msgid "Missing Widgets"
@@ -11141,11 +11141,11 @@ msgstr "حذف و استفادهٔ دوباره"
 
 #: wp-admin/upload.php:346
 msgid "If a media file has not been attached to any content, you will see that in the Uploaded To column, and can click on Attach to launch a small popup that will allow you to search for existing content and attach the file."
-msgstr "اگر یک پروندهٔ چندرسانه‌ای به هیچ نوشته‌ای پیوست نشده باشد، این مورد را در ستون پیوست‌شده به می‌بینید، و می‌توانید با کلیک بر روی پیوست در پنجره کوچکی که باز می‌شود، به‌دنبال نوشته‌ای بگردید و پرونده را به آن نوشته پیوست کنید."
+msgstr ""
 
 #: wp-admin/upload.php:321
 msgid "All the files you&#8217;ve uploaded are listed in the Media Library, with the most recent uploads listed first. You can use the Screen Options tab to customize the display of this screen."
-msgstr "تمامی پرونده‌هایی که بارگذاری نموده‌اید، به ترتیب تاریخ بارگذاری، در کتابخانهٔ پرونده‌های چندرسانه‌ای فهرست شده‌اند. می‌توانید با استفاده از زبانه تنظیمات صفحه نحوه نمایش این صفحه را سفارشی کنید."
+msgstr ""
 
 #: wp-admin/edit.php:316
 msgid "You can also perform the same types of actions, including narrowing the list by using the filters, acting on a page using the action links that appear when you hover over a row, or using the Bulk actions menu to edit the metadata for multiple pages at once."
@@ -11153,20 +11153,20 @@ msgstr ""
 
 #: wp-admin/edit.php:315
 msgid "Managing pages is very similar to managing posts, and the screens can be customized in the same way."
-msgstr "مدیریت برگه‌ها بسیار شبیه به مدیریت نوشته‌ها است و بخش مدیریت برگه‌ها نیز می‌تواند به همان روش سفارشی‌سازی شود."
+msgstr ""
 
 #: wp-admin/edit-form-advanced.php:323
 #: wp-admin/edit.php:307
 msgid "Pages are similar to posts in that they have a title, body text, and associated metadata, but they are different in that they are not part of the chronological blog stream, kind of like permanent posts. Pages are not categorized or tagged, but can have a hierarchy. You can nest pages under other pages by making one the &#8220;Parent&#8221; of the other, creating a group of pages."
-msgstr "برگه‌ها مانند نوشته‌ها دارای عنوان، محتوای متنی و اطلاعات مرتبط هستند، اما بر خلاف نوشته‌ها بخشی از فرایند مبتنی بر ترتیب زمانی جاری در وبلاگ نیستند، در واقع برگه‌ها به نوعی نوشته‌هایی دائمی هستند. برگه‌ها دسته‌بندی یا برچسب‌گذاری نمی‌شوند. با این حال می‌توان نوعی سلسله مراتب برای آن‌ها تعیین کرد. برای ایجاد گروهی از برگه‌ها می‌توان یه برگه را به عنوان مادر انتخاب کرد و سایر برگه‌ها را در گروه موردنظر قرار داد."
+msgstr ""
 
 #: wp-admin/edit-comments.php:204
 msgid "Many people take advantage of keyboard shortcuts to moderate their comments more quickly. Use the link to the side to learn more."
-msgstr "افراد زیادی برای مدیریت سریع‌تر دیدگاه‌ها از کلیدهای میان‌بر صفحه‌کلید استفاده می‌کنند، برای اطلاعات بیشتر پیوندهای سمت چپ را ببینید."
+msgstr ""
 
 #: wp-admin/edit-comments.php:200
 msgid "In the <strong>Author</strong> column, in addition to the author&#8217;s name, email address, and blog URL, the commenter&#8217;s IP address is shown. Clicking on this link will show you all the comments made from this IP address."
-msgstr "در ستون <strong>نویسنده</strong> علاوه بر نام نویسنده، نشانی ایمیل، نشانی بلاگ و نشانی IP نویسنده دیدگاه نیز نشان داده می‌شود. با کلیک روی این پیوند، همه دیدگاه‌هایی که با این نشانی IP نوشته شده‌اند، به نمایش درمی‌آید."
+msgstr ""
 
 #: wp-admin/edit-comments.php:191
 msgid "You can manage comments made on your site similar to the way you manage posts and other content. This screen is customizable in the same ways as other management screens, and you can act on comments using the on-hover action links or the bulk actions."
@@ -11174,7 +11174,7 @@ msgstr ""
 
 #: wp-admin/index.php:52
 msgid "Links in the Toolbar at the top of the screen connect your dashboard and the front end of your site, and provide access to your profile and helpful WordPress information."
-msgstr "پیوندهای موجود در نوارابزار بالای صفحه، پیشخوان و صفحهٔ اصلی سایت را به هم متصل و دسترسی شما به بخش‌های مختلف وردپرس را فراهم می‌کند."
+msgstr ""
 
 #: wp-admin/link-manager.php:71
 msgid "Deleting Links"
@@ -11182,24 +11182,24 @@ msgstr "حذف پیوندها"
 
 #: wp-admin/link-manager.php:64
 msgid "Links may be separated into Link Categories; these are different than the categories used on your posts."
-msgstr "پیوندها را نیز می‌توان در دسته‌های مختلف قرار داد. دسته‌های پیوندها با دسته‌های نوشته‌ها تفاوت دارند."
+msgstr ""
 
 #. translators: 1: URL to About screen, 2: WordPress version.
 #: wp-admin/update-core.php:293
 msgid "<a href=\"%1$s\">Learn more about WordPress %2$s</a>."
-msgstr "<a href=\"%1$s\">درباره وردپرس %2$s بیشتر بیاموزید</a>."
+msgstr "<a href=\"%1$s\">درباره وردپرس %2$s بیشتر بدانید</a>."
 
 #: wp-admin/users.php:55
 msgid "<strong>Edit</strong> takes you to the editable profile screen for that user. You can also reach that screen by clicking on the username."
-msgstr "<strong>گزینه</strong> ویرایش شما را به صفحهٔ ویرایش شانسنامهٔ آن کاربر می‌برد. همچنین برای این‌کار می‌توانید بروی نام‌کاربری موردنظر کلیک کنید."
+msgstr ""
 
 #: wp-admin/users.php:53
 msgid "Hovering over a row in the users list will display action links that allow you to manage users. You can perform the following actions:"
-msgstr "با حرکت بر روی هر ردیف از فهرست کاربران می‌توانید پیوندهای عملیات قابل اجرا روی هر یک از آن‌ها را مشاهده و بدین ترتیب کاربران را مدیریت کنید. عملیات زیر قابل اجرا است:"
+msgstr ""
 
 #: wp-admin/users.php:48
 msgid "You can view all posts made by a user by clicking on the number under the Posts column."
-msgstr "می‌توانید با کلیک بر روی عدد موجود در ستون نوشته‌ها، همهٔ نوشته‌های کاربر را مشاهده کنید."
+msgstr ""
 
 #: wp-admin/users.php:46
 msgid "You can hide/display columns based on your needs and decide how many users to list per screen using the Screen Options tab."
@@ -11211,7 +11211,7 @@ msgstr "مدیریت برگه‌ها"
 
 #: wp-admin/edit.php:281
 msgid "<strong>Preview</strong> will show you what your draft post will look like if you publish it. View will take you to your live site to view the post. Which link is available depends on your post&#8217;s status."
-msgstr "<strong>پیش‌نمایش</strong> ظاهرِ پس از انتشارِ نوشته‌ای را که هنوز در حالت پیش‌نویس است، نمایش می‌دهد. با کلیک بر روی گزینه نمایش برای مشاهده نوشته خود به صورت مستقیم به سایت منتقل می‌شوید. وضعیت نوشته شما مشخص می‌سازد که از کدام یک از این دو گزینه را می‌توانید استفاده کنید."
+msgstr ""
 
 #: wp-admin/edit.php:280
 msgid "<strong>Trash</strong> removes your post from this list and places it in the Trash, from which you can permanently delete it."
@@ -11219,15 +11219,15 @@ msgstr ""
 
 #: wp-admin/edit.php:279
 msgid "<strong>Quick Edit</strong> provides inline access to the metadata of your post, allowing you to update post details without leaving this screen."
-msgstr "<strong>ویرایش سریع</strong> امکان ویرایش بخش‌های مختلف نوشته را در همین صفحه برای شما ایجاد می‌کند."
+msgstr ""
 
 #: wp-admin/edit.php:278
 msgid "<strong>Edit</strong> takes you to the editing screen for that post. You can also reach that screen by clicking on the post title."
-msgstr "<strong>ویرایش</strong> شما را به صفحهٔ ویرایش نوشته می‌برد. همچنین برای این‌کار می‌توانید بروی عنوان نوشته کلیک کنید."
+msgstr ""
 
 #: wp-admin/user-new.php:266
 msgid "Because this is a multisite installation, you may add accounts that already exist on the Network by specifying a username or email, and defining a role. For more options, such as specifying a password, you have to be a Network Administrator and use the hover link under an existing user&#8217;s name to Edit the user profile under Network Admin > All Users."
-msgstr "به دلیل نصب وردپرس چندسایته، می‌توانید با وارد کردن نام‌کاربری یا ایمیل و تعیین نقش، حساب‌های کاربری موجود در شبکه را به آن بیافزایید. برای دسترسی به گزینه‌های بیشتر هم‌چون تغییر رمز، شما باید مدیر شبکه باشید و در مسیر مدیر شبکه > همه‌ کاربران، از پیوندهایی که هنگام بردن موشواره روی نام کاربران ظاهر می‌شود برای ویرایش آن‌ها استفاده کنید."
+msgstr ""
 
 #. translators: %s: Version number.
 #: wp-admin/about.php:51
@@ -12343,15 +12343,15 @@ msgstr ""
 
 #: wp-admin/widgets-form.php:54
 msgid "If you want to remove the widget but save its setting for possible future use, just drag it into the Inactive Widgets area. You can add them back anytime from there. This is especially helpful when you switch to a theme with fewer or different widget areas."
-msgstr "اگر می‌خواهید ابزارکی را حذف ولی تنظیمات آن را برای آینده ذخیره کنید، کافی‌ست آن را در محیط ابزارک‌های غیرفعال رها کنید. شما می‌توانید هرزمانی که خواستید از قسمت ابزارک‌های غیرفعال آن‌ها را دوباره اضافه کنید. این مورد زمانی مفید است که شما می‌خواهید پوستهٔ فعلی را با یک پوسته با محیط ابزارکی متفاوت عوض کنید."
+msgstr ""
 
 #: wp-admin/users.php:36
 msgid "To add a new user for your site, click the Add New button at the top of the screen or Add New in the Users menu section."
-msgstr "برای اضافه کردن کاربر جدید به سایت، روی دکمه افزودن در بالای صفحه یا گزینه افزودن در قسمت فهرست کابران کلیک کنید."
+msgstr ""
 
 #: wp-admin/options-media.php:20
 msgid "You can set maximum sizes for images inserted into your written content; you can also insert an image as Full Size."
-msgstr "شما می‌توانید بیشترین اندازه تصاویری را که درون محتوای نوشتاری خود قرار می‌دهید تنظیم کنید؛ همچنین می‌توانید یک تصویر را در اندازه کامل وارد کنید."
+msgstr ""
 
 #: wp-admin/options-general.php:28
 msgid "Most themes show the site title at the top of every page, in the title bar of the browser, and as the identifying name for syndicated feeds. Many themes also show the tagline."
@@ -12359,7 +12359,7 @@ msgstr ""
 
 #: wp-admin/edit-form-advanced.php:414
 msgid "<strong>Order</strong> &mdash; Pages are usually ordered alphabetically, but you can choose your own order by entering a number (1 for first, etc.) in this field."
-msgstr "<strong>چیدمان</strong> &mdash; صفحه‌ها معمولا براساس حروف الفبا مرتب شده‌اند. اما شما می‌توانید ترتیب خود را بوسیلهٔ وارد کردن یک عدد (مثلاً ۱ برای اولی) در این کادر وارد کنید."
+msgstr ""
 
 #: wp-admin/includes/file.php:2447
 msgid "If you do not remember your credentials, you should contact your web host."
@@ -12384,15 +12384,15 @@ msgstr "می‌توانید پوسته‌ای را که به‌صورت فشرد
 
 #: wp-admin/edit-form-advanced.php:401
 msgid "<strong>Send Trackbacks</strong> &mdash; Trackbacks are a way to notify legacy blog systems that you&#8217;ve linked to them. Enter the URL(s) you want to send trackbacks. If you link to other WordPress sites they&#8217;ll be notified automatically using pingbacks, and this field is unnecessary."
-msgstr "<strong>فرستادن بازتاب</strong> &mdash; بازتاب‌ها راهی برای باخبر کردن نرم افزارهای قدیمی‌تر بلاگ‌نویسی، در مورد این‌که شما به آن‌ها در نوشته خود پیوند داده اید، هستند. اگر شما به سایت‌های قدرت گرفته از وردپرس ارجاع می‌دهید،‌ آن‌ها به صورت خودکار توسط پینگ از این عمل شما باخبر می‌شوند، نیاز به عمل دیگری نیست."
+msgstr ""
 
 #: wp-admin/user-new.php:291
 msgid "Contributors can write and manage their posts but not publish posts or upload media files."
-msgstr "مشارکت‌کنندگان می‌توانند نوشته‌هایشان را ذخیره و مدیریت کنند ولی اجازهٔ انتشار آن‌ها یا بارگذاری پرونده‌های چندرسانه‌ای را ندارند."
+msgstr ""
 
 #: wp-admin/user-new.php:294
 msgid "Administrators have access to all the administration features."
-msgstr "مدیران به همه قابلیتهای مدیریتی دسترسی دارند."
+msgstr ""
 
 #: wp-admin/plugin-editor.php:127
 msgid "You can use the plugin file editor to make changes to any of your plugins&#8217; individual PHP files. Be aware that if you make changes, plugins updates will overwrite your customizations."

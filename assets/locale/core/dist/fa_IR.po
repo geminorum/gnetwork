@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-03-29 00:36+0330\n"
+"PO-Revision-Date: 2023-03-30 13:50+0330\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
 "X-Generator: Poedit 3.2.2\n"
@@ -421,7 +421,7 @@ msgstr ""
 
 #: wp-login.php:1250
 msgid "https://wordpress.org/documentation/article/cookies/"
-msgstr ""
+msgstr "https://fa.wordpress.org/about/privacy/cookies/"
 
 #: wp-includes/user.php:3271
 msgid "https://wordpress.org/documentation/article/reset-your-password/"
@@ -13944,7 +13944,7 @@ msgstr ""
 #. translators: 1: Browser cookie documentation URL, 2: Support forums URL.
 #: wp-login.php:1249
 msgid "<strong>Error:</strong> Cookies are blocked due to unexpected output. For help, please see <a href=\"%1$s\">this documentation</a> or try the <a href=\"%2$s\">support forums</a>."
-msgstr ""
+msgstr "<strong>خطا</strong>: کوکی‌ها به دلیل خروجی غیرمنتظره مسدود شده‌اند. برای راهنمایی، برای اطلاعات بیشتر <a href=\"%1$s\">اینجا</a> را ببینید یا به <a href=\"%2$s\">تالارهای پشتیبانی</a> مراجعه کنید."
 
 #: wp-includes/media.php:4696
 msgid "Add to Audio Playlist"
