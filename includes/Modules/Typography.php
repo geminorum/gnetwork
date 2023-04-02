@@ -66,7 +66,7 @@ class Typography extends gNetwork\Module
 			'register_blocktypes' => '0',
 			'register_shortcodes' => '0',
 			'editor_buttons'      => '0',
-			'title_sanitize'      => '0',
+			'title_sanitize'      => '1',
 			'title_titlecase'     => '0',
 			'title_wordwrap'      => '0',
 			'widget_wordwrap'     => '0',
@@ -112,6 +112,7 @@ class Typography extends gNetwork\Module
 					'field'       => 'title_sanitize',
 					'title'       => _x( 'Extra Title Sanitization', 'Modules: Typography: Settings', 'gnetwork' ),
 					'description' => _x( 'Tries to additional sanitization checks on slugs from titles.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'default'     => '1',
 				],
 				[
 					'field'       => 'title_titlecase',
