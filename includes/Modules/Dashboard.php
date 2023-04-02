@@ -305,8 +305,7 @@ class Dashboard extends gNetwork\Module
 
 			echo '<table class="widefat -table-signup"><thead><tr>';
 			echo '<th class="-month-day">'._x( 'On', 'Modules: Dashboard: Signups', 'gnetwork' ).'</th>';
-			echo '<th class="-edit-link">'._x( 'Name', 'Modules: Dashboard: Signups', 'gnetwork' ).'</th>';
-			echo '<th class="-mail-link">'._x( 'E-mail', 'Modules: Dashboard: Signups', 'gnetwork' ).'</th>';
+			echo '<th class="-name-email">'._x( 'Name/E-mail', 'Modules: Dashboard: Signups', 'gnetwork' ).'</th>';
 			echo '<th class="-ip-info">'._x( 'IP', 'Modules: Dashboard: Signups', 'gnetwork' ).'</th>';
 			echo '</tr></thead>';
 
@@ -314,10 +313,15 @@ class Dashboard extends gNetwork\Module
 			$last = FALSE;
 			$alt  = TRUE;
 
+
 			$template = '<tr%1$s>'
 				.'<td class="-month-day" title="%5$s">%4$s</td>'
-				.'<td class="-edit-link"><a title="%8$s" href="%6$s" target="_blank">%2$s</a></td>'
-				.'<td class="-mail-link"><a title="%7$s" href="%8$s" target="_blank">%3$s</a></td>'
+
+				// FIXME: template: `Name (email@example.com)`
+				.'<td class="-name-email"><div class="-wrap"><a class="-edit-link" title="%8$s" href="%6$s" target="_blank">%2$s</a>'
+				.'<a class="-mail-link" title="%7$s" href="%8$s" target="_blank">%3$s</a></div></td>'
+
+				// TODO: display mobile number
 				.'<td class="-ip-info"><code>%9$s</code></td>'
 			.'</tr>';
 

@@ -2,7 +2,6 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Exception;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Text;
@@ -449,12 +448,12 @@ class Module extends Core\Base
 
 	protected static function sanitize_hook( $hook )
 	{
-		return trim( str_ireplace( [ '-', '.', '/' ], '_', $hook ) );
+		return Text::sanitizeHook( $hook );
 	}
 
-	protected static function sanitize_base( $hook )
+	protected static function sanitize_base( $base )
 	{
-		return trim( str_ireplace( [ '_', '.' ], '-', $hook ) );
+		return Text::sanitizeBase( $base );
 	}
 
 	protected function hook()

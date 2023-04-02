@@ -136,11 +136,23 @@ class Cron extends gNetwork\Module
 	{
 		return [
 			[
-				'id'      => $this->classs( 'help' ),
+				'id'      => $this->classs( 'advanced' ),
+				'title'   => _x( 'Advanced', 'Modules: CRON: Help Tab Title', 'gnetwork' ),
+				'content' => self::buffer( [ $this, '_help_tab_advanced_content' ] ),
+			],
+			[
+				'id'      => $this->classs( 'schedules' ),
 				'title'   => _x( 'Schedule Intervals', 'Modules: CRON: Help Tab Title', 'gnetwork' ),
 				'content' => HTML::tableCode( wp_get_schedules() ),
 			],
 		];
+	}
+
+	public function _help_tab_advanced_content()
+	{
+		echo $this->wrap_open( '-help-tab-content' );
+			HTML::desc( HTML::code( sprintf( 'wget --delete-after %s', $this->get_cron_url() ) ) );
+		echo '</div>';
 	}
 
 	protected function tools_actions( $sub = NULL )

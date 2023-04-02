@@ -458,6 +458,18 @@ class Locale extends gNetwork\Module
 			// [YITH WooCommerce Wishlist](https://wordpress.org/plugins/yith-woocommerce-wishlist/)
 			'yith_wcwl_panel' => 'page',
 
+			// [LiteSpeed Cache](https://wordpress.org/plugins/litespeed-cache/)
+			'litespeed'           => 'page',
+			'litespeed-presets'   => 'page',
+			'litespeed-general'   => 'page',
+			'litespeed-cache'     => 'page',
+			'litespeed-img_optm'  => 'page',
+			'litespeed-db_optm'   => 'page',
+			'litespeed-page_optm' => 'page',
+			'litespeed-crawler'   => 'page',
+			'litespeed-toolbox'   => 'page',
+			'litespeed-cdn'       => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );
