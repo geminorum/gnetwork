@@ -227,6 +227,19 @@ class WordPress extends Base
 		HTML::inputHidden( '_wp_http_referer', self::unslash( $_SERVER['REQUEST_URI'] ) );
 	}
 
+	public static function redirectJS( $location = NULL, $timeout = 3000 )
+	{
+		if ( is_null( $location ) )
+			$location = add_query_arg( wp_get_referer() );
+
+		?><script type="text/javascript">
+function nextpage() {
+	location.href = "<?php echo $location; ?>";
+}
+setTimeout( "nextpage()", <?php echo $timeout; ?> );
+</script><?php
+	}
+
 	public static function redirect( $location = NULL, $status = 302 )
 	{
 		if ( is_null( $location ) )
@@ -727,7 +740,7 @@ class WordPress extends Base
 	// @REF: `is_plugin_active()`
 	public static function isPluginActive( $plugin, $network_check = TRUE )
 	{
-		if ( in_array( $plugin, (array) apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
+		if ( in_array( $plugin, (array) apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), TRUE ) )
 			return TRUE;
 
 		if ( $network_check && self::isPluginActiveForNetwork( $plugin ) )
@@ -740,7 +753,7 @@ class WordPress extends Base
 	public static function isPluginActiveForNetwork( $plugin, $network = NULL )
 	{
 		if ( is_multisite() )
-			return (bool) in_array( $plugin, (array) get_network_option( $network, 'active_sitewide_plugins' ) );
+			return (bool) in_array( $plugin, (array) get_network_option( $network, 'active_sitewide_plugins' ), TRUE );
 
 		return FALSE;
 	}

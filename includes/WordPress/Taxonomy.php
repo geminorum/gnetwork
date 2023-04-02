@@ -40,6 +40,36 @@ class Taxonomy extends Core\Base
 			: user_can( $user_id, $cap );
 	}
 
+	/**
+	 * Retrieves the list of taxonomies.
+	 *
+	 * Parameter $args is an array of key -> value arguments to match against
+	 * the taxonomies. Only taxonomies having attributes that match all
+	 * arguments are returned:
+	 * name
+	 * object_type (array)
+	 * label
+	 * singular_label
+	 * show_ui
+	 * show_tagcloud
+	 * show_in_rest
+	 * public
+	 * update_count_callback
+	 * rewrite
+	 * query_var
+	 * manage_cap
+	 * edit_cap
+	 * delete_cap
+	 * assign_cap
+	 * _builtin
+	 *
+	 * @param  int    $mod
+	 * @param  array  $args
+	 * @param  bool   $object
+	 * @param  null|string $capability
+	 * @param  null|int $user_id
+	 * @return array $list
+	 */
 	public static function get( $mod = 0, $args = [], $object = FALSE, $capability = NULL, $user_id = NULL )
 	{
 		$list = [];
@@ -54,8 +84,12 @@ class Taxonomy extends Core\Base
 			if ( ! self::can( $taxonomy_obj, $capability, $user_id ) )
 				continue;
 
+			// just the name!
+			if ( -1 === $mod )
+				$list[] = $taxonomy_obj->name;
+
 			// label
-			if ( 0 === $mod )
+			else if ( 0 === $mod )
 				$list[$taxonomy] = $taxonomy_obj->label ? $taxonomy_obj->label : $taxonomy_obj->name;
 
 			// plural
@@ -387,9 +421,19 @@ class Taxonomy extends Core\Base
 		return $wpdb->get_var( $wpdb->prepare( "SELECT term_id FROM $wpdb->terms as t WHERE $else_where $orderby $limit", $else_where_fields ) );
 	}
 
+	/**
+	 * Inserts set of terms into a taxonomy.
+	 *
+	 * `$update_terms` accepts: `not_name_desc`, `not_name`
+	 *
+	 * @param  string|object $taxonomy
+	 * @param  array $terms
+	 * @param  bool|string $update_terms
+	 * @return array $count
+	 */
 	public static function insertDefaultTerms( $taxonomy, $terms, $update_terms = TRUE )
 	{
-		if ( ! taxonomy_exists( $taxonomy ) )
+		if ( ! $object = self::object( $taxonomy ) )
 			return FALSE;
 
 		$count = [];
@@ -397,8 +441,8 @@ class Taxonomy extends Core\Base
 		foreach ( $terms as $slug => $term ) {
 
 			$name   = $term;
-			$meta   = array();
-			$args   = array( 'slug' => $slug, 'name' => $term );
+			$meta   = [];
+			$args   = [ 'slug' => $slug, 'name' => $term ];
 			$update = $update_terms;
 
 			if ( is_array( $term ) ) {
@@ -419,7 +463,7 @@ class Taxonomy extends Core\Base
 					if ( is_numeric( $term['parent'] ) )
 						$args['parent'] = $term['parent'];
 
-					else if ( $parent = term_exists( $term['parent'], $taxonomy ) )
+					else if ( $parent = term_exists( $term['parent'], $object->name ) )
 						$args['parent'] = $parent['term_id'];
 				}
 
@@ -431,14 +475,22 @@ class Taxonomy extends Core\Base
 					$update = $term['update'];
 			}
 
-			if ( $existed = term_exists( $slug, $taxonomy ) ) {
+			if ( $existed = term_exists( $args['slug'], $object->name ) ) {
 
-				if ( $update )
-					wp_update_term( $existed['term_id'], $taxonomy, $args );
+				if ( 'not_name_desc' === $update )
+					wp_update_term( $existed['term_id'], $object->name,
+						Core\Arraay::stripByKeys( $args, [ 'name', 'description' ] ) );
+
+				else if ( 'not_name' === $update )
+					wp_update_term( $existed['term_id'], $object->name,
+						Core\Arraay::stripByKeys( $args, [ 'name' ] ) );
+
+				else if ( $update )
+					wp_update_term( $existed['term_id'], $object->name, $args );
 
 			} else {
 
-				$existed = wp_insert_term( $name, $taxonomy, $args );
+				$existed = wp_insert_term( $name, $object->name, $args );
 			}
 
 			if ( ! is_wp_error( $existed ) ) {
