@@ -9,12 +9,35 @@ class Taxonomy extends Core\Base
 
 	public static function object( $taxonomy )
 	{
+		if ( ! $taxonomy )
+			return $taxonomy;
+
 		return is_object( $taxonomy ) ? $taxonomy : get_taxonomy( $taxonomy );
 	}
 
 	public static function viewable( $taxonomy )
 	{
+		if ( ! $taxonomy )
+			return $taxonomy;
+
 		return is_taxonomy_viewable( $taxonomy );
+	}
+
+	/**
+	 * Determines whether the taxonomy object is hierarchical.
+	 * Also accepts taxonomy object.
+	 *
+	 * @source `is_taxonomy_hierarchical()`
+	 *
+	 * @param  string|object $taxonomy
+	 * @return bool $hierarchical
+	 */
+	public static function hierarchical( $taxonomy )
+	{
+		if ( $object = self::object( $taxonomy ) )
+			return $object->hierarchical;
+
+		return FALSE;
 	}
 
 	// @REF: `is_term_publicly_viewable()` @since WP6.1.0
@@ -625,18 +648,53 @@ class Taxonomy extends Core\Base
 		return $wpdb->get_var( $query );
 	}
 
-	public static function getEmptyTermIDs( $taxonomy, $check_description = FALSE )
+	// @REF: `_get_term_hierarchy()`
+
+	/**
+	 * Retrieves children of taxonomy as term IDs.
+	 * without option save and accepts taxonomy object.
+	 *
+	 * @source `_get_term_hierarchy()`
+	 *
+	 * @param  string|object $taxonomy
+	 * @return array $children
+	 */
+	public static function getHierarchy( $taxonomy )
+	{
+		if ( ! self::hierarchical( $taxonomy ) )
+			return [];
+
+		$children = [];
+		$terms    = get_terms( [
+			'taxonomy'   => self::object( $taxonomy )->name,
+			'get'        => 'all',
+			'orderby'    => 'id',
+			'fields'     => 'id=>parent',
+			'hide_empty' => FALSE, // FIXME: WTF?!
+
+			'update_term_meta_cache' => FALSE,
+		] );
+
+		foreach ( $terms as $term_id => $parent )
+			if ( $parent > 0 )
+				$children[$parent][] = $term_id;
+
+		return $children;
+	}
+
+	public static function getEmptyTermIDs( $taxonomy, $check_description = FALSE, $max = 0, $min = 0 )
 	{
 		global $wpdb;
 
-		$query = "
+		$query = $wpdb->prepare( "
 			SELECT t.term_id
 			FROM {$wpdb->terms} AS t
 			INNER JOIN {$wpdb->term_taxonomy} AS tt
 			ON t.term_id = tt.term_id
 			WHERE tt.taxonomy IN ( '".implode( "', '", esc_sql( (array) $taxonomy ) )."' )
-			AND tt.count < 1
-		";
+			AND tt.count < %d
+			AND tt.count > %d
+		", ( ( (int) $max ) + 1 ), ( ( (int) $min ) - 1 ) );
 
 		if ( $check_description )
 			$query.= " AND (TRIM(COALESCE(tt.description, '')) = '') ";

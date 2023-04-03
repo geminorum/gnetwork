@@ -5,6 +5,62 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Third extends Base
 {
 
+	public static function getHandleURL( $string, $service, $prefix = '@' )
+	{
+		$url = $string;
+
+		// bail if already is a link
+		if ( URL::isValid( $url ) )
+			return $url;
+
+		switch ( $service ) {
+
+			case 'twitter':
+
+				$base = 'https://twitter.com/intent/user?screen_name=';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
+			case 'instagram':
+
+				$base = 'https://www.instagram.com/';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
+			case 'telegram':
+
+				$base = 'https://t.me/';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
+			case 'facebook':
+
+				$base = 'https://www.facebook.com/';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
+			case 'youtube':
+
+				$base = 'https://www.youtube.com/@';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
+			case 'aparat':
+
+				$base = 'https://www.aparat.com/';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
+			case 'eitaa':
+
+				$base = 'https://eitaa.com/';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+		}
+
+		return $url ? URL::untrail( $url ) : $url;
+	}
+
 	// @REF: https://gist.github.com/boonebgorges/5537311
 	public static function getHandle( $string, $url = FALSE, $base = '', $prefix = '@' )
 	{
@@ -26,7 +82,7 @@ class Third extends Base
 	public static function htmlTwitterIntent( $string, $thickbox = FALSE )
 	{
 		$handle = self::getHandle( $string );
-		$url    = URL::untrail( self::getHandle( $string, TRUE, 'https://twitter.com/intent/user?screen_name=' ) );
+		$url    = self::getHandleURL( $string, 'twitter' );
 
 		if ( $thickbox ) {
 

@@ -24,12 +24,18 @@ class PostType extends Core\Base
 	// TODO: also passing a post
 	public static function viewable( $posttype )
 	{
+		if ( ! $posttype )
+			return $posttype;
+
 		return is_post_type_viewable( $posttype );
 	}
 
 	// TODO: also passing a post
 	public static function viewableStatus( $status )
 	{
+		if ( ! $status )
+			return $status;
+
 		return is_post_status_viewable( $status );
 	}
 
