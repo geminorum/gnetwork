@@ -1168,7 +1168,7 @@ class Taxonomy extends gNetwork\Module
 				HTML::desc( $object->labels->desc_field_description );
 
 			HTML::wrapScript( 'jQuery("textarea#tag-description").closest(".form-field").remove();' );
-			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();$(document).on("ajaxSuccess.gnetwork_add_term",function(){if(tinyMCE.activeEditor){tinyMCE.activeEditor.setContent("");}$(document).unbind("ajaxSuccess.gnetwork_add_term",false);});});' );
+			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();$(document).on("ajaxSuccess.gnetwork_add_term",function(){if(tinyMCE.activeEditor){tinyMCE.activeEditor.setContent("");}$(document).off("ajaxSuccess.gnetwork_add_term",false);});});' );
 
 		echo '</div>';
 	}
