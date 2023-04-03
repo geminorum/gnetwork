@@ -454,6 +454,9 @@ class Taxonomy extends gNetwork\Module
 
 		$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_empties' );
 
+		if ( ! $object->hierarchical ) // allows category types to be onesies!
+			$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_onesies' );
+
 		$this->action_self( 'tab_extra_content', 2, 12, 'default_term' );
 		// $this->action_self( 'tab_extra_content', 2, 22, 'terms_stats' ); // FIXME
 		// $this->action_self( 'tab_extra_content', 2, 32, 'i18n_reports' ); // FIXME
@@ -587,8 +590,18 @@ class Taxonomy extends gNetwork\Module
 
 			$this->nonce_check( 'do-delete-empties' );
 
-			// $count = $this->_handle_delete_terms( $taxonomy, FALSE, FALSE );
-			$count = $this->_handle_delete_empty_terms( $taxonomy, FALSE );
+			$count = $this->_handle_delete_empty_terms( $taxonomy );
+
+			WordPress::redirectReferer( [
+				'message' => 'deleted',
+				'count'   => $count,
+			] );
+
+		} else if ( self::req( $this->classs( 'do-delete-onesies' ) ) ) {
+
+			$this->nonce_check( 'do-delete-onesies' );
+
+			$count = $this->_handle_delete_onesie_terms( $taxonomy );
 
 			WordPress::redirectReferer( [
 				'message' => 'deleted',
@@ -601,19 +614,78 @@ class Taxonomy extends gNetwork\Module
 		}
 	}
 
-	// terms with zero count and empty description
-	private function _get_empty_terms( $taxonomy )
+	/**
+	 * Retrieves terms with *zero* count, empty description and no children.
+	 *
+	 * @param  string|object $taxonomy
+	 * @param  bool   $check_description
+	 * @return false|array $term_ids
+	 */
+	private function _get_empty_terms( $taxonomy, $check_description = TRUE )
 	{
-		return $this->filters( 'empty_terms', WPTaxonomy::getEmptyTermIDs( $taxonomy, TRUE ), $taxonomy );
+		if ( ! $object = WPTaxonomy::object( $taxonomy ) )
+			return FALSE;
+
+		$term_ids = WPTaxonomy::getEmptyTermIDs( $object->name, $check_description );
+		$default  = WPTaxonomy::getDefaultTermID( $object->name );
+		$children = WPTaxonomy::getHierarchy( $object );
+
+		if ( count( $term_ids ) && ( $default ) )
+			$term_ids = array_diff( $term_ids, [ $default ] );
+
+		if ( count( $term_ids ) && count( $children ) )
+			$term_ids = array_diff( $term_ids, array_keys( $children ) );
+
+		return $this->filters( 'empty_terms', $term_ids, $object->name, $default );
 	}
 
-	private function _handle_delete_empty_terms( $taxonomy, $include_default = FALSE )
+	/**
+	 * Retrieves terms with *one* count, empty description and no children.
+	 *
+	 * @param  string|object $taxonomy
+	 * @param  bool   $check_description
+	 * @return false|array $term_ids
+	 */
+	private function _get_onesie_terms( $taxonomy, $check_description = TRUE )
+	{
+		if ( ! $object = WPTaxonomy::object( $taxonomy ) )
+			return FALSE;
+
+		$term_ids = WPTaxonomy::getEmptyTermIDs( $object->name, $check_description, 1, 1 );
+		$default  = WPTaxonomy::getDefaultTermID( $object->name );
+		$children = WPTaxonomy::getHierarchy( $object );
+
+		if ( count( $term_ids ) && ( $default ) )
+			$term_ids = array_diff( $term_ids, [ $default ] );
+
+		if ( count( $term_ids ) && count( $children ) )
+			$term_ids = array_diff( $term_ids, array_keys( $children ) );
+
+		return $this->filters( 'empty_onesies', $term_ids, $object->name, $default );
+	}
+
+	/**
+	 * Handles empty terms deletion.
+	 *
+	 * @param  string|object $taxonomy
+	 * @param  null|array $term_ids
+	 * @param  bool   $include_default
+	 * @return int $count
+	 */
+	private function _handle_delete_empty_terms( $taxonomy, $term_ids = NULL, $include_default = FALSE )
 	{
 		$count   = 0;
 		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
 
-		foreach ( $this->_get_empty_terms( $taxonomy ) as $term_id ) {
+		if ( is_null( $term_ids ) )
+			$term_ids = $this->_get_empty_terms( $taxonomy );
 
+		if ( ! $term_ids )
+			return $count;
+
+		foreach ( $term_ids as $term_id ) {
+
+			// NOTE: just to be safe, maybe added by filter or selected by user
 			if ( ! $include_default && $default == $term_id )
 				continue;
 
@@ -626,6 +698,51 @@ class Taxonomy extends gNetwork\Module
 				continue;
 
 			if ( ! $this->filters( 'delete_empty_term', TRUE, $term_id, $taxonomy ) )
+				continue;
+
+			$deleted = wp_delete_term( $term_id, $taxonomy );
+
+			if ( $deleted && ! is_wp_error( $deleted ) )
+				$count++;
+		}
+
+		return $count;
+	}
+
+	/**
+	 * Handles onesie terms deletion.
+	 *
+	 * @param  string|object $taxonomy
+	 * @param  null|array $term_ids
+	 * @param  bool   $include_default
+	 * @return int $count
+	 */
+	private function _handle_delete_onesie_terms( $taxonomy, $term_ids = NULL, $include_default = FALSE )
+	{
+		$count   = 0;
+		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
+
+		if ( is_null( $term_ids ) )
+			$term_ids = $this->_get_onesie_terms( $taxonomy );
+
+		if ( ! $term_ids )
+			return $count;
+
+		foreach ( $term_ids as $term_id ) {
+
+			// NOTE: just to be safe, maybe added by filter or selected by user
+			if ( ! $include_default && $default == $term_id )
+				continue;
+
+			// @REF: https://wp.me/p2AvED-5kA
+			if ( ! current_user_can( 'delete_term', $term_id ) )
+				continue;
+
+			// manually re-count: skip if the term has relationships
+			if ( WPTaxonomy::countTermObjects( $term_id, $taxonomy ) > 1 )
+				continue;
+
+			if ( ! $this->filters( 'delete_onesie_term', TRUE, $term_id, $taxonomy ) )
 				continue;
 
 			$deleted = wp_delete_term( $term_id, $taxonomy );
@@ -853,7 +970,6 @@ class Taxonomy extends gNetwork\Module
 		$this->actions( 'tab_maintenance_content', $taxonomy, $object );
 	}
 
-	// FIXME: also add as bulk action to use on heavy counts
 	public function tab_maintenance_content_delete_empties( $taxonomy, $object )
 	{
 		if ( ! current_user_can( $object->cap->delete_terms ) )
@@ -862,7 +978,7 @@ class Taxonomy extends gNetwork\Module
 		echo $this->wrap_open( '-tab-tools-delete-empties card -toolbox-card' );
 			HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
-			if ( $empties = $this->_get_empty_terms( $taxonomy ) ) {
+			if ( $empties = $this->_get_empty_terms( $object ) ) {
 
 				$count = count( $empties );
 
@@ -871,6 +987,11 @@ class Taxonomy extends gNetwork\Module
 
 					/* translators: %s: number of empty terms */
 					HTML::desc( Utilities::getCounted( $count, _nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) ) );
+
+					if ( $object->hierarchical )
+						HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+					else
+						HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
 
 					echo $this->wrap_open_buttons( '-toolbox-buttons' );
 						Settings::submitButton( $this->classs( 'do-delete-empties' ), _x( 'Delete Empty Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
@@ -881,6 +1002,43 @@ class Taxonomy extends gNetwork\Module
 			} else {
 
 				HTML::desc( _x( 'There are no empty terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
+			}
+
+		echo '</div>';
+	}
+
+	public function tab_maintenance_content_delete_onesies( $taxonomy, $object )
+	{
+		if ( ! current_user_can( $object->cap->delete_terms ) )
+			return FALSE;
+
+		echo $this->wrap_open( '-tab-tools-delete-onesies card -toolbox-card' );
+			HTML::h4( _x( 'Delete Onesies', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+
+			if ( $onesies = $this->_get_onesie_terms( $object ) ) {
+
+				$count = count( $onesies );
+
+				$this->render_form_start( NULL, 'delete', 'onesies', 'tabs', FALSE );
+					$this->nonce_field( 'do-delete-onesies' );
+
+					/* translators: %s: number of one-count terms */
+					HTML::desc( Utilities::getCounted( $count, _nx( 'Confirm deletion of %s one-count term.', 'Confirm deletion of %s one-count terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) ) );
+
+					if ( $object->hierarchical )
+						HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+					else
+						HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+
+					echo $this->wrap_open_buttons( '-toolbox-buttons' );
+						Settings::submitButton( $this->classs( 'do-delete-onesies' ), _x( 'Delete One-Count Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
+					echo '</p>';
+
+				$this->render_form_end( NULL, 'delete', 'onesies', 'tabs' );
+
+			} else {
+
+				HTML::desc( _x( 'There are no one-count terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -1107,12 +1265,13 @@ class Taxonomy extends gNetwork\Module
 		if ( isset( $filtered[$taxonomy] ) )
 			return $filtered[$taxonomy];
 
-		$actions = [];
+		$hierarchical = WPTaxonomy::hierarchical( $taxonomy );
+		$actions      = [];
 
 		$actions['set_default']   = _x( 'Set Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		$actions['unset_default'] = _x( 'Unset Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
-		if ( is_taxonomy_hierarchical( $taxonomy ) )
+		if ( $hierarchical )
 			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
 		$actions['merge']          = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
@@ -1130,6 +1289,11 @@ class Taxonomy extends gNetwork\Module
 			$actions['rewrite_slug']  = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 			$actions['downcode_slug'] = _x( 'Transliterate Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 		}
+
+		$actions['delete_empty'] = _x( 'Delete Empty', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+
+		if ( $hierarchical )
+			$actions['delete_onesie'] = _x( 'Delete Onesie', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
 
 		$filtered[$taxonomy] = $this->filters( 'bulk_actions', $actions, $taxonomy );
 
@@ -1312,6 +1476,16 @@ class Taxonomy extends gNetwork\Module
 		}
 
 		return TRUE;
+	}
+
+	public function handle_delete_onesie( $term_ids, $taxonomy )
+	{
+		return $this->_handle_delete_onesie_terms( $taxonomy, $term_ids );
+	}
+
+	public function handle_delete_empty( $term_ids, $taxonomy )
+	{
+		return $this->_handle_delete_empty_terms( $taxonomy, $term_ids );
 	}
 
 	public function handle_downcode_slug( $term_ids, $taxonomy )
