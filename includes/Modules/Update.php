@@ -681,8 +681,8 @@ class Update extends gNetwork\Module
 			foreach ( $data['assets'] as $asset ) {
 
 				if ( ! in_array( $asset['content_type'], [
-					'application/zip',
-					'application/x-zip-compressed',
+					'application/zip'             ,  // NOTE: WTF: if uploaded via CLI
+					'application/x-zip-compressed',  // NOTE: WTF: if uploaded via UI
 				], TRUE ) )
 					continue;
 

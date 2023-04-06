@@ -626,15 +626,15 @@ class Taxonomy extends gNetwork\Module
 		if ( ! $object = WPTaxonomy::object( $taxonomy ) )
 			return FALSE;
 
-		$term_ids = WPTaxonomy::getEmptyTermIDs( $object->name, $check_description );
-		$default  = WPTaxonomy::getDefaultTermID( $object->name );
-		$children = WPTaxonomy::getHierarchy( $object );
+		$term_ids  = WPTaxonomy::getEmptyTermIDs( $object->name, $check_description );
+		$default   = WPTaxonomy::getDefaultTermID( $object->name );
+		$hierarchy = WPTaxonomy::getHierarchy( $object );
 
 		if ( count( $term_ids ) && ( $default ) )
 			$term_ids = array_diff( $term_ids, [ $default ] );
 
-		if ( count( $term_ids ) && count( $children ) )
-			$term_ids = array_diff( $term_ids, array_keys( $children ) );
+		if ( count( $term_ids ) && count( $hierarchy ) )
+			$term_ids = array_diff( $term_ids, array_keys( $hierarchy ) );
 
 		return $this->filters( 'empty_terms', $term_ids, $object->name, $default );
 	}

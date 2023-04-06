@@ -532,7 +532,7 @@ class Blog extends gNetwork\Module
 				remove_action( 'wp_head', 'rsd_link' );
 
 			if ( ! $this->options['wlw_enabled'] )
-				remove_action( 'wp_head', 'wlwmanifest_link' );
+				remove_action( 'wp_head', 'wlwmanifest_link' ); // @since WP6.3.0 removed from core
 		}
 	}
 

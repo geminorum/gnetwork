@@ -22,6 +22,10 @@ use geminorum\gNetwork\WordPress\Media as WPMedia;
 class Media extends gNetwork\Module
 {
 
+	// TODO: move tools tab to Images module
+	// TODO: new tools tab for orphaned attachments: also support for term thumbnails on `image` term-meta
+	// TODO: DROP: row actions
+
 	protected $key     = 'media';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
@@ -368,6 +372,9 @@ class Media extends gNetwork\Module
 					];
 
 					return [
+
+						// TODO: new row/bulk action: delete all image/other attachments of this post
+
 						'edit' => HTML::tag( 'a', [
 							'href'   => add_query_arg( [ 'action' => 'edit', 'post' => $row->ID ], $column['args']['admin'] ),
 							'class'  => '-link -row-link -row-link-edit',
@@ -475,6 +482,7 @@ class Media extends gNetwork\Module
 				'class'    => '-media-in-content -has-list -has-list-ltr',
 				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
 
+					// TODO: look for images on `post_excerpt`
 					// @SEE: `wp_extract_urls()`
 					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
 

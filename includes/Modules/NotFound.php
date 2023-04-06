@@ -14,6 +14,8 @@ use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 class NotFound extends gNetwork\Module
 {
 
+	// TODO: log image loding errors via ajax after page loaded
+
 	protected $key     = 'notfound';
 	protected $network = FALSE;
 

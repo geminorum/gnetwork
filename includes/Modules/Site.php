@@ -16,6 +16,10 @@ use geminorum\gNetwork\Core\WordPress;
 class Site extends gNetwork\Module
 {
 
+	// TODO: Global Site comment lock on all posttypes
+	// - https://wordpress.org/plugins/disable-comments/
+	// - http://www.thesempost.com/how-to-disable-comments-wordpress-temporarily-permanently/
+
 	protected $key  = 'general';
 	protected $cron = TRUE;
 

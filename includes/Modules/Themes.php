@@ -12,6 +12,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Themes extends gNetwork\Module
 {
 
+	// @SEE: https://make.wordpress.org/core/2023/03/06/google-fonts-are-included-locally-in-bundled-themes/
+
 	protected $key     = 'themes';
 	protected $network = FALSE;
 	protected $xmlrpc  = FALSE;
