@@ -20,7 +20,10 @@ class User extends Core\Base
 
 	public static function user( $field, $key = FALSE )
 	{
-		if ( is_int( $field ) )
+		if ( $field instanceof \WP_User )
+			$user = $field;
+
+		else if ( is_int( $field ) )
 			$user = get_user_by( 'id', $field );
 
 		else if ( is_string( $field ) )
@@ -47,7 +50,7 @@ class User extends Core\Base
 		if ( 'none' == $cap || '0' == $cap )
 			return $none;
 
-		if ( ! $logged_in = is_user_logged_in() )
+		if ( ! is_user_logged_in() )
 			return FALSE;
 
 		// pseudo-cap for network users
@@ -59,6 +62,14 @@ class User extends Core\Base
 			return is_user_member_of_blog() || self::isSuperAdmin();
 
 		return current_user_can( $cap );
+	}
+
+	public static function getTitleRow( $user, $fallback = '' )
+	{
+		if ( ! $object = self::user( $user ) )
+			return $fallback;
+
+		return sprintf( '%s (%s)', $object->display_name, $object->user_email );
 	}
 
 	// alt to `is_super_admin()`

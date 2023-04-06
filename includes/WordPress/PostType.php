@@ -21,20 +21,18 @@ class PostType extends Core\Base
 		return get_post_type_object( $posttype_or_post );
 	}
 
-	// TODO: also passing a post
 	public static function viewable( $posttype )
 	{
 		if ( ! $posttype )
-			return $posttype;
+			return FALSE;
 
 		return is_post_type_viewable( $posttype );
 	}
 
-	// TODO: also passing a post
 	public static function viewableStatus( $status )
 	{
 		if ( ! $status )
-			return $status;
+			return FALSE;
 
 		return is_post_status_viewable( $status );
 	}
@@ -49,18 +47,77 @@ class PostType extends Core\Base
 			&& self::viewableStatus( get_post_status( $post ) );
 	}
 
+	/**
+	 * Checks for posttype capability.
+	 *
+	 * If assigned posttype `capability_type` arg:
+	 *
+	 * /// Meta capabilities
+	 * 	[edit_post]   => "edit_{$capability_type}"
+	 * 	[read_post]   => "read_{$capability_type}"
+	 * 	[delete_post] => "delete_{$capability_type}"
+	 *
+	 * /// Primitive capabilities used outside of map_meta_cap():
+	 * 	[edit_posts]             => "edit_{$capability_type}s"
+	 * 	[edit_others_posts]      => "edit_others_{$capability_type}s"
+	 * 	[publish_posts]          => "publish_{$capability_type}s"
+	 * 	[read_private_posts]     => "read_private_{$capability_type}s"
+	 *
+	 * /// Primitive capabilities used within map_meta_cap():
+	 * 	[read]                   => "read",
+	 * 	[delete_posts]           => "delete_{$capability_type}s"
+	 * 	[delete_private_posts]   => "delete_private_{$capability_type}s"
+	 * 	[delete_published_posts] => "delete_published_{$capability_type}s"
+	 * 	[delete_others_posts]    => "delete_others_{$capability_type}s"
+	 * 	[edit_private_posts]     => "edit_private_{$capability_type}s"
+	 * 	[edit_published_posts]   => "edit_published_{$capability_type}s"
+	 * 	[create_posts]           => "edit_{$capability_type}s"
+	 *
+	 * @param  string|object $posttype
+	 * @param  null|string $capability
+	 * @param  null|int|object $user_id
+	 * @return bool $can
+	 */
 	public static function can( $posttype, $capability = 'edit_posts', $user_id = NULL )
 	{
 		if ( is_null( $capability ) )
 			return TRUE;
 
-		$cap = self::object( $posttype )->cap->{$capability};
+		if ( ! $object = self::object( $posttype ) )
+			return FALSE;
+
+		if ( ! isset( $object->cap->{$capability} ) )
+			return FALSE;
 
 		return is_null( $user_id )
-			? current_user_can( $cap )
-			: user_can( $user_id, $cap );
+			? current_user_can( $object->cap->{$capability} )
+			: user_can( $user_id, $object->cap->{$capability} );
 	}
 
+	/**
+	 * Retrieves the list of posttypes.
+	 *
+	 * Argument values for `$args` include:
+	 * 	`public` Boolean: If true, only public post types will be returned.
+	 * 	`publicly_queryable` Boolean
+	 * 	`exclude_from_search` Boolean
+	 * 	`show_ui` Boolean
+	 * 	`capability_type`
+	 * 	`hierarchical`
+	 * 	`menu_position`
+	 * 	`menu_icon`
+	 * 	`permalink_epmask`
+	 *  `rewrite`
+	 * 	`query_var`
+	 *  `show_in_rest` Boolean: If true, will return post types whitelisted for the REST API
+	 * 	`_builtin` Boolean: If true, will return WordPress default post types. Use false to return only custom post types.
+	 *
+	 * @param  int $mod
+	 * @param  array $args
+	 * @param  null|string $capability
+	 * @param  int $user_id
+	 * @return array $list
+	 */
 	public static function get( $mod = 0, $args = [ 'public' => TRUE ], $capability = NULL, $user_id = NULL )
 	{
 		$list = [];
@@ -113,6 +170,7 @@ class PostType extends Core\Base
 	// * 'private' - not visible to users who are not logged in
 	// * 'inherit' - a revision. see get_children.
 	// * 'trash' - post is in trashbin. added with Version 2.9.
+	// FIXME: DEPRECATED
 	public static function getStatuses()
 	{
 		global $wp_post_statuses;

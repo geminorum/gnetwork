@@ -648,8 +648,6 @@ class Taxonomy extends Core\Base
 		return $wpdb->get_var( $query );
 	}
 
-	// @REF: `_get_term_hierarchy()`
-
 	/**
 	 * Retrieves children of taxonomy as term IDs.
 	 * without option save and accepts taxonomy object.
@@ -700,6 +698,36 @@ class Taxonomy extends Core\Base
 			$query.= " AND (TRIM(COALESCE(tt.description, '')) = '') ";
 
 		return $wpdb->get_col( $query );
+	}
+
+	/**
+	 * Retrieves terms with no children.
+	 *
+	 * @param  string|object $taxonomy
+	 * @param  array $extra
+	 * @return array $list
+	 */
+	public static function listChildLessTerms( $taxonomy, $fields = NULL, $extra = [] )
+	{
+		if ( ! $object = self::object( $taxonomy ) )
+			return FALSE;
+
+		$args = array_merge( [
+			'taxonomy'   => $object->name,
+			'hide_empty' => FALSE,
+
+			'fields'  => is_null( $fields ) ? 'id=>name' : $fields,
+			'orderby' => 'none',
+
+			'suppress_filter'        => TRUE,
+			'update_term_meta_cache' => FALSE,
+		], $extra );
+
+		if ( $hierarchy = self::getHierarchy( $object ) )
+			$args['exclude'] = implode( ', ', array_keys( $hierarchy ) );
+
+		$query = new \WP_Term_Query();
+		return $query->query( $args );
 	}
 
 	// NOTE: hits cached terms for the post
