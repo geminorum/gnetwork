@@ -55,7 +55,6 @@ class Taxonomy extends gNetwork\Module
 			'taxonomy_tabs'      => '1',
 			'term_tabs'          => '0',
 			'slug_actions'       => '0',
-			'description_editor' => '0',
 			'description_column' => '1',
 			'search_fields'      => '1',
 		];
@@ -86,11 +85,6 @@ class Taxonomy extends gNetwork\Module
 					'field'       => 'slug_actions',
 					'title'       => _x( 'Slug Actions', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 					'description' => _x( 'Adds slug specific actions on the taxonomy management tools.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'description_editor',
-					'title'       => _x( 'Description Editor', 'Modules: Taxonomy: Settings', 'gnetwork' ),
-					'description' => _x( 'Replaces the term description editor with the WordPress TinyMCE editor.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'description_column',
@@ -126,22 +120,6 @@ class Taxonomy extends gNetwork\Module
 				return $classes.' gnetowrk-taxonomy';
 			} );
 
-			if ( $this->options['description_editor']
-				&& current_user_can( 'publish_posts' ) ) {
-
-				// remove the filters which disallow HTML in term descriptions
-				remove_filter( 'pre_term_description', 'wp_filter_kses' );
-				remove_filter( 'term_description', 'wp_kses_data' );
-
-				// add filters to disallow unsafe HTML tags
-				if ( ! current_user_can( 'unfiltered_html' ) ) {
-					add_filter( 'pre_term_description', 'wp_kses_post' );
-					add_filter( 'term_description', 'wp_kses_post' );
-				}
-
-				Scripts::enqueueScript( 'admin.taxonomy.wordcount', [ 'jquery', 'word-count', 'underscore' ] );
-			}
-
 			if ( $this->options['management_tools'] )
 				$this->management_tools( $screen );
 
@@ -149,9 +127,6 @@ class Taxonomy extends gNetwork\Module
 				$this->taxonomy_tabs( $screen );
 
 			if ( 'edit-tags' == $screen->base ) {
-
-				if ( $this->options['description_editor'] )
-					add_action( $screen->taxonomy.'_add_form_fields', [ $this, 'add_form_fields_editor' ], 1, 1 );
 
 				if ( $this->options['description_column'] ) {
 					add_filter( 'manage_edit-'.$screen->taxonomy.'_columns', [ $this, 'manage_edit_columns' ], 5 );
@@ -167,9 +142,6 @@ class Taxonomy extends gNetwork\Module
 				add_action( 'after-'.$screen->taxonomy.'-table', [ $this, 'render_info_default_term' ], 12 );
 
 			} else if ( 'term' == $screen->base ) {
-
-				if ( $this->options['description_editor'] )
-					add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_editor' ], 1, 2 );
 
 				if ( $this->options['term_tabs'] )
 					$this->term_tabs( $screen );
@@ -1099,91 +1071,6 @@ class Taxonomy extends gNetwork\Module
 		HTML::desc( sprintf( _x( 'The default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
 
 		return TRUE;
-	}
-
-	public function edit_form_fields_editor( $tag, $taxonomy )
-	{
-		$settings = [
-			'textarea_name'  => 'description',
-			'textarea_rows'  => 10,
-			'default_editor' => 'html',
-			'editor_class'   => 'editor-status-counts i18n-multilingual', // qtranslate-x
-			'quicktags'      => [ 'buttons' => 'link,em,strong,li,ul,ol,code' ],
-			'tinymce'        => [
-				'toolbar1' => 'bold,italic,alignleft,aligncenter,alignright,link,undo,redo',
-				'toolbar2' => '',
-				'toolbar3' => '',
-				'toolbar4' => '',
-			],
-		];
-
-		echo '<tr class="form-field term-description-wrap -wordcount-wrap">';
-			echo '<th scope="row" valign="top"><label for="html-tag-description">';
-				_ex( 'Description', 'Modules: Taxonomy', 'gnetwork' );
-			echo '</label></th><td>';
-
-			wp_editor( htmlspecialchars_decode( $tag->description ), 'html-tag-description', $settings );
-
-			$this->editor_status_info();
-
-			HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', 'gnetwork' ) );
-			HTML::wrapScript( 'jQuery("textarea#description").closest(".form-field").remove();' );
-
-		echo '</tr>';
-	}
-
-	public function add_form_fields_editor( $taxonomy )
-	{
-		$object   = WPTaxonomy::object( $taxonomy );
-		$settings = [
-			'textarea_name'  => 'description',
-			'textarea_rows'  => 7,
-			'teeny'          => TRUE,
-			'media_buttons'  => FALSE,
-			'default_editor' => 'html',
-			'editor_class'   => 'editor-status-counts i18n-multilingual', // qtranslate-x
-			'quicktags'      => [ 'buttons' => 'link,em,strong,li,ul,ol,code' ],
-			'tinymce'        => [
-				'toolbar1' => 'bold,italic,alignleft,aligncenter,alignright,link,undo,redo',
-				'toolbar2' => '',
-				'toolbar3' => '',
-				'toolbar4' => '',
-			],
-		];
-
-		echo '<div class="form-field term-description-wrap -wordcount-wrap">';
-
-			echo '<label for="html-tag-description">';
-				_ex( 'Description', 'Modules: Taxonomy', 'gnetwork' );
-			echo '</label>';
-
-			wp_editor( '', 'html-tag-description', $settings );
-
-			$this->editor_status_info();
-
-			if ( empty( $object->labels->desc_field_description ) )
-				HTML::desc( _x( 'The description is not prominent by default; however, some themes may show it.', 'Modules: Taxonomy', 'gnetwork' ) );
-
-			else
-				HTML::desc( $object->labels->desc_field_description );
-
-			HTML::wrapScript( 'jQuery("textarea#tag-description").closest(".form-field").remove();' );
-			HTML::wrapjQueryReady( '$("#addtag").on("mousedown","#submit",function(){tinyMCE.triggerSave();$(document).on("ajaxSuccess.gnetwork_add_term",function(){if(tinyMCE.activeEditor){tinyMCE.activeEditor.setContent("");}$(document).off("ajaxSuccess.gnetwork_add_term",false);});});' );
-
-		echo '</div>';
-	}
-
-	private function editor_status_info( $target = 'html-tag-description' )
-	{
-		$html = '<div id="description-editor-counts" class="-wordcount hide-if-no-js" data-target="'.$target.'">';
-		/* translators: %s: number of words */
-		$html.= sprintf( _x( 'Words: %s', 'Modules: Taxonomy', 'gnetwork' ), '<span class="word-count">'.Number::format( '0' ).'</span>' );
-		$html.= ' | ';
-		/* translators: %s: number of chars */
-		$html.= sprintf( _x( 'Chars: %s', 'Modules: Taxonomy', 'gnetwork' ), '<span class="char-count">'.Number::format( '0' ).'</span>' );
-		$html.= '</div>';
-
-		echo HTML::wrap( $html, '-editor-status-info' );
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
