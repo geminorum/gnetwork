@@ -29,14 +29,6 @@ class PostType extends Core\Base
 		return is_post_type_viewable( $posttype );
 	}
 
-	public static function viewableStatus( $status )
-	{
-		if ( ! $status )
-			return FALSE;
-
-		return is_post_status_viewable( $status );
-	}
-
 	// @REF: `is_post_publicly_viewable()` @since WP5.7.0
 	public static function viewablePost( $post )
 	{
@@ -44,7 +36,7 @@ class PostType extends Core\Base
 			return FALSE;
 
 		return self::viewable( $post->post_type )
-			&& self::viewableStatus( get_post_status( $post ) );
+			&& Status::viewable( get_post_status( $post ) );
 	}
 
 	/**

@@ -189,9 +189,11 @@ class Text extends Base
 
 	// removes paragraph from around images
 	// @SOURCE: https://css-tricks.com/?p=15293
-	public static function noImageP( $text )
+	public static function replaceImageP( $string, $tag = 'figure' )
 	{
-		return preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $text );
+		return $tag && trim( $tag )
+			? preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', sprintf( '<%s>\1\2\3</%s>', $tag, $tag ), $string )
+			: preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $string );
 	}
 
 	// like wp but without check for func_overload
