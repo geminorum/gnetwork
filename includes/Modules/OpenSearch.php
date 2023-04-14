@@ -193,8 +193,8 @@ class OpenSearch extends gNetwork\Module
 	public function init_late()
 	{
 		add_rewrite_tag( "%{$this->key}%", '([^&]+)' );
-		add_rewrite_rule( 'osd\.xml$', sprintf( 'index.php?%s=description', $this->key ), 'top' );
-		add_rewrite_rule( 'oss\.json$', sprintf( 'index.php?%s=suggestions', $this->key ), 'top' );
+		add_rewrite_rule( '^osd\.xml?$', sprintf( 'index.php?%s=description', $this->key ), 'top' );
+		add_rewrite_rule( '^oss\.json?$', sprintf( 'index.php?%s=suggestions', $this->key ), 'top' );
 	}
 
 	public function template_redirect()

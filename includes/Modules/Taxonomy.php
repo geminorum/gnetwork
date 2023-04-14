@@ -598,6 +598,7 @@ class Taxonomy extends gNetwork\Module
 		if ( ! $object = WPTaxonomy::object( $taxonomy ) )
 			return FALSE;
 
+		// TODO: exclude terms with `protected_empty` meta
 		$term_ids  = WPTaxonomy::getEmptyTermIDs( $object->name, $check_description );
 		$default   = WPTaxonomy::getDefaultTermID( $object->name );
 		$hierarchy = WPTaxonomy::getHierarchy( $object );
@@ -623,6 +624,7 @@ class Taxonomy extends gNetwork\Module
 		if ( ! $object = WPTaxonomy::object( $taxonomy ) )
 			return FALSE;
 
+		// TODO: exclude terms with `protected_empty` meta
 		$term_ids = WPTaxonomy::getEmptyTermIDs( $object->name, $check_description, 1, 1 );
 		$default  = WPTaxonomy::getDefaultTermID( $object->name );
 		$children = WPTaxonomy::getHierarchy( $object );
@@ -721,6 +723,8 @@ class Taxonomy extends gNetwork\Module
 
 			if ( $deleted && ! is_wp_error( $deleted ) )
 				$count++;
+
+			// TODO: must fire action hook wi compelete data!
 		}
 
 		return $count;

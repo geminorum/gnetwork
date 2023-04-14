@@ -48,7 +48,7 @@ class Search extends gNetwork\Module
 			$this->filter( 'wp_query_search_exclusion_prefix' );
 
 		if ( ! empty( $this->options['search_columns'] ) )
-			$this->filter( 'post_search_columns' );
+			$this->filter( 'post_search_columns', 3, 9 );
 
 		$this->filter( 'get_search_form' );
 	}
