@@ -411,10 +411,11 @@ class Taxonomy extends gNetwork\Module
 
 	private function taxonomy_tabs( $screen )
 	{
-		if ( 'edit-tags' != $screen->base )
+		if ( 'edit-tags' != $screen->base || empty( $screen->taxonomy ) )
 			return FALSE;
 
-		$object = get_taxonomy( $screen->taxonomy );
+		if ( ! $object = get_taxonomy( $screen->taxonomy ) )
+			return FALSE;
 
 		if ( ! current_user_can( $object->cap->manage_terms ) )
 			return FALSE;

@@ -470,6 +470,9 @@ class Locale extends gNetwork\Module
 			'litespeed-toolbox'   => 'page',
 			'litespeed-cdn'       => 'page',
 
+			// [Performance Lab](https://wordpress.org/plugins/performance-lab/)
+			'perflab-modules' => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );

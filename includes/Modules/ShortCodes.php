@@ -1634,7 +1634,7 @@ class ShortCodes extends gNetwork\Module
 		if ( empty( $toc ) || count( $toc ) < 2 )
 			return $toc;
 
-		if ( ! $this->ref_list )
+		if ( count( $this->ref_ids ) )
 			$toc[] = $this->filters( 'reflist_toc', [
 				'slug'  => 'references',
 				'title' => _x( 'References', 'Shortcodes Module: Defaults', 'gnetwork' ),

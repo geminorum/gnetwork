@@ -486,13 +486,16 @@ class Blog extends gNetwork\Module
 				return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
 			} );
 
-			// strip out any URLs referencing the WordPress.org emoji location
 			add_filter( 'wp_resource_hints', static function( $urls, $relation_type ) {
 
-				if ( 'dns-prefetch' != $relation_type )
+				if ( 'dns-prefetch' !== $relation_type )
 					return $urls;
 
+				if ( $filtred = apply_filters( 'emoji_svg_url', FALSE ) )
+					$urls = array_diff( $urls, [ $filtred ] );
+
 				foreach ( $urls as $key => $url )
+					// strip out any URLs referencing the WordPress.org emoji location
 					if ( Text::has( $url, 'https://s.w.org/images/core/emoji/' ) )
 						unset( $urls[$key] );
 
