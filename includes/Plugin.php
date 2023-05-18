@@ -119,6 +119,7 @@ class Plugin extends Base
 			'User',
 			'Rest',
 			// 'API',
+			'Optimize',
 			'AdminBar',
 			'NotFound',
 			'Dashboard',

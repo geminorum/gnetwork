@@ -63,8 +63,6 @@ class Themes extends gNetwork\Module
 			$this->filter( 'body_class', 2, 5 );
 			$this->filter( 'post_class', 3, 5 );
 
-			add_filter( 'the_generator', '__return_null', 98 );
-
 			// FIXME: WORKING but for front-end, needs custom styles within this plugin
 			// $this->filter_true( 'sensei_disable_styles' );
 		}
