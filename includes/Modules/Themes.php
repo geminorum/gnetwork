@@ -4,10 +4,8 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Scripts;
-use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
 
 class Themes extends gNetwork\Module
 {
@@ -37,14 +35,7 @@ class Themes extends gNetwork\Module
 				require_once GNETWORK_DIR.'includes/Misc/ThemesPluggable.php';
 		}
 
-		if ( is_admin() ) {
-
-			$this->action( 'wp_default_scripts', 1, 12, 'admin' );
-
-		} else {
-
-			if ( ! SCRIPT_DEBUG && ( $this->options['jquery_cdn'] || $this->options['jquery_latest'] ) )
-				$this->filter( 'wp_resource_hints', 2 );
+		if ( ! is_admin() ) {
 
 			if ( $this->options['header_code'] && $this->options['header_html'] )
 				$this->action( 'wp_head', 0, 9999, 'html' );
@@ -54,8 +45,6 @@ class Themes extends gNetwork\Module
 
 			$this->filter( 'amp_post_template_data', 2 );
 			$this->action( 'amp_post_template_css' );
-
-			$this->action( 'wp_default_scripts', 1, 12, 'front' );
 
 			if ( $this->options['content_actions'] )
 				$this->filter( 'the_content', 1, 999 );
@@ -84,9 +73,6 @@ class Themes extends gNetwork\Module
 			'content_actions' => '0',
 			'hidden_title'    => '0',
 			'body_class'      => GNETWORK_BODY_CLASS,
-			'jquery_cdn'      => '0',
-			'jquery_latest'   => '0',
-			'jquery_bottom'   => '0',
 			'header_code'     => '0',
 			'header_html'     => '',
 			'footer_code'     => '0',
@@ -125,24 +111,6 @@ class Themes extends gNetwork\Module
 					'default'     => GNETWORK_BODY_CLASS,
 				],
 			],
-			'_scripts' => [
-				[
-					'field'       => 'jquery_cdn',
-					'title'       => _x( 'jQuery from CDN', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Replace WordPress jQuery with CDN.', 'Modules: Themes: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon( 'https://code.jquery.com' ),
-				],
-				[
-					'field'       => 'jquery_latest',
-					'title'       => _x( 'jQuery Latest', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Replace WordPress jQuery with the latest version from CDN.', 'Modules: Themes: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'jquery_bottom',
-					'title'       => _x( 'jQuery on Bottom', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Prints jQuery in footer on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
-				],
-			],
 			'_insert' => [
 				[
 					'field'       => 'header_code',
@@ -170,24 +138,6 @@ class Themes extends gNetwork\Module
 		];
 
 		return $settings;
-	}
-
-	public function settings_sidebox( $sub, $uri )
-	{
-		echo self::summaryjQuery();
-	}
-
-	public static function summaryjQuery( $caption = FALSE )
-	{
-		$latest = self::getjQueryVersions( TRUE );
-		$core   = self::getjQueryVersions( FALSE );
-
-		return HTML::tableCode( [
-			_x( 'Latest jQuery Stable',   'Modules: Themes: jQuery', 'gnetwork' ) => $latest[0],
-			_x( 'Latest jQuery Migrate',  'Modules: Themes: jQuery', 'gnetwork' ) => $latest[1],
-			_x( 'WordPress jQuery Stable',  'Modules: Themes: jQuery', 'gnetwork' ) => $core[0],
-			_x( 'WordPress jQuery Migrate', 'Modules: Themes: jQuery', 'gnetwork' ) => $core[1],
-		], FALSE, $caption );
 	}
 
 	protected function settings_setup( $sub = NULL )
@@ -235,69 +185,6 @@ class Themes extends gNetwork\Module
 			echo ' /> '._x( 'Hide Title on Front-end', 'Modules: Themes', 'gnetwork' );
 
 		echo '</label></div>';
-	}
-
-	public function wp_default_scripts_admin( &$scripts )
-	{
-		if ( empty( $scripts->registered['jquery'] ) )
-			return;
-
-		if ( defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) && ! GNETWORK_DISABLE_JQUERY_MIGRATE )
-			return;
-
-		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, [ 'jquery-migrate' ] );
-	}
-
-	public function wp_default_scripts_front( &$scripts )
-	{
-		if ( SCRIPT_DEBUG )
-			return;
-
-		$bottom  = $this->options['jquery_bottom'] ? 1 : NULL;
-		$disable = ( ! defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) || GNETWORK_DISABLE_JQUERY_MIGRATE );
-		$remote  = $this->options['jquery_cdn'] || $this->options['jquery_latest'];
-
-		if ( ! $bottom && ! $disable && ! $remote )
-			return;
-
-		list( $jquery_ver, $migrate_ver ) = self::getjQueryVersions( $this->options['jquery_latest'] );
-
-		$jquery_url = $remote
-			? sprintf( 'https://code.jquery.com/jquery-%s.min.js', $jquery_ver )
-			: includes_url( 'js/jquery/jquery.js' );
-
-		$migrate_url = $remote
-			? sprintf( 'https://code.jquery.com/jquery-migrate-%s.min.js', $migrate_ver )
-			: includes_url( 'js/jquery/jquery-migrate.min.js' );
-
-		$scripts->remove( [ 'jquery', 'jquery-core', 'jquery-migrate' ] );
-		$scripts->add( 'jquery-core', $jquery_url, FALSE, ( $remote ? NULL : $jquery_ver ), $bottom );
-
-		$deps = [ 'jquery-core' ];
-
-		if ( ! $disable ) {
-			$scripts->add( 'jquery-migrate', $migrate_url, FALSE, ( $remote ? NULL : $migrate_ver ), $bottom );
-			$deps[] = 'jquery-migrate';
-		}
-
-		$scripts->add( 'jquery', FALSE, $deps, ( $remote ? NULL : $jquery_ver ), $bottom );
-	}
-
-	// 2023-05-12 21:41:40
-	// 6.3-alpha-55505-src
-	// NOTE: latest & core versions can be equal
-	private static function getjQueryVersions( $latest = FALSE )
-	{
-		return $latest
-			? [ '3.7.0', '3.4.1' ]
-			: [ '3.6.4', '3.4.0' ];
-	}
-
-	public function wp_resource_hints(  $urls, $relation_type )
-	{
-		return in_array( $relation_type, [ 'preconnect', 'dns-prefetch' ], TRUE )
-			? array_merge( $urls, [ 'href' =>'https://code.jquery.com/', 'crossorigin' ] )
-			: $urls;
 	}
 
 	public function wp_head_html()
