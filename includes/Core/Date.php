@@ -521,4 +521,35 @@ class Date extends Base
 		echo "current_time( 'timestamp' ) returns local site time: ".date( 'Y-m-d H:i:s', current_time( 'timestamp' ) ).'<br />';
 		echo "current_time( 'timestamp', TRUE ) returns GMT: ".date( 'Y-m-d H:i:s', current_time( 'timestamp', TRUE ) ).'<br />';
 	}
+
+
+	/**
+	 * Retrieves today's mid-night local time
+	 *
+	 * @example `wp_schedule_event( Date::midnight() + 5 * MINUTES_IN_SECONDS, 'daily', $callback );`
+	 * @source https://www.plumislandmedia.net/programming/php/midnight-local-time-in-wordpress-friendly-php/
+	 *
+	 * @return int $timestamp
+	 */
+	public static function midnight()
+	{
+		try {
+
+			// get a DateTimeZone object for WordPress's instance timezone option
+			$zone = new \DateTimeZone( self::currentTimeZone() );
+
+			// get a DateTimeImmutable object for 'today', meaning the midnight
+			$time = new \DateTimeImmutable( 'today', $zone );
+
+			// convert it to a timestamp
+			return $time->getTimestamp();
+
+		} catch ( \Exception $ex ) {
+
+			// if something went wrong with the above, return midnight UTC
+			$time = time();
+
+			return $time - ( $time % self::DAY_IN_SECONDS );
+		}
+	}
 }

@@ -57,9 +57,11 @@ class Text extends Base
 		// messes with zwnj
 		// $text = self::stripPunctuation( $text );
 
+		$text = str_replace( [ '%20', '+' ], '-', $text );
+		$text = preg_replace( '/[\r\n\t -]+/', '-', $text );
 		$text = preg_replace( '/\.{2,}/', '.', $text );
 		$text = preg_replace( '/-{2,}/', '-', $text );
-		$text = trim( $text, '-.' );
+		$text = trim( $text, '.-_' );
 
 		return $text;
 	}
@@ -267,9 +269,10 @@ class Text extends Base
 			: $text;
 	}
 
+	// @SEE: `str_contains()` @since PHP 8.0.0
 	public static function has( $haystack, $needles, $operator = 'OR' )
 	{
-		if ( ! $haystack )
+		if ( ! $haystack || empty( $needles ) )
 			return FALSE;
 
 		if ( ! is_array( $needles ) )
@@ -292,7 +295,8 @@ class Text extends Base
 		return $has;
 	}
 
-	public static function start( $haystack, $needles )
+	// @REF: `str_starts_with()` @since PHP 8.0.0
+	public static function starts( $haystack, $needles )
 	{
 		if ( ! $haystack )
 			return FALSE;
@@ -307,6 +311,7 @@ class Text extends Base
 		return FALSE;
 	}
 
+	// @REF: `str_ends_with()` @since PHP 8.0.0
 	public static function ends( $haystack, $needles )
 	{
 		if ( ! $haystack )
@@ -474,7 +479,7 @@ class Text extends Base
 		$title = preg_replace( $pattern, '', $title );
 
 		// find each word (including punctuation attached)
-		preg_match_all( '/[\w\p{L}&`\'‘’"“\.@:\/\{\(\[<>_]+-? */u', $title, $m1, PREG_OFFSET_CAPTURE );
+		preg_match_all( '/[\w\p{L}&`\'‘’"“\.@:\/\{\(\[<>_]+\-? */u', $title, $m1, PREG_OFFSET_CAPTURE );
 
 		foreach ( $m1[0] as &$m2 ) {
 

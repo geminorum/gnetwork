@@ -40,6 +40,34 @@ class PostType extends Core\Base
 	}
 
 	/**
+	 * Retrieves post data given a post ID or post object.
+	 *
+	 * simplified `get_post()`
+	 *
+	 * @param  null|int|object $post
+	 * @param  string $output
+	 * @param  string $filter
+	 * @return object $post
+	 */
+	public static function getPost( $post = NULL, $output = OBJECT, $filter = 'raw' )
+	{
+		if ( $post instanceof \WP_Post )
+			return $post;
+
+		// handling dummy posts!
+		if ( '-9999' == $post )
+			$post = NULL;
+
+		if ( $_post = get_post( $post, $output, $filter ) )
+			return $_post;
+
+		if ( is_null( $post ) && is_admin() && ( $query = self::req( 'post' ) ) )
+			return get_post( $query, $output, $filter );
+
+		return NULL;
+	}
+
+	/**
 	 * Checks for posttype capability.
 	 *
 	 * If assigned posttype `capability_type` arg:

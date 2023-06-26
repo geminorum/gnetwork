@@ -94,7 +94,7 @@ class HTML extends Base
 
 		$tag = $block ? 'p' : 'span';
 
-		if ( Text::start( $string, [ '<ul', '<ol', '<h3', '<h4', '<h5', '<h6' ] ) )
+		if ( Text::starts( $string, [ '<ul', '<ol', '<h3', '<h4', '<h5', '<h6' ] ) )
 			$tag = 'div';
 
 		echo '<'.$tag.' class="'.self::prepClass( 'description', '-description', $class ).'">'
@@ -497,6 +497,66 @@ class HTML extends Base
 			$value = nl2br( trim( $value ) );
 
 		return $value;
+	}
+
+	public static function tableDouble( $data, $columns = [], $verbose = TRUE, $class = '' )
+	{
+		$html = '<table class="'.self::prepClass( 'base-table-double', $class ).'">';
+
+		foreach ( $data as $key => $value )
+			$html.= vsprintf( '<tr data-key="%s"><td>%s</td><td>%s</td></tr>', [
+				self::escape( $key ),
+				array_key_exists( $key, (array) $columns ) ? $columns[$key] : $key,
+				$value,
+			] );
+
+		$html.= '</table>';
+
+		if ( ! $verbose )
+			return $html;
+
+		echo $html;
+		return TRUE;
+	}
+
+	public static function tableSimple( $data, $columns = [], $verbose = TRUE, $class = '' )
+	{
+		$html = '<table class="'.self::prepClass( 'base-table-simple', $class ).'">';
+
+		if ( $columns && count( $columns ) ) {
+
+			$html.= '<thead><tr>';
+
+			foreach ( $columns as $column_key => $column_caption )
+				$html.= sprintf( '<th data-key="%s">%s</th>', self::escape( $column_key ), $column_caption );
+
+			$html.= '</tr></thead><tbody>';
+
+			foreach ( $data as $id => $row ) {
+
+				$html.= sprintf( '<tr data-key="%s">', $id );
+
+				foreach ( $columns as $column_key => $column_caption )
+					$html.= sprintf( '<td>%s</td>', trim( $row[$column_key] ) );
+
+				$html.= '</tr>';
+			}
+
+		} else {
+
+			$html.= '<tbody>';
+
+			foreach ( $data as $row )
+				$html.= '<tr><td>'.implode( '</td><td>', $row ).'</td></tr>';
+		}
+
+		$html.= '</tbody></table>';
+
+		if ( ! $verbose )
+			return $html;
+
+		echo $html;
+		return TRUE;
 	}
 
 	// FIXME: WTF: not wrapping the child table!!

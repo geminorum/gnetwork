@@ -448,7 +448,7 @@ class File extends Base
 		if ( $prefix )
 			$name.= $prefix.'-';
 
-		$name.= WordPress::currentSiteName().'-'.current_time( 'Y-m-d' );
+		$name.= WordPress::currentSiteName().'-'.wp_date( 'Y-m-d' );
 
 		if ( $suffix )
 			$name.= '-'.$suffix;

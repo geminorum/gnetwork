@@ -205,6 +205,7 @@ class Arraay extends Base
 	}
 
 	// @REF: https://stackoverflow.com/a/34575007
+	// @SEE: `wp_array_slice_assoc()`
 	public static function keepByKeys( $array, $keys )
 	{
 		return array_intersect_key( $array, array_flip( $keys ) );
@@ -544,5 +545,141 @@ class Arraay extends Base
 				$array[$item->{$key}] = $item->{$value};
 
 		return $array;
+	}
+
+	// @SOURCE: https://www.php.net/manual/en/function.array-intersect.php#69762
+	public static function union( $a, $b )
+	{
+                                        //  $a = 1 2 3 4
+		return                          //  $b =   2   4 5 6
+		array_merge(
+			array_intersect( $a, $b ),  //         2   4
+			array_diff( $a, $b ),       //       1   3
+			array_diff( $b, $a )        //               5 6
+		);                              //  $u = 1 2 3 4 5 6
+	}
+
+	/**
+	 * Retrieves duplicate values of an array.
+	 * @source https://stackoverflow.com/a/3450063
+	 *
+	 * @param  array $array
+	 * @return array $duplicates
+	 */
+	public static function duplicates( $array )
+	{
+		return \array_diff_assoc( $array, \array_unique( $array ) );
+	}
+
+	/**
+	 * Converts an object into assoc array.
+	 *
+	 * @source https://stackoverflow.com/a/4345578
+	 *
+	 * @param  object $object
+	 * @return array $array
+	 */
+	public static function fromObject( $object )
+	{
+		if ( \is_array( $object ) || \is_object( $object ) ) {
+
+			$array = [];
+
+			foreach ( $object as $key => $value )
+				$array[$key] = ( \is_array( $value ) || \is_object( $value ) ) ? self::fromObject( $value ) : $value;
+
+			return $array;
+		}
+
+		return $object;
+	}
+
+	/**
+	 * Converts an object into assoc array.
+	 *
+	 * @source https://stackoverflow.com/a/16111687
+	 *
+	 * @param  object $object
+	 * @return array $array
+	 */
+	public static function fromObject_ALT( $object )
+	{
+		return \json_decode( \json_encode( $object ), TRUE );
+	}
+
+	/**
+	 * Flips an array and group the elements by value.
+	 * @source https://www.php.net/manual/en/function.array-combine.php#116714
+	 *
+	 * @param  array $array
+	 * @return array $grouped
+	 */
+	public static function flipAndGroup( $array )
+	{
+		$grouped = [];
+
+		\array_walk( $array, function( $value, $key ) use ( &$grouped ) {
+			if ( ! isset( $grouped[$value] ) || ! is_array( $grouped[$value] ) )
+				$grouped[$value] = [];
+			$grouped[$value][] = $key;
+		} );
+
+		return $grouped;
+	}
+
+	/**
+	 * Handles combine from unequal arrays.
+	 * @source https://www.php.net/manual/en/function.array-combine.php#106318
+	 *
+	 * @param  array $keys
+	 * @param  array $values
+	 * @param  bool  $pad
+	 * @return array $combined
+	 */
+	public static function combine( $keys, $values, $pad = TRUE )
+	{
+		if ( empty( $keys ) && empty( $values ) )
+			return [];
+
+		$acount = count( $keys );
+		$bcount = count( $values );
+
+		if ( $acount === $bcount ) {
+
+			// regular combine works
+
+		} else if ( ! $pad ) {
+
+			// more elements in $keys than $values
+			// but we don't want to pad either
+
+			$size   = $acount > $bcount ? $bcount : $acount;
+			$keys   = array_slice( $keys, 0, $size );
+			$values = array_slice( $values, 0, $size );
+
+		} else {
+
+			// more keys than values fields
+			if ( $acount > $bcount ) {
+
+				// how many fields are we missing at the end of the values array?
+				// add empty strings to ensure arrays $keys and $values have same number of elements
+				$more = $acount - $bcount;
+
+				for ( $i = 0; $i < $more; $i++ )
+					$values[] = '';
+
+			// more values than keys
+			} else if ( $acount < $bcount ) {
+
+				// fewer elements in the first array, add extra keys
+				$more = $bcount - $acount;
+
+				for ( $i = 0; $i < $more; $i++ )
+					$keys[] = $acount + $i;
+			}
+		}
+
+		return array_combine( $keys, $values );
 	}
 }
