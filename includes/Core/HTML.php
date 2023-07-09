@@ -537,7 +537,7 @@ class HTML extends Base
 				$html.= sprintf( '<tr data-key="%s">', $id );
 
 				foreach ( $columns as $column_key => $column_caption )
-					$html.= sprintf( '<td>%s</td>', trim( $row[$column_key] ) );
+					$html.= sprintf( '<td data-key="%s">%s</td>', $column_key, trim( $row[$column_key] ) );
 
 				$html.= '</tr>';
 			}

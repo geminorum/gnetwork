@@ -441,6 +441,13 @@ class File extends Base
 		exit;
 	}
 
+	public static function requireData( $path, $fallback = FALSE )
+	{
+		return is_readable( $path )
+			? require( $path )
+			: $fallback;
+	}
+
 	public static function prepName( $suffix = NULL, $prefix = NULL )
 	{
 		$name = '';

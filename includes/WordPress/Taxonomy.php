@@ -784,8 +784,13 @@ class Taxonomy extends Core\Base
 
 		if ( ! $term_or_id ) {
 
-			if ( is_admin() )
+			if ( is_admin() ) {
+
+				if ( is_null( $term_or_id ) && ( $query = self::req( 'tag_ID' ) ) )
+					return self::get( (int) $query, $taxonomy );
+
 				return FALSE;
+			}
 
 			if ( 'category' == $taxonomy && ! is_category() )
 				return FALSE;

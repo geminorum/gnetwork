@@ -195,19 +195,28 @@ class Arraay extends Base
 	// @REF: http://stackoverflow.com/a/11026840#comment44080768_11026840
 	public static function stripByValue( $array, $value )
 	{
+		if ( empty( $array ) || empty( $value ) )
+			return $array;
+
 		return array_diff_key( $array, array_flip( array_keys( $array, $value ) ) );
 	}
 
 	//@RF: https://stackoverflow.com/a/11026840
 	public static function stripByKeys( $array, $keys )
 	{
-		return empty( $keys ) ? $array : array_diff_key( $array, array_flip( $keys ) );
+		if ( empty( $array ) || empty( $keys ) )
+			return $array;
+
+		return array_diff_key( $array, array_flip( $keys ) );
 	}
 
 	// @REF: https://stackoverflow.com/a/34575007
 	// @SEE: `wp_array_slice_assoc()`
 	public static function keepByKeys( $array, $keys )
 	{
+		if ( empty( $array ) || empty( $keys ) )
+			return $array;
+
 		return array_intersect_key( $array, array_flip( $keys ) );
 	}
 
@@ -569,6 +578,30 @@ class Arraay extends Base
 	public static function duplicates( $array )
 	{
 		return \array_diff_assoc( $array, \array_unique( $array ) );
+	}
+
+	/**
+	 * Prepears list of objects with provided keys.
+	 *
+	 * @param  array $array
+	 * @param  string $index_key
+	 * @param  string $value_key
+	 * @return array $list
+	 */
+	public static function toObjectForJS( $array, $index_key = 'code', $value_key = 'label' )
+	{
+		if ( empty( $array ) )
+			return $array;
+
+		$list = [];
+
+		foreach ( $array as $index => $value )
+			$list[] = (object) [
+				$index_key => $index,
+				$value_key => $value,
+			];
+
+		return $list;
 	}
 
 	/**
