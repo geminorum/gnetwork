@@ -41,6 +41,9 @@ class OutputterCurrentObject extends \QM_Output_Html
 		if ( ! empty( $data['taxonomies'] ) )
 			HTML::tableSide( $data['taxonomies'], TRUE, HTML::tag( 'h2', _x( 'Current Object Taxonomies', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
 
+		if ( ! empty( $data['comments'] ) )
+			HTML::tableSide( $data['comments'], TRUE, HTML::tag( 'h2', _x( 'Current Object Comments', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
+
 		// $this->after_non_tabular_output();
 		$this->after_tabular_output();
 	}

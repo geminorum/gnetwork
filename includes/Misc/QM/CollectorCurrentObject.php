@@ -2,8 +2,7 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\HTML;
-
+#[\AllowDynamicProperties]
 class CollectorCurrentObject extends \QM_Collector
 {
 
@@ -31,6 +30,7 @@ class CollectorCurrentObject extends \QM_Collector
 				$this->data['object']     = get_post( $_GET['post'] );
 				$this->data['meta']       = get_post_meta( $_GET['post'] );
 				$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object'], $_GET['post'] );
+				$this->data['comments']   = $this->_get_obejct_comments( $_GET['post'] );
 
 			} else if ( 'term' == $screen->base ) {
 
@@ -95,6 +95,7 @@ class CollectorCurrentObject extends \QM_Collector
 			$this->data['object']     = $post;
 			$this->data['meta']       = get_post_meta( $post->ID );
 			$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object'], $post->ID );
+			$this->data['comments']   = $this->_get_obejct_comments( $post->ID );
 
 		} else if ( ! empty( $_GET['post'] ) ) {
 
@@ -102,6 +103,7 @@ class CollectorCurrentObject extends \QM_Collector
 			$this->data['object']     = get_post( $_GET['post'] );
 			$this->data['meta']       = get_post_meta( $_GET['post'] );
 			$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object'], $_GET['post'] );
+			$this->data['comments']   = $this->_get_obejct_comments( $_GET['post'] );
 		}
 	}
 
@@ -113,5 +115,26 @@ class CollectorCurrentObject extends \QM_Collector
 			$list[$taxonomy] = get_the_terms( $id, $taxonomy );
 
 		return $list;
+	}
+
+	private function _get_obejct_comments( $id )
+	{
+		$args = [
+			'post_id'   => $id,
+			'post_type' => 'any',
+			'status'    => 'any',
+			'type'      => '',
+			'fields'    => '',
+			'number'    => '',
+			// 'order'     => 'ASC',
+
+			'update_comment_meta_cache' => TRUE,
+			'update_comment_post_cache' => FALSE,
+		];
+
+		$query = new \WP_Comment_Query;
+		$items = $query->query( $args );
+
+		return $items;
 	}
 }
