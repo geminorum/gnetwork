@@ -8,10 +8,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-04-01 08:16+0330\n"
+"PO-Revision-Date: 2023-05-25 18:10+0330\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-Basepath: ../../../../..\n"
 "X-Poedit-Bookmarks: 298,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
@@ -64,7 +64,7 @@ msgstr "ادامه"
 #: wp-admin/media-new.php:62
 #: wp-admin/media.php:98
 #: wp-admin/my-sites.php:53
-#: wp-admin/nav-menus.php:687
+#: wp-admin/nav-menus.php:690
 #: wp-admin/options-discussion.php:33
 #: wp-admin/options-general.php:61
 #: wp-admin/options-media.php:42
@@ -95,7 +95,7 @@ msgstr ""
 
 #: wp-admin/widgets-form.php:71
 msgid "<a href=\"https://wordpress.org/documentation/article/appearance-widgets-screen-classic-editor/\">Documentation on Widgets</a>"
-msgstr ""
+msgstr "<a href=\"https://wordpress.org/documentation/article/appearance-widgets-screen-classic-editor/\">اطلاعات بیشتر درباره ابزارک‌ها</a>"
 
 #: wp-admin/users.php:63
 msgid "<strong>View</strong> takes you to a public author archive which lists all the posts published by the user."
@@ -115,11 +115,11 @@ msgstr ""
 #: wp-admin/update-core.php:1011
 #: wp-admin/network/themes.php:319
 msgid "<a href=\"https://wordpress.org/documentation/article/plugins-themes-auto-updates/\">Documentation on Auto-updates</a>"
-msgstr ""
+msgstr "<a href=\"https://wordpress.org/documentation/article/plugins-themes-auto-updates/\">اطلاعات بیشتر درباره به‌روزرسانی‌های خودکار</a>"
 
 #: wp-admin/options-general.php:424
 msgid "<a href=\"https://wordpress.org/documentation/article/customize-date-and-time-format/\">Documentation on date and time formatting</a>."
-msgstr ""
+msgstr "<a href=\"https://wordpress.org/documentation/article/customize-date-and-time-format/\">اطلاعات بیشتر درباره ساختاربندی زمان و تاریخ</a>."
 
 #: wp-admin/options-general.php:46
 #: wp-admin/network/settings.php:56
@@ -197,7 +197,7 @@ msgstr "عناصر صفحه را با کلیک روی عنوان، پهن یا �
 #. translators: %s: Attachment title.
 #: wp-admin/includes/class-wp-media-list-table.php:870
 msgid "Download &#8220;%s&#8221;"
-msgstr ""
+msgstr "دریافت &#8220;%s&#8221;"
 
 #. translators: %s: The "$dir" argument.
 #: wp-admin/includes/class-wp-automatic-updater.php:81
@@ -206,137 +206,137 @@ msgstr ""
 
 #: wp-admin/edit-form-advanced.php:319
 msgid "<a href=\"https://wordpress.org/documentation/article/write-posts-classic-editor/\">Documentation on Writing and Editing Posts</a>"
-msgstr ""
+msgstr "<a href=\"https://wordpress.org/documentation/article/write-posts-classic-editor/\">مستندات درباره نوشتن و ویرایش فرسته‌ها</a>"
 
 #: wp-admin/edit-comments.php:212
 #: wp-admin/user-edit.php:336
 msgid "<a href=\"https://wordpress.org/documentation/article/keyboard-shortcuts-classic-editor/#keyboard-shortcuts-for-comments\">Documentation on Keyboard Shortcuts</a>"
-msgstr ""
+msgstr "<a href=\"https://wordpress.org/documentation/article/keyboard-shortcuts-classic-editor/#keyboard-shortcuts-for-comments\">مستندات میان‌برهای صفحه‌کلید</a>"
 
 #: wp-admin/edit-comments.php:211
 msgid "<a href=\"https://wordpress.org/documentation/article/understand-comment-spam/\">Documentation on Comment Spam</a>"
-msgstr ""
+msgstr "<a href=\"https://wordpress.org/documentation/article/understand-comment-spam/\">مستندات دیدگاه‌های جفنگ</a>"
 
 #: wp-admin/customize.php:253
 msgid "<a href=\"https://wordpress.org/documentation/article/customizer/\">Documentation on Customizer</a>"
-msgstr ""
+msgstr "<a href=\"https://wordpress.org/documentation/article/customizer/\">مستندات سفارشی‌ساز</a>"
 
-#: wp-admin/about.php:204
+#: wp-admin/about.php:261
 msgid "Default WordPress themes offer better privacy with Google Fonts now included."
 msgstr ""
 
-#: wp-admin/about.php:203
+#: wp-admin/about.php:260
 msgid "Local fonts in themes"
 msgstr ""
 
-#: wp-admin/about.php:194
+#: wp-admin/about.php:251
 msgid "Options to import your favorite widgets from Classic themes to Block themes."
 msgstr ""
 
-#: wp-admin/about.php:193
+#: wp-admin/about.php:250
 msgid "Importing widgets"
 msgstr ""
 
-#: wp-admin/about.php:184
+#: wp-admin/about.php:241
 msgid "Choose to keep top-level group blocks fixed to the top of a page as visitors scroll."
 msgstr ""
 
-#: wp-admin/about.php:183
+#: wp-admin/about.php:240
 msgid "Sticky positioning"
 msgstr ""
 
-#: wp-admin/about.php:171
+#: wp-admin/about.php:228
 msgid "Power up your site any way you wish. Add CSS to your site, or your blocks, for another level of control over your site&#8217;s look and feel."
 msgstr ""
 
-#: wp-admin/about.php:164
+#: wp-admin/about.php:221
 msgid "Perfect the design on one type of block, then copy and paste those styles to other blocks to get just the look you want."
 msgstr ""
 
-#: wp-admin/about.php:163
+#: wp-admin/about.php:220
 msgid "Copy and paste styles"
 msgstr ""
 
-#: wp-admin/about.php:157
+#: wp-admin/about.php:214
 msgid "Use the new Style Book to get a complete overview of how every block in your site&#8217;s library looks. All in one place, all at a glance."
 msgstr ""
 
-#: wp-admin/about.php:147
+#: wp-admin/about.php:204
 msgid "Stable and ready for you to dive in and explore: 6.2 is your personal invitation to discover what the next generation of WordPress—and Block themes—can do."
 msgstr ""
 
-#: wp-admin/about.php:146
+#: wp-admin/about.php:203
 msgid "Experience the Site Editor, now out of beta"
 msgstr ""
 
-#: wp-admin/about.php:140
+#: wp-admin/about.php:197
 msgid "For those times you want to be alone with your ideas. You can now hide all your panels and controls, leaving you free to bring your content to life."
 msgstr ""
 
-#: wp-admin/about.php:139
+#: wp-admin/about.php:196
 msgid "Focus on writing with Distraction Free mode"
 msgstr ""
 
-#: wp-admin/about.php:130
+#: wp-admin/about.php:187
 msgid "Openverse&#8217;s library catalogs over 600 million free, openly licensed stock images and audio—and now it&#8217;s directly integrated into the Editor."
 msgstr ""
 
-#: wp-admin/about.php:129
+#: wp-admin/about.php:186
 msgid "Explore Openverse media right from the Editor"
 msgstr ""
 
-#: wp-admin/about.php:123
+#: wp-admin/about.php:180
 msgid "Discover a new collection of header and footer patterns to choose from. Use them with any block theme as a quick, high-quality starting point for your site&#8217;s templates."
 msgstr ""
 
-#: wp-admin/about.php:122
+#: wp-admin/about.php:179
 msgid "Build faster with headers and footers for block themes"
 msgstr ""
 
-#: wp-admin/about.php:108
+#: wp-admin/about.php:165
 msgid "Your block settings sidebar is better organized with tabs for Settings and Styles. So the tools you need are easy to identify and access."
 msgstr ""
 
-#: wp-admin/about.php:107
+#: wp-admin/about.php:164
 msgid "Find the controls you want when you need them"
 msgstr ""
 
-#: wp-admin/about.php:101
+#: wp-admin/about.php:158
 msgid "A refreshed design gives you more visibility and easier access to the content you need. Use the Media tab to drag and drop content from your existing Media Library quickly. Find patterns faster with a split view that lets you navigate categories and see previews all at once."
 msgstr ""
 
-#: wp-admin/about.php:100
+#: wp-admin/about.php:157
 msgid "Discover a smoother experience for the Block Inserter"
 msgstr ""
 
-#: wp-admin/about.php:84
+#: wp-admin/about.php:141
 msgid "A new sidebar experience makes it easier to edit your site&#8217;s navigation. Add, remove, and reorder menu items faster—no matter how complex your menus are."
 msgstr ""
 
-#: wp-admin/about.php:83
+#: wp-admin/about.php:140
 msgid "Manage your menu in more ways with the Navigation block"
 msgstr ""
 
-#: wp-admin/about.php:77
+#: wp-admin/about.php:134
 msgid "An updated interface gives you more control over your site editing experience. Browse through full previews of your templates and template parts, then jump into editing your site from wherever you choose."
 msgstr ""
 
-#: wp-admin/about.php:76
+#: wp-admin/about.php:133
 msgid "Explore and edit your site from the Site Editor"
 msgstr ""
 
 #. translators: 1: Count of enhancements, 2: Count of bug fixes.
-#: wp-admin/about.php:60
+#: wp-admin/about.php:117
 msgid "WordPress 6.2 includes more than %1$s enhancements and %2$s bug fixes. This page highlights the latest features since the November 2022 release of WordPress 6.1. From quick highlights to developer resources, there&#8217;s a lot to explore."
 msgstr ""
 
 #. translators: The localized WordPress download URL.
-#: wp-admin/about.php:343
+#: wp-admin/about.php:400
 msgid "https://wordpress.org/download/"
 msgstr ""
 
 #. translators: %s: The major version of WordPress for this branch.
-#: wp-admin/about.php:340
+#: wp-admin/about.php:397
 msgid "This is the final release of WordPress %s"
 msgstr ""
 
@@ -345,7 +345,7 @@ msgid "Site Editor"
 msgstr ""
 
 #. translators: 1: Learn WordPress link.
-#: wp-admin/about.php:228
+#: wp-admin/about.php:285
 msgid "Explore <a href=\"%s\">learn.wordpress.org</a> for tutorial videos, online workshops, courses, and lesson plans for Meetup organizers, including new features in WordPress."
 msgstr ""
 
@@ -380,7 +380,7 @@ msgstr ""
 #: wp-admin/theme-install.php:209
 msgctxt "themes"
 msgid "Block Themes"
-msgstr ""
+msgstr "پوسته‌‌های خشتی"
 
 #: wp-admin/theme-install.php:157
 msgid "<a href=\"https://wordpress.org/documentation/article/block-themes/\">Documentation on Block Themes</a>"
@@ -424,7 +424,7 @@ msgstr ""
 #. translators: %s: %postname%
 #: wp-admin/options-permalink.php:322
 msgid "Select the permalink structure for your website. Including the %s tag makes links easy to understand, and can help your posts rank higher in search engines."
-msgstr ""
+msgstr "ساختار پایاپیوندهای سایت خود را انتخاب کنید. قراردادن برچسب %s سبب میشود که پیوندها به راحتی قابل فهم باشند، و می‌توانند به رتبه‌بندی فرسته‌های شما در موتورهای جست‌وجو کمک کنند."
 
 #. translators: %s: Permalink structure tag.
 #: wp-admin/options-permalink.php:313
@@ -678,27 +678,31 @@ msgid "Reach out to WordPress Core developers to ensure you'll never have this p
 msgstr ""
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:337
+#: wp-admin/about.php:394
 msgid "Important! Your version of WordPress (%1$s) will stop receiving security updates in the near future. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr ""
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:334
+#: wp-admin/about.php:391
 msgid "Important! Your version of WordPress (%1$s) is no longer supported, you will not receive any security updates for your website. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr ""
 
+#: wp-admin/about.php:306
+msgid "https://make.wordpress.org/core/2023/03/09/wordpress-6-2-field-guide/"
+msgstr ""
+
 #. translators: 1: WordPress Release Notes link, 2: WordPress version number.
-#: wp-admin/about.php:266
+#: wp-admin/about.php:323
 msgid "<a href=\"%1$s\">Read the WordPress %2$s Release Notes</a> for more information on the included enhancements and issues fixed, installation information, developer notes and resources, release contributors, and the list of file changes in this release."
 msgstr ""
 
 #. translators: %s: WordPress Field Guide link.
-#: wp-admin/about.php:248
+#: wp-admin/about.php:305
 msgid "Check out the latest version of the <a href=\"%s\">WordPress Field Guide</a>. It is overflowing with detailed developer notes to help you build with WordPress."
 msgstr ""
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:219
+#: wp-admin/about.php:276
 msgid "Learn more about WordPress %s"
 msgstr ""
 
@@ -994,11 +998,11 @@ msgstr ""
 msgid "Individual posts may override these settings. Changes here will only be applied to new posts."
 msgstr "فرسته‌های موردی ممکن است این تنظیمات را رونویسی کنند. تغییرات در اینجا فقط روی فرسته‌های تازه اعمال خواهد شد."
 
-#: wp-admin/nav-menus.php:522
+#: wp-admin/nav-menus.php:525
 msgid "Menu item moved to the top"
 msgstr ""
 
-#: wp-admin/nav-menus.php:519
+#: wp-admin/nav-menus.php:522
 msgid "Menu item removed"
 msgstr ""
 
@@ -1150,26 +1154,26 @@ msgstr ""
 msgid "Rewrite rules:"
 msgstr "قواعد بازنویسی:"
 
-#: wp-admin/nav-menus.php:1081
+#: wp-admin/nav-menus.php:1084
 msgid "List of menu items selected for deletion:"
 msgstr "فهرست موارد منوی انتخاب‌شده برای حذف:"
 
-#: wp-admin/nav-menus.php:1079
+#: wp-admin/nav-menus.php:1082
 msgid "Remove Selected Items"
 msgstr "حذف موارد انتخاب‌شده"
 
-#: wp-admin/nav-menus.php:1042
-#: wp-admin/nav-menus.php:1077
+#: wp-admin/nav-menus.php:1045
+#: wp-admin/nav-menus.php:1080
 msgid "Bulk Select"
 msgstr "انتخاب جمعی"
 
 #. translators: %s: Item name.
-#: wp-admin/nav-menus.php:517
+#: wp-admin/nav-menus.php:520
 msgid "Deleted menu item: %s."
 msgstr "موارد فهرست حذف‌شده: %s."
 
 #. translators: %s: Item name.
-#: wp-admin/nav-menus.php:515
+#: wp-admin/nav-menus.php:518
 msgid "item %s"
 msgstr ""
 
@@ -1426,11 +1430,11 @@ msgid "Want more events? <a href=\"%s\">Help organize the next one</a>!"
 msgstr ""
 
 #. translators: %s: User's display name.
-#: wp-admin/includes/ajax-actions.php:5553
+#: wp-admin/includes/ajax-actions.php:5557
 msgid "A password reset link was emailed to %s."
 msgstr "ایمیلی همراه با پیوند بازنشانی رمز، برای %s ارسال شد."
 
-#: wp-admin/includes/ajax-actions.php:5543
+#: wp-admin/includes/ajax-actions.php:5547
 msgid "Cannot send password reset, permission denied."
 msgstr ""
 
@@ -1635,7 +1639,7 @@ msgstr "افزودن رمز برنامه تازه"
 msgid "Required to create an Application Password, but not to update the user."
 msgstr "برای ایجاد یک رمز برنامه الزامی است، اما نه برای به‌روزرسانی کاربر."
 
-#: wp-admin/about.php:284
+#: wp-admin/about.php:341
 msgid "Go to Updates"
 msgstr "بازگشت به به‌روزرسانی‌ها"
 
@@ -1799,10 +1803,10 @@ msgstr "آخرین استفاده"
 
 #. translators: 1: The Site Health action that is no longer used by core. 2:
 #. The new function that replaces it.
-#: wp-admin/includes/ajax-actions.php:5281
-#: wp-admin/includes/ajax-actions.php:5314
-#: wp-admin/includes/ajax-actions.php:5347
-#: wp-admin/includes/ajax-actions.php:5397
+#: wp-admin/includes/ajax-actions.php:5285
+#: wp-admin/includes/ajax-actions.php:5318
+#: wp-admin/includes/ajax-actions.php:5351
+#: wp-admin/includes/ajax-actions.php:5401
 msgid "The Site Health check for %1$s has been replaced with %2$s."
 msgstr ""
 
@@ -2049,7 +2053,7 @@ msgctxt "theme"
 msgid "Activate &#8220;%s&#8221;"
 msgstr "فعال‌سازی &#8220;%s&#8221;"
 
-#: wp-admin/includes/ajax-actions.php:5487
+#: wp-admin/includes/ajax-actions.php:5491
 msgid "Sorry, you are not allowed to modify plugins."
 msgstr ""
 
@@ -2319,20 +2323,20 @@ msgctxt "plugin"
 msgid "<strong>Error:</strong> Current versions of WordPress (%1$s) and PHP (%2$s) do not meet minimum requirements for %3$s. The plugin requires WordPress %4$s and PHP %5$s."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:5509
+#: wp-admin/includes/ajax-actions.php:5513
 msgid "Invalid data. The item does not exist."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:5480
-#: wp-admin/includes/ajax-actions.php:5505
+#: wp-admin/includes/ajax-actions.php:5484
+#: wp-admin/includes/ajax-actions.php:5509
 msgid "Invalid data. Unknown type."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:5475
+#: wp-admin/includes/ajax-actions.php:5479
 msgid "Invalid data. Unknown state."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:5469
+#: wp-admin/includes/ajax-actions.php:5473
 msgid "Invalid data. No selected item."
 msgstr ""
 
@@ -3108,7 +3112,7 @@ msgstr ""
 msgid "<a href=\"https://wordpress.org/documentation/article/dashboard-updates-screen/\">Documentation on Updating WordPress</a>"
 msgstr ""
 
-#: wp-admin/nav-menus.php:686
+#: wp-admin/nav-menus.php:689
 msgid "<a href=\"https://wordpress.org/documentation/article/appearance-menus-screen/\">Documentation on Menus</a>"
 msgstr ""
 
@@ -3667,17 +3671,17 @@ msgid "The authenticity of %s could not be verified as signature verification is
 msgstr "به دلیل در دسترس نبودن سامانه درستی‌سنجی امضا، اصالت %s قابل سنجش نیست."
 
 #. translators: %s: Eraser friendly name.
-#: wp-admin/includes/ajax-actions.php:5156
+#: wp-admin/includes/ajax-actions.php:5160
 msgid "Eraser callback is not valid: %s."
 msgstr "فراخوان پاک‌کننده نامعتبر است: %s."
 
 #. translators: %s: Eraser friendly name.
-#: wp-admin/includes/ajax-actions.php:5146
+#: wp-admin/includes/ajax-actions.php:5150
 msgid "Eraser does not include a callback: %s."
 msgstr "پاک‌کننده شامل فراخوان نیست: %s."
 
-#: wp-admin/includes/ajax-actions.php:4868
-#: wp-admin/includes/ajax-actions.php:5059
+#: wp-admin/includes/ajax-actions.php:4872
+#: wp-admin/includes/ajax-actions.php:5063
 msgid "Sorry, you are not allowed to perform this action."
 msgstr "با عرض پوزش، شما مجاز به انجام این عمل نیستید."
 
@@ -3876,7 +3880,7 @@ msgstr ""
 #: wp-admin/credits.php:42
 #: wp-admin/freedoms.php:39
 #: wp-admin/includes/ms.php:1119
-#: wp-admin/nav-menus.php:724
+#: wp-admin/nav-menus.php:727
 #: wp-admin/options-privacy.php:161
 #: wp-admin/privacy-policy-guide.php:44
 #: wp-admin/privacy.php:33
@@ -4793,7 +4797,7 @@ msgstr "ساختاری برای پایاپیوند تنظیم نشده است"
 #: wp-admin/options-permalink.php:330
 #: wp-admin/options-permalink.php:336
 msgid "Permalink structure"
-msgstr ""
+msgstr "ساختار پایاپیوند"
 
 #: wp-admin/includes/class-wp-debug-data.php:93
 msgid "Site URL"
@@ -4877,32 +4881,32 @@ msgstr "نمی‌توانید به‌روزرسانی کنید چون <a href=\"
 msgid "You cannot update because <a href=\"%1$s\">WordPress %2$s</a> requires PHP version %3$s or higher. You are running version %4$s."
 msgstr "نمی‌توانید به‌روزرسانی کنید، چون <a href=\"%1$s\">وردپرس %2$s</a> نیازمند PHP نگارش %3$s یا بالاتر است. شما در حال اجرا بر روی PHP نگارش %4$s هستید."
 
-#: wp-admin/nav-menus.php:980
+#: wp-admin/nav-menus.php:983
 msgid "Add menu items"
 msgstr "افزودن گزینه‌های فهرست"
 
 #. translators: %s: URL to create a new menu.
-#: wp-admin/nav-menus.php:941
+#: wp-admin/nav-menus.php:944
 msgid "or <a href=\"%s\">create a new menu</a>. Do not forget to save your changes!"
 msgstr "یا <a href=\"%s\">یک فهرست تازه ایجاد کنید</a>. ذخیره تغییرات فراموش نشود!"
 
 #. translators: Hidden accessibility text.
-#: wp-admin/nav-menus.php:886
-#: wp-admin/nav-menus.php:956
+#: wp-admin/nav-menus.php:889
+#: wp-admin/nav-menus.php:959
 msgid "Click the Save Menu button to save your changes."
 msgstr "برای ذخیره تغییرات، دکمه ذخیره فهرست را کلیک کنید."
 
 #. translators: %s: URL to create a new menu.
-#: wp-admin/nav-menus.php:871
+#: wp-admin/nav-menus.php:874
 msgid "Edit your menu below, or <a href=\"%s\">create a new menu</a>. Do not forget to save your changes!"
 msgstr "در زیر فهرست را ویرایش کنید و یا <a href=\"%s\">یک فهرست تازه ایجاد کنید</a>. ذخیره تغییرات فراموش نشود!"
 
 #. translators: Hidden accessibility text.
-#: wp-admin/nav-menus.php:862
+#: wp-admin/nav-menus.php:865
 msgid "Fill in the Menu Name and click the Create Menu button to create your first menu."
 msgstr "نام فهرست را خالی نگذارید و برای ساخت اولین فهرست خودتان، روی دکمه ایجاد فهرست کلیک کنید."
 
-#: wp-admin/nav-menus.php:858
+#: wp-admin/nav-menus.php:861
 msgid "Create your first menu below."
 msgstr "در زیر، اولین فهرست خودتان را ایجاد کنید."
 
@@ -5020,9 +5024,11 @@ msgctxt "plugin"
 msgid "Cannot Install"
 msgstr "نصب ناممکن است"
 
-#. translators: %s: WordPress version number.
 #. translators: %s: WordPress version.
-#: wp-admin/about.php:269
+#. translators: %s: WordPress version number.
+#: wp-admin/about.php:67
+#: wp-admin/about.php:93
+#: wp-admin/about.php:326
 #: wp-admin/includes/update.php:306
 #: wp-admin/index.php:119
 #: wp-admin/install.php:247
@@ -5640,7 +5646,7 @@ msgid "Report generated for"
 msgstr "گزارش تولیدشده برای"
 
 #. translators: %s: Exporter array index.
-#: wp-admin/includes/ajax-actions.php:4952
+#: wp-admin/includes/ajax-actions.php:4956
 msgid "Exporter array at index %s does not include a friendly name."
 msgstr ""
 
@@ -5652,72 +5658,72 @@ msgstr ""
 msgid "Sorry, you are not allowed to export personal data on this site."
 msgstr "با عرض پوزش، شما اجازه برون‌بری داده‌های شخصی در این سایت را ندارید."
 
-#: wp-admin/includes/ajax-actions.php:5119
+#: wp-admin/includes/ajax-actions.php:5123
 msgid "Eraser index is out of range."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:5078
+#: wp-admin/includes/ajax-actions.php:5082
 msgid "Missing eraser index."
 msgstr ""
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:5003
+#: wp-admin/includes/ajax-actions.php:5007
 msgid "Expected done (boolean) in response array from exporter: %s."
 msgstr ""
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4996
+#: wp-admin/includes/ajax-actions.php:5000
 msgid "Expected data array in response array from exporter: %s."
 msgstr ""
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4989
+#: wp-admin/includes/ajax-actions.php:4993
 msgid "Expected data in response array from exporter: %s."
 msgstr ""
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4982
+#: wp-admin/includes/ajax-actions.php:4986
 msgid "Expected response as an array from exporter: %s."
 msgstr ""
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4968
+#: wp-admin/includes/ajax-actions.php:4972
 msgid "Exporter callback is not a valid callback: %s."
 msgstr ""
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4961
+#: wp-admin/includes/ajax-actions.php:4965
 msgid "Exporter does not include a callback: %s."
 msgstr ""
 
 #. translators: %s: Exporter array index.
-#: wp-admin/includes/ajax-actions.php:4945
+#: wp-admin/includes/ajax-actions.php:4949
 msgid "Expected an array describing the exporter at index %s."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:4931
+#: wp-admin/includes/ajax-actions.php:4935
 msgid "Exporter index is out of range."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:4927
+#: wp-admin/includes/ajax-actions.php:4931
 msgid "Exporter index cannot be negative."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:4921
+#: wp-admin/includes/ajax-actions.php:4925
 msgid "An exporter has improperly used the registration filter."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:4892
-#: wp-admin/includes/ajax-actions.php:5084
+#: wp-admin/includes/ajax-actions.php:4896
+#: wp-admin/includes/ajax-actions.php:5088
 msgid "Missing page index."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:4886
+#: wp-admin/includes/ajax-actions.php:4890
 msgid "Missing exporter index."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:4877
-#: wp-admin/includes/ajax-actions.php:5068
+#: wp-admin/includes/ajax-actions.php:4881
+#: wp-admin/includes/ajax-actions.php:5072
 msgid "Invalid request type."
 msgstr "نوع درخواست نامعتبر است."
 
@@ -5847,7 +5853,7 @@ msgstr "برون‌بری داده‌های شخصی"
 msgid "Personal Data Export for %s"
 msgstr "برون‌بری داده‌های شخصی برای %s"
 
-#: wp-admin/includes/ajax-actions.php:4882
+#: wp-admin/includes/ajax-actions.php:4886
 msgid "A valid email address must be given."
 msgstr "باید یک نشانی ایمیل معتبر ارائه شود."
 
@@ -5920,61 +5926,61 @@ msgstr "درخواست تأییدیه دوباره با موفقیت ارسال 
 msgid "Unable to initiate confirmation request."
 msgstr "ناتوانایی در آغاز درخواست تأییدیه."
 
-#: wp-admin/includes/ajax-actions.php:4864
-#: wp-admin/includes/ajax-actions.php:5054
+#: wp-admin/includes/ajax-actions.php:4868
+#: wp-admin/includes/ajax-actions.php:5058
 msgid "Invalid request ID."
 msgstr "شناسه درخواست نامعتبر است."
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5228
+#: wp-admin/includes/ajax-actions.php:5232
 msgid "Expected done flag in response array from %1$s eraser (index %2$d)."
 msgstr ""
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5217
+#: wp-admin/includes/ajax-actions.php:5221
 msgid "Expected messages key to reference an array in response array from %1$s eraser (index %2$d)."
 msgstr ""
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5206
+#: wp-admin/includes/ajax-actions.php:5210
 msgid "Expected messages key in response array from %1$s eraser (index %2$d)."
 msgstr ""
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5195
+#: wp-admin/includes/ajax-actions.php:5199
 msgid "Expected items_retained key in response array from %1$s eraser (index %2$d)."
 msgstr ""
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5184
+#: wp-admin/includes/ajax-actions.php:5188
 msgid "Expected items_removed key in response array from %1$s eraser (index %2$d)."
 msgstr ""
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5173
+#: wp-admin/includes/ajax-actions.php:5177
 msgid "Did not receive array from %1$s eraser (index %2$d)."
 msgstr ""
 
 #. translators: %d: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5137
+#: wp-admin/includes/ajax-actions.php:5141
 msgid "Eraser array at index %d does not include a friendly name."
 msgstr ""
 
 #. translators: %d: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5132
+#: wp-admin/includes/ajax-actions.php:5136
 msgid "Expected an array describing the eraser at index %d."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:4935
-#: wp-admin/includes/ajax-actions.php:5123
+#: wp-admin/includes/ajax-actions.php:4939
+#: wp-admin/includes/ajax-actions.php:5127
 msgid "Page index cannot be less than one."
 msgstr "اندیس برگه نمی‌تواند کمتر از یک باشد."
 
-#: wp-admin/includes/ajax-actions.php:5115
+#: wp-admin/includes/ajax-actions.php:5119
 msgid "Eraser index cannot be less than one."
 msgstr "اندیس پاک‌کننده نمی‌تواند کمتر از یک باشد."
 
-#: wp-admin/includes/ajax-actions.php:5074
+#: wp-admin/includes/ajax-actions.php:5078
 msgid "Invalid email address in request."
 msgstr "در درخواست، نشانی ایمیل نامعتبر است."
 
@@ -6183,7 +6189,7 @@ msgstr "برچسب‌های موجود:"
 #. translators: %s: Permalink structure tag.
 #: wp-admin/options-permalink.php:315
 msgid "%s (already used in permalink structure)"
-msgstr "%s (هم‌اکنون در ساختار پایاپیوند استفاده‌شده)"
+msgstr "%s (هم‌اکنون در ساختار پایاپیوند استفاده شده است)"
 
 #. translators: %s: Permalink structure tag.
 #: wp-admin/options-permalink.php:311
@@ -6486,7 +6492,7 @@ msgstr "پنهان کردن کنترل‌ها"
 msgid "Expand Sidebar"
 msgstr "گسترش نوارکناری"
 
-#: wp-admin/nav-menus.php:1113
+#: wp-admin/nav-menus.php:1116
 msgid "Display location"
 msgstr "مکان نمایش"
 
@@ -6699,7 +6705,7 @@ msgstr "با عرض پوزش، شما اجازهٔ افزودن کاربر به 
 msgid "Sorry, you are not allowed to edit this changeset."
 msgstr "با عرض پوزش، شما اجازهٔ ویرایش این تغییرات را ندارید."
 
-#: wp-admin/includes/ajax-actions.php:4282
+#: wp-admin/includes/ajax-actions.php:4286
 #: wp-admin/update.php:207
 #: wp-admin/update.php:230
 msgid "Sorry, you are not allowed to update themes for this site."
@@ -6760,7 +6766,7 @@ msgstr "با عرض پوزش، شما اجازهٔ تغییر تنظیمات ک�
 msgid "Sorry, you are not allowed to manage options for this site."
 msgstr "با عرض پوزش، شما اجازهٔ تغییر تنظیمات و گزینه‌های این سایت را ندارید."
 
-#: wp-admin/nav-menus.php:709
+#: wp-admin/nav-menus.php:712
 #: wp-admin/widgets-form.php:393
 msgid "Manage with Live Preview"
 msgstr "مدیریت با پیش‌نمایش زنده"
@@ -6941,32 +6947,32 @@ msgstr "با عرض پوزش، شما اجازهٔ ویرایش پیوندهای
 msgid "Sorry, you are not allowed to manage privacy options on this site."
 msgstr ""
 
-#: wp-admin/includes/ajax-actions.php:4707
+#: wp-admin/includes/ajax-actions.php:4711
 msgid "Plugin could not be deleted."
 msgstr "افزونه نمی‌تواند حذف شود."
 
-#: wp-admin/includes/ajax-actions.php:4561
+#: wp-admin/includes/ajax-actions.php:4565
 #: wp-admin/update.php:29
 #: wp-admin/update.php:57
 #: wp-admin/update.php:80
 msgid "Sorry, you are not allowed to update plugins for this site."
 msgstr "با عرض پوزش، شما مجاز به به‌روزرسانی افزونه‌ها برای این سایت نیستید."
 
-#: wp-admin/includes/ajax-actions.php:4437
-#: wp-admin/includes/ajax-actions.php:4546
-#: wp-admin/includes/ajax-actions.php:4654
+#: wp-admin/includes/ajax-actions.php:4441
+#: wp-admin/includes/ajax-actions.php:4550
+#: wp-admin/includes/ajax-actions.php:4658
 msgid "No plugin specified."
 msgstr "افزونه‌ای مشخص نشده."
 
-#: wp-admin/includes/ajax-actions.php:4413
+#: wp-admin/includes/ajax-actions.php:4417
 msgid "Theme could not be deleted."
 msgstr "پوسته نمی‌تواند حذف شود."
 
-#: wp-admin/includes/ajax-actions.php:4375
+#: wp-admin/includes/ajax-actions.php:4379
 msgid "Sorry, you are not allowed to delete themes on this site."
 msgstr "با عرض پوزش، شما اجازهٔ حذف پوسته‌های این سایت را ندارید."
 
-#: wp-admin/includes/ajax-actions.php:4155
+#: wp-admin/includes/ajax-actions.php:4159
 #: wp-admin/theme-install.php:16
 #: wp-admin/update.php:258
 #: wp-admin/update.php:300
@@ -6974,9 +6980,9 @@ msgstr "با عرض پوزش، شما اجازهٔ حذف پوسته‌های ا
 msgid "Sorry, you are not allowed to install themes on this site."
 msgstr "با عرض پوزش، شما اجازهٔ نصب پوسته‌ها در این سایت را ندارید."
 
-#: wp-admin/includes/ajax-actions.php:4142
-#: wp-admin/includes/ajax-actions.php:4268
-#: wp-admin/includes/ajax-actions.php:4363
+#: wp-admin/includes/ajax-actions.php:4146
+#: wp-admin/includes/ajax-actions.php:4272
+#: wp-admin/includes/ajax-actions.php:4367
 msgid "No theme specified."
 msgstr "پوسته‌ای مشخص نشده است."
 
@@ -7316,7 +7322,7 @@ msgstr "نمایش این دیدگاه"
 
 #: wp-admin/includes/class-core-upgrader.php:30
 msgid "Another update is currently in progress."
-msgstr "به‌روزرسانی دیگری در حال پیش‌روی است."
+msgstr "هم‌اکنون به‌روزرسانی دیگری در حال اجراست."
 
 #: wp-admin/includes/class-plugin-upgrader-skin.php:85
 #: wp-admin/update-core.php:1156
@@ -7460,13 +7466,13 @@ msgid "Send User Notification"
 msgstr "فرستادن آگاه‌ساز به کاربر"
 
 #. translators: %s: Menu name.
-#: wp-admin/nav-menus.php:1133
+#: wp-admin/nav-menus.php:1136
 msgctxt "menu location"
 msgid "(Currently set to: %s)"
 msgstr "(تنظیم کنونی: %s)"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:308
+#: wp-admin/about.php:365
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr ""
 
@@ -7479,15 +7485,16 @@ msgstr "https://fa.gravatar.com/"
 msgid "Profile Picture"
 msgstr "تصویر نمایه"
 
-#: wp-admin/about.php:305
+#: wp-admin/about.php:47
+#: wp-admin/about.php:362
 msgid "Maintenance and Security Releases"
 msgstr ""
 
-#: wp-admin/about.php:302
+#: wp-admin/about.php:359
 msgid "Security Releases"
 msgstr ""
 
-#: wp-admin/about.php:299
+#: wp-admin/about.php:356
 msgid "Maintenance Releases"
 msgstr ""
 
@@ -7502,7 +7509,7 @@ msgstr "وردپرس به شما این امکان را می‌دهد تا سا�
 
 #: wp-admin/options-permalink.php:34
 msgid "Permalinks can contain useful information, such as the post date, title, or other elements. You can choose from any of the suggested permalink formats, or you can craft your own if you select Custom Structure."
-msgstr "پایاپیوندها می‌توانند شامل اطلاعات مفیدی مانند تاریخ ارسال نوشته، عنوان نوشته و یا موارد دیگر دیگر باشند. شما می‌توانید هر کدام از ساختارهای پیشنهاد شده را انتخاب کنید یا اینکه مدل مورد نظر خود را با انتخاب گزینه ساختار سفارشی را ایجاد کنید."
+msgstr ""
 
 #. translators: %s: wp-config.php
 #: wp-admin/setup-config.php:416
@@ -8052,7 +8059,7 @@ msgstr "دیدگاه (%s)"
 msgid "Comments (%1$s) on &#8220;%2$s&#8221;"
 msgstr "دیدگاه‌ها (%1$s) در &#8220;%2$s&#8221;"
 
-#: wp-admin/includes/ajax-actions.php:5497
+#: wp-admin/includes/ajax-actions.php:5501
 msgid "Sorry, you are not allowed to modify themes."
 msgstr ""
 
@@ -8130,7 +8137,7 @@ msgid_plural "%s approved comments"
 msgstr[0] "%s نظر تأییدشده"
 msgstr[1] "%s نظر تأییدشده"
 
-#: wp-admin/includes/ajax-actions.php:3966
+#: wp-admin/includes/ajax-actions.php:3970
 msgid "Image could not be processed."
 msgstr "تصویر نمی‌تواند پردازش شود."
 
@@ -8155,7 +8162,7 @@ msgid "Show more details"
 msgstr "نمایش جزئیات بیشتر"
 
 #. translators: %s: Number of menus.
-#: wp-admin/nav-menus.php:753
+#: wp-admin/nav-menus.php:756
 msgid "Your theme supports %s menu. Select which menu appears in each location."
 msgid_plural "Your theme supports %s menus. Select which menu appears in each location."
 msgstr[0] "پوستهٔ شما از %s فهرست پشیبانی می‌کند. انتخاب کنید که هر فهرست کجا نمایش داده شود."
@@ -8367,7 +8374,7 @@ msgctxt "timezone date format"
 msgid "Y-m-d H:i:s"
 msgstr ""
 
-#: wp-admin/nav-menus.php:658
+#: wp-admin/nav-menus.php:661
 msgid "To add a custom link, <strong>expand the Custom Links section, enter a URL and link text, and click Add to Menu</strong>"
 msgstr "برای اضافه کردن یک پیوند سفارشی، <strong>بخش پیوندهای سفارشی را باز کنید، نشانی پیوند و متن نمایش آن را وارد کنید و روی افزودن به فهرست کلیک کنید.</strong>"
 
@@ -8573,19 +8580,19 @@ msgid "Filter by comment type"
 msgstr "پالایه با نوع دیدگاه"
 
 #. translators: %s: User's display name.
-#: wp-admin/includes/ajax-actions.php:3941
+#: wp-admin/includes/ajax-actions.php:3945
 msgid "%s has been logged out."
 msgstr "%s بیرون رفت."
 
-#: wp-admin/includes/ajax-actions.php:3937
+#: wp-admin/includes/ajax-actions.php:3941
 msgid "You are now logged out everywhere else."
 msgstr "هم‌اکنون از تمام دستگاه‌های دیگر بیرون رفته‌اید."
 
-#: wp-admin/includes/ajax-actions.php:3928
+#: wp-admin/includes/ajax-actions.php:3932
 msgid "Could not log out user sessions. Please try again."
 msgstr "نمی‌توان از نشست‌های کاربری بیرون رفت. دوباره تلاش کنید."
 
-#: wp-admin/includes/ajax-actions.php:3815
+#: wp-admin/includes/ajax-actions.php:3819
 msgid "This preview is unavailable in the editor."
 msgstr "این پیش‌نمایش در ویرایشگر در دسترس نیست."
 
@@ -8664,7 +8671,7 @@ msgstr ""
 
 #: wp-admin/plugin-install.php:113
 msgid "If you just want to get an idea of what&#8217;s available, you can browse Featured and Popular plugins by using the links above the plugins list. These sections rotate regularly."
-msgstr "برای داشتن دیدی نسبت از آن‌چه در دسترس است، می‌توانید افزونه‌های برگزیده و بیشتر استفاده‌شده را مرور کنید. برای این کار از پیوندهای سمت راست بالای صفحه استفاده کنید. این بخش به صورت مداوم تغییر می‌کند."
+msgstr "برای داشتن دیدی نسبت از آن‌چه در دسترس است، می‌توانید افزونه‌های برگزیده و پرکاربرد را مرور کنید. برای این کار از پیوندهای سمت راست بالای صفحه استفاده کنید. این بخش به صورت مداوم تغییر می‌کند."
 
 #: wp-admin/plugin-install.php:151
 msgid "Browse Plugins"
@@ -8776,7 +8783,7 @@ msgid "Beta Testing"
 msgstr "نسخه‌های آزمایشی"
 
 #. translators: %s: URL that could not be embedded.
-#: wp-admin/includes/ajax-actions.php:3781
+#: wp-admin/includes/ajax-actions.php:3785
 msgid "%s failed to embed."
 msgstr "جاسازی %s ناموفق بود."
 
@@ -8830,7 +8837,7 @@ msgstr "تازه‌ترین"
 #: wp-admin/theme-install.php:207
 msgctxt "themes"
 msgid "Popular"
-msgstr "بیشتر استفاده‌شده"
+msgstr "محبوب"
 
 #: wp-admin/includes/class-wp-theme-install-list-table.php:63
 msgctxt "themes"
@@ -9398,18 +9405,18 @@ msgstr "وقتی که تصویری را به کتابخانه رسانه اضا�
 msgid "Comment must be manually approved"
 msgstr "دیدگاه‌ها باید به صورت دستی تأیید شوند"
 
-#: wp-admin/nav-menus.php:656
+#: wp-admin/nav-menus.php:659
 msgid "<strong>Clicking the arrow to the right of any menu item</strong> in the editor will reveal a standard group of settings. Additional settings such as link target, CSS classes, link relationships, and link descriptions can be enabled and disabled via the Screen Options tab."
 msgstr "<strong>کلیک کردن روی فلش چپ هر مورد در فهرست</strong> ویراستار، یک گروه از تنظیمات را نمایان می‌کند. تنظیمات بیشتر مانند هدف پیوند، کلاس‌های CSS، ارتباطات پیوند و توضیحات پیوند را می‌توان از زبانهٔ تنظیمات صفحه فعال یا غیر فعال کرد."
 
 #. translators: 1: URL to Widgets screen, 2 and 3: The names of the default
 #. themes.
-#: wp-admin/nav-menus.php:625
+#: wp-admin/nav-menus.php:628
 msgid "Menus can be displayed in locations defined by your theme, even used in sidebars by adding a &#8220;Navigation Menu&#8221; widget on the <a href=\"%1$s\">Widgets</a> screen. If your theme does not support the navigation menus feature (the default themes, %2$s and %3$s, do), you can learn about adding this support by following the documentation link to the side."
 msgstr ""
 
 #. translators: %s: URL to Widgets screen.
-#: wp-admin/nav-menus.php:616
+#: wp-admin/nav-menus.php:619
 msgid "Your theme does not natively support menus, but you can use them in sidebars by adding a &#8220;Navigation Menu&#8221; widget on the <a href=\"%s\">Widgets</a> screen."
 msgstr "پوستهٔ شما از فهرست‌ها پشتیبانی نمی‌کند؛ اما می‌توانید با اضافه کردن ابزارک «فهرست سفارشی» در صفحهٔ <a href=\"%s\">ابزارک‌ها</a>، از فهرست‌ها در نوار کناری استفاده کنید."
 
@@ -9705,11 +9712,11 @@ msgstr "موردی که می‌خواهید از زباله‌دان بازیا�
 msgid "The item you are trying to move to the Trash no longer exists."
 msgstr "موردی که می‌خواهید به زباله‌دان بفرستید دیگر وجود ندارد."
 
-#: wp-admin/nav-menus.php:1031
+#: wp-admin/nav-menus.php:1034
 msgid "Drag the items into the order you prefer. Click the arrow on the right of the item to reveal additional configuration options."
 msgstr "گزینه‌های دل‌خواه خود را بکشید و مرتب کنید. برای دیدن گزینه‌های افزوده پیکربندی، روی پیکان کنار هر گزینه کلیک کنید."
 
-#: wp-admin/nav-menus.php:644
+#: wp-admin/nav-menus.php:647
 msgid "If you have not yet created any menus, <strong>click the &#8217;create a new menu&#8217; link</strong> to get started"
 msgstr ""
 
@@ -9749,107 +9756,107 @@ msgctxt "Followed by post revision info"
 msgid "From:"
 msgstr "از:"
 
-#: wp-admin/nav-menus.php:832
+#: wp-admin/nav-menus.php:835
 msgctxt "menu"
 msgid "Use new menu"
 msgstr "استفاده از منوی تازه"
 
-#: wp-admin/nav-menus.php:808
+#: wp-admin/nav-menus.php:811
 msgctxt "menu"
 msgid "Edit"
 msgstr "ویرایش"
 
-#: wp-admin/nav-menus.php:777
+#: wp-admin/nav-menus.php:780
 msgid "Select a Menu"
 msgstr "برگزیدن یک فهرست"
 
-#: wp-admin/nav-menus.php:768
+#: wp-admin/nav-menus.php:771
 msgid "Assigned Menu"
 msgstr "فهرست اختصاص داده شده"
 
-#: wp-admin/nav-menus.php:767
+#: wp-admin/nav-menus.php:770
 msgid "Theme Location"
 msgstr "جایگاه در پوسته"
 
-#: wp-admin/nav-menus.php:736
+#: wp-admin/nav-menus.php:739
 msgid "Manage Locations"
 msgstr "مدیریت جایگاه‌ها"
 
-#: wp-admin/nav-menus.php:725
+#: wp-admin/nav-menus.php:728
 msgid "Edit Menus"
 msgstr "ویرایش فهرست‌ها"
 
-#: wp-admin/nav-menus.php:673
+#: wp-admin/nav-menus.php:676
 msgid "To add a new menu instead of assigning an existing one, <strong>click the &#8217;Use new menu&#8217; link</strong>. Your new menu will be automatically assigned to that theme location"
 msgstr "برای افزودن فهرست تازه، به‌جای اختصاص دادن یک فهرست موجود، <strong>روی پیوند «استفاده از فهرست تازه» کلیک کنید</strong>. فهرست تازهٔ شما به‌صورت خودکار به جایگاه پوستهٔ موردنظر اختصاص می‌یابد"
 
-#: wp-admin/nav-menus.php:672
+#: wp-admin/nav-menus.php:675
 msgid "To edit a menu currently assigned to a theme location, <strong>click the adjacent &#8217;Edit&#8217; link</strong>"
 msgstr "برای ویرایش فهرستِ اختصاص داده شده به یک جایگاه، <strong>روی پیوند «ویرایش» همجوار آن کلیک کند</strong>"
 
-#: wp-admin/nav-menus.php:671
+#: wp-admin/nav-menus.php:674
 msgid "To assign menus to one or more theme locations, <strong>select a menu from each location&#8217;s dropdown</strong>. When you are finished, <strong>click Save Changes</strong>"
 msgstr ""
 
-#: wp-admin/nav-menus.php:670
+#: wp-admin/nav-menus.php:673
 msgid "This screen is used for globally assigning menus to locations defined by your theme."
 msgstr "این صفحه برای اختصاص فهرست‌ها به جایگاه‌های مشخص‌شده در پوسته استفاده می‌شود."
 
-#: wp-admin/nav-menus.php:665
+#: wp-admin/nav-menus.php:668
 msgid "Editing Menus"
 msgstr "ویرایش فهرست‌ها"
 
-#: wp-admin/nav-menus.php:660
+#: wp-admin/nav-menus.php:663
 msgid "Delete a menu item by <strong>expanding it and clicking the Remove link</strong>"
 msgstr "حذف فهرست با <strong>بازکردن و کلیک روی پیوند حذف</strong>"
 
-#: wp-admin/nav-menus.php:659
+#: wp-admin/nav-menus.php:662
 #, fuzzy
 msgid "To reorganize menu items, <strong>drag and drop items with your mouse or use your keyboard</strong>. Drag or move a menu item a little to the right to make it a submenu"
 msgstr "برای تشخیص موارد فهرست، <strong>موارد مختلف را با موشواره بکشید و رها کنید، یا از صفحه‌کلیدتان استفاده کنید</strong>. با اندکی کشیدن هر کدام از موارد به سمت چپ، می‌توانید از آن یک زیرفهرست بسازید"
 
-#: wp-admin/nav-menus.php:657
+#: wp-admin/nav-menus.php:660
 msgid "Add one or several items at once by <strong>selecting the checkbox next to each item and clicking Add to Menu</strong>"
 msgstr "یک یا چند گزینهٔ را <strong>با فعال‌کردن تیک کنار آن‌ها و کلیک روی دکمهٔ افزودن، به فهرست اضافه کنید.</strong>"
 
-#: wp-admin/nav-menus.php:655
+#: wp-admin/nav-menus.php:658
 msgid "Each navigation menu may contain a mix of links to pages, categories, custom URLs or other content types. Menu links are added by selecting items from the expanding boxes in the left-hand column below."
 msgstr "هر فهرست سفارشی می‌تواند ترکیبی از پیوند به برگه‌ها، دسته‌ها، نشانی‌های سفارشی و دیگر بخش‌ها باشد. پیوندهای فهرست می‌توانند با گزینش مورد دل‌خواه از ستون سمت راست ویرایشگر، به فهرست افزوده شوند."
 
-#: wp-admin/nav-menus.php:650
+#: wp-admin/nav-menus.php:653
 msgid "Menu Management"
 msgstr "مدیریت فهرست"
 
-#: wp-admin/nav-menus.php:645
+#: wp-admin/nav-menus.php:648
 msgid "You can assign theme locations to individual menus by <strong>selecting the desired settings</strong> at the bottom of the menu editor. To assign menus to all theme locations at once, <strong>visit the Manage Locations tab</strong> at the top of the screen."
 msgstr "می‌توانید با <strong>انتخاب تنظیمات دل‌خواه</strong> در پایین ویرایشگر فهرست، جایگاه‌هایی را در پوسته به فهرست‌ها اختصاص دهید. برای اختصاص دادن فهرست‌ها به همهٔ جایگاه‌های پوسته، در بالای صفحه <strong>به زبانهٔ ویرایش جایگاه‌ها بروید</strong>."
 
-#: wp-admin/nav-menus.php:643
+#: wp-admin/nav-menus.php:646
 msgid "To edit an existing menu, <strong>choose a menu from the dropdown and click Select</strong>"
 msgstr ""
 
-#: wp-admin/nav-menus.php:642
+#: wp-admin/nav-menus.php:645
 msgid "The menu management box at the top of the screen is used to control which menu is opened in the editor below."
 msgstr "کادر مدیریت فهرست واقع در بالای صفحه نمایش برای کنترل این‌که کدام فهرست در ویرایشگر زیر باز شود مورد استفاده قرار می‌گیرد."
 
-#: wp-admin/nav-menus.php:632
+#: wp-admin/nav-menus.php:635
 msgid "Add, organize, and modify individual menu items"
 msgstr "افزودن، سازماندهی و ویرایش گزینه‌های فهرست"
 
-#: wp-admin/nav-menus.php:631
+#: wp-admin/nav-menus.php:634
 msgid "Create, edit, and delete menus"
 msgstr "ساخت، ویرایش، و حذف فهرست‌ها"
 
-#: wp-admin/nav-menus.php:630
+#: wp-admin/nav-menus.php:633
 #: wp-admin/themes.php:133
 msgid "From this screen you can:"
 msgstr "از این صفحه می‌توانید:"
 
-#: wp-admin/nav-menus.php:622
+#: wp-admin/nav-menus.php:625
 msgid "This screen is used for managing your navigation menus."
 msgstr "از این صفحه برای مدیریت فهرست‌های سفارشی شما استفاده می‌شود."
 
-#: wp-admin/nav-menus.php:468
+#: wp-admin/nav-menus.php:471
 msgid "Menu locations updated."
 msgstr "مکان‌های فهرست‌ها به‌روز شدند."
 
@@ -9899,12 +9906,12 @@ msgstr "رد شده: %s"
 msgid "Capabilities"
 msgstr "توانایی‌ها"
 
-#: wp-admin/nav-menus.php:1088
+#: wp-admin/nav-menus.php:1091
 #: wp-admin/network/settings.php:501
 msgid "Menu Settings"
 msgstr "تنظیمات فهرست"
 
-#: wp-admin/nav-menus.php:988
+#: wp-admin/nav-menus.php:991
 msgid "Menu structure"
 msgstr "ساختار فهرست"
 
@@ -9939,7 +9946,7 @@ msgstr "انتقال این مورد به زباله‌دان ممکن نیست.
 msgid "%s has taken over and is currently editing."
 msgstr "%s کنترل را به دست گرفته و در حال ویرایش است."
 
-#: wp-admin/nav-menus.php:893
+#: wp-admin/nav-menus.php:896
 msgid "Select a menu to edit:"
 msgstr "برگزیدن یک فهرست برای ویرایش:"
 
@@ -9956,19 +9963,19 @@ msgstr ""
 msgid "Client version"
 msgstr ""
 
-#: wp-admin/nav-menus.php:1104
+#: wp-admin/nav-menus.php:1107
 msgid "Auto add pages"
 msgstr "افزودن خودکار برگه‌ها"
 
-#: wp-admin/nav-menus.php:1058
+#: wp-admin/nav-menus.php:1061
 msgid "Give your menu a name, then click Create Menu."
 msgstr "برای فهرست‌تان نامی انتخاب کنید، سپس روی ایجاد فهرست کلیک کنید."
 
-#: wp-admin/nav-menus.php:1029
+#: wp-admin/nav-menus.php:1032
 msgid "Edit your default menu by adding or removing items. Drag the items into the order you prefer. Click Create Menu to save your changes."
 msgstr ""
 
-#: wp-admin/nav-menus.php:326
+#: wp-admin/nav-menus.php:329
 msgid "Selected menus have been successfully deleted."
 msgstr "فهرست‌های انتخاب‌شده با موفقیت حذف شدند."
 
@@ -10832,7 +10839,7 @@ msgstr "وب‌سایت افزونه &#187;"
 
 #: wp-admin/export.php:52
 msgid "You can export a file of your site&#8217;s content in order to import it into another installation or platform. The export file will be an XML file format called WXR. Posts, pages, comments, custom fields, categories, and tags can be included. You can choose for the WXR file to include only certain posts or pages by setting the dropdown filters to limit the export by category, author, date range by month, or publishing status."
-msgstr "شما میتوانید پرونده‌ای از محتویات سایت خود را به منظور انتقال به دیگر سایت‌ها یا سیستم‌ها، برون‌بری کنید. پرونده برون‌بری شده، XML با ساختار WXR خواهد بود. نوشته‌ها، برگه‌ها، دیدگاه‌ها، زمینه‌های سفارشی، دسته‌ها و برچسب‌ها نیر میتوانند مشمول شوند. می‌توانید پالایه‌هایی را اعمال کرده تا پرونده WXR تنها شامل روز، نویسنده، دسته، برچسب، تمام نوشته‌ها یا تمام برگه‌ها و وضعیت‌های انتشار مشخصی باشد."
+msgstr ""
 
 #. translators: 1: Table name, 2: Error message.
 #: wp-admin/maint/repair.php:129
@@ -10903,48 +10910,55 @@ msgstr "ایمیل یک کاربر موجود در شبکه را برای دعو
 msgid "Show Toolbar when viewing site"
 msgstr "هنگام مشاهده سایت، نوارابزار نمایش داده شود"
 
+#. translators: %s: HelpHub URL.
 #. translators: %s: Documentation URL.
-#: wp-admin/about.php:331
+#: wp-admin/about.php:64
+#: wp-admin/about.php:90
+#: wp-admin/about.php:388
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "برای اطلاعات بیشتر، <a href=\"%s\">یادداشت‌های این انتشار</a> را ببینید."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:325
+#: wp-admin/about.php:78
+#: wp-admin/about.php:382
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
+#. translators: 1: WordPress version number, 2: Plural number of bugs. More
+#. than one security issue.
 #. translators: 1: WordPress version number, 2: Plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:319
+#: wp-admin/about.php:52
+#: wp-admin/about.php:376
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs.
-#: wp-admin/about.php:313
+#: wp-admin/about.php:370
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:310
+#: wp-admin/about.php:367
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr ""
 
-#: wp-admin/about.php:304
+#: wp-admin/about.php:361
 msgid "Maintenance and Security Release"
 msgstr ""
 
-#: wp-admin/about.php:301
+#: wp-admin/about.php:358
 msgid "Security Release"
 msgstr ""
 
-#: wp-admin/about.php:298
+#: wp-admin/about.php:355
 msgid "Maintenance Release"
 msgstr ""
 
@@ -10957,7 +10971,7 @@ msgstr ""
 
 #: wp-admin/options-permalink.php:25
 msgid "This screen allows you to choose your permalink structure. You can choose from common settings or create custom URL structures."
-msgstr "این صفحه به شما امکان می‌دهد ساختار پیش‌فرض پایاپیوند را انتخاب کنید. می‌توانید از گزینه‌های موجود یکی را انتخاب کنید یا خودتان یک ساختار سفارشی بسازید."
+msgstr ""
 
 #. translators: 1: WordPress version, 2: URL to About screen.
 #: wp-admin/includes/update-core.php:1686
@@ -11230,15 +11244,15 @@ msgid "Because this is a multisite installation, you may add accounts that alrea
 msgstr ""
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:51
+#: wp-admin/about.php:108
 msgid "Welcome to WordPress %s"
 msgstr ""
 
-#: wp-admin/about.php:287
+#: wp-admin/about.php:344
 msgid "Go to Dashboard &rarr; Home"
 msgstr ""
 
-#: wp-admin/about.php:284
+#: wp-admin/about.php:341
 msgid "Go to Dashboard &rarr; Updates"
 msgstr ""
 
@@ -11387,8 +11401,8 @@ msgstr "فهرست راه‌بری سمت راست، دسترسی شما به ب
 #: wp-admin/media-new.php:49
 #: wp-admin/media.php:86
 #: wp-admin/my-sites.php:44
-#: wp-admin/nav-menus.php:637
-#: wp-admin/nav-menus.php:678
+#: wp-admin/nav-menus.php:640
+#: wp-admin/nav-menus.php:681
 #: wp-admin/options-discussion.php:24
 #: wp-admin/options-general.php:53
 #: wp-admin/options-media.php:34
@@ -11538,8 +11552,8 @@ msgstr "مدیر کل"
 #. translators: %s: Theme version number.
 #. translators: %s: WordPress version.
 #. translators: %s: Theme version.
-#: wp-admin/includes/ajax-actions.php:4571
-#: wp-admin/includes/ajax-actions.php:4614
+#: wp-admin/includes/ajax-actions.php:4575
+#: wp-admin/includes/ajax-actions.php:4618
 #: wp-admin/includes/class-wp-debug-data.php:951
 #: wp-admin/includes/class-wp-debug-data.php:998
 #: wp-admin/includes/class-wp-debug-data.php:1320
@@ -11608,7 +11622,7 @@ msgstr "تنظیمات ذخیره شد."
 #: wp-admin/media-new.php:60
 #: wp-admin/media.php:96
 #: wp-admin/my-sites.php:51
-#: wp-admin/nav-menus.php:685
+#: wp-admin/nav-menus.php:688
 #: wp-admin/options-discussion.php:31
 #: wp-admin/options-general.php:59
 #: wp-admin/options-media.php:40
@@ -11900,7 +11914,7 @@ msgstr "%1$s از %2$s"
 msgid "%s Page Template"
 msgstr "%s الگوی برگه"
 
-#: wp-admin/includes/ajax-actions.php:4676
+#: wp-admin/includes/ajax-actions.php:4680
 #: wp-admin/plugins.php:624
 msgid "You cannot delete a plugin while it is active on the main site."
 msgstr "نمی‌توانید افزونه‌ای که در سایت اصلی فعال است را حذف کنید."
@@ -12049,7 +12063,7 @@ msgstr "به‌روزرسانی افزونه"
 msgid "Theme updated successfully."
 msgstr "پوسته با موفقیت به‌روز شد."
 
-#: wp-admin/includes/ajax-actions.php:4342
+#: wp-admin/includes/ajax-actions.php:4346
 #: wp-admin/includes/class-theme-upgrader.php:63
 #: wp-admin/includes/class-theme-upgrader.php:100
 msgid "Theme update failed."
@@ -12060,7 +12074,7 @@ msgstr "به‌روزرسانی پوسته ناموفق بود."
 msgid "Plugin updated successfully."
 msgstr "افزونه با موفقیت به‌روز شد."
 
-#: wp-admin/includes/ajax-actions.php:4633
+#: wp-admin/includes/ajax-actions.php:4637
 #: wp-admin/includes/class-plugin-upgrader.php:64
 #: wp-admin/includes/class-plugin-upgrader.php:91
 msgid "Plugin update failed."
@@ -12446,7 +12460,7 @@ msgstr "شما همچنین می‌توانید از این صفحه با است
 
 #: wp-admin/comment.php:64
 msgid "You can edit the information left in a comment if needed. This is often useful when you notice that a commenter has made a typographical error."
-msgstr "شما می‌توانید اطلاعات وارد شدهٔ دیدگاه را ویرایش کنید. این امکان معمولاً وقتی مفید واقع می‌شود که یک دیدگاه شامل غلط املایی است."
+msgstr ""
 
 #. translators: %s: Documentation URL.
 #: wp-admin/options-reading.php:34
@@ -12455,11 +12469,11 @@ msgstr ""
 
 #: wp-admin/options-reading.php:26
 msgid "This screen contains the settings that affect the display of your content."
-msgstr "این صفحه حاوی تنظیمات مربوط به نمایش محتوای سایت شماست."
+msgstr ""
 
 #: wp-admin/options-general.php:47
 msgid "UTC means Coordinated Universal Time."
-msgstr "UTC به معنای «زمان هماهنگ جهانی» است."
+msgstr ""
 
 #: wp-admin/options-general.php:27
 msgid "The fields on this screen determine some of the basics of your site setup."
@@ -12520,11 +12534,11 @@ msgstr "می‌توانید دسته‌های انتخابی را با به‌ک
 
 #: wp-admin/import.php:25
 msgid "This screen lists links to plugins to import data from blogging/content management platforms. Choose the platform you want to import from, and click Install Now when you are prompted in the popup window. If your platform is not listed, click the link to search the plugin directory for other importer plugins to see if there is one for your platform."
-msgstr "فهرست این صفحه افزونه‌هایی را که توسط آن‌ها می‌توانید محتوای خود را از دیگر سیستم‌های مدیریت محتوا به وردپرس درون‌ریزی کنید، نشان می‌دهد. سیستم مدیریت محتوای مبدا را انتخاب کنید و سپس در پنجره‌ای که به شما نشان داده می‌شود، گزینهٔ نصب را کلیک کنید. در صورتی که سیستم مدیریت محتوای شما در این فهرست وجود ندارد. بر روی پیوند کلیک کنید تا پوشهٔ افزونه‌ها برای یافتن افزونهٔ مناسب شما جست‌وجو شود."
+msgstr ""
 
 #: wp-admin/export.php:53
 msgid "Once generated, your WXR file can be imported by another WordPress site or by another blogging platform able to access this format."
-msgstr "پرونده برون‌بری شده با ساختار WXR می‌تواند توسط یک سایت وردپرسی دیگر یا هر سیستم دیگری که از این ساختار پشتیبانی کند، درون‌ریزی شود."
+msgstr ""
 
 #: wp-admin/plugin-editor.php:128
 msgid "Choose a plugin to edit from the dropdown menu and click the Select button. Click once on any file name to load it in the editor, and make your changes. Do not forget to save your changes (Update File) when you are finished."
@@ -12693,7 +12707,7 @@ msgstr ""
 msgid "Search Installed Plugins"
 msgstr "جست‌وجوی افزونه‌های نصب‌شده"
 
-#: wp-admin/nav-menus.php:749
+#: wp-admin/nav-menus.php:752
 msgid "Your theme supports one menu. Select which menu you would like to use."
 msgstr "پوستهٔ شما از یک فهرست پشتیبانی می‌کند. یکی از منوها را به دلخواه انتخاب کنید."
 
@@ -12846,7 +12860,7 @@ msgstr "برای استفاده از پیکربندی زیردامنه، شما 
 msgid "The installer attempted to contact a random hostname (%s) on your domain."
 msgstr "برنامه راه‌انداز سعی کرد به یک میزبان تصادفی (%s) روی دامنهٔ شما متصل شود."
 
-#: wp-admin/nav-menus.php:281
+#: wp-admin/nav-menus.php:284
 msgid "The menu item has been successfully deleted."
 msgstr "گزینهٔ فهرست با موفقیت حذف شد."
 
@@ -13027,7 +13041,7 @@ msgstr "امکان تغییر نام‌کاربری وجود ندارد."
 msgid "items"
 msgstr "موارد"
 
-#: wp-admin/nav-menus.php:304
+#: wp-admin/nav-menus.php:307
 msgid "The menu has been successfully deleted."
 msgstr "فهرست با موفقیت حذف شد."
 
@@ -13052,8 +13066,8 @@ msgstr "کلاس‌های CSS (اختیاری)"
 msgid "Link Target"
 msgstr "هدف پیوند"
 
-#: wp-admin/nav-menus.php:1014
-#: wp-admin/nav-menus.php:1179
+#: wp-admin/nav-menus.php:1017
+#: wp-admin/nav-menus.php:1182
 msgid "Save Menu"
 msgstr "ذخیره فهرست"
 
@@ -13151,7 +13165,7 @@ msgstr "به‌روزرسانی‌های وردپرس"
 msgid "Edit menu item"
 msgstr "ویرایش گزینه فهرست"
 
-#: wp-admin/about.php:287
+#: wp-admin/about.php:344
 #: wp-admin/includes/network.php:148
 msgid "Go to Dashboard"
 msgstr "بازگشت به پیشخوان"
@@ -13208,8 +13222,8 @@ msgstr "این نشانی یرای اهداف مدیریتی استفاده می
 msgid "View All"
 msgstr "نمایش همه"
 
-#: wp-admin/nav-menus.php:400
-#: wp-admin/nav-menus.php:422
+#: wp-admin/nav-menus.php:403
+#: wp-admin/nav-menus.php:425
 msgid "Please enter a valid menu name."
 msgstr "لطفاً یک نام قابل‌قبول برای فهرست وارد کنید."
 
@@ -13753,7 +13767,7 @@ msgstr "پرونده‌های افزونه"
 msgid "Select plugin to edit:"
 msgstr "افزونه‌ای را برای ویرایش انتخاب کنید:"
 
-#: wp-admin/includes/ajax-actions.php:4844
+#: wp-admin/includes/ajax-actions.php:4848
 #: wp-admin/plugin-editor.php:187
 #: wp-admin/theme-editor.php:194
 msgid "File edited successfully."
@@ -14637,6 +14651,11 @@ msgstr "این نوشته را سنجاق کن"
 #: wp-admin/includes/class-wp-posts-list-table.php:1963
 msgid "Not Sticky"
 msgstr "سنجاق‌نشده"
+
+#: wp-admin/includes/class-wp-posts-list-table.php:1959
+#: wp-admin/includes/class-wp-posts-list-table.php:1962
+msgid "Sticky"
+msgstr "سنجاق‌شده"
 
 #: wp-admin/includes/class-wp-posts-list-table.php:1921
 msgid "Allow Pings"
@@ -15863,9 +15882,8 @@ msgstr "کلیدهای عمومی و خصوصی برای %s اشتباه هست�
 
 #. translators: %s: hostname:port
 #: wp-admin/includes/class-wp-filesystem-ssh2.php:131
-#, fuzzy
 msgid "Failed to connect to SSH2 Server %s"
-msgstr "برقراری ارتباطات با سرور SSH2 %s ممکن نشد"
+msgstr ""
 
 #: wp-admin/includes/class-wp-filesystem-ssh2.php:105
 msgid "SSH2 password is required"
@@ -15894,9 +15912,8 @@ msgstr "شناسه/رمز برای %s اشتباه است"
 #: wp-admin/includes/class-wp-filesystem-ftpext.php:97
 #: wp-admin/includes/class-wp-filesystem-ftpsockets.php:87
 #: wp-admin/includes/class-wp-filesystem-ftpsockets.php:100
-#, fuzzy
 msgid "Failed to connect to FTP Server %s"
-msgstr "برقراری ارتباطات با سرور FTP %s ممکن نشد"
+msgstr ""
 
 #: wp-admin/includes/class-wp-filesystem-ftpext.php:66
 #: wp-admin/includes/class-wp-filesystem-ftpsockets.php:62
@@ -15964,7 +15981,7 @@ msgstr "دریافت پرونده برون‌بری"
 
 #: wp-admin/export.php:174
 msgid "This format, which is called WordPress eXtended RSS or WXR, will contain your posts, pages, comments, custom fields, categories, and tags."
-msgstr ""
+msgstr "این ساختار، که ما آن‌را WordPress eXtended RSS یا WXR می‌خوانیم، نوشته‌ها، برگه‌های، دیدگاه‌ها، زمینه‌های سفارشی و دسته‌ها و برچسب‌های شما را در خود دارد."
 
 #: wp-admin/export.php:173
 msgid "When you click the button below WordPress will create an XML file for you to save to your computer."
@@ -16081,7 +16098,7 @@ msgstr "به‌روزرسانی دیدگاه"
 #. translators: 1: Post edited date, 2: Post edited time.
 #. translators: 1: Date of last edit, 2: Time of last edit.
 #: wp-admin/edit-form-advanced.php:630
-#: wp-admin/includes/ajax-actions.php:2864
+#: wp-admin/includes/ajax-actions.php:2868
 msgid "Last edited on %1$s at %2$s"
 msgstr "آخرین ویرایش در %1$s ساعت %2$s"
 
@@ -16090,7 +16107,7 @@ msgstr "آخرین ویرایش در %1$s ساعت %2$s"
 #. translators: 1: User's display name, 2: Date of last edit, 3: Time of last
 #. edit.
 #: wp-admin/edit-form-advanced.php:627
-#: wp-admin/includes/ajax-actions.php:2861
+#: wp-admin/includes/ajax-actions.php:2865
 msgid "Last edited by %1$s on %2$s at %3$s"
 msgstr "آخرین ویرایش به‌دست %1$s در %2$s ساعت %3$s"
 
@@ -16282,7 +16299,7 @@ msgstr "سربرگ دلخواه"
 
 #: wp-admin/includes/dashboard.php:251
 #: wp-admin/includes/template.php:2592
-#: wp-admin/nav-menus.php:841
+#: wp-admin/nav-menus.php:844
 #: wp-admin/options.php:413
 msgid "Save Changes"
 msgstr "ذخیره تغییرات"
@@ -16496,9 +16513,6 @@ msgstr "&laquo;"
 
 #~ msgid "Update Media"
 #~ msgstr "به‌روزرسانی رسانه"
-
-#~ msgid "Sticky"
-#~ msgstr "سنجاق‌شده"
 
 #~ msgid "Import"
 #~ msgstr "درون‌ریزی"

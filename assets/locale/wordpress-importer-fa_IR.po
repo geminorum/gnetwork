@@ -1,0 +1,206 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Importer\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-04-18 18:31+0330\n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Basepath: ../../../wordpress-importer\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: class-wp-import.php:239
+msgid "To make it simpler for you to edit and save the imported content, you may want to reassign the author of the imported item to an existing user of this site, such as your primary administrator account."
+msgstr "برای اینکه ویرایش و ذخیره‌سازی محتوی درون‌ریزی شده را ساده تر کنید، ممکن است بخواهید نویسنده موارد درون‌ریزی شده را به یک کاربر موجود در این سایت، مانند ادمین اصلی سایت، مجددا اختصاص دهید."
+
+#: parsers/class-wxr-parser.php:43
+msgid "Details are shown above. The importer will now try again with a different parser..."
+msgstr "جزئیات در بالا نشان داده شده‌اند. درون‌ریز اکنون با یک مفسر جدید تلاش خواهد کرد …"
+
+#: parsers/class-wxr-parser-simplexml.php:29
+#: parsers/class-wxr-parser-simplexml.php:37 parsers/class-wxr-parser.php:42
+msgid "There was an error when reading this WXR file"
+msgstr "خطایی هنگام خواندن این پرونده WXR وجود دارد"
+
+#: parsers/class-wxr-parser-regex.php:96 parsers/class-wxr-parser-xml.php:48
+#: parsers/class-wxr-parser-simplexml.php:41
+#: parsers/class-wxr-parser-simplexml.php:46
+msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr "این به نظر نمی‌رسد که یک پرونده WXR باشد، نگارش WXR نامعتبر/فراموش شده است"
+
+#: class-wp-import.php:106 class-wp-import.php:115 class-wp-import.php:166
+#: class-wp-import.php:170 class-wp-import.php:179
+msgid "Sorry, there has been an error."
+msgstr "متأسفیم، اینجا خطایی رخ داده است."
+
+#: class-wp-import.php:107
+msgid "The file does not exist, please try again."
+msgstr "پرونده موجود نيست،دوباره آزمايش كنيد."
+
+#: class-wp-import.php:150
+msgid "All done."
+msgstr "انجام شد."
+
+#: class-wp-import.php:151
+msgid "Remember to update the passwords and roles of imported users."
+msgstr "به‌یاد داشته باشید که رمزهای عبور و نقش‌های کاربران درون‌ریزی شده را به‌روزرسانی کنید."
+
+#: class-wp-import.php:150
+msgid "Have fun!"
+msgstr "خوش بگذرد!"
+
+#: class-wp-import.php:171
+msgid "The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem."
+msgstr "پرونده برون‌بری یافت نشد در <code>%s</code>.ممکن است به دلیل دسترسی‌ها باشد."
+
+#: class-wp-import.php:187
+msgid "This WXR file (version %s) may not be supported by this version of the importer. Please consider updating."
+msgstr "این پرونده WXR (نگارش %s) احتمالاً توسط این نگارش از درون‌ریز پشتیبانی نشده است. لطفاً به‌روزرسانی را امتحان کنید."
+
+#: class-wp-import.php:212
+msgid "Failed to import author %s. Their posts will be attributed to the current user."
+msgstr "ناموفق در درون‌ریزی نویسنده (%s). نوشته‌های ایشان به کاربر فعلی تخصیص داده خواهد شد."
+
+#: class-wp-import.php:238
+msgid "Assign Authors"
+msgstr "اختصاص دادن نویسندگان"
+
+#: class-wp-import.php:241
+msgid "If a new user is created by WordPress, a new password will be randomly generated and the new user&#8217;s role will be set as %s. Manually changing the new user&#8217;s details will be necessary."
+msgstr "اگر یک کاربر جدید توسط وردپرس ایجاد شود، یک رمز عبور تصادفی ساخته می‌شود و نقش کاربر جدید به‌عنوان %s خواهد بود. تغییر جزئیات کاربر جدید به‌صورت دستی لازم است."
+
+#: class-wp-import.php:251
+msgid "Import Attachments"
+msgstr "درون‌ریزی پیوست‌ها"
+
+#: class-wp-import.php:254
+msgid "Download and import file attachments"
+msgstr "دانلود و درون‌ریزی فایل‌های پیوست"
+
+#: class-wp-import.php:258
+msgid "Submit"
+msgstr "تایید"
+
+#: class-wp-import.php:271
+msgid "Import author:"
+msgstr "كاربر درون ريز:"
+
+#: class-wp-import.php:286
+msgid "as a new user:"
+msgstr "به‌عنوان یک کاربر جدید:"
+
+#: class-wp-import.php:283
+msgid "or create new user with login name:"
+msgstr "يا یک کاربر جدید با این شناسه کاربری بساز:"
+
+#: class-wp-import.php:296
+msgid "assign posts to an existing user:"
+msgstr "اختصاص دادن نوشته‌ها به یک کاربر موجود:"
+
+#: class-wp-import.php:306
+msgid "- Select -"
+msgstr "- انتخاب -"
+
+#: class-wp-import.php:298
+msgid "or assign posts to an existing user:"
+msgstr "یا نوشته‌ها را به یک کاربر فعلی اختصاص بده:"
+
+#: class-wp-import.php:360
+msgid "Failed to create new user for %s. Their posts will be attributed to the current user."
+msgstr "ساختن کاربر جدید برای %s ناموفق بود. نوشته‌های ایشان به کاربر فعلی اختصاص خواهد یافت."
+
+#: class-wp-import.php:457
+msgid "Failed to import post tag %s"
+msgstr "درون‌ریزی برچسب نوشته‌ی %s ناموفق بود"
+
+#: class-wp-import.php:412
+msgid "Failed to import category %s"
+msgstr "درون‌ریزی دسته %s ناموفق بود"
+
+#: class-wp-import.php:512 class-wp-import.php:738
+msgid "Failed to import %s %s"
+msgstr "درون‌ریزی %s %s ناموفق بود"
+
+#: class-wp-import.php:605
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr "درون‌ریزی &#8220;%s&#8221; ناموفق بود: ساختار نوشته نامعتبر (%s)"
+
+#: class-wp-import.php:878
+msgid "Menu item skipped due to missing menu slug"
+msgstr "به‌دلیل نداشتن نامک فهرست، این گزینه فهرست پرش شد"
+
+#: class-wp-import.php:704
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr "درون‌ریزی %s &#8220;%s&#8221; ناموفق بود"
+
+#: class-wp-import.php:642
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr "%s &#8220;%s&#8221; هم‌اکنون وجود دارد."
+
+#: class-wp-import.php:885
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr "به دلیل نامک فهرست نامعتبر، از گزینه فهرست پرش شد: %s"
+
+#: class-wp-import.php:948
+msgid "Fetching attachments is not enabled"
+msgstr "دریافت پیوست‌ها فعال نشده است"
+
+#: class-wp-import.php:961
+msgid "Invalid file type"
+msgstr "نوع پرونده معتبر نيست"
+
+#: class-wp-import.php:1047
+msgid "Remote server did not respond"
+msgstr "سرور از راه دور جواب نمی دهد"
+
+#: class-wp-import.php:1065
+msgid "Remote file is too large, limit is %s"
+msgstr "پرونده دوردست، بسیار بزرگ است. محدودیت %s است"
+
+#: class-wp-import.php:1054
+msgid "Zero size file downloaded"
+msgstr "پرونده با اندازه صفر بارگیری شده"
+
+#: class-wp-import.php:1231
+msgid "A new version of this importer is available. Please update to version %s to ensure compatibility with newer export files."
+msgstr " نسخه جديد اين درون ريز آماده است.لطفا به روز رسانی به نسخه%s برای اطمینان از سازگاری با پرونده های برون ريز جدیدتر."
+
+#: class-wp-import.php:1224
+msgid "Import WordPress"
+msgstr "درون‌ریزی وردپرس"
+
+#: class-wp-import.php:1246
+msgid "Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import the posts, pages, comments, custom fields, categories, and tags into this site."
+msgstr "درود! پرونده RSS توسعه‌یافته وردپرس (WXR) خود را بارگذاری کنید و ما نوشته‌ها، برگه‌ها، دیدگاه‌ها، زمینه‌های دلخواه، دسته‌ها و برچسب‌ها را در این سایت، درون‌ریزی خواهیم کرد."
+
+#: class-wp-import.php:1247
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr "یک پرونده WXR (.xml) را برای بارگذاری انتخاب کنید، سپس روی بارگذاری پرونده کلیک کنید و درون‌ریزی کنید."
+
+#: wordpress-importer.php:58
+msgid "Import <strong>posts, pages, comments, custom fields, categories, and tags</strong> from a WordPress export file."
+msgstr "درون‌ریزی <strong>نوشته‌ها، برگه‌ها، دیدگاه‌ها، زمینه‌های دلخواه، دسته‌ها و برچسب‌ها</strong> از یک پرونده برون‌ریزی‌شده وردپرس (WXR)."
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/wordpress-importer/"
+msgstr ""
+
+#. Plugin Name of the plugin
+msgid "WordPress Importer"
+msgstr "درون‌ریز وردپرس"
+
+#. Description of the plugin
+msgid "Import posts, pages, comments, custom fields, categories, tags and more from a WordPress export file."
+msgstr "درون ريز نوشته ها، برگه ها، ديدگاه ها ، زمينه هاي دلخواه، دسته ها، برچسب ها و بقيه از يك پرونده برون ريزي شده وردپرس."
+
+#. Author of the plugin
+msgid "wordpressdotorg"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wordpress.org/"
+msgstr ""
