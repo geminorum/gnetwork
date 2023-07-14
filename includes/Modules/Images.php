@@ -22,6 +22,9 @@ class Images extends gNetwork\Module
 		if ( $this->options['skip_exifmeta'] )
 			$this->filter( 'wp_update_attachment_metadata', 2, 12 );
 
+		if ( $this->options['edit_thumb_sep'] )
+			$this->filter_true( 'image_edit_thumbnails_separately' );
+
 		if ( '' !== $this->options['bigsize_threshold'] )
 			$this->filter( 'big_image_size_threshold', 4, 8 );
 	}
@@ -35,6 +38,7 @@ class Images extends gNetwork\Module
 	{
 		return [
 			'skip_exifmeta'     => '1',
+			'edit_thumb_sep'    => '0',
 			'bigsize_threshold' => '',
 			'quality_jpeg'      => 60,
 			'quality_webp'      => 75,
@@ -51,6 +55,11 @@ class Images extends gNetwork\Module
 					'title'       => _x( 'Strip EXIF', 'Modules: Images: Settings', 'gnetwork' ),
 					'description' => _x( 'Skips storing unused EXIF metadata for image attachments.', 'Modules: Images: Settings', 'gnetwork' ),
 					'default'     => '1',
+				],
+				[
+					'field'       => 'edit_thumb_sep',
+					'title'       => _x( 'Edit Thumbnails Separately', 'Modules: Images: Settings', 'gnetwork' ),
+					'description' => _x( 'Shows the settings in the Image Editor that allow selecting to edit only the thumbnail of an image.', 'Modules: Images: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'bigsize_threshold',
