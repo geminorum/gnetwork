@@ -33,6 +33,9 @@ class Navigation extends gNetwork\Module
 
 		} else {
 
+			// TODO: use `pre_wp_setup_nav_menu_item` @since WP 6.3.0
+			// @SEE: https://core.trac.wordpress.org/ticket/56577
+
 			$this->filter( 'wp_setup_nav_menu_item' );
 
 			// WORKING BUT DISABLED: use https://wordpress.org/plugins/add-descendants-as-submenu-items/
@@ -365,11 +368,11 @@ class Navigation extends gNetwork\Module
 			default:
 
 				// network sites
-				if ( $menu_item->url && Text::start( $matches[1], 'site-' ) )
+				if ( $menu_item->url && Text::starts( $matches[1], 'site-' ) )
 					break;
 
 				// via filter customs
-				if ( $menu_item->url && Text::start( $matches[1], 'custom-' ) )
+				if ( $menu_item->url && Text::starts( $matches[1], 'custom-' ) )
 					break;
 
 				// all other nav items are specific to the logged-in user,

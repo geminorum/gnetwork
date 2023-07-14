@@ -279,7 +279,7 @@ class Embed extends gNetwork\Module
 	public function handle_aparat_video( $matches, $attr, $url, $rawattr )
 	{
 		$html = HTML::tag( 'iframe', [
-			'src'             => sprintf( 'https://aparat.com/video/video/embed/videohash/%s/vt/frame', $matches[1] ),
+			'src'             => sprintf( 'https://www.aparat.com/video/video/embed/videohash/%s/vt/frame', $matches[1] ),
 			'width'           => $attr['width'],
 			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : (int) ( 9 * $attr['width'] / 16 ), // aparat is 16:9
 			'style'           => 'border:none',

@@ -7,7 +7,6 @@ use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -473,7 +472,7 @@ class Admin extends gNetwork\Module
 		echo '<div class="-wrap card -floated" dir="ltr">';
 		HTML::h2( _x( 'jQuery Versions', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
-			echo Themes::summaryjQuery();
+			echo Optimize::summaryjQuery();
 		echo '</div>';
 	}
 

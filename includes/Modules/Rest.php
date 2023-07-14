@@ -141,9 +141,22 @@ class Rest extends gNetwork\Module
 			if ( in_array( $taxonomy->name, $ignored, TRUE ) )
 				continue;
 
-			$html = Utilities::getJoined( WPTaxonomy::getTheTermList( $taxonomy->name, $post['id'] ) );
+			$list = WPTaxonomy::getTheTermList( $taxonomy->name, $post['id'] );
+			$html = $this->filters( 'terms_rendered_html',
+				Utilities::getJoined( $list ),
+				$taxonomy,
+				$post,
+				$object_type
+			);
 
-			$rendered[$taxonomy->rest_base] = $this->filters( 'terms_rendered_html', $html, $taxonomy, $post, $object_type );
+			if ( FALSE === $html )
+				continue;
+
+			$rendered[$taxonomy->rest_base] = [
+				'name'     => $taxonomy->name,
+				'title'    => $taxonomy->label,
+				'rendered' => $html,
+			];
 		}
 
 		return $rendered;

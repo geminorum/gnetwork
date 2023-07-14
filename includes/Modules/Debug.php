@@ -704,11 +704,11 @@ class Debug extends gNetwork\Module
 	{
 		if ( function_exists( $func ) )
 			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), '<code>'.$func.'</code>' ), TRUE, '-available -color-success' );
+			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), HTML::code( $func ) ), TRUE, '-available -color-success' );
 
 		else
 			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), '<code>'.$func.'</code>' ), TRUE, '-not-available -color-danger' );
+			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), HTML::code( $func ) ), TRUE, '-not-available -color-danger' );
 	}
 
 	public static function getPHPExtensions()

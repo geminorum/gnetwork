@@ -662,7 +662,9 @@ class Media extends gNetwork\Module
 		$sizes    = $this->get_taxonomy_sizes( $taxonomy, $fallback );
 
 		if ( ! isset( $metadata['sizes'] ) ) {
+
 			$metadata['sizes'] = [];
+
 		} else {
 
 			// no need to resize already
@@ -683,9 +685,8 @@ class Media extends gNetwork\Module
 		if ( empty( $metadata['sizes'] ) )
 			unset( $metadata['sizes'] );
 
-		if ( WordPress::isDev() ) {
+		if ( WordPress::isDev() )
 			self::_log( $taxonomy, $metadata, $wpupload );
-		}
 
 		return $metadata;
 	}
@@ -1349,7 +1350,7 @@ class Media extends gNetwork\Module
 			'docx|docm' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 			'xls'       => 'application/vnd.ms-excel', // @SEE: https://core.trac.wordpress.org/ticket/39550#comment:156
 			'xlsx'      => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-			// 'csv'       => 'text/csv', // already in core
+			'csv'       => 'text/csv', // NOTE: the one in core does not work, WTF?!
 			'json'      => 'text/plain', // 'application/json', // @REF: https://stackoverflow.com/a/477819/
 			'xml'       => 'text/xml',
 			'md'        => 'text/markdown',
@@ -1467,7 +1468,7 @@ class Media extends gNetwork\Module
 		return $size;
 	}
 
-	// @SEE: https://core.trac.wordpress.org/ticket/38195
+	// @REF: https://core.trac.wordpress.org/ticket/38195
 	public function post_mime_types( $post_mime_types )
 	{
 		return array_merge( $post_mime_types, [
@@ -1501,8 +1502,8 @@ class Media extends gNetwork\Module
 	// https://wpartisan.me/tutorials/rename-clean-wordpress-media-filenames
 	public function sanitize_file_name( $filename, $filename_raw )
 	{
-		if ( ! seems_utf8( $filename ) )
-			return $filename;
+		if ( ! Text::seemsUTF8( $filename ) )
+			return Text::strToLower( $filename );
 
 		$info = pathinfo( $filename );
 		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];

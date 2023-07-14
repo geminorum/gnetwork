@@ -93,12 +93,14 @@ class Locale extends gNetwork\Module
 		if ( in_array( $domain, $this->get_bypassed_domains( $context ) ) )
 			return TRUE;
 
-		if ( Text::start( $domain, 'geditorial-' ) )
+		if ( Text::starts( $domain, 'geditorial-' ) )
 			return TRUE;
 
 		return FALSE;
 	}
 
+	// @SEE: `pre_load_textdomain` filter
+	// @SEE: `pre_load_script_translations` filter
 	public function load_textdomain_mofile( $mofile, $domain )
 	{
 		static $filtered = [];
@@ -472,6 +474,9 @@ class Locale extends gNetwork\Module
 
 			// [Performance Lab](https://wordpress.org/plugins/performance-lab/)
 			'perflab-modules' => 'page',
+
+			// https://github.com/bueltge/wordpress-admin-style
+			'WordPress_Admin_Style' => 'page',
 
 		], $current );
 

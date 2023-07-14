@@ -199,7 +199,8 @@ class Tracking extends gNetwork\Module
 	private function render_gtag( $account, $track_outbound = FALSE, $extra = '', $config = [] )
 	{
 		// @SEE: assets/js/inline/tracking.code.js
-		$script = 'function gtag(){"object"==typeof window.dataLayer&&"function"==typeof window.dataLayer.push&&window.dataLayer.push(arguments)}function gtagCallback(t,a){function n(){e||(e=!0,t())}var e=!1;return setTimeout(n,a||1e3),n}gtag("js",new Date);';
+		// $script = 'function gtag(){"object"==typeof window.dataLayer&&"function"==typeof window.dataLayer.push&&window.dataLayer.push(arguments)}function gtagCallback(t,a){function n(){e||(e=!0,t())}var e=!1;return setTimeout(n,a||1e3),n}gtag("js",new Date);';
+		$script = 'window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);};function gtagCallback(callback,timeout){var called=false;function fn(){if(!called){called=true;callback();}};setTimeout(fn,timeout||1000);return fn;};gtag("js",new Date());';
 
 		if ( count( $config ) )
 			$script.= "gtag('config','".esc_js( $account )."',".wp_json_encode( $config ).");";

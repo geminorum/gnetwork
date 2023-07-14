@@ -1949,7 +1949,7 @@ class Taxonomy extends gNetwork\Module
 				else if ( in_array( $key, [ 'parent', 'slug', 'description' ] ) )
 					$args[$key] = trim( $value );
 
-				else if ( Text::start( $key, 'meta_' ) )
+				else if ( Text::starts( $key, 'meta_' ) )
 					$meta[preg_replace( '/^meta\_/', '', $key )] = trim( $value );
 			}
 

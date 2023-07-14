@@ -51,6 +51,8 @@ class Blog extends gNetwork\Module
 				$this->filter_false( 'media_library_show_audio_playlist', 5 );
 				$this->filter_false( 'media_library_show_video_playlist', 5 );
 				$this->filter_empty_array( 'media_library_months_with_files', 5 );
+
+				self::define( 'GEDITORIAL_THRIFT_MODE', TRUE );
 			}
 
 			if ( $this->options['disable_pointers'] )
@@ -69,9 +71,12 @@ class Blog extends gNetwork\Module
 			$this->action( 'wp_head', 0, 12 );
 			$this->action( 'embed_head', 0, 12 );
 
-			if ( $this->options['thrift_mode'] )
+			if ( $this->options['thrift_mode'] ) {
 				// @REF: https://core.trac.wordpress.org/ticket/37114
 				$this->filter_empty_array( 'post_class_taxonomies', 5 );
+
+				self::define( 'GEDITORIAL_THRIFT_MODE', TRUE );
+			}
 
 			if ( $this->options['shortlink_numeric'] ) {
 				$this->action( 'template_redirect', 0, 5, 'shortlink' );

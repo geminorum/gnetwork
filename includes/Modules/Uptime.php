@@ -100,7 +100,7 @@ class Uptime extends gNetwork\Module
 
 			// wrap to use core styles
 			echo '<div id="dashboard_right_now"><div class="main">';
-			echo '<table class="base-table-simple"><tbody>';
+			echo '<table class="base-table-uptime"><tbody>';
 
 			foreach ( $monitor['logs'] as $log )
 				echo '<tr><td>'.$this->get_uptimerobot_type( $log['type'] )
@@ -111,7 +111,7 @@ class Uptime extends gNetwork\Module
 
 			echo '</tbody></table></div>';
 
-			echo '<div class="sub"><table class="base-table-simple"><tbody><tr><td>';
+			echo '<div class="sub"><table class="base-table-uptime"><tbody><tr><td>';
 				/* translators: %s: all time uptime ratio */
 				echo Utilities::getCounted( $monitor['all_time_uptime_ratio'], _x( 'Uptime Ratio: %s', 'Modules: Uptime', 'gnetwork' ) );
 			echo '</td><td>';
