@@ -122,6 +122,7 @@ class ShortCodes extends gNetwork\Module
 			'all-terms'   => 'shortcode_all_terms',
 			'back'        => 'shortcode_back',
 			'button'      => 'shortcode_button',
+			'image'       => 'shortcode_image',
 			'iframe'      => 'shortcode_iframe',
 			'thickbox'    => 'shortcode_thickbox',
 			'email'       => 'shortcode_email',
@@ -849,6 +850,101 @@ class ShortCodes extends gNetwork\Module
 		unset( $args['class'] );
 
 		return self::shortcodeWrap( $html, 'button', $args, FALSE );
+	}
+
+	public function shortcode_image( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'id'        => FALSE,      // attachment id
+			'src'       => FALSE,      // raw url
+			'link'      => NULL,       // `page`/`parent`/`image`/`FALSE`
+			'size'      => 'medium',
+			'width'     => FALSE,
+			'height'    => FALSE,
+			'style'     => FALSE,
+			'img_class' => FALSE,
+			'figure'    => NULL,       // null for if has caption
+			'caption'   => NULL,       // null for getting from attachment
+			'alt'       => NULL,       // null for getting from attachment
+			'load'      => 'lazy',
+			'context'   => NULL,
+			'wrap'      => TRUE,
+			'before'    => '',
+			'after'     => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$src = FALSE;
+
+		if ( $args['id'] && ( $attachment = get_post( $args['id'] ) ) ) {
+
+			if ( wp_attachment_is_image( $attachment ) ) {
+
+				if ( $image = wp_get_attachment_image_src( $attachment->ID, $args['size'], FALSE ) )
+					$src = $image[0];
+
+				if ( $src && is_null( $args['alt'] ) && ( $alt = WPMedia::getAttachmentImageAlt( $attachment->ID ) ) )
+					$args['alt'] = $alt;
+
+				if ( $src && is_null( $args['caption'] ) && ( $caption = wp_get_attachment_caption( $attachment->ID ) ) )
+					$args['caption'] = $caption;
+
+				if ( $src ) {
+
+					if ( 'full' === $args['link'] )
+						$args['link'] = wp_get_attachment_image_src( $attachment->ID, 'full', FALSE );
+
+					else if ( 'image' === $args['link'] )
+						$args['link'] = wp_get_attachment_url( $attachment->ID );
+
+					else if ( 'parent' === $args['link'] && $attachment->post_parent )
+						$args['link'] = get_permalink( $attachment->post_parent );
+
+					else if ( 'page' === $args['link'] && $attachment->post_parent )
+						$args['link'] = get_attachment_link( $attachment );
+
+				} else if ( in_array( $args['link'], [ 'full', 'image', 'parent', 'page' ], TRUE ) ) {
+
+					$arg['link'] = FALSE;
+				}
+			}
+		}
+
+		if ( ! $src && $args['src'] ) {
+
+			$src = $args['src'];
+		}
+
+		if ( ! $src )
+			return $content;
+
+		$html = HTML::tag( 'img', [
+			'src'     => $src,
+			'alt'     => $args['alt'],
+			'width'   => $args['width'],
+			'height'  => $args['height'],
+			'loading' => $args['load'],
+			'style'   => $args['style'],
+			'class'   => HTML::attrClass( 'img-fluid', $args['figure'] ? 'figure-img' : '', $args['img_class'] ),
+		] );
+
+		if ( $args['link'] && ! in_array( $args['link'], [ 'full', 'image', 'parent', 'page' ], TRUE ) )
+			$html = HTML::link( $html, $args['link'] );
+
+		if ( is_null( $args['figure'] ) && $args['caption'] )
+			$args['figure'] = TRUE;
+
+		if ( $args['figure'] ) {
+
+			if ( $args['caption'] )
+				$html.= '<figcaption class="figure-caption">'.$args['caption'].'</figcaption>';
+
+			$html = '<figure class="'.HTML::prepClass( 'figure', $args['figure'] ).'">'.$html.'</figure>';
+		}
+
+		return self::shortcodeWrap( $html, 'image', $args );
 	}
 
 	public function shortcode_iframe( $atts = [], $content = NULL, $tag = '' )
