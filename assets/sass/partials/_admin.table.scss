@@ -20,7 +20,7 @@ table.base-table-list { // Plugin Core
         flex-wrap: wrap;
 
         li {
-          margin-left: $spacer * .5;
+          margin: 0;
         }
       }
 
@@ -65,6 +65,7 @@ div.base-table-wrap {
 ////////////////////////////////////////////////////////////////////////////////
 table {
   &.base-table-simple,
+  &.base-table-double,
   &.base-table-code,
   &.base-table-list,
   &.base-table-side,
@@ -312,7 +313,20 @@ table.base-table-list {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-table.base-table-simple {
+table.base-table-simple {}
+
+////////////////////////////////////////////////////////////////////////////////
+table.base-table-double {
+  tr td {
+    width: 50%;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// @SEE: Uptime module
+table.base-table-uptime {
+  width: 100%;
+
   > tbody > tr > td {
     padding: 5px 2px;
   }

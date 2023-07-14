@@ -1,4 +1,4 @@
-/*! minireset.css v0.0.5 | MIT License | github.com/jgthms/minireset.css */
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html,
 body,
 p,
@@ -33,6 +33,7 @@ h4,
 h5,
 h6 {
   font-size: 100%;
+  /* stylelint-disable-next-line font-weight-notation */
   font-weight: normal;
 }
 
@@ -42,8 +43,7 @@ ul {
 
 button,
 input,
-select,
-textarea {
+select {
   margin: 0;
 }
 
@@ -51,7 +51,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -73,5 +75,4 @@ table {
 td,
 th {
   padding: 0;
-  text-align: left;
 }

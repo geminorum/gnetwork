@@ -24,7 +24,8 @@ body.locale-fa-ir {
   .media-frame select,
   .wp-editor-area,
   span.postbox-title-action {
-    @include theme-fonts-core-native;
+    // @include theme-fonts-core-native;
+    font-family: $font-family-base;
   }
 
   ol {

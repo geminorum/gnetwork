@@ -1,5 +1,17 @@
+/* stylelint-disable no-invalid-position-at-import-rule */
 @import "modules/all";
 @import "partials/base";
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// @include theme-fonts-VazirMatn-Regular-CDN();
+// @include theme-fonts-VazirMatn-Bold-CDN();
+
+@include theme-fonts-VazirMatn-Regular-LOCAL();
+@include theme-fonts-VazirMatn-Bold-LOCAL();
+
+$font-family-base: $font-family-regular;
+$font-family-head: $font-family-bold;
+////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/admin.rtl";
 @import "partials/blockeditor.rtl";
@@ -21,3 +33,29 @@
 @import "partials/wpmn.admin.rtl";
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/fa_IR.admin.all";
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+body,
+// #wpadminbar *,
+button,
+input,
+select,
+textarea {
+  font-family: $font-family-regular !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-bold !important;
+  font-weight: 700;
+}
+
+#future-posts li,
+#published-posts li {
+  // line-height: initial;
+}

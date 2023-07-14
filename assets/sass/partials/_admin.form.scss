@@ -92,6 +92,12 @@
     width: 12em;
   }
 
+  input.semi-large-text,
+  textarea.semi-large-text,
+  .form-field .semi-large-text {
+    width: 64%;
+  }
+
   input.code-text,
   input.email-text,
   input.ip-text,

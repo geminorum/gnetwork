@@ -85,7 +85,8 @@
 
   body.rtl & {
     * {
-      @include theme-fonts-core-native;
+      // @include theme-fonts-core-native;
+      font-family: $font-family-base; // TODO: must use css vars
     }
 
     > #wp-toolbar > #wp-admin-bar-root-default .ab-icon,

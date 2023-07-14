@@ -25,12 +25,14 @@ body, html {
 }
 
 /* we take the liberty to make visited the same as link */
-a, a:link, a:visited {
-  color: #2F34B8;
+a,
+a:link,
+a:visited {
+  color: #2f34b8;
 }
 
 a:active {
-  color: red;
+  color: rgb(255, 0, 0);
 }
 
 a img {
@@ -61,7 +63,7 @@ a.disabled {
 
 h3 {
   font-size: 1.1em;
-  font-weight: bold;
+  font-weight: 400;
   background-color: #eee;
   padding: 0.25em 0.5em;
   color: #444;
@@ -104,7 +106,7 @@ select {
 }
 
 .gp-bar nav a:hover {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .gp-bar #main-navigation {
@@ -127,17 +129,17 @@ select {
 
 .breadcrumb li {
   display: inline-block;
-  text-shadow: 0 1px 0 #ffffff;
+  text-shadow: 0 1px 0 #fff;
 }
 
-.breadcrumb li:after {
+.breadcrumb li::after {
   color: #999;
-  content: '/';
+  content: "/";
   padding: 0 7px;
 }
 
-.breadcrumb li:last-child:after {
-  content: '';
+.breadcrumb li:last-child::after {
+  content: "";
   color: red;
 }
 

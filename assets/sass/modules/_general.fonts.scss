@@ -786,3 +786,32 @@ $theme-fonts-repo: "../fonts" !default;
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@mixin theme-fonts-VazirMatn-Regular-LOCAL() {
+  $font-family-regular: "Vazirmatn", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+
+  $name: "Vazirmatn";
+  $weight: "400";
+  $path: "../packages/Vazirmatn-UI/Vazirmatn-UI-Regular";
+
+  @include _theme-fonts-fontface-Woff2($name, $path, $weight) {
+    font-style: normal;
+    @include theme-fonts-unicoderange-Persian;
+  }
+}
+
+@mixin theme-fonts-VazirMatn-Bold-LOCAL() {
+  $font-family-bold: "Vazirmatn", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+
+  $name: "Vazirmatn";
+  $weight: "700";
+  $path: "../packages/Vazirmatn-UI/Vazirmatn-UI-Bold";
+
+  @include _theme-fonts-fontface-Woff2($name, $path, $weight) {
+    font-style: normal;
+    @include theme-fonts-unicoderange-Persian;
+  }
+}

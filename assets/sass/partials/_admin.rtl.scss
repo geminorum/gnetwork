@@ -62,7 +62,8 @@ input#user_login {
 .mce-window .mce-window-head .mce-title,
 .media-menu > a,
 #dashboard_activity .no-activity p {
-  font-family: Arial, sans-serif;
+  // font-family: Arial, sans-serif;
+  font-family: $font-family-head;
 }
 
 .drag-drop-inside p.drag-drop-info,
@@ -278,21 +279,21 @@ span.description {
 //       // <------- test this!! FIXME
 //       .sub {
 //         font: 600 15px/30px arial, sans-serif !important;
-//
+///
 //         p.akismet-right-now {
 //           direction: ltr;
 //           font-size: 0.85em;
 //         }
-//
+///
 //         p:last-child {
 //           margin-bottom: 0;
 //         }
 //       }
-//
+///
 //       td a {
 //         font: 600 15px/18px arial, sans-serif !important;
 //       }
-//
+///
 //       td.b a {
 //         line-height: 8px !important;
 //       }

@@ -1,7 +1,7 @@
 // Balloon.css v1.0.0
 // https://github.com/kazzkiq/balloon.css
 
-//
+///
 // Variables
 // -----------------------------------------
 
@@ -10,49 +10,49 @@ $balloon-base-size:  12px !default;
 $balloon-arrow-size: 5px !default;
 $balloon-move:       4px !default;
 
-//
+///
 // Mixins
 // -----------------------------------------
 
-@mixin arrow-down() {
+@mixin balloon-arrow-down() {
   width: 0;
   height: 0;
   border: $balloon-arrow-size solid transparent;
   border-top-color: var(--balloon-color);
 }
 
-@mixin arrow-up() {
+@mixin balloon-arrow-up() {
   width: 0;
   height: 0;
   border: $balloon-arrow-size solid transparent;
   border-bottom-color: var(--balloon-color);
 }
 
-@mixin arrow-left() {
+@mixin balloon-arrow-left() {
   width: 0;
   height: 0;
   border: $balloon-arrow-size solid transparent;
   border-right-color: var(--balloon-color);
 }
 
-@mixin arrow-right() {
+@mixin balloon-arrow-right() {
   width: 0;
   height: 0;
   border: $balloon-arrow-size solid transparent;
   border-left-color: var(--balloon-color);
 }
 
-@mixin base-effects () {
+@mixin balloon-base-effects () {
   opacity: 0;
   pointer-events: none;
   transition: all .18s ease-out .18s;
 }
 
-@mixin no-effects () {
+@mixin balloon-no-effects () {
   transition: none;
 }
 
-@mixin normalized-text() {
+@mixin balloon-normalized-text() {
   text-indent: 0;
   @include theme-fonts-core-native;
   font-weight: 400;
@@ -61,8 +61,7 @@ $balloon-move:       4px !default;
   font-size: var(--balloon-font-size);
 }
 
-
-//
+///
 // Styles
 // -----------------------------------------
 
@@ -85,8 +84,8 @@ button[aria-label] {
   cursor: pointer;
 
   &::after {
-    @include base-effects();
-    @include normalized-text();
+    @include balloon-base-effects();
+    @include balloon-normalized-text();
 
     background: var(--balloon-color);
     border-radius: 2px;
@@ -99,8 +98,8 @@ button[aria-label] {
   }
 
   &::before {
-    @include arrow-down();
-    @include base-effects();
+    @include balloon-arrow-down();
+    @include balloon-base-effects();
 
     content: "";
     position: absolute;
@@ -165,7 +164,7 @@ button[aria-label] {
   &[data-balloon-blunt] {
     &::before,
     &::after {
-      @include no-effects();
+      @include balloon-no-effects();
     }
   }
 
@@ -262,7 +261,7 @@ button[aria-label] {
     }
 
     &::before {
-      @include arrow-up();
+      @include balloon-arrow-up();
 
       left: 50%;
       top: 100%;
@@ -290,7 +289,7 @@ button[aria-label] {
     }
 
     &::before {
-      @include arrow-up();
+      @include balloon-arrow-up();
 
       left: 5px;
       top: 100%;
@@ -318,7 +317,7 @@ button[aria-label] {
     }
 
     &::before {
-      @include arrow-up();
+      @include balloon-arrow-up();
 
       right: 5px;
       top: 100%;
@@ -346,7 +345,7 @@ button[aria-label] {
     }
 
     &::before {
-      @include arrow-right();
+      @include balloon-arrow-right();
 
       right: 100%;
       top: 50%;
@@ -375,7 +374,7 @@ button[aria-label] {
     }
 
     &::before {
-      @include arrow-left();
+      @include balloon-arrow-left();
 
       left: 100%;
       top: 50%;
