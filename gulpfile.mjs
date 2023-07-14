@@ -1,6 +1,6 @@
 import gulp from 'gulp';
 import sass from 'gulp-dart-sass';
-import compiler from 'sass';
+import * as compiler from 'sass';
 import sourcemaps from 'gulp-sourcemaps';
 import postcss from 'gulp-postcss';
 import cssnano from 'cssnano';
@@ -57,6 +57,9 @@ const args=(argList=>{let arg={},a,opt,thisOpt,curOpt;for(a=0;a<argList.length;a
 
 // @REF: https://stackoverflow.com/a/7224605
 const capitalize = s => s && s[0].toUpperCase() + s.slice(1); // eslint-disable-line
+
+// @REF: https://stackoverflow.com/a/49968211
+const normalizeEOL = s => s.replace(/^\s*[\r\n]/gm, '\r\n');
 
 // @REF: https://flaviocopes.com/how-to-check-if-file-exists-node/
 function fsExists(path){try{if(fs.existsSync(path)){return true;}}catch(err){log.error(err)};return false;} // eslint-disable-line
@@ -213,7 +216,7 @@ task('dev:styles', function () {
       cssnano(conf.cssnano.dev),
       autoprefixer(conf.autoprefixer.dev)
     ]))
-    .pipe(header(banner, { pkg: pkg }))
+    .pipe(header(banner, { pkg }))
     .pipe(sourcemaps.write(conf.output.sourcemaps))
     .pipe(size({ title: 'CSS:', showFiles: true }))
     .pipe(gulpdebug({ title: 'Created' }))
@@ -278,7 +281,7 @@ task('build:scripts', function () {
 task('build:banner', function () {
   return src(conf.input.banner, { base: '.' })
     .pipe(header(banner, {
-      pkg: pkg
+      pkg
     }))
     .pipe(dest('.'));
 });
@@ -337,9 +340,9 @@ task('github:package', function (done) {
   //   return done();
   // }
 
-  const file = pkg.name + '-' + pkg.version + '.zip';
+  const filename = pkg.name + '-' + pkg.version + '.zip';
 
-  if (!fsExists('./' + file)) {
+  if (!fsExists('./' + filename)) {
     log.error('Error: missing required package for github');
     return done();
   }
@@ -349,11 +352,11 @@ task('github:package', function (done) {
   // @REF: https://cli.github.com/manual/gh_release_create
   githubCommand('release create ' +
     pkg.version + ' ' +
-    file + ' ' +
+    filename + ' ' +
     '--draft' + ' ' +
     '--latest' + ' ' + // default: automatic based on date and version
     '--title ' + pkg.version + ' ' +
-    '--notes ' + changes.versions[0].rawNote +
+    '--notes "' + normalizeEOL(changes.versions[0].rawNote.toString()) + '"' +
     '',
   done);
 });
@@ -401,7 +404,7 @@ task('ready', function (done) {
 
 task('default', function (done) {
   log.info('Hi, I\'m Gulp!');
-  log.info('Sass is:\n' + compiler.info);
+  log.info('Sass is:\n' + compiler.default.info);
   done();
 });
 
@@ -413,5 +416,12 @@ task('test:package', function (done) {
     return done();
   }
 
+  done();
+});
+
+task('test:changelog', function (done) {
+  const changes = parseChangelog(fs.readFileSync(conf.root.changelog, { encoding: 'utf-8' }), { title: false });
+  // log.info(normalizeEOL(changes.versions[0].rawNote));
+  log.info(normalizeEOL(changes.versions[0].rawNote.toString()));
   done();
 });
