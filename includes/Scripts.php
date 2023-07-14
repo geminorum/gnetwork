@@ -2,6 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+use geminorum\gNetwork\Core\WordPress;
+
 class Scripts extends Core\Base
 {
 
@@ -67,6 +69,24 @@ class Scripts extends Core\Base
 		return $handle;
 	}
 
+	public static function registerBlockAsset( $asset, $version = GNETWORK_VERSION, $base_url = GNETWORK_URL, $base_path = GNETWORK_DIR, $dir = 'assets/blocks' )
+	{
+		$handle = strtolower( self::BASE.'-block-'.str_replace( '.', '-', $asset ) );
+		$info   = $base_path.$dir.'/'.$asset.'/build/index.asset.php';
+		$path   = $base_path.$dir.'/'.$asset.'/build/index.js';
+		$url    = $base_url. $dir.'/'.$asset.'/build/index.js';
+
+		$args = self::atts( [
+			'dependencies' => [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-polyfill' ],
+			'version'      => WordPress::isDev() ? filemtime( $path ) : $version,
+		], is_readable( $info ) ? require( $info ) : [] );
+
+		wp_register_script( $handle, $url, $args['dependencies'], $args['version'] );
+
+		return $handle;
+	}
+
+	// NOT USED
 	public static function registerBlock( $asset, $dep = NULL, $version = GNETWORK_VERSION, $base = GNETWORK_URL, $path = 'assets/blocks' )
 	{
 		$dep     = is_null( $dep ) ? [ 'wp-blocks', 'wp-components', 'wp-editor' ] : (array) $dep;
