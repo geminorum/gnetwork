@@ -224,7 +224,7 @@ class Taxonomy extends Core\Base
 			WHERE term_id IN ( ".implode( ", ", esc_sql( $term_ids ) )." )
 		", ARRAY_A );
 
-		return count( $list ) ? wp_list_pluck( $list, 'taxonomy', 'term_id' ) : [];
+		return count( $list ) ? Core\Arraay::pluck( $list, 'taxonomy', 'term_id' ) : [];
 	}
 
 	public static function updateCountCallback( $taxonomy )
@@ -739,7 +739,7 @@ class Taxonomy extends Core\Base
 			return [];
 
 		if ( ! $object )
-			return wp_list_pluck( $terms, $key ?: 'term_id' );
+			return Core\Arraay::pluck( $terms, $key ?: 'term_id' );
 
 		if ( $key )
 			return Core\Arraay::reKey( $terms, $key );

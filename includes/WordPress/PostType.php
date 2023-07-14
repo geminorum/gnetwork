@@ -51,6 +51,9 @@ class PostType extends Core\Base
 	 */
 	public static function getPost( $post = NULL, $output = OBJECT, $filter = 'raw' )
 	{
+		if ( FALSE === $post )
+			return $post;
+
 		if ( $post instanceof \WP_Post )
 			return $post;
 

@@ -368,7 +368,7 @@ class Update extends gNetwork\Module
 			], $release );
 
 			// Gitlab won allow downloading the damn links!
-			// $assets = wp_list_pluck( $release['assets']['sources'], 'url', 'format' );
+			// $assets = Arraay::pluck( $release['assets']['sources'], 'url', 'format' );
 			// $data['_download'] = $assets['zip'];
 
 			return $data;

@@ -7,7 +7,7 @@ class Base
 
 	public static function define( $name, $value )
 	{
-		if ( ! defined( $name ) )
+		if ( $name && ! defined( $name ) )
 			define( $name, $value );
 	}
 

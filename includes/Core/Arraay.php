@@ -58,7 +58,7 @@ class Arraay extends Base
 	public static function reKey( $list, $key )
 	{
 		if ( ! empty( $list ) ) {
-			$ids  = wp_list_pluck( $list, $key );
+			$ids  = self::pluck( $list, $key );
 			$list = array_combine( $ids, $list );
 		}
 
@@ -352,6 +352,23 @@ class Arraay extends Base
 			return NULL;
 
 		return array_keys( $input )[count( $input ) - 1];
+	}
+
+	/**
+	 * Plucks a certain field out of each object or array in an array.
+	 * NOTE: wrapper for `wp_list_pluck()`
+	 *
+	 * @param  array $input
+	 * @param  int|string $field
+	 * @param  int|string|null $index_key
+	 * @return array $list
+	 */
+	public static function pluck( $input, $field, $index_key = NULL )
+	{
+		if( empty( $input ) || empty( $field ) )
+			return $input;
+
+		return wp_list_pluck( $input, $field, $index_key );
 	}
 
 	// `array_column()` for php < 5.5

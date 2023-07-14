@@ -423,7 +423,7 @@ class Site extends gNetwork\Module
 		static $sites = NULL;
 
 		if ( is_null( $sites ) )
-			$sites = wp_list_pluck( WordPress::getAllSites( FALSE, NULL, FALSE ), 'domain' );
+			$sites = Arraay::pluck( WordPress::getAllSites( FALSE, NULL, FALSE ), 'domain' );
 
 		return array_unique( array_filter( array_merge( $hosts, $sites ) ) );
 	}
@@ -583,7 +583,7 @@ class Site extends gNetwork\Module
 
 	public function the_sites( $sites )
 	{
-		foreach ( wp_list_pluck( $sites, 'id' ) as $blog_id )
+		foreach ( Arraay::pluck( $sites, 'id' ) as $blog_id )
 			$this->switch_blog( $blog_id );
 
 		return $sites;

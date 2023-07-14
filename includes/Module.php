@@ -456,6 +456,17 @@ class Module extends Core\Base
 		return Text::sanitizeBase( $base );
 	}
 
+	protected function dotted()
+	{
+		$suffix = '';
+
+		foreach ( func_get_args() as $arg )
+			if ( $arg )
+				$suffix.= '.'.strtolower( self::sanitize_base( $arg ) );
+
+		return $this->key.$suffix;
+	}
+
 	protected function hook()
 	{
 		$suffix = '';

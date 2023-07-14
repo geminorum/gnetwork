@@ -249,7 +249,7 @@ class HTML extends Base
 			if ( is_array( $arg ) )
 				$classes = array_merge( $classes, $arg );
 
-			else if ( $arg )
+			else if ( $arg && TRUE !== $arg )
 				$classes = array_merge( $classes, preg_split( '#\s+#', $arg ) );
 
 		return Arraay::prepString( $classes );
@@ -721,7 +721,7 @@ class HTML extends Base
 
 		} else if ( ! $args['active'] ) {
 
-			$actives = @wp_list_pluck( $tabs, 'active' );
+			$actives = @Arraay::pluck( $tabs, 'active' );
 			$args['active'] = array_keys( ( count( $actives ) ? $actives : $tabs ) )[0];
 		}
 
@@ -1294,10 +1294,16 @@ class HTML extends Base
 	// @REF: https://developer.wordpress.org/resource/dashicons/
 	public static function getDashicon( $icon = 'wordpress-alt', $title = FALSE, $class = '' )
 	{
+		if ( ! $icon )
+			$icon = 'wordpress-alt';
+
+		if ( ! Text::starts( $icon, 'dashicons-' ) )
+			$icon = sprintf( 'dashicons-%s', $icon );
+
 		return self::tag( 'span', array(
 			'data-icon' => 'dashicons',
 			'title'     => $title,
-			'class'     => self::attrClass( [ 'dashicons', 'dashicons-'.$icon ], $class ),
+			'class'     => self::attrClass( [ 'dashicons', $icon ], $class ),
 		), NULL );
 	}
 

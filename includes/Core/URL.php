@@ -136,6 +136,13 @@ class URL extends Base
 		return preg_replace( '|^(https?:)?//[^/]+(/?.*)|i', '$2', $url );
 	}
 
+	// @REF: https://developer.wordpress.org/reference/functions/wp_get_attachment_url/
+	public static function relative_ALT( $url )
+	{
+		$parsed = parse_url( $url );
+		return dirname( $parsed ['path'] ).'/'.rawurlencode( basename( $parsed['path'] ) );
+	}
+
 	public static function fromPath( $path, $base = ABSPATH )
 	{
 		return str_ireplace(

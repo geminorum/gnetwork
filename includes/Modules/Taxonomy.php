@@ -276,7 +276,7 @@ class Taxonomy extends gNetwork\Module
 
 		Settings::message( $this->filters( 'tabs_messages', Settings::messages() ) );
 
-		HTML::tabNav( 'edititem', [ 'edititem' => $object->labels->edit_item ] + wp_list_pluck( $tabs, 'title' ) );
+		HTML::tabNav( 'edititem', [ 'edititem' => $object->labels->edit_item ] + Arraay::pluck( $tabs, 'title' ) );
 
 		echo '<div class="nav-tab-content -content nav-tab-active -active" data-tab="edititem">';
 	}
@@ -287,7 +287,7 @@ class Taxonomy extends gNetwork\Module
 
 		$tabs = $this->get_term_tabs( $taxonomy, $term );
 
-		foreach ( wp_list_pluck( $tabs, 'callback' ) as $tab => $callback ) {
+		foreach ( Arraay::pluck( $tabs, 'callback' ) as $tab => $callback ) {
 
 			if ( FALSE === $callback )
 				continue;
@@ -324,7 +324,7 @@ class Taxonomy extends gNetwork\Module
 			// FIXME: table-list with edit/view links
 			// TODO: show taxonomy name
 			if ( ! empty( $terms ) )
-				HTML::tableSide( wp_list_pluck( $terms, 'name', 'term_id' ) );
+				HTML::tableSide( Arraay::pluck( $terms, 'name', 'term_id' ) );
 
 			else
 				HTML::desc( _x( 'There are no terms available with similar name.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
@@ -346,7 +346,7 @@ class Taxonomy extends gNetwork\Module
 				// FIXME: table-list with edit/view links
 				// TODO: show taxonomy name
 				if ( ! empty( $terms ) )
-					HTML::tableSide( wp_list_pluck( $terms, 'name', 'term_id' ) );
+					HTML::tableSide( Arraay::pluck( $terms, 'name', 'term_id' ) );
 
 				else
 					HTML::desc( _x( 'There are no terms available with similar description.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
@@ -392,7 +392,7 @@ class Taxonomy extends gNetwork\Module
 
 		// FIXME: table-list with edit/view links
 		// TODO: show posttype name
-		HTML::tableSide( wp_list_pluck( $posts, 'post_title', 'ID' ) );
+		HTML::tableSide( Arraay::pluck( $posts, 'post_title', 'ID' ) );
 
 		$this->actions( 'term_tab_posts_content', $taxonomy, $object, $term );
 	}
@@ -462,7 +462,7 @@ class Taxonomy extends gNetwork\Module
 
 		Settings::message( $this->filters( 'tabs_messages', Settings::messages() ) );
 
-		HTML::tabNav( 'addnew', [ 'addnew' => $object->labels->add_new_item ] + wp_list_pluck( $tabs, 'title' ) );
+		HTML::tabNav( 'addnew', [ 'addnew' => $object->labels->add_new_item ] + Arraay::pluck( $tabs, 'title' ) );
 
 		echo '<div class="nav-tab-content -content nav-tab-active -active" data-tab="addnew">';
 	}
@@ -474,7 +474,7 @@ class Taxonomy extends gNetwork\Module
 
 		$tabs = $this->get_taxonomy_tabs( $taxonomy );
 
-		foreach ( wp_list_pluck( $tabs, 'callback' ) as $tab => $callback ) {
+		foreach ( Arraay::pluck( $tabs, 'callback' ) as $tab => $callback ) {
 
 			if ( FALSE === $callback )
 				continue;
@@ -1689,7 +1689,7 @@ class Taxonomy extends gNetwork\Module
 					'update_term_meta_cache' => FALSE,
 				] );
 
-				$tt_ids = array_merge( $tt_ids, wp_list_pluck( $child_terms, 'term_taxonomy_id' ) );
+				$tt_ids = array_merge( $tt_ids, Arraay::pluck( $child_terms, 'term_taxonomy_id' ) );
 			}
 		}
 
@@ -1732,7 +1732,7 @@ class Taxonomy extends gNetwork\Module
 			$cloned_args  = [ 'slug' => $current_term->slug, 'description' => $current_term->description ]; // not supporting parents
 
 			$current_meta = get_term_meta( $term_id );
-			$cloned_meta  = []; // empty( $current_meta ) ? [] : array_combine( wp_list_pluck( $current_meta, 0 ), array_keys( $current_meta ) ); // added manually later
+			$cloned_meta  = []; // empty( $current_meta ) ? [] : array_combine( Arraay::pluck( $current_meta, 0 ), array_keys( $current_meta ) ); // added manually later
 
 			if ( ! $cloned_term = WPTaxonomy::getTargetTerm( $current_term->name, $cloned_tax, $cloned_args, $cloned_meta ) )
 				continue;
