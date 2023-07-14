@@ -504,7 +504,10 @@ class Admin extends gNetwork\Module
 
 	public function admin_print_styles()
 	{
-		Utilities::linkStyleSheet( 'admin.all' );
+		if ( WordPress::isIFrame() )
+			Utilities::linkStyleSheet( 'admin.iframe' );
+		else
+			Utilities::linkStyleSheet( 'admin.all' );
 
 		if ( is_rtl() )
 			HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.rtl.css', GNETWORK_VERSION );
