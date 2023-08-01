@@ -452,9 +452,10 @@ class Taxonomy extends Core\Base
 	 * @param  string|object $taxonomy
 	 * @param  array $terms
 	 * @param  bool|string $update_terms
+	 * @param  int $force_parent
 	 * @return array $count
 	 */
-	public static function insertDefaultTerms( $taxonomy, $terms, $update_terms = TRUE )
+	public static function insertDefaultTerms( $taxonomy, $terms, $update_terms = TRUE, $force_parent = 0 )
 	{
 		if ( ! $object = self::object( $taxonomy ) )
 			return FALSE;
@@ -464,7 +465,7 @@ class Taxonomy extends Core\Base
 		foreach ( $terms as $slug => $term ) {
 
 			$name   = $term;
-			$meta   = [];
+			$meta   = $children = [];
 			$args   = [ 'slug' => $slug, 'name' => $term ];
 			$update = $update_terms;
 
@@ -481,7 +482,19 @@ class Taxonomy extends Core\Base
 				if ( ! empty( $term['slug'] ) )
 					$args['slug'] = $term['slug'];
 
-				if ( ! empty( $term['parent'] ) ) {
+				if ( ! empty( $term['children'] ) )
+					$children = $term['children'];
+
+				if ( $force_parent ) {
+
+					if ( is_numeric( $force_parent ) )
+						$args['parent'] = $force_parent;
+
+					else if ( $parent = term_exists( $force_parent, $object->name ) )
+						$args['parent'] = $parent['term_id'];
+
+				} else if ( ! empty( $term['parent'] ) ) {
+
 
 					if ( is_numeric( $term['parent'] ) )
 						$args['parent'] = $term['parent'];
@@ -526,6 +539,9 @@ class Taxonomy extends Core\Base
 						// will bail if an entry with the same key is found
 						add_term_meta( $existed['term_id'], $meta_key, $meta_value, TRUE );
 				}
+
+				if ( count( $children ) )
+					self::insertDefaultTerms( $object->name, $children, $update_terms, $existed['term_id'] );
 
 				$count[] = $existed;
 			}

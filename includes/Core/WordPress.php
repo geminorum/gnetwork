@@ -100,19 +100,29 @@ class WordPress extends Base
 		return FALSE;
 	}
 
+	// @REF: https://make.wordpress.org/core/2020/08/27/wordpress-environment-types/
+	// @REF: https://make.wordpress.org/core/2023/07/14/configuring-development-mode-in-6-3/
+	// NOTE: `wp_get_environment_type()` @since WP 5.5.0
+	// NOTE: `wp_is_development_mode()` @since WP 6.3.0
 	public static function isDev()
 	{
 		if ( defined( 'WP_STAGE' )
 			&& 'development' == constant( 'WP_STAGE' ) )
 				return TRUE;
 
+		if ( function_exists( 'wp_get_environment_type' ) )
+			return 'development' === wp_get_environment_type();
+
+		// if ( function_exists( 'wp_is_development_mode' ) )
+		// 	return wp_is_development_mode( 'all' );
+
 		return FALSE;
 	}
 
 	public static function isFlush( $cap = 'publish_posts', $key = 'flush' )
 	{
-		if ( isset( $_GET[$key] ) )
-			return did_action( 'init' ) && current_user_can( $cap );
+		if ( $cap && isset( $_GET[$key] ) )
+			return did_action( 'init' ) && ( TRUE === $cap || current_user_can( $cap ) );
 
 		return FALSE;
 	}

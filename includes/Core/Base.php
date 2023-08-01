@@ -21,7 +21,9 @@ class Base
 		if ( empty( $value ) )
 			return TRUE;
 
-		// TODO: advanced trim
+		if ( ! $value = Text::trim( $value ) )
+			return TRUE;
+
 		// TODO: convert back numbers
 		// TODO: check empty types: html/dashes/
 

@@ -5,6 +5,23 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Text extends Base
 {
 
+	/**
+	 * Advanced version of `trim()`.
+	 *
+	 * @param  string $text
+	 * @return string $text
+	 */
+	public static function trim( $text )
+	{
+		$text = (string) $text;
+		$text = trim( $text, " \n\t\r\0\x0B," );
+
+		if ( 0 === strlen( $text ) )
+			return '';
+
+		return $text;
+	}
+
 	public static function sanitizeHook( $hook )
 	{
 		return trim( str_ireplace( [ '-', '.', '/', '\\' ], '_', $hook ) );

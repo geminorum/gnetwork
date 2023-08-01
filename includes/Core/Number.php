@@ -170,7 +170,15 @@ class Number extends Base
 		return max( 0, (int) $number );
 	}
 
-	// @SOURCE: `zeroise()` from WordPress
+	/**
+	 * Adds leading zeros when necessary.
+	 * @source `zeroise()`
+	 *
+	 * @param  int         $number
+	 * @param  int         $threshold
+	 * @param  null|string $locale
+	 * @return string      $zeroised
+	 */
 	public static function zeroise( $number, $threshold, $locale = NULL )
 	{
 		return sprintf( '%0'.$threshold.'s', $number );
@@ -388,7 +396,7 @@ class Number extends Base
 	public static function average( array $numbers, bool $roundUp = FALSE, bool $includeEmpties = TRUE )
 	{
 		$numbers = array_filter( $numbers, static function( $v ) use ( $includeEmpties ) {
-			$includeEmpties ? is_numeric( $v ) : is_numeric( $v ) && ( $v > 0 );
+			return $includeEmpties ? is_numeric( $v ) : is_numeric( $v ) && ( $v > 0 );
 		} );
 
 		$average = array_sum( $numbers ) / count( $numbers );

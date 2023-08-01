@@ -25,6 +25,9 @@ class Arraay extends Base
 
 	public static function prepSplitters( $text, $default = '|' )
 	{
+		if ( is_null( $text ) )
+			return NULL;
+
 		return empty( $text ) ? [ $default ] : self::prepString( preg_split( '//u', $text, -1, PREG_SPLIT_NO_EMPTY ), [ $default ] );
 	}
 
@@ -38,11 +41,38 @@ class Arraay extends Base
 		return $callback ? array_filter( $input, $callback ) : array_filter( $input );
 	}
 
-	// @REF: https://stackoverflow.com/a/28115783
-	// php 5.3
+	/**
+	 * Adds a prefix to each item value of an array.
+	 * @source https://stackoverflow.com/a/28115783
+	 * @since PHP 5.3.0
+	 *
+	 * @param  array $array
+	 * @param  string $prefix
+	 * @return array $prefixed
+	 */
 	public static function prefixValues( $array, $prefix )
 	{
+		if ( empty( $prefix ) || empty( $array ) )
+			return $array;
+
 		return preg_filter( '/^/', $prefix, $array );
+	}
+
+	/**
+	 * Adds a prefix to each item key of an array.
+	 *
+	 * @param  array $array
+	 * @param  string $prefix
+	 * @return array $prefixed
+	 */
+	public static function prefixKeys( $array, $prefix )
+	{
+		if ( empty( $prefix ) || empty( $array ) )
+			return $array;
+
+		$keys = array_keys( $array );
+
+		return self::replaceKeys( $array, array_combine( $keys, self::prefixValues( $keys, $prefix ) ) );
 	}
 
 	public static function roundArray( $array, $precision = -3, $mode = PHP_ROUND_HALF_UP )
@@ -365,7 +395,7 @@ class Arraay extends Base
 	 */
 	public static function pluck( $input, $field, $index_key = NULL )
 	{
-		if( empty( $input ) || empty( $field ) )
+		if ( empty( $input ) || empty( $field ) )
 			return $input;
 
 		return wp_list_pluck( $input, $field, $index_key );
@@ -731,5 +761,18 @@ class Arraay extends Base
 		}
 
 		return array_combine( $keys, $values );
+	}
+
+
+	/**
+	 * Checks whether all array values are strings or not.
+	 * @source https://www.w3resource.com/php-exercises/php-array-exercise-46.php
+	 *
+	 * @param  array $array
+	 * @return bool $is_string
+	 */
+	public static function allStringValues( $array )
+	{
+		return array_sum( array_map( 'is_string', $array ) ) === count( $array );
 	}
 }

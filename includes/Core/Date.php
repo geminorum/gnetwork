@@ -18,53 +18,33 @@ class Date extends Base
 
 	public static function currentTimeZone()
 	{
+		if ( function_exists( 'wp_timezone_string' ) )
+			return wp_timezone_string(); // @since WP 5.3
+
 		if ( $timezone = get_option( 'timezone_string' ) )
 			return $timezone;
 
 		return self::fromOffset( get_option( 'gmt_offset', '0' ) );
 	}
 
+	/**
+	 * Retrieves the timezone from offset as a string.
+	 * @source `wp_timezone_string()`
+	 *
+	 * @param  float $offset
+	 * @return string $timezone_string
+	 */
 	public static function fromOffset( $offset )
 	{
-		$timezones = [
-			'-12'  => 'Pacific/Kwajalein',
-			'-11'  => 'Pacific/Samoa',
-			'-10'  => 'Pacific/Honolulu',
-			'-9'   => 'America/Juneau',
-			'-8'   => 'America/Los_Angeles',
-			'-7'   => 'America/Denver',
-			'-6'   => 'America/Mexico_City',
-			'-5'   => 'America/New_York',
-			'-4'   => 'America/Caracas',
-			'-3.5' => 'America/St_Johns',
-			'-3'   => 'America/Argentina/Buenos_Aires',
-			'-2'   => 'Atlantic/Azores', // no cities here so just picking an hour ahead
-			'-1'   => 'Atlantic/Azores',
-			'0'    => 'Europe/London',
-			'1'    => 'Europe/Paris',
-			'2'    => 'Europe/Helsinki',
-			'3'    => 'Europe/Moscow',
-			'3.5'  => 'Asia/Tehran',
-			'4'    => 'Asia/Baku',
-			'4.5'  => 'Asia/Kabul',
-			'5'    => 'Asia/Karachi',
-			'5.5'  => 'Asia/Calcutta',
-			'6'    => 'Asia/Colombo',
-			'7'    => 'Asia/Bangkok',
-			'8'    => 'Asia/Singapore',
-			'9'    => 'Asia/Tokyo',
-			'9.5'  => 'Australia/Darwin',
-			'10'   => 'Pacific/Guam',
-			'11'   => 'Asia/Magadan',
-			'12'   => 'Asia/Kamchatka'
-		];
+		$offset  = (float) $offset;
+		$hours   = (int) $offset;
+		$minutes = ( $offset - $hours );
 
-		$offset = floatval( $offset );
+		$sign     = ( $offset < 0 ) ? '-' : '+';
+		$abs_hour = abs( $hours );
+		$abs_mins = abs( $minutes * 60 );
 
-		if ( isset( $timezones[$offset] ) )
-			return $timezones[$offset];
-
-		return $timezones['0'];
+		return sprintf( '%s%02d:%02d', $sign, $abs_hour, $abs_mins );
 	}
 
 	// @REF: https://stackoverflow.com/a/2524710
@@ -86,9 +66,8 @@ class Date extends Base
 
 	public static function isInFormat( $date, $format = 'Y-m-d' )
 	{
-		$dateTime = new \DateTime();
-		$d = $dateTime->createFromFormat( $format, $date );
-		return $d && $d->format( $format ) === $date;
+		$datetime = \DateTime::createFromFormat( $format, $date );
+		return $datetime && $datetime->format( $format ) === $date;
 	}
 
 	// @REF: https://stackoverflow.com/a/19680778
@@ -128,23 +107,33 @@ class Date extends Base
 		];
 	}
 
-	// @SOURCE: `bp_core_get_iso8601_date()`
-	// EXAMPLE: `2005-08-15T15:52:01+0000`
-	// timezone should be UTC before using this
-	public static function getISO8601( $timestamp = '' )
+	/**
+	 * Returns an ISO-8601 date from a date string.
+	 * NOTE: timezone should be UTC before using this
+	 * @SEE: https://www.reddit.com/r/PHP/comments/hnd438/why_isnt_date_iso8601_deprecated/
+	 *
+	 * @source `bp_core_get_iso8601_date()`
+	 * @example `2004-02-12T15:19:21+00:00`
+	 *
+	 * @param  null|int|string $timestamp
+	 * @param  string $fallback
+	 * @return string $formatted
+	 */
+	public static function getISO8601( $date = NULL, $fallback = '' )
 	{
-		if ( ! $timestamp )
-			return '';
+		if ( ! $date && ! is_null( $date ) )
+			return $fallback;
 
 		try {
-			$date = new \DateTime( $timestamp, new \DateTimeZone( 'UTC' ) );
 
-		// not a valid date, so return blank string.
+			$datetime = new \DateTime( $date, new \DateTimeZone( 'UTC' ) );
+
 		} catch ( \Exception $e ) {
-			return '';
+
+			return $fallback;
 		}
 
-		return $date->format( \DateTime::ISO8601 );
+		return $datetime->format( \DateTime::ATOM );
 	}
 
 	public static function htmlCurrent( $format = 'l, F j, Y', $class = FALSE, $title = FALSE )

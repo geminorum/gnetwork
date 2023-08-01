@@ -48,8 +48,12 @@ class Phone extends Base
 		if ( ! ( $text = trim( $text ) ) )
 			return '';
 
-		$text = preg_replace( '/^\+98(\d{10})$/', '$1', $text );
-		$text = preg_replace( '/^98(\d{10})$/', '$1', $text );
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
+
+			$text = preg_replace( '/^\+98(\d{10})$/', '$1', $text );
+			$text = preg_replace( '/^98(\d{10})$/', '$1', $text );
+		}
+
 		$text = preg_replace( '/^0(\d{10})$/', '$1', $text );
 
 		if ( preg_replace( '/\d{10}/', '', $text ) )

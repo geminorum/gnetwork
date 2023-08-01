@@ -33,6 +33,11 @@ class Strings extends Core\Base
 				'-', '--', '---',
 				'–', '––', '–––',
 				'—', '——', '———',
+				'<p></p>',
+				'<body><p></p></body>',
+				'<body></body>',
+				'<body> </body>',
+				'ندارد',
 			];
 
 		foreach ( (array) $empties as $empty )
