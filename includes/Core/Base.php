@@ -229,11 +229,20 @@ class Base
 	}
 
 	// http://stackoverflow.com/a/13272939
-	public static function size( $var )
+	public static function varSize( $var )
 	{
-		$start_memory = memory_get_usage();
-		$var = unserialize( serialize( $var ) );
-		return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
+		try {
+
+			$start_memory = memory_get_usage();
+			$var = unserialize( serialize( $var ) );
+			return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
+
+		} catch ( \Exception $e ) {
+
+			self::_log( 'varSize() :: '.$e->getMessage() );
+
+			return 0;
+		}
 	}
 
 	// @REF: `shortcode_atts()`
@@ -366,6 +375,22 @@ class Base
 			return FALSE;
 
 		return (bool) $var;
+	}
+
+	/**
+	 * Swaps the values of two variables.
+	 * NOTE: There isn't a built-in function!
+	 * @source https://stackoverflow.com/a/26549027
+	 *
+	 * @param  mixed $x
+	 * @param  mixed $y
+	 * @return void
+	 */
+	public static function swap( &$x, &$y )
+	{
+		$t = $x;
+		$x = $y;
+		$y = $t;
 	}
 
 	// ANCESTOR: is_wp_error()

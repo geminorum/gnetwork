@@ -1335,7 +1335,8 @@ class HTML extends Base
 		if ( ! is_null( $args['none_title'] ) )
 			$html.= self::tag( 'option', array(
 				'value'    => $args['none_value'],
-				'selected' => $args['selected'] == $args['none_value'],
+				// NOTE: WTF: apparently `none` and `0` are the same via `==`
+				'selected' => empty( $args['none_value'] ) ? ( $args['selected'] === $args['none_value'] ) : ( $args['selected'] == $args['none_value'] )
 			), $args['none_title'] );
 
 		foreach ( $list as $offset => $value ) {
@@ -1357,7 +1358,8 @@ class HTML extends Base
 
 			$html.= self::tag( 'option', array(
 				'value'    => $key,
-				'selected' => $args['selected'] == $key,
+				// NOTE: WTF: apparently `none` and `0` are the same via `==`
+				'selected' => empty( $key ) ? ( $args['selected'] === $key ) : ( $args['selected'] == $key )
 			), $title );
 		}
 

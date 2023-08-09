@@ -211,6 +211,7 @@ class Media extends Core\Base
 		$uploads  = self::upload();
 		$metadata = wp_get_attachment_metadata( $attachment_id );
 		$prepared = [
+			'title'     => get_the_title( $attachment_id ),
 			'alt'       => self::getAttachmentImageAlt( $attachment_id, NULL, TRUE ),
 			'caption'   => wp_get_attachment_caption( $attachment_id ),
 			'mime_type' => get_post_mime_type( $attachment_id ),

@@ -40,6 +40,31 @@ class Status extends Core\Base
 	}
 
 	/**
+	 * Retrieves available posty statuses for given posttype
+	 * TODO: https://developer.wordpress.org/apis/transients/
+	 *
+	 * @param  string     $posttype
+	 * @param  null|array $excludes
+	 * @return array      $statuses
+	 */
+	public static function available( $posttype, $excludes = NULL )
+	{
+		if ( is_null( $excludes ) )
+			$excludes = [
+				'trash',
+				'private',
+				'auto-draft',
+			];
+
+		$statuses = Core\WordPress::isAdvancedCache()
+			? get_available_post_statuses( $posttype )
+			// : [ 'publish', 'future', 'draft' ];
+			: [ 'publish', 'future' ];
+
+		return array_diff_key( $statuses, (array) $excludes );
+	}
+
+	/**
 	 * Determines whether a post status is considered “viewable”.
 	 *
 	 * @param  string|stdClass $status

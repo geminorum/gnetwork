@@ -16,6 +16,9 @@ class Date extends Base
 	const  MONTH_IN_SECONDS = 2592000;  //  30 * 24 * 60 * 60
 	const   YEAR_IN_SECONDS = 31536000; // 365 * 24 * 60 * 60
 
+	const MYSQL_FORMAT = 'Y-m-d H:i:s';
+	const MYSQL_EMPTY  = '0000-00-00 00:00:00';
+
 	public static function currentTimeZone()
 	{
 		if ( function_exists( 'wp_timezone_string' ) )
@@ -79,14 +82,14 @@ class Date extends Base
 		return $from->diff( $to )->format( '%a days, %h hours, %i minutes and %s seconds' );
 	}
 
-	public static function monthFirstAndLast( $year, $month, $format = 'Y-m-d H:i:s', $calendar_type = 'gregorian' )
+	public static function monthFirstAndLast( $year, $month, $format = NULL, $calendar_type = 'gregorian' )
 	{
 		$start = new \DateTime( $year.'-'.$month.'-01 00:00:00' );
 		$end   = $start->modify( '+1 month -1 day -1 minute' );
 
 		return array(
-			$start->format( $format ),
-			$end->format( $format ),
+			$start->format( $format ?? static::MYSQL_FORMAT ),
+			$end->format( $format ?? static::MYSQL_FORMAT ),
 		);
 	}
 
@@ -342,7 +345,7 @@ class Date extends Base
 
 	public static function momentTest()
 	{
-		$format = 'Y-m-d H:i:s';
+		$format = static::MYSQL_FORMAT;
 		$result = array();
 		$spans  = array(
 			'minute',
@@ -493,7 +496,7 @@ class Date extends Base
 		$parts = array( 'year', 'month', 'day', 'hour', 'minute', 'second' );
 
 		if ( $i18n )
-			$time = apply_filters( 'string_format_i18n_back', date_i18n( 'Y-m-d H:i:s', FALSE, $gmt ) );
+			$time = apply_filters( 'string_format_i18n_back', date_i18n( static::MYSQL_FORMAT, FALSE, $gmt ) );
 		else
 			$time = current_time( 'mysql', $gmt );
 
@@ -507,8 +510,8 @@ class Date extends Base
 	{
 		echo "current_time( 'mysql' ) returns local site time: ".current_time( 'mysql' ).'<br />';
 		echo "current_time( 'mysql', TRUE ) returns GMT: ".current_time( 'mysql', TRUE ).'<br />';
-		echo "current_time( 'timestamp' ) returns local site time: ".date( 'Y-m-d H:i:s', current_time( 'timestamp' ) ).'<br />';
-		echo "current_time( 'timestamp', TRUE ) returns GMT: ".date( 'Y-m-d H:i:s', current_time( 'timestamp', TRUE ) ).'<br />';
+		echo "current_time( 'timestamp' ) returns local site time: ".date( static::MYSQL_FORMAT, current_time( 'timestamp' ) ).'<br />';
+		echo "current_time( 'timestamp', TRUE ) returns GMT: ".date( static::MYSQL_FORMAT, current_time( 'timestamp', TRUE ) ).'<br />';
 	}
 
 

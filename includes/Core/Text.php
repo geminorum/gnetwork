@@ -22,6 +22,91 @@ class Text extends Base
 		return $text;
 	}
 
+	/**
+	 * right trim of a string
+	 * @source https://stackoverflow.com/a/32739088
+	 *
+	 * @param string    $text          Original string
+	 * @param string    $needle        String to trim from the end of $str
+	 * @param bool|true $caseSensitive Perform case sensitive matching, defaults to true
+	 * @return string Trimmed string
+	 */
+	public static function rightTrim( $text, $needle, $caseSensitive = TRUE )
+	{
+		$strPosFunction = $caseSensitive ? 'strpos' : 'stripos';
+
+		if ( FALSE !== $strPosFunction( $text, $needle, strlen( $text ) - strlen( $needle ) ) )
+			$text = substr( $text, 0, -strlen( $needle ) );
+
+		return $text;
+	}
+
+	/**
+	 * left trim of a string
+	 * @source https://stackoverflow.com/a/32739088
+	 *
+	 * @param string    $text          Original string
+	 * @param string    $needle        String to trim from the beginning of $str
+	 * @param bool|true $caseSensitive Perform case sensitive matching, defaults to true
+	 * @return string Trimmed string
+	 */
+	public static function leftTrim( $text, $needle, $caseSensitive = TRUE )
+	{
+		$strPosFunction = $caseSensitive ? 'strpos' : 'stripos';
+
+		if ( 0 === $strPosFunction( $text, $needle ) )
+			$text = substr( $text, strlen( $needle ) );
+
+		return $text;
+	}
+
+	/**
+	 * Removes given needle from the start of the string.
+	 *
+	 * @param  string $text
+	 * @param  string $needle
+	 * @return string $removed
+	 */
+	public static function removeFromstart( $text, $needle )
+	{
+		if ( empty( $text ) || empty( $needle ) )
+			return $text;
+
+		return preg_replace( '/^'.preg_quote( $needle, '/' ).'/', '', $text );
+	}
+
+	/**
+	 * Removes given needle from the end of the string.
+	 * @source https://stackoverflow.com/a/5573340
+	 *
+	 * @param  string $text
+	 * @param  string $needle
+	 * @return string $removed
+	 */
+	public static function removeFromEnd( $text, $needle )
+	{
+		if ( empty( $text ) || empty( $needle ) )
+			return $text;
+
+		return preg_replace( '/'.preg_quote( $needle, '/' ).'$/', '', $text );
+	}
+
+	public static function stripAllSpaces( $text )
+	{
+		if ( empty( $text ) )
+			return '';
+
+		return self::trim( preg_replace( "/[\s\x{200C}]/u", '', $text ) );
+	}
+
+	public static function splitAllSpaces( $text )
+	{
+		if ( empty( $text ) )
+			return [];
+
+		return array_filter( (array) preg_split( '/[\s\x{200C}]/u', $text ), 'strlen' );
+	}
+
 	public static function sanitizeHook( $hook )
 	{
 		return trim( str_ireplace( [ '-', '.', '/', '\\' ], '_', $hook ) );
@@ -1149,11 +1234,103 @@ class Text extends Base
 	 *
 	 * @source https://stackoverflow.com/a/69207369
 	 *
-	 * @param  [type] $string
-	 * @return void
+	 * @param  string $string
+	 * @return string $sanitized
 	 */
 	public static function filterSanitizeString( $string )
 	{
 		return str_replace( [ "'", '"' ], [ '&#39;', '&#34;' ], preg_replace( '/\x00|<[^>]*>?/', '', $string ) );
+	}
+
+
+	/**
+	 * Converts a string encoded in `ISO-8859-1` to `UTF-8`.
+	 * NOTE: wrapper for deprecated `utf8_encode()`
+	 * @source https://www.php.net/manual/en/function.utf8-encode.php
+	 *
+	 * Please note that utf8_encode only converts a string encoded in
+	 * `ISO-8859-1` to `UTF-8`. A more appropriate name for it would
+	 * be "iso88591_to_utf8". If your text is not encoded in ISO-8859-1,
+	 * you do not need this function. If your text is already in UTF-8,
+	 * you do not need this function. In fact, applying this function
+	 * to text that is not encoded in ISO-8859-1 will most likely simply
+	 * garble that text.
+	 *
+	 * @param  string $text
+	 * @return string $encoded
+	 */
+	public static function encodeUTF8( $text )
+	{
+		if ( function_exists( 'utf8_encode' ) )
+			return utf8_encode( $text );
+
+		if ( function_exists( 'mb_convert_encoding' ) )
+			return mb_convert_encoding( $text, 'UTF-8', 'ISO-8859-1' );
+
+		if ( is_callable( [ 'UConverter', 'transcode' ] ) )
+			return UConverter::transcode( $text, 'UTF8', 'ISO-8859-1' );
+
+		if ( function_exists( 'iconv' ) )
+			return iconv( 'ISO-8859-1', 'UTF-8', $text );
+	}
+
+	/**
+	 * Convers given text from `Windows-1250` to `UTF-8`.
+	 * @source https://www.php.net/manual/en/function.mb-convert-encoding.php#112547
+	 *
+	 * @REF: http://konfiguracja.c0.pl/iso02vscp1250en.html
+	 * @REF: http://konfiguracja.c0.pl/webpl/index_en.html#examp
+	 * @REF: http://www.htmlentities.com/html/entities/
+	 *
+	 * @param  string $text
+	 * @return string $encoded
+	 */
+	public static function encodeWindows1250toUTF8( $text )
+	{
+		$map = [
+			chr(0x8A) => chr(0xA9),
+			chr(0x8C) => chr(0xA6),
+			chr(0x8D) => chr(0xAB),
+			chr(0x8E) => chr(0xAE),
+			chr(0x8F) => chr(0xAC),
+			chr(0x9C) => chr(0xB6),
+			chr(0x9D) => chr(0xBB),
+			chr(0xA1) => chr(0xB7),
+			chr(0xA5) => chr(0xA1),
+			chr(0xBC) => chr(0xA5),
+			chr(0x9F) => chr(0xBC),
+			chr(0xB9) => chr(0xB1),
+			chr(0x9A) => chr(0xB9),
+			chr(0xBE) => chr(0xB5),
+			chr(0x9E) => chr(0xBE),
+			chr(0x80) => '&euro;',
+			chr(0x82) => '&sbquo;',
+			chr(0x84) => '&bdquo;',
+			chr(0x85) => '&hellip;',
+			chr(0x86) => '&dagger;',
+			chr(0x87) => '&Dagger;',
+			chr(0x89) => '&permil;',
+			chr(0x8B) => '&lsaquo;',
+			chr(0x91) => '&lsquo;',
+			chr(0x92) => '&rsquo;',
+			chr(0x93) => '&ldquo;',
+			chr(0x94) => '&rdquo;',
+			chr(0x95) => '&bull;',
+			chr(0x96) => '&ndash;',
+			chr(0x97) => '&mdash;',
+			chr(0x99) => '&trade;',
+			chr(0x9B) => '&rsquo;',
+			chr(0xA6) => '&brvbar;',
+			chr(0xA9) => '&copy;',
+			chr(0xAB) => '&laquo;',
+			chr(0xAE) => '&reg;',
+			chr(0xB1) => '&plusmn;',
+			chr(0xB5) => '&micro;',
+			chr(0xB6) => '&para;',
+			chr(0xB7) => '&middot;',
+			chr(0xBB) => '&raquo;',
+		];
+
+		return html_entity_decode( mb_convert_encoding( strtr( $text, $map ), 'UTF-8', 'ISO-8859-2' ), ENT_QUOTES, 'UTF-8' );
 	}
 }

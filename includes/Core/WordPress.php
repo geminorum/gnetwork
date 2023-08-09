@@ -92,6 +92,13 @@ class WordPress extends Base
 		return (bool) $screen->is_block_editor();
 	}
 
+	// including `WP_CACHE` with a value of `true` loads `advanced-cache.php`.
+	// `Object-cache.php` is loaded and used automatically.
+	public static function isAdvancedCache()
+	{
+		return defined( 'WP_CACHE' ) && WP_CACHE;
+	}
+
 	public static function isDebug()
 	{
 		if ( WP_DEBUG && WP_DEBUG_DISPLAY && ! self::isDev() )
