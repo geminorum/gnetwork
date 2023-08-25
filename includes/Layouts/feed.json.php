@@ -1,5 +1,6 @@
 <?php defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\WordPress\Media as WPMedia;
 use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 
@@ -36,7 +37,7 @@ if ( have_posts() ) {
 			'shortlink' => wp_get_shortlink( 0, 'query' ),
 			'content'   => get_the_content_feed( 'json' ),
 			'excerpt'   => get_the_excerpt(),
-			'date'      => get_the_date( 'Y-m-d H:i:s', '', '', FALSE ),
+			'date'      => get_the_date( Date::MYSQL_FORMAT, '', '', FALSE ),
 			'author'    => get_the_author(),
 			'terms'     => [],
 			'thumbnail' => WPMedia::prepAttachmentData( get_post_thumbnail_id( $post ) ),

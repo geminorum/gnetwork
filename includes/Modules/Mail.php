@@ -577,16 +577,16 @@ class Mail extends gNetwork\Module
 						if ( is_array( $row['to'] ) ) {
 
 							foreach ( $row['to'] as $to )
-								$html.= HTML::mailto( $to, NULL, 'code' ).' ';
+								$html.= HTML::code( HTML::mailto( $to ) ).' ';
 
 						} else if ( Text::has( $row['to'], ',' ) ) {
 
 							foreach ( explode( ',', $row['to'] ) as $to )
-								$html.= HTML::mailto( $to, NULL, 'code' ).' ';
+								$html.= HTML::code(HTML::mailto( $to ) ).' ';
 
 						} else {
 
-							$html.= HTML::mailto( $row['to'], NULL, 'code' ).' ';
+							$html.= HTML::code(HTML::mailto( $row['to'] ) ).' ';
 						}
 					}
 

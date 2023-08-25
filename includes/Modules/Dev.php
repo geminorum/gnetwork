@@ -134,19 +134,19 @@ class Dev extends gNetwork\Module
 			$log[] = 'REST';
 
 		if ( function_exists( 'gNetwork' ) )
-			$log[] = 'gN:'.File::formatSize( self::size( gNetwork() ) );
+			$log[] = 'gN:'.File::formatSize( self::varSize( gNetwork() ) );
 
 		if ( function_exists( 'gEditorial' ) )
-			$log[] = 'gE:'.File::formatSize( self::size( gEditorial() ) );
+			$log[] = 'gE:'.File::formatSize( self::varSize( gEditorial() ) );
 
 		if ( $gPeopleNetwork )
-			$log[] = 'gP:'.File::formatSize( self::size( $gPeopleNetwork ) );
+			$log[] = 'gP:'.File::formatSize( self::varSize( $gPeopleNetwork ) );
 
 		if ( $gMemberNetwork )
-			$log[] = 'gM:'.File::formatSize( self::size( $gMemberNetwork ) );
+			$log[] = 'gM:'.File::formatSize( self::varSize( $gMemberNetwork ) );
 
 		if ( function_exists( 'gPersianDate' ) )
-			$log[] = 'gPD:'.File::formatSize( self::size( gPersianDate() ) );
+			$log[] = 'gPD:'.File::formatSize( self::varSize( gPersianDate() ) );
 
 		if ( $_SERVER['REQUEST_URI'] )
 			$log[] = $_SERVER['REQUEST_URI'];

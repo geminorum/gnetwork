@@ -280,6 +280,7 @@ class Utilities extends Core\Base
 				'timeonly'  => _x( 'H:i', 'Date Format', 'gnetwork' ),
 				'monthday'  => _x( 'n/j', 'Date Format', 'gnetwork' ),
 				'default'   => _x( 'm/d/Y', 'Date Format', 'gnetwork' ),
+				'age'       => _x( 'Y/m/d', 'Date Format: `age`', 'gnetwork' ),
 				'wordpress' => get_option( 'date_format' ),
 			] );
 

@@ -1074,7 +1074,6 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// @REF: http://stackoverflow.com/a/13662220
-	// @SEE http://code.tutsplus.com/tutorials/mobile-web-quick-tip-phone-number-links--mobile-7667
 	public function shortcode_tel( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [

@@ -478,6 +478,18 @@ class Module extends Core\Base
 		return $this->base.'_'.$this->key.$suffix;
 	}
 
+	// NOTE: same as `hook()` without the `$key`
+	protected function hook_base()
+	{
+		$suffix = '';
+
+		foreach ( func_get_args() as $arg )
+			if ( $arg )
+				$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
+
+		return $this->base.$suffix;
+	}
+
 	protected function classs()
 	{
 		$suffix = '';
@@ -1413,6 +1425,7 @@ class Module extends Core\Base
 		wp_die();
 	}
 
+	// TODO: un-schedule on de-activation
 	protected function _hook_event( $name, $recurrence = 'monthly' )
 	{
 		$hook = $this->hook( $name );

@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 
@@ -112,7 +113,7 @@ class Feed extends gNetwork\Module
 
 			global $wpdb;
 
-			$now  = gmdate( 'Y-m-d H:i:s' );
+			$now  = gmdate( Core\Date::MYSQL_FORMAT );
 			$wait = $this->options['delay_feeds'];
 			$unit = 'MINUTE'; // MINUTE, HOUR, DAY, WEEK, MONTH, YEAR // TODO: make this optional
 

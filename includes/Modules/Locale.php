@@ -99,7 +99,7 @@ class Locale extends gNetwork\Module
 		return FALSE;
 	}
 
-	// @SEE: `pre_load_textdomain` filter
+	// @SEE: `pre_load_textdomain` filter: https://make.wordpress.org/core/2023/07/14/i18n-improvements-in-6-3/
 	// @SEE: `pre_load_script_translations` filter
 	public function load_textdomain_mofile( $mofile, $domain )
 	{

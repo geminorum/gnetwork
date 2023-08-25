@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\WordPress;
 
@@ -600,6 +601,7 @@ class Cleanup extends gNetwork\Module
 		] : 'optimized';
 	}
 
+	// TODO: `_wp_old_date`
 	private function postmeta_editdata()
 	{
 		global $wpdb;
@@ -871,7 +873,7 @@ class Cleanup extends gNetwork\Module
 
 		$count = 0;
 
-		$lastmonth = gmdate( 'Y-m-d H:i:s', strtotime( '-1 month' ) );
+		$lastmonth = gmdate( Date::MYSQL_FORMAT, strtotime( '-1 month' ) );
 
 		$count += $wpdb->query( "UPDATE {$wpdb->posts} SET comment_status = 'closed' WHERE post_date_gmt < '{$lastmonth}' AND post_status = 'publish'" );
 		$count += $wpdb->query( "UPDATE {$wpdb->posts} SET ping_status = 'closed' WHERE post_date_gmt < '{$lastmonth}' AND post_status = 'publish'" );

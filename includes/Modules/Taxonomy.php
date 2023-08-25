@@ -826,8 +826,7 @@ class Taxonomy extends gNetwork\Module
 						'name'     => $this->classs( 'do-default-selected' ),
 						'selected' => TRUE,
 						'panel'    => TRUE,
-						'values'   => TRUE,
-						'value'    => 'slug',
+						'values'   => 'slug',
 						'prop'     => 'name',
 					] );
 
@@ -938,7 +937,7 @@ class Taxonomy extends gNetwork\Module
 		echo '</div>';
 	}
 
-	// TODO: card: recount posts for each term
+	// TODO: card: recount posts for all terms
 	// TODO: card: delete terms with single post
 	// TODO: card: apply i18n on all titles
 	// TODO: card: merge i18n same titles

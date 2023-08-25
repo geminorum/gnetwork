@@ -99,16 +99,17 @@ class Admin extends gNetwork\Module
 				120
 			);
 
-			foreach ( $this->get_menus() as $priority => $group )
-				foreach ( $group as $sub => $args )
-					add_submenu_page( $this->base,
-						/* translators: %s: menu title */
-						sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', 'gnetwork' ), $args['title'] ),
-						$args['title'],
-						$args['cap'],
-						$this->base.'&sub='.$sub,
-						[ $this, 'settings_page' ]
-					);
+			if ( ! gNetwork()->option( 'thrift_mode', 'blog' ) )
+				foreach ( $this->get_menus() as $priority => $group )
+					foreach ( $group as $sub => $args )
+						add_submenu_page( $this->base,
+							/* translators: %s: menu title */
+							sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', 'gnetwork' ), $args['title'] ),
+							$args['title'],
+							$args['cap'],
+							$this->base.'&sub='.$sub,
+							[ $this, 'settings_page' ]
+						);
 
 			$tools = add_submenu_page( 'tools.php',
 				_x( 'Network Tools', 'Modules: Admin: Page Menu', 'gnetwork' ),

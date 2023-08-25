@@ -7,6 +7,7 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\HTTP;
@@ -423,7 +424,7 @@ class Debug extends gNetwork\Module
 
 	public static function currentTime()
 	{
-		$format = 'Y-m-d H:i:s';
+		$format = Date::MYSQL_FORMAT;
 
 		$times = [
 			'date_i18n()'                     => date_i18n( $format ),
