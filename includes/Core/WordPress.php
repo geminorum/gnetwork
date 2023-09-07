@@ -883,7 +883,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 		$list    = [];
 		$missing = FALSE;
 
-		foreach ( get_option( 'rewrite_rules' ) as $rule => $rewrite )
+		foreach ( get_option( 'rewrite_rules', [] ) as $rule => $rewrite )
 			$list[$rule]['rewrite'] = $rewrite;
 
 		$list = array_reverse( $list, TRUE );

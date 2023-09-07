@@ -132,6 +132,17 @@ class HTML extends Base
 		), $html );
 	}
 
+	public static function row( $html, $class = '', $data = [], $tag = 'li' )
+	{
+		if ( ! $html )
+			return '';
+
+		return '<'.( $tag ?: 'div' )
+			.' class="'.self::prepClass( '-row', $class )
+			.'"'.self::propData( $data ).'>'.$html
+			.'</'.( $tag ?: 'div' ).'>';
+	}
+
 	public static function wrap( $html, $class = '', $block = TRUE, $data = [] )
 	{
 		if ( ! $html )

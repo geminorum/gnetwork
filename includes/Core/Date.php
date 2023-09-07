@@ -19,6 +19,26 @@ class Date extends Base
 	const MYSQL_FORMAT = 'Y-m-d H:i:s';
 	const MYSQL_EMPTY  = '0000-00-00 00:00:00';
 
+	/**
+	 * Parses a time string according to a specified format.
+	 * @ref https://www.php.net/manual/en/datetimeimmutable.createfromformat.php
+	 *
+	 * @param  string       $datetime
+	 * @param  null|string  $format
+	 * @param  null|object  $timezone
+	 * @return false|object $object
+	 */
+	public static function getObject( $datetime, $format = NULL, $timezone = NULL )
+	{
+		$timezone = $timezone ?? new \DateTimeZone( self::currentTimeZone() );
+		$object   = \date_create_immutable_from_format( $format ?? static::MYSQL_FORMAT, $datetime, $timezone );
+
+		if ( FALSE === $object )
+			return FALSE;
+
+		return $object->setTimezone( $timezone );
+	}
+
 	public static function currentTimeZone()
 	{
 		if ( function_exists( 'wp_timezone_string' ) )

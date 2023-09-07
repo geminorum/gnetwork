@@ -72,6 +72,7 @@ class PostType extends Core\Base
 
 	/**
 	 * Checks for posttype capability.
+	 * NOTE: caches the result
 	 *
 	 * If assigned posttype `capability_type` arg:
 	 *
@@ -96,25 +97,43 @@ class PostType extends Core\Base
 	 * 	[edit_published_posts]   => "edit_published_{$capability_type}s"
 	 * 	[create_posts]           => "edit_{$capability_type}s"
 	 *
-	 * @param  string|object $posttype
-	 * @param  null|string $capability
+	 * @param  string|object   $posttype
+	 * @param  null|string     $capability
 	 * @param  null|int|object $user_id
-	 * @return bool $can
+	 * @param  bool            $fallback
+	 * @return bool            $can
 	 */
-	public static function can( $posttype, $capability = 'edit_posts', $user_id = NULL )
+	public static function can( $posttype, $capability = 'edit_posts', $user_id = NULL, $fallback = FALSE )
 	{
+		static $cache = [];
+
 		if ( is_null( $capability ) )
 			return TRUE;
 
+		else if ( ! $capability )
+			return $fallback;
+
 		if ( ! $object = self::object( $posttype ) )
-			return FALSE;
+			return $fallback;
 
 		if ( ! isset( $object->cap->{$capability} ) )
-			return FALSE;
+			return $fallback;
 
-		return is_null( $user_id )
-			? current_user_can( $object->cap->{$capability} )
-			: user_can( $user_id, $object->cap->{$capability} );
+		if ( is_null( $user_id ) )
+			$user_id = get_current_user_id();
+
+		else if ( is_object( $user_id ) )
+			$user_id = $user_id->ID;
+
+		if ( ! $user_id )
+			return user_can( $user_id, $object->cap->{$capability} );
+
+		if ( isset( $cache[$user_id][$object->name][$capability] ) )
+			return $cache[$user_id][$object->name][$capability];
+
+		$can = user_can( $user_id, $object->cap->{$capability} );
+
+		return $cache[$user_id][$object->name][$capability] = $can;
 	}
 
 	/**

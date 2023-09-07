@@ -250,6 +250,14 @@ class Arraay extends Base
 		return array_intersect_key( $array, array_flip( $keys ) );
 	}
 
+	public static function keepByValue( $array, $values )
+	{
+		if ( empty( $array ) || empty( $values ) )
+			return $array;
+
+		return array_intersect( $array, $values );
+	}
+
 	// @REF: WooCommerce: `_sort_priority_callback()`
 	public static function sortByPriority( $array, $priority_key )
 	{
@@ -382,6 +390,25 @@ class Arraay extends Base
 			return NULL;
 
 		return array_keys( $input )[count( $input ) - 1];
+	}
+
+	/**
+	 * Retrieves the objects from the list that match the given arguments.
+	 * Key represents property name, and value represents property value.
+	 * NOTE: wrapper for `wp_list_filter()` and `wp_filter_object_list()`
+	 *
+	 * @param  array  $input
+	 * @param  array  $args
+	 * @param  string $operator
+	 * @param  bool   $field
+	 * @return array  $filtred
+	 */
+	public static function filter( $input, $args = [], $operator = 'and', $field = FALSE )
+	{
+		if ( empty( $input ) || ( empty( $args ) && empty( $field ) ) )
+			return $input;
+
+		return wp_filter_object_list( $input, $args, $operator, $field );
 	}
 
 	/**
