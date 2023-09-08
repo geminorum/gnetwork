@@ -50,6 +50,13 @@ body.hide-admin-menu {
   .main {
     padding-bottom: 1px !important;
   }
+
+  .main,
+  .sub {
+    ul:not(:empty) {
+      margin-bottom: -10px;
+    }
+  }
 }
 
 #dashboard_activity {
@@ -119,12 +126,20 @@ body.hide-admin-menu {
   }
 }
 
-.tablenav div.actions:empty {
-  display: none;
+.tablenav {
+  div.actions {
+    &:empty {
+      display: none;
+    }
+
+    select {
+      max-width: 10rem;
+    }
+  }
 }
 
 #gnetwork-reset-filters {
-  margin: 1px 8px 0 0;
+  margin: 0 8px 0 0;
 }
 
 .inline-edit-row {
