@@ -32,7 +32,7 @@ class Network extends gNetwork\Module
 
 	public function network_admin_menu()
 	{
-		do_action( $this->base.'_setup_menu', 'network' );
+		do_action( $this->hook_base( 'setup_menu' ), 'network' );
 
 		add_submenu_page( 'plugins.php',
 			_x( 'Active Plugins', 'Modules: Network: Page Menu', 'gnetwork' ),
@@ -147,12 +147,12 @@ class Network extends gNetwork\Module
 		else
 			Scripts::enqueueGithubMarkdown();
 
-		do_action( $this->base.'_network_settings', $sub );
+		do_action( $this->hook_base( 'network_settings' ), $sub );
 	}
 
 	public function tools_load()
 	{
-		do_action( $this->base.'_network_tools', Settings::sub( 'overview' ) );
+		do_action( $this->hook_base( 'network_tools' ), Settings::sub( 'overview' ) );
 	}
 
 	public function settings_page()

@@ -147,7 +147,7 @@ class Module extends Core\Base
 			return;
 
 		if ( method_exists( $this, 'setup_menu' ) )
-			add_action( $this->base.'_setup_menu', [ $this, 'setup_menu' ] );
+			add_action( $this->hook_base( 'setup_menu' ), [ $this, 'setup_menu' ] );
 
 		if ( method_exists( $this, 'setup_screen' ) )
 			add_action( 'current_screen', [ $this, 'setup_screen' ], $this->priority_current_screen );
@@ -326,28 +326,28 @@ class Module extends Core\Base
 	protected function action_module( $module, $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
-			add_action( $this->base.'_'.$module.'_'.$hook, [ $this, $method ], $priority, $args );
+			add_action( $this->hook_base( $module, $hook ), [ $this, $method ], $priority, $args );
 	}
 
 	// USAGE: $this->action_self( 'saved', 5 );
 	protected function action_self( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
-			add_action( $this->base.'_'.$this->key.'_'.$hook, [ $this, $method ], $priority, $args );
+			add_action( $this->hook_base( $this->key, $hook ), [ $this, $method ], $priority, $args );
 	}
 
 	// USAGE: $this->filter_self( 'prepare', 4 );
 	protected function filter_self( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
-			add_filter( $this->base.'_'.$this->key.'_'.$hook, [ $this, $method ], $priority, $args );
+			add_filter( $this->hook_base( $this->key, $hook ), [ $this, $method ], $priority, $args );
 	}
 
 	// USAGE: $this->filter_module( 'network', 'prepare', 4 );
 	protected function filter_module( $module, $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
 		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
-			add_filter( $this->base.'_'.$module.'_'.$hook, [ $this, $method ], $priority, $args );
+			add_filter( $this->hook_base( $module, $hook ), [ $this, $method ], $priority, $args );
 	}
 
 	// @REF: https://gist.github.com/markjaquith/b752e3aa93d2421285757ada2a4869b1
@@ -603,11 +603,11 @@ class Module extends Core\Base
 
 		if ( empty( $GLOBALS[$site] ) )
 			$GLOBALS[$site] = function_exists( 'get_blog_option' )
-				? get_blog_option( $site_id, $this->base.'_blog', [] ) // NOTE: only available on multisite
-				: get_option( $this->base.'_blog', [] ); // TODO: migrate to `_site` key
+				? get_blog_option( $site_id, $this->hook_base( 'blog' ), [] ) // NOTE: only available on multisite
+				: get_option( $this->hook_base( 'blog' ), [] ); // TODO: migrate to `_site` key
 
 		if ( empty( $GLOBALS[$network] ) )
-			$GLOBALS[$network] = get_network_option( $network_id, $this->base.'_site', [] ); // TODO: migrate to `_network` key
+			$GLOBALS[$network] = get_network_option( $network_id, $this->hook_base( 'site' ), [] ); // TODO: migrate to `_network` key
 
 		if ( $this->is_network() )
 			$options = isset( $GLOBALS[$network][$this->key] ) ? $GLOBALS[$network][$this->key] : [];
@@ -666,9 +666,9 @@ class Module extends Core\Base
 			$options = $this->options;
 
 		if ( $this->is_network() )
-			$stored = get_network_option( NULL, $this->base.'_site', [] );
+			$stored = get_network_option( NULL, $this->hook_base( 'site' ), [] );
 		else
-			$stored = get_option( $this->base.'_blog', [] );
+			$stored = get_option( $this->hook_base( 'blog' ), [] );
 
 		if ( $reset || empty( $options ) )
 			unset( $stored[$this->key] );
@@ -676,25 +676,25 @@ class Module extends Core\Base
 			$stored[$this->key] = $options;
 
 		if ( $this->is_network() )
-			return update_network_option( NULL, $this->base.'_site', $stored );
+			return update_network_option( NULL, $this->hook_base( 'site' ), $stored );
 		else
-			return update_option( $this->base.'_blog', $stored, TRUE );
+			return update_option( $this->hook_base( 'blog' ), $stored, TRUE );
 	}
 
 	// for out of context manipulations
 	public function update_option( $key, $value )
 	{
 		if ( $this->is_network() )
-			$stored = get_network_option( NULL, $this->base.'_site', [] );
+			$stored = get_network_option( NULL, $this->hook_base( 'site' ), [] );
 		else
-			$stored = get_option( $this->base.'_blog', [] );
+			$stored = get_option( $this->hook_base( 'blog' ), [] );
 
 		$stored[$this->key][$key] = $value;
 
 		if ( $this->is_network() )
-			return update_network_option( NULL, $this->base.'_site', $stored );
+			return update_network_option( NULL, $this->hook_base( 'site' ), $stored );
 		else
-			return update_option( $this->base.'_blog', $stored, TRUE );
+			return update_option( $this->hook_base( 'blog' ), $stored, TRUE );
 	}
 
 	public function delete_options()
@@ -723,7 +723,7 @@ class Module extends Core\Base
 		if ( is_null( $admin ) )
 			$admin = $this->is_network() ? 'network' : 'admin';
 
-		return $this->base.'_'.$admin.'_'.$context.'_sub_'.$sub;
+		return $this->hook_base( $admin, $context, 'sub', $sub );
 	}
 
 	// DEFAULT METHOD: settings hook handler
@@ -805,7 +805,7 @@ class Module extends Core\Base
 		if ( method_exists( $this, 'settings_before' ) )
 			$this->settings_before( $sub, $uri );
 
-		do_settings_sections( $this->base.'_'.$sub );
+		do_settings_sections( $this->hook_base( $sub ) );
 
 		if ( method_exists( $this, 'settings_after' ) )
 			$this->settings_after( $sub, $uri );
@@ -840,7 +840,7 @@ class Module extends Core\Base
 			echo ' class="'.HTML::prepClass( $this->base.'-form', '-form', ( $sidebox ? ' has-sidebox' : '' ) ).'"'; // WPCS: XSS ok;
 
 			if ( 'ajax' == $action ) // @SEE: `$this->check_referer_ajax()`
-				echo 'data-nonce="'.wp_create_nonce( $this->base.'_'.$sub.'-'.$context ).'"'; // WPCS: XSS ok;
+				echo 'data-nonce="'.wp_create_nonce( $this->hook_base( $sub.'-'.$context ) ).'"'; // WPCS: XSS ok;
 
 			echo ' method="post" action="">';
 
@@ -895,7 +895,7 @@ class Module extends Core\Base
 		HTML::inputHidden( 'sub', $sub );
 		HTML::inputHidden( 'action', $action );
 
-		wp_nonce_field( $this->base.'_'.$sub.'-'.$context ); // @SEE: `$this->check_referer()`
+		wp_nonce_field( $this->hook_base( $sub.'-'.$context ) ); // @SEE: `$this->check_referer()`
 	}
 
 	protected function nonce_field( $context = 'settings', $key = NULL, $name = NULL )
@@ -941,12 +941,12 @@ class Module extends Core\Base
 
 	protected function check_referer( $sub, $context )
 	{
-		return check_admin_referer( $this->base.'_'.$sub.'-'.$context );
+		return check_admin_referer( $this->hook_base( $sub.'-'.$context ) );
 	}
 
 	protected function check_referer_ajax( $sub, $context, $key = 'nonce' )
 	{
-		return check_ajax_referer( $this->base.'_'.$sub.'-'.$context, $key );
+		return check_ajax_referer( $this->hook_base( $sub.'-'.$context ), $key );
 	}
 
 	public function reset_settings( $options_key = NULL )
@@ -1357,12 +1357,13 @@ class Module extends Core\Base
 
 	protected function is_request_action( $action, $extra = NULL, $default = FALSE )
 	{
-		if ( empty( $_REQUEST[$this->base.'_action'] )
-			|| $_REQUEST[$this->base.'_action'] != $action )
-				return $default;
+		$key = $this->hook_base( 'action' );
+
+		if ( empty( $_REQUEST[$key] ) || $_REQUEST[$key] != $action )
+			return $default;
 
 		else if ( is_null( $extra ) )
-			return $_REQUEST[$this->base.'_action'] == $action;
+			return $_REQUEST[$key] == $action;
 
 		else if ( ! empty( $_REQUEST[$extra] ) )
 			return trim( $_REQUEST[$extra] );
@@ -1381,7 +1382,7 @@ class Module extends Core\Base
 		else
 			$remove[] = $extra;
 
-		$remove[] = $this->base.'_action';
+		$remove[] = $this->hook_base( 'action' );
 
 		return remove_query_arg( $remove, $url );
 	}

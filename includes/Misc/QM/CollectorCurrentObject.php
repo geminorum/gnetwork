@@ -69,7 +69,7 @@ class CollectorCurrentObject extends \QM_Collector
 			$this->data['type']       = _x( 'Term', 'Modules: Debug: QM Collector Type', 'gnetwork' );
 			$this->data['object']     = get_term( $term_id );
 			$this->data['meta']       = get_term_meta( $term_id );
-			$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object']->taxonomy, $term_id );
+			$this->data['taxonomies'] = $this->_get_object_taxonomies( $this->data['object']->taxonomy ?? get_query_var( 'taxonomy' ), $term_id );
 
 		} else if ( is_author() ) {
 

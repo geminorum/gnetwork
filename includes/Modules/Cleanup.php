@@ -246,7 +246,7 @@ class Cleanup extends gNetwork\Module
 
 		$this->render_form_start( $uri, $sub, 'bulk', 'tools' );
 
-		do_settings_sections( $this->base.'_'.$sub );
+		do_settings_sections( $this->hook_base( $sub ) );
 
 		$this->render_form_end( $uri, $sub, 'bulk', 'tools' );
 	}

@@ -500,6 +500,7 @@ class Debug extends gNetwork\Module
 		echo '</div>';
 	}
 
+	// @SEE: `WP_Site_Health::get_test_available_updates_disk_space()`
 	public static function summarySpaceUsage()
 	{
 		$summary = [

@@ -295,7 +295,7 @@ class Site extends gNetwork\Module
 			: WordPress::getUserSites( $user_id, $GLOBALS['wpdb']->base_prefix );
 
 		// this will override default message
-		if ( wp_list_filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )
+		if ( Arraay::filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )
 			wp_die( $access_denied, 403 );
 
 		$message = $this->default_option( 'denied_message',

@@ -85,7 +85,7 @@ class Admin extends gNetwork\Module
 
 	public function admin_menu()
 	{
-		do_action( $this->base.'_setup_menu', 'admin' );
+		do_action( $this->hook_base( 'setup_menu' ), 'admin' );
 
 		if ( WordPress::cuc( 'manage_options' ) ) {
 
@@ -272,12 +272,12 @@ class Admin extends gNetwork\Module
 		if ( 'overview' !== $sub )
 			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
-		do_action( $this->base.'_admin_settings', $sub );
+		do_action( $this->hook_base( 'admin_settings' ), $sub );
 	}
 
 	public function tools_load()
 	{
-		do_action( $this->base.'_admin_tools', Settings::sub( 'overview' ) );
+		do_action( $this->hook_base( 'admin_tools' ), Settings::sub( 'overview' ) );
 	}
 
 	public function settings_page()

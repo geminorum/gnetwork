@@ -369,7 +369,7 @@ class User extends gNetwork\Module
 
 	public function user_admin_menu()
 	{
-		do_action( $this->base.'_setup_menu', 'user' );
+		do_action( $this->hook_base( 'setup_menu' ), 'user' );
 
 		$hook = add_menu_page(
 			_x( 'Network Extras', 'Modules: User: Page Menu', 'gnetwork' ),
@@ -442,7 +442,7 @@ class User extends gNetwork\Module
 		if ( 'overview' !== $sub )
 			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
-		do_action( $this->base.'_user_settings', $sub );
+		do_action( $this->hook_base( 'user_settings' ), $sub );
 	}
 
 	public function settings_page()
