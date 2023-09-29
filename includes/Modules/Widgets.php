@@ -76,6 +76,7 @@ class Widgets extends gNetwork\Module
 
 	public function setting_sidebar_widgets( $args, $pre )
 	{
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $pre, EXTR_SKIP );
 
 		foreach ( $this->sidebar_widgets as $value_name => $value_title ) {
@@ -117,6 +118,7 @@ class Widgets extends gNetwork\Module
 		if ( isset( $wp_meta_boxes['dashboard'][0] ) )
 			unset( $wp_meta_boxes['dashboard'][0] );
 
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $pre, EXTR_SKIP );
 
 		$html = HTML::tag( 'input', [

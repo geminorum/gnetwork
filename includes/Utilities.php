@@ -2,6 +2,7 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\DataCode;
 use geminorum\gNetwork\Core\Date;
 use geminorum\gNetwork\Core\Email;
@@ -504,12 +505,12 @@ class Utilities extends Core\Base
 	// FIXME: check: `URLify::add_chars()`
 	public static function URLifyDownCode( $string, $locale = NULL )
 	{
-		return $string ? \URLify::downcode( $string, self::getISO639( $locale ) ) : $string;
+		return $string ? \URLify::downcode( $string, Core\L10n::getISO639( $locale ) ) : $string;
 	}
 
 	public static function URLifyFilter( $string, $length = 60, $locale = NULL )
 	{
-		return $string ? \URLify::filter( $string, $length, self::getISO639( $locale ), TRUE, FALSE ) : $string;
+		return $string ? \URLify::filter( $string, $length, Core\L10n::getISO639( $locale ), TRUE, FALSE ) : $string;
 	}
 
 	public static function IPinfo()
@@ -569,23 +570,6 @@ class Utilities extends Core\Base
 		$log.= $extra ? ' :: '.$extra : '';
 
 		error_log( $log."\n", 3, $path );
-	}
-
-	// FIXME: move to Core\L10n
-	// @REF: https://en.wikipedia.org/wiki/ISO_639
-	// @REF: http://stackoverflow.com/a/16838443
-	// @REF: `bp_core_register_common_scripts()`
-	// @REF: https://make.wordpress.org/polyglots/handbook/translating/packaging-localized-wordpress/working-with-the-translation-repository/#repository-file-structure
-	public static function getISO639( $locale = NULL )
-	{
-		if ( is_null( $locale ) )
-			$locale = get_locale();
-
-		if ( ! $locale )
-			return 'en';
-
-		$ISO639 = str_replace( '_', '-', strtolower( $locale ) );
-		return substr( $ISO639, 0, strpos( $ISO639, '-' ) );
 	}
 
 	public static function redirectHome()

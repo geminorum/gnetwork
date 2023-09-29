@@ -52,6 +52,7 @@ class Blog extends gNetwork\Module
 				$this->filter_false( 'media_library_show_video_playlist', 5 );
 				$this->filter_empty_array( 'media_library_months_with_files', 5 );
 				$this->filter_empty_array( 'get_available_post_mime_types', 5 );
+				$this->filter_empty_array( 'pre_get_available_post_mime_types', 5 );
 
 				self::define( 'GEDITORIAL_THRIFT_MODE', TRUE );
 			}

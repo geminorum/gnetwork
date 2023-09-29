@@ -38,6 +38,9 @@ class Media extends gNetwork\Module
 		$this->action( 'init' );
 		$this->action( 'init', 0, 999, 'late' );
 
+		// @REF: https://core.trac.wordpress.org/ticket/57913
+		$this->filter_false( 'pre_option_wp_attachment_pages_enabled' );
+
 		$this->filter( 'upload_mimes' );
 		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
 

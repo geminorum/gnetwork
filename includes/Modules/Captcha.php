@@ -3,12 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
-use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Error;
-use geminorum\gNetwork\Core\Exception;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\HTML;
 
 class Captcha extends gNetwork\Module
 {
@@ -149,7 +145,7 @@ class Captcha extends gNetwork\Module
 	// @REF: http://wp.me/p6rU3h-ct
 	public function wpcf7_enqueue_scripts()
 	{
-		$iso = Utilities::getISO639();
+		$iso = Core\L10n::getISO639();
 
 		if ( 'en' == $iso )
 			return;
@@ -171,8 +167,8 @@ class Captcha extends gNetwork\Module
 		if ( $this->enqueued )
 			return;
 
-		echo '<script src="https://www.google.com/recaptcha/api.js?hl='.Utilities::getISO639().'" async defer></script>'."\n";
-		HTML::wrapScript( 'function gnrecaptchacb(){for(var r=["#loginform #wp-submit","#lostpasswordform #wp-submit","#registerform #wp-submit","#commentform #submit"],o=0;o<=r.length;o++)jQuery(r[o]).length>0&&jQuery(r[o]).show()}' );
+		echo '<script src="https://www.google.com/recaptcha/api.js?hl='.Core\L10n::getISO639().'" async defer></script>'."\n";
+		Core\HTML::wrapScript( 'function gnrecaptchacb(){for(var r=["#loginform #wp-submit","#lostpasswordform #wp-submit","#registerform #wp-submit","#commentform #submit"],o=0;o<=r.length;o++)jQuery(r[o]).length>0&&jQuery(r[o]).show()}' );
 
 		wp_enqueue_script( 'jquery' );
 
@@ -197,7 +193,7 @@ class Captcha extends gNetwork\Module
 			$_POST['g-recaptcha-response'],
 		] );
 
-		$response = HTTP::getJSON( $request );
+		$response = Core\HTTP::getJSON( $request );
 
 		if ( ! empty( $response['error-codes'] ) )
 			Logger::siteWARNING( 'CAPTCHA-VERIFY', implode( ', ', (array) $response['error-codes'] ) );
@@ -227,10 +223,10 @@ class Captcha extends gNetwork\Module
 		$messages = $this->recaptcha_errors();
 
 		if ( empty( $_POST['g-recaptcha-response'] ) )
-			return new Error( 'empty_captcha', $messages['empty_captcha'] );
+			return new Core\Error( 'empty_captcha', $messages['empty_captcha'] );
 
 		if ( FALSE === $this->recaptcha_verify() )
-			return new Error( 'invalid_captcha', $messages['invalid_captcha'] );
+			return new Core\Error( 'invalid_captcha', $messages['invalid_captcha'] );
 
 		return $user;
 	}

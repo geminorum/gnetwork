@@ -3,12 +3,9 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\WordPress;
 
 class Branding extends gNetwork\Module
 {
@@ -236,24 +233,24 @@ class Branding extends gNetwork\Module
 	{
 		if ( $this->options['network_sitelogo'] ) {
 
-			echo HTML::img( $this->options['network_sitelogo'] );
-			HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', 'gnetwork' ) );
+			echo Core\HTML::img( $this->options['network_sitelogo'] );
+			Core\HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', 'gnetwork' ) );
 
 		} else if ( $logo = get_custom_logo() ) {
 
 			echo $logo;
-			HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', 'gnetwork' ) );
 		}
 
 		if ( $this->options['network_siteicon'] ) {
 
-			echo HTML::img( $this->options['network_siteicon'] );
-			HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', 'gnetwork' ) );
+			echo Core\HTML::img( $this->options['network_siteicon'] );
+			Core\HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', 'gnetwork' ) );
 
 		} else if ( $icon = get_site_icon_url( 64 ) ) {
 
-			echo HTML::img( $icon );
-			HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', 'gnetwork' ) );
+			echo Core\HTML::img( $icon );
+			Core\HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', 'gnetwork' ) );
 		}
 	}
 
@@ -325,7 +322,7 @@ class Branding extends gNetwork\Module
 		if ( is_rtl() )
 			$data['dir'] = 'rtl';
 
-		$iso = Utilities::getISO639();
+		$iso = Core\L10n::getISO639();
 
 		if ( 'en' != $iso )
 			$data['lang'] = $iso;
@@ -381,13 +378,13 @@ class Branding extends gNetwork\Module
 	// @REF: https://make.wordpress.org/core/2020/02/19/enhancements-to-favicon-handling-in-wordpress-5-4/
 	public function do_faviconico()
 	{
-		WordPress::redirect( $this->options['network_siteicon'] );
+		Core\WordPress::redirect( $this->options['network_siteicon'] );
 	}
 
 	public function do_adminbar_styles()
 	{
 		printf( "<style>\n%s\n</style>\n",
-			Text::replaceTokens( $this->options['adminbar_styles'], [
+			Core\Text::replaceTokens( $this->options['adminbar_styles'], [
 				'theme_color'      => $this->options['theme_color'],
 				'webapp_color'     => $this->options['webapp_color'],
 				'network_sitelogo' => $this->options['network_sitelogo'],
@@ -413,7 +410,7 @@ class Branding extends gNetwork\Module
 	public function maintenance_template_before()
 	{
 		if ( $this->options['network_sitelogo'] )
-			echo HTML::img( $this->options['network_sitelogo'] );
+			echo Core\HTML::img( $this->options['network_sitelogo'] );
 
 		else
 			echo self::getLogo( FALSE, FALSE );
@@ -422,7 +419,7 @@ class Branding extends gNetwork\Module
 	public function restricted_template_before()
 	{
 		if ( $this->options['network_sitelogo'] )
-			echo HTML::img( $this->options['network_sitelogo'] );
+			echo Core\HTML::img( $this->options['network_sitelogo'] );
 
 		else
 			echo self::getLogo( FALSE, FALSE );
@@ -435,10 +432,10 @@ class Branding extends gNetwork\Module
 		$brand_url  = gNetwork()->brand( 'url' );
 
 		if ( ! is_null( $logo ) )
-			$html = HTML::img( $logo, '-logo-img', $brand_name );
+			$html = Core\HTML::img( $logo, '-logo-img', $brand_name );
 
 		else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) )
-			$html = HTML::img( WP_CONTENT_URL.'/'.GNETWORK_LOGO, '-logo-img', $brand_name );
+			$html = Core\HTML::img( WP_CONTENT_URL.'/'.GNETWORK_LOGO, '-logo-img', $brand_name );
 
 		else if ( $fallback )
 			$html = $brand_name;
@@ -446,11 +443,11 @@ class Branding extends gNetwork\Module
 		else
 			return '';
 
-		$html = HTML::tag( 'a', [
+		$html = Core\HTML::tag( 'a', [
 			'href'  => $brand_url,
 			'title' => $brand_name,
 		], $html );
 
-		return $wrap ? HTML::tag( $wrap, [ 'class' => 'logo' ], $html ) : $html;
+		return $wrap ? Core\HTML::tag( $wrap, [ 'class' => 'logo' ], $html ) : $html;
 	}
 }
