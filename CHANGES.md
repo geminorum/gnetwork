@@ -1,3 +1,18 @@
+### 3.17.0
+* asset/packages: vazirmatn ui fonts
+* main/module: switch site lap
+* main/scripts: register block asset
+* misc/qm: object comments summary
+* module/admin: styles for iframe
+* module/blog: remove classic theme styles
+* module/images: edit thumbnails separately
+* module/optimize: :new: module
+* module/optimize: better handling jquery enhancements
+* module/shortcodes: :new: image shortcode
+* module/taxonomy: :new: delete one-count terms
+* module/taxonomy: drop support for description editor
+* module/taxonomy: jquery deprecated method
+
 ### 3.16.2
 * module/taxonomy: query similar terms by name/desc on term tabs
 * module/typography: title sanitize enabled by default
