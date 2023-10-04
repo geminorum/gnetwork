@@ -12,6 +12,7 @@ use geminorum\gNetwork\Core\HTTP;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\SwitchSite;
 
 class Site extends gNetwork\Module
 {
@@ -347,7 +348,7 @@ class Site extends gNetwork\Module
 	// @REF: https://core.trac.wordpress.org/ticket/41333
 	public function wp_initialize_site( $new_site, $args )
 	{
-		switch_to_blog( $new_site->id );
+		SwitchSite::to( $new_site->id );
 
 		if ( $site_user_id = gNetwork()->user() )
 			add_user_to_blog( $new_site->id, $site_user_id, gNetwork()->option( 'site_user_role', 'user', 'editor' ) );
@@ -380,7 +381,7 @@ class Site extends gNetwork\Module
 		foreach ( $new_blog_plugins as $new_blog_plugin => $new_blog_plugin_silent )
 			activate_plugin( $new_blog_plugin, '', FALSE, $new_blog_plugin_silent );
 
-		restore_current_blog();
+		SwitchSite::restore();
 		clean_blog_cache( $new_site->id );
 	}
 
@@ -531,11 +532,11 @@ class Site extends gNetwork\Module
 
 	public function wp_initialize_site_sync( $new_site, $args )
 	{
-		switch_to_blog( $new_site->id );
+		SwitchSite::to( $new_site->id );
 
 		$this->resync_sitemeta();
 
-		restore_current_blog();
+		SwitchSite::restore();
 	}
 
 	public function delete_sitemeta( $site_id = NULL )
@@ -609,12 +610,13 @@ class Site extends gNetwork\Module
 		$sites = WordPress::getAllSites( FALSE, $network, FALSE );
 
 		foreach ( $sites as $site_id => $site ) {
-			switch_to_blog( $site_id );
+			SwitchSite::to( $site_id );
 			$this->resync_sitemeta();
 			$count++;
+			SwitchSite::lap();
 		}
 
-		restore_current_blog();
+		SwitchSite::restore();
 
 		return $count;
 	}

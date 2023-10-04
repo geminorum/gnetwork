@@ -7,6 +7,7 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
+use geminorum\gNetwork\WordPress\SwitchSite;
 
 class Extend extends gNetwork\Module
 {
@@ -35,7 +36,7 @@ class Extend extends gNetwork\Module
 
 		foreach ( get_sites( [ 'network_id' => $network ] ) as $site ) {
 
-			switch_to_blog( $site->blog_id );
+			SwitchSite::to( $site->blog_id );
 
 			$_site = [
 				'_site'      => $site,
@@ -52,9 +53,11 @@ class Extend extends gNetwork\Module
 				$_site['template'] = $themes[$_site['template']]->name;
 
 			$data[$site->blog_id] = $_site;
+
+			SwitchSite::lap();
 		}
 
-		restore_current_blog();
+		SwitchSite::restore();
 
 		return HTML::tableList( [
 			'site' => [

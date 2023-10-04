@@ -10,6 +10,7 @@ use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\SwitchSite;
 use geminorum\gNetwork\WordPress\Strings as WPStrings;
 use geminorum\gNetwork\WordPress\User as WPUser;
 
@@ -580,7 +581,7 @@ class User extends gNetwork\Module
 			if ( empty( $new[$site_id] ) && empty( $old[$site_id] ) )
 				continue;
 
-			switch_to_blog( $site_id );
+			SwitchSite::to( $site_id );
 
 			$users = empty( $old[$site_id] )
 				? WordPress::getUsersWithNoRole( $site_id )
@@ -600,9 +601,11 @@ class User extends gNetwork\Module
 			}
 
 			wp_cache_delete( $site_id.'_user_count', 'blog-details' );
+
+			SwitchSite::lap();
 		}
 
-		restore_current_blog();
+		SwitchSite::restore();
 
 		return TRUE;
 	}

@@ -11,6 +11,7 @@ use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress\SwitchSite;
 
 class Network extends gNetwork\Module
 {
@@ -299,7 +300,7 @@ class Network extends gNetwork\Module
 
 			foreach ( $blogs as $blog_id ) {
 
-				switch_to_blog( $blog_id );
+				SwitchSite::to( $blog_id );
 
 				update_option( 'siteurl', str_replace( $switch[0], $switch[1], get_option( 'siteurl' ) ) );
 				update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
@@ -307,9 +308,11 @@ class Network extends gNetwork\Module
 				Logger::siteINFO( 'SSL', sprintf( 'switched to: %s', str_replace( '://', '', $switch[1] ) ) );
 
 				$count++;
+
+				SwitchSite::lap();
 			}
 
-			restore_current_blog();
+			SwitchSite::restore();
 		}
 
 		WordPress::redirectReferer( [
