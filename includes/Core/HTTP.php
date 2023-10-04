@@ -644,7 +644,7 @@ class HTTP extends Base
 
 		curl_setopt( $ch, CURLOPT_HEADER, TRUE ); // we want headers
 		curl_setopt( $ch, CURLOPT_NOBODY, TRUE ); // we don't need body
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
 
 		if ( ! $verify_ssl ) {
@@ -658,5 +658,67 @@ class HTTP extends Base
 		curl_close( $ch );
 
 		return $status;
+	}
+
+	/**
+	 * Returns the size of a file without downloading.
+	 * @source https://stackoverflow.com/a/2602624
+	 *
+	 * @param  string   $url
+	 * @param  bool     $verify_ssl
+	 * @return int|bool $size
+	 */
+	public static function getSize( $url, $verify_ssl = TRUE )
+	{
+		if ( empty( $url ) )
+			return FALSE;
+
+		if ( ! extension_loaded( 'curl' ) )
+			return self::getSizeFromHeaders( $url );
+
+		$ch = curl_init( $url );
+
+		curl_setopt( $ch, CURLOPT_NOBODY, TRUE );
+		curl_setopt( $ch, CURLOPT_HEADER, TRUE );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, TRUE );
+		curl_setopt( $ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT'] );
+
+		if ( ! $verify_ssl ) {
+			curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, FALSE );
+			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+		}
+
+		$result = -1; // assume failure
+		$output = curl_exec( $ch );
+
+		$status = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+		$length = curl_getinfo( $ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD );
+
+		curl_close( $ch );
+
+		// http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+		if ( $status == 200 || ( $status > 300 && $status <= 308 ) )
+			$result = $length;
+
+		return $result;
+	}
+
+	// @REF: https://stackoverflow.com/a/43520299
+	public static function getSizeFromHeaders( $url )
+	{
+		if ( empty( $url ) )
+			return FALSE;
+
+		if ( ! $headers = get_headers( $url, TRUE ) )
+			return FALSE;
+
+		if ( \array_key_exists( 'content-length', $headers ) )
+			return $headers['content-length'];
+
+		if ( \array_key_exists( 'Content-Length', $headers ) )
+			return $headers['Content-Length'];
+
+		return -1;
 	}
 }

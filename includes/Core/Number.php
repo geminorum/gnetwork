@@ -5,6 +5,20 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Number extends Base
 {
 
+	/**
+	 * Converts a number to ordinal based on locale.
+	 *
+	 * `Ordinal` numbers are words representing position or rank
+	 * in a sequential order. They differ from cardinal numerals,
+	 * which represent quantity (e.g., "three")
+	 *
+	 * @link https://en.wikipedia.org/wiki/Ordinal_numeral
+	 * @link https://en.wikipedia.org/wiki/Numeral_prefix
+	 *
+	 * @param  int|string  $number
+	 * @param  null|string $locale
+	 * @return string      $ordinal
+	 */
 	public static function toOrdinal( $number, $locale = NULL )
 	{
 		if ( ! $sanitized = self::intval( $number ) )

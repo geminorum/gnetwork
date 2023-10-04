@@ -229,7 +229,7 @@ class Media extends Core\Base
 		return $prepared;
 	}
 
-	// @SOURCE: `bp_attachements_get_mime_type()`
+	// @SOURCE: `bp_attachments_get_mime_type()`
 	public static function getMimeType( $path )
 	{
 		$type = wp_check_filetype( $path, wp_get_mime_types() );
@@ -239,6 +239,16 @@ class Media extends Core\Base
 			$mime = 'directory';
 
 		return $mime;
+	}
+
+	public static function getAttachmentFileSize( $attachment_id, $format = FALSE, $template = NULL )
+	{
+		// $filesize = filesize( get_attached_file( $attachment_id ), 2 );
+		$filesize = Core\File::getSize( get_attached_file( $attachment_id ), FALSE );
+
+		return $format
+			? sprintf( $template ?? '<span class="-filesize">%s</span>', Core\HTML::wrapLTR( Core\File::formatSize( $filesize ) ) )
+			: $filesize;
 	}
 
 	public static function disableThumbnailGeneration()

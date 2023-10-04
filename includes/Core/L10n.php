@@ -19,4 +19,27 @@ class L10n extends Base
 	{
 		return sprintf( translate_nooped_plural( $nooped, $count ), Number::format( $count ) );
 	}
+
+	/**
+	 * Retrieves current locale base in ISO-639.
+	 *
+	 * @REF: https://en.wikipedia.org/wiki/ISO_639
+	 * @REF: http://stackoverflow.com/a/16838443
+	 * @REF: `bp_core_register_common_scripts()`
+	 * @REF: https://make.wordpress.org/polyglots/handbook/translating/packaging-localized-wordpress/working-with-the-translation-repository/#repository-file-structure
+	 *
+	 * @param  string|null $locale
+	 * @return string      $iso639
+	 */
+	public static function getISO639( $locale = NULL )
+	{
+		if ( is_null( $locale ) )
+			$locale = self::locale();
+
+		if ( ! $locale )
+			return 'en';
+
+		$dashed = str_replace( '_', '-', strtolower( $locale ) );
+		return substr( $dashed, 0, strpos( $dashed, '-' ) );
+	}
 }
