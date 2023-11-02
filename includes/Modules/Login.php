@@ -81,6 +81,8 @@ class Login extends gNetwork\Module
 			'login_credits'   => 0,
 			'login_hide'      => 0,
 			'login_slug'      => 'login',
+			'disable_reset'   => '0',
+			'reset_message'   => '',
 		];
 	}
 
@@ -108,6 +110,18 @@ class Login extends gNetwork\Module
 					'title'       => _x( 'Last Logins', 'Modules: Login: Settings', 'gnetwork' ),
 					'description' => _x( 'Stores last login timestamp for each user.', 'Modules: Login: Settings', 'gnetwork' ),
 					'default'     => '1',
+				],
+				[
+					'field'       => 'disable_reset',
+					'type'        => 'disabled',
+					'title'       => _x( 'Password Reset', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Disables the password reset request option on login pages.', 'Modules: Login: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'reset_message',
+					'type'        => 'textarea-quicktags',
+					'title'       => _x( 'Reset Message', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => _x( 'Displays instead of the password reset link on login pages. Leave empty to disable.', 'Modules: Login: Settings', 'gnetwork' ),
 				],
 			],
 			'_redirects' => [
@@ -416,6 +430,10 @@ class Login extends gNetwork\Module
 		if ( $this->options['login_credits']
 			&& 'splitscreen' !== $this->options['login_class'] )
 				$this->action( 'login_footer', 1, 10, 'badge' );
+
+		if ( $this->options['disable_reset']
+			|| $this->options['reset_message'] )
+				$this->filter( 'lost_password_html_link' );
 	}
 
 	public function login_header()
@@ -496,6 +514,9 @@ class Login extends gNetwork\Module
 
 		if ( function_exists( 'get_network' ) )
 			$classes[] = 'network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
+
+		if ( $this->options['disable_reset'] )
+			$classes[] = 'hide-pw-reset';
 
 		return array_merge( $classes, [ $this->options['login_class'] ] );
 	}
@@ -711,6 +732,11 @@ class Login extends gNetwork\Module
 				echo Utilities::creditsBadge();
 
 		echo '</div>';
+	}
+
+	public function lost_password_html_link( $html_link )
+	{
+		return Utilities::prepDescription( $this->options['reset_message'], TRUE, FALSE );
 	}
 
 	public static function getLoginStyleLink( $style = NULL, $text = FALSE )
