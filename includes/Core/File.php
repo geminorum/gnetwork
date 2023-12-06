@@ -448,19 +448,30 @@ class File extends Base
 			: $fallback;
 	}
 
-	public static function prepName( $suffix = NULL, $prefix = NULL )
+	/**
+	 * Prepares a filename with the site name and current date.
+	 *
+	 * @param  null|string       $suffix
+	 * @param  null|string       $prefix
+	 * @param  null|false|string $date_format
+	 * @return string            $filename
+	 */
+	public static function prepName( $suffix = NULL, $prefix = NULL, $date_format = NULL )
 	{
-		$name = '';
+		$filename = '';
 
 		if ( $prefix )
-			$name.= $prefix.'-';
+			$filename.= $prefix.'-';
 
-		$name.= WordPress::currentSiteName().'-'.wp_date( 'Y-m-d' );
+		$filename.= WordPress::currentSiteName();
+
+		if ( FALSE !== $date_format )
+			$filename.= '-'.wp_date( $date_format ?? 'Ymd' );
 
 		if ( $suffix )
-			$name.= '-'.$suffix;
+			$filename.= '-'.$suffix;
 
-		return $name;
+		return $filename;
 	}
 
 	// @REF: https://www.tutorialsmade.com/find-string-get-line-number-file-using-php/

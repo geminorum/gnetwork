@@ -360,7 +360,7 @@ class Base
 	// @REF: `stripslashes_deep()`
 	public static function unslash( $array )
 	{
-		return self::mapDeep( $array, static function( $value ) {
+		return self::mapDeep( $array, static function ( $value ) {
 			return is_string( $value ) ? stripslashes( $value ) : $value;
 		} );
 	}

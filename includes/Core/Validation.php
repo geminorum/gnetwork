@@ -151,13 +151,13 @@ class Validation extends Base
 		if ( ! preg_match( '/^\d{10}$/', $input ) )
 			return FALSE;
 
-		if ( FALSE !== array_search( $input, array_map( function( $i ) {
+		if ( FALSE !== array_search( $input, array_map( function ( $i ) {
 			return str_repeat( $i, 10 );
 		}, range( 0, 9 ) ) ) )
 			return FALSE;
 
 		$chk = (int) $input[9];
-		$sum = array_sum( array_map( function( $x ) use ( $input ) {
+		$sum = array_sum( array_map( function ( $x ) use ( $input ) {
 			return ( (int) $input[$x] ) * ( 10 - $x );
 		}, range( 0, 8 ) ) ) % 11;
 
@@ -210,7 +210,7 @@ class Validation extends Base
 		$digits = str_split( strtr( $account.$country, array_combine( range( 'A', 'Z' ), range( 10, 35 ) ) ).'00' );
 		$first  = array_shift( $digits );
 
-		$checksum = array_reduce( $digits, static function( $carry, $int ) {
+		$checksum = array_reduce( $digits, static function ( $carry, $int ) {
 			$carry = ( $carry * 10 + (int) $int ) % 97;
 			return $carry;
 		}, (int) $first );

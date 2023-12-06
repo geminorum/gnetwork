@@ -6,7 +6,7 @@ class WordPress extends Base
 {
 
 	// @REF: https://wordpress.org/support/topic/how-to-change-plugins-load-order/
-	// @USAGE: add_action( 'activated_plugin', function(){} );
+	// @USAGE: add_action( 'activated_plugin', function () {} );
 	public static function pluginFirst( $plugin )
 	{
 		if ( empty( $plugin ) )
@@ -175,6 +175,7 @@ class WordPress extends Base
 	}
 
 	// @REF: `wc_site_is_https()`
+	// @SEE: `wp_is_using_https()` @since WP 5.7.0
 	public static function siteIsHTTPS()
 	{
 		return FALSE !== strstr( get_option( 'home' ), 'https:' );

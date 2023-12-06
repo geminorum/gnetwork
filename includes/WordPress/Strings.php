@@ -29,10 +29,12 @@ class Strings extends Core\Base
 
 		if ( is_null( $empties ) )
 			$empties = [
-				'.', '..', '...',
-				'-', '--', '---',
-				'–', '––', '–––',
-				'—', '——', '———',
+				'0', '00', '000', '0000', '00000', '000000',
+				'*', '**', '***', '****', '*****', '******',
+				'.', '..', '...', '....', '.....', '......',
+				'-', '--', '---', '----', '-----', '------',
+				'–', '––', '–––', '––––', '–––––', '––––––',
+				'—', '——', '———', '————', '—————', '——————',
 				'<p></p>',
 				'<body><p></p></body>',
 				'<body></body>',
@@ -49,7 +51,7 @@ class Strings extends Core\Base
 
 	public static function filterEmpty( $strings, $empties = NULL )
 	{
-		return array_filter( $strings, static function( $value ) use ( $empties ) {
+		return array_filter( $strings, static function ( $value ) use ( $empties ) {
 
 			if ( self::isEmpty( $value, $empties ) )
 				return FALSE;

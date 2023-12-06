@@ -114,12 +114,12 @@ class Text extends Base
 
 	public static function sanitizeHook( $hook )
 	{
-		return trim( str_ireplace( [ '-', '.', '/', '\\' ], '_', $hook ) );
+		return self::trim( str_ireplace( [ '-', '.', '/', '\\' ], '_', $hook ) );
 	}
 
 	public static function sanitizeBase( $hook )
 	{
-		return trim( str_ireplace( [ '_', '.' ], '-', $hook ) );
+		return self::trim( str_ireplace( [ '_', '.' ], '-', $hook ) );
 	}
 
 	// FIXME: move this to Orthography module
@@ -170,7 +170,7 @@ class Text extends Base
 		$text = preg_replace( '/-{2,}/', '-', $text );
 		$text = trim( $text, '.-_' );
 
-		return $text;
+		return self::trim( $text );
 	}
 
 	public static function nameFamilyFirst( $text, $separator = ', ' )
@@ -259,7 +259,7 @@ class Text extends Base
 		// remove a P of entirely whitespace
 		$text = preg_replace( '|<p>\s*</p>|', '', $text );
 
-		return trim( $text );
+		return self::trim( $text );
 	}
 
 	// @REF: https://github.com/michelf/php-markdown/issues/230#issuecomment-303023862
@@ -356,8 +356,8 @@ class Text extends Base
 		$text = str_replace( "\r", "\n", trim( $text ) );
 
 		return $multiline
-			? preg_replace( [ "/\n\n+/", "/[ \t]+/" ], [ "\n\n", ' ' ], $text )
-			: preg_replace( [ "/\n+/", "/[ \t]+/" ], [ "\n", ' ' ], $text);
+			? self::trim( preg_replace( [ "/\n\n+/", "/[ \t]+/" ], [ "\n\n", ' ' ], $text ) )
+			: self::trim( preg_replace( [ "/\n+/", "/[ \t]+/" ], [ "\n", ' ' ], $text ) );
 	}
 
 	// @REF: http://stackoverflow.com/a/3226746
@@ -489,7 +489,7 @@ class Text extends Base
 
 		$buffer = preg_replace( '/\x{FEFF}/u', '', $buffer ); // remove utf8 bom
 
-		return trim( $buffer );
+		return self::trim( $buffer );
 	}
 
 	// @REF: http://php.net/manual/en/function.ob-start.php#71953
@@ -514,7 +514,7 @@ class Text extends Base
 			'\\1'
 		), $buffer );
 
-		return trim( $buffer );
+		return self::trim( $buffer );
 	}
 
 	// @REF: http://davidwalsh.name/word-wrap-mootools-php
@@ -884,7 +884,7 @@ class Text extends Base
 	// @SOURCE: `wp_strip_all_tags()`
 	public static function stripTags( $text )
 	{
-		return trim( strip_tags( preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $text ) ) );
+		return self::trim( strip_tags( preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $text ) ) );
 	}
 
 	public static function stripHTMLforEmail( $html )
@@ -904,13 +904,13 @@ class Text extends Base
 		$html = preg_replace( '@</?((div)|(h[1-9])|(/tr)|(p)|(pre))@iu', "\n\$0", $html );
 		$html = preg_replace( '@</((td)|(th))@iu', " \$0", $html );
 
-		return trim( strip_tags( $html ) );
+		return self::trim( strip_tags( $html ) );
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#96899
 	public static function hex2str( $text )
 	{
-		return preg_replace_callback( '#\%[a-zA-Z0-9]{2}#', static function( $hex ) {
+		return preg_replace_callback( '#\%[a-zA-Z0-9]{2}#', static function ( $hex ) {
 			$hex = substr( $hex[0], 1 );
 			$str = '';
 			for ( $i = 0; $i < strlen( $hex ); $i += 2 )
@@ -920,7 +920,7 @@ class Text extends Base
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#91950
-	// USAGE: echo Text::replaceWords( $words, $text, static function( $matched ) { return "<strong>{$matched}</strong>"; } );
+	// USAGE: echo Text::replaceWords( $words, $text, static function ( $matched ) { return "<strong>{$matched}</strong>"; } );
 	// FIXME: maybe space before/after the words
 	public static function replaceWords( $words, $text, $callback, $skip_links = TRUE )
 	{
@@ -929,15 +929,15 @@ class Text extends Base
 		if ( $skip_links )
 			$pattern = '<a[^>]*>.*?<\/a\s*>(*SKIP)(*FAIL)|'.$pattern;
 
-		return preg_replace_callback( '/'.$pattern.'/miu', static function( $matched ) use ( $callback ) {
+		return preg_replace_callback( '/'.$pattern.'/miu', static function ( $matched ) use ( $callback ) {
 			return $matched[1].call_user_func( $callback, $matched[2] ).$matched[3];
 		}, $text );
 	}
 
-	// USAGE: echo Text::replaceSymbols( [ '#', '$' ], $text, static function( $matched, $text ) { return "<strong>{$matched}</strong>"; });
+	// USAGE: echo Text::replaceSymbols( [ '#', '$' ], $text, static function ( $matched, $text ) { return "<strong>{$matched}</strong>"; });
 	public static function replaceSymbols( $symbols, $text, $callback, $skip_links = TRUE )
 	{
-		return preg_replace_callback( self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ), static function( $matches ) use ( $callback ) {
+		return preg_replace_callback( self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ), static function ( $matches ) use ( $callback ) {
 			return call_user_func( $callback, $matches[0], $matches[1] );
 		}, $text );
 	}
@@ -956,7 +956,7 @@ class Text extends Base
 	// @REF: https://stackoverflow.com/a/42551826
 	public static function linkifyHashtags( $text, $callback )
 	{
-		return preg_replace_callback( "/(?:^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,})(?:\b|\r)/gmu", static function( $matches ) use ( $callback ) {
+		return preg_replace_callback( "/(?:^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,})(?:\b|\r)/gmu", static function ( $matches ) use ( $callback ) {
 			return call_user_func( $callback, $matches[0], $matches[1] );
 		}, $text );
 	}
@@ -1136,7 +1136,7 @@ class Text extends Base
 	// @SEE: https://github.com/neitanod/forceutf8
 	public static function correctMixedEncoding( $text )
 	{
-		return preg_replace_callback( '/\\P{Arabic}+/u', static function( $matches ) {
+		return preg_replace_callback( '/\\P{Arabic}+/u', static function ( $matches ) {
 			return iconv( 'UTF-8', 'ISO-8859-1', $matches[0] );
 		}, hex2bin( bin2hex( $text ) ) );
 	}

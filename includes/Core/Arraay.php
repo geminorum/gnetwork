@@ -7,20 +7,20 @@ class Arraay extends Base
 
 	public static function prepString()
 	{
-		$args = array_map( function( $value ) {
+		$args = array_map( function ( $value ) {
 			return $value ? (array) $value : [];
 		}, func_get_args() );
 
-		return empty( $args ) ? [] : array_unique( array_filter( array_map( 'trim', array_merge( ...$args ) ) ) );
+		return empty( $args ) ? [] : array_values( array_unique( array_filter( array_map( 'trim', array_merge( ...$args ) ) ) ) );
 	}
 
 	public static function prepNumeral()
 	{
-		$args = array_map( function( $value ) {
+		$args = array_map( function ( $value ) {
 			return $value ? (array) $value : [];
 		}, func_get_args() );
 
-		return empty( $args ) ? [] : array_unique( array_filter( array_map( 'intval', array_merge( ...$args ) ) ) );
+		return empty( $args ) ? [] : array_values( array_unique( array_filter( array_map( 'intval', array_merge( ...$args ) ) ) ) );
 	}
 
 	public static function prepSplitters( $text, $default = '|' )
@@ -261,7 +261,7 @@ class Arraay extends Base
 	// @REF: WooCommerce: `_sort_priority_callback()`
 	public static function sortByPriority( $array, $priority_key )
 	{
-		uasort( $array, static function( $a, $b ) use ( $priority_key ) {
+		uasort( $array, static function ( $a, $b ) use ( $priority_key ) {
 
 			if ( ! isset( $a[$priority_key], $b[$priority_key] )
 				|| $a[$priority_key] === $b[$priority_key] )
@@ -276,7 +276,7 @@ class Arraay extends Base
 	// @REF: WooCommerce: `_sort_priority_callback()`
 	public static function sortObjectByPriority( $array, $priority_key )
 	{
-		uasort( $array, static function( $a, $b ) use ( $priority_key ) {
+		uasort( $array, static function ( $a, $b ) use ( $priority_key ) {
 
 			if ( ! isset( $a->{$priority_key}, $b->{$priority_key} )
 				|| $a->{$priority_key} === $b->{$priority_key} )
@@ -437,7 +437,7 @@ class Arraay extends Base
 		if ( function_exists( 'array_column' ) )
 			return array_column( $input, $column_key, $index_key ); // phpcs:ignore
 
-		$arr = array_map( function( $d ) use ( $column_key, $index_key ) {
+		$arr = array_map( function ( $d ) use ( $column_key, $index_key ) {
 
 			if ( ! isset( $d[$column_key] ) )
 				return NULL;
@@ -527,7 +527,7 @@ class Arraay extends Base
 		if ( empty( $array ) || empty( $map ) || ! self::isAssoc( $array ) )
 			return $array;
 
-		return array_combine( array_map( function( $el ) use ( $map ) {
+		return array_combine( array_map( function ( $el ) use ( $map ) {
 			return isset( $map[$el] ) ? $map[$el] : $el;
 		}, array_keys( $array ) ), array_values( $array ) );
 	}
@@ -725,7 +725,7 @@ class Arraay extends Base
 	{
 		$grouped = [];
 
-		\array_walk( $array, function( $value, $key ) use ( &$grouped ) {
+		\array_walk( $array, function ( $value, $key ) use ( &$grouped ) {
 			if ( ! isset( $grouped[$value] ) || ! is_array( $grouped[$value] ) )
 				$grouped[$value] = [];
 			$grouped[$value][] = $key;

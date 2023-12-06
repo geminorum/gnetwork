@@ -409,7 +409,7 @@ class Number extends Base
 	 */
 	public static function average( array $numbers, bool $roundUp = FALSE, bool $includeEmpties = TRUE )
 	{
-		$numbers = array_filter( $numbers, static function( $v ) use ( $includeEmpties ) {
+		$numbers = array_filter( $numbers, static function ( $v ) use ( $includeEmpties ) {
 			return $includeEmpties ? is_numeric( $v ) : is_numeric( $v ) && ( $v > 0 );
 		} );
 

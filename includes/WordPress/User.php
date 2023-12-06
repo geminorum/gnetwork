@@ -181,28 +181,43 @@ class User extends Core\Base
 		return $list;
 	}
 
-	public static function getRoles( $user_id = FALSE )
+	/**
+	 * Retrieves roles for given user.
+	 *
+	 * @param  null|int $user_id
+	 * @return array    $roles
+	 */
+	public static function getRoles( $user_id = NULL )
 	{
-		$user = get_user_by( 'id', ( $user_id ? $user_id : get_current_user_id() ) );
-		return empty( $user ) ? array() : (array) $user->roles;
+		$user = get_user_by( 'id', ( $user_id ?: get_current_user_id() ) );
+		return empty( $user ) ? [] : (array) $user->roles;
 	}
 
-	public static function hasRole( $role, $user_id = FALSE )
+	/**
+	 * Checks if the user has given role.
+	 *
+	 * @param  string|array $role
+	 * @param  null|int     $user_id
+	 * @return bool         $has
+	 */
+	public static function hasRole( $role, $user_id = NULL )
 	{
-		$roles = self::getRoles( $user_id );
+		if ( empty( $role ) )
+			return FALSE;
 
-		foreach ( (array) $role as $name )
-			if ( in_array( $name, $roles ) )
-				return TRUE;
+		$currents = self::getRoles( $user_id );
 
-		return FALSE;
+		if ( empty( $currents ) )
+			return FALSE;
+
+		return (bool) count( array_intersect( (array) $role, $currents ) );
 	}
 
 	// current user role
 	public static function cur( $role = FALSE )
 	{
 		$roles = self::getRoles();
-		return $role ? in_array( $role, $roles ) : $roles;
+		return $role ? in_array( $role, $roles, TRUE ) : $roles;
 	}
 
 	public static function getAllRoleList( $filtered = TRUE, $object = FALSE )
