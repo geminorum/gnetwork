@@ -42,7 +42,7 @@ class Blog extends gNetwork\Module
 
 			if ( $this->options['thrift_mode'] ) {
 
-				// add_action( 'admin_init', static function() {
+				// add_action( 'admin_init', static function () {
 				// 	// when there are a lot of terms
 				// 	wp_deregister_script( 'suggest' );
 				// } );
@@ -58,12 +58,12 @@ class Blog extends gNetwork\Module
 			}
 
 			if ( $this->options['disable_pointers'] )
-				add_action( 'admin_init', static function() {
+				add_action( 'admin_init', static function () {
 					remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
 				} );
 
 			if ( $this->options['disable_globalstyles'] )
-				add_action( 'admin_init', static function() {
+				add_action( 'admin_init', static function () {
 					remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_global_styles_css_custom_properties' );
 					remove_action( 'in_admin_header', 'wp_global_styles_render_svg_filters' );
 				} );
@@ -91,7 +91,7 @@ class Blog extends gNetwork\Module
 			}
 
 			if ( $this->options['disable_globalstyles'] )
-				add_action( 'init', static function() {
+				add_action( 'init', static function () {
 					remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
 					remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
 					remove_action( 'wp_enqueue_scripts', 'wp_common_block_scripts_and_styles' );
@@ -490,11 +490,11 @@ class Blog extends gNetwork\Module
 			remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 			remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 
-			add_filter( 'tiny_mce_plugins', static function( $plugins ) {
+			add_filter( 'tiny_mce_plugins', static function ( $plugins ) {
 				return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
 			} );
 
-			add_filter( 'wp_resource_hints', static function( $urls, $relation_type ) {
+			add_filter( 'wp_resource_hints', static function ( $urls, $relation_type ) {
 
 				if ( 'dns-prefetch' !== $relation_type )
 					return $urls;
@@ -532,7 +532,7 @@ class Blog extends gNetwork\Module
 			}
 
 			if ( 'default' != $this->options['heartbeat_frequency'] )
-				add_filter( 'heartbeat_settings', function( $settings ) {
+				add_filter( 'heartbeat_settings', function ( $settings ) {
 					return array_merge( $settings, [ 'interval' => (int) $this->options['heartbeat_frequency'] ] );
 				} );
 

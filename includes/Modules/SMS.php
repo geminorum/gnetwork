@@ -125,7 +125,7 @@ class SMS extends gNetwork\Module
 			'info' => [
 				'title'    => _x( 'Whom, When', 'Modules: SMS: Data Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-info',
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					$html = $target = '';
 
 					if ( ! empty( $row['type'] ) && 'received' == $row['type'] && ! empty( $row['from'] ) )
@@ -151,7 +151,7 @@ class SMS extends gNetwork\Module
 
 					return $html;
 				},
-				'actions' => function( $value, $row, $column, $index, $key, $args ) {
+				'actions' => function ( $value, $row, $column, $index, $key, $args ) {
 
 					return [
 						'download' => HTML::tag( 'a', [
@@ -170,7 +170,7 @@ class SMS extends gNetwork\Module
 			'content' => [
 				'title'    => _x( 'What', 'Modules: SMS: Data Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-content',
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					$content   = $target = '';
 					$direction = empty( $row['rtl'] ) ? '' : ' style="direction:rtl"';
 

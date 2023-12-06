@@ -569,7 +569,7 @@ class Mail extends gNetwork\Module
 			'info' => [
 				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-info',
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					$html = '';
 
 					if ( ! empty( $row['to'] ) ) {
@@ -633,7 +633,7 @@ class Mail extends gNetwork\Module
 
 					return HTML::wrap( $html, '-info' );
 				},
-				'actions' => function( $value, $row, $column, $index, $key, $args ) {
+				'actions' => function ( $value, $row, $column, $index, $key, $args ) {
 
 					return [
 						'download' => HTML::tag( 'a', [
@@ -652,7 +652,7 @@ class Mail extends gNetwork\Module
 			'content' => [
 				'title'    => _x( 'What', 'Modules: Mail: Email Logs Table Column', 'gnetwork' ),
 				'class'    => '-column-content',
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					$content   = '';
 					$direction = empty( $row['rtl'] ) ? '' : ' style="direction:rtl"';
 

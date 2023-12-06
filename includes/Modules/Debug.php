@@ -41,7 +41,7 @@ class Debug extends gNetwork\Module
 
 		$this->filter( 'site_status_test_result' );
 
-		// add_filter( 'wp_die_handler', function() {
+		// add_filter( 'wp_die_handler', function () {
 		// 	return [ $this, 'wp_die_handler' ];
 		// } );
 
@@ -833,7 +833,7 @@ class Debug extends gNetwork\Module
 					$result['status']         = 'critical';
 					$result['badge']['color'] = 'red';
 
-				} else if ( $status >= 500 ) {
+				} else if ( $status >= 500 && 503 !== $status ) {
 
 					$result['status']         = 'critical';
 					$result['badge']['color'] = 'red';
@@ -842,7 +842,7 @@ class Debug extends gNetwork\Module
 					$result['description'] .= '<p class="gnetwork-additional-test">'
 						._x( 'Additional tests shows that the log files are not accessible but with errors.', 'Modules: Debug', 'gnetwork' ).'</p>';
 
-				} else if ( $status >= 400 ) {
+				} else if ( $status >= 400 || 503 === $status ) {
 
 					$result['status']         = 'good';
 					$result['badge']['color'] = 'green';
@@ -1119,7 +1119,7 @@ class Debug extends gNetwork\Module
 		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
 
 		if ( ini_get( 'zlib.output_compression' ) )
-			add_action( 'shutdown', static function() {
+			add_action( 'shutdown', static function () {
 
 				$start  = (int) ini_get( 'zlib.output_compression' );
 				$levels = ob_get_level();
@@ -1139,7 +1139,7 @@ class Debug extends gNetwork\Module
 		else
 			$errcontext = E_WARNING;
 
-		set_error_handler( function( $errno, $errstr, $errfile ) {
+		set_error_handler( function ( $errno, $errstr, $errfile ) {
 
 			if ( 'wp-db.php' !== File::basename( $errfile ) ) {
 

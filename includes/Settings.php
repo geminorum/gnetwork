@@ -2,15 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\Strings as WPStrings;
-use geminorum\gNetwork\WordPress\PostType as WPPostType;
-use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
+use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class Settings extends Core\Base
 {
@@ -30,7 +23,7 @@ class Settings extends Core\Base
 
 	public static function wrapOpen( $sub, $context = 'settings' )
 	{
-		echo '<div id="'.static::BASE.'-'.$context.'" class="'.HTML::prepClass(
+		echo '<div id="'.static::BASE.'-'.$context.'" class="'.Core\HTML::prepClass(
 			'wrap',
 			'-settings-wrap',
 			static::BASE.'-admin-wrap',
@@ -63,7 +56,7 @@ class Settings extends Core\Base
 		echo '<'.$tag.' class="wp-heading-inline settings-title">'.$title.'</'.$tag.'>';
 
 		if ( 'version' == $after )
-			echo ' '.HTML::tag( 'a', [
+			echo ' '.Core\HTML::tag( 'a', [
 				'href'   => 'https://github.com/geminorum/gnetwork/releases',
 				'title'  => _x( 'Plugin Changelog', 'Settings: Header Title: Link Title Attr', 'gnetwork' ),
 				'class'  => [ 'page-title-action', 'settings-title-action' ],
@@ -83,8 +76,8 @@ class Settings extends Core\Base
 
 		echo '<div class="side-nav-wrap">';
 
-		HTML::h2( $title, '-title' );
-		HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
+		Core\HTML::h2( $title, '-title' );
+		Core\HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
 
 		echo '<div class="side-nav-content">';
 
@@ -106,7 +99,7 @@ class Settings extends Core\Base
 		else
 			return;
 
-		HTML::h2( $subtitle, 'wp-heading-inline settings-title' );
+		Core\HTML::h2( $subtitle, 'wp-heading-inline settings-title' );
 		echo '<hr class="wp-header-end">';
 	}
 
@@ -150,7 +143,7 @@ class Settings extends Core\Base
 			'ordered'   => self::counted( _x( '%s items(s) re-ordered!', 'Settings: Message', 'gnetwork' ) ),
 			/* translators: %s: count */
 			'synced'    => self::counted( _x( '%s items(s) synced!', 'Settings: Message', 'gnetwork' ) ),
-			'huh'       => HTML::error( self::huh( self::req( 'huh', NULL ) ) ),
+			'huh'       => Core\HTML::error( self::huh( self::req( 'huh', NULL ) ) ),
 		];
 	}
 
@@ -161,29 +154,29 @@ class Settings extends Core\Base
 		if ( isset( $_REQUEST['count'] ) && ! is_array( $_REQUEST['count'] ) )
 			/* translators: %s: count */
 			$extra[] = sprintf( _x( '%s Counted!', 'Settings: Message', 'gnetwork' ),
-				Number::format( $_REQUEST['count'] ) );
+				Core\Number::format( $_REQUEST['count'] ) );
 
-		return count( $extra ) ? ' ('.implode( WPStrings::separator(), $extra ).')' : '';
+		return count( $extra ) ? ' ('.implode( WordPress\Strings::separator(), $extra ).')' : '';
 	}
 
 	public static function error( $message, $dismissible = TRUE )
 	{
-		return HTML::error( $message.self::messageExtra(), $dismissible );
+		return Core\HTML::error( $message.self::messageExtra(), $dismissible );
 	}
 
 	public static function success( $message, $dismissible = TRUE )
 	{
-		return HTML::success( $message.self::messageExtra(), $dismissible );
+		return Core\HTML::success( $message.self::messageExtra(), $dismissible );
 	}
 
 	public static function warning( $message, $dismissible = TRUE )
 	{
-		return HTML::warning( $message.self::messageExtra(), $dismissible );
+		return Core\HTML::warning( $message.self::messageExtra(), $dismissible );
 	}
 
 	public static function info( $message, $dismissible = TRUE )
 	{
-		return HTML::info( $message.self::messageExtra(), $dismissible );
+		return Core\HTML::info( $message.self::messageExtra(), $dismissible );
 	}
 
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
@@ -195,12 +188,12 @@ class Settings extends Core\Base
 		if ( is_null( $count ) )
 			$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : 0;
 
-		return HTML::notice( sprintf( $message, Number::format( $count ) ), $class.' fade' );
+		return Core\HTML::notice( sprintf( $message, Core\Number::format( $count ) ), $class.' fade' );
 	}
 
 	public static function cheatin( $message = NULL )
 	{
-		echo HTML::error( is_null( $message ) ? _x( 'Cheatin&#8217; uh?', 'Settings: Message', 'gnetwork' ) : $message );
+		echo Core\HTML::error( is_null( $message ) ? _x( 'Cheatin&#8217; uh?', 'Settings: Message', 'gnetwork' ) : $message );
 	}
 
 	public static function huh( $message = NULL )
@@ -222,7 +215,7 @@ class Settings extends Core\Base
 			if ( isset( $messages[$_GET['message']] ) )
 				echo $messages[$_GET['message']];
 			else
-				echo HTML::warning( $_GET['message'] );
+				echo Core\HTML::warning( $_GET['message'] );
 
 			$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'message', 'count' ], $_SERVER['REQUEST_URI'] );
 		}
@@ -233,7 +226,7 @@ class Settings extends Core\Base
 		if ( is_null( $message ) )
 			$message = _x( 'Are you sure? This operation can not be undone.', 'Settings: Confirm', 'gnetwork' );
 
-		return [ 'onclick' => sprintf( 'return confirm(\'%s\')', HTML::escape( $message ) ) ];
+		return [ 'onclick' => sprintf( 'return confirm(\'%s\')', Core\HTML::escape( $message ) ) ];
 	}
 
 	public static function submitButton( $name = 'submit', $text = NULL, $primary = FALSE, $atts = [], $after = '&nbsp;&nbsp;' )
@@ -265,13 +258,13 @@ class Settings extends Core\Base
 			$classes[] = 'button-'.$primary;
 
 		if ( $link )
-			echo HTML::tag( 'a', array_merge( $atts, [
+			echo Core\HTML::tag( 'a', array_merge( $atts, [
 				'href'  => $name,
 				'class' => $classes,
 			] ), $text );
 
 		else
-			echo HTML::tag( 'input', array_merge( $atts, [
+			echo Core\HTML::tag( 'input', array_merge( $atts, [
 				'type'    => 'submit',
 				'name'    => $name,
 				// 'id'      => $name,
@@ -302,23 +295,23 @@ class Settings extends Core\Base
 		if ( ! $logo )
 			return FALSE;
 
-		return HTML::tag( 'a', [
+		return Core\HTML::tag( 'a', [
 			'href'   => $logo,
 			'title'  => _x( 'Full URL to the current login logo image', 'Settings', 'gnetwork' ),
 			'target' => '_blank',
-		], ( $text ? _x( 'Login Logo', 'Settings', 'gnetwork' ) : HTML::getDashicon( 'format-image' ) ) );
+		], ( $text ? _x( 'Login Logo', 'Settings', 'gnetwork' ) : Core\HTML::getDashicon( 'format-image' ) ) );
 	}
 
 	public static function fieldSection( $title, $description = FALSE, $tag = 'h2' )
 	{
-		echo HTML::tag( $tag, $title );
+		echo Core\HTML::tag( $tag, $title );
 
-		HTML::desc( $description );
+		Core\HTML::desc( $description );
 	}
 
 	public static function fieldAfterText( $text, $wrap = 'span', $class = '-text-wrap' )
 	{
-		return $text ? HTML::tag( $wrap, [ 'class' => '-field-after '.$class ], $text ) : '';
+		return $text ? Core\HTML::tag( $wrap, [ 'class' => '-field-after '.$class ], $text ) : '';
 	}
 
 	public static function fieldAfterIcon( $url = '', $title = NULL, $icon = 'info' )
@@ -329,15 +322,15 @@ class Settings extends Core\Base
 		if ( is_null( $title ) )
 			$title = _x( 'See More Information', 'Settings', 'gnetwork' );
 
-		$html = HTML::tag( 'a', [
+		$html = Core\HTML::tag( 'a', [
 			'href'   => $url,
 			'target' => '_blank',
 			'rel'    => 'noreferrer',
 			'data'   => [
 				'tooltip'     => $title,
-				'tooltip-pos' => HTML::rtl() ? 'left' : 'right',
+				'tooltip-pos' => Core\HTML::rtl() ? 'left' : 'right',
 			],
-		], HTML::getDashicon( $icon ) );
+		], Core\HTML::getDashicon( $icon ) );
 
 		return '<span class="-field-after -icon-wrap">'.$html.'</span>';
 	}
@@ -350,28 +343,28 @@ class Settings extends Core\Base
 		if ( is_null( $title ) )
 			$title = _x( 'Currently defined constant', 'Settings', 'gnetwork' );
 
-		return HTML::tag( 'span', [
-			'class' => HTML::attrClass( '-field-after', $class ),
+		return Core\HTML::tag( 'span', [
+			'class' => Core\HTML::attrClass( '-field-after', $class ),
 			'data'  => [
 				'tooltip'     => $title,
-				'tooltip-pos' => HTML::rtl() ? 'left' : 'right',
+				'tooltip-pos' => Core\HTML::rtl() ? 'left' : 'right',
 			],
-		], HTML::tag( 'code', $constant ).' : '.HTML::tag( 'code', constant( $constant ) ) );
+		], Core\HTML::tag( 'code', $constant ).' : '.Core\HTML::tag( 'code', constant( $constant ) ) );
 	}
 
 	public static function fieldAfterLink( $link = '', $class = '' )
 	{
-		return $link ? ( '<code class="'.HTML::prepClass( '-field-after', '-link-wrap', $class ).'">'.HTML::link( URL::prepTitle( $link ), $link, TRUE ).'</code>' ) : '';
+		return $link ? ( '<code class="'.Core\HTML::prepClass( '-field-after', '-link-wrap', $class ).'">'.Core\HTML::link( Core\URL::prepTitle( $link ), $link, TRUE ).'</code>' ) : '';
 	}
 
 	public static function fieldAfterEmail( $email = '', $class = '' )
 	{
-		return $email ? ( '<code class="'.HTML::prepClass( '-field-after', '-email-wrap', $class ).'">'.HTML::mailto( $email ).'</code>' ) : '';
+		return $email ? ( '<code class="'.Core\HTML::prepClass( '-field-after', '-email-wrap', $class ).'">'.Core\HTML::mailto( $email ).'</code>' ) : '';
 	}
 
 	public static function fieldAfterButton( $button = '', $class = '' )
 	{
-		return $button ? ( '<span class="'.HTML::prepClass( '-field-after', '-button-wrap', $class ).'">'.$button.'</span>' ) : '';
+		return $button ? ( '<span class="'.Core\HTML::prepClass( '-field-after', '-button-wrap', $class ).'">'.$button.'</span>' ) : '';
 	}
 
 	public static function fieldAfterNewPostType( $post_type = 'page', $icon = 'welcome-add-page' )
@@ -385,7 +378,7 @@ class Settings extends Core\Base
 	public static function fieldDescPlaceholders( $items, $title = NULL )
 	{
 		$list  = [];
-		$assoc = Arraay::isAssoc( $items );
+		$assoc = Core\Arraay::isAssoc( $items );
 
 		foreach ( (array) $items as $key => $item )
 			$list[$key] = $assoc
@@ -398,9 +391,9 @@ class Settings extends Core\Base
 		if ( is_null( $title ) )
 			$title = _x( 'Supported Place-holders', 'Settings', 'gnetwork' );
 
-		$html = $title ? HTML::tag( 'h5', $title ) : '';
+		$html = $title ? Core\HTML::tag( 'h5', $title ) : '';
 
-		return HTML::wrap( $html.HTML::renderList( $list ), '-field-after-placeholders' );
+		return Core\HTML::wrap( $html.Core\HTML::renderList( $list ), '-field-after-placeholders' );
 	}
 
 	// using caps instead of roles
@@ -442,7 +435,7 @@ class Settings extends Core\Base
 		$list = [];
 
 		foreach ( $statuses as $status )
-			$list[$status] = $status.' '.HTTP::getStatusDesc( $status );
+			$list[$status] = $status.' '.Core\HTTP::getStatusDesc( $status );
 
 		return $list;
 	}
@@ -450,10 +443,10 @@ class Settings extends Core\Base
 	public static function priorityOptions( $format = TRUE )
 	{
 		return
-			array_reverse( Arraay::range( -100, -1000, 100, $format ), TRUE ) +
-			array_reverse( Arraay::range( -10, -100, 10, $format ), TRUE ) +
-			Arraay::range( 0, 100, 10, $format ) +
-			Arraay::range( 100, 1000, 100, $format );
+			array_reverse( Core\Arraay::range( -100, -1000, 100, $format ), TRUE ) +
+			array_reverse( Core\Arraay::range( -10, -100, 10, $format ), TRUE ) +
+			Core\Arraay::range( 0, 100, 10, $format ) +
+			Core\Arraay::range( 100, 1000, 100, $format );
 	}
 
 	public static function minutesOptions()
@@ -564,9 +557,9 @@ class Settings extends Core\Base
 		$html = '';
 
 		foreach ( $list as $link )
-			$html.= '<li>'.HTML::link( $link['title'], $link['url'], TRUE ).'</li>';
+			$html.= '<li>'.Core\HTML::link( $link['title'], $link['url'], TRUE ).'</li>';
 
-		return $html ? HTML::wrap( '<ul>'.$html.'</ul>', '-help-sidebar' ) : FALSE;
+		return $html ? Core\HTML::wrap( '<ul>'.$html.'</ul>', '-help-sidebar' ) : FALSE;
 	}
 
 	public static function fieldType( $atts, &$scripts )
@@ -625,14 +618,14 @@ class Settings extends Core\Base
 		if ( 'tr' == $args['wrap'] ) {
 
 			if ( ! empty( $args['label_for'] ) )
-				echo '<tr class="'.HTML::prepClass( $args['class'] ).'"><th scope="row"><label for="'.HTML::escape( $args['label_for'] ).'">'.$args['title'].'</label></th><td>';
+				echo '<tr class="'.Core\HTML::prepClass( $args['class'] ).'"><th scope="row"><label for="'.Core\HTML::escape( $args['label_for'] ).'">'.$args['title'].'</label></th><td>';
 
 			else
-				echo '<tr class="'.HTML::prepClass( $args['class'] ).'"><th scope="row">'.$args['title'].'</th><td>';
+				echo '<tr class="'.Core\HTML::prepClass( $args['class'] ).'"><th scope="row">'.$args['title'].'</th><td>';
 
 		} else if ( $args['wrap'] ) {
 
-			echo '<'.$args['wrap'].' class="'.HTML::prepClass( '-wrap', '-settings-field', '-'.$args['type'] ).'">';
+			echo '<'.$args['wrap'].' class="'.Core\HTML::prepClass( '-wrap', '-settings-field', '-'.$args['type'] ).'">';
 		}
 
 		if ( ! $args['field'] )
@@ -651,8 +644,8 @@ class Settings extends Core\Base
 		if ( $args['id_name_cb'] ) {
 			list( $id, $name ) = call_user_func( $args['id_name_cb'], $args );
 		} else {
-			$id   = $args['id_attr'] ? $args['id_attr'] : ( $args['option_base'] ? $args['option_base'].'-' : '' ).$args['option_group'].'-'.HTML::escape( $args['field'] );
-			$name = $args['name_attr'] ? $args['name_attr'] : ( $args['option_base'] ? $args['option_base'].'_' : '' ).$args['option_group'].'['.HTML::escape( $args['field'] ).']';
+			$id   = $args['id_attr'] ? $args['id_attr'] : ( $args['option_base'] ? $args['option_base'].'-' : '' ).$args['option_group'].'-'.Core\HTML::escape( $args['field'] );
+			$name = $args['name_attr'] ? $args['name_attr'] : ( $args['option_base'] ? $args['option_base'].'_' : '' ).$args['option_group'].'['.Core\HTML::escape( $args['field'] ).']';
 		}
 
 		if ( isset( $args['options'][$args['field']] ) ) {
@@ -667,7 +660,7 @@ class Settings extends Core\Base
 			$value = constant( $args['constant'] );
 
 			$args['disabled'] = TRUE;
-			$args['after'] = HTML::tag( 'code', $args['constant'] );
+			$args['after'] = Core\HTML::tag( 'code', $args['constant'] );
 		}
 
 		if ( is_null( $args['cap'] ) ) {
@@ -698,7 +691,7 @@ class Settings extends Core\Base
 
 			case 'hidden':
 
-				echo HTML::tag( 'input', [
+				echo Core\HTML::tag( 'input', [
 					'type'  => 'hidden',
 					'id'    => $id,
 					'name'  => $name,
@@ -711,20 +704,20 @@ class Settings extends Core\Base
 			break;
 			case 'enabled':
 
-				$html = HTML::tag( 'option', [
+				$html = Core\HTML::tag( 'option', [
 					'value'    => '0',
 					'selected' => '0' == $value,
 				], empty( $args['values'][0] ) ? $args['string_disabled'] : $args['values'][0] );
 
-				$html.= HTML::tag( 'option', [
+				$html.= Core\HTML::tag( 'option', [
 					'value'    => '1',
 					'selected' => '1' == $value,
 				], empty( $args['values'][1] ) ? $args['string_enabled'] : $args['values'][1] );
 
-				echo HTML::tag( 'select', [
+				echo Core\HTML::tag( 'select', [
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::attrClass( $args['field_class'], '-type-enabled' ),
+					'class'    => Core\HTML::attrClass( $args['field_class'], '-type-enabled' ),
 					// `select` doesn't have a `readonly`, keeping `disabled` with hidden input
 					// @REF: https://stackoverflow.com/a/368834
 					'disabled' => $args['disabled'] || $args['readonly'],
@@ -733,25 +726,25 @@ class Settings extends Core\Base
 				], $html );
 
 				if ( $args['readonly'] )
-					HTML::inputHidden( $name, $value );
+					Core\HTML::inputHidden( $name, $value );
 
 			break;
 			case 'disabled':
 
-				$html = HTML::tag( 'option', [
+				$html = Core\HTML::tag( 'option', [
 					'value'    => '0',
 					'selected' => '0' == $value,
 				], empty( $args['values'][0] ) ? $args['string_enabled'] : $args['values'][0] );
 
-				$html.= HTML::tag( 'option', [
+				$html.= Core\HTML::tag( 'option', [
 					'value'    => '1',
 					'selected' => '1' == $value,
 				], empty( $args['values'][1] ) ? $args['string_disabled'] : $args['values'][1] );
 
-				echo HTML::tag( 'select', [
+				echo Core\HTML::tag( 'select', [
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::attrClass( $args['field_class'], '-type-disabled' ),
+					'class'    => Core\HTML::attrClass( $args['field_class'], '-type-disabled' ),
 					// `select` doesn't have a `readonly`, keeping `disabled` with hidden input
 					// @REF: https://stackoverflow.com/a/368834
 					'disabled' => $args['disabled'] || $args['readonly'],
@@ -760,7 +753,7 @@ class Settings extends Core\Base
 				], $html );
 
 				if ( $args['readonly'] )
-					HTML::inputHidden( $name, $value );
+					Core\HTML::inputHidden( $name, $value );
 
 			break;
 			case 'text':
@@ -770,7 +763,7 @@ class Settings extends Core\Base
 
 				if ( FALSE === $args['values'] ) {
 
-					HTML::desc( $args['string_empty'], TRUE, '-empty' );
+					Core\HTML::desc( $args['string_empty'], TRUE, '-empty' );
 
 				} else if ( count( $args['values'] ) ) {
 
@@ -779,32 +772,32 @@ class Settings extends Core\Base
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html = HTML::tag( 'input', [
+						$html = Core\HTML::tag( 'input', [
 							'type'        => 'text',
 							'id'          => $id.'-'.$value_name,
 							'name'        => $name.'['.$value_name.']',
 							'value'       => isset( $value[$value_name] ) ? $value[$value_name] : '',
-							'class'       => HTML::attrClass( $args['field_class'], '-type-text' ),
+							'class'       => Core\HTML::attrClass( $args['field_class'], '-type-text' ),
 							'placeholder' => $args['placeholder'],
-							'disabled'    => HTML::attrBoolean( $args['disabled'], $value_name ),
-							'readonly'    => HTML::attrBoolean( $args['readonly'], $value_name ),
+							'disabled'    => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+							'readonly'    => Core\HTML::attrBoolean( $args['readonly'], $value_name ),
 							'dir'         => $args['dir'],
 							'data'        => $args['data'],
 						] );
 
 						$html.= '&nbsp;<span class="-field-after">'.$value_title.'</span>';
 
-						HTML::label( $html, $id.'-'.$value_name );
+						Core\HTML::label( $html, $id.'-'.$value_name );
 					}
 
 				} else {
 
-					echo HTML::tag( 'input', [
+					echo Core\HTML::tag( 'input', [
 						'type'        => 'text',
 						'id'          => $id,
 						'name'        => $name,
 						'value'       => $value,
-						'class'       => HTML::attrClass( $args['field_class'], '-type-text' ),
+						'class'       => Core\HTML::attrClass( $args['field_class'], '-type-text' ),
 						'placeholder' => $args['placeholder'],
 						'disabled'    => $args['disabled'],
 						'readonly'    => $args['readonly'],
@@ -822,7 +815,7 @@ class Settings extends Core\Base
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
 
-				echo HTML::tag( 'input', [
+				echo Core\HTML::tag( 'input', [
 					'type'        => 'number',
 					'id'          => $id,
 					'name'        => $name,
@@ -830,7 +823,7 @@ class Settings extends Core\Base
 					'step'        => FALSE !== $args['step_attr'] ? (int) $args['step_attr'] : FALSE,
 					'min'         => FALSE !== $args['min_attr'] ? (int) $args['min_attr'] : FALSE,
 					'max'         => FALSE !== $args['max_attr'] ? (int) $args['max_attr'] : FALSE,
-					'class'       => HTML::attrClass( $args['field_class'], '-type-number' ),
+					'class'       => Core\HTML::attrClass( $args['field_class'], '-type-number' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -847,12 +840,12 @@ class Settings extends Core\Base
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
 
-				echo HTML::tag( 'input', [
+				echo Core\HTML::tag( 'input', [
 					'type'        => 'url',
 					'id'          => $id,
 					'name'        => $name,
 					'value'       => $value,
-					'class'       => HTML::attrClass( $args['field_class'], '-type-url' ),
+					'class'       => Core\HTML::attrClass( $args['field_class'], '-type-url' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -869,12 +862,12 @@ class Settings extends Core\Base
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
 
-				echo HTML::tag( 'input', [
+				echo Core\HTML::tag( 'input', [
 					'type'        => 'text', // it's better to be `text`
 					'id'          => $id,
 					'name'        => $name,
 					'value'       => $value,
-					'class'       => HTML::attrClass( $args['field_class'], '-type-color' ),
+					'class'       => Core\HTML::attrClass( $args['field_class'], '-type-color' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -895,12 +888,12 @@ class Settings extends Core\Base
 				if ( ! $args['dir'] )
 					$args['dir'] = 'ltr';
 
-				echo HTML::tag( 'input', [
+				echo Core\HTML::tag( 'input', [
 					'type'        => 'email',
 					'id'          => $id,
 					'name'        => $name,
 					'value'       => $value,
-					'class'       => HTML::attrClass( $args['field_class'], '-type-email' ),
+					'class'       => Core\HTML::attrClass( $args['field_class'], '-type-email' ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -911,20 +904,20 @@ class Settings extends Core\Base
 			break;
 			case 'checkbox':
 
-				$html = HTML::tag( 'input', [
+				$html = Core\HTML::tag( 'input', [
 					'type'     => 'checkbox',
 					'id'       => $id,
 					'name'     => $name,
 					'value'    => '1',
 					'checked'  => $value,
-					'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox' ),
+					'class'    => Core\HTML::attrClass( $args['field_class'], '-type-checkbox' ),
 					'disabled' => $args['disabled'],
 					'readonly' => $args['readonly'],
 					'dir'      => $args['dir'],
 					'data'     => $args['data'],
 				] );
 
-				HTML::label( $html.'&nbsp;'.$args['description'], $id );
+				Core\HTML::label( $html.'&nbsp;'.$args['description'], $id );
 
 				$args['description'] = FALSE;
 
@@ -936,21 +929,21 @@ class Settings extends Core\Base
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html = HTML::tag( 'input', [
+						$html = Core\HTML::tag( 'input', [
 							'type'     => 'checkbox',
 							'id'       => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'name'     => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'value'    => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
 							'checked'  => FALSE === $value || in_array( $args['none_value'], (array) $value ),
-							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox', '-option-none' ),
-							'disabled' => HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
-							'readonly' => HTML::attrBoolean( $args['readonly'], $args['none_value'] ),
+							'class'    => Core\HTML::attrClass( $args['field_class'], '-type-checkbox', '-option-none' ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
+							'readonly' => Core\HTML::attrBoolean( $args['readonly'], $args['none_value'] ),
 							'dir'      => $args['dir'],
 						] );
 
 						$for = $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] );
 
-						HTML::label( $html.'&nbsp;'.$args['none_title'], $for );
+						Core\HTML::label( $html.'&nbsp;'.$args['none_title'], $for );
 					}
 
 					foreach ( $args['values'] as $value_name => $value_title ) {
@@ -958,15 +951,15 @@ class Settings extends Core\Base
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html = HTML::tag( 'input', [
+						$html = Core\HTML::tag( 'input', [
 							'type'     => 'checkbox',
 							'id'       => $id.'-'.$value_name,
 							'name'     => $name.'['.$value_name.']',
 							'value'    => '1',
 							'checked'  => TRUE === $value || in_array( $value_name, (array) $value ),
-							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox' ),
-							'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
-							'readonly' => HTML::attrBoolean( $args['readonly'], $value_name ),
+							'class'    => Core\HTML::attrClass( $args['field_class'], '-type-checkbox' ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+							'readonly' => Core\HTML::attrBoolean( $args['readonly'], $value_name ),
 							'dir'      => $args['dir'],
 						] );
 
@@ -975,13 +968,13 @@ class Settings extends Core\Base
 						if ( 'checkboxes-values' == $args['type'] )
 							$html.= ' &mdash; <code>'.sprintf( $args['template_value'], $value_name ).'</code>';
 
-						HTML::label( $html, $id.'-'.$value_name );
+						Core\HTML::label( $html, $id.'-'.$value_name );
 					}
 
 				} else if ( is_array( $args['values'] ) ) {
 
 					$args['description'] = FALSE;
-					HTML::desc( $args['string_empty'], TRUE, '-empty' );
+					Core\HTML::desc( $args['string_empty'], TRUE, '-empty' );
 				}
 
 			break;
@@ -993,21 +986,21 @@ class Settings extends Core\Base
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html = HTML::tag( 'input', [
+						$html = Core\HTML::tag( 'input', [
 							'type'     => 'checkbox',
 							'id'       => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'name'     => $name.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'value'    => is_null( $args['none_value'] ) ? '1' : $args['none_value'],
 							'checked'  => FALSE === $value || in_array( $args['none_value'], (array) $value ),
-							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox', '-option-none' ),
-							'disabled' => HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
-							'readonly' => HTML::attrBoolean( $args['readonly'], $args['none_value'] ),
+							'class'    => Core\HTML::attrClass( $args['field_class'], '-type-checkbox', '-option-none' ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
+							'readonly' => Core\HTML::attrBoolean( $args['readonly'], $args['none_value'] ),
 							'dir'      => $args['dir'],
 						] );
 
 						$for = $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] );
 
-						HTML::label( $html.'&nbsp;'.$args['none_title'], $for, 'li' );
+						Core\HTML::label( $html.'&nbsp;'.$args['none_title'], $for, 'li' );
 					}
 
 					foreach ( $args['values'] as $value_name => $value_title ) {
@@ -1015,19 +1008,19 @@ class Settings extends Core\Base
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html = HTML::tag( 'input', [
+						$html = Core\HTML::tag( 'input', [
 							'type'     => 'checkbox',
 							'id'       => $id.'-'.$value_name,
 							'name'     => $name.'['.$value_name.']',
 							'value'    => '1',
 							'checked'  => TRUE === $value || in_array( $value_name, (array) $value ),
-							'class'    => HTML::attrClass( $args['field_class'], '-type-checkbox' ),
-							'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
-							'readonly' => HTML::attrBoolean( $args['readonly'], $value_name ),
+							'class'    => Core\HTML::attrClass( $args['field_class'], '-type-checkbox' ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+							'readonly' => Core\HTML::attrBoolean( $args['readonly'], $value_name ),
 							'dir'      => $args['dir'],
 						] );
 
-						HTML::label( $html.'&nbsp;'.$value_title, $id.'-'.$value_name, 'li' );
+						Core\HTML::label( $html.'&nbsp;'.$value_title, $id.'-'.$value_name, 'li' );
 					}
 
 					echo '</ul></div>';
@@ -1035,7 +1028,7 @@ class Settings extends Core\Base
 				} else if ( is_array( $args['values'] ) ) {
 
 					$args['description'] = FALSE;
-					HTML::desc( $args['string_empty'], TRUE, '-empty' );
+					Core\HTML::desc( $args['string_empty'], TRUE, '-empty' );
 				}
 
 			break;
@@ -1045,21 +1038,21 @@ class Settings extends Core\Base
 
 					if ( ! is_null( $args['none_title'] ) ) {
 
-						$html = HTML::tag( 'input', [
+						$html = Core\HTML::tag( 'input', [
 							'type'     => 'radio',
 							'id'       => $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] ),
 							'name'     => $name,
 							'value'    => is_null( $args['none_value'] ) ? FALSE : $args['none_value'],
 							'checked'  => in_array( $args['none_value'], (array) $value ),
-							'class'    => HTML::attrClass( $args['field_class'], '-type-radio', '-option-none' ),
-							'disabled' => HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
-							'readonly' => HTML::attrBoolean( $args['readonly'], $args['none_value'] ),
+							'class'    => Core\HTML::attrClass( $args['field_class'], '-type-radio', '-option-none' ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
+							'readonly' => Core\HTML::attrBoolean( $args['readonly'], $args['none_value'] ),
 							'dir'      => $args['dir'],
 						] );
 
 						$for = $id.( is_null( $args['none_value'] ) ? '' : '-'.$args['none_value'] );
 
-						HTML::label( $html.'&nbsp;'.$args['none_title'], $for );
+						Core\HTML::label( $html.'&nbsp;'.$args['none_title'], $for );
 					}
 
 					foreach ( $args['values'] as $value_name => $value_title ) {
@@ -1067,19 +1060,19 @@ class Settings extends Core\Base
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html = HTML::tag( 'input', [
+						$html = Core\HTML::tag( 'input', [
 							'type'     => 'radio',
 							'id'       => $id.'-'.$value_name,
 							'name'     => $name,
 							'value'    => $value_name,
 							'checked'  => in_array( $value_name, (array) $value ),
-							'class'    => HTML::attrClass( $args['field_class'], '-type-radio' ),
-							'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
-							'readonly' => HTML::attrBoolean( $args['readonly'], $value_name ),
+							'class'    => Core\HTML::attrClass( $args['field_class'], '-type-radio' ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+							'readonly' => Core\HTML::attrBoolean( $args['readonly'], $value_name ),
 							'dir'      => $args['dir'],
 						] );
 
-						HTML::label( $html.'&nbsp;'.$value_title, $id.'-'.$value_name );
+						Core\HTML::label( $html.'&nbsp;'.$value_title, $id.'-'.$value_name );
 					}
 				}
 
@@ -1093,10 +1086,10 @@ class Settings extends Core\Base
 						if ( is_null( $args['none_value'] ) )
 							$args['none_value'] = '0';
 
-						$html.= HTML::tag( 'option', [
+						$html.= Core\HTML::tag( 'option', [
 							'value'    => $args['none_value'],
 							'selected' => $value == $args['none_value'],
-							'disabled' => HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
 						], $args['none_title'] );
 					}
 
@@ -1105,17 +1098,17 @@ class Settings extends Core\Base
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html.= HTML::tag( 'option', [
+						$html.= Core\HTML::tag( 'option', [
 							'value'    => $value_name,
 							'selected' => $value == $value_name,
-							'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
 						], $value_title );
 					}
 
-					echo HTML::tag( 'select', [
+					echo Core\HTML::tag( 'select', [
 						'id'       => $id,
 						'name'     => $name,
-						'class'    => HTML::attrClass( $args['field_class'], '-type-select' ),
+						'class'    => Core\HTML::attrClass( $args['field_class'], '-type-select' ),
 						// `select` doesn't have a `readonly`, keeping `disabled` with hidden input
 						// @REF: https://stackoverflow.com/a/368834
 						// `disabled` previously applied to `option` elements
@@ -1125,7 +1118,7 @@ class Settings extends Core\Base
 					], $html );
 
 					if ( $args['readonly'] )
-						HTML::inputHidden( $name, $value );
+						Core\HTML::inputHidden( $name, $value );
 				}
 
 			break;
@@ -1139,9 +1132,9 @@ class Settings extends Core\Base
 
 				if ( 'textarea-quicktags' == $args['type'] ) {
 
-					$args['field_class'] = HTML::attrClass( $args['field_class'], 'textarea-quicktags', 'code' );
+					$args['field_class'] = Core\HTML::attrClass( $args['field_class'], 'textarea-quicktags', 'code' );
 
-					if ( ! $args['dir'] && HTML::rtl() )
+					if ( ! $args['dir'] && Core\HTML::rtl() )
 						$args['field_class'][] = 'quicktags-rtl';
 
 					if ( ! $args['values'] )
@@ -1157,9 +1150,9 @@ class Settings extends Core\Base
 
 				} else if ( 'textarea-quicktags-tokens' == $args['type'] ) {
 
-					$args['field_class'] = HTML::attrClass( $args['field_class'], 'textarea-quicktags', 'code' );
+					$args['field_class'] = Core\HTML::attrClass( $args['field_class'], 'textarea-quicktags', 'code' );
 
-					if ( ! $args['dir'] && HTML::rtl() )
+					if ( ! $args['dir'] && Core\HTML::rtl() )
 						$args['field_class'][] = 'quicktags-rtl';
 
 					if ( ! $args['values'] )
@@ -1203,12 +1196,12 @@ class Settings extends Core\Base
 						$id, wp_json_encode( $args['values'] ) );
 				}
 
-				echo HTML::tag( 'textarea', [
+				echo Core\HTML::tag( 'textarea', [
 					'id'          => $id,
 					'name'        => $name,
 					'rows'        => $args['rows_attr'],
 					'cols'        => $args['cols_attr'],
-					'class'       => HTML::attrClass( $args['field_class'], '-type'.$args['type'] ),
+					'class'       => Core\HTML::attrClass( $args['field_class'], '-type'.$args['type'] ),
 					'placeholder' => $args['placeholder'],
 					'disabled'    => $args['disabled'],
 					'readonly'    => $args['readonly'],
@@ -1241,16 +1234,16 @@ class Settings extends Core\Base
 
 				if ( ! empty( $pages ) ) {
 
-					$html.= HTML::tag( 'option', [
+					$html.= Core\HTML::tag( 'option', [
 						'value' => $args['none_value'],
 					], $args['none_title'] );
 
 					$html.= walk_page_dropdown_tree( $pages, ( isset( $query['depth'] ) ? $query['depth'] : 0 ), $query );
 
-					echo HTML::tag( 'select', [
+					echo Core\HTML::tag( 'select', [
 						'id'       => $id,
 						'name'     => $name,
-						'class'    => HTML::attrClass( $args['field_class'], '-type-page', '-posttype-'.$args['values'] ),
+						'class'    => Core\HTML::attrClass( $args['field_class'], '-type-page', '-posttype-'.$args['values'] ),
 						// `select` doesn't have a `readonly`, keeping `disabled` with hidden input
 						// @REF: https://stackoverflow.com/a/368834
 						'disabled' => $args['disabled'] || $args['readonly'],
@@ -1259,7 +1252,7 @@ class Settings extends Core\Base
 					], $html );
 
 					if ( $args['readonly'] )
-						HTML::inputHidden( $name, $value );
+						Core\HTML::inputHidden( $name, $value );
 
 				} else {
 
@@ -1278,10 +1271,10 @@ class Settings extends Core\Base
 				if ( is_null( $args['none_value'] ) )
 					$args['none_value'] = '0';
 
-				$html.= HTML::tag( 'option', [
+				$html.= Core\HTML::tag( 'option', [
 					'value'    => $args['none_value'],
 					'selected' => $value == $args['none_value'],
-					'disabled' => HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
+					'disabled' => Core\HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
 				], $args['none_title'] );
 
 				foreach ( $args['values'] as $value_name => $value_title ) {
@@ -1289,17 +1282,17 @@ class Settings extends Core\Base
 					if ( in_array( $value_name, $exclude ) )
 						continue;
 
-					$html.= HTML::tag( 'option', [
+					$html.= Core\HTML::tag( 'option', [
 						'value'    => $value_name,
 						'selected' => $value == $value_name,
-						'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
-					], HTML::escape( translate_user_role( $value_title['name'] ) ) );
+						'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+					], Core\HTML::escape( translate_user_role( $value_title['name'] ) ) );
 				}
 
-				echo HTML::tag( 'select', [
+				echo Core\HTML::tag( 'select', [
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::attrClass( $args['field_class'], '-type-role' ),
+					'class'    => Core\HTML::attrClass( $args['field_class'], '-type-role' ),
 					// `select` doesn't have a `readonly`, keeping `disabled` with hidden input
 					// @REF: https://stackoverflow.com/a/368834
 					'disabled' => $args['readonly'],
@@ -1308,7 +1301,7 @@ class Settings extends Core\Base
 				], $html );
 
 				if ( $args['readonly'] )
-					HTML::inputHidden( $name, $value );
+					Core\HTML::inputHidden( $name, $value );
 
 			break;
 			case 'cap':
@@ -1323,17 +1316,17 @@ class Settings extends Core\Base
 						if ( in_array( $value_name, $exclude ) )
 							continue;
 
-						$html.= HTML::tag( 'option', [
+						$html.= Core\HTML::tag( 'option', [
 							'value'    => $value_name,
 							'selected' => $value === $value_name,
-							'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
+							'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
 						], $value_title );
 					}
 
-					echo HTML::tag( 'select', [
+					echo Core\HTML::tag( 'select', [
 						'id'       => $id,
 						'name'     => $name,
-						'class'    => HTML::attrClass( $args['field_class'], '-type-cap' ),
+						'class'    => Core\HTML::attrClass( $args['field_class'], '-type-cap' ),
 						// `select` doesn't have a `readonly`, keeping `disabled` with hidden input
 						// @REF: https://stackoverflow.com/a/368834
 						'disabled' => $args['readonly'],
@@ -1342,7 +1335,7 @@ class Settings extends Core\Base
 					], $html );
 
 					if ( $args['readonly'] )
-						HTML::inputHidden( $name, $value );
+						Core\HTML::inputHidden( $name, $value );
 
 				} else {
 
@@ -1353,17 +1346,17 @@ class Settings extends Core\Base
 			case 'user':
 
 				if ( ! $args['values'] )
-					$args['values'] = WordPress::getUsers( FALSE, FALSE, $args['extra'] );
+					$args['values'] = Core\WordPress::getUsers( FALSE, FALSE, $args['extra'] );
 
 				if ( ! is_null( $args['none_title'] ) ) {
 
 					if ( is_null( $args['none_value'] ) )
 						$args['none_value'] = FALSE;
 
-					$html.= HTML::tag( 'option', [
+					$html.= Core\HTML::tag( 'option', [
 						'value'    => $args['none_value'],
 						'selected' => $value == $args['none_value'],
-						'disabled' => HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
+						'disabled' => Core\HTML::attrBoolean( $args['disabled'], $args['none_value'] ),
 					], $args['none_title'] );
 				}
 
@@ -1372,17 +1365,17 @@ class Settings extends Core\Base
 					if ( in_array( $value_name, $exclude ) )
 						continue;
 
-					$html.= HTML::tag( 'option', [
+					$html.= Core\HTML::tag( 'option', [
 						'value'    => $value_name,
 						'selected' => $value == $value_name,
-						'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
-					], HTML::escape( sprintf( '%1$s (%2$s)', $value_title->display_name, $value_title->user_login ) ) );
+						'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+					], Core\HTML::escape( sprintf( '%1$s (%2$s)', $value_title->display_name, $value_title->user_login ) ) );
 				}
 
-				echo HTML::tag( 'select', [
+				echo Core\HTML::tag( 'select', [
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::attrClass( $args['field_class'], '-type-user' ),
+					'class'    => Core\HTML::attrClass( $args['field_class'], '-type-user' ),
 					// `select` doesn't have a `readonly`, keeping `disabled` with hidden input
 					// @REF: https://stackoverflow.com/a/368834
 					'disabled' => $args['readonly'],
@@ -1391,7 +1384,7 @@ class Settings extends Core\Base
 				], $html );
 
 				if ( $args['readonly'] )
-					HTML::inputHidden( $name, $value );
+					Core\HTML::inputHidden( $name, $value );
 
 			break;
 			case 'priority':
@@ -1407,17 +1400,17 @@ class Settings extends Core\Base
 					if ( in_array( $value_name, $exclude ) )
 						continue;
 
-					$html.= HTML::tag( 'option', [
+					$html.= Core\HTML::tag( 'option', [
 						'value'    => $value_name,
 						'selected' => $value == $value_name,
-						'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
-					], HTML::escape( $value_title ) );
+						'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+					], Core\HTML::escape( $value_title ) );
 				}
 
-				echo HTML::tag( 'select', [
+				echo Core\HTML::tag( 'select', [
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::attrClass( $args['field_class'], '-type-priority' ),
+					'class'    => Core\HTML::attrClass( $args['field_class'], '-type-priority' ),
 					// `select` doesn't have a `readonly`, keeping `disabled` with hidden input
 					// @REF: https://stackoverflow.com/a/368834
 					'disabled' => $args['readonly'],
@@ -1426,7 +1419,7 @@ class Settings extends Core\Base
 				], $html );
 
 				if ( $args['readonly'] )
-					HTML::inputHidden( $name, $value );
+					Core\HTML::inputHidden( $name, $value );
 
 			break;
 			case 'button':
@@ -1441,11 +1434,11 @@ class Settings extends Core\Base
 			break;
 			case 'file':
 
-				echo HTML::tag( 'input', [
+				echo Core\HTML::tag( 'input', [
 					'type'     => 'file',
 					'id'       => $id,
 					'name'     => $name,
-					'class'    => HTML::attrClass( $args['field_class'], '-type-file' ),
+					'class'    => Core\HTML::attrClass( $args['field_class'], '-type-file' ),
 					'disabled' => $args['disabled'],
 					'dir'      => $args['dir'],
 					'data'     => $args['data'],
@@ -1456,7 +1449,7 @@ class Settings extends Core\Base
 			case 'posttypes':
 
 				if ( ! $args['values'] )
-					$args['values'] = WPPostType::get( 0,
+					$args['values'] = WordPress\PostType::get( 0,
 						array_merge( [ 'public' => TRUE ], $args['extra'] ) );
 
 				foreach ( $args['values'] as $value_name => $value_title ) {
@@ -1464,29 +1457,29 @@ class Settings extends Core\Base
 					if ( in_array( $value_name, $exclude ) )
 						continue;
 
-					$html = HTML::tag( 'input', [
+					$html = Core\HTML::tag( 'input', [
 						'type'     => 'checkbox',
 						'id'       => $id.'-'.$value_name,
 						'name'     => $name.'['.$value_name.']',
 						'value'    => '1',
 						'checked'  => in_array( $value_name, (array) $value ),
-						'class'    => HTML::attrClass( $args['field_class'], '-type-posttypes' ),
-						'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
-						'readonly' => HTML::attrBoolean( $args['readonly'], $value_name ),
+						'class'    => Core\HTML::attrClass( $args['field_class'], '-type-posttypes' ),
+						'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+						'readonly' => Core\HTML::attrBoolean( $args['readonly'], $value_name ),
 						'dir'      => $args['dir'],
 					] );
 
-					$html.= '&nbsp;'.HTML::escape( $value_title );
+					$html.= '&nbsp;'.Core\HTML::escape( $value_title );
 					$html.= ' &mdash; <code>'.sprintf( $args['template_value'], $value_name ).'</code>';
 
-					HTML::label( $html, $id.'-'.$value_name );
+					Core\HTML::label( $html, $id.'-'.$value_name );
 				}
 
 			break;
 			case 'taxonomies':
 
 				if ( ! $args['values'] )
-					$args['values'] = WPTaxonomy::get( 0, $args['extra'] );
+					$args['values'] = WordPress\Taxonomy::get( 0, $args['extra'] );
 
 				echo '<div class="wp-tab-panel"><ul>';
 
@@ -1495,22 +1488,22 @@ class Settings extends Core\Base
 					if ( in_array( $value_name, $exclude ) )
 						continue;
 
-					$html = HTML::tag( 'input', [
+					$html = Core\HTML::tag( 'input', [
 						'type'     => 'checkbox',
 						'id'       => $id.'-'.$value_name,
 						'name'     => $name.'['.$value_name.']',
 						'value'    => '1',
 						'checked'  => in_array( $value_name, (array) $value ),
-						'class'    => HTML::attrClass( $args['field_class'], '-type-taxonomies' ),
-						'disabled' => HTML::attrBoolean( $args['disabled'], $value_name ),
-						'readonly' => HTML::attrBoolean( $args['readonly'], $value_name ),
+						'class'    => Core\HTML::attrClass( $args['field_class'], '-type-taxonomies' ),
+						'disabled' => Core\HTML::attrBoolean( $args['disabled'], $value_name ),
+						'readonly' => Core\HTML::attrBoolean( $args['readonly'], $value_name ),
 						'dir'      => $args['dir'],
 					] );
 
-					$html.= '&nbsp;'.HTML::escape( $value_title );
+					$html.= '&nbsp;'.Core\HTML::escape( $value_title );
 					$html.= ' &mdash; <code>'.sprintf( $args['template_value'], $value_name ).'</code>';
 
-					HTML::label( $html, $id.'-'.$value_name, 'li' );
+					Core\HTML::label( $html, $id.'-'.$value_name, 'li' );
 				}
 
 				echo '</ul></div>';
@@ -1523,7 +1516,7 @@ class Settings extends Core\Base
 					call_user_func_array( $args['callback'], [ &$args,
 						compact( 'html', 'value', 'name', 'id', 'exclude' ) ] );
 
-				} else if ( WordPress::isDev() ) {
+				} else if ( Core\WordPress::isDev() ) {
 
 					echo 'Error: Setting is not callable!';
 				}
@@ -1531,7 +1524,7 @@ class Settings extends Core\Base
 			break;
 			case 'noaccess':
 
-				echo HTML::tag( 'span', [
+				echo Core\HTML::tag( 'span', [
 					'class' => '-type-noaccess',
 				], $args['string_noaccess'] );
 
@@ -1558,7 +1551,7 @@ class Settings extends Core\Base
 			echo '&nbsp;'.$args['after'];
 
 		if ( FALSE !== $args['values'] )
-			HTML::desc( $args['description'] );
+			Core\HTML::desc( $args['description'] );
 
 		if ( 'tr' == $args['wrap'] )
 			echo '</td></tr>';

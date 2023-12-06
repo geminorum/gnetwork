@@ -263,7 +263,7 @@ class Typography extends gNetwork\Module
 			'type' => [
 				'title'    => _x( 'Type', 'Modules: Typography: Column Title', 'gnetwork' ),
 				'args'     => [ 'post_types' => WPPostType::get( 2 ) ],
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
 						? $column['args']['post_types'][$row->post_type]
 						: $row->post_type;
@@ -272,7 +272,7 @@ class Typography extends gNetwork\Module
 			'slug' => [
 				'title'    => _x( 'Slug', 'Modules: Typography: Column Title', 'gnetwork' ),
 				// 'class'    => '-ltr',
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					// TODO: must warn for customized slugs
 					// TODO: title attr for more info
 					return HTML::tag( 'code', urldecode( $row->post_name ) )
@@ -282,10 +282,10 @@ class Typography extends gNetwork\Module
 			],
 			'title' => [
 				'title'    => _x( 'Title', 'Modules: Typography: Column Title', 'gnetwork' ),
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::getPostTitle( $row );
 				},
-				'actions' => static function( $value, $row, $column, $index, $key, $args ) {
+				'actions' => static function ( $value, $row, $column, $index, $key, $args ) {
 					$list = [];
 
 					if ( current_user_can( 'edit_post', $row->ID ) )
@@ -404,12 +404,12 @@ class Typography extends gNetwork\Module
 		if ( gNetwork()->option( 'linkify_hashtags', 'search' )
 			&& ! self::const( 'GNETWORK_DISABLE_LINKIFY_CONTENT' ) ) {
 
-			$content = Text::replaceSymbols( '#', $content, static function( $matched, $string ) {
+			$content = Text::replaceSymbols( '#', $content, static function ( $matched, $string ) {
 				return HTML::link( str_replace( '_', ' ', $matched ), WordPress::getSearchLink( $matched ) );
 			} );
 
 			// telegram hash-tag links!
-			$content = preg_replace_callback( '/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu', static function( $matched ) {
+			$content = preg_replace_callback( '/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu', static function ( $matched ) {
 				return HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), WordPress::getSearchLink( '#'.$matched[2] ) );
 			}, $content );
 		}
@@ -419,7 +419,7 @@ class Typography extends gNetwork\Module
 			$brand_name = gNetwork()->brand( 'name' );
 			$brand_url  = gNetwork()->brand( 'url' );
 
-			$content = Text::replaceWords( [ $brand_name ], $content, static function( $matched ) use ( $brand_url ) {
+			$content = Text::replaceWords( [ $brand_name ], $content, static function ( $matched ) use ( $brand_url ) {
 				return '<em>'.HTML::link( $matched, $brand_url ).'</em>';
 			} );
 		}

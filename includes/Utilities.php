@@ -3,17 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\DataCode;
-use geminorum\gNetwork\Core\Date;
-use geminorum\gNetwork\Core\Email;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\Strings;
+use geminorum\gNetwork\WordPress;
 
 class Utilities extends Core\Base
 {
@@ -31,10 +21,10 @@ class Utilities extends Core\Base
 		$updates = get_plugin_updates();
 
 		if ( ! empty( $updates[$plugin] ) )
-			echo HTML::info( sprintf(
+			echo Core\HTML::info( sprintf(
 				/* translators: %1$s: plugin name, %2$s: version number */
 				_x( 'A new version of %1$s is available. Please update to version %2$s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', 'gnetwork' ),
-				HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
+				Core\HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
 				$updates[$plugin]->update->new_version
 			) );
 
@@ -53,8 +43,8 @@ class Utilities extends Core\Base
 	{
 		$pattern = '/\[([^\]]+)\]/';
 
-		return preg_replace_callback( $pattern, static function( $matches ) {
-			return '<b><span title="'.HTML::escape( self::humanTimeAgo( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
+		return preg_replace_callback( $pattern, static function ( $matches ) {
+			return '<b><span title="'.Core\HTML::escape( self::humanTimeAgo( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
 		}, $string, $limit );
 	}
 
@@ -63,7 +53,7 @@ class Utilities extends Core\Base
 		// @REF: http://regexr.com/35833
 		$pattern = "/((((25[0-5])|(2[0-4]\d)|([01]?\d?\d)))\.){3}((((25[0-5])|(2[0-4]\d)|([01]?\d?\d))))/i";
 
-		return preg_replace_callback( $pattern, static function( $matches ) {
+		return preg_replace_callback( $pattern, static function ( $matches ) {
 			return gnetwork_ip_lookup( $matches[0] );
 		}, $string, $limit );
 	}
@@ -73,19 +63,19 @@ class Utilities extends Core\Base
 		if ( ! $timestamp )
 			return $timestamp;
 
-		if ( ! Date::isTimestamp( $timestamp ) )
+		if ( ! Core\Date::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
 		$now = current_time( 'timestamp', FALSE );
 
 		if ( $flip )
 			return '<span class="-date-diff" title="'
-					.HTML::escape( self::dateFormat( $timestamp, 'fulltime' ) ).'">'
+					.Core\HTML::escape( self::dateFormat( $timestamp, 'fulltime' ) ).'">'
 					.self::humanTimeDiff( $timestamp, $now )
 				.'</span>';
 
 		return '<span class="-time" title="'
-			.HTML::escape( self::humanTimeAgo( $timestamp, $now ) ).'">'
+			.Core\HTML::escape( self::humanTimeAgo( $timestamp, $now ) ).'">'
 			.self::humanTimeDiffRound( $timestamp, NULL, self::dateFormats( 'default' ), $now )
 		.'</span>';
 	}
@@ -105,7 +95,7 @@ class Utilities extends Core\Base
 			return self::humanTimeAgo( $local, $now );
 
 		if ( is_null( $round ) )
-			$round = Date::DAY_IN_SECONDS;
+			$round = Core\Date::DAY_IN_SECONDS;
 
 		$diff = $now - $local;
 
@@ -147,7 +137,7 @@ class Utilities extends Core\Base
 		if ( empty( $now ) )
 			$now = current_time( 'timestamp', FALSE );
 
-		return Date::humanTimeDiff( $timestamp, $now, $strings );
+		return Core\Date::humanTimeDiff( $timestamp, $now, $strings );
 	}
 
 	public static function htmlFromSeconds( $seconds, $round = FALSE )
@@ -156,7 +146,7 @@ class Utilities extends Core\Base
 
 		if ( is_null( $strings ) )
 			$strings = [
-				'sep' => Strings::separator(),
+				'sep' => WordPress\Strings::separator(),
 
 				/* translators: %s: number of seconds */
 				'noop_seconds' => _nx_noop( '%s second', '%s seconds', 'Utilities: From Seconds: Noop', 'gnetwork' ),
@@ -168,7 +158,7 @@ class Utilities extends Core\Base
 				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: From Seconds: Noop', 'gnetwork' ),
 			];
 
-		return Date::htmlFromSeconds( $seconds, $round, $strings );
+		return Core\Date::htmlFromSeconds( $seconds, $round, $strings );
 	}
 
 	// not used yet!
@@ -211,7 +201,7 @@ class Utilities extends Core\Base
 		if ( empty( $now ) )
 			$now = current_time( 'timestamp', FALSE );
 
-		return Date::moment( $timestamp, $now, $strings );
+		return Core\Date::moment( $timestamp, $now, $strings );
 	}
 
 	public static function getDateEditRow( $timestamp, $class = FALSE )
@@ -219,19 +209,19 @@ class Utilities extends Core\Base
 		if ( empty( $timestamp ) )
 			return self::htmlEmpty();
 
-		if ( ! Date::isTimestamp( $timestamp ) )
+		if ( ! Core\Date::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
 		$formats = self::dateFormats( FALSE );
 
-		$html = '<span class="-date-date" title="'.HTML::escape( date_i18n( $formats['timeonly'], $timestamp ) );
+		$html = '<span class="-date-date" title="'.Core\HTML::escape( date_i18n( $formats['timeonly'], $timestamp ) );
 		$html.= '" data-time="'.date( 'c', $timestamp ).'">'.date_i18n( $formats['default'], $timestamp ).'</span>';
 
 		$html.= '&nbsp;(<span class="-date-diff" title="';
-		$html.= HTML::escape( date_i18n( $formats['fulltime'], $timestamp ) ).'">';
+		$html.= Core\HTML::escape( date_i18n( $formats['fulltime'], $timestamp ) ).'">';
 		$html.= self::humanTimeDiff( $timestamp ).'</span>)';
 
-		return $class ? '<span class="'.HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
+		return $class ? '<span class="'.Core\HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
 	}
 
 	public static function getModifiedEditRow( $post, $class = FALSE )
@@ -242,25 +232,25 @@ class Utilities extends Core\Base
 		$timestamp = strtotime( $post->post_modified );
 		$formats   = self::dateFormats( FALSE );
 
-		$html = '<span class="-date-modified" title="'.HTML::escape( date_i18n( $formats['default'], $timestamp ) );
+		$html = '<span class="-date-modified" title="'.Core\HTML::escape( date_i18n( $formats['default'], $timestamp ) );
 		$html.='" data-time="'.date( 'c', $timestamp ).'">'.self::humanTimeDiff( $timestamp ).'</span>';
 
 		$edit_last = get_post_meta( $post->ID, '_edit_last', TRUE );
 
 		if ( $edit_last && $post->post_author != $edit_last )
-			$html.= '&nbsp;(<span class="-edit-last">'.WordPress::getAuthorEditHTML( $post->post_type, $edit_last ).'</span>)';
+			$html.= '&nbsp;(<span class="-edit-last">'.Core\WordPress::getAuthorEditHTML( $post->post_type, $edit_last ).'</span>)';
 
-		return $class ? '<span class="'.HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
+		return $class ? '<span class="'.Core\HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
 	}
 
 	public static function htmlCurrent( $format = NULL, $class = FALSE, $title = FALSE )
 	{
-		return Date::htmlCurrent( ( is_null( $format ) ? self::dateFormats( 'datetime' ) : $format ), $class, $title );
+		return Core\Date::htmlCurrent( ( is_null( $format ) ? self::dateFormats( 'datetime' ) : $format ), $class, $title );
 	}
 
 	public static function dateFormat( $timestamp, $context = 'default' )
 	{
-		if ( ! Date::isTimestamp( $timestamp ) )
+		if ( ! Core\Date::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
 		return date_i18n( self::dateFormats( $context ), $timestamp );
@@ -365,17 +355,17 @@ class Utilities extends Core\Base
 
 	public static function prepContact( $value, $title = NULL )
 	{
-		if ( Email::is( $value ) )
-			$prepared = HTML::mailto( $value, $title );
+		if ( Core\Email::is( $value ) )
+			$prepared = Core\HTML::mailto( $value, $title );
 
-		else if ( URL::isValid( $value ) )
-			$prepared = HTML::link( $title, URL::untrail( $value ) );
+		else if ( Core\URL::isValid( $value ) )
+			$prepared = Core\HTML::link( $title, Core\URL::untrail( $value ) );
 
 		else if ( is_numeric( str_ireplace( [ '+', '-', '.' ], '', $value ) ) )
-			$prepared = HTML::tel( $value, FALSE, $title );
+			$prepared = Core\HTML::tel( $value, FALSE, $title );
 
 		else
-			$prepared = HTML::escape( $value );
+			$prepared = Core\HTML::escape( $value );
 
 		return apply_filters( static::BASE.'_prep_contact', $prepared, $value, $title );
 	}
@@ -384,7 +374,7 @@ class Utilities extends Core\Base
 	{
 		return is_null( $title_attr )
 			? '<span class="-empty '.$class.'">&mdash;</span>'
-			: sprintf( '<span title="%s" class="'.HTML::prepClass( '-empty', $class ).'">&mdash;</span>', $title_attr );
+			: sprintf( '<span title="%s" class="'.Core\HTML::prepClass( '-empty', $class ).'">&mdash;</span>', $title_attr );
 	}
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
@@ -403,7 +393,7 @@ class Utilities extends Core\Base
 
 			'loader'          => new \Mustache_Loader_FilesystemLoader( $base.'assets/views' ),
 			'partials_loader' => new \Mustache_Loader_FilesystemLoader( $base.'assets/views/partials' ),
-			'escape'          => static function( $value ) {
+			'escape'          => static function ( $value ) {
 				return htmlspecialchars( $value, ENT_COMPAT, 'UTF-8' );
 			},
 		] );
@@ -439,14 +429,14 @@ class Utilities extends Core\Base
 	public static function getJoined( $items, $before = '', $after = '', $empty = '' )
 	{
 		if ( $items && count( $items ) )
-			return $before.implode( Strings::separator(), $items ).$after;
+			return $before.implode( WordPress\Strings::separator(), $items ).$after;
 
 		return $empty;
 	}
 
 	public static function getCounted( $count, $template = '%s' )
 	{
-		return sprintf( $template, '<span class="-count" data-count="'.$count.'">'.Number::format( $count ).'</span>' );
+		return sprintf( $template, '<span class="-count" data-count="'.$count.'">'.Core\Number::format( $count ).'</span>' );
 	}
 
 	public static function getLayout( $name, $require = FALSE, $no_cache = FALSE )
@@ -462,7 +452,7 @@ class Utilities extends Core\Base
 			$layout = $plugin;
 
 		if ( $no_cache && $layout )
-			WordPress::doNotCache();
+			Core\WordPress::doNotCache();
 
 		if ( $require && $layout )
 			require_once $layout;
@@ -472,15 +462,15 @@ class Utilities extends Core\Base
 
 	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all', $verbose = TRUE )
 	{
-		return HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css.( is_rtl() ? '-rtl' : '' ).'.css', $version, $media, $verbose );
+		return Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css.( is_rtl() ? '-rtl' : '' ).'.css', $version, $media, $verbose );
 	}
 
 	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )
 	{
-		$file = WordPress::customFile( $css, FALSE );
+		$file = Core\WordPress::customFile( $css, FALSE );
 
 		if ( $link && $file )
-			HTML::linkStyleSheet( $file, $version );
+			Core\HTML::linkStyleSheet( $file, $version );
 
 		return $file;
 	}
@@ -540,7 +530,7 @@ class Utilities extends Core\Base
 		$verifier = new \hbattat\VerifyEmail( $email, $from, $port );
 		$results  = $verifier->verify();
 
-		if ( WordPress::isDev() )
+		if ( Core\WordPress::isDev() )
 			self::_log( $verifier->get_debug() );
 
 		return $results;
@@ -565,7 +555,7 @@ class Utilities extends Core\Base
 
 		$log = '['.gmdate( 'd-M-Y H:i:s e' ).'] '; // [03-Feb-2015 21:20:19 UTC]
 		$log.= $error.' ';
-		$log.= HTTP::IP( TRUE );
+		$log.= Core\HTTP::IP( TRUE );
 		$log.= $message ? ' :: '.strip_tags( $message ) : '';
 		$log.= $extra ? ' :: '.$extra : '';
 
@@ -574,7 +564,7 @@ class Utilities extends Core\Base
 
 	public static function redirectHome()
 	{
-		WordPress::redirect( get_home_url(), 303 );
+		Core\WordPress::redirect( get_home_url(), 303 );
 	}
 
 	public static function redirect404()
@@ -584,17 +574,17 @@ class Utilities extends Core\Base
 		else
 			$location = GNETWORK_REDIRECT_404_URL;
 
-		WordPress::redirect( $location, 303 );
+		Core\WordPress::redirect( $location, 303 );
 	}
 
 	public static function htmlSSLfromURL( $url )
 	{
-		if ( Text::has( $url, 'https://' ) ) {
-			echo HTML::getDashicon( 'lock', _x( 'SSL Enabled', 'Utilities: Title', 'gnetwork' ), '-success' );
+		if ( Core\Text::has( $url, 'https://' ) ) {
+			echo Core\HTML::getDashicon( 'lock', _x( 'SSL Enabled', 'Utilities: Title', 'gnetwork' ), '-success' );
 			return TRUE;
 		}
 
-		echo HTML::getDashicon( 'unlock', _x( 'SSL Disabled', 'Utilities: Title', 'gnetwork' ), '-danger' );
+		echo Core\HTML::getDashicon( 'unlock', _x( 'SSL Disabled', 'Utilities: Title', 'gnetwork' ), '-danger' );
 		return FALSE;
 	}
 
@@ -606,19 +596,19 @@ class Utilities extends Core\Base
 		Scripts::enqueueScript( 'api.remote.content' );
 
 		$data   = [ 'action' => 'import-remote-content', 'remote' => $remote, 'target' => $target ];
-		$label  = HTML::getDashicon( 'download' ).' '._x( 'Import', 'Utilities: Remote Content', 'gnetwork' ).'&nbsp;';
+		$label  = Core\HTML::getDashicon( 'download' ).' '._x( 'Import', 'Utilities: Remote Content', 'gnetwork' ).'&nbsp;';
 		$title  = _x( 'Import from a remote content.', 'Utilities: Remote Content', 'gnetwork' );
-		$button = HTML::button( $label, '#', $title, TRUE, $data );
+		$button = Core\HTML::button( $label, '#', $title, TRUE, $data );
 
-		$icon = HTML::tag( 'a', [
+		$icon = Core\HTML::tag( 'a', [
 			'href'   => $remote,
 			'target' => '_blank',
 			'class'  => '-icon-wrap',
 			'data'  => [
 				'tooltip'     => _x( 'See the remote content.', 'Utilities: Remote Content', 'gnetwork' ),
-				'tooltip-pos' => HTML::rtl() ? 'left' : 'right',
+				'tooltip-pos' => Core\HTML::rtl() ? 'left' : 'right',
 			],
-		], HTML::getDashicon( 'external' ) );
+		], Core\HTML::getDashicon( 'external' ) );
 
 		return $button.' '.$icon;
 	}
@@ -627,13 +617,13 @@ class Utilities extends Core\Base
 	{
 		if ( ! $constant ) {
 
-			HTML::desc( _x( 'Logging data disabled by constant.', 'Utilities', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Logging data disabled by constant.', 'Utilities', 'gnetwork' ) );
 
 		} else if ( $option ) {
 
 			if ( ! is_dir( $constant ) || ! wp_is_writable( $constant ) ) {
 
-				HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
+				Core\HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
 
 				echo '<p class="submit -wrap-buttons">';
 					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Utilities', 'gnetwork' ), 'small' );
@@ -642,26 +632,26 @@ class Utilities extends Core\Base
 			} else {
 
 				/* translators: %s: log folder path */
-				HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ), HTML::tag( 'code', $constant ) ) );
+				Core\HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ), Core\HTML::tag( 'code', $constant ) ) );
 
 				if ( ! file_exists( $constant.'/.htaccess' ) )
 					/* translators: %s: .htaccess */
-					HTML::desc( sprintf( _x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ), '<code>.htaccess</code>' ) );
+					Core\HTML::desc( sprintf( _x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ), '<code>.htaccess</code>' ) );
 			}
 
 		} else {
 
-			HTML::desc( _x( 'Data logs are disabled.', 'Utilities', 'gnetwork' ), TRUE, '-empty' );
+			Core\HTML::desc( _x( 'Data logs are disabled.', 'Utilities', 'gnetwork' ), TRUE, '-empty' );
 		}
 	}
 
 	public static function emptyDataLogs( $path )
 	{
 		if ( ! is_dir( $path ) || ! wp_is_writable( $path ) )
-			echo HTML::error( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
+			echo Core\HTML::error( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
 
 		else
-			echo HTML::warning( _x( 'No Logs!', 'Utilities', 'gnetwork' ) );
+			echo Core\HTML::warning( _x( 'No Logs!', 'Utilities', 'gnetwork' ) );
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/14744288
@@ -670,7 +660,7 @@ class Utilities extends Core\Base
 		if ( ! $path )
 			return [ [], [] ];
 
-		$files = glob( File::normalize( $path.'/*.'.$ext ) );
+		$files = glob( Core\File::normalize( $path.'/*.'.$ext ) );
 
 		if ( empty( $files ) )
 			return [ [], [] ];
@@ -678,7 +668,7 @@ class Utilities extends Core\Base
 		$i    = 0;
 		$logs = [];
 
-		usort( $files, static function( $a, $b ) {
+		usort( $files, static function ( $a, $b ) {
 			return filemtime( $b ) - filemtime( $a );
 		} );
 
@@ -694,17 +684,17 @@ class Utilities extends Core\Base
 			if ( ! is_null( $old ) && filemtime( $log ) < $old )
 				continue;
 
-			if ( $data = json_decode( File::getContents( $log ), TRUE ) )
+			if ( $data = json_decode( Core\File::getContents( $log ), TRUE ) )
 				$logs[] = array_merge( [
-					'file' => File::basename( $log, '.json' ),
-					'size' => File::size( $log ),
+					'file' => Core\File::basename( $log, '.json' ),
+					'size' => Core\File::size( $log ),
 					'date' => filemtime( $log ),
 				], $data );
 
 			$i++;
 		}
 
-		$pagination = HTML::tablePagination( count( $files ), $pages, $limit, $paged );
+		$pagination = Core\HTML::tablePagination( count( $files ), $pages, $limit, $paged );
 
 		return [ $logs, $pagination ];
 	}
@@ -717,18 +707,18 @@ class Utilities extends Core\Base
 		if ( is_null( $base ) )
 			$base = self::BASE;
 
-		$path = File::normalize( GNETWORK_CACHE_DIR.( $base ? '/'.$base.'/' : '/' ).$sub );
+		$path = Core\File::normalize( GNETWORK_CACHE_DIR.( $base ? '/'.$base.'/' : '/' ).$sub );
 
 		if ( file_exists( $path ) )
-			return URL::untrail( $path );
+			return Core\URL::untrail( $path );
 
 		if ( ! wp_mkdir_p( $path ) )
 			return FALSE;
 
 		// FIXME: chack if the folder is writable
-		File::putIndexHTML( $path, GNETWORK_DIR.'index.html' );
+		Core\File::putIndexHTML( $path, GNETWORK_DIR.'index.html' );
 
-		return URL::untrail( $path );
+		return Core\URL::untrail( $path );
 	}
 
 	public static function getCacheURL( $sub, $base = NULL )
@@ -739,7 +729,7 @@ class Utilities extends Core\Base
 		if ( is_null( $base ) )
 			$base = self::BASE;
 
-		return URL::untrail( GNETWORK_CACHE_URL.( $base ? '/'.$base.'/' : '/' ).$sub );
+		return Core\URL::untrail( GNETWORK_CACHE_URL.( $base ? '/'.$base.'/' : '/' ).$sub );
 	}
 
 	public static function getQRCode( $data, $type = 'text', $size = 300, $tag = FALSE, $cache = TRUE, $sub = 'qrcodes', $base = NULL )
@@ -748,11 +738,11 @@ class Utilities extends Core\Base
 			$cache = FALSE;
 
 		switch ( $type ) {
-			case 'url'    : $prepared = DataCode::prepDataURL( $data ); break;
-			case 'email'  : $prepared = DataCode::prepDataEmail( is_array( $data ) ? $data : [ 'email' => $data ] ); break;
-			case 'phone'  : $prepared = DataCode::prepDataPhone( $data ); break;
-			case 'sms'    : $prepared = DataCode::prepDataSMS( is_array( $data ) ? $data : [ 'mobile' => $data ] ); break;
-			case 'contact': $prepared = DataCode::prepDataContact( is_array( $data ) ? $data : [ 'name' => $data ] ); break;
+			case 'url'    : $prepared = Core\DataCode::prepDataURL( $data ); break;
+			case 'email'  : $prepared = Core\DataCode::prepDataEmail( is_array( $data ) ? $data : [ 'email' => $data ] ); break;
+			case 'phone'  : $prepared = Core\DataCode::prepDataPhone( $data ); break;
+			case 'sms'    : $prepared = Core\DataCode::prepDataSMS( is_array( $data ) ? $data : [ 'mobile' => $data ] ); break;
+			case 'contact': $prepared = Core\DataCode::prepDataContact( is_array( $data ) ? $data : [ 'name' => $data ] ); break;
 			default       : $prepared = trim( $data ); break;
 		}
 
@@ -766,10 +756,10 @@ class Utilities extends Core\Base
 		if ( file_exists( $path.'/'.$file ) )
 			return $url;
 
-		if ( ! DataCode::cacheQRCode( $prepared, $path, $size ) )
+		if ( ! Core\DataCode::cacheQRCode( $prepared, $path, $size ) )
 			return $tag ? '' : FALSE;
 
-		return $tag ? HTML::tag( 'img', [
+		return $tag ? Core\HTML::tag( 'img', [
 			'src'    => $url,
 			'width'  => $size,
 			'height' => $size,

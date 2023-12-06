@@ -116,7 +116,7 @@ class Taxonomy extends gNetwork\Module
 		if ( 'edit-tags' == $screen->base
 			|| 'term' == $screen->base ) {
 
-			add_filter( 'admin_body_class', static function( $classes ) {
+			add_filter( 'admin_body_class', static function ( $classes ) {
 				return $classes.' gnetowrk-taxonomy';
 			} );
 
@@ -1328,8 +1328,8 @@ class Taxonomy extends gNetwork\Module
 			if ( ! $parents = WPTaxonomy::getTermParents( $term_id, $taxonomy ) )
 				continue;
 
-			foreach ( WPTaxonomy::getTermObjects( $term_id, $taxonomy ) as $post )
-				wp_set_object_terms( $post, $parents, $taxonomy, TRUE );
+			foreach ( WPTaxonomy::getTermObjects( $term_id, $taxonomy ) as $object_id )
+				wp_set_object_terms( $object_id, $parents, $taxonomy, TRUE );
 		}
 
 		// flush the deferred term counts

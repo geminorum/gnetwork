@@ -12,6 +12,8 @@ use geminorum\gNetwork\Core\WordPress;
 class Dashboard extends gNetwork\Module
 {
 
+	// TODO: rewrite: `wp_dashboard_right_now()`
+
 	protected $key   = 'dashboard';
 	protected $front = FALSE;
 	protected $ajax  = TRUE;

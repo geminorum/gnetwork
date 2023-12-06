@@ -478,6 +478,14 @@ class Locale extends gNetwork\Module
 			// https://github.com/bueltge/wordpress-admin-style
 			'WordPress_Admin_Style' => 'page',
 
+			// [Media Library Folders](https://wordpress.org/plugins/media-library-plus/)
+			'mlf-folders8'        => 'page',
+			'mlf-thumbnails'      => 'page',
+			'mlf-image-seo'       => 'page',
+			'mlf-settings8'       => 'page',
+			'mlf-support8'        => 'page',
+			'mlf--upgrade-to-pro' => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );

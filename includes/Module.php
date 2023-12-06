@@ -371,7 +371,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_true( 'disable_months_dropdown' );
 	protected function filter_true( $hook, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) {
+		add_filter( $hook, static function ( $first ) {
 			return TRUE;
 		}, $priority, 1 );
 	}
@@ -379,7 +379,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_false( 'disable_months_dropdown' );
 	protected function filter_false( $hook, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) {
+		add_filter( $hook, static function ( $first ) {
 			return FALSE;
 		}, $priority, 1 );
 	}
@@ -387,7 +387,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_zero( 'option_blog_public' );
 	protected function filter_zero( $hook, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) {
+		add_filter( $hook, static function ( $first ) {
 			return 0;
 		}, $priority, 1 );
 	}
@@ -395,7 +395,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_empty_string( 'option_blog_public' );
 	protected function filter_empty_string( $hook, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) {
+		add_filter( $hook, static function ( $first ) {
 			return '';
 		}, $priority, 1 );
 	}
@@ -403,7 +403,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_empty_array( 'option_blog_public' );
 	protected function filter_empty_array( $hook, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) {
+		add_filter( $hook, static function ( $first ) {
 			return [];
 		}, $priority, 1 );
 	}
@@ -411,7 +411,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_append( 'body_class', 'foo' );
 	protected function filter_append( $hook, $items, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) use ( $items ) {
+		add_filter( $hook, static function ( $first ) use ( $items ) {
 			foreach ( (array) $items as $value )
 				$first[] = $value;
 			return $first;
@@ -421,7 +421,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_set( 'shortcode_atts_gallery', [ 'columns' => 4 ] );
 	protected function filter_set( $hook, $items, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) use ( $items ) {
+		add_filter( $hook, static function ( $first ) use ( $items ) {
 			foreach ( $items as $key => $value )
 				$first[$key] = $value;
 			return $first;
@@ -431,7 +431,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_unset( 'shortcode_atts_gallery', [ 'columns' ] );
 	protected function filter_unset( $hook, $items, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) use ( $items ) {
+		add_filter( $hook, static function ( $first ) use ( $items ) {
 			foreach ( (array) $items as $key )
 				unset( $first[$key] );
 			return $first;
@@ -441,7 +441,7 @@ class Module extends Core\Base
 	// USAGE: $this->filter_string( 'parent_file', 'options-general.php' );
 	protected function filter_string( $hook, $text, $priority = 10 )
 	{
-		add_filter( $hook, static function( $first ) use ( $text ) {
+		add_filter( $hook, static function ( $first ) use ( $text ) {
 			return $text;
 		}, $priority, 1 );
 	}
@@ -559,7 +559,7 @@ class Module extends Core\Base
 	// USAGE: add_filter( 'body_class', self::_array_append( 'foo' ) );
 	protected static function _array_append( $item )
 	{
-		return function( $array ) use ( $item ) {
+		return function ( $array ) use ( $item ) {
 			$array[] = $item;
 			return $array;
 		};
@@ -568,7 +568,7 @@ class Module extends Core\Base
 	// USAGE: add_filter( 'shortcode_atts_gallery', self::_array_set( 'columns', 4 ) );
 	protected static function _array_set( $key, $value )
 	{
-		return function( $array ) use ( $key, $value ) {
+		return function ( $array ) use ( $key, $value ) {
 			$array[$key] = $value;
 			return $array;
 		};
@@ -1552,7 +1552,7 @@ class Module extends Core\Base
 
 		add_meta_box( $id, $title, $callback, $screen, 'normal', 'default', $args );
 
-		add_filter( 'postbox_classes_'.$screen->id.'_'.$id, function( $classes ) use ( $name ) {
+		add_filter( 'postbox_classes_'.$screen->id.'_'.$id, function ( $classes ) use ( $name ) {
 			return array_merge( $classes, [
 				$this->base.'-wrap',
 				'-admin-postbox',
@@ -1663,7 +1663,11 @@ class Module extends Core\Base
 
 	protected function register_blocktype( $name, $extra = [], $deps = NULL )
 	{
-		$args = [ 'editor_script' => Scripts::registerBlock( $name, $deps ) ];
+		// $args = [ 'editor_script' => Scripts::registerBlock( $name, $deps ) ];
+		$args = [
+			// 'api_version'   => 2,
+			'editor_script' => Scripts::registerBlockAsset( $name ),
+		];
 
 		// if ( ! defined( 'GNETWORK_DISABLE_BLOCK_STYLES' ) || ! GNETWORK_DISABLE_BLOCK_STYLES )
 		// 	$args['style'] = Scripts::registerBlockStyle( $name );

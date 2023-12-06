@@ -12,6 +12,8 @@ use geminorum\gNetwork\WordPress\PostType as WPPostType;
 class Authors extends gNetwork\Module
 {
 
+	// TODO: disable sitemap for authors
+
 	protected $key     = 'authors';
 	protected $network = FALSE;
 

@@ -52,7 +52,7 @@ if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
 
 } else {
 
-	$gnetwork_notice = function() {
+	$gnetwork_notice = static function () {
 		echo '<div class="notice notice-warning notice-alt is-dismissible"><p dir="ltr">';
 		printf( '<b>gNetwork</b> is not installed correctly. go grab the latest package <a href="%s" target="_blank">here</a>.', 'https://github.com/geminorum/gnetwork/releases/latest' );
 		echo '</p></div>';

@@ -24,6 +24,7 @@ class Dev extends gNetwork\Module
 		// $this->filter( 'http_request_args', 2, 12 );
 		$this->filter( 'redirect_canonical', 2, 99999 );
 
+		// $this->action( 'http_api_curl', 3, 999 );
 		$this->filter_false( 'https_ssl_verify' );
 		$this->filter_false( 'https_local_ssl_verify' );
 		// $this->filter_false( 'wp_is_php_version_acceptable' ); // to help with translation
@@ -63,6 +64,12 @@ class Dev extends gNetwork\Module
 			Logger::siteDEBUG( 'CANONICAL', esc_url( $requested_url ).' >> '.esc_url( $redirect_url ) );
 
 		return $redirect_url;
+	}
+
+	public function http_api_curl( &$handle, $parsed_args, $url )
+	{
+		if ( $cert = ini_get( 'curl.cainfo' ) )
+			curl_setopt( $handle, CURLOPT_CAINFO, $cert );
 	}
 
 	// blocks oEmbeds from displaying

@@ -60,7 +60,7 @@ class Scripts extends Core\Base
 			} );
 
 		if ( $integrity )
-			add_filter( 'style_loader_tag', static function( $html, $registered ) use ( $handle, $integrity ) {
+			add_filter( 'style_loader_tag', static function ( $html, $registered ) use ( $handle, $integrity ) {
 				return $registered == $handle
 					? preg_replace( '/\/>$/', sprintf( 'integrity="%s" crossorigin="anonymous" />', $integrity ), $html, 1 )
 					: $html;
@@ -181,11 +181,11 @@ class Scripts extends Core\Base
 	}
 
 	// @REF: https://github.com/bvanderhoof/gist-embed
-	public static function pkgGistEmbed( $ver = '1.0.4' )
+	public static function pkgGistEmbed( $version = '1.0.4' )
 	{
 		$handle = static::BASE.'-gist-embed';
 
-		wp_enqueue_script( $handle, 'https://cdn.jsdelivr.net/gh/bvanderhoof/gist-embed@'.$ver.'/dist/gist-embed.min.js', [], NULL, TRUE );
+		wp_enqueue_script( $handle, 'https://cdn.jsdelivr.net/gh/bvanderhoof/gist-embed@'.$version.'/dist/gist-embed.min.js', [], NULL, TRUE );
 
 		return $handle;
 	}

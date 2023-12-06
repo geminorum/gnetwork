@@ -288,11 +288,11 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					Themes::enqueueStyle( 'publish', TRUE );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'publish', $this->rtl );
 				} );
 			}
@@ -303,7 +303,7 @@ class Themes extends gNetwork\Module
 
 		} else if ( $this->rtl && $this->isTheme( 'hueman' ) ) {
 
-			add_action( 'wp_enqueue_scripts', static function() {
+			add_action( 'wp_enqueue_scripts', static function () {
 				Themes::enqueueStyle( 'hueman', TRUE );
 
 				wp_deregister_script( 'flexslider' );
@@ -312,17 +312,17 @@ class Themes extends gNetwork\Module
 
 			}, 12 );
 
-			add_filter( 'the_excerpt', static function( $text ) {
+			add_filter( 'the_excerpt', static function ( $text ) {
 				return $text.Themes::continueReading();
 			}, 5 );
 
 		} else if ( $this->rtl && $this->isTheme( 'tribes' ) ) {
 
-			add_action( 'wp_head', static function() {
+			add_action( 'wp_head', static function () {
 				Themes::linkStyleSheet( 'tribes-rtl' );
 			}, 20 );
 
-			add_filter( 'mce_css', function( $url ) {
+			add_filter( 'mce_css', function ( $url ) {
 				return Themes::appendMCECSS( $url, 'tribes', $this->rtl );
 			} );
 
@@ -332,7 +332,7 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					wp_dequeue_style( [ 'semicolon', 'semicolon-colors', 'semicolon-pt-serif', 'semicolon-open-sans' ] );
 					Themes::enqueueStyle( 'semicolon', TRUE );
 				}, 12 );
@@ -342,7 +342,7 @@ class Themes extends gNetwork\Module
 
 		} else if ( $this->rtl && $this->isTheme( 'omega' ) ) {
 
-			add_action( 'wp_enqueue_scripts', function() {
+			add_action( 'wp_enqueue_scripts', function () {
 				Themes::enqueueStyle( 'omega', TRUE );
 				remove_action( 'omega_footer', 'omega_footer_insert' );
 				add_action( 'omega_footer', [ $this, 'twentysomething_credits' ] );
@@ -350,14 +350,14 @@ class Themes extends gNetwork\Module
 
 		} else if ( $this->isTheme( 'hyde' ) ) {
 
-			add_action( 'wp_enqueue_scripts', static function() {
+			add_action( 'wp_enqueue_scripts', static function () {
 				wp_deregister_style( 'hyde-google-fonts' );
 				Themes::enqueueStyle( 'hyde' );
 			}, 20 );
 
 		} else if ( $this->isTheme( 'houston' ) ) {
 
-			add_action( 'wp_enqueue_scripts', static function() {
+			add_action( 'wp_enqueue_scripts', static function () {
 				Themes::enqueueStyle( 'houston' );
 			}, 20 );
 
@@ -373,7 +373,7 @@ class Themes extends gNetwork\Module
 
 				remove_action( 'init', 'breathe_fonts' );
 
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					Themes::enqueueStyle( 'p2-breathe', TRUE );
 				}, 20 );
 			}
@@ -387,7 +387,7 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'p2-rtl' );
 					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes/p2-rtl.css', [], GNETWORK_VERSION );
 					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes/p2-rtl-print.css', [ 'p2-rtl' ], GNETWORK_VERSION, 'print' );
@@ -408,7 +408,7 @@ class Themes extends gNetwork\Module
 			if ( $this->rtl ) {
 				add_theme_support( 'post-thumbnails' );
 
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					Themes::enqueueStyle( 'revera', TRUE );
 
 					// wp_deregister_script( 'flexslider' );
@@ -416,7 +416,7 @@ class Themes extends gNetwork\Module
 
 				}, 20 );
 
-				add_filter( 'the_excerpt', static function( $text ) {
+				add_filter( 'the_excerpt', static function ( $text ) {
 					return $text.Themes::continueReading();
 				}, 5 );
 			}
@@ -424,25 +424,25 @@ class Themes extends gNetwork\Module
 		} else if ( $this->isTheme( 'ari' ) ) {
 
 			if ( $this->rtl ) {
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					Themes::enqueueStyle( 'ari', TRUE );
 				}, 20 );
 			}
 
 			// ari does not work well with custom posttypes
-			add_filter( 'post_class', static function( $classes ) {
+			add_filter( 'post_class', static function ( $classes ) {
 				$classes[] = 'post';
 				return $classes;
 			} );
 
-			add_action( 'get_footer', function() {
+			add_action( 'get_footer', function () {
 				echo '<style>#footer.clearfix {display:none;}</style>';
 				echo '<div id="footer" style="display:block;">'.gnetwork_credits( $this->rtl, FALSE ).'</div>';
 			} );
 
 		} else if ( $this->isTheme( 'easy-docs' ) ) {
 
-			add_action( 'wp_enqueue_scripts', static function() {
+			add_action( 'wp_enqueue_scripts', static function () {
 				Themes::enqueueStyle( 'easy-docs' );
 			}, 20 );
 
@@ -450,13 +450,13 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					remove_action( 'wp_print_styles', 'rams_load_style' );
 					wp_enqueue_style( 'rams_style', get_stylesheet_uri() );
 					Themes::enqueueStyle( 'rams', TRUE );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'rams', $this->rtl );
 				} );
 			}
@@ -464,11 +464,11 @@ class Themes extends gNetwork\Module
 		} else if ( $this->isTheme( 'didi-lite' ) ) {
 
 			if ( $this->rtl ) {
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					Themes::enqueueStyle( 'didi-lite', TRUE );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'didi-lite', $this->rtl );
 				} );
 			}
@@ -477,11 +477,11 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'atlantic-rtl' );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'atlantic', $this->rtl );
 				} );
 			}
@@ -490,11 +490,11 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'aster-rtl' );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'aster', $this->rtl );
 				} );
 			}
@@ -503,16 +503,16 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'chosen-rtl' );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'chosen', $this->rtl );
 				} );
 			}
 
-			add_filter( 'ct_chosen_footer_text', function( $footer_text ) {
+			add_filter( 'ct_chosen_footer_text', function ( $footer_text ) {
 				return gnetwork_credits( $this->rtl, FALSE );
 			} );
 
@@ -520,11 +520,11 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					Themes::enqueueStyle( 'untitled', TRUE );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'untitled', $this->rtl );
 				} );
 			}
@@ -535,7 +535,7 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'astra-rtl' );
 				}, 20 );
 			}
@@ -549,11 +549,11 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_enqueue_scripts', static function() {
+				add_action( 'wp_enqueue_scripts', static function () {
 					wp_dequeue_style( [ 'storefront-fonts' ] );
 				}, 12 );
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'storefront-rtl' );
 				}, 20 );
 			}
@@ -576,11 +576,11 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'twentyeleven-rtl' );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'twentyeleven', $this->rtl );
 				} );
 			}
@@ -591,11 +591,11 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'twentytwelve-rtl' );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'twentytwelve', $this->rtl );
 				} );
 			}
@@ -616,11 +616,11 @@ class Themes extends gNetwork\Module
 
 				remove_action( 'embed_head', 'locale_stylesheet', 30 );
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'twentyfifteen-rtl' );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'twentyfifteen', $this->rtl );
 				} );
 			}
@@ -631,11 +631,11 @@ class Themes extends gNetwork\Module
 
 			if ( $this->rtl ) {
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'twentysixteen-rtl' );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'twentysixteen', $this->rtl );
 				} );
 			}
@@ -648,11 +648,11 @@ class Themes extends gNetwork\Module
 
 				remove_action( 'embed_head', 'locale_stylesheet', 30 );
 
-				add_action( 'wp_head', static function() {
+				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'twentyseventeen-rtl' );
 				}, 20 );
 
-				add_filter( 'mce_css', function( $url ) {
+				add_filter( 'mce_css', function ( $url ) {
 					return Themes::appendMCECSS( $url, 'twentyseventeen', $this->rtl );
 				} );
 

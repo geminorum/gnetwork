@@ -210,7 +210,7 @@ class Commerce extends gNetwork\Module
 			'status' => [
 				'title'    => _x( 'Status', 'Modules: Commerce: Column Title', 'gnetwork' ),
 				'args'     => [ 'statuses' => WPStatus::get() ],
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
 
@@ -224,7 +224,7 @@ class Commerce extends gNetwork\Module
 			],
 			'stock' => [
 				'title'    => _x( 'Stock', 'Modules: Commerce: Column Title', 'gnetwork' ),
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
 
@@ -234,7 +234,7 @@ class Commerce extends gNetwork\Module
 			],
 			'title' => [
 				'title'    => _x( 'Title', 'Modules: Commerce: Column Title', 'gnetwork' ),
-				'callback' => static function( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::getPostTitle( $row );
 				},
 			],
@@ -384,7 +384,7 @@ class Commerce extends gNetwork\Module
 
 		echo '<div id="subtot" style="display:inline-block;margin:0 1rem;">'.$string.'</div>';
 
-		wc_enqueue_js( "$('[name=quantity]').on('input change', function() {
+		wc_enqueue_js( "$('[name=quantity]').on('input change', function () {
 			var qty = $(this).val();
 			var price = '" . esc_js( $price ) . "';
 			// var price_string = (price*qty).toFixed();

@@ -371,7 +371,7 @@ class Admin extends gNetwork\Module
 		if ( $sitemeta && WordPress::isSuperAdmin() )
 			$tabs['sitemeta'] = [
 				'title' => _x( 'Site Meta', 'Modules: Admin: Site Overview', 'gnetwork' ),
-				'cb'    => static function() {
+				'cb'    => static function () {
 					HTML::tableSide( get_metadata( 'blog', get_current_blog_id() ) );
 				},
 			];

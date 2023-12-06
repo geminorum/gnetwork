@@ -3,16 +3,11 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URI;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
 
 class Login extends gNetwork\Module
 {
@@ -49,7 +44,7 @@ class Login extends gNetwork\Module
 			$this->action( 'plugins_loaded', 0, 9 );
 			$this->action( 'wp_loaded', 0, 9 );
 
-			add_action( 'init', static function() {
+			add_action( 'init', static function () {
 				remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
 			}, 99 );
 
@@ -213,15 +208,18 @@ class Login extends gNetwork\Module
 		if ( empty( $_SERVER['REQUEST_URI'] ) )
 			return;
 
-		if ( ! is_multisite() && Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
+		if ( ! is_multisite() && Core\Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
 			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', 'gnetwork' ), 403 );
 
-		if ( ! $request = URL::parse( $_SERVER['REQUEST_URI'] ) )
+		if ( ! $request = Core\URL::parse( $_SERVER['REQUEST_URI'] ) )
 			return;
 
-		$path = URL::untrail( $request['path'] );
+		if ( empty( $request['path'] ) )
+			return;
 
-		if ( ! is_admin() && ( Text::has( $_SERVER['REQUEST_URI'], 'wp-login.php' )
+		$path = Core\URL::untrail( $request['path'] );
+
+		if ( ! is_admin() && ( Core\Text::has( $_SERVER['REQUEST_URI'], 'wp-login.php' )
 			|| $path === site_url( 'wp-login', 'relative' ) ) ) {
 
 			$this->is_login_page = TRUE;
@@ -241,7 +239,7 @@ class Login extends gNetwork\Module
 	{
 		global $pagenow;
 
-		$request = URL::parse( $_SERVER['REQUEST_URI'] );
+		$request = Core\URL::parse( $_SERVER['REQUEST_URI'] );
 
 		$this->check_admin_page( $request, $pagenow );
 
@@ -276,7 +274,7 @@ class Login extends gNetwork\Module
 		if ( ! is_admin() )
 			return;
 
-		if ( WordPress::isAJAX() )
+		if ( Core\WordPress::isAJAX() )
 			return;
 
 		if ( is_user_logged_in() )
@@ -297,10 +295,10 @@ class Login extends gNetwork\Module
 		if ( ! $referer = wp_get_referer() )
 			return;
 
-		if ( ! Text::has( $referer, 'wp-activate.php' ) )
+		if ( ! Core\Text::has( $referer, 'wp-activate.php' ) )
 			return;
 
-		$parsed = URL::parseDeep( $referer );
+		$parsed = Core\URL::parseDeep( $referer );
 
 		if ( empty( $parsed['query']['key'] ) )
 			return;
@@ -366,14 +364,14 @@ class Login extends gNetwork\Module
 	private static function trailingSlash( $string )
 	{
 		return self::hasTrailingSlashes()
-			? URL::trail( $string )
-			: URL::untrail( $string );
+			? Core\URL::trail( $string )
+			: Core\URL::untrail( $string );
 	}
 
 	// OLD: `filter_wp_login_php()`
 	private function check_login( $url, $scheme = NULL )
 	{
-		if ( ! Text::has( $url, 'wp-login.php' ) )
+		if ( ! Core\Text::has( $url, 'wp-login.php' ) )
 			return $url;
 
 		if ( is_ssl() )
@@ -486,6 +484,9 @@ class Login extends gNetwork\Module
 	{
 		Utilities::linkStyleSheet( 'login.all' );
 
+		if ( is_rtl() )
+			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/login.rtl.css', GNETWORK_VERSION );
+
 		if ( 'splitscreen' == $this->options['login_class'] ) {
 			$variables = '.split-screen .-first{background-color:'.gNetwork()->brand( 'color' ).'!important}';
 			$variables.= '.split-screen .-second{background-color:'.gNetwork()->brand( 'background' ).'!important}';
@@ -493,7 +494,7 @@ class Login extends gNetwork\Module
 			printf( "<style>\n%s\n</style>\n", $variables );
 		}
 
-		// TODO: support placeholders: `Text::replaceTokens()`
+		// TODO: support placeholders: `Core\Text::replaceTokens()`
 		if ( $this->options['login_styles'] )
 			printf( "<style>\n%s\n</style>\n", $this->options['login_styles'] );
 
@@ -513,7 +514,7 @@ class Login extends gNetwork\Module
 			$classes[] = 'mobile';
 
 		if ( function_exists( 'get_network' ) )
-			$classes[] = 'network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
+			$classes[] = 'network-'.Core\HTML::sanitizeClass( Core\URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
 
 		if ( $this->options['disable_reset'] )
 			$classes[] = 'hide-pw-reset';
@@ -567,15 +568,15 @@ class Login extends gNetwork\Module
 		$html = '<p class="login-sum">';
 
 			$html.= '<label>'.$label.'</label>';
-			$html.= '&nbsp;'.Number::localize( $one ).'&nbsp;+&nbsp;'.Number::localize( $two ).'&nbsp;=&nbsp; ';
+			$html.= '&nbsp;'.Core\Number::localize( $one ).'&nbsp;+&nbsp;'.Core\Number::localize( $two ).'&nbsp;=&nbsp; ';
 
-			$html.= HTML::tag( 'input', [
+			$html.= Core\HTML::tag( 'input', [
 				'type'         => 'number',
 				'name'         => 'num',
 				'autocomplete' => 'off',
 			] );
 
-			$html.= HTML::tag( 'input', [
+			$html.= Core\HTML::tag( 'input', [
 				'type'  => 'hidden',
 				'name'  => 'ans',
 				'value' => wp_hash( $one + $two ),
@@ -649,14 +650,14 @@ class Login extends gNetwork\Module
 			update_user_meta( $user->ID, 'lastlogin', current_time( 'mysql', TRUE ) );
 
 		if ( get_user_meta( $user->ID, 'disable_user', TRUE ) )
-			WordPress::redirect( add_query_arg( [ 'disabled' => '' ], WordPress::loginURL( '', TRUE ) ) );
+			Core\WordPress::redirect( add_query_arg( [ 'disabled' => '' ], Core\WordPress::loginURL( '', TRUE ) ) );
 	}
 
 	// TODO: custom notice
 	public function login_message( $message )
 	{
 		if ( isset( $_GET['disabled'] ) )
-			$message.= HTML::wrap( $this->filters( 'login_disabled', _x( 'Your account is disabled by an administrator.', 'Modules: Login', 'gnetwork' ) ), 'message -danger' );
+			$message.= Core\HTML::wrap( $this->filters( 'login_disabled', _x( 'Your account is disabled by an administrator.', 'Modules: Login', 'gnetwork' ) ), 'message -danger' );
 
 		return $message;
 	}
@@ -725,8 +726,8 @@ class Login extends gNetwork\Module
 
 		echo '<div class="gnetwork-wrap -footer -badge">';
 
-			if ( $credits = WordPress::customFile( 'credits-badge.png' ) )
-				echo HTML::img( $credits );
+			if ( $credits = Core\WordPress::customFile( 'credits-badge.png' ) )
+				echo Core\HTML::img( $credits );
 
 			else
 				echo Utilities::creditsBadge();
@@ -745,11 +746,11 @@ class Login extends gNetwork\Module
 			$style = Utilities::customStyleSheet( 'login.css', FALSE );
 
 		if ( $style )
-			return HTML::tag( 'a', [
+			return Core\HTML::tag( 'a', [
 				'href'   => $style,
 				'title'  => _x( 'Full URL to the current login style file', 'Modules: Login', 'gnetwork' ),
 				'target' => '_blank',
-			], ( $text ? _x( 'Login Style', 'Modules: Login', 'gnetwork' ) : HTML::getDashicon( 'admin-customizer' ) ) );
+			], ( $text ? _x( 'Login Style', 'Modules: Login', 'gnetwork' ) : Core\HTML::getDashicon( 'admin-customizer' ) ) );
 
 		return FALSE;
 	}

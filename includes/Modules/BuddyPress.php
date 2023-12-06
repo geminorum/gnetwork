@@ -243,7 +243,7 @@ class BuddyPress extends gNetwork\Module
 
 		$this->filter_false( 'bp_use_theme_compat_with_current_theme' );
 
-		add_action( 'wp_enqueue_scripts', static function() {
+		add_action( 'wp_enqueue_scripts', static function () {
 			wp_dequeue_style( [ 'bp-parent-css', 'bp-child-css' ] );
 		}, 20 );
 	}

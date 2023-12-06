@@ -252,6 +252,7 @@ class Comments extends gNetwork\Module
 		$in_progress = (bool) get_network_option( NULL, 'gnc_delete_in_progress' );
 
 		if ( ! $in_progress ) {
+
 			global $wpdb;
 
 			update_network_option( NULL, 'gnc_delete_in_progress', '1' );
