@@ -22,12 +22,32 @@ class File extends Base
 		return $path;
 	}
 
-	// i18n friendly version of `basename()`
-	// if the filename ends in suffix this will also be cut off
-	// @SOURCE: `wp_basename()`
+	/**
+	 * Returns trailing name component of path.
+	 * i18n friendly version of `basename()`
+	 * if the filename ends in suffix this will also be cut off
+	 * @source `wp_basename()`
+	 *
+	 * @param  string $path
+	 * @param  string $suffix
+	 * @return string $basename
+	 */
 	public static function basename( $path, $suffix = '' )
 	{
 		return urldecode( basename( str_replace( array( '%2F', '%5C' ), '/', urlencode( $path ) ), $suffix ) );
+	}
+
+	/**
+	 * Retrieves file-name from given path or url.
+	 *
+	 * @param  string     $path
+	 * @param  null|array $mimes
+	 * @return string     $filename
+	 */
+	public static function filename( $path, $mimes = NULL )
+	{
+		$type = wp_check_filetype( self::basename( $path ), $mimes ?? wp_get_mime_types() );
+		return self::basename( $path, '.'.$type['ext'] );
 	}
 
 	// @SOURCE: `wp_tempnam()`
@@ -508,4 +528,38 @@ class File extends Base
 
 		return $line_number ? substr( $line_number, 0, -1 ) : "No match found";
 	}
+
+	/**
+	 * Deletes BOM from an UTF-8 file.
+	 *
+	 * @param  string      $file
+	 * @param  bool        $error
+	 * @return bool|object $success
+	 */
+	public static function stripBOM( $file, $error = FALSE )
+	{
+		if ( FALSE === ( $handle = fopen( $file, 'rb' ) ) )
+			return $error ? new Error( 'Failed to open file.' ) : FALSE;
+
+		$bytes = fread( $handle, 3 );
+
+		if ( $bytes == pack( 'CCC', 0xef, 0xbb, 0xbf ) ) {
+
+			fclose( $handle );
+
+			if ( FALSE === ( $contents = file_get_contents( $file ) ) )
+				return $error ? new Error( 'Failed to get file contents.' ) : FALSE;
+
+			$contents = substr( $contents, 3 );
+
+			if ( FALSE === file_put_contents( $file, $contents ) )
+				return $error ? new Error( 'Failed to put file contents.' ) : FALSE;
+
+		} else {
+
+			fclose( $handle );
+		}
+
+		return TRUE;
+    }
 }

@@ -35,6 +35,11 @@ class Base
 		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
 	}
 
+	public static function do( $value, $key = 'action', $default = FALSE )
+	{
+		return isset( $_REQUEST[$key] ) && $value == $_REQUEST[$key] ? TRUE : $default;
+	}
+
 	public static function limit( $default = 25, $key = 'limit' )
 	{
 		return (int) self::req( $key, $default );

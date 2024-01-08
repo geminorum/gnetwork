@@ -242,7 +242,11 @@ class WordPress extends Base
 	// @REF: `wp_referer_field()`
 	public static function fieldReferer()
 	{
-		HTML::inputHidden( '_wp_http_referer', self::unslash( $_SERVER['REQUEST_URI'] ) );
+		HTML::inputHidden( '_wp_http_referer', self::unslash( remove_query_arg( [
+			'_wp_http_referer',
+			'message',
+			'count',
+		] ) ) );
 	}
 
 	public static function redirectJS( $location = NULL, $timeout = 3000 )

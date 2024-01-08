@@ -107,6 +107,14 @@ class Text extends Base
 		return array_filter( (array) preg_split( '/[\s\x{200C}]/u', $text ), 'strlen' );
 	}
 
+	public static function splitNormalSpaces( $text )
+	{
+		if ( empty( $text ) )
+			return [];
+
+		return array_filter( (array) preg_split( '/\s/u', $text ), 'strlen' );
+	}
+
 	public static function stripNonNumeric( $text )
 	{
 		return preg_replace( '/[^0-9۰-۹۰-۹]/miu', '', $text );

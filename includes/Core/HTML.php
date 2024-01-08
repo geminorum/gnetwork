@@ -1090,7 +1090,7 @@ class HTML extends Base
 					'none_title' => '&mdash;',
 				) );
 				echo '</span>&nbsp;';
-				echo '<button type="submit" class="button -action -icon" />'.$icons['action'].'</button>&nbsp;&nbsp;';
+				echo '<button type="submit" class="button -action -icon" />'.$icons['action'].'</button>';
 			}
 
 			foreach ( (array) $args['before'] as $before )
@@ -1480,6 +1480,6 @@ class HTML extends Base
 
 	public static function renderList( $items, $keys = FALSE, $list = 'ul' )
 	{
-		return $items ? self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : $items ).'</li>' ) : '';
+		return $items ? self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : array_filter( $items ) ).'</li>' ) : '';
 	}
 }

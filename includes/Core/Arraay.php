@@ -401,7 +401,7 @@ class Arraay extends Base
 	 * @param  array  $args
 	 * @param  string $operator
 	 * @param  bool   $field
-	 * @return array  $filtred
+	 * @return array  $filtered
 	 */
 	public static function filter( $input, $args = [], $operator = 'and', $field = FALSE )
 	{
