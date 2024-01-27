@@ -132,8 +132,6 @@ class ShortCodes extends gNetwork\Module
 			'pdf'         => 'shortcode_pdf',
 			'csv'         => 'shortcode_csv',
 			'bloginfo'    => 'shortcode_bloginfo',
-			'audio'       => 'shortcode_audio',
-			'audio-go'    => 'shortcode_audio_go',
 			'ref'         => 'shortcode_ref',
 			'reflist'     => 'shortcode_reflist',
 			'ref-m'       => 'shortcode_ref_manual',
@@ -149,8 +147,6 @@ class ShortCodes extends gNetwork\Module
 			// 'post-content'  => 'shortcode_post_content', // TODO: https://gist.github.com/wpscholar/84376bb44afabdfa9d93e83b0c87abb8
 			'post-link'   => 'shortcode_permalink',
 			'permalink'   => 'shortcode_permalink',
-
-			'circular-player' => 'shortcode_circular_player',
 		];
 	}
 
@@ -1436,127 +1432,6 @@ class ShortCodes extends gNetwork\Module
 			$info = '<span class="'.HTML::prepClass( sprintf( $args['class'], $args['key'] ) ).'">'.$info.'</span>';
 
 		return $info;
-	}
-
-	// [audio-go to="60"]Go to 60 second mark and play[/audio-go]
-	// http://bavotasan.com/2015/working-with-wordpress-and-mediaelement-js/
-	public function shortcode_audio_go( $atts = [], $content = NULL, $tag = '' )
-	{
-		$args = shortcode_atts( [
-			'to'       => '0',
-			'instance' => '0',
-			/* translators: %s: number of seconds */
-			'title'    => _x( 'Go to %s second mark and play', 'Shortcodes Module: Defaults', 'gnetwork' ),
-			'context'  => NULL,
-			'wrap'     => TRUE,
-			'before'   => '',
-			'after'    => '',
-		], $atts, $tag );
-
-		if ( FALSE === $args['context'] )
-			return NULL;
-
-		if ( WordPress::isXML() || WordPress::isREST() )
-			return $content;
-
-		$title = sprintf( $args['title'], $args['to'] );
-		$html  = $content ? trim( $content ) : $title;
-		$html  = '<a href="#" class="audio-go-to-time" title="'.HTML::escape( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
-
-		Scripts::enqueueScript( 'front.audio-go' );
-
-		return self::shortcodeWrap( $html, 'audio-go', $args, FALSE );
-	}
-
-	public function shortcode_circular_player( $atts = [], $content = NULL, $tag = '' )
-	{
-		$args = shortcode_atts( [
-			'src'     => FALSE,
-			'size'    => NULL, // KNOWN-BUG: unable to change the size once is set
-			'context' => NULL,
-			'wrap'    => TRUE,
-			'before'  => '',
-			'after'   => '',
-		], $atts, $tag );
-
-		if ( FALSE === $args['context'] )
-			return NULL;
-
-		if ( ! $args['src'] )
-			return $content;
-
-		if ( WordPress::isXML() || WordPress::isREST() )
-			return $content;
-
-		$html = vsprintf( '<audio preload="none" data-size="%s" src="%s"></audio>', [
-			$args['size'] ?: 25,
-			$args['src'],
-		] );
-
-		Scripts::enqueueCircularPlayer();
-		$args['class'] = 'mediPlayer'; // NOTE: hardcoded!
-
-		return self::shortcodeWrap( $html, 'circular-player', $args, FALSE );
-	}
-
-	// wrapper for default core audio shortcode
-	public function shortcode_audio( $atts = [], $content = NULL, $tag = '' )
-	{
-		$args = shortcode_atts( [
-			'download' => FALSE,
-			'filename' => FALSE, // http://davidwalsh.name/download-attribute
-			'context'  => NULL,
-			'wrap'     => TRUE,
-			'before'   => '',
-			'after'    => '',
-		], $atts, $tag );
-
-		if ( FALSE === $args['context'] )
-			return NULL;
-
-		if ( WordPress::isXML() || WordPress::isREST() )
-			return $content;
-
-		if ( $html = wp_audio_shortcode( $atts, $content ) ) {
-
-			if ( $args['download'] && $src = self::getAudioSource( $atts ) ) {
-
-				$button = TRUE === $args['download']
-					? _x( 'Download', 'Shortcodes Module: Defaults', 'gnetwork' )
-					: $args['download'];
-
-				$html.= '<div class="-download"><a href="'.$src.'"'
-					.( $args['filename'] ? ' download="'.$args['filename'].'"' : '' )
-					.'>'.$button.'</a></div>';
-			}
-
-			return self::shortcodeWrap( $html, 'audio', $args );
-		}
-
-		return $content;
-	}
-
-	// helper
-	public static function getAudioSource( $atts = [] )
-	{
-		$sources = [
-			'src',
-			'source',
-			'mp3',
-			'mp3remote',
-			'wma',
-			'wmaremote',
-			'wma',
-			'wmaremote',
-			'wmv',
-			'wmvremote',
-		];
-
-		foreach ( $sources as $source )
-			if ( ! empty( $atts[$source] ) )
-				return $atts[$source];
-
-		return FALSE;
 	}
 
 	// must suffix post id from current post

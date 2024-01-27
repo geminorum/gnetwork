@@ -62,9 +62,6 @@ class Media extends gNetwork\Module
 
 			$this->filter( 'single_post_title', 2, 9 );
 		}
-
-		add_filter( $this->hook( 'get_circular_player' ), [ $this, 'get_circular_player' ], 10, 4 );
-		add_action( $this->hook( 'enqueue_circular_player' ), [ $this, 'enqueue_circular_player' ] );
 	}
 
 	public function setup_menu( $context )
@@ -1520,15 +1517,5 @@ class Media extends gNetwork\Module
 		// $name = Utilities::URLifyFilter( trim( $name ) );
 
 		return Text::strToLower( $name ).$ext;
-	}
-
-	public function get_circular_player( $html, $source, $size = NULL, $mimetype = NULL )
-	{
-		return apply_shortcodes( '[circular-player src="'.$source.'" size="'.( $size ?: '' ).'" /]' );
-	}
-
-	public function enqueue_circular_player( $selector = '.mediPlayer' )
-	{
-		Scripts::enqueueCircularPlayer( $selector );
 	}
 }

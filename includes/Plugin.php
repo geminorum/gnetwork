@@ -142,6 +142,7 @@ class Plugin extends Base
 			// 'DB',
 			'Media',
 			'Images',
+			'Player',
 			'Embed',
 			'Cron',
 			'Login',
