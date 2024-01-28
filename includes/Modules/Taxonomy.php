@@ -828,7 +828,8 @@ class Taxonomy extends gNetwork\Module
 						'name'     => $this->classs( 'do-default-selected' ),
 						'selected' => TRUE,
 						'panel'    => TRUE,
-						'values'   => 'slug',
+						'values'   => TRUE,
+						'value'    => 'slug',
 						'prop'     => 'name',
 					] );
 

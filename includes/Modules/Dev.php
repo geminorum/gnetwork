@@ -28,7 +28,8 @@ class Dev extends gNetwork\Module
 		$this->filter_false( 'https_ssl_verify' );
 		$this->filter_false( 'https_local_ssl_verify' );
 		// $this->filter_false( 'wp_is_php_version_acceptable' ); // to help with translation
-		$this->filter_true( 'jetpack_development_mode' );
+		// $this->filter_true( 'jetpack_development_mode' );
+		// $this->filter_true( 'jetpack_offline_mode' ); // https://jetpack.com/support/offline-mode/
 		$this->filter_true( 'wp_is_application_passwords_available' );
 
 		$this->action( 'pre_get_posts', 1, 99 );
@@ -99,6 +100,9 @@ class Dev extends gNetwork\Module
 	// https://wordpress.org/plugins/stop-query-posts/
 	public function pre_get_posts( $query )
 	{
+		if ( empty( $GLOBALS['wp_query'] ) )
+			return;
+
 		if ( $query === $GLOBALS['wp_query'] && ! $query->is_main_query() )
 			_doing_it_wrong( 'query_posts', 'You should <a href="http://wordpress.tv/2012/06/15/andrew-nacin-wp_query/">not use query_posts</a>.', NULL );
 	}

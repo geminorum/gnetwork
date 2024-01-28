@@ -125,7 +125,11 @@ class BuddyPressMe extends \BP_Component
 
 	public function url( $link = '' )
 	{
-		return trailingslashit( bp_get_root_domain().'/'.$this->root_slug.'/'.$link );
+		$root = function_exists( 'bp_get_root_url' )
+			? bp_get_root_url()
+			: bp_get_root_domain(); // DEPRECATED @since BP 12.0.0
+
+		return trailingslashit( $root.'/'.$this->root_slug.'/'.$link );
 	}
 
 	public function bp_members_edit_profile_url( $profile_link, $url, $user_id, $scheme )

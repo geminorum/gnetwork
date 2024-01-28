@@ -50,7 +50,7 @@ class Player extends gNetwork\Module
 			'to'       => '0',
 			'instance' => '0',
 			/* translators: %s: number of seconds */
-			'title'    => _x( 'Go to %s second mark and play', 'Player Module: Defaults', 'gnetwork' ),
+			'title'    => _x( 'Go to %s second mark and play', 'Modules: Player: Defaults', 'gnetwork' ),
 			'context'  => NULL,
 			'wrap'     => TRUE,
 			'before'   => '',
@@ -133,8 +133,8 @@ class Player extends gNetwork\Module
 
 			if ( $args['download'] && $src = self::getAudioSource( $atts ) ) {
 
-				$button = TRUE === $args['download']
-					? _x( 'Download', 'Player Module: Defaults', 'gnetwork' )
+				$button = TRUE === $args['download'] || '1' == $args['download']
+					? _x( 'Download', 'Modules: Player: Defaults', 'gnetwork' )
 					: $args['download'];
 
 				$html.= '<div class="-download"><a href="'.$src.'"'

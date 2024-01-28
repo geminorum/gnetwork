@@ -499,8 +499,8 @@ class Blog extends gNetwork\Module
 				if ( 'dns-prefetch' !== $relation_type )
 					return $urls;
 
-				if ( $filtred = apply_filters( 'emoji_svg_url', FALSE ) )
-					$urls = array_diff( $urls, [ $filtred ] );
+				if ( $filtered = apply_filters( 'emoji_svg_url', FALSE ) )
+					$urls = array_diff( $urls, [ $filtered ] );
 
 				foreach ( $urls as $key => $url )
 					// strip out any URLs referencing the WordPress.org emoji location
