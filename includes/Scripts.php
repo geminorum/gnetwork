@@ -137,6 +137,80 @@ class Scripts extends Core\Base
 			add_thickbox();
 	}
 
+	// @REF: https://wordpress.org/plugins/media-playback-speed/
+	// @SEE: https://stackoverflow.com/questions/68051131/how-to-add-playback-speed-button-to-my-html-audio-player
+	public static function enqueuePlaybackSpeed( $rates = NULL )
+	{
+		static $enqueued = FALSE;
+
+		if ( $enqueued )
+			return $enqueued;
+
+		$enqueued = self::enqueueScript( 'all.player.playbackspeed', [] );
+
+		add_action( 'wp_footer',
+			static function () use ( $rates ) {
+
+				echo '<script type="text/template" id="playback-buttons-template">';
+
+				foreach ( $rates ?? [ '0.5', '1', '1.5', '2' ] as $offset => $args ) {
+
+					if ( ! $args )
+						continue;
+
+					$item = [];
+
+					if ( ! is_array( $args ) )
+						$item['rate'] = $args;
+
+					else
+						$item = $args;
+
+					if ( ! array_key_exists( 'rate', $item ) )
+						$item['rate'] = $offset;
+
+					if ( ! array_key_exists( 'title', $item ) )
+						$item['title'] = sprintf(
+							/* translators: %s: playback speed rate */
+							_x( 'Playback Speed %s&times;', 'Scripts: Playback Speed Title', 'gnetwork' ),
+							Core\Number::localize( $item['rate'] )
+						);
+
+					if ( ! array_key_exists( 'label', $item ) )
+						$item['label'] = sprintf(
+							/* translators: %s: playback speed rate */
+							_x( '%s&times;', 'Scripts: Playback Speed Label', 'gnetwork' ),
+							Core\Number::localize( $item['rate'] )
+						);
+
+					$classes = [ 'playback-rate-button' ];
+
+					if ( '1' == $item['rate'] ) {
+						$classes[] = 'mejs-active';
+						$classes[] = 'active-playback-rate';
+					}
+
+					$html = Core\HTML::tag( 'button', [
+						'type'       => 'button',
+						'class'      => $classes,
+						'title'      => $item['title'],
+						'aria-label' => $item['title'],
+						'tabindex'   => 0,
+						'data'       => [
+							'value' => $item['rate'],
+						],
+					], $item['label'] );
+
+					echo Core\HTML::wrap( $html, 'mejs-button blank-button' );
+				}
+
+				echo '</script>';
+
+			}, 0, 99 );
+
+		return $enqueued;
+	}
+
 	public static function enqueueCircularPlayer( $selector = '.mediPlayer', $ver = '0.0.3' )
 	{
 		static $enqueued = FALSE;

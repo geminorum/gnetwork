@@ -114,12 +114,13 @@ class Player extends gNetwork\Module
 	public function shortcode_audio( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
-			'download' => FALSE,
-			'filename' => FALSE, // @REF: http://davidwalsh.name/download-attribute
-			'context'  => NULL,
-			'wrap'     => TRUE,
-			'before'   => '',
-			'after'    => '',
+			'playbackspeed' => FALSE,
+			'download'      => FALSE,
+			'filename'      => FALSE,   // @REF: http://davidwalsh.name/download-attribute
+			'context'       => NULL,
+			'wrap'          => TRUE,
+			'before'        => '',
+			'after'         => '',
 		], $atts, $tag );
 
 		if ( FALSE === $args['context'] )
@@ -140,6 +141,9 @@ class Player extends gNetwork\Module
 					.( $args['filename'] ? ' download="'.$args['filename'].'"' : '' )
 					.'>'.$button.'</a></div>';
 			}
+
+			if ( $args['playbackspeed'] )
+				Scripts::enqueuePlaybackSpeed( TRUE === $args['playbackspeed'] || '1' == $args['playbackspeed'] ? NULL : $args['playbackspeed'] );
 
 			return self::shortcodeWrap( $html, 'audio', $args );
 		}
