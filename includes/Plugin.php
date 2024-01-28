@@ -48,10 +48,11 @@ class Plugin extends Base
 			'GNETWORK_SITE_USER_ROLE'   => 'editor', // default role for site user in new blog // DEPRECATED
 			'GNETWORK_BODY_CLASS'       => FALSE, // network html body class / FALSE to disable
 
-			'GNETWORK_DISABLE_SSL'       => FALSE,
-			'GNETWORK_DISABLE_BBQ'       => FALSE,
-			'GNETWORK_DISABLE_RECAPTCHA' => FALSE,
-			'GNETWORK_DISABLE_CREDITS'   => FALSE,
+			'GNETWORK_DISABLE_SSL'             => FALSE,
+			'GNETWORK_DISABLE_BBQ'             => FALSE,
+			'GNETWORK_DISABLE_RECAPTCHA'       => FALSE,
+			'GNETWORK_DISABLE_CREDITS'         => FALSE,
+			'GNETWORK_DISABLE_USERNAME_CHECKS' => FALSE,
 
 			'GNETWORK_BETA_FEATURES' => FALSE,
 

@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\HTML;
@@ -27,6 +28,9 @@ class User extends gNetwork\Module
 			$this->filter( 'wp_is_large_user_count', 3, 9 );
 		}
 
+		$this->filter( 'sanitize_user', 3, 8 );
+		$this->filter( 'validate_username', 2, 8 );
+		$this->filter( 'illegal_user_logins', 1, 12 );
 		$this->filter( 'authenticate', 3, 50 );
 
 		if ( ! in_array( $this->options['apppass_accesscap'], [ '_member_of_network', '_member_of_site'] ) )
@@ -532,6 +536,86 @@ class User extends gNetwork\Module
 				( array_key_exists( $role, $roles ) ? $roles[$role] : HTML::code( $role ) ) );
 
 		return HTML::tag( 'p', $html.'.' );
+	}
+
+	/**
+	 * Filters a sanitized username string.
+	 *
+	 * @param string $username     Sanitized username.
+	 * @param string $raw_username The username prior to sanitization.
+	 * @param bool   $strict       Whether to limit the sanitization to specific characters.
+	 */
+	public function sanitize_user( $username, $raw_username, $strict )
+	{
+		if ( GNETWORK_DISABLE_USERNAME_CHECKS )
+			return $username;
+
+		if ( ! $strict )
+			$username = Core\Number::intval( $username, FALSE );
+
+		$username = Core\Text::singleWhitespace( $username );
+		$username = trim( $username, '.,|`~!…' );
+		$username = Core\Text::trim( $username );
+
+		return trim( $username );
+	}
+
+	/**
+	 * Filters whether the provided username is valid.
+	 *
+	 * @param bool   $valid    Whether given username is valid.
+	 * @param string $username Username to check.
+	 */
+	public function validate_username( $valid, $username )
+	{
+		if ( ! $valid || GNETWORK_DISABLE_USERNAME_CHECKS )
+			return $valid;
+
+		if ( ! $username = Core\Text::trim( $username ) )
+			return FALSE;
+
+		if ( WPStrings::isEmpty( $username ) )
+			return FALSE;
+
+		// all dots/ellipses
+		if ( 0 < strlen( preg_replace( '/[\.…]/', '', $username ) ) )
+			return FALSE;
+
+		// all number and below 10 digits
+		if ( 10 < strlen( $username ) && 0 < strlen( preg_replace( '/[0-9۰-۹۰-۹]/miu', '', $username ) ) )
+			return FALSE;
+
+		return $valid;
+	}
+
+	/**
+	 * Filters the list of disallowed usernames.
+	 *
+	 * @param array $usernames Array of disallowed usernames.
+	 */
+	public function illegal_user_logins( $usernames )
+	{
+		if ( GNETWORK_DISABLE_USERNAME_CHECKS )
+			return $usernames;
+
+		return array_merge( $usernames, [
+			'0', '00', '000', '0000', '00000', '000000',
+			'*', '**', '***', '****', '*****', '******',
+			'…', '……', '………', '…………', '……………', '………………',
+			'.', '..', '...', '....', '.....', '......',
+			'-', '--', '---', '----', '-----', '------',
+			'–', '––', '–––', '––––', '–––––', '––––––',
+			'—', '——', '———', '————', '—————', '——————',
+			'null', 'NULL', 'Null',
+			'false', 'FALSE', 'False',
+			'zero', 'ZERO', 'Zero',
+			'ندارد',
+
+			'1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+			'12', '123', '1234', '12345', '123456', '1234567', '12345678', '123456789', '1234567890',
+			'01', '012', '0123', '01234', '012345', '0123456', '01234567', '012345678', '0123456789',
+			'admin', 'administrator', 'web', 'webmaster',
+		] );
 	}
 
 	// @REF: https://medium.com/@omarkasem/login-with-phone-number-in-woocommerce-wordpress-f7d6d07964d8
