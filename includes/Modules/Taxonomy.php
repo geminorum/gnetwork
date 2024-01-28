@@ -500,7 +500,8 @@ class Taxonomy extends gNetwork\Module
 
 			$this->nonce_check( 'do-default-terms' );
 
-			$terms    = $this->filters( 'default_terms_'.$taxonomy, [], $taxonomy );
+			$terms    = $this->filters( 'default_terms', [], $taxonomy );
+			$terms    = $this->filters( 'default_terms_'.$taxonomy, $terms, $taxonomy );
 			$selected = self::req( $this->classs( 'do-default-selected' ), [] );
 			$data     = $selected ? Arraay::keepByKeys( $terms, array_keys( $selected ) ) : $terms;
 
@@ -815,14 +816,15 @@ class Taxonomy extends gNetwork\Module
 		echo $this->wrap_open( '-tab-tools-defaults card -toolbox-card' );
 			HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
-			$hook = sprintf( 'default_terms_%s', $taxonomy );
+			$hook  = sprintf( 'default_terms_%s', $taxonomy );
+			$terms = $this->filters( 'default_terms', [], $taxonomy );
 
-			if ( $this->hooked( $hook ) ) {
+			if ( count( $terms ) || $this->hooked( $hook ) ) {
 
 				$this->render_form_start( NULL, 'defaults', 'install', 'tabs', FALSE );
 					$this->nonce_field( 'do-default-terms' );
 
-					echo HTML::multiSelect( $this->filters( $hook, [], $taxonomy ), [
+					echo HTML::multiSelect( $this->filters( $hook, $terms, $taxonomy ), [
 						'name'     => $this->classs( 'do-default-selected' ),
 						'selected' => TRUE,
 						'panel'    => TRUE,
