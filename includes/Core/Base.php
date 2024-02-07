@@ -90,6 +90,14 @@ class Base
 		die();
 	}
 
+	public static function cheatin( $message = NULL )
+	{
+		if ( is_null( $message ) )
+			$message = __( 'You don&#8217;t have permission to do this.' );
+
+		wp_die( $message, 403 );
+	}
+
 	public static function _log_req()
 	{
 		self::_log( $_REQUEST );

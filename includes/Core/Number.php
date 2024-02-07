@@ -5,6 +5,57 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Number extends Base
 {
 
+	const PERSIAN = [
+		'0' => "\xDB\xB0",
+		'1' => "\xDB\xB1",
+		'2' => "\xDB\xB2",
+		'3' => "\xDB\xB3",
+		'4' => "\xDB\xB4",
+		'5' => "\xDB\xB5",
+		'6' => "\xDB\xB6",
+		'7' => "\xDB\xB7",
+		'8' => "\xDB\xB8",
+		'9' => "\xDB\xB9",
+	];
+
+	const ARABIC = [
+		'0' => "\xD9\xA0",
+		'1' => "\xD9\xA1",
+		'2' => "\xD9\xA2",
+		'3' => "\xD9\xA3",
+		'4' => "\xD9\xA4",
+		'5' => "\xD9\xA5",
+		'6' => "\xD9\xA6",
+		'7' => "\xD9\xA7",
+		'8' => "\xD9\xA8",
+		'9' => "\xD9\xA9",
+	];
+
+	// converts back into numbers
+	public static function translate( $string )
+	{
+		$string = strtr( $string, array_flip( static::ARABIC ) );   // arabic to english
+		$string = strtr( $string, array_flip( static::PERSIAN ) );  // persian to english
+
+		return $string;
+	}
+
+	public static function translatePersian( $string )
+	{
+		$string = strtr( $string, array_flip( static::ARABIC ) );  // arabic to english
+		$string = strtr( $string, static::PERSIAN );               // english to persian
+
+		return $string;
+	}
+
+	public static function translateArabic( $string )
+	{
+		$string = strtr( $string, array_flip( static::PERSIAN ) );  // persian to english
+		$string = strtr( $string, static::ARABIC );                 // english to arabic
+
+		return $string;
+	}
+
 	/**
 	 * Converts a number to ordinal based on locale.
 	 *
@@ -144,22 +195,48 @@ class Number extends Base
 		return apply_filters( 'number_format_i18n', number_format( $number, absint( $decimals ) ), $number, $decimals );
 	}
 
-	// FIXME: use our own
-	// converts back number chars into english
+	/**
+	 * Converts back number chars into English.
+	 *
+	 * @param  int|string $text
+	 * @param  bool       $force
+	 * @return int|string $number
+	 */
 	public static function intval( $text, $force = TRUE )
 	{
-		$number = apply_filters( 'string_format_i18n_back', $text );
+		// $number = apply_filters( 'string_format_i18n_back', $text );
+		// $number = Orthography::translateNumbersBack( $text );
+		$number = self::translate( $text );
 
 		return $force ? (int) $number : $number;
 	}
 
-	// FIXME: use our own
-	// converts back number chars into english
+	/**
+	 * Converts back number chars into English.
+	 *
+	 * @param  int|string $text
+	 * @param  bool       $force
+	 * @return int|string $number
+	 */
 	public static function floatval( $text, $force = TRUE )
 	{
-		$number = apply_filters( 'string_format_i18n_back', $text );
+		// $number = apply_filters( 'string_format_i18n_back', $text );
+		// $number = Orthography::translateNumbersBack( $text );
+		$number = self::translate( $text );
 
 		return $force ? (float) $number : $number;
+	}
+
+	/**
+	 * Checks whether the number is `Even` or `Odd`.
+	 * @source https://www.geeksforgeeks.org/php-check-number-even-odd/
+	 *
+	 * @param  int  $number
+	 * @return bool $even_or_odd
+	 */
+	public static function isEven( $number )
+	{
+		return self::intval( $number ) % 2 === 0;
 	}
 
 	// never let a numeric value be less than zero
@@ -369,7 +446,6 @@ class Number extends Base
 		return round( $val, $precision, $mode );
 	}
 
-
 	/**
 	 * get modulus (substitute for bcmod)
 	 * by Andrius Baranauskas and Laurynas Butkus
@@ -399,25 +475,27 @@ class Number extends Base
 	}
 
 	/**
-	 * average value from array excluding empty
-	 *
+	 * Calculates the average value from array excluding empty.
 	 * @source https://stackoverflow.com/a/63839420
 	 *
-	 * @param  array $list
-	 * @param  bool  $includeEmpties
-	 * @return float
+	 * @param  array     $numbers
+	 * @param  bool      $round_up
+	 * @param  bool      $include_empties
+	 * @return int|float $average
 	 */
-	public static function average( array $numbers, bool $roundUp = FALSE, bool $includeEmpties = TRUE )
+	public static function average( array $numbers, bool $round_up = FALSE, bool $include_empties = FALSE )
 	{
-		$numbers = array_filter( $numbers, static function ( $v ) use ( $includeEmpties ) {
-			return $includeEmpties ? is_numeric( $v ) : is_numeric( $v ) && ( $v > 0 );
+		if ( empty( $numbers ) )
+			return 0;
+
+		$numbers = array_filter( $numbers, static function ( $v ) use ( $include_empties ) {
+			return $include_empties ? is_numeric( $v ) : is_numeric( $v ) && ( $v > 0 );
 		} );
 
 		$average = array_sum( $numbers ) / count( $numbers );
 
-		return $roundUp ? ceil( $average ) : $average;
+		return $round_up ? ceil( $average ) : $average;
 	}
-
 
 	/**
 	 * Converts an integer into the alphabet base (A-Z).

@@ -725,7 +725,7 @@ class Arraay extends Base
 	{
 		$grouped = [];
 
-		\array_walk( $array, function ( $value, $key ) use ( &$grouped ) {
+		\array_walk( $array, static function ( $value, $key ) use ( &$grouped ) {
 			if ( ! isset( $grouped[$value] ) || ! is_array( $grouped[$value] ) )
 				$grouped[$value] = [];
 			$grouped[$value][] = $key;
@@ -790,7 +790,6 @@ class Arraay extends Base
 		return array_combine( $keys, $values );
 	}
 
-
 	/**
 	 * Checks whether all array values are strings or not.
 	 * @source https://www.w3resource.com/php-exercises/php-array-exercise-46.php
@@ -801,5 +800,41 @@ class Arraay extends Base
 	public static function allStringValues( $array )
 	{
 		return array_sum( array_map( 'is_string', $array ) ) === count( $array );
+	}
+
+	/**
+	 * Divides an array into a desired number of split lists.
+	 *
+	 * useful procedure for "chunking" up objects or text items into
+	 * columns, or partitioning any type of data resource.
+	 *
+	 * NOTE: `array_chunk()`: fixed number of sub-items
+	 * NOTE: `::partition()`: fixed number of columns
+	 *
+	 * @source https://www.php.net/manual/en/function.array-chunk.php#75022
+	 * @source https://stackoverflow.com/a/15723262
+	 *
+	 * @param  array $array
+	 * @param  int   $columns
+	 * @return array $partition
+	 */
+	public static function partition( $array, $columns )
+	{
+		if ( $columns < 2 )
+        	return [ $array ];
+
+		$partition = [];
+		$count     = count( $array );
+		$length    = floor( $count / $columns );
+		$remains   = $count % $columns;
+		$marked    = 0;
+
+		for ( $i = 0; $i < $columns; $i++ ) {
+			$increase = ($i < $remains) ? $length + 1 : $length;
+			$partition[$i] = array_slice( $array, $marked, $increase );
+			$marked += $increase;
+		}
+
+		return $partition;
 	}
 }

@@ -7,6 +7,7 @@ class Date extends Base
 
 	// [Online Unix timestamp converter](https://coderstoolbox.net/unixtimestamp/)
 	// [Carbon - A simple PHP API extension for DateTime.](http://carbon.nesbot.com/)
+	// https://github.com/sinasalek/multi-calendar-date-time
 	// [Easier Date/Time in Laravel and PHP with Carbon | Scotch](https://scotch.io/tutorials/easier-datetime-in-laravel-and-php-with-carbon)
 
 	const MINUTE_IN_SECONDS = 60;       //                 60
@@ -113,8 +114,74 @@ class Date extends Base
 		);
 	}
 
+	public static function makeFromInput( $input, $calendar = 'gregorian', $timezone = NULL, $fallback = '' )
+	{
+		if ( empty( $input ) )
+			return $fallback;
+
+		// FIXME: needs sanity checks
+		$parts = explode( '/', apply_filters( 'string_format_i18n_back', $input ) );
+
+		if ( is_null( $timezone ) )
+			$timezone = self::currentTimeZone();
+
+		return self::make( 0, 0, 0, $parts[1], $parts[2], $parts[0], $calendar, $timezone );
+	}
+
+	public static function makeMySQLFromInput( $input, $format = NULL, $calendar = 'gregorian', $timezone = NULL, $fallback = '' )
+	{
+		if ( empty( $input ) )
+			return $fallback;
+
+		if ( is_null( $format ) )
+			$format = static::MYSQL_FORMAT;
+
+		if ( is_null( $timezone ) )
+			$timezone = self::currentTimeZone();
+
+		return date( $format, self::makeFromInput( $input, $calendar, $timezone ) );
+	}
+
+	/**
+	 * Calculates the decade of a given date.
+	 * FIXME: apply `$calendar`
+	 * FIXME: avoid using `wp_date()`
+	 * @ref: https://stackoverflow.com/questions/15877971/calculating-the-end-of-a-decade
+	 *
+	 * @param  int|string   $timestamp
+	 * @param  string       $calendar
+	 * @param  null|string  $timezone
+	 * @param  bool         $extended
+	 * @return string|array $decade
+	 */
+	public static function calculateDecade( $timestamp, $calendar = 'gregorian', $timezone = NULL, $extended = FALSE )
+	{
+		if ( empty( $timestamp ) )
+			return FALSE;
+
+		if ( is_null( $timezone ) )
+			$timezone = self::currentTimeZone();
+
+		if ( ! self::isTimestamp( $timestamp ) )
+			$timestamp = strtotime( $timestamp );
+
+		$tz    = new \DateTimeZone( $timezone );
+		$year  = Number::intval( wp_date( 'Y', $timestamp, $tz ), FALSE );
+		$start = $year - ( $year % 10 ) - ($year % 10 ? 0 : 10);
+		$end   = $year - ( $year % 10 ) + ($year % 10 ? 10 : 0);
+
+		return $extended ? [
+			'year'  => $year,
+			'start' => $start,
+			'end'   => $end,
+		] : $start;
+	}
+
 	public static function calculateAge( $date, $calendar = 'gregorian', $timezone = NULL )
 	{
+		if ( empty( $date ) )
+			return FALSE;
+
 		if ( is_null( $timezone ) )
 			$timezone = self::currentTimeZone();
 
@@ -128,6 +195,42 @@ class Date extends Base
 			'day'   => $diff->format( '%d' ),
 			'year'  => $diff->format( '%y' ),
 		];
+	}
+
+	public static function isUnderAged( $date, $age_of_majority = 18, $calendar = 'gregorian', $timezone = NULL )
+	{
+		if ( empty( $date ) )
+			return FALSE;
+
+		if ( is_null( $timezone ) )
+			$timezone = self::currentTimeZone();
+
+		$tz   = new \DateTimeZone( $timezone );
+		$dob  = new \DateTime( $date, $tz );
+		$now  = new \DateTime( sprintf( '-%s years', $age_of_majority ), $tz );
+		$diff = $now->diff( $dob );
+
+		return ! $diff->invert;
+	}
+
+	public static function make( $hour, $minute, $second, $month, $day, $year, $calendar = 'gregorian', $timezone = NULL )
+	{
+		if ( is_null( $timezone ) )
+			$timezone = self::currentTimeZone();
+
+		$time = $year.'-'.sprintf( '%02d', $month ).'-'.sprintf( '%02d', $day ).' ';
+		$time.= sprintf( '%02d', $hour ).':'.sprintf( '%02d', $minute ).':'.sprintf( '%02d', $second );
+
+		try {
+
+			$datetime = new \DateTime( $time, new \DateTimeZone( $timezone ) );
+			return $datetime->format( 'U' );
+
+		} catch ( \Exception $e ) {
+
+			// echo $e->getMessage();
+			return FALSE;
+		}
 	}
 
 	/**
@@ -534,7 +637,6 @@ class Date extends Base
 		echo "current_time( 'timestamp', TRUE ) returns GMT: ".date( static::MYSQL_FORMAT, current_time( 'timestamp', TRUE ) ).'<br />';
 	}
 
-
 	/**
 	 * Retrieves today's mid-night local time
 	 *
@@ -563,5 +665,48 @@ class Date extends Base
 
 			return $time - ( $time % self::DAY_IN_SECONDS );
 		}
+	}
+
+	/**
+	 * Gets all days between the two end-points.
+	 *
+	 * @source http://stackoverflow.com/q/33543003/2908724
+	 * @source https://3v4l.org/vrhsa
+	 *
+	 * @param  \DateTime $begin
+	 * @param  \DateTime $end
+	 * @return array     $workdays
+	 */
+	public static function workDays(\DateTime $begin, \DateTime $end)
+	{
+		$workdays = [];
+		$all_days = new \DatePeriod( $begin, new \DateInterval( 'P1D' ), $end->modify( '+1 day' ) );
+
+		foreach ( $all_days as $day ) {
+
+			$dow = (int) $day->format( 'w' );
+			$dom = (int) $day->format( 'j' );
+
+			if ( 1 <= $dow && $dow <= 5 ) { // Mon - Fri
+
+				$workdays[] = $day;
+
+			} else if ( 6 == $dow && 0 == $dom % 2 ) { // Even Saturday
+
+				$workdays[] = $day;
+			}
+		}
+
+		return $workdays;
+	}
+
+	public static function testWorkDays()
+	{
+		$begin = new \DateTime( '2015-11-01' );
+		$end   = new \DateTime( '2015-11-14' );
+		$days  = self::workDays( $begin, $end );
+
+		foreach ( $days as $day )
+			echo $day->format( 'Y-m-d' ).PHP_EOL;
 	}
 }

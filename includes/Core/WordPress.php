@@ -72,6 +72,7 @@ class WordPress extends Base
 
 	// @SEE: `is_login()` @since WP 6.1.0
 	// @REF: https://make.wordpress.org/core/2022/09/11/new-is_login-function-for-determining-if-a-page-is-the-login-screen/
+	// @REF: https://core.trac.wordpress.org/ticket/19898
 	public static function isLogin()
 	{
 		return Text::has( self::loginURL(), $_SERVER['SCRIPT_NAME'] );
@@ -245,18 +246,29 @@ class WordPress extends Base
 		HTML::inputHidden( '_wp_http_referer', self::unslash( remove_query_arg( [
 			'_wp_http_referer',
 			'message',
+			'action',
+			'paged',
 			'count',
 		] ) ) );
 	}
 
+	// wrapper for `wp_get_referer()`
+	public static function getReferer()
+	{
+		return remove_query_arg( [
+			'_wp_http_referer',
+			'message',
+			'action',
+			'paged',
+			'count',
+		], wp_get_referer() );
+	}
+
 	public static function redirectJS( $location = NULL, $timeout = 3000 )
 	{
-		if ( is_null( $location ) )
-			$location = add_query_arg( wp_get_referer() );
-
 		?><script type="text/javascript">
 function nextpage() {
-	location.href = "<?php echo $location; ?>";
+	location.href = "<?php echo ( $location ?? self::getReferer() ); ?>";
 }
 setTimeout( "nextpage()", <?php echo $timeout; ?> );
 </script><?php
@@ -264,10 +276,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 
 	public static function redirect( $location = NULL, $status = 302 )
 	{
-		if ( is_null( $location ) )
-			$location = add_query_arg( wp_get_referer() );
-
-		if ( wp_redirect( $location, $status ) )
+		if ( wp_redirect( $location ?? self::getReferer(), $status ) )
 			exit;
 
 		wp_die(); // something's wrong!
@@ -276,9 +285,9 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 	public static function redirectReferer( $message = 'updated', $key = 'message' )
 	{
 		if ( is_array( $message ) )
-			$url = add_query_arg( $message, wp_get_referer() );
+			$url = add_query_arg( $message, self::getReferer() );
 		else
-			$url = add_query_arg( $key, $message, wp_get_referer() );
+			$url = add_query_arg( $key, $message, self::getReferer() );
 
 		self::redirect( $url );
 	}

@@ -19,6 +19,7 @@ class HTML extends Base
 			'class'  => '-link',
 			'href'   => $link,
 			'target' => $target_blank ? '_blank' : FALSE,
+			'dummy'  => 'wtf', // HACK: dummy attr to distract the `wordWrap()`!
 		), $html );
 	}
 
@@ -1094,7 +1095,8 @@ class HTML extends Base
 			}
 
 			foreach ( (array) $args['before'] as $before )
-				echo '<span class="-before">'.$before.'</span>&nbsp;';
+				if ( $before )
+					echo '<span class="-before">'.$before.'</span>&nbsp;';
 
 			echo '<input type="number" class="small-text -paged" name="paged" value="'.$args['paged'].'" />&nbsp;';
 			echo '<input type="number" class="small-text -limit" name="limit" value="'.$args['limit'].'" />&nbsp;';
@@ -1109,7 +1111,8 @@ class HTML extends Base
 			), $icons['order'] );
 
 			foreach ( (array) $args['after'] as $after )
-				echo '&nbsp;<span class="-after">'.$after.'</span>';
+				if ( $after )
+					echo '&nbsp;<span class="-after">'.$after.'</span>';
 
 			echo '<div class="-controls">';
 
@@ -1276,6 +1279,7 @@ class HTML extends Base
 		echo $script;
 	}
 
+	// TODO: migrate to `wp_get_admin_notice()` @since WP 6.4.0
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
 	// CLASSES: notice-error, notice-warning, notice-success, notice-info, is-dismissible, fade, inline
 	public static function notice( $notice, $class = 'notice-success fade', $dismissible = TRUE )

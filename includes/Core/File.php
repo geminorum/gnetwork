@@ -5,12 +5,17 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class File extends Base
 {
 
-	// normalize a filesystem path
-	// on windows systems, replaces backslashes with forward slashes
-	// and forces upper-case drive letters.
-	// allows for two leading slashes for Windows network shares, but
-	// ensures that all other duplicate slashes are reduced to a single.
-	// @SOURCE: `wp_normalize_path()`
+	/**
+	 * normalize a filesystem path
+	 *
+	 * on windows systems, replaces backslashes with forward slashes and forces upper-case drive letters.
+	 * allows for two leading slashes for Windows network shares, but ensures that all other duplicate slashes are reduced to a single.
+	 *
+	 * @source: `wp_normalize_path()`
+	 *
+	 * @param string $path
+	 * @return string
+	 */
 	public static function normalize( $path )
 	{
 		$path = str_replace( '\\', '/', $path );
@@ -423,6 +428,128 @@ class File extends Base
 		fclose( $handle );
 
 		return $csv;
+	}
+
+	// @REF: https://www.hashbangcode.com/article/remove-last-line-file-php
+	public static function processCSVbyLine( $file, $callback, $args = [] )
+	{
+		if ( ! is_callable( $callback ) )
+			return FALSE;
+
+		$rows = file( $file ); // read the file into an array
+
+		if ( empty( $rows ) || count( $rows ) < 2 )
+			return FALSE;
+
+		$row = trim( array_pop( $rows ) );
+
+		if ( empty( $row ) )
+			return FALSE;
+
+		$raw  = str_getcsv( $row );
+		$data = array_combine( str_getcsv( $rows[0] ), $raw );
+
+		try {
+
+			if ( ! $results = call_user_func_array( $callback, [ $data, $raw, $row, $args ] ) )
+				return $results;
+
+		} catch ( \Exception $e ) {
+
+			return [ $data, $raw, $row, $e->getMessage() ]; // avoid trimming the source
+		}
+
+		$handle = fopen( $file, 'w' );
+
+		fputs( $handle, join( '', $rows ) );
+		fclose( $handle );
+
+		unset( $file, $rows );
+
+		return TRUE;
+	}
+
+	// NOTE: WTF: this method has no use for any kind of data!
+	// @REF: https://www.hashbangcode.com/article/remove-last-line-file-php
+	public static function processCSVbyLine_STUPID( $file, $callback )
+	{
+		$handle = fopen( $file, 'r' );
+		$size   = filesize( $file );
+		$break  = FALSE;
+		$start  = FALSE;
+		$bite   = 50; // number of bytes to look at
+
+		// put pointer to the end of the file
+		fseek( $handle, 0, SEEK_END );
+
+		while ( FALSE === $break && FALSE === $start ) {
+
+			$pos = ftell( $handle ); // get the current file position
+
+			if ( $pos < $bite ) {
+
+				// if the position is less than a bite then go to the start of the file
+				rewind( $handle );
+
+			} else {
+
+				// move back $bite characters into the file
+				fseek( $handle, -$bite, SEEK_CUR );
+			}
+
+			// read $bite characters of the file into a string
+			$string = fread( $handle, $bite )
+				or die ( "Can't read from file " . $file . "." ); // FIXME
+
+			// if we happen to have read to the end of the file then we need to ignore
+			// the last line as this will be a new line character
+			if ( $pos + $bite >= $size)
+				$string = substr_replace( $string, '', -1 );
+
+			// since we fred() forward into the file we need to back up $bite characters
+			if ( $pos < $bite )
+				// if the position is less than a bite then go to the start of the file
+				rewind( $handle );
+			else
+				// move back $bite characters into the file
+				fseek( $handle, -$bite, SEEK_CUR );
+
+			// is there a line break in the string we read?
+			if ( is_integer( $lb = strrpos( $string, "\n" ) ) ) {
+				// set $break to true so that we break out of the loop
+				$break = TRUE;
+				// the last line in the file is right after the linebreak
+				$line_end = ftell( $handle ) + $lb + 1;
+
+				self::_log( $line_end );
+			}
+
+			self::_log( $string );
+
+			// break out of the loop if we are at the beginning of the file
+			if ( 0 == ftell( $handle ) )
+				$start = TRUE;
+		}
+
+		if ( TRUE === $break ) {
+
+			// if we have found a line break then read the file into a string
+			// to writing without the last line
+			rewind( $handle );
+			$file_minus_lastline = fread( $handle, $line_end );
+
+			fclose( $handle );
+
+			// open the file in write mode and truncate it
+			$handle = fopen( $file, 'w+' );
+			fputs( $handle, $file_minus_lastline );
+			fclose( $handle );
+
+		} else {
+
+			// close the file, nothing else to do.
+			fclose( $handle );
+		}
 	}
 
 	// @REF: https://paulund.co.uk/html5-download-attribute

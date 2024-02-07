@@ -14,7 +14,9 @@ class Text extends Base
 	public static function trim( $text )
 	{
 		$text = (string) $text;
-		$text = trim( $text, " \n\t\r\0\x0B," );
+		// $text = trim( $text, " \n\t\r\0\x0B," );
+		$text = preg_replace( '/^[\s\x{200C}]/u', '', $text );
+		$text = preg_replace( '/[\s\x{200C}]$/u', '', $text );
 
 		if ( 0 === strlen( $text ) )
 			return '';
@@ -353,6 +355,23 @@ class Text extends Base
 		return TRUE;
 	}
 
+	/**
+	 * Consolidates contiguous whitespace.
+	 *
+	 * @param  string $text
+	 * @return string $text
+	 */
+	public static function singleWhitespace( $text )
+	{
+		$text = preg_replace( '/\x{200C}+/u', '‌', $text );
+		$text = preg_replace( '/\s+/', ' ', $text );
+
+		if ( 0 === strlen( $text ) )
+			return '';
+
+		return self::trim( $text );
+	}
+
 	// @REF: `normalize_whitespace()`
 	public static function normalizeWhitespace( $text, $multiline = FALSE )
 	{
@@ -564,6 +583,30 @@ class Text extends Base
 		}
 
 		return $text;
+	}
+
+	// @REF: https://gist.github.com/wpscholar/20f6b8fcf4326c868ae731e410c38b53
+	public static function truncate( $text, $chars = 50, $ellipsis = '&hellip;' )
+	{
+		// if shorter than x characters, skip
+		if ( strlen( $text ) <= $chars )
+			return $text;
+
+		$splitted  = str_split( $text, $chars ); // fetch first x number of characters
+		$truncated = array_shift( $splitted );
+		$before    = explode( ' ', $text ); // get array of words before truncation
+		$after     = explode( ' ', $truncated ); // get array of words after truncation
+		$key       = Arraay::keyLast( $after ); // get index of last item in array of truncated words
+
+		// if the last word in the array of truncated words has been cut off,
+		// drop it from the array
+		if ( $after[$key] !== $before[$key] )
+			array_pop( $after );
+
+		$new = implode( ' ', $after ); // convert the array of words back into a string
+		$new = rtrim( $new, ',?;:-"\'' ); // remove any trailing punctuaction
+
+		return $new.$ellipsis; // add ellipsis before returning
 	}
 
 	// http://stackoverflow.com/a/3161830
@@ -895,6 +938,7 @@ class Text extends Base
 		return self::trim( strip_tags( preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $text ) ) );
 	}
 
+	// @SEE: [wp_strip_all_tags()](https://developer.wordpress.org/reference/functions/wp_strip_all_tags/)
 	public static function stripHTMLforEmail( $html )
 	{
 		$html = preg_replace( array(
@@ -945,7 +989,8 @@ class Text extends Base
 	// USAGE: echo Text::replaceSymbols( [ '#', '$' ], $text, static function ( $matched, $text ) { return "<strong>{$matched}</strong>"; });
 	public static function replaceSymbols( $symbols, $text, $callback, $skip_links = TRUE )
 	{
-		return preg_replace_callback( self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ), static function ( $matches ) use ( $callback ) {
+		return preg_replace_callback( self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ),
+			static function ( $matches ) use ( $callback ) {
 			return call_user_func( $callback, $matches[0], $matches[1] );
 		}, $text );
 	}
@@ -1094,6 +1139,9 @@ class Text extends Base
 
 		foreach ( $data as $fields ) {
 
+			// @SEE: https://github.com/parsecsv/parsecsv-for-php/issues/167
+			// fputcsv( $handle, $fields );
+
 			$row = array();
 
 			foreach ( $fields as $field ) {
@@ -1164,7 +1212,7 @@ class Text extends Base
 	{
 		if ( is_string( $one ) ) {
 
-			$two = strval( $two );
+			$two = (string) $two;
 			$one = substr( $one, 0, min( strlen( $one ), strlen( $two ) ) );
 			$two = substr( $two, 0, min( strlen( $one ), strlen( $two ) ) );
 
@@ -1254,7 +1302,6 @@ class Text extends Base
 	{
 		return str_replace( [ "'", '"' ], [ '&#39;', '&#34;' ], preg_replace( '/\x00|<[^>]*>?/', '', $string ) );
 	}
-
 
 	/**
 	 * Converts a string encoded in `ISO-8859-1` to `UTF-8`.

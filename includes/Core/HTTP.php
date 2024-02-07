@@ -179,7 +179,7 @@ class HTTP extends Base
 			self::_log( $args, wp_remote_retrieve_body( $response ) );
 
 		if ( ! self::isError( $response )
-			&& 201 == wp_remote_retrieve_response_code( $response ) ) {
+			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
 				return json_decode( wp_remote_retrieve_body( $response ), $assoc );
 		}
 

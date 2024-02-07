@@ -5,6 +5,16 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Validation extends Base
 {
 
+	public static function sanitizePostCode( $input )
+	{
+		$sanitized = Number::intval( trim( $input ), FALSE );
+
+		if ( ! self::isPostCode( $sanitized ) )
+			return '';
+
+		return $sanitized;
+	}
+
 	public static function isPostCode( $input )
 	{
 		if ( empty( $input ) )
@@ -167,6 +177,11 @@ class Validation extends Base
 		return FALSE;
 	}
 
+	public static function getIBANHTMLPattern()
+	{
+		return FALSE; // FIXME!
+	}
+
 	// @SEE: https://fa.wikipedia.org/wiki/%D8%B4%D8%A8%D8%A7
 	// @SEE: https://gist.github.com/mhf-ir/c17374fae395a57c9f8e5fe7a92bbf23
 	public static function sanitizeIBAN( $input )
@@ -190,6 +205,9 @@ class Validation extends Base
 			if ( ! preg_match( '/^IR[0-9]{24}$/i', $input ) )
 				return FALSE;
 		}
+
+		if ( ! self::checkIBAN( $input ) )
+			return FALSE;
 
 		return TRUE;
 	}
@@ -217,4 +235,23 @@ class Validation extends Base
 
 		return ( 98 - $checksum ) == $check;
 	}
+
+	// https://github.com/persian-tools/php-persian-tools/blob/master/src/Traits/VerifyCardNumber.php
+	public static function verifyCardNumber( $input )
+    {
+		if ( 16 !== strlen( $input )
+			|| 0 === intval( substr( $input, 1, 11 ) )
+			|| 0 === intval( substr( $input, 10 ) ) )
+                return FALSE;
+
+        $sum = 0;
+
+        for ( $i = 0; $i < 16; $i++ ) {
+            $even  = $i % 2 == 0 ? 2 : 1;
+            $sub   = intval( $input[$i] ) * $even;
+            $sum  += $sub > 9 ? $sub - 9 : $sub;
+        }
+
+        return $sum % 10 == 0;
+    }
 }

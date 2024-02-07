@@ -22,7 +22,7 @@ class Strings extends Core\Base
 		if ( ! is_string( $string ) )
 			return FALSE;
 
-		$trimmed = trim( $string );
+		$trimmed = Core\Text::trim( $string );
 
 		if ( '' === $trimmed )
 			return TRUE;
@@ -31,14 +31,19 @@ class Strings extends Core\Base
 			$empties = [
 				'0', '00', '000', '0000', '00000', '000000',
 				'*', '**', '***', '****', '*****', '******',
+				'…', '……', '………', '…………', '……………', '………………',
 				'.', '..', '...', '....', '.....', '......',
 				'-', '--', '---', '----', '-----', '------',
 				'–', '––', '–––', '––––', '–––––', '––––––',
 				'—', '——', '———', '————', '—————', '——————',
+				'0000/00/00', '0000-00-00', '00/00/00', '00-00-00',
 				'<p></p>',
 				'<body><p></p></body>',
 				'<body></body>',
 				'<body> </body>',
+				'null', 'NULL', 'Null',
+				'false', 'FALSE', 'False',
+				'zero', 'ZERO', 'Zero',
 				'ندارد',
 			];
 
