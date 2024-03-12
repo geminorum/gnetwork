@@ -6,6 +6,18 @@ class File extends Base
 {
 
 	/**
+	 * Wraps the `file_exists` and uses current install absoulute-path.
+	 *
+	 * @param  string $path
+	 * @param  string $base
+	 * @return bool   $exists
+	 */
+	public static function exists( $path, $base = ABSPATH )
+	{
+		return @file_exists( $base.$path );
+	}
+
+	/**
 	 * normalize a filesystem path
 	 *
 	 * on windows systems, replaces backslashes with forward slashes and forces upper-case drive letters.

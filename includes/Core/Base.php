@@ -21,6 +21,10 @@ class Base
 		if ( empty( $value ) )
 			return TRUE;
 
+		// only checks for empty strings
+		if ( ! is_string( $value ) )
+			return FALSE;
+
 		if ( ! $value = Text::trim( $value ) )
 			return TRUE;
 
@@ -28,6 +32,21 @@ class Base
 		// TODO: check empty types: html/dashes/
 
 		return FALSE;
+	}
+
+	// converts to boolean
+	public static function bool( $value )
+	{
+		if ( is_bool( $value ) )
+			return $value;
+
+		if ( self::empty( $value ) )
+			return FALSE;
+
+		if ( is_string( $value ) && in_array( strtolower( $value ), [ 'false', 'none', '0' ], TRUE ) )
+			return FALSE;
+
+		return TRUE;
 	}
 
 	public static function req( $key, $default = '' )

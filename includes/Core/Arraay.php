@@ -465,9 +465,35 @@ class Arraay extends Base
 	// `array_is_list()` for php < 8.1
 	// @REF: https://www.php.net/manual/en/function.array-is-list.php#126574
 	// an array is considered a list if its keys consist of consecutive numbers from 0 to count $array
-	public static function isList( $array )
+	public static function isList_ALT( $array )
 	{
 		return $array === [] || ( array_keys( $array ) === range( 0, count( $array ) - 1 ) );
+	}
+
+	/**
+	 * Polyfill for `array_is_list()` function added in PHP 8.1.
+	 * Determines if the given array is a list.
+	 * An array is considered a list if its keys consist of consecutive numbers from 0 to count($array)-1.
+	 * @see https://github.com/symfony/polyfill-php81/tree/main
+	 *
+	 * @param array $array The array being evaluated.
+	 * @return bool $list `TRUE` if array is a list, `FALSE` otherwise.
+	 */
+	public static function isList( $array )
+	{
+		if ( function_exists( 'array_is_list' ) )
+			return array_is_list( $array );
+
+		if ( ( array() === $array ) || ( array_values( $array ) === $array ) )
+			return TRUE;
+
+		$next = -1;
+
+		foreach ( $array as $key => $value )
+			if ( ++$next !== $key )
+				return FALSE;
+
+		return TRUE;
 	}
 
 	// @REF: http://stackoverflow.com/a/11320508
