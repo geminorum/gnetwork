@@ -31,6 +31,14 @@ body.login {
     }
   }
 
+  &.hide-pw-reset {
+    #nav {
+      .wp-login-lost-password {
+        display: none; // NOTE: for before @since WP 6.1.0: @SEE: `lost_password_html_link`
+      }
+    }
+  }
+
   h1 a {
     display: block;
     background-image: none;

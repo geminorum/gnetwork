@@ -31,6 +31,12 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+.-button + span.-description,
+.form-table select + .-button {
+  margin-left: $spacer * .25;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 .-wrap.field-wrap,
 .wrap {
   input[type="text"] {
@@ -44,6 +50,13 @@
       padding-left: 6px;
       padding-right: 0;
       /*rtl:end:ignore*/
+
+      &::placeholder {
+        /*rtl:begin:ignore*/
+        direction: ltr;
+        text-align: left;
+        /*rtl:end:ignore*/
+      }
     }
   }
 
@@ -113,12 +126,12 @@
     outline: none;
   }
 
-  input.code-text,
-  textarea.code-text {}
+  // input.code-text,
+  // textarea.code-text {}
 
-  input.email-text,
-  input.ip-text,
-  input.url-text {}
+  // input.email-text,
+  // input.ip-text,
+  // input.url-text {}
 
   .wp-color-result {
     height: 21px;

@@ -109,6 +109,12 @@
       }
     }
   }
+
+  .tagchecklist {
+    &:empty {
+      display: none;
+    }
+  }
 }
 
 #screen-options-wrap {

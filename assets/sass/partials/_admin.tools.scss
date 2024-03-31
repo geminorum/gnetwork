@@ -7,6 +7,25 @@
 $spacer: 1rem !default;
 
 ////////////////////////////////////////////////////////////////////////////////
+.-wrap.-toolbox-column {
+  > .-title {
+    text-align: center;
+    color: $gray-light;
+    margin-top: $spacer * 2;
+    margin-bottom: - ($spacer * .5);
+  }
+
+  > .-description {
+    text-align: center;
+    margin-top: $spacer;
+  }
+
+  > .-toolbox-card {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 .-wrap.-toolbox-card {
   .-base.nav-tab-base & {
     max-width: 100%;

@@ -181,8 +181,8 @@ input[type="checkbox"]:checked::before {
 
 .bp-profile-field,
 .form-table,
-.form-table td,
 .form-table td p,
+.form-table td,
 .form-table th,
 .form-wrap label {
   font-size: 12px;
@@ -308,9 +308,9 @@ span.description {
     display: none;
   }
 
-  .media-frame-content .media-toolbar-primary {
-    width: 44%; // default is 33%
-  }
+  // .media-frame-content .media-toolbar-primary {
+  //   width: 44%; // default is 33%
+  // }
 
   select.attachment-filters {
     width: auto;

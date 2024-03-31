@@ -48,13 +48,30 @@ $spacer: 1rem !default;
     margin-top: $spacer * .5;
 
     &:last-of-type {
-      margin-bottom: $spacer * .75;
+      // margin-bottom: $spacer * .75;
+    }
+
+    > .-button {
+      margin: 0 ($spacer * .25) ($spacer * .25) 0;
+
+      + span.-description {
+        vertical-align: middle;
+      }
+    }
+
+    > p.-description {
+      margin-top: $spacer * .25;
+      margin-bottom: 0;
     }
   }
 
   .-wrap-buttons {
     padding: 0;
     margin-bottom: .5em;
+
+    > .-button {
+      margin: 0 ($spacer * .25) ($spacer * .25) 0;
+    }
 
     &.-side {
       float: right;

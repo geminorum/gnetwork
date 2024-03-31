@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: fa_IR ALL -----------------------------------------------
+/// gNetwork Partials: fa_IR Admin: ALL
 
 // html:lang(fa-ir) {}
 
@@ -34,5 +34,17 @@ body.locale-fa-ir {
     &.wc-progress-steps {
       list-style-type: none !important;
     }
+  }
+
+  .subtitle {
+    padding-right: 1rem;
+
+    &::before {
+      content: " ";
+    }
+  }
+
+  #wpfooter p {
+    font-size: .65rem;
   }
 }

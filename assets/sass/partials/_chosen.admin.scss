@@ -17,86 +17,6 @@
   overflow: visible !important;
 }
 
-.chosen-container {
-  margin: 1px;
-  font-size: 14px;
-
-  .chosen-single {
-    border-radius: 4px;
-    border: 1px solid #7e8993;
-  }
-
-  // when focus
-  &.chosen-container-active {
-    .chosen-drop,
-    .chosen-single {
-      border-color: #007cba;
-      color: #016087;
-    }
-
-    .chosen-single {
-      box-shadow: 0 0 0 1px #007cba;
-    }
-
-    .chosen-drop {
-      box-shadow: 0 1px 0 1px #007cba;
-    }
-  }
-
-  // when open
-  &.chosen-with-drop {
-    .chosen-single {
-      border-radius: 4px 4px 0 0;
-    }
-  }
-
-  .chosen-drop {
-    border-radius: 0 0 4px 4px;
-  }
-
-  .chosen-results li.highlighted {
-    .admin-color-fresh & {
-      background-color: #00a0d2;
-    }
-
-    .admin-color-blue & {
-      background-color: #096484;
-    }
-
-    .admin-color-coffee & {
-      background-color: #096484;
-    }
-
-    .admin-color-ectoplasm & {
-      background-color: #a3b745;
-    }
-
-    .admin-color-midnight & {
-      background-color: #26292c;
-    }
-
-    .admin-color-ocean & {
-      background-color: #627c83;
-    }
-
-    .admin-color-sunrise & {
-      background-color: #be3631;
-    }
-
-    .admin-color-light & {
-      background-color: #888;
-    }
-
-    .admin-color-evergreen & {
-      background-color: #36533f;
-    }
-
-    .admin-color-mint & {
-      background-color: #4f6d59;
-    }
-  }
-}
-
 .chosen-container-single {
   // &:not(.chosen-container-active) {
   //   .chosen-single {
@@ -139,6 +59,86 @@
       @include theme-fonts-core-dashicons;
       font-size: 17px;
       content: "\f179";
+    }
+  }
+}
+
+.chosen-container {
+  margin: 1px;
+  font-size: 14px;
+
+  .chosen-single {
+    border-radius: 4px;
+    border: 1px solid #7e8993;
+  }
+
+  .chosen-drop {
+    border-radius: 0 0 4px 4px;
+  }
+
+  // when focus
+  &.chosen-container-active {
+    .chosen-drop,
+    .chosen-single {
+      border-color: #007cba;
+      color: #016087;
+    }
+
+    .chosen-single {
+      box-shadow: 0 0 0 1px #007cba;
+    }
+
+    .chosen-drop {
+      box-shadow: 0 1px 0 1px #007cba;
+    }
+  }
+
+  // when open
+  &.chosen-with-drop {
+    .chosen-single {
+      border-radius: 4px 4px 0 0;
+    }
+  }
+
+  .chosen-results li.highlighted {
+    .admin-color-fresh & {
+      background-color: #00a0d2;
+    }
+
+    .admin-color-blue & {
+      background-color: #096484;
+    }
+
+    .admin-color-coffee & {
+      background-color: #096484;
+    }
+
+    .admin-color-ectoplasm & {
+      background-color: #a3b745;
+    }
+
+    .admin-color-midnight & {
+      background-color: #26292c;
+    }
+
+    .admin-color-ocean & {
+      background-color: #627c83;
+    }
+
+    .admin-color-sunrise & {
+      background-color: #be3631;
+    }
+
+    .admin-color-light & {
+      background-color: #888;
+    }
+
+    .admin-color-evergreen & {
+      background-color: #36533f;
+    }
+
+    .admin-color-mint & {
+      background-color: #4f6d59;
     }
   }
 }
