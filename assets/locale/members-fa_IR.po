@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Members v3.0.8\n"
+"Project-Id-Version: Members v3.2.9\n"
 "Report-Msgid-Bugs-To: https://memberpress.com\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2020-05-24 15:06+0430\n"
+"PO-Revision-Date: 2024-02-15 15:54+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ../../../members\n"
 
 #: members.php:129, members.php:140, admin/class-manage-users.php:161,
@@ -33,13 +33,13 @@ msgstr ""
 
 #: members.php:454, addons/members-block-permissions/src/Editor.php:87
 msgid "Permissions"
-msgstr ""
+msgstr "دسترسی‌ها"
 
 #: members.php:455, addons/members-block-permissions/src/Editor.php:131,
 #: addons/members-block-permissions/src/Editor.php:132
 msgid ""
 "To protect this block by paid membership or centrally with a content protection "
-"rule, upgrade to MemberPress."
+"rule, add MemberPress."
 msgstr ""
 
 #: admin/class-cap-control.php:118, admin/functions-admin.php:48
@@ -151,8 +151,8 @@ msgstr "نقش"
 #: admin/class-meta-box-publish-role.php:104
 msgid "%s User"
 msgid_plural "%s Users"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s کاربر"
+msgstr[1] "%s کاربر"
 
 #: admin/class-meta-box-publish-role.php:110
 msgid "Users:"
