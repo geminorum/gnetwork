@@ -578,7 +578,7 @@ class User extends gNetwork\Module
 			return FALSE;
 
 		// all dots/ellipses
-		if ( 0 < strlen( preg_replace( '/[\.…]/', '', $username ) ) )
+		if ( 0 === strlen( preg_replace( '/[\.…]/', '', $username ) ) )
 			return FALSE;
 
 		// all number and below 10 digits
