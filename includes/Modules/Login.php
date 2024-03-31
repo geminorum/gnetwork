@@ -292,7 +292,7 @@ class Login extends gNetwork\Module
 
 	private function check_login_page()
 	{
-		if ( ! $referer = wp_get_referer() )
+		if ( ! $referer = Core\WordPress::getReferer() )
 			return;
 
 		if ( ! Core\Text::has( $referer, 'wp-activate.php' ) )

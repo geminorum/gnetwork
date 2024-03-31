@@ -1255,7 +1255,7 @@ class Taxonomy extends gNetwork\Module
 		if ( 'post' == $query['post_type'] )
 			unset( $query['post_type'] );
 
-		WordPress::redirect( add_query_arg( $query, wp_get_referer() ) );
+		WordPress::redirect( add_query_arg( $query, WordPress::getReferer() ) );
 	}
 
 	public function handle_bulk_actions( $location, $action, $term_ids )
@@ -1648,6 +1648,7 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
+	// FIXME: WTF: on target taxonomy: term with same slug exists already!
 	public function handle_change_tax( $term_ids, $taxonomy )
 	{
 		global $wpdb;

@@ -435,8 +435,8 @@ class Debug extends gNetwork\Module
 			'ini_get(\'date.timezone\')'      => ini_get( 'date.timezone' ),
 			'get_option(\'gmt_offset\')'      => get_option( 'gmt_offset' ),
 			'get_option(\'timezone_string\')' => get_option( 'timezone_string' ),
-			'REQUEST_TIME_FLOAT'              => date( $format, $_SERVER['REQUEST_TIME_FLOAT'] ),
-			'REQUEST_TIME'                    => date( $format, $_SERVER['REQUEST_TIME'] ),
+			'REQUEST_TIME_FLOAT'              => date( $format, (int) $_SERVER['REQUEST_TIME_FLOAT'] ),
+			'REQUEST_TIME'                    => date( $format, (int) $_SERVER['REQUEST_TIME'] ),
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';

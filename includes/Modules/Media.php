@@ -1289,6 +1289,7 @@ class Media extends gNetwork\Module
 			case 'image/png':
 			case 'image/gif':
 			case 'image/webp':
+			case 'image/avif':
 			case 'image/svg+xml':
 
 				$label = _x( 'View Image URL', 'Modules: Media: Row Action', 'gnetwork' );
