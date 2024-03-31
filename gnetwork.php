@@ -16,7 +16,7 @@ GitHub Plugin URI: https://github.com/geminorum/gnetwork
 Release Asset: true
 Requires WP: 5.7.0
 Requires at least: 5.7.0
-Requires PHP: 7.2
+Requires PHP: 7.4
 */
 
 define( 'GNETWORK_VERSION', '3.17.0' );

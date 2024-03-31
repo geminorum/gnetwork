@@ -1,8 +1,14 @@
 {
   "extends": [
-    "@wordpress/stylelint-config/scss"
+    "stylelint-config-recommended-scss"
   ],
   "rules": {
+    "no-descending-specificity": null
+  },
+  "extends_OLD": [
+    "@wordpress/stylelint-config/scss"
+  ],
+  "rules_OLD": {
     "scss/at-import-partial-extension": null,
     "declaration-property-unit-allowed-list": {
       "line-height": [ "px" ]

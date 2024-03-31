@@ -22,5 +22,11 @@
   "php.suggest.basic": true,
   "php-docblocker.alignParams": true,
   "php-docblocker.alignReturn": true,
-  "php-docblocker.useShortNames": true
+  "php-docblocker.useShortNames": true,
+  "php.files.exclude": [
+    "**/.temp",
+    "./assets/bin",
+    "./assets/packages",
+    "./assets/vendor"
+  ]
 }

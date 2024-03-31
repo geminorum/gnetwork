@@ -5,10 +5,18 @@
 // @REF: https://support.google.com/analytics/answer/7478520?hl=en
 
 // /////////////////////////////////////////////////////////////////////////////
+// function gtag () {
+//   if (typeof window.dataLayer === 'object' && typeof window.dataLayer.push === 'function') {
+//     window.dataLayer.push(arguments);
+//   } else {
+//     window.dataLayer = [];
+//     window.dataLayer.push(arguments);
+//   }
+// }
+
+window.dataLayer = window.dataLayer || [];
 function gtag () {
-  if (typeof window.dataLayer === 'object' && typeof window.dataLayer.push === 'function') {
-    window.dataLayer.push(arguments);
-  }
+  dataLayer.push(arguments);
 }
 
 // @REF: https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data
