@@ -1,3 +1,10 @@
+### 3.17.1
+* module/login: hide reset password
+* module/player: :new: module
+* module/player: support playback speeds
+* module/taxonomy: default terms filter bound to taxonomy
+* module/user: advanced username checks
+
 ### 3.17.0
 * asset/packages: vazirmatn ui fonts
 * main/module: switch site lap
