@@ -47,6 +47,8 @@
       "./assets/js/**/*.js",
       "./assets/js/**/*.html",
       "./assets/locale/**/*",
+      "./assets/blocks/**/build/**/*",
+      "!./assets/blocks/**/src/**/*",
       "!./assets/locale/core/raw/*",
       "!./assets/locale/**/*.pot",
       "!./assets/locale/**/*.po",
