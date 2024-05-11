@@ -1486,7 +1486,7 @@ class Taxonomy extends gNetwork\Module
 
 		WPTaxonomy::disableTermCounting();
 
-		foreach ( $term_ids as $term_id ) {
+		foreach ( (array) $term_ids as $term_id ) {
 
 			if ( array_key_exists( $term_id, $new_terms ) )
 				continue;
@@ -1525,9 +1525,9 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
-	public function handle_merge( $term_ids, $taxonomy )
+	public function handle_merge( $term_ids, $taxonomy, $to = NULL )
 	{
-		if ( ! $target = self::req( $this->classs( 'bulk-merge' ) ) )
+		if ( ! ( $target = $to ?? self::req( $this->classs( 'bulk-merge' ) ) ) )
 			return FALSE;
 
 		// handle multiple merge
@@ -1539,7 +1539,7 @@ class Taxonomy extends gNetwork\Module
 
 		WPTaxonomy::disableTermCounting();
 
-		foreach ( $term_ids as $term_id ) {
+		foreach ( (array) $term_ids as $term_id ) {
 
 			if ( $term_id == $new_term->term_id )
 				continue;
@@ -1664,7 +1664,7 @@ class Taxonomy extends gNetwork\Module
 
 		$tt_ids = [];
 
-		foreach ( $term_ids as $term_id ) {
+		foreach ( (array) $term_ids as $term_id ) {
 
 			$term = get_term( $term_id, $old_tax );
 
@@ -1696,15 +1696,15 @@ class Taxonomy extends gNetwork\Module
 			}
 		}
 
-		$tt_ids = implode( ',', array_map( 'absint', $tt_ids ) );
+		$tt_ids = array_map( 'absint', $tt_ids );
+		$string = implode( ',', $tt_ids );
 
 		$wpdb->query( $wpdb->prepare( "
-			UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE term_taxonomy_id IN ({$tt_ids})
+			UPDATE {$wpdb->term_taxonomy} SET taxonomy = %s WHERE term_taxonomy_id IN ({$string})
 		", $new_tax ) );
 
-		if ( is_taxonomy_hierarchical( $old_tax )
-			&& ! is_taxonomy_hierarchical( $new_tax ) )
-				$wpdb->query( "UPDATE {$wpdb->term_taxonomy} SET parent = 0 WHERE term_taxonomy_id IN ({$tt_ids})" );
+		if ( is_taxonomy_hierarchical( $old_tax ) && ! is_taxonomy_hierarchical( $new_tax ) )
+			$wpdb->query( "UPDATE {$wpdb->term_taxonomy} SET parent = 0 WHERE term_taxonomy_id IN ({$string})" );
 
 		clean_term_cache( $tt_ids, $old_tax, FALSE );
 		clean_term_cache( $tt_ids, $new_tax, FALSE );
