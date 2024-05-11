@@ -1648,7 +1648,6 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
-	// FIXME: WTF: on target taxonomy: term with same slug exists already!
 	public function handle_change_tax( $term_ids, $taxonomy )
 	{
 		global $wpdb;
@@ -1662,7 +1661,7 @@ class Taxonomy extends gNetwork\Module
 		if ( $new_tax == $old_tax )
 			return FALSE;
 
-		$tt_ids = [];
+		$tt_ids = $merging = [];
 
 		foreach ( (array) $term_ids as $term_id ) {
 
@@ -1670,6 +1669,9 @@ class Taxonomy extends gNetwork\Module
 
 			if ( ! $term || self::isError( $term ) )
 				continue;
+
+			if ( $already = get_term_by( 'slug', $term->slug, $new_tax ) )
+				$merging[$term_id] = $already->term_id;
 
 			if ( $term->parent && ! in_array( $term->parent, (array) $term_ids ) ) {
 				$wpdb->update( $wpdb->term_taxonomy,
@@ -1705,6 +1707,9 @@ class Taxonomy extends gNetwork\Module
 
 		if ( is_taxonomy_hierarchical( $old_tax ) && ! is_taxonomy_hierarchical( $new_tax ) )
 			$wpdb->query( "UPDATE {$wpdb->term_taxonomy} SET parent = 0 WHERE term_taxonomy_id IN ({$string})" );
+
+		foreach ( $merging as $merge_source => $merge_target )
+			$this->handle_merge( $merge_source, $new_tax, $merge_target );
 
 		clean_term_cache( $tt_ids, $old_tax, FALSE );
 		clean_term_cache( $tt_ids, $new_tax, FALSE );
