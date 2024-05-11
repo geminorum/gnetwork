@@ -1671,7 +1671,7 @@ class Taxonomy extends gNetwork\Module
 			if ( ! $term || self::isError( $term ) )
 				continue;
 
-			if ( $term->parent && ! in_array( $term->parent, $term_ids ) ) {
+			if ( $term->parent && ! in_array( $term->parent, (array) $term_ids ) ) {
 				$wpdb->update( $wpdb->term_taxonomy,
 					[ 'parent' => 0 ],
 					[ 'term_taxonomy_id' => $term->term_taxonomy_id ]
