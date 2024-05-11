@@ -43,7 +43,7 @@ class Base
 		if ( self::empty( $value ) )
 			return FALSE;
 
-		if ( is_string( $value ) && in_array( strtolower( $value ), [ 'false', 'none', '0' ], TRUE ) )
+		if ( is_string( $value ) && in_array( strtolower( $value ), [ 'false', 'none', '0', 'off', 'no' ], TRUE ) )
 			return FALSE;
 
 		return TRUE;

@@ -406,7 +406,7 @@ class Arraay extends Base
 	public static function filter( $input, $args = [], $operator = 'and', $field = FALSE )
 	{
 		if ( empty( $input ) || ( empty( $args ) && empty( $field ) ) )
-			return $input;
+			return [];
 
 		return wp_filter_object_list( $input, $args, $operator, $field );
 	}
@@ -423,7 +423,7 @@ class Arraay extends Base
 	public static function pluck( $input, $field, $index_key = NULL )
 	{
 		if ( empty( $input ) || empty( $field ) )
-			return $input;
+			return [];
 
 		return wp_list_pluck( $input, $field, $index_key );
 	}
