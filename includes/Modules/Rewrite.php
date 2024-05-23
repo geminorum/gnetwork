@@ -158,9 +158,10 @@ class Rewrite extends gNetwork\Module
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// ADOPTED FROM: Rewrite Rules Inspector by Daniel Bachhuber
-// v1.2.1 - 2019-07-05
+/// ADOPTED FROM: Rewrite Rules Inspector
+// v1.4.0 - 2024-05-22
 // @SOURCE: https://wordpress.org/plugins/rewrite-rules-inspector/
+// @SOURCE: https://github.com/Automattic/Rewrite-Rules-Inspector/
 
 	private function get_rules( $req_source = NULL, $req_search = '' )
 	{
@@ -241,7 +242,7 @@ class Rewrite extends gNetwork\Module
 		$data = $this->filters( 'rewrite_rules', array_reverse( $data, TRUE ) );
 
 		// set the sources used in our filtering
-		$sources = [ 'all' ] + array_unique( array_column( $data, 'source' ) );
+		$sources = ['all'] + array_unique( array_column( $data, 'source' ) );
 
 		if ( ! empty( $req_search ) ) {
 

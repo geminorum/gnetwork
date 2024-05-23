@@ -385,6 +385,9 @@ class Locale extends gNetwork\Module
 			'wp-dbmanager/database-empty.php'    => 'page',
 			'wp-dbmanager/database-run.php'      => 'page',
 
+			// [WP-Sweep](https://wordpress.org/plugins/wp-sweep/)
+			'wp-sweep/admin.php' => 'page',
+
 			// [Broken Link Checker](https://wordpress.org/plugins/broken-link-checker/)
 			'view-broken-links'     => 'page',
 			'link-checker-settings' => 'page',
@@ -485,6 +488,10 @@ class Locale extends gNetwork\Module
 			'mlf-settings8'       => 'page',
 			'mlf-support8'        => 'page',
 			'mlf--upgrade-to-pro' => 'page',
+
+			'idehweb-lwp'              => 'page',
+			'idehweb-lwp-styles'       => 'page',
+			'idehweb-lwp-localization' => 'page',
 
 		], $current );
 

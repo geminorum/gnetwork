@@ -207,4 +207,3 @@ class Optimize extends gNetwork\Module
 		], FALSE, $caption );
 	}
 }
-

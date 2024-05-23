@@ -507,7 +507,7 @@ class BuddyPress extends gNetwork\Module
 
 	public function bp_displayed_user_fullname( $default )
 	{
-		if ( ! buddypress()->displayed_user->userdata )
+		if ( empty( buddypress()->displayed_user->userdata ) )
 			return $default;
 
 		buddypress()->displayed_user->userdata->id = buddypress()->displayed_user->userdata->ID;

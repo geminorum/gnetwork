@@ -482,6 +482,7 @@ class Mail extends gNetwork\Module
 		WordPress::redirectReferer( 'wrong' );
 	}
 
+	// TODO: optional send HTML
 	private function tableTestMail()
 	{
 		$to      = isset( $_POST['send_testmail_to'] ) ? $_POST['send_testmail_to'] : $this->get_from_email();
