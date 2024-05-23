@@ -446,7 +446,7 @@ class Blog extends gNetwork\Module
 		if ( $this->is_request_action( 'flushrewrite' )
 			&& WordPress::cuc( 'edit_others_posts' ) ) {
 
-			flush_rewrite_rules();
+			gNetwork()->rewrite->flush_rewrite_rules();
 
 			WordPress::redirect( $this->remove_request_action() );
 		}

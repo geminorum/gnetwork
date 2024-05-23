@@ -24,9 +24,9 @@ class Rewrite extends gNetwork\Module
 			$this->filter( 'request' );
 			$this->filter( 'category_rewrite_rules' );
 
-			add_action( 'created_category', 'flush_rewrite_rules', 9, 0 );
-			add_action( 'delete_category', 'flush_rewrite_rules', 9, 0 );
-			add_action( 'edited_category', 'flush_rewrite_rules', 9, 0 );
+			add_action( 'created_category', [ $this, 'flush_rewrite_rules' ], 9, 0 );
+			add_action( 'delete_category', [ $this, 'flush_rewrite_rules' ], 9, 0 );
+			add_action( 'edited_category', [ $this, 'flush_rewrite_rules' ], 9, 0 );
 
 			// TODO: add notice and disable category base input on Permalink Settings
 		}
@@ -62,6 +62,12 @@ class Rewrite extends gNetwork\Module
 				],
 			],
 		];
+	}
+
+	public function flush_rewrite_rules()
+	{
+		flush_rewrite_rules();
+		wp_cache_delete( 'rewrite_rules', 'options' );
 	}
 
 	public function settings_sidebox( $sub, $uri )
