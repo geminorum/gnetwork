@@ -162,8 +162,18 @@ class Rest extends gNetwork\Module
 		return $rendered;
 	}
 
-	public function thumbnail_data_get_callback( $post, $attr, $request, $object_type )
+	public function thumbnail_data_get_callback( $post_array, $attr, $request, $object_type )
 	{
-		return WPMedia::prepAttachmentData( $this->filters( 'thumbnail_id', get_post_thumbnail_id( $post['id'] ), $post ) );
+		$thumbnail_id = $this->filters( 'thumbnail_id',
+			get_post_thumbnail_id( $post_array['id'] ),
+			$post_array
+		);
+
+		return $this->filters( 'thumbnail_data',
+			WPMedia::prepAttachmentData( $thumbnail_id ),
+			$thumbnail_id,
+			$post_array['id'],
+			$post_array
+		);
 	}
 }
