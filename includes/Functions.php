@@ -46,6 +46,24 @@ if ( ! function_exists( 'gnetwork_ip_lookup' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'gnetwork_country_lookup' ) ) :
+	function gnetwork_country_lookup( $code ) {
+
+		if ( ! $code )
+			return $code;
+
+		if ( $service = gNetwork()->option( 'lookup_country_service', 'site', 'https://countrycode.org/%s' ) )
+			return \geminorum\gNetwork\Core\HTML::tag( 'a', [
+				'href'   => sprintf( $service, $code ),
+				'class'  => '-country-lookup',
+				'target' => '_blank',
+				'rel'    => 'noreferrer',
+			], $code );
+
+		return $code;
+	}
+endif;
+
 if ( ! function_exists( 'gnetwork_navigation' ) ) :
 	function gnetwork_navigation( $before = '', $after = '', $menu = GNETWORK_NETWORK_NAVIGATION ) {
 

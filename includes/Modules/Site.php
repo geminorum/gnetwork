@@ -71,7 +71,9 @@ class Site extends gNetwork\Module
 			'denied_message'    => '',
 			'denied_extra'      => '',
 			'list_sites'        => '1',
+
 			'lookup_ip_service'      => '',   // `https://redirect.li/ip/?ip=%s`
+			'lookup_country_service' => '',   // `https://countrycode.org/%s`
 		];
 	}
 
@@ -160,6 +162,17 @@ class Site extends gNetwork\Module
 			'placeholder' => 'https://redirect.li/ip/?ip=%s',
 			'dir'         => 'ltr',
 			'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], HTTP::IP() ) ) : '',
+		];
+
+		$settings['_misc'][] = [
+			'field'       => 'lookup_country_service',
+			'type'        => 'text',
+			'title'       => _x( 'Lookup Country URL', 'Modules: Site: Settings', 'gnetwork' ),
+			/* translators: %s: `%s` placeholder */
+			'description' => sprintf( _x( 'URL template to to use for looking up Country Code. Will replace %s with the code.', 'Modules: Site: Settings', 'gnetwork' ), '<code>%s</code>' ),
+			'placeholder' => 'https://countrycode.org/%s',
+			'dir'         => 'ltr',
+			'after'       => $this->options['lookup_country_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_country_service'], GCORE_DEFAULT_COUNTRY_CODE ) ) : '',
 		];
 
 		return $settings;
