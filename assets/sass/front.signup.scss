@@ -5,6 +5,7 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////
+// @REF: `wpmu_signup_stylesheet()`
 .wp-signup-container {
   margin: 0 auto 1rem;
   max-width: 576px;
@@ -37,9 +38,7 @@
     margin: 5px 0;
   }
 
-  #signup-welcome {
-
-  }
+  // #signup-welcome {}
 
   #site-language {
     display: block;
@@ -92,7 +91,7 @@
 
     margin: 10px 0;
 
-    .-title {}
+    // .-title {}
 
     .-text {
       width: 100% !important;

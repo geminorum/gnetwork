@@ -43,7 +43,8 @@
   }
 }
 ////////////////////////////////////////////////////////////////////////////////
-body.woocommerce-page {
+// body.woocommerce-page {
+body.woocommerce-admin-page {
   .select2-container {
     z-index: inherit; // messed up by `woocommerce-checkout-manager`
   }
@@ -54,6 +55,10 @@ body.woocommerce-page {
 
   #coupon-root .woocommerce-marketing-coupons {
     display: none !important;
+  }
+
+  th.manage-column.column-taxonomy-shelf {
+    width: 60px;
   }
 
   .order_data_column_container {
