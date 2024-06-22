@@ -74,6 +74,11 @@ class Site extends gNetwork\Module
 
 			'lookup_ip_service'      => '',   // `https://redirect.li/ip/?ip=%s`
 			'lookup_country_service' => '',   // `https://countrycode.org/%s`
+
+			'base_country'        => '', // `IR`
+			'base_province'       => '', // `TEH`
+			'base_country_phone'  => '', // `98`
+			'base_province_phone' => '', // `21`
 		];
 	}
 
@@ -118,6 +123,43 @@ class Site extends gNetwork\Module
 			'title'       => _x( 'Body Class', 'Modules: Site: Settings', 'gnetwork' ),
 			'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Site: Settings', 'gnetwork' ),
 			'field_class' => [ 'regular-text', 'code-text' ],
+		];
+
+		$settings['_locale'][] = [
+			'field'       => 'base_country',
+			'type'        => 'text',
+			'title'       => _x( 'Base Country', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => _x( 'Defines the base country for this network.', 'Modules: Site: Settings', 'gnetwork' ),
+			'placeholder' => 'IR',
+			'field_class' => [ 'small-text', 'code-text' ],
+		];
+
+		$settings['_locale'][] = [
+			'field'       => 'base_province',
+			'type'        => 'text',
+			'title'       => _x( 'Base Province', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => _x( 'Defines the base province for this network.', 'Modules: Site: Settings', 'gnetwork' ),
+			'placeholder' => 'TEH',
+			'field_class' => [ 'small-text', 'code-text' ],
+		];
+
+		$settings['_locale'][] = [
+			'field'       => 'base_country_phone',
+			'type'        => 'text',
+			'title'       => _x( 'Base Country Phone Prefix', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => _x( 'Defines the base country phone prefix for this network.', 'Modules: Site: Settings', 'gnetwork' ),
+			'placeholder' => '98',
+			'field_class' => [ 'small-text', 'code-text' ],
+			'after'       => Settings::fieldAfterLink( 'https://en.wikipedia.org/wiki/List_of_country_calling_codes' ),
+		];
+
+		$settings['_locale'][] = [
+			'field'       => 'base_province_phone',
+			'type'        => 'text',
+			'title'       => _x( 'Base Province Phone Prefix', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => _x( 'Defines the base province phone prefix for this network.', 'Modules: Site: Settings', 'gnetwork' ),
+			'placeholder' => '21',
+			'field_class' => [ 'small-text', 'code-text' ],
 		];
 
 		$settings['_denied'] = [
