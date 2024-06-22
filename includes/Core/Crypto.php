@@ -5,13 +5,45 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Crypto extends Base
 {
 
+	/**
+	 * Generates combinations from given options
+	 * @source https://codereview.stackexchange.com/a/62198
+	 *
+	 * @param  array $options
+	 * @param  int   $count
+	 * @return array $combinations
+	 */
+	public static function getCombinations( $options, $count )
+	{
+		$results = [];
+
+		self::genCombinations( $results, [], $options, $count, 0 );
+
+		return $results;
+	}
+
+	private static function genCombinations( &$solutions, $solution, $options, $count, $call )
+	{
+		if ( $count === count( $solution ) )
+			$solutions[] = $solution;
+
+		if ( count( $solution ) < $count ) {
+
+			for ( $i = $call; $i < count( $options ); $i++ ) {
+				$solution[] = $options[$i];
+				self::genCombinations( $solutions, $solution, $options, $count, $i + 1 );
+				array_pop( $solution );
+			}
+		}
+	}
+
 	// @REF: https://github.com/kasparsd/numeric-shortlinks
 	const BIJECTION_DIC  = 'abcdefghijklmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789';
 	const BIJECTION_BASE = 57; // strlen( BIJECTION_DIC )
 
 	public static function encodeBijection( $id )
 	{
-		$slug = array();
+		$slug = [];
 		$dic  = static::BIJECTION_DIC;
 
 		while ( $id > 0 ) {

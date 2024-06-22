@@ -28,8 +28,11 @@ class Base
 		if ( ! $value = Text::trim( $value ) )
 			return TRUE;
 
-		// TODO: convert back numbers
-		// TODO: check empty types: html/dashes/
+		if ( ! $value = Number::translate( $value ) )
+			return TRUE;
+
+		// TODO: check empty types: html/dashes
+		// @see `WordPress\Strings::isEmpty()`
 
 		return FALSE;
 	}
@@ -429,5 +432,13 @@ class Base
 	public static function isError( $thing )
 	{
 		return ( ( $thing instanceof \WP_Error ) || ( $thing instanceof Error ) );
+	}
+
+	// NOTE: USAGE: `self::triggerError( __FUNCTION__, 'This is the Message' );`
+	public static function triggerError( $function_name, $message, $error_level = NULL )
+	{
+		return function_exists( 'wp_trigger_error' )
+			? wp_trigger_error( $function_name, $message, $error_level ?? E_USER_NOTICE )
+			: trigger_error( $message, $error_level ?? E_USER_NOTICE );
 	}
 }

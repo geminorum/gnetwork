@@ -381,7 +381,7 @@ class HTTP extends Base
 	}
 
 	// @REF: https://gist.github.com/tott/7684443#gistcomment-1645778
-	public static function checkIPRange($ip, $min, $max)
+	public static function checkIPRange( $ip, $min, $max )
 	{
 		return ( ip2long( $min ) < ip2long( $ip ) && ip2long( $ip ) < ip2long( $max ) );
 	}
@@ -408,7 +408,7 @@ class HTTP extends Base
 	 * 2. CIDR format:         1.2.3/24  OR  1.2.3.4/255.255.255.0
 	 * 3. Start-End IP format: 1.2.3.0-1.2.3.255
 	 *
-	 * Return value BOOLEAN : ip_in_range($ip, $range);
+	 * Return value BOOLEAN : ip_in_range( $ip, $range );
 	 *
 	 * Copyright 2008: Paul Gregg <pgregg@pgregg.com>
 	 * 10 January 2008

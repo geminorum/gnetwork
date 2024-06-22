@@ -241,7 +241,7 @@ class URL extends Base
 	// @SOURCE: https://gist.github.com/davejamesmiller/dbefa0ff167cc5c08d6d
 	public static function getRedirectTargetFinal( $url )
 	{
-		$ch = curl_init($url);
+		$ch = curl_init( $url );
 
 		curl_setopt( $ch, CURLOPT_NOBODY, 1 );
 		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 ); // follow redirects

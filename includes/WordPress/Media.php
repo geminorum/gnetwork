@@ -94,7 +94,7 @@ class Media extends Core\Base
 		preg_match( '/[^\?]+\.(' . implode( '|', array_map( 'preg_quote', $extensions ) ) . ')\b/i', $url, $matches );
 
 		if ( ! $matches )
-			return FALSE; // new WP_Error( 'image_sideload_failed', __( 'Invalid image URL.' ) );
+			return FALSE; // new \WP_Error( 'image_sideload_failed', __( 'Invalid image URL.' ) );
 
 		// download file to temp location
 		$file = [ 'tmp_name' => download_url( $url ) ];
@@ -131,7 +131,7 @@ class Media extends Core\Base
 
 		if ( $create ) {
 
-			if ( ! is_dir( $folder ) || ! wp_is_writable( $folder ) ) {
+			if ( ! is_dir( $folder ) || ! Core\File::writable( $folder ) ) {
 
 				if ( $htaccess )
 					Core\File::putHTAccessDeny( $folder, TRUE );
@@ -143,7 +143,7 @@ class Media extends Core\Base
 				Core\File::putHTAccessDeny( $folder, FALSE );
 			}
 
-			if ( ! wp_is_writable( $folder ) )
+			if ( ! Core\File::writable( $folder ) )
 				return FALSE;
 		}
 
@@ -181,7 +181,81 @@ class Media extends Core\Base
 		], $html );
 	}
 
+	public static function isCustom( $attachment_id )
+	{
+		if ( ! $attachment_id )
+			return FALSE;
+
+		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_header', TRUE ) )
+			return 'custom_header';
+
+		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_background', TRUE ) )
+			return 'custom_background';
+
+		if ( get_post_meta( $attachment_id, '_wp_attachment_is_term_image', TRUE ) )
+			return 'term_image';
+
+		if ( $attachment_id == get_option( 'site_icon' ) )
+			return 'site_icon';
+
+		if ( $attachment_id == get_theme_mod( 'site_logo' ) )
+			return 'site_logo';
+
+		return FALSE;
+	}
+
+	// PDF: 'application/pdf'
+	// MP3: 'audio/mpeg'
+	// CSV: 'application/vnd.ms-excel'
+	public static function selectAttachment( $selected = 0, $mime = NULL, $name = 'attach_id', $empty = '' )
+	{
+		$attachments = get_posts( array(
+			'post_type'      => 'attachment',
+			'numberposts'    => -1,
+			'post_status'    => NULL,
+			'post_mime_type' => $mime,
+			'post_parent'    => NULL,
+		) );
+
+		if ( empty( $attachments ) ) {
+			echo $empty;
+			return FALSE;
+		}
+
+		echo Core\HTML::dropdown(
+			Core\Arraay::reKey( $attachments, 'ID' ),
+			array(
+				'name'       => $name,
+				'none_title' => Settings::showOptionNone(),
+				'class'      => '-attachment',
+				'selected'   => $selected,
+				'prop'       => 'post_title',
+			)
+		);
+	}
+
+	/**
+	 * Retrieves post-ids with text containing given attachment.
+	 * NOTE: searches only for portion of the attached file
+	 * like: `2021/10/filename` where `filename.ext` is the filename
+	 *
+	 * @param  int  $attachment_id
+	 * @return array $post_ids
+	 */
+	public static function searchAttachment( $attachment_id )
+	{
+		if ( ! $file = get_post_meta( $attachment_id, '_wp_attached_file', TRUE ) )
+			return [];
+
+		$filetype = wp_check_filetype( Core\File::basename( $file ) );
+		$pathfile = Core\File::join( dirname( $file ), Core\File::basename( $file, '.'.$filetype['ext'] ) );
+
+		return PostType::getIDsBySearch( $pathfile );
+	}
+
 	// @REF: https://pippinsplugins.com/retrieve-attachment-id-from-image-url/
+	// NOTE: doesn't really work if the guid gets out of sync
+	// or if the URL you have is for a cropped image.
 	public static function getAttachmentByURL( $url )
 	{
 		global $wpdb;
@@ -203,6 +277,7 @@ class Media extends Core\Base
 	}
 
 	// @REF: https://wordpress.stackexchange.com/a/315447
+	// @SEE: `wp_prepare_attachment_for_js()`
 	public static function prepAttachmentData( $attachment_id )
 	{
 		if ( ! $attachment_id )
@@ -249,6 +324,19 @@ class Media extends Core\Base
 		return $format
 			? sprintf( $template ?? '<span class="-filesize">%s</span>', Core\HTML::wrapLTR( Core\File::formatSize( $filesize ) ) )
 			: $filesize;
+	}
+
+	public static function emptyAttachmentImageMeta( $attachment_id )
+	{
+		if ( ! $attachment_id )
+			return FALSE;
+
+		if ( ! $metadata = wp_get_attachment_metadata( $attachment_id ) )
+			return TRUE;
+
+		unset( $metadata['image_meta'] );
+
+		return wp_update_attachment_metadata( $attachment_id, $metadata );
 	}
 
 	public static function disableThumbnailGeneration()

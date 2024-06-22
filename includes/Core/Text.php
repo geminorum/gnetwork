@@ -117,6 +117,22 @@ class Text extends Base
 		return array_filter( (array) preg_split( '/\s/u', $text ), 'strlen' );
 	}
 
+	/**
+	 * Splits string by new line characters.
+	 *
+	 * @param  string $text
+	 * @return array  $lines
+	 */
+	public static function splitLines( $text )
+	{
+		if ( empty( $text ) )
+			return [];
+
+		$text = self::normalizeWhitespace( self::trim( $text ), TRUE );
+
+		return array_filter( array_map( [ __CLASS__, 'trim' ], preg_split( "/\r\n|\n|\r/", $text ) ) );
+	}
+
 	public static function stripNonNumeric( $text )
 	{
 		return preg_replace( '/[^0-9۰-۹۰-۹]/miu', '', $text );
@@ -396,6 +412,19 @@ class Text extends Base
 		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $text );
 	}
 
+	/**
+	 * Normalizes all line endings in this string by using a single unified
+	 * newline sequence (which may be specified manually)
+	 * @source https://github.com/delight-im/PHP-Str
+	 *
+	 * @param string|null $newlineSequence (optional) the target newline sequence to use
+	 * @return static a new instance of this class
+	 */
+	public static function normalizeLineEndings( $text, $newline = NULL )
+	{
+		return \preg_replace('/\R/u', $newline ?? "\n", $text );
+	}
+
 	public static function stripPrefix( $text, $prefix )
 	{
 		return 0 === strpos( $text, $prefix )
@@ -653,7 +682,7 @@ class Text extends Base
 			$m = $i > 0 && mb_substr( $title, max( 0, $i - 2 ), 1, 'UTF-8' ) !== ':' && preg_match(
 				'/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|t(he|o)|vs?\.?|via)[ \-]/i', $m
 			) ?	//…and convert them to lowercase
-				mb_strtolower ($m, 'UTF-8')
+				mb_strtolower( $m, 'UTF-8' )
 
 			// else: brackets and other wrappers
 			: (	preg_match( '/[\'"_{(\[‘“]/u', mb_substr( $title, max( 0, $i - 1 ), 3, 'UTF-8' ) )
@@ -1062,6 +1091,70 @@ class Text extends Base
 		return md5( $salt.$key );
 	}
 
+	/**
+	 * Generates limited Hash string.
+	 * @author Kyle Coots
+	 * @source https://stackoverflow.com/a/15193543
+	 *
+	 * Allow you to create a unique hash with a maximum value of 32.
+	 * Hash Gen uses phps substr, md5, uniqid, and rand to generate a unique
+	 * id or hash and allow you to have some added functionality.
+	 *
+	 * You can also supply a hash to be prefixed or appened
+	 * to the hash. hash[optional] is by default appened to the hash
+	 * unless the param prefix[optional] is set to prefix[true].
+	 *
+	 * @param  int    $start
+	 * @param  int    $end
+	 * @param  bool   $hash
+	 * @param  bool   $prefix
+	 * @return string $hashed
+	 */
+	public static function hashLimited( $start = NULL, $end = 0, $hash = FALSE, $prefix = FALSE )
+	{
+		if ( isset( $start, $end ) && FALSE === $hash ) {
+
+			// start IS set NO hash
+
+			$md_hash  = substr( md5( uniqid (rand(), TRUE ) ), $start, $end );
+			$new_hash = $md_hash;
+
+		} else if ( isset( $start, $end ) && FALSE !== $hash && FALSE === $prefix ) {
+
+			// start IS set WITH hash NOT prefixing
+
+			$md_hash  = substr( md5( uniqid( rand(), TRUE ) ), $start, $end );
+			$new_hash = $md_hash.$hash;
+
+		} else if ( ! isset( $start, $end ) && FALSE !== $hash && FALSE === $prefix ) {
+
+			// start NOT set WITH hash NOT prefixing
+
+			$md_hash  = md5( uniqid( rand(), TRUE ) );
+			$new_hash = $md_hash.$hash;
+
+		} else if ( isset( $start, $end ) && FALSE !== $hash && TRUE === $prefix ) {
+
+			// start IS set WITH hash IS prefixing
+
+			$md_hash  = substr( md5( uniqid( rand(), TRUE ) ), $start, $end );
+			$new_hash = $hash.$md_hash;
+
+		} else if ( ! isset( $start, $end ) && FALSE !== $hash && TRUE === $prefix ) {
+
+			// start NOT set WITH hash IS prefixing
+
+			$md_hash  = md5( uniqid( rand(), TRUE ) );
+			$new_hash = $hash.$md_hash;
+
+		} else {
+
+			$new_hash = md5( uniqid( rand(), TRUE ) );
+		}
+
+		return $new_hash;
+	}
+
 	// @SOURCE: `_deep_replace()`
 	public static function deepStrip( $search, $text )
 	{
@@ -1130,7 +1223,7 @@ class Text extends Base
 	}
 
 	// @REF: http://php.net/manual/en/function.fputcsv.php#87120
-	public static function toCSV( $data, $delimiter = ',', $enclosure = '"', $null = FALSE )
+	public static function toCSV( $data, $delimiter = ',', $enclosure = '"', $null = FALSE, $pipe = '|' )
 	{
 		$delimiter_esc = preg_quote( $delimiter, '/' );
 		$enclosure_esc = preg_quote( $enclosure, '/' );
@@ -1150,6 +1243,9 @@ class Text extends Base
 					$row[] = 'NULL';
 					continue;
 				}
+
+				if ( is_array( $field ) )
+					$field = implode( $pipe, $field );
 
 				$row[] = preg_match( "/(?:{$delimiter_esc}|{$enclosure_esc}|\s)/", $field )
 					? ( $enclosure.str_replace( $enclosure, $enclosure.$enclosure, $field ).$enclosure )
@@ -1328,7 +1424,7 @@ class Text extends Base
 			return mb_convert_encoding( $text, 'UTF-8', 'ISO-8859-1' );
 
 		if ( is_callable( [ 'UConverter', 'transcode' ] ) )
-			return UConverter::transcode( $text, 'UTF8', 'ISO-8859-1' );
+			return \UConverter::transcode( $text, 'UTF8', 'ISO-8859-1' );
 
 		if ( function_exists( 'iconv' ) )
 			return iconv( 'ISO-8859-1', 'UTF-8', $text );
@@ -1392,5 +1488,25 @@ class Text extends Base
 		];
 
 		return html_entity_decode( mb_convert_encoding( strtr( $text, $map ), 'UTF-8', 'ISO-8859-2' ), ENT_QUOTES, 'UTF-8' );
+	}
+
+	/**
+	 * Tries to decode all entities.
+	 * @source https://www.php.net/manual/en/function.html-entity-decode.php#117876
+	 *
+	 * I've checked these special entities:
+	 * - double quotes (&#34;)
+	 * - single quotes (&#39; and &apos;)
+	 * - non printable chars (e.g. &#13;)
+	 * With other $flags some or all won't be decoded.
+	 *
+	 * It seems that ENT_XML1 and ENT_XHTML are identical when decoding.
+	 *
+	 * @param  string $text
+	 * @return string $decoded
+	 */
+	public static function decodeEntities( $text )
+	{
+		return html_entity_decode( $text, ENT_QUOTES | ENT_XML1, 'UTF-8' );
 	}
 }

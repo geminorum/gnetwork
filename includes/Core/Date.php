@@ -167,8 +167,8 @@ class Date extends Base
 
 		$tz    = new \DateTimeZone( $timezone );
 		$year  = Number::intval( wp_date( 'Y', $timestamp, $tz ), FALSE );
-		$start = $year - ( $year % 10 ) - ($year % 10 ? 0 : 10);
-		$end   = $year - ( $year % 10 ) + ($year % 10 ? 10 : 0);
+		$start = $year - ( $year % 10 ) - ( $year % 10 ? 0 : 10 );
+		$end   = $year - ( $year % 10 ) + ( $year % 10 ? 10 : 0 );
 
 		return $extended ? [
 			'year'  => $year,

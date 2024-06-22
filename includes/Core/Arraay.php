@@ -473,7 +473,8 @@ class Arraay extends Base
 	/**
 	 * Polyfill for `array_is_list()` function added in PHP 8.1.
 	 * Determines if the given array is a list.
-	 * An array is considered a list if its keys consist of consecutive numbers from 0 to count($array)-1.
+	 * An array is considered a list if its keys consist of consecutive
+	 * numbers from `0` to `count( $array ) - 1`.
 	 * @see https://github.com/symfony/polyfill-php81/tree/main
 	 *
 	 * @param array $array The array being evaluated.
@@ -856,7 +857,7 @@ class Arraay extends Base
 		$marked    = 0;
 
 		for ( $i = 0; $i < $columns; $i++ ) {
-			$increase = ($i < $remains) ? $length + 1 : $length;
+			$increase = ( $i < $remains ) ? $length + 1 : $length;
 			$partition[$i] = array_slice( $array, $marked, $increase );
 			$marked += $increase;
 		}
