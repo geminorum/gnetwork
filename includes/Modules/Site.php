@@ -71,7 +71,7 @@ class Site extends gNetwork\Module
 			'denied_message'    => '',
 			'denied_extra'      => '',
 			'list_sites'        => '1',
-			'lookup_ip_service' => 'https://redirect.li/map/?ip=%s',
+			'lookup_ip_service'      => '',   // `https://redirect.li/ip/?ip=%s`
 		];
 	}
 
@@ -157,7 +157,7 @@ class Site extends gNetwork\Module
 			'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', 'gnetwork' ),
 			/* translators: %s: `%s` placeholder */
 			'description' => sprintf( _x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', 'gnetwork' ), '<code>%s</code>' ),
-			'default'     => 'https://redirect.li/map/?ip=%s',
+			'placeholder' => 'https://redirect.li/ip/?ip=%s',
 			'dir'         => 'ltr',
 			'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], HTTP::IP() ) ) : '',
 		];

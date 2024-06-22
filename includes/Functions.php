@@ -34,7 +34,7 @@ if ( ! function_exists( 'gnetwork_ip_lookup' ) ) :
 		if ( ! $ip )
 			return $ip;
 
-		if ( $service = gNetwork()->option( 'lookup_ip_service', 'site', 'https://redirect.li/map/?ip=%s' ) )
+		if ( $service = gNetwork()->option( 'lookup_ip_service', 'site', 'https://redirect.li/ip/?ip=%s' ) )
 			return \geminorum\gNetwork\Core\HTML::tag( 'a', [
 				'href'   => sprintf( $service, $ip ),
 				'class'  => '-ip-lookup',
