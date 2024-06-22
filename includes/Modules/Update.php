@@ -15,6 +15,7 @@ class Update extends gNetwork\Module
 {
 
 	// TODO: filter `file_mod_allowed` for non super admins
+	// TODO: re-install mechanisem!
 
 	protected $key        = 'update';
 	protected $front      = FALSE;

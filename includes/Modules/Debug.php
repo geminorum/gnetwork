@@ -680,7 +680,7 @@ class Debug extends gNetwork\Module
 		$available = [];
 
 		foreach ( $tools as $tool )
-			$available[strtoupper($tool)] = @is_readable( $path.$tool ) ? $path.$tool : FALSE;
+			$available[strtoupper( $tool )] = @is_readable( $path.$tool ) ? $path.$tool : FALSE;
 
 		echo HTML::tableCode( $available );
 

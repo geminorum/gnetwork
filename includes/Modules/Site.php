@@ -107,7 +107,7 @@ class Site extends gNetwork\Module
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) ) {
-			$settings['_general'][] = [
+			$settings['_locale'][] = [
 				'field'       => 'admin_locale',
 				'type'        => 'select',
 				'title'       => _x( 'Network Locale', 'Modules: Site: Settings', 'gnetwork' ),

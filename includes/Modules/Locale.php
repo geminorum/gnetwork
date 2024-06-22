@@ -70,11 +70,13 @@ class Locale extends gNetwork\Module
 		return self::getDefault( $locale );
 	}
 
+	// TODO: must convert to regex
 	private function get_bypassed_domains( $context = NULL )
 	{
 		return (array) $this->filters( 'bypassed_domains', [
 			'gnetwork',
 			'geditorial',
+			'geditorial-admin',
 			'gpersiandate',
 			'gpeople',
 			'gplugin',
@@ -492,6 +494,11 @@ class Locale extends gNetwork\Module
 			'idehweb-lwp'              => 'page',
 			'idehweb-lwp-styles'       => 'page',
 			'idehweb-lwp-localization' => 'page',
+
+			'perflab-server-timing' => 'page',
+
+			// [WP Table Pixie](https://wordpress.org/plugins/wp-table-pixie/)
+			'wp-table-pixie' => 'page',
 
 		], $current );
 

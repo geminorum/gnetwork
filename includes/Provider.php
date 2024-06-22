@@ -309,7 +309,7 @@ class Provider extends Core\Base
 				Logger::ERROR( 'SOAP-FAILED: {provider}: {params} - {fault}', [
 					'provider' => $this->key,
 					'params'   => $params,
-					'fault'  => $e->faultstring,
+					'fault'    => $e->faultstring,
 				] );
 
 			return new Error( 'soap_fault', $e->faultstring );
@@ -395,7 +395,7 @@ class Provider extends Core\Base
 	}
 
 	// FIXME: DRAFT
-	protected function wp_remote_post( $args = [] )
+	protected function wp_remote_post( $url, $args = [] )
 	{
 		$response = wp_remote_post( $url, [
 			'method'      => 'POST',

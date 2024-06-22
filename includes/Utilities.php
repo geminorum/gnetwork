@@ -621,7 +621,7 @@ class Utilities extends Core\Base
 
 		} else if ( $option ) {
 
-			if ( ! is_dir( $constant ) || ! wp_is_writable( $constant ) ) {
+			if ( ! is_dir( $constant ) || ! Core\File::writable( $constant ) ) {
 
 				Core\HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
 
@@ -647,7 +647,7 @@ class Utilities extends Core\Base
 
 	public static function emptyDataLogs( $path )
 	{
-		if ( ! is_dir( $path ) || ! wp_is_writable( $path ) )
+		if ( ! is_dir( $path ) || ! Core\File::writable( $path ) )
 			echo Core\HTML::error( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
 
 		else
