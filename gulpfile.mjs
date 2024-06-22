@@ -287,7 +287,13 @@ task('build:banner', function () {
 });
 
 task('build:copy', function () {
-  return src(conf.input.final, { base: '.' })
+  return src(conf.input.final, {
+    base: '.',
+    allowEmpty: true,
+    buffer: true,
+    encoding: false,
+    removeBOM: false
+  })
     .pipe(dest(conf.output.ready + pkg.name));
 });
 
@@ -297,7 +303,12 @@ task('build:clean', function (done) {
 });
 
 task('build:zip', function () {
-  return src(conf.input.ready)
+  return src(conf.input.ready, {
+    allowEmpty: true,
+    buffer: true,
+    encoding: false,
+    removeBOM: false
+  })
     .pipe(zip(pkg.name + '-' + pkg.version + '.zip'))
     .pipe(dest(conf.output.final));
 });
