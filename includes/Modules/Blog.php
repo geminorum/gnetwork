@@ -7,6 +7,7 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\Crypto;
 use geminorum\gNetwork\Core\File;
@@ -664,6 +665,27 @@ class Blog extends gNetwork\Module
 		@set_time_limit( 0 );
 
 		self::define( 'GNETWORK_IS_WP_EXPORT', TRUE );
+
+		$this->filter( 'export_wp_filename', 3, 12 );
+		$this->filter( 'wxr_export_skip_postmeta', 3, 12 );
+	}
+
+	public function export_wp_filename( $filename, $sitename, $date )
+	{
+		return Core\File::prepName( sprintf( '%s.xml', self::req( 'content', 'all' ) ) );
+	}
+
+	public function wxr_export_skip_postmeta( $skip, $metakey, $metaobject )
+	{
+		return in_array( $metakey, [
+			'_edit_last',
+			'_edit_lock',
+			'_wp_old_date',
+			'_wp_old_slug',
+			'_pingme',
+			'_encloseme',
+			'_trackbackme',
+		], TRUE ) ? TRUE : $skip;
 	}
 
 	public function wp_headers( $headers )
