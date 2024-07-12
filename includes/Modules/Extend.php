@@ -12,6 +12,8 @@ use geminorum\gNetwork\WordPress\SwitchSite;
 class Extend extends gNetwork\Module
 {
 
+	// https://wordpress.org/plugins/meks-quick-plugin-disabler/
+
 	protected $key = 'extend';
 
 	protected function setup_actions()

@@ -3,15 +3,15 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Logger;
-use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 
 class Mail extends gNetwork\Module
 {
@@ -324,7 +324,7 @@ class Mail extends gNetwork\Module
 
 	public function wp_mail_from( $email )
 	{
-		if ( 0 === strpos( $email, 'wordpress@' ) )
+		if ( Core\Text::starts( $email, 'wordpress@' ) )
 			$email = $this->get_from_email( $email );
 
 		return $this->filters( 'from_email', $email );
@@ -332,7 +332,7 @@ class Mail extends gNetwork\Module
 
 	public function wp_mail_from_name( $name )
 	{
-		if ( 0 === strpos( $name, 'WordPress' ) )
+		if ( Core\Text::starts( $name, 'WordPress' ) )
 			$name = $this->get_from_name( $name );
 
 		return $this->filters( 'from_name', $name );

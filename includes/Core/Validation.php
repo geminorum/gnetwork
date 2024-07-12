@@ -58,6 +58,9 @@ class Validation extends Base
 			'.',
 			'-',
 			'#',
+			'|',
+			'(',
+			')',
 		], '', $sanitized ) );
 
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {

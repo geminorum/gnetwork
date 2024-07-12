@@ -1297,7 +1297,7 @@ class Taxonomy extends gNetwork\Module
 				$callback = $this->filters( 'bulk_callback', [ $this, 'handle_'.$key ], $key, $taxonomy );
 
 				if ( $callback && is_callable( $callback ) )
-					return call_user_func( $callback, $term_ids, $taxonomy, $key );
+					return \call_user_func_array( $callback, [ $term_ids, $taxonomy, $key ] );
 			}
 		}
 
@@ -1525,7 +1525,7 @@ class Taxonomy extends gNetwork\Module
 		return TRUE;
 	}
 
-	public function handle_merge( $term_ids, $taxonomy, $to = NULL )
+	public function handle_merge( $term_ids, $taxonomy, $action = 'merge', $to = NULL )
 	{
 		if ( ! ( $target = $to ?? self::req( $this->classs( 'bulk-merge' ) ) ) )
 			return FALSE;
@@ -1709,7 +1709,7 @@ class Taxonomy extends gNetwork\Module
 			$wpdb->query( "UPDATE {$wpdb->term_taxonomy} SET parent = 0 WHERE term_taxonomy_id IN ({$string})" );
 
 		foreach ( $merging as $merge_source => $merge_target )
-			$this->handle_merge( $merge_source, $new_tax, $merge_target );
+			$this->handle_merge( $merge_source, $new_tax, 'merge', $merge_target );
 
 		clean_term_cache( $tt_ids, $old_tax, FALSE );
 		clean_term_cache( $tt_ids, $new_tax, FALSE );

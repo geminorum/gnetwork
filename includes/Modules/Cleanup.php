@@ -905,7 +905,7 @@ class Cleanup extends gNetwork\Module
 		] : 'nochange';
 	}
 
-	// public-static is for `_core_updated_successfully` hook
+	// public/static is for `_core_updated_successfully` hook
 	public static function files_clean_core( $message = FALSE )
 	{
 		$count = 0;

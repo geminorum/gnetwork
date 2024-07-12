@@ -262,16 +262,18 @@ class Utilities extends Core\Base
 		static $formats;
 
 		if ( empty( $formats ) )
-			$formats = apply_filters( 'custom_date_formats', [
-				'fulltime'  => _x( 'l, M j, Y @ H:i', 'Date Format', 'gnetwork' ),
-				'datetime'  => _x( 'M j, Y @ G:i', 'Date Format', 'gnetwork' ),
-				'dateonly'  => _x( 'l, F j, Y', 'Date Format', 'gnetwork' ),
-				'timedate'  => _x( 'H:i - F j, Y', 'Date Format', 'gnetwork' ),
-				'timeampm'  => _x( 'g:i a', 'Date Format', 'gnetwork' ),
-				'timeonly'  => _x( 'H:i', 'Date Format', 'gnetwork' ),
-				'monthday'  => _x( 'n/j', 'Date Format', 'gnetwork' ),
-				'default'   => _x( 'm/d/Y', 'Date Format', 'gnetwork' ),
-				'age'       => _x( 'Y/m/d', 'Date Format: `age`', 'gnetwork' ),
+			$formats = apply_filters( static::BASE.'_custom_date_formats', [
+				'age'      => _x( 'm/d/Y', 'Date Format: `age`', 'gnetwork' ),
+				'dateonly' => _x( 'l, F j, Y', 'Date Format: `dateonly`', 'gnetwork' ),
+				'datetime' => _x( 'M j, Y @ G:i', 'Date Format: `datetime`', 'gnetwork' ),
+				'default'  => _x( 'm/d/Y', 'Date Format: `default`', 'gnetwork' ),
+				'fulltime' => _x( 'l, M j, Y @ H:i', 'Date Format: `fulltime`', 'gnetwork' ),
+				'monthday' => _x( 'n/j', 'Date Format: `monthday`', 'gnetwork' ),
+				'print'    => _x( 'j/n/Y', 'Date Format: `print`', 'gnetwork' ),
+				'timeampm' => _x( 'g:i a', 'Date Format: `timeampm`', 'gnetwork' ),
+				'timedate' => _x( 'H:i - F j, Y', 'Date Format: `timedate`', 'gnetwork' ),
+				'timeonly' => _x( 'H:i', 'Date Format: `timeonly`', 'gnetwork' ),
+
 				'wordpress' => get_option( 'date_format' ),
 			] );
 
