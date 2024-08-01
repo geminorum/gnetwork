@@ -534,7 +534,7 @@ class HTML extends Base
 
 	public static function tableSimple( $data, $columns = [], $verbose = TRUE, $class = '' )
 	{
-		$html = '<table class="'.self::prepClass( 'base-table-simple', $class ).'">';
+		$html = '<div class="wrap-base-table-simple"><table class="'.self::prepClass( 'base-table-simple', $class ).'">';
 
 		if ( $columns && count( $columns ) ) {
 
@@ -550,7 +550,7 @@ class HTML extends Base
 				$html.= sprintf( '<tr data-key="%s">', $id );
 
 				foreach ( $columns as $column_key => $column_caption )
-					$html.= sprintf( '<td data-key="%s">%s</td>', $column_key, trim( $row[$column_key] ) );
+					$html.= sprintf( '<td data-key="%s">%s</td>', $column_key, empty( $row[$column_key] ) ? '' : trim( $row[$column_key] ) );
 
 				$html.= '</tr>';
 			}
@@ -563,7 +563,7 @@ class HTML extends Base
 				$html.= '<tr><td>'.implode( '</td><td>', $row ).'</td></tr>';
 		}
 
-		$html.= '</tbody></table>';
+		$html.= '</tbody></table></div>';
 
 		if ( ! $verbose )
 			return $html;

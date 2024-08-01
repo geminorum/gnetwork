@@ -19,6 +19,9 @@ class Strings extends Core\Base
 
 	public static function isEmpty( $string, $empties = NULL )
 	{
+		if ( self::empty( $string ) )
+			return TRUE;
+
 		if ( ! is_string( $string ) )
 			return FALSE;
 
@@ -29,7 +32,9 @@ class Strings extends Core\Base
 
 		if ( is_null( $empties ) )
 			$empties = [
-				'0', '00', '000', '0000', '00000', '000000',
+				"'", "''", "'''", "''''", "'''''", "''''''",
+				'"', '""', '"""', '""""', '"""""', '""""""',
+				'0', '00', '000', '0000', '00000', '000000','0000000','00000000','000000000','0000000000','00000000000','000000000000',
 				'*', '**', '***', '****', '*****', '******',
 				'…', '……', '………', '…………', '……………', '………………',
 				'.', '..', '...', '....', '.....', '......',
@@ -44,7 +49,7 @@ class Strings extends Core\Base
 				'null', 'NULL', 'Null',
 				'false', 'FALSE', 'False',
 				'zero', 'ZERO', 'Zero',
-				'ندارد',
+				'ندارد', 'نامعلوم', 'هيچكدام',
 			];
 
 		foreach ( (array) $empties as $empty )

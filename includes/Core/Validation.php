@@ -48,31 +48,7 @@ class Validation extends Base
 
 	public static function sanitizePhoneNumber( $input )
 	{
-		$sanitized = Number::translate( Text::trim( $input ) );
-
-		if ( ! self::isPhoneNumber( $sanitized ) )
-			return '';
-
-		$sanitized = trim( str_ireplace( [
-			' ',
-			'.',
-			'-',
-			'#',
-			'|',
-			'(',
-			')',
-		], '', $sanitized ) );
-
-		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
-
-			if ( preg_match( '/^0\d{10}$/', $sanitized ) )
-				$sanitized = sprintf( '+98%s', ltrim( $sanitized, '0' ) );
-
-			else if ( preg_match( '/^[1-9]{1}\d{7}$/', $sanitized ) )
-				$sanitized = sprintf( '+9821%s', $sanitized ); // WTF: Tehran prefix!
-		}
-
-		return $sanitized;
+		return Phone::sanitize( $input );
 	}
 
 	public static function isPhoneNumber( $input )
@@ -88,28 +64,7 @@ class Validation extends Base
 
 	public static function sanitizeMobileNumber( $input )
 	{
-		$sanitized = Number::translate( Text::trim( $input ) );
-
-		if ( ! self::isMobileNumber( $sanitized ) )
-			return '';
-
-		$sanitized = trim( str_ireplace( [
-			' ',
-			'.',
-			'-',
-			'#',
-		], '', $sanitized ) );
-
-		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
-
-			if ( preg_match( '/^9\d{9}$/', $sanitized ) )
-				$sanitized = sprintf( '+98%s', $sanitized );
-
-			else if ( preg_match( '/^09\d{9}$/', $sanitized ) )
-				$sanitized = sprintf( '+98%s', ltrim( $sanitized, '0' ) );
-		}
-
-		return $sanitized;
+		return Phone::sanitize( $input );
 	}
 
 	public static function isMobileNumber( $input )
@@ -246,11 +201,20 @@ class Validation extends Base
 		return ( 98 - $checksum ) == $check;
 	}
 
+	public static function getCardNumberHTMLPattern()
+	{
+		return FALSE; // FIXME!
+	}
+
 	public static function sanitizeCardNumber( $input )
 	{
 		$sanitized = Number::translate( Text::trim( $input ) );
 
-		if ( ! self::isCardNumber( $sanitized ) )
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' )
+			&& ! self::isIranCardNumber( $sanitized ) )
+			return '';
+
+		else if ( ! self::isCardNumber( $sanitized ) )
 			return '';
 
 		return $sanitized;
@@ -277,4 +241,85 @@ class Validation extends Base
 
         return $sum % 10 == 0;
     }
+
+	// @REF https://www.webhostingtalk.ir/showthread.php?t=202847
+	public static function isIranCardNumber( $input, $iranian = TRUE )
+	{
+		$input  = (string) preg_replace( '/\D/','',$input );
+		$strlen = strlen( $input );
+
+		if ( $iranian && 16 !== $strlen )
+			return FALSE;
+
+		if ( ! $iranian && ( $strlen < 13 || $strlen > 19 ) )
+			return FALSE;
+
+		if ( ! in_array( $input[0], [ 2, 4, 5, 6, 9 ] ) )
+			return FALSE;
+
+		for ( $i = 0; $i < $strlen; $i++ ) {
+
+			$res[$i] = $input[$i];
+
+			if ( ( $strlen % 2 ) == ( $i % 2 ) ) {
+				$res[$i] *= 2;
+
+				if ( $res[$i] > 9 )
+					$res[$i] -= 9;
+			}
+		}
+
+		return array_sum( $res ) % 10 == 0;
+	}
+
+	public static function sanitizeVIN( $input )
+	{
+		$sanitized = Number::translate( Text::trim( $input ) );
+		$sanitized = strtoupper( str_replace( ' ', '', $sanitized ) );
+
+		if ( ! self::isVIN( $sanitized ) )
+			return '';
+
+		return $sanitized;
+	}
+
+	public static function isVIN( $input )
+	{
+		if ( self::empty( $input ) )
+			return FALSE;
+
+		$input = strtoupper( str_replace( ' ', '', $input ) );
+
+		if ( 17 !== strlen( $input ) )
+			return FALSE;
+
+		if ( ! preg_match( '/^[a-zA-Z0-9]{9}[a-zA-Z0-9-]{2}[0-9]{6}$/', $input ) )
+			return FALSE;
+
+		return TRUE;
+	}
+
+	public static function getVINHTMLPattern()
+	{
+		return FALSE; // FIXME!
+	}
+
+	public static function sanitizeCountry( $input, $skip_base = FALSE )
+	{
+		if ( self::empty( $input ) )
+			return '';
+
+		$sanitized = strtoupper( str_replace( ' ', '', $input ) );
+
+		if ( ! $skip_base )
+			return $sanitized;
+
+		if ( FALSE !== ( $country = Base::const( 'GCORE_DEFAULT_COUNTRY_CODE', FALSE ) ) )
+			return $sanitized;
+
+		if ( $country === $sanitized )
+			return '';
+
+		return $sanitized;
+	}
 }

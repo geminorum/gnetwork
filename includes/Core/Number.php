@@ -198,33 +198,23 @@ class Number extends Base
 	/**
 	 * Converts back number chars into English.
 	 *
-	 * @param  int|string $text
-	 * @param  bool       $force
-	 * @return int|string $number
+	 * @param  int|string $input
+	 * @return int        $number
 	 */
-	public static function intval( $text, $force = TRUE )
+	public static function intval( $input )
 	{
-		// $number = apply_filters( 'string_format_i18n_back', $text );
-		// $number = Orthography::translateNumbersBack( $text );
-		$number = self::translate( $text );
-
-		return $force ? (int) $number : $number;
+		return (int) self::translate( Text::trim( $input ) );
 	}
 
 	/**
 	 * Converts back number chars into English.
 	 *
-	 * @param  int|string $text
-	 * @param  bool       $force
-	 * @return int|string $number
+	 * @param  int|float|string $input
+	 * @return float            $number
 	 */
-	public static function floatval( $text, $force = TRUE )
+	public static function floatval( $input )
 	{
-		// $number = apply_filters( 'string_format_i18n_back', $text );
-		// $number = Orthography::translateNumbersBack( $text );
-		$number = self::translate( $text );
-
-		return $force ? (float) $number : $number;
+		return (float) self::translate( Text::trim( $input ) );
 	}
 
 	/**
@@ -273,6 +263,18 @@ class Number extends Base
 	public static function zeroise( $number, $threshold, $locale = NULL )
 	{
 		return sprintf( '%0'.$threshold.'s', $number );
+	}
+
+	/**
+	 * Removes all leading zeroes in a string.
+	 * @source https://stackoverflow.com/a/30622697
+	 *
+	 * @param  string $zeroised
+	 * @return string $number
+	 */
+	public static function notZeroise( $zeroised )
+	{
+		return preg_replace( '/^0+/', '', self::translate( $zeroised ) );
 	}
 
 	public static $readable_suffix = array(
@@ -537,5 +539,22 @@ class Number extends Base
 		}
 
 		return $r - 1;
+	}
+
+	/**
+	 * Checks if number is repeated, e.g. `5555555555` given length.
+	 *
+	 * @param  int  $number
+	 * @param  int  $length
+	 * @return bool $repeated
+	 */
+	public static function repeated( $number, $length = 10 )
+	{
+		if ( FALSE !== array_search( $number, array_map( function ( $i ) use ( $length ) {
+			return str_repeat( $i, $length );
+		}, range( 0, 9 ) ) ) )
+			return TRUE;
+
+		return FALSE;
 	}
 }

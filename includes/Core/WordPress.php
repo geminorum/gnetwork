@@ -175,11 +175,13 @@ class WordPress extends Base
 		return function_exists( 'is_ssl' ) ? is_ssl() : FALSE;
 	}
 
-	// @REF: `wc_site_is_https()`
-	// @SEE: `wp_is_using_https()` @since WP 5.7.0
 	public static function siteIsHTTPS()
 	{
-		return FALSE !== strstr( get_option( 'home' ), 'https:' );
+		if ( function_exists( 'wp_is_using_https' ) )
+			return wp_is_using_https(); // @since WP 5.7.0
+
+		return 'https' === wp_parse_url( home_url(), PHP_URL_SCHEME );  // @source: `wp_is_home_url_using_https()`
+		// return FALSE   !== strstr( get_option( 'home' ), 'https:' );    // @source: `wc_site_is_https()`
 	}
 
 	public static function isImporting()
@@ -288,6 +290,16 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 			$url = add_query_arg( $message, self::getReferer() );
 		else
 			$url = add_query_arg( $key, $message, self::getReferer() );
+
+		self::redirect( $url );
+	}
+
+	public static function redirectURL( $location, $message = 'updated', $key = 'message' )
+	{
+		if ( is_array( $message ) )
+			$url = add_query_arg( $message, $location );
+		else
+			$url = add_query_arg( $key, $message, $location );
 
 		self::redirect( $url );
 	}

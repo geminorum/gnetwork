@@ -246,7 +246,7 @@ class Taxonomy extends Core\Base
 			$types = (array) $object->object_type;
 
 			foreach ( $types as &$type )
-				if ( 0 === strpos( $type, 'attachment:' ) )
+				if ( Core\Text::starts( $type, 'attachment:' ) )
 					list( $type ) = explode( ':', $type );
 
 			if ( array_filter( $types, 'post_type_exists' ) == $types )
@@ -747,7 +747,7 @@ class Taxonomy extends Core\Base
 	}
 
 	// NOTE: hits cached terms for the post
-	public static function getPostTerms( $taxonomy, $post = NULL, $object = TRUE, $key = FALSE )
+	public static function getPostTerms( $taxonomy, $post = NULL, $object = TRUE, $key = FALSE, $index_key = NULL )
 	{
 		$terms = get_the_terms( $post, $taxonomy );
 
@@ -755,7 +755,7 @@ class Taxonomy extends Core\Base
 			return [];
 
 		if ( ! $object )
-			return Core\Arraay::pluck( $terms, $key ?: 'term_id' );
+			return Core\Arraay::pluck( $terms, $key ?: 'term_id', $index_key );
 
 		if ( $key )
 			return Core\Arraay::reKey( $terms, $key );

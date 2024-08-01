@@ -11,7 +11,7 @@ class Arraay extends Base
 			return $value ? (array) $value : [];
 		}, func_get_args() );
 
-		return empty( $args ) ? [] : array_values( array_unique( array_filter( array_map( 'trim', array_merge( ...$args ) ) ) ) );
+		return empty( $args ) ? [] : array_values( array_unique( array_filter( array_map( [ __NAMESPACE__.'\\Text', 'trim' ], array_merge( ...$args ) ) ) ) );
 	}
 
 	public static function prepNumeral()
@@ -20,7 +20,7 @@ class Arraay extends Base
 			return $value ? (array) $value : [];
 		}, func_get_args() );
 
-		return empty( $args ) ? [] : array_values( array_unique( array_filter( array_map( 'intval', array_merge( ...$args ) ) ) ) );
+		return empty( $args ) ? [] : array_values( array_unique( array_filter( array_map( [ __NAMESPACE__.'\\Number', 'intval' ], array_merge( ...$args ) ) ) ) );
 	}
 
 	public static function prepSplitters( $text, $default = '|' )
@@ -223,12 +223,12 @@ class Arraay extends Base
 	}
 
 	// @REF: http://stackoverflow.com/a/11026840#comment44080768_11026840
-	public static function stripByValue( $array, $value )
+	public static function stripByValue( $array, $value, $strict = FALSE )
 	{
 		if ( empty( $array ) || empty( $value ) )
 			return $array;
 
-		return array_diff_key( $array, array_flip( array_keys( $array, $value ) ) );
+		return array_diff_key( $array, array_flip( array_keys( $array, $value, $strict ) ) );
 	}
 
 	//@RF: https://stackoverflow.com/a/11026840
@@ -245,7 +245,7 @@ class Arraay extends Base
 	public static function keepByKeys( $array, $keys )
 	{
 		if ( empty( $array ) || empty( $keys ) )
-			return $array;
+			return [];
 
 		return array_intersect_key( $array, array_flip( $keys ) );
 	}
@@ -253,7 +253,7 @@ class Arraay extends Base
 	public static function keepByValue( $array, $values )
 	{
 		if ( empty( $array ) || empty( $values ) )
-			return $array;
+			return [];
 
 		return array_intersect( $array, $values );
 	}
@@ -720,12 +720,55 @@ class Arraay extends Base
 			$array = [];
 
 			foreach ( $object as $key => $value )
-				$array[$key] = ( \is_array( $value ) || \is_object( $value ) ) ? self::fromObject( $value ) : $value;
+				$array[$key] = ( \is_array( $value ) || \is_object( $value ) )
+					? self::fromObject( $value )
+					: $value;
 
 			return $array;
 		}
 
 		return $object;
+	}
+
+	/**
+	 * Converts all applicable objects into associative array.
+	 * @source https://www.php.net/manual/en/function.xml-parse.php#97556
+	 * @example `XML::objectsInto( simplexml_load_string( file_get_contents( 'feed.xml' ) ) );`
+	 *
+	 * This works with not only SimpleXML but any kind of object.
+	 * The input can be either array or object. This function also
+	 * takes an options parameter as array of indices to be excluded
+	 * in the return array. And keep in mind, this returns only the
+	 * array of non-static and accessible variables of the object
+	 * since using the function `get_object_vars()`.
+	 *
+	 * @param  object $object
+	 * @param  array  $arrSkipIndices
+	 * @return array  $array
+	 */
+	public static function objectsInto( $object, $arrSkipIndices = [] )
+	{
+		$array = [];
+
+		// if input is object, convert into array
+		if ( is_object( $object ) )
+			$object = get_object_vars( $object );
+
+		if ( is_array( $object ) ) {
+
+			foreach ( $object as $index => $value ) {
+
+				if ( is_object( $value ) || is_array( $value ) )
+					$value = self::objectsInto( $value, $arrSkipIndices ); // recursive call
+
+				if ( in_array( $index, $arrSkipIndices ) )
+					continue;
+
+				$array[$index] = $value;
+			}
+		}
+
+		return $array;
 	}
 
 	/**
