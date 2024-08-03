@@ -110,6 +110,13 @@ class Optimize extends gNetwork\Module
 		remove_filter( 'comment_text', 'make_clickable', 9 );
 		remove_filter( 'comment_text', 'capital_P_dangit', 31 );
 
+		// to avoid the URL rewriting logic from running unnecessarily
+		// @REF: https://make.wordpress.org/core/2021/02/22/improved-https-detection-and-migration-in-wordpress-5-7/
+		remove_filter( 'the_content', 'wp_replace_insecure_home_url' );
+		remove_filter( 'the_excerpt', 'wp_replace_insecure_home_url' );
+		remove_filter( 'widget_text_content', 'wp_replace_insecure_home_url' );
+		remove_filter( 'wp_get_custom_css', 'wp_replace_insecure_home_url' );
+
 		foreach ( [
 			'the_content',
 			'the_title',
