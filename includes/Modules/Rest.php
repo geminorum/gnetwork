@@ -134,12 +134,14 @@ class Rest extends gNetwork\Module
 			return [];
 
 		$rendered = [];
+		$user_id  = get_current_user_id();
 		$ignored  = $this->filters( 'terms_rendered_ignored', [ 'post_format' ], $post, $object_type );
 
 		foreach ( get_object_taxonomies( $object_type, 'objects' ) as $taxonomy ) {
 
-			if ( ! is_taxonomy_viewable( $taxonomy ) )
-				continue;
+			if ( ! is_taxonomy_viewable( $taxonomy )
+				&& ! WPTaxonomy::can( $taxonomy, 'assign_terms', $user_id ) )
+					continue;
 
 			if ( in_array( $taxonomy->name, $ignored, TRUE ) )
 				continue;
