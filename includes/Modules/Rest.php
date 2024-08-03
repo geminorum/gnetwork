@@ -130,6 +130,9 @@ class Rest extends gNetwork\Module
 
 	public function terms_rendered_get_callback( $post, $attr, $request, $object_type )
 	{
+		if ( empty( $post['id'] ) )
+			return [];
+
 		$rendered = [];
 		$ignored  = $this->filters( 'terms_rendered_ignored', [ 'post_format' ], $post, $object_type );
 
