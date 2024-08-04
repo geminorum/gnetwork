@@ -693,11 +693,14 @@ class Cleanup extends gNetwork\Module
 	}
 
 	// @REF: https://www.speakinginbytes.com/2013/02/delete-orphaned-post-meta-data-in-wordpress/
+	// @REF: https://mehulgohil.com/blog/orphaned-data/
 	private function postmeta_orphaned()
 	{
 		global $wpdb;
 
 		// $count = $wpdb->query( "DELETE FROM {$wpdb->postmeta} AS meta LEFT JOIN {$wpdb->posts} AS posts ON posts.ID = meta.post_id WHERE posts.ID IS NULL" );
+		// $count = $wpdb->query( "DELETE pm FROM {$wpdb->postmeta} pm LEFT JOIN {$wpdb->posts} wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL" );
+		// $count = $wpdb->query( "SELECT pm.* FROM {$wpdb->postmeta} pm LEFT JOIN {$wpdb->posts} wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL;" );
 		$count = $wpdb->query( "DELETE pm FROM {$wpdb->postmeta} pm LEFT JOIN {$wpdb->posts} wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );

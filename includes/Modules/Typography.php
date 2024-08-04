@@ -276,8 +276,8 @@ class Typography extends gNetwork\Module
 					// TODO: must warn for customized slugs
 					// TODO: title attr for more info
 					return HTML::tag( 'code', urldecode( $row->post_name ) )
-						.'<br />'.HTML::tag( 'code', urldecode( Text::formatSlug( Number::intval( $row->post_title, FALSE ) ) ) );
-						// .'<br />'.HTML::tag( 'code', urldecode( sanitize_title( Number::intval( $row->post_title, FALSE ) ) ) );
+						.'<br />'.HTML::tag( 'code', urldecode( Text::formatSlug( Number::translate( $row->post_title ) ) ) );
+						// .'<br />'.HTML::tag( 'code', urldecode( sanitize_title( Number::translate( $row->post_title ) ) ) );
 				},
 			],
 			'title' => [

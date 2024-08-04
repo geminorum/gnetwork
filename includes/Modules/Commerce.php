@@ -436,7 +436,7 @@ class Commerce extends gNetwork\Module
 
 	private function sanitize_mobile_field( $input )
 	{
-		return wc_sanitize_phone_number( Number::intval( $input, FALSE ) );
+		return wc_sanitize_phone_number( Number::translate( $input ) );
 	}
 
 	// alternatively we can use `woocommerce_process_checkout_field_{$key}` filter
@@ -446,13 +446,13 @@ class Commerce extends gNetwork\Module
 			$data['customer_mobile'] = $this->sanitize_mobile_field( $data['customer_mobile'] );
 
 		if ( ! empty( $data['shipping_postcode'] ) )
-			$data['shipping_postcode'] = Number::intval( $data['shipping_postcode'], FALSE );
+			$data['shipping_postcode'] = Number::translate( $data['shipping_postcode'] );
 
 		if ( ! empty( $data['billing_postcode'] ) )
-			$data['billing_postcode'] = Number::intval( $data['billing_postcode'], FALSE );
+			$data['billing_postcode'] = Number::translate( $data['billing_postcode'] );
 
 		if ( ! empty( $data['billing_phone'] ) )
-			$data['billing_phone'] = Number::intval( $data['billing_phone'], FALSE );
+			$data['billing_phone'] = Number::translate( $data['billing_phone'] );
 
 		return $data;
 	}
@@ -624,7 +624,7 @@ class Commerce extends gNetwork\Module
 	// MAYBE move to persiandate
 	public function woocommerce_process_myaccount_field_shipping_postcode( $value )
 	{
-		return Number::intval( $value, FALSE );
+		return Number::translate( $value );
 	}
 
 	// adds the page ids from the WooCommerce core pages to the excluded post ids on Yoast Sitemaps

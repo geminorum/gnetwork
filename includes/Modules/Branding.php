@@ -298,6 +298,23 @@ class Branding extends gNetwork\Module
 
 	// @REF: https://web.dev/maskable-icon/
 	// @REF: https://w3c.github.io/manifest/
+	// @SEE: https://developer.mozilla.org/en-US/docs/Web/Manifest
+	// @SEE: https://web.dev/articles/add-manifest
+	// ---
+	/***
+	 * @source https://github.com/GoogleChromeLabs/pwa-wp/wiki/Web-App-Manifest
+	 *
+	 * name: the site title from get_option('blogname')
+	 * short_name: copied from site title if not greater than 12 characters
+	 * description: the site tagline from get_option('blogdescription')
+	 * lang: the site language from get_bloginfo( 'language' )
+	 * dir: the site language direction from is_rtl()
+	 * start_url: the home URL from get_home_url()
+	 * theme_color: a theme's custom background via get_background_color()
+	 * background_color: also populated with theme's custom background
+	 * display: minimal-ui is used as the default.
+	 * icons: the site icon via get_site_icon_url()
+	*/
 	private function render_manifest()
 	{
 		$data = [

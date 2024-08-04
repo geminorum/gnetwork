@@ -478,7 +478,7 @@ class Locale extends gNetwork\Module
 			'litespeed-cdn'       => 'page',
 
 			// [Performance Lab](https://wordpress.org/plugins/performance-lab/)
-			'perflab-modules' => 'page',
+			'performance-lab' => 'page',
 
 			// https://github.com/bueltge/wordpress-admin-style
 			'WordPress_Admin_Style' => 'page',

@@ -550,7 +550,7 @@ class User extends gNetwork\Module
 			return $username;
 
 		if ( ! $strict )
-			$username = Core\Number::intval( $username, FALSE );
+			$username = Core\Number::translate( $username );
 
 		$username = Core\Text::singleWhitespace( $username );
 		$username = trim( $username, '.,|`~!…' );
