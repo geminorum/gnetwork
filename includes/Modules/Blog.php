@@ -74,6 +74,14 @@ class Blog extends gNetwork\Module
 			$this->action( 'wp_head', 0, 12 );
 			$this->action( 'embed_head', 0, 12 );
 
+			if ( $this->options['noindex_attachments'] )
+				add_action( 'template_redirect', static function () {
+
+					if ( is_attachment() )
+						add_filter( 'wp_robots', 'wp_robots_sensitive_page' );
+
+				}, 9999 );
+
 			if ( $this->options['thrift_mode'] ) {
 				// @REF: https://core.trac.wordpress.org/ticket/37114
 				$this->filter_empty_array( 'post_class_taxonomies', 5 );
@@ -712,10 +720,6 @@ class Blog extends gNetwork\Module
 
 		if ( $this->options['meta_revised'] && $singular )
 			echo '<meta name="revised" content="'.get_post_modified_time( 'D, m M Y G:i:s', TRUE ).'" />'."\n";
-
-		// @SEE: `wp_sensitive_page_meta()`
-		if ( $this->options['noindex_attachments'] && is_attachment() )
-			echo '<meta name="robots" content="noindex, noarchive" />'."\n";
 
 		// @REF: http://universaleditbutton.org/WordPress_plugin
 		if ( $singular && ( $edit = get_edit_post_link() ) )
