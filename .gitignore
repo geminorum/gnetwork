@@ -25,3 +25,5 @@ yarn-error.log
 environment.yml
 .env
 .ftpconfig
+
+*.WinMerge

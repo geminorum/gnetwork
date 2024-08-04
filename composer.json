@@ -48,6 +48,7 @@
     "tecnickcom/tc-lib-barcode": "^1.18.4",
     "kub-at/php-simple-html-dom-parser": "^1.9.1",
     "donatj/phpuseragentparser": "^1.8",
+    "shuchkin/simplexlsx": "^1.1",
     "shuchkin/simplexlsxgen": "^1.4"
   },
   "config": {
