@@ -1,3 +1,21 @@
+### 3.17.2
+* main/plugin: enforce auto load options
+* module/admin: disable all help tabs by constant
+* module/blog: filters for wp export
+* module/blog: no index attachments via wp-robots api
+* module/blog: skip force ssl admin on disabled ssl
+* module/blog: strict transport security header on ssl
+* module/optimize: avoid the url rewriting logic from running unnecessarily
+* module/rest: check assign cap before terms rendered
+* module/rest: check if post available before terms rendered
+* module/rest: filter for thumbnail data
+* module/rewrite: cleaning rules cache on flush
+* module/site: base country/province
+* module/site: country lookup
+* module/site: ip lookup updated
+* module/taxonomy: support for same slug conversion
+* module/themes: disable core patterns
+
 ### 3.17.1
 * module/login: hide reset password
 * module/player: :new: module
