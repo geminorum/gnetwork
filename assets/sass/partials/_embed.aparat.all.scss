@@ -10,8 +10,8 @@
   }
 
   .-item {
-    @include theme-clearfix();
     margin-bottom: 2em;
+    @include theme-clearfix();
   }
 
   .-preview {

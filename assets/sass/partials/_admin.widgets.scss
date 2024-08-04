@@ -9,6 +9,9 @@
   margin-bottom: 2em;
 
   p {
+    padding-bottom: 0;
+    margin-bottom: 1em;
+
     select {
       width: 100%;
     }
@@ -24,9 +27,6 @@
     + .-description {
       margin-top: -1em;
     }
-
-    padding-bottom: 0;
-    margin-bottom: 1em;
   }
 
   > .-group {

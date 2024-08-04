@@ -21,12 +21,11 @@
     .-object-group {
       border: 1px solid #ddd;
       padding: .25rem .25rem;
+      position: relative;
 
       + .-object-group {
         margin-top: .5rem;
       }
-
-      position: relative;
 
       .-group-controls {
         position: absolute;

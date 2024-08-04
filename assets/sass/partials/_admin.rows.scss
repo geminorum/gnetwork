@@ -27,6 +27,25 @@ ul.-rows {
       margin-bottom: 0;
     }
   }
+
+  &.-flex-rows {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+      border: 1px solid $gray-lighter;
+      margin: 0 ($spacer * .25) ($spacer * .25)  0;
+      padding: ($spacer * .15) ($spacer * .25);
+
+      &:last-of-type {
+        margin-bottom: ($spacer * .25);
+      }
+
+      &:hover {
+        background-color: $gray-lighter;
+      }
+    }
+  }
 }
 
 .-wrap.-icon-list ul li,
@@ -41,8 +60,16 @@ ul.-rows .-row {
     width: $spacer;
     height: $spacer;
     font-size: $spacer;
-    // vertical-align: middle;
     vertical-align: text-top;
+    transition: all 0.3s ease;
+  }
+
+  .-icon img {
+    width: $spacer * .75;
+    height: $spacer * .75;
+    display: inline-block;
+    vertical-align: middle;
+    filter: opacity(25%);
     transition: all 0.3s ease;
   }
 
@@ -54,6 +81,11 @@ ul.-rows .-row {
 
     .-icon span.dashicons {
       color: $gray-dark;
+      transition: all 0.1s ease;
+    }
+
+    .-icon img {
+      filter: initial;
       transition: all 0.1s ease;
     }
   }

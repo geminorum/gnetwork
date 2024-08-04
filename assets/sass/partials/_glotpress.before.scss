@@ -10,8 +10,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 html {
-  @include theme-box-sizing-reset;
   direction: ltr;
+  @include theme-box-sizing-reset;
 }
 
 .gp-content,

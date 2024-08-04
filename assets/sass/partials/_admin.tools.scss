@@ -64,8 +64,8 @@ $spacer: 1rem !default;
   }
 
   ul.-wrap-list-items {
-    @include theme-clearfix;
     margin-bottom: 0;
+    @include theme-clearfix;
 
     li {
       width: 50%;

@@ -6,8 +6,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 .-wrap.shortcode-bismillah,
 .-wrap.shortcode-asterisks {
-  @include theme-clearfix;
   text-align: center;
+  @include theme-clearfix;
 }
 
 .-wrap.shortcode-bismillah {
@@ -19,7 +19,7 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-.-wrap.shortcode-wikipedia {}
+// .-wrap.shortcode-wikipedia {}
 
 ////////////////////////////////////////////////////////////////////////////////
 .post-content,
@@ -34,7 +34,7 @@
   }
 
   blockquote {
-    &.-reverse {} // like BS: `.blockquote-reverse`
+    // &.-reverse {} // like BS: `.blockquote-reverse`
 
     &.-epigraph {
       font-size: 1em;
@@ -43,7 +43,7 @@
         margin-bottom: 0;
       }
 
-      footer {}
+      // footer {}
     }
 
     // FIXME: DEPRECATED - back-compat

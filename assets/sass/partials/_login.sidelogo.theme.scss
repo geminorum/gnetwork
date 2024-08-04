@@ -6,12 +6,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // body.login.sidelogo:not(.mobile) {
 body.login.sidelogo {
-  @include theme-box-sizing-reset;
   padding-top: 5%;
+  @include theme-box-sizing-reset;
 
   #login {
-    @include theme-clearfix;
-
     width: 622px;
     position: relative;
     background-color: #fafafa;
@@ -21,6 +19,8 @@ body.login.sidelogo {
     border: 1px solid #e1e1e1;
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+
+    @include theme-clearfix;
 
     > h1,
     > form {
