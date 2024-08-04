@@ -474,6 +474,7 @@ class Blog extends gNetwork\Module
 		if ( gNetwork()->ssl() ) {
 
 			$this->action( 'wp', 0, 40 );
+			$this->filter( 'wp_headers', 1, 9, 'ssl' );
 			$this->action( 'wp_print_scripts' );
 			$this->action( 'rest_api_init', 0, -999 );
 			$this->filter( 'wp_get_attachment_url', 2, -999 );
@@ -761,6 +762,23 @@ class Blog extends gNetwork\Module
 	{
 		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! WordPress::isSSL() )
 			WordPress::redirect( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
+	}
+
+	/**
+	 * Adds an HSTS header to the response.
+	 * @source https://github.com/GoogleChromeLabs/pwa-wp/wiki/HTTPS
+	 *
+	 * HSTS header (HTTP Strict-Transport-Security) indicates to the browser
+	 * to only load the site with HTTPS, not HTTP.
+	 * @ref https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security
+	 *
+	 * @param array $headers The headers to filter.
+	 * @return array $headers The filtered headers.
+	 */
+	public function wp_headers_ssl( $headers )
+	{
+		$headers['Strict-Transport-Security'] = 'max-age=3600'; // Or another max-age.
+		return $headers;
 	}
 
 	public function wp_print_scripts()
