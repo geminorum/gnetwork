@@ -190,12 +190,18 @@ class Plugin extends Base
 
 	protected function actions()
 	{
+		add_filter( 'wp_default_autoload_value', [ $this, 'wp_default_autoload_value' ], 20, 4 );
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
 		add_action( 'bp_setup_components', [ $this, 'bp_setup_components' ] );
 		add_action( 'bp_include', [ $this, 'bp_include' ] );
 		add_action( 'bbp_includes', [ $this, 'bbp_includes' ] );
 
 		Logger::setup();
+	}
+
+	public function wp_default_autoload_value( $autoload, $option, $value, $serialized_value )
+	{
+		return in_array( $option, [ $this->base.'_blog', $this->base.'_site', TRUE ] ) ? TRUE : $autoload;
 	}
 
 	public function plugins_loaded()
