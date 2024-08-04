@@ -35,6 +35,14 @@ class Themes extends gNetwork\Module
 				require_once GNETWORK_DIR.'includes/Misc/ThemesPluggable.php';
 		}
 
+		if ( $this->options['disable_patterns'] ) {
+
+			// @REF: https://www.wpexplorer.com/how-to-disable-wordpress-gutenberg-block-patterns/
+			$this->filter_false( 'should_load_remote_block_patterns' );
+			add_action( 'init', static function () { remove_theme_support( 'core-block-patterns' ); }, 999 );
+			// add_action( 'admin_init', static function () { remove_submenu_page( 'themes.php', 'edit.php?post_type=wp_block' ); }, 999 );
+		}
+
 		if ( ! is_admin() ) {
 
 			if ( $this->options['header_code'] && $this->options['header_html'] )
@@ -69,14 +77,15 @@ class Themes extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'disable_themes'  => '1',
-			'content_actions' => '0',
-			'hidden_title'    => '0',
-			'body_class'      => GNETWORK_BODY_CLASS,
-			'header_code'     => '0',
-			'header_html'     => '',
-			'footer_code'     => '0',
-			'footer_html'     => '',
+			'disable_themes'   => '1',
+			'content_actions'  => '0',
+			'hidden_title'     => '0',
+			'body_class'       => GNETWORK_BODY_CLASS,
+			'disable_patterns' => '1',
+			'header_code'      => '0',
+			'header_html'      => '',
+			'footer_code'      => '0',
+			'footer_html'      => '',
 		];
 	}
 
@@ -109,6 +118,15 @@ class Themes extends gNetwork\Module
 					'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => GNETWORK_BODY_CLASS,
+				],
+			],
+			'_supports' => [
+				[
+					'field'       => 'disable_patterns',
+					'type'        => 'disabled',
+					'title'       => _x( 'Theme Patterns', 'Modules: Themes: Settings', 'gnetwork' ),
+					'description' => _x( 'Block Patterns are a feature in WordPress that are part of the Gutenberg editor.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'default'     => '1',
 				],
 			],
 			'_insert' => [
