@@ -50,7 +50,7 @@ class User extends gNetwork\Module
 		if ( is_user_admin() ) {
 			$this->action( 'user_admin_menu', 0, 12 );
 			$this->action( 'user_admin_menu', 0, 999, 'late' );
-			$this->filter( 'contextual_help', 3, 999 );
+			$this->action( 'admin_head', 0, 12 );
 		}
 
 		if ( $this->options['network_roles'] ) {
@@ -410,11 +410,10 @@ class User extends gNetwork\Module
 		];
 	}
 
-	// removes help tabs on user admin
-	public function contextual_help( $old_help, $screen_id, $screen )
+	public function admin_head()
 	{
-		$screen->remove_help_tabs();
-		return $old_help;
+		if ( GNETWORK_DISABLE_ALL_HELP_TABS )
+			get_current_screen()->remove_help_tabs();
 	}
 
 	public static function menuURL( $full = TRUE, $context = 'settings', $scheme = 'admin', $network = NULL )

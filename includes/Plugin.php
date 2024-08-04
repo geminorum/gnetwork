@@ -107,6 +107,8 @@ class Plugin extends Base
 			'GNETWORK_NAME' => is_multisite() ? get_network_option( NULL, 'site_name' ) : get_option( 'blogname' ), // comes handy on multi-network
 			'GNETWORK_LOGO' => 'login.png', // default logo image file, must relative to wp-content
 
+			'GNETWORK_DISABLE_ALL_HELP_TABS' => FALSE,
+
 			'GCORE_DEFAULT_COUNTRY_CODE'   => gNetwork()->option( 'base_country', 'site' ) ?: 'IR',
 			'GCORE_DEFAULT_PROVINCE_CODE'  => gNetwork()->option( 'base_province', 'site' ) ?: 'TEH',
 			'GCORE_DEFAULT_COUNTRY_PHONE'  => gNetwork()->option( 'base_country_phone', 'site' ) ?: '98',

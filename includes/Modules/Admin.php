@@ -492,6 +492,9 @@ class Admin extends gNetwork\Module
 
 			wp_add_inline_script( Scripts::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.7' ), $script );
 		}
+
+		if ( GNETWORK_DISABLE_ALL_HELP_TABS )
+			get_current_screen()->remove_help_tabs();
 	}
 
 	// @REF: https://github.com/danieltj27/Dark-Mode/wiki/Help:-Plugin-Compatibility-Guide
