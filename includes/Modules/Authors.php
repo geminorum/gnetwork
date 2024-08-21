@@ -158,7 +158,7 @@ class Authors extends gNetwork\Module
 				'field'     => 'from_user_id',
 				'name_attr' => 'from_user_id',
 				'values'    => $users,
-				'default'   => 'none',
+				'default'   => 'all',
 			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';
@@ -180,7 +180,7 @@ class Authors extends gNetwork\Module
 				'field'     => 'on_post_type',
 				'name_attr' => 'on_post_type',
 				'default'   => 'post',
-				'values'    => WPPostType::get(),
+				'values'    => WPPostType::get( 0, [ 'show_ui' => TRUE ] ),
 			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';

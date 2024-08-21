@@ -150,7 +150,7 @@ class Site extends gNetwork\Module
 			'description' => _x( 'Defines the base country phone prefix for this network.', 'Modules: Site: Settings', 'gnetwork' ),
 			'placeholder' => '98',
 			'field_class' => [ 'small-text', 'code-text' ],
-			'after'       => Settings::fieldAfterLink( 'https://en.wikipedia.org/wiki/List_of_country_calling_codes' ),
+			'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_country_calling_codes' ),
 		];
 
 		$settings['_locale'][] = [
