@@ -33,6 +33,9 @@ class Mail extends gNetwork\Module
 
 		$this->action( 'phpmailer_init' );
 		$this->action( 'wp_mail_failed' );
+
+		if ( $this->options['disposable_check'] )
+			$this->filter( 'is_email_address_unsafe', 2, 9 );
 	}
 
 	public function setup_menu( $context )
@@ -47,16 +50,17 @@ class Mail extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'from_email'    => '',
-			'from_name'     => '',
-			'sender'        => 'FROM',
-			'mailer'        => 'mail', // possible values 'smtp', 'mail', or 'sendmail' // WPMS_MAILER
-			'smtp_secure'   => 'no', // possible values '', 'ssl', 'tls' - note TLS is not STARTTLS // WPMS_SSL
-			'smtp_host'     => 'localhost', // WPMS_SMTP_HOST
-			'smtp_port'     => '25', // WPMS_SMTP_PORT
-			'smtp_username' => '', // WPMS_SMTP_USER
-			'smtp_password' => '', // WPMS_SMTP_PASS
-			'log_all'       => '0',
+			'disposable_check' => '1',
+			'from_email'       => '',
+			'from_name'        => '',
+			'sender'           => 'FROM',
+			'mailer'           => 'mail',        // possible values 'smtp', 'mail', or 'sendmail' // WPMS_MAILER
+			'smtp_secure'      => 'no',          // possible values '', 'ssl', 'tls' - note TLS is not STARTTLS // WPMS_SSL
+			'smtp_host'        => 'localhost',   // WPMS_SMTP_HOST
+			'smtp_port'        => '25',          // WPMS_SMTP_PORT
+			'smtp_username'    => '',            // WPMS_SMTP_USER
+			'smtp_password'    => '',            // WPMS_SMTP_PASS
+			'log_all'          => '0',
 		];
 	}
 
@@ -64,6 +68,13 @@ class Mail extends gNetwork\Module
 	{
 		$settings = [
 			'_general' => [
+				[
+					'field'       => 'disposable_check',
+					'title'       => _x( 'Check  Provider', 'Modules: Mail: Settings', 'gnetwork' ),
+					'description' => _x( 'Checks if the email comes from a disposable email provider.', 'Modules: Mail: Settings', 'gnetwork' ),
+					'default'     => '1',
+					'after'       => Settings::fieldAfterIcon( 'https://github.com/MattKetmo/EmailChecker/blob/master/res/throwaway_domains.txt' ),
+				],
 				[
 					'field'       => 'from_email',
 					'type'        => 'email',
@@ -400,6 +411,23 @@ class Mail extends gNetwork\Module
 	public function wp_mail_failed( $error )
 	{
 		Logger::CRITICAL( 'EMAIL-FAILED', $error->get_error_message() );
+	}
+
+	/**
+	 * Filters whether an email address is unsafe.
+	 * @source https://github.com/MattKetmo/EmailChecker
+	 *
+	 * @param  bool   $unsafe
+	 * @param  string $email
+	 * @return bool   $unsafe
+	 */
+	public function is_email_address_unsafe( $unsafe, $email )
+	{
+		if ( $unsafe )
+			return $unsafe;
+
+		$checker = new \EmailChecker\EmailChecker();
+		return ! $checker->isValid( $email );
 	}
 
 	// [ 'to', 'subject', 'message', 'headers', 'attachments' ]
