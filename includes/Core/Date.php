@@ -95,7 +95,7 @@ class Date extends Base
 	}
 
 	// @REF: https://stackoverflow.com/a/19680778
-	public static function secondsToTime( $seconds )
+	public static function secondsToTimeString( $seconds )
 	{
 		$from = new \DateTime( '@0' );
 		$to   = new \DateTime( "@$seconds" );

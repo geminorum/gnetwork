@@ -62,6 +62,16 @@ class Base
 		return isset( $_REQUEST[$key] ) && $value == $_REQUEST[$key] ? TRUE : $default;
 	}
 
+	public static function step( $value = NULL, $key = 'action', $default = '' )
+	{
+		$action = Arraay::keyFirst( self::req( $key, [] ) );
+
+		if ( empty( $action ) && ! is_null( $value ) )
+			return $default;
+
+		return is_null( $value ) ? $action : ( (string) $action === (string) $value );
+	}
+
 	public static function limit( $default = 25, $key = 'limit' )
 	{
 		return (int) self::req( $key, $default );
@@ -122,22 +132,27 @@ class Base
 
 	public static function _log_req()
 	{
-		self::_log( $_REQUEST );
+		return self::_log( $_REQUEST );
 	}
 
 	// INTERNAL
 	public static function _log()
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
-			return;
+			return FALSE; // help the caller
 
 		foreach ( func_get_args() as $data )
 
-			if ( is_array( $data ) || is_object( $data ) )
+			if ( self::isError( $data ) )
+				error_log( $data->get_error_message() );
+
+			else if ( is_array( $data ) || is_object( $data ) )
 				error_log( print_r( $data, TRUE ) );
 
 			else
 				error_log( $data );
+
+		return FALSE; // help the caller
 	}
 
 	// INTERNAL: used on anything deprecated
@@ -205,6 +220,13 @@ class Base
 			echo '<script>console.'.$func.'('.$data.');</script>';
 	}
 
+	public static function _log_trace()
+	{
+		// http://stackoverflow.com/a/7039409
+		$e = new \Exception();
+		self::_log( $e->getTraceAsString() );
+	}
+
 	public static function trace( $old = TRUE )
 	{
 		// https://gist.github.com/eddieajau/2651181
@@ -215,7 +237,7 @@ class Base
 		}
 
 		// http://stackoverflow.com/a/7039409
-		$e = new Exception();
+		$e = new \Exception();
 		self::dump( $e->getTraceAsString() );
 		die();
 	}
@@ -284,7 +306,7 @@ class Base
 	public static function atts( $pairs, $atts )
 	{
 		$atts = (array) $atts;
-		$out  = array();
+		$out  = [];
 
 		foreach ( $pairs as $name => $default ) {
 			if ( array_key_exists( $name, $atts ) )
@@ -345,9 +367,9 @@ class Base
 	// @SOURCE: https://github.com/kallookoo/wp_parse_args_recursive
 	public static function recursiveParseArgsALT( $args, $defaults, $preserve_type = TRUE, $preserve_integer_keys = FALSE )
 	{
-		$output = array();
+		$output = [];
 
-		foreach ( array( $defaults, $args ) as $list ) {
+		foreach ( [ $defaults, $args ] as $list ) {
 
 			foreach ( (array) $list as $key => $value ) {
 

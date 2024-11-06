@@ -78,12 +78,15 @@ class Validation extends Base
 		return TRUE;
 	}
 
+	// ^(\d{7}|\d{10})$
 	public static function getIdentityNumberHTMLPattern()
 	{
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹]{10}';
+			// return '^([0-9۰-۹]{10})$';
 
 		return '[0-9]{10}';
+		// return '^([0-9]{10})$';
 	}
 
 	public static function isIdentityNumber( $input )
@@ -314,7 +317,7 @@ class Validation extends Base
 		if ( ! $skip_base )
 			return $sanitized;
 
-		if ( FALSE !== ( $country = Base::const( 'GCORE_DEFAULT_COUNTRY_CODE', FALSE ) ) )
+		if ( FALSE === ( $country = Base::const( 'GCORE_DEFAULT_COUNTRY_CODE', FALSE ) ) )
 			return $sanitized;
 
 		if ( $country === $sanitized )

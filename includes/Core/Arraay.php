@@ -77,7 +77,7 @@ class Arraay extends Base
 
 	public static function roundArray( $array, $precision = -3, $mode = PHP_ROUND_HALF_UP )
 	{
-		$rounded = array();
+		$rounded = [];
 
 		foreach ( (array) $array as $key => $value )
 			$rounded[$key] = round( (float) $value, $precision, $mode );
@@ -98,7 +98,7 @@ class Arraay extends Base
 	// OR: `array_combine( $array, $array );`
 	public static function sameKey( $old )
 	{
-		$new = array();
+		$new = [];
 
 		foreach ( (array) $old as $key => $value )
 			if ( FALSE !== $value && NULL !== $value )
@@ -110,7 +110,7 @@ class Arraay extends Base
 	// USE: `array_keys()` on posted checkboxes
 	public static function getKeys( $options, $if = TRUE )
 	{
-		$keys = array();
+		$keys = [];
 
 		foreach ( (array) $options as $key => $value )
 			if ( $value == $if )
@@ -120,7 +120,7 @@ class Arraay extends Base
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/24436324
-	// USEAGE: Arraay::replaceKeys( $array, array( 'old_key_1' => 'new_key_1', 'old_key_2' => 'new_key_2' ) );
+	// USEAGE: Arraay::replaceKeys( $array, [ 'old_key_1' => 'new_key_1', 'old_key_2' => 'new_key_2' ] );
 	public static function replaceKeys( $array, $keys_map )
 	{
 		$keys = array_keys( $array );
@@ -164,7 +164,7 @@ class Arraay extends Base
 
 	public static function range( $start, $end, $step = 1, $format = TRUE )
 	{
-		$array = array();
+		$array = [];
 
 		foreach ( range( $start, $end, $step ) as $number )
 			$array[$number] = $format ? Number::format( $number ) : $number;
@@ -178,7 +178,7 @@ class Arraay extends Base
 	// @OLD: `parseJSArray()`
 	public static function parseSerialized( $array, $name = 'name', $value = 'value' )
 	{
-		$parsed = array();
+		$parsed = [];
 
 		foreach ( $array as $part )
 			$parsed[$part[$name]] = $part[$value];
@@ -213,7 +213,7 @@ class Arraay extends Base
 		return FALSE;
 	}
 
-	public static function stripDefaults( $atts, $defaults = array() )
+	public static function stripDefaults( $atts, $defaults = [] )
 	{
 		foreach ( $defaults as $key => $value )
 			if ( isset( $atts[$key] ) && $value === $atts[$key] )
@@ -259,15 +259,18 @@ class Arraay extends Base
 	}
 
 	// @REF: WooCommerce: `_sort_priority_callback()`
-	public static function sortByPriority( $array, $priority_key )
+	public static function sortByPriority( $array, $priority_key, $descending = TRUE )
 	{
-		uasort( $array, static function ( $a, $b ) use ( $priority_key ) {
+		$up   = $descending ? -1 : 1;
+		$down = $descending ? 1 : -1;
+
+		uasort( $array, static function ( $a, $b ) use ( $priority_key, $up, $down ) {
 
 			if ( ! isset( $a[$priority_key], $b[$priority_key] )
 				|| $a[$priority_key] === $b[$priority_key] )
 					return 0;
 
-			return ( $a[$priority_key] < $b[$priority_key] ) ? -1 : 1;
+			return ( $a[$priority_key] < $b[$priority_key] ) ? $up : $down;
 		} );
 
 		return $array;
@@ -290,13 +293,13 @@ class Arraay extends Base
 
 	// FIXME: TEST THIS!
 	// @REF: http://stackoverflow.com/a/4582659
-	// USAGE: Arraay::multiSort( $array, array( 'key_1' => SORT_ASC, 'key_2' => SORT_ASC ) );
+	// USAGE: Arraay::multiSort( $array, [ 'key_1' => SORT_ASC, 'key_2' => SORT_ASC ] );
 	public static function multiSort( $array, $sort )
 	{
 		if ( empty( $array ) )
 			return $array;
 
-		$map = $args = array();
+		$map = $args = [];
 
 		foreach ( $array as $key => $val )
 			foreach ( $sort as $by => $order )
@@ -405,8 +408,11 @@ class Arraay extends Base
 	 */
 	public static function filter( $input, $args = [], $operator = 'and', $field = FALSE )
 	{
-		if ( empty( $input ) || ( empty( $args ) && empty( $field ) ) )
+		if ( empty( $input ) )
 			return [];
+
+		if ( empty( $args ) && empty( $field ) )
+			return $input;
 
 		return wp_filter_object_list( $input, $args, $operator, $field );
 	}
@@ -443,7 +449,7 @@ class Arraay extends Base
 				return NULL;
 
 			if ( NULL !== $index_key )
-				return array( $d[$index_key] => $d[$column_key] );
+				return [ $d[$index_key] => $d[$column_key] ];
 
 			return $d[$column_key];
 
@@ -451,7 +457,7 @@ class Arraay extends Base
 
 		if ( NULL !== $index_key ) {
 
-			$tmp = array();
+			$tmp = [];
 
 			foreach ( $arr as $ar )
 				$tmp[key( $ar )] = current( $ar );
@@ -473,8 +479,7 @@ class Arraay extends Base
 	/**
 	 * Polyfill for `array_is_list()` function added in PHP 8.1.
 	 * Determines if the given array is a list.
-	 * An array is considered a list if its keys consist of consecutive
-	 * numbers from `0` to `count( $array ) - 1`.
+	 * An array is considered a list if its keys consist of consecutive numbers from 0 to count( $array ) - 1.
 	 * @see https://github.com/symfony/polyfill-php81/tree/main
 	 *
 	 * @param array $array The array being evaluated.
@@ -485,7 +490,7 @@ class Arraay extends Base
 		if ( function_exists( 'array_is_list' ) )
 			return array_is_list( $array );
 
-		if ( ( array() === $array ) || ( array_values( $array ) === $array ) )
+		if ( ( [] === $array ) || ( array_values( $array ) === $array ) )
 			return TRUE;
 
 		$next = -1;
@@ -515,7 +520,7 @@ class Arraay extends Base
 	// @REF: https://stackoverflow.com/a/173479
 	public static function isAssoc( $array )
 	{
-		if ( $array === array() )
+		if ( $array === [] )
 			return FALSE;
 
 		return array_keys( $array ) !== range( 0, count( $array ) - 1 );
@@ -611,7 +616,7 @@ class Arraay extends Base
 	// @REF: `wp_array_slice_assoc()`
 	public static function sliceKeys( $array, $keys )
 	{
-		$slice = array();
+		$slice = [];
 
 		foreach ( $keys as $key )
 			if ( isset( $array[$key] ) )
@@ -624,7 +629,7 @@ class Arraay extends Base
 	// @SOURCE: `scb_list_group_by()`
 	public static function groupBy( $list, $callback )
 	{
-		$groups = array();
+		$groups = [];
 
 		foreach ( $list as $item ) {
 			$key = call_user_func( $callback, $item );
@@ -642,7 +647,7 @@ class Arraay extends Base
 	// @SOURCE: `scb_list_fold()`
 	public static function listFold( $list, $key, $value )
 	{
-		$array = array();
+		$array = [];
 
 		if ( is_array( reset( $list ) ) )
 
@@ -906,5 +911,50 @@ class Arraay extends Base
 		}
 
 		return $partition;
+	}
+
+	// @REF: https://medium.com/@assertchris/dot-notation-3fd3e42edc61
+	// This is from `Illuminate/Support/Arr.php`
+	public static function getByNotation( $array, $key, $default = NULL, $notation = '.' )
+	{
+		if ( is_null( $key ) )
+			return $default;
+
+		if ( array_key_exists( $key, $array ) )
+			return $array[$key];
+
+		foreach ( explode( $notation, $key ) as $segment ) {
+
+			if ( ! is_array( $array ) || ! array_key_exists( $segment, $array ) )
+				return value( $default );
+
+			$array = $array[$segment];
+	  	}
+
+		return $array;
+	}
+
+	// @REF: https://medium.com/@assertchris/dot-notation-3fd3e42edc61
+	// This is from `Illuminate/Support/Arr.php`
+	public static function setByNotation( &$array, $key, $value, $notation = '.' )
+	{
+		if ( is_null( $key ) )
+			return $array = $value;
+
+		$keys = explode( $notation, $key );
+
+		while ( count( $keys ) > 1 ) {
+
+			$key = array_shift( $keys );
+
+			if ( ! isset( $array[$key] ) || ! is_array( $array[$key] ) )
+				$array[$key] = [];
+
+			$array =& $array[$key];
+		}
+
+		$array[array_shift( $keys )] = $value;
+
+		return $array;
 	}
 }

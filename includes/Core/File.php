@@ -14,10 +14,28 @@ class File extends Base
 	 */
 	public static function exists( $path, $base = ABSPATH )
 	{
+		if ( empty( $path ) )
+			return FALSE;
+
 		return @file_exists( $base.$path );
 	}
 
 	/**
+	 * Tells whether a file exists and is readable.
+	 *
+	 * @param  string $path
+	 * @return bool   $readable
+	 */
+	public static function readable( $path )
+	{
+		if ( empty( $path ) )
+			return FALSE;
+
+		return @is_readable( $path );
+	}
+
+	/**
+	 * Tells whether the filename is writable.
 	 * Wraps the `wp_is_writable()` with fallback to `is_writable()`
 	 *
 	 * @param  string $path
@@ -25,6 +43,9 @@ class File extends Base
 	 */
 	public static function writable( $path )
 	{
+		if ( empty( $path ) )
+			return FALSE;
+
 		if ( function_exists( 'wp_is_writable' ) )
 			return wp_is_writable( $path );
 
@@ -44,6 +65,9 @@ class File extends Base
 	 */
 	public static function normalize( $path )
 	{
+		if ( empty( $path ) )
+			return '';
+
 		$path = str_replace( '\\', '/', $path );
 		$path = preg_replace( '|(?<=.)/+|', '/', $path );
 
@@ -65,7 +89,10 @@ class File extends Base
 	 */
 	public static function basename( $path, $suffix = '' )
 	{
-		return urldecode( basename( str_replace( array( '%2F', '%5C' ), '/', urlencode( $path ) ), $suffix ) );
+		if ( empty( $path ) )
+			return '';
+		
+		return urldecode( basename( str_replace( [ '%2F', '%5C' ], '/', urlencode( $path ) ), $suffix ) );
 	}
 
 	/**
@@ -77,6 +104,9 @@ class File extends Base
 	 */
 	public static function filename( $path, $mimes = NULL )
 	{
+		if ( empty( $path ) )
+			return '';
+
 		$type = wp_check_filetype( self::basename( $path ), $mimes ?? wp_get_mime_types() );
 		return self::basename( $path, '.'.$type['ext'] );
 	}
@@ -105,7 +135,7 @@ class File extends Base
 
 		$fp = @fopen( $temp, 'x' );
 
-		if ( ! $fp && is_writable( $dir ) && file_exists( $temp ) )
+		if ( ! $fp && self::writable( $dir ) && file_exists( $temp ) )
 			return self::tempName( $name, $dir );
 
 		if ( $fp )
@@ -162,14 +192,17 @@ class File extends Base
 	// core has `sanitize_file_name()` but with certain mime types
 	public static function escFilename( $path )
 	{
+		if ( empty( $path ) )
+			return '';
+
 		// everything to lower and no spaces begin or end
 		$path = strtolower( trim( $path ) );
 
 		// adding - for spaces and union characters
-		$path = str_replace( array( ' ', '&', '\r\n', '\n', '+', ',' ), '-', $path );
+		$path = str_replace( [ ' ', '&', '\r\n', '\n', '+', ',' ], '-', $path );
 
 		// delete and replace rest of special chars
-		$path = preg_replace( array( '/[^a-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/' ), array( '', '-', '' ), $path );
+		$path = preg_replace( [ '/[^a-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/' ], [ '', '-', '' ], $path );
 
 		return $path;
 	}
@@ -215,6 +248,9 @@ class File extends Base
 	// @REF: `$wp_filesystem->get_contents()`
 	public static function getContents( $filename )
 	{
+		if ( empty( $filename ) )
+			return '';
+
 		return @file_get_contents( $filename );
 	}
 

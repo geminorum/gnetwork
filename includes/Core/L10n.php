@@ -5,6 +5,11 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class L10n extends Base
 {
 
+	public static function rtl()
+	{
+		return function_exists( 'is_rtl' ) ? is_rtl() : FALSE;
+	}
+
 	public static function locale( $site = FALSE )
 	{
 		return $site ? get_locale() : determine_locale();

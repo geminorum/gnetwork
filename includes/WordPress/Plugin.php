@@ -70,6 +70,7 @@ class Plugin extends Core\Base
 	protected function actions() {}
 	protected function modules() { return [ [], '' ]; }
 	protected function constants() { return []; }
+	protected function late_constants() { return []; }
 
 	protected function loaded()
 	{

@@ -202,7 +202,8 @@ class Third extends Base
 
 		echo '<meta name="theme-color" content="'.$color.'" />'."\n";
 		echo '<meta name="msapplication-navbutton-color" content="'.$color.'">'."\n";
-		echo '<meta name="apple-mobile-web-app-capable" content="yes">'."\n";
+		// echo '<meta name="apple-mobile-web-app-capable" content="yes">'."\n"; // DEPRECATED
+		echo '<meta name="mobile-web-app-capable" content="yes">'."\n";
 		echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'."\n";
 	}
 }

@@ -140,69 +140,149 @@ class HTTP extends Base
 		return $fallback;
 	}
 
-	// http://code.tutsplus.com/tutorials/a-look-at-the-wordpress-http-api-a-brief-survey-of-wp_remote_get--wp-32065
-	// http://wordpress.stackexchange.com/a/114922
-	public static function getJSON( $url, $atts = array(), $assoc = TRUE )
+	/**
+	 * Logs the errors of an HTTP request with extra info.
+	 *
+	 * @param  string $url
+	 * @param  string $message
+	 * @param  string $context
+	 * @return false
+	 */
+	public static function logError( $url = NULL, $message = NULL, $context = NULL )
+	{
+		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
+			return FALSE; // help the caller
+
+		if ( $url && $message )
+			$log = sprintf( '{%s}: %s', $url, $message );
+
+		else if ( $message )
+			$log = sprintf( '%s', $message );
+
+		else if ( $url )
+			$log = sprintf( '{%s}', $url );
+
+		if ( $context )
+			$log = sprintf( '[%s]: %s', $context, $log );
+
+		error_log( $log );
+
+		return FALSE; // help the caller
+	}
+
+	/**
+	 * Retrieves data from the JSON body of a GET request, given a URL.
+	 *
+	 * @param  string      $url
+	 * @param  array       $atts
+	 * @param  bool        $assoc
+	 * @return false|array $data
+	 */
+	public static function getJSON( $url, $atts = [], $assoc = TRUE )
 	{
 		if ( ! $url )
 			return FALSE;
 
-		$args = self::recursiveParseArgs( $atts, array(
+		$args = self::recursiveParseArgs( $atts, [
 			'timeout' => 15,
-			'headers' => array( 'Accept' => 'application/json' ),
-		) );
+			'headers' => [ 'Accept' => 'application/json' ],
+		] );
 
 		$response = wp_remote_get( $url, $args );
 
-		if ( ! self::isError( $response )
-			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
-				return json_decode( wp_remote_retrieve_body( $response ), $assoc );
-		}
+		if ( self::isError( $response ) )
+			return self::logError( $url, $response->get_error_message(), 'GETJSON' );
 
-		return FALSE;
+		$status = wp_remote_retrieve_response_code( $response );
+
+		if ( 200 !== $status )
+			return self::logError( $url, sprintf( '%d: %s', $status, self::getStatusDesc( $status, 'UKNOWN STATUS' ) ), 'GETJSON' );
+
+		if ( ! $body = wp_remote_retrieve_body( $response ) )
+			return self::logError( $url, '200: EMPTY BODY', 'GETJSON' );
+
+		$data = json_decode( $body, $assoc );
+
+		if ( json_last_error() !== JSON_ERROR_NONE )
+			return self::logError( $url, sprintf( '200: JSON MALFORMED', json_last_error_msg() ), 'GETJSON' );
+
+		return $data;
 	}
 
-	public static function postJSON( $body, $url, $atts = array(), $assoc = TRUE )
+	/**
+	 * Puts data as JSON body of a POST request, given a URL.
+	 *
+	 * @param  mixed       $body
+	 * @param  string      $url
+	 * @param  array       $atts
+	 * @param  bool        $assoc
+	 * @return false|array $data
+	 */
+	public static function postJSON( $body, $url, $atts = [], $assoc = TRUE )
 	{
 		if ( ! $url )
 			return FALSE;
 
-		$args = self::recursiveParseArgs( $atts, array(
+		$args = self::recursiveParseArgs( $atts, [
 			'body'    => $body,
 			'timeout' => 15,
-			'headers' => array( 'Accept' => 'application/json' ),
-		) );
+			'headers' => [ 'Accept' => 'application/json' ],
+		] );
 
 		$response = wp_remote_post( $url, $args );
 
 		if ( WordPress::isDev() )
 			self::_log( $args, wp_remote_retrieve_body( $response ) );
 
-		if ( ! self::isError( $response )
-			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
-				return json_decode( wp_remote_retrieve_body( $response ), $assoc );
-		}
+		if ( self::isError( $response ) )
+			return self::logError( $url, $response->get_error_message(), 'POSTJSON' );
 
-		return FALSE;
+		$status = wp_remote_retrieve_response_code( $response );
+
+		if ( 200 !== $status )
+			return self::logError( $url, sprintf( '%d: %s', $status, self::getStatusDesc( $status, 'UKNOWN STATUS' ) ), 'POSTJSON' );
+
+		if ( ! $body = wp_remote_retrieve_body( $response ) )
+			return self::logError( $url, '200: EMPTY BODY', 'POSTJSON' );
+
+		$data = json_decode( $body, $assoc );
+
+		if ( json_last_error() !== JSON_ERROR_NONE )
+			return self::logError( $url, sprintf( '200: JSON MALFORMED', json_last_error_msg() ), 'POSTJSON' );
+
+		return $data;
 	}
 
-	public static function getHTML( $url, $atts = array() )
+	/**
+	 * Retrieves data from the HTML body of a GET request, given a URL.
+	 *
+	 * @param  string       $url
+	 * @param  array        $atts
+	 * @return false|string $data
+	 */
+	public static function getHTML( $url, $atts = [] )
 	{
 		if ( ! $url )
 			return FALSE;
 
-		$args = self::recursiveParseArgs( $atts, array(
+		$args = self::recursiveParseArgs( $atts, [
 			'timeout' => 15,
-		) );
+		] );
 
 		$response = wp_remote_get( $url, $args );
 
-		if ( ! self::isError( $response )
-			&& 200 == wp_remote_retrieve_response_code( $response ) ) {
-				return wp_remote_retrieve_body( $response );
-		}
+		if ( self::isError( $response ) )
+			return self::logError( $url, $response->get_error_message(), 'GETHTML' );
 
-		return FALSE;
+		$status = wp_remote_retrieve_response_code( $response );
+
+		if ( 200 !== $status )
+			return self::logError( $url, sprintf( '%d: %s', $status, self::getStatusDesc( $status, 'UKNOWN STATUS' ) ), 'GETHTML' );
+
+		if ( ! $body = wp_remote_retrieve_body( $response ) )
+			return self::logError( $url, '200: EMPTY BODY', 'GETHTML' );
+
+		return $body;
 	}
 
 	public static function getContents( $url )
