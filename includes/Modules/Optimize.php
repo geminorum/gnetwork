@@ -138,7 +138,7 @@ class Optimize extends gNetwork\Module
 				remove_action( $action, '_delete_option_fresh_site', 0 );
 	}
 
-	// 2024-07-19: `6.7-alpha-58576-src`
+	// 2024-08-21: `6.7-alpha-58576-src`
 	private static function getjQueryVersions()
 	{
 		return [

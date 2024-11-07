@@ -167,6 +167,7 @@ class Rest extends gNetwork\Module
 		return $rendered;
 	}
 
+	// NOTE: `$post_array['featured_media']` contains the attachment id
 	public function thumbnail_data_get_callback( $post_array, $attr, $request, $object_type )
 	{
 		$thumbnail_id = $this->filters( 'thumbnail_id',

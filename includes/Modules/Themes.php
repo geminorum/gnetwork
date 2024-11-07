@@ -588,7 +588,8 @@ class Themes extends gNetwork\Module
 			], 1, 9 );
 
 			add_filter( 'woocommerce_subcategory_count_html', '__return_null' );
-			add_filter( 'storefront_make_me_cute', '__return_true' );
+			// only adds `font-family: "Comic Sans MS", sans-serif;`
+			// add_filter( 'storefront_make_me_cute', '__return_true' );
 
 		} else if ( $this->isTheme( 'twentyeleven' ) ) {
 

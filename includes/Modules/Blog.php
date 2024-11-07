@@ -477,7 +477,7 @@ class Blog extends gNetwork\Module
 			$this->action( 'wp', 0, 40 );
 			$this->filter( 'wp_headers', 1, 9, 'ssl' );
 			$this->action( 'wp_print_scripts' );
-			$this->action( 'rest_api_init', 0, -999 );
+			// $this->action( 'rest_api_init', 0, -999 ); // WTF: redirects in `POST` is discouraged
 			$this->filter( 'wp_get_attachment_url', 2, -999 );
 			$this->filter_true( 'wp_should_replace_insecure_home_url' );
 
@@ -634,14 +634,14 @@ class Blog extends gNetwork\Module
 		if ( ! empty( $requested_redirect_to ) )
 			return $redirect_to;
 
-		if ( $user->has_cap( $this->options['login_after_cap'] ) )
-			return get_admin_url();
-
 		if ( $this->options['redirect_login'] )
 			return $this->options['redirect_login'];
 
 		if ( $custom = gNetwork()->option( 'redirect_login', 'login' ) )
 			return $custom;
+
+		if ( $user->has_cap( $this->options['login_after_cap'] ) )
+			return get_admin_url();
 
 		return get_home_url();
 	}
@@ -753,6 +753,8 @@ class Blog extends gNetwork\Module
 		Utilities::linkStyleSheet( 'embed.all' );
 	}
 
+	// NOTE: redirects in `POST` is discouraged
+	// FIXME: DISABLED/DROP THIS
 	public function rest_api_init()
 	{
 		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! WordPress::isSSL() )

@@ -1232,7 +1232,7 @@ class Taxonomy extends gNetwork\Module
 
 			/* translators: %s: taxonomy label */
 			HTML::desc( sprintf( _x( 'This is the default term for &ldquo;%s&rdquo; taxonomy.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<strong>'.$object->label.'</strong>' ) );
-		echo '</tr>';
+		echo '</td></tr>';
 	}
 
 	public function edit_form_fields_actions( $term, $taxonomy )
@@ -1246,7 +1246,7 @@ class Taxonomy extends gNetwork\Module
 				echo '<option value="-1">'._x( '&ndash; Select Action &ndash;', 'Modules: Taxonomy', 'gnetwork' )."</option>\n";
 			echo "</select>\n";
 
-		echo '</tr>';
+		echo '</td></tr>';
 	}
 
 	public function edited_term_actions( $term_id, $tt_id, $taxonomy )

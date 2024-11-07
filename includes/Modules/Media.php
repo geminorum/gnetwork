@@ -25,6 +25,8 @@ class Media extends gNetwork\Module
 	// TODO: move tools tab to Images module
 	// TODO: new tools tab for orphaned attachments: also support for term thumbnails on `image` term-meta
 	// TODO: DROP: row actions
+	// TODO: https://wordpress.org/plugins/safe-svg/
+	// TODO: https://github.com/darylldoyle/svg-sanitizer
 
 	protected $key     = 'media';
 	protected $network = FALSE;
@@ -44,8 +46,8 @@ class Media extends gNetwork\Module
 		$this->filter( 'upload_mimes' );
 		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
 
-		if ( function_exists( 'normalizer_normalize' ) )
-			$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
+		// if ( function_exists( 'normalizer_normalize' ) )
+		// 	$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
 
 		$this->filter( 'sanitize_file_name', 2, 12 );
 		$this->filter( 'image_send_to_editor', 9 );

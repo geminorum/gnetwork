@@ -250,7 +250,7 @@ class Rewrite extends gNetwork\Module
 			$wordpress  = URL::parse( home_url(), PHP_URL_PATH );
 
 			if ( ! empty( $wordpress ) )
-				$match_path = str_replace( $wordpress, '', $match_path );
+				$match_path = str_replace( $wordpress, '', $match_path ?: '' );
 
 			$match_path = ltrim( $match_path, '/' );
 		}

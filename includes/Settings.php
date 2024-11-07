@@ -667,6 +667,10 @@ class Settings extends Core\Base
 
 			if ( in_array( $args['type'], [ 'role', 'cap', 'user' ] ) )
 				$args['cap'] = 'promote_users';
+
+			else if ( in_array( $args['type'], [ 'file' ] ) )
+				$args['cap'] = 'upload_files';
+
 			else
 				$args['cap'] = 'manage_options';
 		}

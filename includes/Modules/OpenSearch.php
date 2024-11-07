@@ -18,7 +18,7 @@ class OpenSearch extends gNetwork\Module
 		if ( ! $this->options['opensearch'] )
 			return;
 
-		if ( ! constant( 'GNETWORK_SEARCH_REDIRECT' ) ) {
+		if ( ! self::const( 'GNETWORK_SEARCH_REDIRECT' ) ) {
 			$this->action( [ 'rss2_ns', 'atom_ns' ] );
 			$this->action( 'rss2_head' );
 			$this->action( 'atom_head' );

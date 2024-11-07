@@ -294,7 +294,7 @@ class Restricted extends gNetwork\Module
 		// $this->filter( 'status_header', 4 );
 		$this->filter( 'rest_authentication_errors', 1, 999 );
 
-		$this->action( 'template_redirect', 0, 1 );
+		$this->action( 'template_redirect', 0, 9 );
 	}
 
 	public function feed_link( $output, $feed )

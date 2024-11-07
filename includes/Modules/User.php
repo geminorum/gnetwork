@@ -754,8 +754,13 @@ class User extends gNetwork\Module
 		$view = '<a href="'.network_admin_url( 'users.php?spam' ).'"'.$class.'>';
 
 		if ( $spams = $this->get_spam_count() )
-			/* translators: %s: spam users count */
-			$view.= Utilities::getCounted( $spams, _nx( 'Marked as Spam <span class="count">(%s)</span>', 'Marked as Spams <span class="count">(%s)</span>', $spams, 'Modules: User', 'gnetwork' ) ).'</a>';
+
+			$view.= Utilities::getCounted(
+				$spams,
+				/* translators: %s: spam users count */
+				_nx( 'Marked as Spam <span class="count">(%s)</span>', 'Marked as Spams <span class="count">(%s)</span>', $spams, 'Modules: User', 'gnetwork' )
+			).'</a>';
+
 		else
 			$view.= _x( 'Marked as Spam', 'Modules: User', 'gnetwork' ).'</a>';
 
@@ -769,7 +774,9 @@ class User extends gNetwork\Module
 
 		// default sorting
 		if ( empty( $args['orderby'] ) ) {
+
 			$args['orderby'] = 'user_registered';
+
 			if ( empty( $args['order'] ) )
 				$args['order'] = 'DESC';
 		}
@@ -780,6 +787,7 @@ class User extends gNetwork\Module
 	public function pre_user_query( &$user_query )
 	{
 		global $wpdb;
+
 		$user_query->query_where.= " AND {$wpdb->users}.spam = '1'";
 	}
 

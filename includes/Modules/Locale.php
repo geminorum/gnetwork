@@ -186,7 +186,7 @@ class Locale extends gNetwork\Module
 
 	public function network_new_blog_options( $new_options )
 	{
-		if ( 'fa_IR' == constant( 'GNETWORK_WPLANG' ) )
+		if ( 'fa_IR' == self::const( 'GNETWORK_WPLANG' ) )
 			return array_merge( $new_options, [
 				'timezone_string' => 'Asia/Tehran',
 				'date_format'     => 'Y/n/d',
@@ -200,7 +200,7 @@ class Locale extends gNetwork\Module
 
 	public static function getDefault( $default = 'en_US' )
 	{
-		return defined( 'GNETWORK_WPLANG' ) && GNETWORK_WPLANG ? GNETWORK_WPLANG : $default;
+		return self::const( 'GNETWORK_WPLANG' ) ?: $default;
 	}
 
 	public function locale( $locale )
@@ -443,8 +443,9 @@ class Locale extends gNetwork\Module
 			// 'wc-settings'      => 'page',
 			'action-scheduler' => 'page',
 
-			'wp-shortpixel'       => 'page',
-			'wp-short-pixel-bulk' => 'page',
+			'wp-shortpixel'          => 'page',
+			'wp-shortpixel-settings' => 'page',
+			'wp-short-pixel-bulk'    => 'page',
 
 			'enable-media-replace/enable-media-replace.php' => 'page',
 
@@ -478,7 +479,9 @@ class Locale extends gNetwork\Module
 			'litespeed-cdn'       => 'page',
 
 			// [Performance Lab](https://wordpress.org/plugins/performance-lab/)
-			'performance-lab' => 'page',
+			'performance-lab'       => 'page',
+			'perflab-server-timing' => 'page',
+			'wpe-php-compat'        => 'page',
 
 			// https://github.com/bueltge/wordpress-admin-style
 			'WordPress_Admin_Style' => 'page',
@@ -495,10 +498,12 @@ class Locale extends gNetwork\Module
 			'idehweb-lwp-styles'       => 'page',
 			'idehweb-lwp-localization' => 'page',
 
-			'perflab-server-timing' => 'page',
-
 			// [WP Table Pixie](https://wordpress.org/plugins/wp-table-pixie/)
 			'wp-table-pixie' => 'page',
+
+			'wpo_wcpdf_options_page' => 'page',
+
+			'wpdesk_checkout_fields_settings' => 'page',
 
 		], $current );
 

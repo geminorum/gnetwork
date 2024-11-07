@@ -359,7 +359,8 @@ class Profile extends gNetwork\Module
 
 	public function admin_init_disable_edit()
 	{
-		remove_menu_page( 'profile.php' );
+		if ( ! empty( $GLOBALS['menu'] ) )
+			remove_menu_page( 'profile.php' );
 
 		$this->action( 'load-profile.php' );
 		$this->action( 'admin_notices' );
