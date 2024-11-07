@@ -21,14 +21,15 @@
   },
   "require": {
     "php": ">=7.4",
-    "composer/installers": "^2.2.0",
+    "composer/installers": "^1.0 || ^2.0",
     "erusev/parsedown-extra": "^0.8.1",
     "parsecsv/php-parsecsv": "^1.3.2",
     "jbroadway/urlify": "^1.2.4",
     "analog/analog": "^1.0.20",
     "hbattat/verifyemail": "^1.0.8",
     "10up/async-transients": "^1.0",
-    "econea/nusoap": "^0.9.17"
+    "econea/nusoap": "^0.9.17",
+    "mattketmo/email-checker": "^2.3"
   },
   "require-dev": {
     "phpcompatibility/phpcompatibility-wp": ">=2.1.4",
@@ -47,9 +48,10 @@
     "nicolab/php-ftp-client": "^2.0.2",
     "tecnickcom/tc-lib-barcode": "^1.18.4",
     "kub-at/php-simple-html-dom-parser": "^1.9.1",
-    "donatj/phpuseragentparser": "^1.8",
+    "donatj/phpuseragentparser": "^1.9",
     "shuchkin/simplexlsx": "^1.1",
-    "shuchkin/simplexlsxgen": "^1.4"
+    "shuchkin/simplexlsxgen": "^1.4",
+    "enshrined/svg-sanitize": "^0.19.0"
   },
   "config": {
     "vendor-dir": "assets/vendor",

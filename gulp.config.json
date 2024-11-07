@@ -94,6 +94,10 @@
     "tinypng": ""
   },
   "sass": {
+    "silenceDeprecations": [
+      "import",
+      "legacy-js-api"
+    ],
     "sourceComments": true,
     "errLogToConsole": true
   },
