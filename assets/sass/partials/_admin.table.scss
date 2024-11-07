@@ -12,6 +12,28 @@
 table.wp-list-table, // WordPress Core
 table.base-table-list { // Plugin Core
 
+  .column-title {
+
+    // a.row-title {}
+    // span.post-state {}
+
+    // NOTE: if `style` attr with background-color used
+    span.-custom-post-state {
+      font-size: smaller;
+      color: #3c434a;
+      cursor: help;
+
+      border: 1px solid $gray-lighter;
+      padding: ($spacer * .15) ($spacer * .25);
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $gray-lighter !important;
+        transition: background-color 0.1s ease;
+      }
+    }
+  }
+
   td {
     > .-wrap.-icon-list {
       ul {
@@ -117,9 +139,8 @@ div.base-table-actions {
       float: right;
     }
 
-    .-before,
-    .-after {
-    }
+    // .-before,
+    // .-after {}
 
     // input.-limit,
     // input.-paged {
@@ -313,7 +334,7 @@ table.base-table-list {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-table.base-table-simple {}
+// table.base-table-simple {}
 
 ////////////////////////////////////////////////////////////////////////////////
 table.base-table-double {
@@ -335,7 +356,7 @@ table.base-table-uptime {
 ////////////////////////////////////////////////////////////////////////////////
 table.base-table-raw,
 table.base-table-code {
-  > caption {}
+  // > caption {}
 
   > tbody > tr > td {
     padding: 5px 2px;
@@ -362,7 +383,7 @@ table.base-table-side {
   border: 1px solid #ccc;
   border-spacing: 0;
 
-  tr.-row {}
+  // tr.-row {}
 
   td.-key {
     width: 10em;
@@ -370,7 +391,7 @@ table.base-table-side {
     vertical-align: top;
     text-align: right;
 
-    strong {}
+    // strong {}
 
     small {
       color: $gray-dark;
@@ -380,16 +401,16 @@ table.base-table-side {
   td.-val {
     vertical-align: top;
 
-    &.-table {}
+    // &.-table {}
 
     &.-not-table {
       padding: 4px 2px;
     }
 
-    code {}
+    // code {}
   }
 
-  .-empty {}
+  // .-empty {}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

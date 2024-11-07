@@ -95,7 +95,8 @@ ul.-rows .-row {
   }
 
   .-is-valid,
-  .-valid {
+  .-valid,
+  .-text-success {
     color: $brand-success;
 
     &:hover {
@@ -104,11 +105,29 @@ ul.-rows .-row {
   }
 
   .-is-invalid,
-  .-not-valid {
+  .-is-not-valid,
+  .-not-valid,
+  .-text-danger {
     color: $brand-danger;
 
     &:hover {
       color: color.adjust($brand-danger, $lightness: -20%);
+    }
+  }
+
+  .-text-warning {
+    color: $brand-warning;
+
+    &:hover {
+      color: color.adjust($brand-warning, $lightness: -20%);
+    }
+  }
+
+  .-text-info {
+    color: $brand-info;
+
+    &:hover {
+      color: color.adjust($brand-info, $lightness: -20%);
     }
   }
 }

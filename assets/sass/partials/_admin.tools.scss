@@ -20,6 +20,14 @@ $spacer: 1rem !default;
     margin-top: $spacer;
   }
 
+  > .-toolbox-after {
+    position: relative;
+    margin-top: $spacer;
+    min-width: 255px;
+    max-width: 520px;
+  }
+
+  > .-toolbox-after,
   > .-toolbox-card {
     margin-left: auto;
     margin-right: auto;
@@ -76,6 +84,18 @@ $spacer: 1rem !default;
 
   input.regular-text {
     max-width: 100%;
+  }
+
+  pre {
+    /*rtl:ignore*/
+    direction: ltr;
+    background: #f5f2f0;
+    overflow: auto;
+    margin: 0 -2em -1em -2em; // padding for card
+    padding: $spacer;
+    unicode-bidi: embed;
+    font-size: 13px;
+    @include theme-fonts-core-code;
   }
 }
 

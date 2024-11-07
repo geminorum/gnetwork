@@ -59,3 +59,10 @@ h6 {
 #published-posts li {
   // line-height: initial;
 }
+
+.tablenav-pages input.current-page,
+.tablenav .tablenav-pages .button,
+.tablenav .tablenav-pages .tablenav-pages-navspan {
+  // @include theme-fonts-core-code;
+  font-family: Consolas, Monaco, monospace !important;
+}

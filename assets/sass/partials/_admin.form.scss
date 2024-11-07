@@ -31,7 +31,10 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-.-button + span.-description,
+.-button + span.-description {
+  margin-left: $spacer * .5;
+}
+
 .form-table select + .-button {
   margin-left: $spacer * .25;
 }
@@ -94,8 +97,9 @@
     border: 1px solid $gray-lighter;
     border-radius: 2px;
 
-    + p.description {
-      margin-top: -1em;
+    + p.description,
+    + p.-wrap-buttons {
+      margin-top: -.75em;
     }
   }
 

@@ -1,0 +1,50 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Admin Heading
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+.wrap { // wp core class
+
+  // .wp-heading-inline {}
+
+  .page-title-action {
+
+    &.-button {
+      margin-right: 4px;
+      vertical-align: unset;
+    }
+
+    &.-button-icon {
+      padding-left: 5px;
+
+      .dashicons {
+        vertical-align: middle;
+        position: unset;
+        top: unset;
+
+        width: 22px !important;
+        height: 18px;
+        margin: 0 2px 0 -2px;
+        // vertical-align: text-top;
+
+        &::before {
+          color: $gray-light;
+          font-size: 20px;
+        }
+      }
+
+      .-iconsvg {
+        margin: 0 2px 0 -2px;
+
+        svg {
+          width: 22px;
+          height: 20px;
+          vertical-align: text-top;
+          color: $gray-light;
+        }
+      }
+    }
+  }
+}

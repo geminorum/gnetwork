@@ -158,6 +158,12 @@ body.hide-admin-menu {
       line-height: 1.5 !important;
     }
   }
+
+  // there's no better selector
+  #post_parent,
+  select[name="page_template"] {
+    width: 80%; // fixes: the quick-box break on long parent titles
+  }
 }
 
 body.colored {

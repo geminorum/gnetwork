@@ -57,6 +57,14 @@ body.woocommerce-admin-page {
     display: none !important;
   }
 
+  th.manage-column.column-name {
+    width: auto;
+  }
+
+  th.manage-column.column-price {
+    width: 120px;
+  }
+
   th.manage-column.column-taxonomy-shelf {
     width: 60px;
   }
