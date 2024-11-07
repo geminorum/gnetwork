@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
@@ -433,6 +434,8 @@ class Taxonomy extends gNetwork\Module
 		$this->action_self( 'tab_extra_content', 2, 12, 'default_term' );
 		// $this->action_self( 'tab_extra_content', 2, 22, 'terms_stats' ); // FIXME
 		// $this->action_self( 'tab_extra_content', 2, 32, 'i18n_reports' ); // FIXME
+
+		$this->action_self( 'tab_console_content', 2, 12, 'taxonomy_object' );
 	}
 
 	private function get_taxonomy_tabs( $taxonomy )
@@ -448,6 +451,9 @@ class Taxonomy extends gNetwork\Module
 
 		if ( $this->hooked( 'tab_extra_content' ) )
 			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+
+		if ( Core\WordPress::isSuperAdmin() || Core\WordPress::isDev() )
+			$tabs['console'] = [ 'title' => _x( 'Console', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
 		return $this->filters( 'tabs', $tabs, $taxonomy );
 	}
@@ -1078,6 +1084,19 @@ class Taxonomy extends gNetwork\Module
 		HTML::desc( sprintf( _x( 'The default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
 
 		return TRUE;
+	}
+
+	public function callback_tab_content_console( $taxonomy, $tab, $object )
+	{
+		$this->actions( 'tab_console_content', $taxonomy, $object );
+	}
+
+	public function tab_console_content_taxonomy_object( $taxonomy, $object )
+	{
+		echo $this->wrap_open( '-tab-console-taxonomy-object card -toolbox-card' );
+			Core\HTML::h4( _x( 'Taxonomy Object', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+			Core\HTML::dumpVar( $object );
+		echo '</div>';
 	}
 
 ////////////////////////////////////////////////////////////////////////////////
