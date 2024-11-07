@@ -58,6 +58,25 @@ class Debug extends gNetwork\Module
 			$this->filter_false( 'akismet_debug_log', 20 );
 		}
 
+		if ( self::const( 'GNETWORK_DISABLE_PHP_SESSIONS' ) ) {
+
+			/**
+			 * WordPress Core does *not* use sessions. All "user state" is
+			 * managed via cookies. This is a Core design decision.
+			 * However, some plugins or themes will use `session_start()`
+			 * or PHP's `$_SESSION` superglobal.
+			 *
+			 * @source https://docs.pantheon.io/guides/php/wordpress-sessions
+			 */
+
+			// @REF: https://www.ironistic.com/insights/using-php-sessions-in-wordpress/
+			add_action( 'plugins_loaded', [ __CLASS__, 'closeSession' ], 9999, 0 );
+			// add_action( 'init', [ __CLASS__, 'closeSession' ], -9999, 0 );
+			add_action( 'wp_logout', [ __CLASS__, 'closeSession' ], 9999, 0 );
+			add_action( 'wp_login', [ __CLASS__, 'closeSession' ], 9999, 0 );
+			add_action( 'end_session_action', [ __CLASS__, 'closeSession' ], 9, 0 );
+		}
+
 		$this->action( 'shutdown', 1, 99999 );
 		$this->_fix_ob_end_flush_all();
 	}
@@ -1129,6 +1148,15 @@ class Debug extends gNetwork\Module
 				for ( $i = $start; $i < $levels; $i++ )
 					ob_end_flush();
 			}, 1 );
+	}
+
+	public static function closeSession()
+	{
+		if ( PHP_SESSION_NONE === session_status() )
+			return;
+
+		session_destroy    ();  // Destroys all data registered to a session
+		session_write_close();  // Write session data and end session
 	}
 
 	// DRAFT
