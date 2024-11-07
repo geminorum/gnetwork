@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Classic Editor v1.6\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2021-09-03 16:21+0430\n"
+"PO-Revision-Date: 2024-11-04 01:09+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -10,71 +10,76 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ../../../classic-editor\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: classic-editor.php:413 classic-editor.php:490 classic-editor.php:888
+#: classic-editor.php:489
+msgctxt "Editor Name"
+msgid "Classic Editor"
+msgstr "ویرایشگر کلاسیک"
+
+#: classic-editor.php:416 classic-editor.php:493 classic-editor.php:893
 msgctxt "Editor Name"
 msgid "Block editor"
-msgstr "ویرایشگر بلوک "
+msgstr "ویرایشگر بلوک"
 
-#: classic-editor.php:409 classic-editor.php:486 classic-editor.php:888
+#: classic-editor.php:412 classic-editor.php:893
 msgctxt "Editor Name"
 msgid "Classic editor"
 msgstr "ویرایشگر کلاسیک"
 
-#: classic-editor.php:841
+#: classic-editor.php:846
 msgctxt "Editor Name"
 msgid "Edit (classic editor)"
 msgstr "ویرایش (ویرایشگر کلاسیک)"
 
-#: classic-editor.php:834
+#: classic-editor.php:839
 msgctxt "Editor Name"
 msgid "Edit (block editor)"
 msgstr "ویرایش (ویرایشگر بلوک)"
 
-#: classic-editor.php:495
+#: classic-editor.php:498
 msgid "Change settings"
 msgstr "تغییر تنظیمات"
 
-#: classic-editor.php:482
+#: classic-editor.php:485
 msgid "Default editor for all sites"
 msgstr "ویرایشگر پیش‌فرض برای همه سایت‌ها"
 
-#: classic-editor.php:478
+#: classic-editor.php:481
 msgid "Editor Settings"
 msgstr "تنظیمات ویرایشگر"
 
-#: classic-editor.php:462
+#: classic-editor.php:465
 msgid "Default Editor"
 msgstr "ویرایشگر پیش‌فرض"
 
-#: classic-editor.php:875
+#: classic-editor.php:880
 msgctxt "Editor Name"
 msgid "block editor"
 msgstr "ویرایشگر بلوک"
 
-#: classic-editor.php:872
+#: classic-editor.php:877
 msgctxt "Editor Name"
 msgid "classic editor"
 msgstr "ویرایشگر کلاسیک"
 
 #. translators: %s: post title
-#: classic-editor.php:836
+#: classic-editor.php:841
 msgid "Edit &#8220;%s&#8221; in the block editor"
 msgstr "ویرایش «%s» در ویرایشگر بلوک"
 
-#: classic-editor.php:671
+#: classic-editor.php:676
 msgid "Switch to block editor"
 msgstr "سوییچ به ویرایشگر بلوک"
 
-#: classic-editor.php:700
+#: classic-editor.php:705
 msgid "Switch to classic editor"
 msgstr "سوییچ به ویرایشگر کلاسیک"
 
-#: classic-editor.php:499
+#: classic-editor.php:502
 msgid ""
 "By default the block editor is replaced with the classic editor and users "
 "cannot switch editors."
@@ -82,27 +87,27 @@ msgstr ""
 "به صورت پیش‌فرض ویرایشگر بلوک با ویرایشگر کلاسیک جای‌گزین می‌شود و کاربران "
 "نمی‌توانند ویرایشگرها را تعویض کنند."
 
-#: classic-editor.php:498
+#: classic-editor.php:501
 msgid "Allow site admins to change settings"
 msgstr "به مدیران سایت اجازه دهید تنظیمات را تغییر دهند"
 
-#: classic-editor.php:652
+#: classic-editor.php:657
 msgid "Editor"
 msgstr "ویرایشگر"
 
-#: classic-editor.php:437
+#: classic-editor.php:440
 msgid "No"
 msgstr "خیر"
 
-#: classic-editor.php:433
+#: classic-editor.php:436
 msgid "Yes"
 msgstr "بله"
 
-#: classic-editor.php:360
+#: classic-editor.php:363
 msgid "Allow users to switch editors"
 msgstr "اجازه تغییر ویرایشگر به کاربران"
 
-#: classic-editor.php:359
+#: classic-editor.php:362
 msgid "Default editor for all users"
 msgstr "ویرایشگر پیش‌فرض برای همهٔ کاربران"
 
@@ -129,10 +134,10 @@ msgid "Classic Editor"
 msgstr "ویرایشگر کلاسیک"
 
 #. translators: %s: post title
-#: classic-editor.php:843
+#: classic-editor.php:848
 msgid "Edit &#8220;%s&#8221; in the classic editor"
 msgstr "ویرایش «%s» در ویرایشگر کلاسیک"
 
-#: classic-editor.php:719
+#: classic-editor.php:724
 msgid "Settings"
 msgstr "تنظیمات"

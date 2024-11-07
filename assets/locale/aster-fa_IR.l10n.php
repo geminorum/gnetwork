@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>NULL,'plural-forms'=>'nplurals=2; plural=n != 1;','language'=>'fa_IR','project-id-version'=>'Aster','pot-creation-date'=>'2021-08-10T04:49:02+00:00','po-revision-date'=>'2021-08-31 09:53+0430','x-generator'=>'Poedit 3.0','messages'=>['Primary Menu'=>'فهرست اصلی',', '=>'،','(Edit)'=>'(ویرایش)','General'=>'همگانی','Nothing Found'=>'چیزی پیدا نشد','Ready to publish your first post? <a href="%1$s">Get started here</a>.'=>'برای انتشار اولین نوشتهٔ خودتان آماده‌اید؟ <a href="%1$s">از اینجا شروع کنید</a>.','Design'=>'طراحی']];

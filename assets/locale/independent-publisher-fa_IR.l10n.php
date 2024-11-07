@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>NULL,'plural-forms'=>'nplurals=2; plural=n != 1;','language'=>'fa_IR','project-id-version'=>'Independent Publisher','pot-creation-date'=>'2014-08-21 10:36-0500','po-revision-date'=>'2018-09-04 06:14+0430','x-generator'=>'Poedit 2.1.1','messages'=>['Edit'=>'ویرایش','Comment'=>'دیدگاه','Write a Comment'=>'دیدگاه شما','Search'=>'جست‌وجو','Search &hellip;'=>'جست‌وجو &hellip;','Published'=>'منتشر شده','%1$s Words'=>'%1$s کلمه']];

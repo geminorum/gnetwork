@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>NULL,'plural-forms'=>'nplurals=2; plural=n != 1;','language'=>'fa','project-id-version'=>'Regenerate Thumbnails','pot-creation-date'=>'','po-revision-date'=>'2018-09-04 06:12+0430','x-generator'=>'Poedit 2.1.1','messages'=>['Preview'=>'پیش‌نمایش','Loading…'=>'بارگذاری…','Regenerate the thumbnails for this single image'=>'بازسازی بندانگشتی‌های این تک تصویر','Regenerate Thumbnails'=>'بازسازی بند‌انگشتی‌ها']];

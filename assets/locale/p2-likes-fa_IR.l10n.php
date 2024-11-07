@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>NULL,'plural-forms'=>'nplurals=2; plural=n != 1;','language'=>'fa_IR','project-id-version'=>'P2 Likes v1.0.4','pot-creation-date'=>'','po-revision-date'=>'2018-09-04 06:13+0430','x-generator'=>'Poedit 2.1.1','messages'=>['Unlike'=>'لغو خوشم آمد','Like'=>'خوش آمدن']];

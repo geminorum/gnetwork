@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>NULL,'plural-forms'=>'nplurals=2; plural=n != 1;','language'=>'fa_IR','project-id-version'=>'Add External Media','pot-creation-date'=>'2015-03-05 18:21+0100','po-revision-date'=>'2018-09-04 06:16+0430','x-generator'=>'Poedit 2.1.1','messages'=>['menu itemAdd External Media'=>'افزودن رسانه بیرونی','Add to library'=>'افزودن به کتابخانه']];

@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>NULL,'plural-forms'=>'nplurals=2; plural=n != 1;','language'=>'fa_IR','project-id-version'=>'EWWW Image Optimizer v3.3.1','pot-creation-date'=>'','po-revision-date'=>'2018-09-04 06:14+0430','x-generator'=>'Poedit 2.1.1','messages'=>['Image Type'=>'نوع تصویر','Image Optimizer'=>'بهینه‌سازی تصویر','Image Size: %s'=>'اندازه تصویر: %s']];

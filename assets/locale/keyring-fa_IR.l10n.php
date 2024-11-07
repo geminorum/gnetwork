@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>NULL,'plural-forms'=>'nplurals=2; plural=n != 1;','language'=>'fa_IR','project-id-version'=>'Keyring','pot-creation-date'=>'2013-11-13 23:15:58+00:00','po-revision-date'=>'2018-09-04 06:14+0430','x-generator'=>'Poedit 2.1.1','messages'=>[]];

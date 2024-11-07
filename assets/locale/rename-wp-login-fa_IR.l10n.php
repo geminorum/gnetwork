@@ -1,0 +1,2 @@
+<?php
+return ['domain'=>NULL,'plural-forms'=>'nplurals=2; plural=n != 1;','language'=>'fa_IR','project-id-version'=>'Rename wp-login.php v2.5.5','pot-creation-date'=>'','po-revision-date'=>'','x-generator'=>'Poedit 2.1.1','messages'=>['Login url'=>'نشانی ورود','Network Settings'=>'تنظیمات شبکه','Settings'=>'تنظیمات','You must log in to access the admin area.'=>'برای دسترسی به صفحه مورد نظر، ابتدا باید وارد شوید.']];
