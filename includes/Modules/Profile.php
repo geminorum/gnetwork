@@ -3,6 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Core\Arraay;
@@ -43,7 +44,7 @@ class Profile extends gNetwork\Module
 
 		if ( $this->options['display_name_per_site'] ) {
 
-			$this->action( 'personal_options', 1, 99 );
+			$this->action( 'personal_options', 1, 99, 'site_options' );
 
 			if ( did_action( 'set_current_user' ) )
 				$this->set_current_user();
@@ -56,6 +57,10 @@ class Profile extends gNetwork\Module
 
 			$this->filter( 'p2_get_user_display_name', 1, 12 );
 			$this->filter( 'p2_get_archive_author', 1, 12 );
+		}
+
+		if ( defined( 'GNETWORK_WPLANG' ) ) {
+			$this->action( 'personal_options', 1, 9999, 'identity' );
 		}
 
 		if ( $this->options['disable_password_reset'] )
@@ -379,7 +384,7 @@ class Profile extends gNetwork\Module
 
 		$this->action( 'personal_options_update' );
 		$this->action( 'edit_user_profile_update' );
-		$this->action( 'user_edit_form_tag', 0, 99 );
+		$this->action( 'user_edit_form_tag', 0, 999999 );
 	}
 
 	public function user_register( $user_id )
@@ -593,6 +598,8 @@ class Profile extends gNetwork\Module
 			}
 		}
 
+		$this->_store_identity_number( $user_id );
+
 		if ( ! is_multisite() )
 			return;
 
@@ -614,11 +621,11 @@ class Profile extends gNetwork\Module
 		}
 	}
 
-	public function personal_options( $profileuser )
+	public function personal_options_site_options( $profileuser )
 	{
 		if ( is_multisite() && ! is_network_admin() && ! is_user_admin() ) {
 
-			echo '</table><h2>'._x( 'Blog Options', 'Modules: Profile', 'gnetwork' ).'</h2>';
+			echo '</table><h2>'._x( 'Site Options', 'Modules: Profile', 'gnetwork' ).'</h2>';
 			echo '<table class="form-table">';
 
 			$site = get_current_blog_id();
@@ -827,5 +834,47 @@ class Profile extends gNetwork\Module
 		}
 
 		return Text::toCSV( $data );
+	}
+
+	private function _store_identity_number( $user_id )
+	{
+		if ( ! $meta = self::const( 'GNETWORK_USER_IDENTITY_NUMBER', 'identity_number' ) )
+			return FALSE;
+
+		$key = $this->hook( $meta );
+
+		if ( ! isset( $_POST[$key] ) )
+			return FALSE;
+
+		if ( ! $identity = self::req( $key ) )
+			return delete_user_meta( $user_id, $meta );
+
+		if ( $sanitized = Core\Validation::sanitizeIdentityNumber( $identity ) )
+			return update_user_meta( $user_id, $meta, $sanitized );
+
+		return FALSE;
+	}
+
+	public function personal_options_identity( $profileuser )
+	{
+		if ( ! $meta = self::const( 'GNETWORK_USER_IDENTITY_NUMBER', 'identity_number' ) )
+			return FALSE;
+
+		$key = $this->hook( $meta );
+
+		echo '</table><h2>'._x( 'Private Information', 'Modules: Profile', 'gnetwork' ).'</h2>';
+		echo '<table class="form-table">';
+
+		echo '<tr><th><label for="'.$key.'">'
+			._x( 'Identity Number', 'Modules: Profile', 'gnetwork' )
+			.'</label></th><td><input type="text" name="'.$key.'" id="'.$key.'" value="'
+			.( empty( $profileuser->{$meta} ) ? '' : HTML::escape( $profileuser->{$meta} ) )
+			.'" class="regular-text -identity-number"'
+			.' pattern="'.Core\Validation::getIdentityNumberHTMLPattern().'"'
+			.' dir="ltr" data-ortho="identity" /><p class="description">'
+				._x( 'National Identity or Social Security Number for private use only.', 'Modules: Profile', 'gnetwork' )
+			.'</p></td></tr>';
+
+		echo '</table><table class="form-table">';
 	}
 }

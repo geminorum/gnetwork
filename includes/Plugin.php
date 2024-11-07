@@ -86,6 +86,7 @@ class Plugin extends Base
 			'GNETWORK_MEDIA_THUMBS_CHECK'      => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
 			'GNETWORK_MEDIA_OBJECT_SIZES'      => FALSE, // disable all image sizes and enable for each posttypes
 
+			'GNETWORK_USER_IDENTITY_NUMBER'    => 'identity_number', // FALSE to disable
 			'GNETWORK_COMMERCE_MOBILE_METAKEY' => 'mobile',
 
 			// reset some stuff
