@@ -53,6 +53,19 @@ class File extends Base
 	}
 
 	/**
+	 * Retrieves the file type from the file name.
+	 * NOTE: wrapper for `wp_check_filetype()`
+	 *
+	 * @param  string $filename
+	 * @param  array  $mimes
+	 * @return array  $data
+	 */
+	public static function type( $filename, $mimes = NULL )
+	{
+		return wp_check_filetype( $filename, $mimes );
+	}
+
+	/**
 	 * normalize a filesystem path
 	 *
 	 * on windows systems, replaces backslashes with forward slashes and forces upper-case drive letters.
@@ -91,7 +104,7 @@ class File extends Base
 	{
 		if ( empty( $path ) )
 			return '';
-		
+
 		return urldecode( basename( str_replace( [ '%2F', '%5C' ], '/', urlencode( $path ) ), $suffix ) );
 	}
 
@@ -107,8 +120,8 @@ class File extends Base
 		if ( empty( $path ) )
 			return '';
 
-		$type = wp_check_filetype( self::basename( $path ), $mimes ?? wp_get_mime_types() );
-		return self::basename( $path, '.'.$type['ext'] );
+		$type = self::type( self::basename( $path ), $mimes ?? wp_get_mime_types() );
+		return self::basename( $path, empty( $type['ext'] ) ? '' : ('.'. $type['ext'] ) );
 	}
 
 	// @SOURCE: `wp_tempnam()`

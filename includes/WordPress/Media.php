@@ -247,7 +247,7 @@ class Media extends Core\Base
 		if ( ! $file = get_post_meta( $attachment_id, '_wp_attached_file', TRUE ) )
 			return [];
 
-		$filetype = wp_check_filetype( Core\File::basename( $file ) );
+		$filetype = Core\File::type( Core\File::basename( $file ) );
 		$pathfile = Core\File::join( dirname( $file ), Core\File::basename( $file, '.'.$filetype['ext'] ) );
 
 		return PostType::getIDsBySearch( $pathfile );
@@ -305,9 +305,10 @@ class Media extends Core\Base
 	}
 
 	// @SOURCE: `bp_attachments_get_mime_type()`
+	// NOTE: checks against all mimetypes, not just only allowed by WordPress!
 	public static function getMimeType( $path )
 	{
-		$type = wp_check_filetype( $path, wp_get_mime_types() );
+		$type = Core\File::type( $path, wp_get_mime_types() );
 		$mime = $type['type'];
 
 		if ( FALSE === $mime && is_dir( $path ) )
