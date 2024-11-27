@@ -27,7 +27,8 @@ class Cleanup extends gNetwork\Module
 		$confirm    = Settings::getButtonConfirm();
 		$superadmin = WordPress::isSuperAdmin();
 		$multisite  = is_multisite();
-		$sitemeta   = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
+		$mainsite   = is_main_site();
+		$sitemeta   = is_site_meta_supported();
 
 		$settings['_options'][] = [
 			'field'       => 'purge_options_site',
@@ -65,7 +66,7 @@ class Cleanup extends gNetwork\Module
 				'values'      => $confirm,
 			];
 
-		if ( is_main_site() ) {
+		if ( $mainsite ) {
 
 			if ( $multisite && $superadmin ) {
 
@@ -230,7 +231,7 @@ class Cleanup extends gNetwork\Module
 			'values'      => $confirm,
 		];
 
-		if ( $superadmin )
+		if ( $superadmin && $mainsite )
 			$settings['_files'][] = [
 				'field'       => 'files_clean_core',
 				'type'        => 'button',

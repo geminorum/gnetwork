@@ -23,7 +23,7 @@ class SMS extends gNetwork\Module
 	{
 		$this->register_menu( _x( 'SMS', 'Modules: Menu Name', 'gnetwork' ) );
 
-		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_data'] )
+		if ( GNETWORK_SMS_LOG_DIR && $this->options['log_data'] )
 			$this->register_tool( _x( 'SMS Logs', 'Modules: Menu Name', 'gnetwork' ) );
 	}
 

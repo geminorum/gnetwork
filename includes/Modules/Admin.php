@@ -343,7 +343,7 @@ class Admin extends gNetwork\Module
 	protected function tools_overview( $uri )
 	{
 		$tabs     = [];
-		$sitemeta = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
+		$sitemeta = is_site_meta_supported();
 
 		HTML::h2( _x( 'Site Reports', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 

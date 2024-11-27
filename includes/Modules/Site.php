@@ -92,12 +92,11 @@ class Site extends gNetwork\Module
 			'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Site: Settings', 'gnetwork' ),
 		];
 
-		if ( function_exists( 'is_site_meta_supported' ) )
-			$settings['_general'][] = [
-				'field'       => 'resync_sitemeta',
-				'title'       => _x( 'Sync Metadata', 'Modules: Site: Settings', 'gnetwork' ),
-				'description' => _x( 'Re-syncs the site meta network-wide automatically.', 'Modules: Site: Settings', 'gnetwork' ),
-			];
+		$settings['_general'][] = [
+			'field'       => 'resync_sitemeta',
+			'title'       => _x( 'Sync Metadata', 'Modules: Site: Settings', 'gnetwork' ),
+			'description' => _x( 'Re-syncs the site meta network-wide automatically.', 'Modules: Site: Settings', 'gnetwork' ),
+		];
 
 		$settings['_general'][] = [
 			'field'       => 'redirect_notfound',
@@ -227,7 +226,7 @@ class Site extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		$sitemeta = function_exists( 'is_site_meta_supported' ) && is_site_meta_supported();
+		$sitemeta = is_site_meta_supported();
 
 		if ( $this->options['ssl_support'] ) {
 
@@ -505,9 +504,6 @@ class Site extends gNetwork\Module
 
 	private function setup_meta_sync()
 	{
-		if ( ! function_exists( 'is_site_meta_supported' ) )
-			return;
-
 		if ( ! is_site_meta_supported() )
 			return;
 

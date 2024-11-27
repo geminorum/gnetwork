@@ -4,9 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
-use geminorum\gNetwork\Scripts;
-use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\Arraay;
 use geminorum\gNetwork\Core\File;
 use geminorum\gNetwork\Core\HTML;
@@ -15,9 +13,12 @@ use geminorum\gNetwork\Core\L10n;
 use geminorum\gNetwork\Core\Text;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\Strings;
-use geminorum\gNetwork\WordPress\PostType as WPPostType;
+use geminorum\gNetwork\Scripts;
+use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\WordPress\Media as WPMedia;
+use geminorum\gNetwork\WordPress\PostType as WPPostType;
+use geminorum\gNetwork\WordPress\Strings;
 
 class Media extends gNetwork\Module
 {
@@ -845,7 +846,7 @@ class Media extends gNetwork\Module
 		if ( is_null( $wpupload ) )
 			$wpupload = wp_get_upload_dir();
 
-		$filetype = wp_check_filetype( File::basename( $file ) );
+		$filetype = Core\File::type( File::basename( $file ) );
 		$pathfile = File::join( dirname( $file ), File::basename( $file, '.'.$filetype['ext'] ) );
 
 		if ( $this->filters( 'thumbs_separation', GNETWORK_MEDIA_THUMBS_SEPARATION, get_current_blog_id() ) ) {
@@ -1225,7 +1226,7 @@ class Media extends gNetwork\Module
 		$wpupload = WPMedia::upload();
 
 		$file = sanitize_file_name( $filename );
-		$type = wp_check_filetype( $file );
+		$type = Core\File::type( $file );
 
 		$path = File::join( $wpupload['path'], $file );
 		$url  = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
@@ -1360,7 +1361,7 @@ class Media extends gNetwork\Module
 			'webm'      => 'video/webm',
 			'flv'       => 'video/x-flv',
 			'ac3'       => 'audio/ac3',
-			'mpa'       => 'audio/MPA',
+			'mpa'       => 'audio/mpa',
 			'mp4|mpg4'  => 'video/mp4',
 			'flv'       => 'video/x-flv',
 			'svg|svgz'  => 'image/svg+xml',
