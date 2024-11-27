@@ -179,6 +179,24 @@ class Cleanup extends gNetwork\Module
 			'values'      => $confirm,
 		];
 
+		$settings['_terms'][] = [
+			'field'       => 'term_orphaned',
+			'type'        => 'button',
+			'title'       => _x( 'Terms', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes orphaned term relationships from database.', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'default'     => _x( 'Purge Orphaned Terms', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'values'      => $confirm,
+		];
+
+		$settings['_terms'][] = [
+			'field'       => 'termmeta_orphaned',
+			'type'        => 'button',
+			'title'       => _x( 'Term Meta', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes orphaned term meta-data from database.', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'default'     => _x( 'Purge Orphaned Term Matadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'values'      => $confirm,
+		];
+
 		$settings['_comments'][] = [
 			'field'       => 'comments_orphanedmeta',
 			'type'        => 'button',
@@ -307,6 +325,12 @@ class Cleanup extends gNetwork\Module
 
 			else if ( isset( $_POST['thumbnail_orphanedmeta'] ) )
 				$message = $this->thumbnail_orphanedmeta();
+
+			else if ( isset( $_POST['term_orphaned'] ) )
+				$message = $this->term_orphaned();
+
+			else if ( isset( $_POST['termmeta_orphaned'] ) )
+				$message = $this->termmeta_orphaned();
 
 			else if ( isset( $_POST['comments_orphanedmeta'] ) )
 				$message = $this->comments_orphanedmeta();
@@ -719,6 +743,48 @@ class Cleanup extends gNetwork\Module
 		$count = $wpdb->query( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = '_thumbnail_id' AND meta_value NOT IN (SELECT ID FROM {$wpdb->posts})" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->postmeta}" );
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'optimized';
+	}
+
+	// @REF: https://www.dalesandro.net/wordpress-database-cleanup-without-plugins-sql-only/
+	private function term_orphaned()
+	{
+		global $wpdb;
+
+		$count = 0;
+
+		// $count+= $wpdb->query( "SELECT {$wpdb->terms}.* FROM {$wpdb->terms} LEFT JOIN {$wpdb->term_taxonomy} ON {$wpdb->term_taxonomy}.term_id = {$wpdb->terms}.term_id WHERE {$wpdb->term_taxonomy}.term_id IS NULL;" );
+		$count+= $wpdb->query( "DELETE {$wpdb->terms} FROM {$wpdb->terms} LEFT JOIN {$wpdb->term_taxonomy} ON {$wpdb->term_taxonomy}.term_id = {$wpdb->terms}.term_id WHERE {$wpdb->term_taxonomy}.term_id IS NULL;" );
+
+		// @REF: https://gist.github.com/fulippo/3986307
+		$count+= $wpdb->query( "DELETE tr
+			FROM {$wpdb->term_relationships} AS tr
+			INNER JOIN {$wpdb->term_taxonomy} AS tt
+			ON (tr.term_taxonomy_id = tt.term_taxonomy_id)
+			WHERE tr.object_id NOT IN (SELECT ID FROM {$wpdb->posts});
+		" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->terms}" );
+
+		return $count ? [
+			'message' => 'purged',
+			'count'   => $count,
+		] : 'optimized';
+	}
+
+	// @REF: https://www.dalesandro.net/wordpress-database-cleanup-without-plugins-sql-only/
+	private function termmeta_orphaned()
+	{
+		global $wpdb;
+
+		// $count = $wpdb->query( "SELECT {$wpdb->termmeta}.* FROM {$wpdb->termmeta} LEFT JOIN {$wpdb->terms} ON {$wpdb->terms}.term_id = {$wpdb->termmeta}.term_id WHERE {$wpdb->terms}.term_id IS NULL;" );
+		$count = $wpdb->query( "DELETE {$wpdb->termmeta} FROM {$wpdb->termmeta} LEFT JOIN {$wpdb->terms} ON {$wpdb->terms}.term_id = {$wpdb->termmeta}.term_id WHERE {$wpdb->terms}.term_id IS NULL;" );
+
+		$wpdb->query( "OPTIMIZE TABLE {$wpdb->termmeta}" );
 
 		return $count ? [
 			'message' => 'purged',
