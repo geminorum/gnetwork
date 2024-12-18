@@ -15,8 +15,8 @@ class Text extends Base
 	{
 		$text = (string) $text;
 		// $text = trim( $text, " \n\t\r\0\x0B," );
-		$text = preg_replace( '/^[\s\x{200C}]/u', '', $text );
-		$text = preg_replace( '/[\s\x{200C}]$/u', '', $text );
+		$text = preg_replace( '/^[\s\x{200C}\x{200E}\x{200F}]/u', '', $text );
+		$text = preg_replace( '/[\s\x{200C}\x{200E}\x{200F}]$/u', '', $text );
 		$text = trim( $text ); // OCD Only
 
 		if ( 0 === strlen( $text ) )
@@ -99,7 +99,7 @@ class Text extends Base
 		if ( empty( $text ) )
 			return '';
 
-		return self::trim( preg_replace( "/[\s\x{200C}]/u", '', $text ) );
+		return self::trim( preg_replace( "/[\s\x{200C}\x{200E}\x{200F}]/u", '', $text ) );
 	}
 
 	public static function splitAllSpaces( $text )
@@ -107,7 +107,7 @@ class Text extends Base
 		if ( empty( $text ) )
 			return [];
 
-		return array_filter( (array) preg_split( '/[\s\x{200C}]/u', $text ), 'strlen' );
+		return array_filter( (array) preg_split( '/[\s\x{200C}\x{200E}\x{200F}]/u', $text ), 'strlen' );
 	}
 
 	public static function splitNormalSpaces( $text )
@@ -129,7 +129,7 @@ class Text extends Base
 		if ( empty( $text ) )
 			return [];
 
-		$text = self::normalizeWhitespace( self::trim( $text ), TRUE );
+		$text = self::normalizeWhitespace( $text, TRUE );
 
 		return array_filter( array_map( [ __CLASS__, 'trim' ], preg_split( "/\r\n|\n|\r/", $text ) ) );
 	}
@@ -389,6 +389,36 @@ class Text extends Base
 		return self::trim( $text );
 	}
 
+	// props @ebraminio/persiantools
+	public static function normalizeZWNJ( $text )
+	{
+		$text = (string) $text;
+
+		if ( 0 === strlen( $text ) )
+			return '';
+
+		// converts all soft hyphens (&shy;) into zwnj
+		$text = preg_replace( '/x{00AD}/u', '‌', $text );
+
+		// converts all angled dash (&not;) into zwnj
+		$text = preg_replace( '/x{00AC}/u', '‌', $text );
+
+		// removes more than one zwnj
+		$text = preg_replace( '/x{200C}{2,}/u', '‌', $text );
+
+		// cleans zwnj before and after numbers, english words, spaces and punctuations
+		$text = preg_replace( '/x{200C}([\w\s0-9۰-۹[\](){}«»“”.…,:;?!$%@#*=+\-\/\،؛٫٬×٪؟ـ])/u', '$1', $text );
+		$text = preg_replace( '/([\w\s0-9۰-۹[\](){}«»“”.…,:;?!$%@#*=+\-\/\،؛٫٬×٪؟ـ])x{200C}/u', '$1', $text );
+
+		// removes unnecessary zwnj on start/end of each line
+		$text = preg_replace( '/(^x{200C}|x{200C})$/u', '', $text );
+
+		// cleans zwnj after characters that don't conncet to the next
+		$text = preg_replace( '/([إأةؤورزژاآدذ،؛,:«»\\/@#$٪×*()ـ\-=|])x{200C}/u', '$1', $text );
+
+		return $text;
+	}
+
 	// @REF: `normalize_whitespace()`
 	public static function normalizeWhitespace( $text, $multiline = FALSE )
 	{
@@ -397,6 +427,7 @@ class Text extends Base
 		if ( 0 === strlen( $text ) )
 			return '';
 
+		$text = self::normalizeZWNJ( $text );
 		$text = str_replace( "\r", "\n", trim( $text ) );
 
 		return $multiline

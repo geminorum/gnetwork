@@ -57,14 +57,24 @@ class Base
 		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
 	}
 
-	public static function do( $value, $key = 'action', $default = FALSE )
+	public static function do( $values, $key = 'action', $default = FALSE )
 	{
-		return isset( $_REQUEST[$key] ) && $value == $_REQUEST[$key] ? TRUE : $default;
+		if ( ! isset( $_REQUEST[$key] ) )
+			return $default;
+
+		foreach ( (array) $values as $value )
+			if ( $value == $_REQUEST[$key] )
+				return $value ?: TRUE;
+
+		return $default;
 	}
 
 	public static function step( $value = NULL, $key = 'action', $default = '' )
 	{
-		$action = Arraay::keyFirst( self::req( $key, [] ) );
+		$request = self::req( $key, [] );
+		$action  = is_array( $request )
+			? Arraay::keyFirst( $request )
+			: $request;
 
 		if ( empty( $action ) && ! is_null( $value ) )
 			return $default;
@@ -144,10 +154,16 @@ class Base
 		foreach ( func_get_args() as $data )
 
 			if ( self::isError( $data ) )
-				error_log( $data->get_error_message() );
+				error_log( sprintf( 'WPError: %s', strip_tags( $data->get_error_message() ) ) );
 
 			else if ( is_array( $data ) || is_object( $data ) )
 				error_log( print_r( $data, TRUE ) );
+
+			else if ( is_bool( $data ) )
+				error_log( $data ? 'TRUE' : 'FALSE' );
+
+			else if ( is_null( $data ) )
+				error_log( 'NULL' );
 
 			else
 				error_log( $data );

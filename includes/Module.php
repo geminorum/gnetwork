@@ -1439,6 +1439,9 @@ class Module extends Core\Base
 
 	protected function wrap( $html, $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
+		if ( empty( $html ) )
+			return '';
+
 		return $block
 			? '<div class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
