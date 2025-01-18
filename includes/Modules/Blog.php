@@ -625,6 +625,13 @@ class Blog extends gNetwork\Module
 
 	public function login_redirect( $redirect_to, $requested_redirect_to, $user )
 	{
+		if ( ! empty( $GLOBALS['interim_login'] ) )
+			return $redirect_to;
+
+		if ( $redirect_to && GNETWORK_REDIRECT_404_URL
+			&& GNETWORK_REDIRECT_404_URL === Core\URL::untrail( $redirect_to ) )
+			$redirect_to = ''; // reset the redirect
+
 		if ( WordPress::isAJAX() )
 			return $redirect_to;
 

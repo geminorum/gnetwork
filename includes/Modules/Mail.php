@@ -19,6 +19,15 @@ class Mail extends gNetwork\Module
 	protected $key  = 'mail';
 	protected $ajax = TRUE;
 
+	/**
+	 * 	TODO: wrap all mail in html with direction attr
+	 * 		-- convert mime-type header
+
+	 * The default content type is ‘text/plain’ which does not allow using HTML. You can set the content type of the email either by using the ‘wp_mail_content_type‘ filter ( see example below), or by including a header like “Content-type: text/html”. Be careful to reset ‘wp_mail_content_type’ back to ‘text/plain’ after you send your message, though, because failing to do so could lead to unexpected problems with e-mails from WP or plugins/themes.
+	 * The default charset is based on the charset used on the blog. The charset can be set using the ‘wp_mail_charset‘ filter.
+	 * https://developer.wordpress.org/reference/functions/wp_mail/
+	 */
+
 	protected function setup_actions()
 	{
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {

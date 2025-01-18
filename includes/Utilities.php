@@ -105,7 +105,7 @@ class Utilities extends Core\Base
 		if ( is_null( $format ) )
 			$format = self::dateFormats( 'default' );
 
-		return date_i18n( $format, $local, FALSE );
+		return Core\Date::get( $format, $local, FALSE );
 	}
 
 	public static function humanTimeDiff( $timestamp, $now = '' )
@@ -214,11 +214,11 @@ class Utilities extends Core\Base
 
 		$formats = self::dateFormats( FALSE );
 
-		$html = '<span class="-date-date" title="'.Core\HTML::escape( date_i18n( $formats['timeonly'], $timestamp ) );
-		$html.= '" data-time="'.date( 'c', $timestamp ).'">'.date_i18n( $formats['default'], $timestamp ).'</span>';
+		$html = '<span class="-date-date" title="'.Core\HTML::escape( Core\Date::get( $formats['timeonly'], $timestamp ) );
+		$html.= '" data-time="'.date( 'c', $timestamp ).'">'.Core\Date::get( $formats['default'], $timestamp ).'</span>';
 
 		$html.= '&nbsp;(<span class="-date-diff" title="';
-		$html.= Core\HTML::escape( date_i18n( $formats['fulltime'], $timestamp ) ).'">';
+		$html.= Core\HTML::escape( Core\Date::get( $formats['fulltime'], $timestamp ) ).'">';
 		$html.= self::humanTimeDiff( $timestamp ).'</span>)';
 
 		return $class ? '<span class="'.Core\HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
@@ -232,7 +232,7 @@ class Utilities extends Core\Base
 		$timestamp = strtotime( $post->post_modified );
 		$formats   = self::dateFormats( FALSE );
 
-		$html = '<span class="-date-modified" title="'.Core\HTML::escape( date_i18n( $formats['default'], $timestamp ) );
+		$html = '<span class="-date-modified" title="'.Core\HTML::escape( Core\Date::get( $formats['default'], $timestamp ) );
 		$html.='" data-time="'.date( 'c', $timestamp ).'">'.self::humanTimeDiff( $timestamp ).'</span>';
 
 		$edit_last = get_post_meta( $post->ID, '_edit_last', TRUE );
@@ -253,7 +253,7 @@ class Utilities extends Core\Base
 		if ( ! Core\Date::isTimestamp( $timestamp ) )
 			$timestamp = strtotime( $timestamp );
 
-		return date_i18n( self::dateFormats( $context ), $timestamp );
+		return Core\Date::get( self::dateFormats( $context ), $timestamp );
 	}
 
 	// @SEE: http://www.phpformatdate.com/
@@ -497,12 +497,12 @@ class Utilities extends Core\Base
 	// FIXME: check: `URLify::add_chars()`
 	public static function URLifyDownCode( $string, $locale = NULL )
 	{
-		return $string ? \URLify::downcode( $string, Core\L10n::getISO639( $locale ) ) : $string;
+		return $string ? @\URLify::downcode( $string, Core\L10n::getISO639( $locale ) ) : $string;
 	}
 
 	public static function URLifyFilter( $string, $length = 60, $locale = NULL )
 	{
-		return $string ? \URLify::filter( $string, $length, Core\L10n::getISO639( $locale ), TRUE, FALSE ) : $string;
+		return $string ? @\URLify::filter( $string, $length, Core\L10n::getISO639( $locale ), TRUE, FALSE ) : $string;
 	}
 
 	public static function IPinfo()
@@ -526,6 +526,7 @@ class Utilities extends Core\Base
 		return $ipinfp->getFullIpDetails( $ip );
 	}
 
+	// @SEE: https://github.com/FGRibreau/mailchecker
 	// @REF: https://github.com/hbattat/verifyEmail
 	public static function verifyEmail( $email = NULL, $from = NULL, $port = 25 )
 	{

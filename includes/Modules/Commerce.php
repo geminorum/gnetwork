@@ -413,7 +413,7 @@ class Commerce extends gNetwork\Module
 
 			$fields['billing']['billing_phone']['class'] = [ 'form-row-first', 'phone' ];
 			$fields['billing']['billing_phone']['placeholder'] = _x( 'For calling on land-line', 'Modules: Commerce', 'gnetwork' );
-			$fields['billing']['billing_phone']['input_class'] = [ 'ltr', 'rtl-placeholder' ];
+			$fields['billing']['billing_phone']['input_class'] = [ 'ltr', 'rtl-placeholder', 'woocommerce-Input', 'woocommerce-Input--text', 'input-text' ];
 			// $fields['billing']['billing_phone']['custom_attributes']['pattern'] = Validation::getMobileHTMLPattern();
 
 			$mobile = is_user_logged_in() ? get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) : FALSE;
@@ -421,7 +421,7 @@ class Commerce extends gNetwork\Module
 			$fields['billing']['customer_mobile'] = [
 				'type'              => 'tel',
 				'class'             => [ 'form-row-last', 'mobile', 'validate-phone' ],
-				'input_class'       => [ 'ltr', 'rtl-placeholder' ],
+				'input_class'       => [ 'ltr', 'rtl-placeholder', 'woocommerce-Input', 'woocommerce-Input--text', 'input-text' ],
 				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'priority'          => 105, // after the `billing_phone` with priority `100`
@@ -548,7 +548,7 @@ class Commerce extends gNetwork\Module
 			woocommerce_form_field( 'account_mobile', [
 				'type'              => 'tel',
 				'class'             => [ 'form-row-wide', 'mobile' ],
-				'input_class'       => [ 'ltr', 'rtl-placeholder' ],
+				'input_class'       => [ 'ltr', 'rtl-placeholder', 'woocommerce-Input', 'woocommerce-Input--text', 'input-text' ],
 				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'required'          => TRUE,
@@ -607,7 +607,7 @@ class Commerce extends gNetwork\Module
 			woocommerce_form_field( 'account_mobile', [
 				'type'              => 'tel',
 				'class'             => [ 'form-row-wide', 'mobile' ],
-				'input_class'       => [ 'ltr', 'rtl-placeholder' ],
+				'input_class'       => [ 'ltr', 'rtl-placeholder', 'woocommerce-Input', 'woocommerce-Input--text', 'input-text' ],
 				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'required'          => TRUE,

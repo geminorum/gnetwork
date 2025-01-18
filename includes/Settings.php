@@ -71,12 +71,9 @@ class Settings extends Core\Base
 
 	public static function sideOpen( $title = NULL, $uri = '', $active = '', $subs = [], $heading = NULL )
 	{
-		if ( is_null( $title ) )
-			$title = _x( 'Extras', 'Settings: Header Title', 'gnetwork' );
-
 		echo '<div class="side-nav-wrap">';
 
-		Core\HTML::h2( $title, '-title' );
+		Core\HTML::h2( $title ?? _x( 'Extras', 'Settings: Header Title', 'gnetwork' ), '-title' );
 		Core\HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
 
 		echo '<div class="side-nav-content">';
@@ -105,7 +102,8 @@ class Settings extends Core\Base
 
 	public static function sideClose()
 	{
-		echo '</div><div class="clear"></div></div>';
+		// echo '</div><div class="clear"></div></div>';
+		echo '</div></div>';
 	}
 
 	// @SEE: `wp_removable_query_args()`

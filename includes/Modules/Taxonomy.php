@@ -381,7 +381,7 @@ class Taxonomy extends gNetwork\Module
 		$this->actions( 'term_tab_posts_content_before', $taxonomy, $object, $term );
 
 		$posts = get_posts( [
-			'post_type' => self::req( 'post_type', 'any' ),
+			'post_type' => $object->object_type, // self::req( 'post_type', 'any' ),
 			'tax_query' => [
 				[
 					'taxonomy' => $taxonomy,

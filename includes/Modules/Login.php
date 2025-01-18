@@ -205,7 +205,7 @@ class Login extends gNetwork\Module
 
 	public function plugins_loaded()
 	{
-		if ( empty( $_SERVER['REQUEST_URI'] ) )
+		if ( empty( $_SERVER['REQUEST_URI'] ) || '/favicon.ico' === $_SERVER['REQUEST_URI'] )
 			return;
 
 		if ( ! is_multisite() && Core\Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
@@ -574,6 +574,7 @@ class Login extends gNetwork\Module
 				'type'         => 'number',
 				'name'         => 'num',
 				'autocomplete' => 'off',
+				'class'        => 'form-control',   // Bootstrap
 			] );
 
 			$html.= Core\HTML::tag( 'input', [
