@@ -16,6 +16,7 @@ class Email extends Base
 		return preg_replace( '/\s+/', '', sanitize_user( preg_replace( '/([^@]*).*/', '$1', $email ), $strict ) );
 	}
 
+	// @SEE: https://github.com/FGRibreau/mailchecker
 	// @REF: https://github.com/hbattat/verifyEmail
 	// @REF: https://ctrlq.org/code/20152-validate-email-address
 	public static function verify( $toemail, $fromemail, $getdetails = FALSE )

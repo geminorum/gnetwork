@@ -55,7 +55,7 @@ class HTTP extends Base
 		static $data = NULL;
 
 		if ( is_null( $data ) )
-			$data = array(
+			$data = [
 
 				// 1×× Informational
 				100 => 'Continue',
@@ -130,7 +130,7 @@ class HTTP extends Base
 				510 => 'Not Extended',
 				511 => 'Network Authentication Required',
 				599 => 'Network Connect Timeout Error',
-			);
+			];
 
 		$code = absint( $code );
 
@@ -632,12 +632,12 @@ class HTTP extends Base
 		$in_out  = curl_init( $url );
 		$stream = fopen( 'php://temp', 'w+' );
 
-		curl_setopt_array( $in_out, array(
+		curl_setopt_array( $in_out, [
 			CURLOPT_FAILONERROR    => TRUE,
 			CURLOPT_FOLLOWLOCATION => TRUE,
 			CURLOPT_HEADER         => TRUE,
 			CURLOPT_FILE           => $stream,
-		) );
+		] );
 
 		if ( FALSE === curl_exec( $in_out ) ) {
 			$err_msg << curl_error( $in_out );
@@ -666,15 +666,15 @@ class HTTP extends Base
 
 	// @REF: http://arguments.callee.info/2010/02/21/multiple-curl-requests-with-php/
 	// @REF: http://stackoverflow.com/a/9950468
-	public static function checkURLs( $urls = array() )
+	public static function checkURLs( $urls = [] )
 	{
 		if ( ! extension_loaded( 'curl' ) )
 			return FALSE;
 
 		if ( empty( $urls ) )
-			return array();
+			return [];
 
-		$ch = $results = array();
+		$ch = $results = [];
 
 		$urls = array_values( array_unique( $urls ) );
 		$mh   = curl_multi_init();

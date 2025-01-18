@@ -103,14 +103,14 @@ class Phone extends Base
 	 */
 	public static function clickable( $text )
 	{
-		$number = trim( preg_replace( '/[^\d|\+]/', '', $text ) );
+		$number = Text::trim( preg_replace( '/[^\d|\+]/', '', $text ) );
 
 		return $number ? '<a href="tel:'.esc_attr( $number ).'">'.esc_html( $text ).'</a>' : '';
 	}
 
 	public static function prepMobileForUsername( $text )
 	{
-		if ( ! ( $text = trim( $text ) ) )
+		if ( ! ( $text = Text::trim( $text ) ) )
 			return '';
 
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {

@@ -28,12 +28,12 @@ class URL extends Base
 	{
 		$title = preg_replace( '|^http(s)?://(www\.)?|i', '', $url );
 		$title = self::untrail( $title );
-		return $convert_slash ? str_ireplace( array( '/', '\/' ), '-', $title ) : $title;
+		return $convert_slash ? str_ireplace( [ '/', '\/' ], '-', $title ) : $title;
 	}
 
 	public static function prepTitleQuery( $string )
 	{
-		return str_ireplace( array( '_', '-' ), ' ', urldecode( $string ) );
+		return str_ireplace( [ '_', '-' ], ' ', urldecode( $string ) );
 	}
 
 	// wrapper for `wp_parse_url()`
@@ -72,12 +72,12 @@ class URL extends Base
 
 		parse_str( $query, $args );
 
-		return array(
+		return [
 			'base'     => $base,
 			'query'    => $args,
 			'protocol' => $pro,
 			'fragment' => $frag,
-		);
+		];
 	}
 
 	// strips the #fragment from a URL, if one is present
@@ -175,9 +175,9 @@ class URL extends Base
 	// @REF: https://d-mueller.de/blog/why-url-validation-with-filter_var-might-not-be-a-good-idea/
 	public static function isValid( $url )
 	{
-		$url = trim( $url );
+		$url = Text::trim( $url );
 
-		if ( empty( $url ) )
+		if ( self::empty( $url ) )
 			return FALSE;
 
 		if ( 0 !== strpos( $url, 'http://' ) && 0 !== strpos( $url, 'https://' ) )
@@ -192,17 +192,17 @@ class URL extends Base
 		return FALSE;
 	}
 
-	public static function checkExternals( $urls = array(), $site = NULL )
+	public static function checkExternals( $urls = [], $site = NULL )
 	{
 		if ( empty( $urls ) )
-			return array();
+			return [];
 
 		if ( is_null( $site ) )
 			$site = get_option( 'siteurl' );
 
 		$urls    = array_values( array_unique( $urls ) );
 		$length  = strlen( $site );
-		$results = array();
+		$results = [];
 
 		foreach ( $urls as $url )
 			$results[$url] = $site !== substr( $url, 0, $length );

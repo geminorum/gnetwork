@@ -172,6 +172,7 @@ class Base
 	}
 
 	// INTERNAL: used on anything deprecated
+	// TODO: new syntax on php 8.4: `#[\Deprecated(message)]`
 	protected static function _dep( $note = '', $prefix = 'DEP: ', $offset = 1 )
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
@@ -433,6 +434,9 @@ class Base
 	// @REF: `stripslashes_deep()`
 	public static function unslash( $array )
 	{
+		if ( empty( $array ) )
+			return $array;
+
 		return self::mapDeep( $array, static function ( $value ) {
 			return is_string( $value ) ? stripslashes( $value ) : $value;
 		} );

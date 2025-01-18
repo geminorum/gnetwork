@@ -65,6 +65,7 @@ class Number extends Base
 	 *
 	 * @link https://en.wikipedia.org/wiki/Ordinal_numeral
 	 * @link https://en.wikipedia.org/wiki/Numeral_prefix
+	 * @link https://en.wiktionary.org/wiki/Appendix:English_numerals
 	 *
 	 * @param  int|string  $number
 	 * @param  null|string $locale
@@ -277,12 +278,12 @@ class Number extends Base
 		return preg_replace( '/^0+/', '', self::translate( $zeroised ) );
 	}
 
-	public static $readable_suffix = array(
+	public static $readable_suffix = [
 		'trillion' => '%s trillion',
 		'billion'  => '%s billion',
 		'million'  => '%s million',
 		'thousand' => '%s thousand',
-	);
+	];
 
 	// @REF: http://php.net/manual/en/function.number-format.php#89888
 	public static function formatReadable( $number, $suffix = NULL )
@@ -534,9 +535,8 @@ class Number extends Base
 		$r = 0;
 		$l = strlen( $a );
 
-		for ( $i = 0; $i < $l; $i++ ) {
+		for ( $i = 0; $i < $l; $i++ )
 			$r += pow( 26, $i ) * ( ord( $a[$l - $i - 1]) - 0x40 );
-		}
 
 		return $r - 1;
 	}

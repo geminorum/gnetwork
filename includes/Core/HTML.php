@@ -16,14 +16,15 @@ class HTML extends Base
 		if ( is_null( $html ) )
 			$html = $link;
 
-		return self::tag( 'a', array(
+		return self::tag( 'a', [
 			'class'  => '-link',
 			'href'   => $link,
 			'target' => $target_blank ? '_blank' : FALSE,
 			'dummy'  => 'wtf', // HACK: dummy attr to distract the `wordWrap()`!
-		), $html );
+		], $html );
 	}
 
+	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#e-mail-address
 	public static function mailto( $email, $content = NULL, $class = '' )
 	{
 		$content = $content ?: self::wrapLTR( trim( $email ) );
@@ -57,22 +58,22 @@ class HTML extends Base
 
 	public static function h1( $html, $class = FALSE, $link = FALSE )
 	{
-		if ( $html ) echo self::tag( 'h1', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+		if ( $html ) echo self::tag( 'h1', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
 	public static function h2( $html, $class = FALSE, $link = FALSE )
 	{
-		if ( $html ) echo self::tag( 'h2', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+		if ( $html ) echo self::tag( 'h2', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
 	public static function h3( $html, $class = FALSE, $link = FALSE )
 	{
-		if ( $html ) echo self::tag( 'h3', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+		if ( $html ) echo self::tag( 'h3', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
 	public static function h4( $html, $class = FALSE, $link = FALSE )
 	{
-		if ( $html ) echo self::tag( 'h4', array( 'class' => $class ), ( $link ? self::link( $html, $link ) : $html ) );
+		if ( $html ) echo self::tag( 'h4', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
 	public static function code( $string, $class = FALSE )
@@ -108,31 +109,31 @@ class HTML extends Base
 
 	public static function label( $input, $for = FALSE, $wrap = 'p' )
 	{
-		$html = self::tag( 'label', [ 'for' => $for ], $input );
+		$html = self::tag( 'label', [ 'for' => $for, 'class' => 'form-label' ], $input );
 		echo $wrap ? self::tag( $wrap, $html ) : $html;
 	}
 
-	public static function button( $html, $link = '#', $title = FALSE, $icon = FALSE, $data = array(), $id = FALSE )
+	public static function button( $html, $link = '#', $title = FALSE, $icon = FALSE, $data = [], $id = FALSE )
 	{
-		$classes = array(
+		$classes = [
 			'btn',
 			'btn-default',
 			'btn-xs',
 			'button',
 			'-button',
-		);
+		];
 
 		if ( $icon )
 			$classes[] = '-button-icon';
 
-		return self::tag( ( $link ? 'a' : 'span' ), array(
-			'id'     => $id,
-			'href'   => $link ? $link : FALSE,
+		return self::tag( ( $link ? 'a' : 'span' ), [
+			'id'     => $id ?: FALSE,
+			'href'   => $link ?: FALSE,
 			'title'  => $title,
 			'class'  => $classes,
 			'data'   => $data,
 			'target' => '_blank',
-		), $html );
+		], $html );
 	}
 
 	public static function row( $html, $class = '', $data = [], $tag = 'li' )
@@ -208,7 +209,7 @@ class HTML extends Base
 		return count( $items ) ? ( $before.implode( $sep, $items ).$after ) : $empty;
 	}
 
-	public static function tag( $tag, $atts = array(), $content = FALSE, $sep = '' )
+	public static function tag( $tag, $atts = [], $content = FALSE, $sep = '' )
 	{
 		if ( empty( $tag ) ) {
 
@@ -257,7 +258,7 @@ class HTML extends Base
 
 	public static function attrClass()
 	{
-		$classes = array();
+		$classes = [];
 
 		foreach ( func_get_args() as $arg )
 
@@ -280,7 +281,7 @@ class HTML extends Base
 		if ( 1 === count( $classes ) && empty( $classes[0] ) )
 			return '';
 
-		return implode( ' ', array_unique( array_filter( call_user_func_array( array( __CLASS__, 'attrClass' ), $classes ), array( __CLASS__, 'sanitizeClass' ) ) ) );
+		return implode( ' ', array_unique( array_filter( call_user_func_array( [ __CLASS__, 'attrClass' ], $classes ), [ __CLASS__, 'sanitizeClass' ] ) ) );
 	}
 
 	public static function propData( $data )
@@ -336,10 +337,10 @@ class HTML extends Base
 				$sanitized = TRUE;
 			}
 
-			if ( in_array( $key, array( 'selected', 'checked', 'readonly', 'disabled', 'default', 'required', 'multiple' ), TRUE ) )
+			if ( in_array( $key, [ 'selected', 'checked', 'readonly', 'disabled', 'default', 'required', 'multiple' ], TRUE ) )
 				$att = $att ? $key : FALSE;
 
-			else if ( in_array( $key, array( 'spellcheck' ), TRUE ) )
+			else if ( in_array( $key, [ 'spellcheck' ], TRUE ) )
 				$att = $att ? 'true' : 'false';
 
 			if ( FALSE === $att )
@@ -415,25 +416,27 @@ class HTML extends Base
 
 	// @REF: https://www.billerickson.net/code/phone-number-url/
 	// @SEE: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
+	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#telephone-numbers
 	public static function sanitizePhoneNumber( $number )
 	{
-		return self::escapeURL( 'tel:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
+		return self::escapeURL( 'tel:'.str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $number ) );
 	}
 
+	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#smsmmsfacetime
 	public static function sanitizeSMSNumber( $number )
 	{
-		return self::escapeURL( 'sms:'.str_replace( array( '(', ')', '-', '.', '|', ' ' ), '', $number ) );
+		return self::escapeURL( 'sms:'.str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $number ) );
 	}
 
 	// FIXME: DEPRECATED
-	public static function getAtts( $string, $expecting = array() )
+	public static function getAtts( $string, $expecting = [] )
 	{
 		self::_dev_dep( 'HTML::parseAtts()' );
 
 		return self::parseAtts( $string, $expecting );
 	}
 
-	public static function parseAtts( $string, $expecting = array() )
+	public static function parseAtts( $string, $expecting = [] )
 	{
 		foreach ( $expecting as $attr => $default ) {
 
@@ -536,6 +539,9 @@ class HTML extends Base
 
 	public static function tableSimple( $data, $columns = [], $verbose = TRUE, $class = '' )
 	{
+		if ( empty( $data ) )
+			return $verbose ? FALSE : '';
+
 		$html = '<div class="wrap-base-table-simple"><table class="'.self::prepClass( 'base-table-simple', $class ).'">';
 
 		if ( $columns && count( $columns ) ) {
@@ -648,12 +654,12 @@ class HTML extends Base
 		else if ( $version )
 			$url = add_query_arg( 'ver', $version, $url );
 
-		$html = self::tag( 'link', array(
+		$html = self::tag( 'link', [
 			'rel'   => 'stylesheet',
 			'href'  => $url,
 			'type'  => 'text/css',
 			'media' => $media,
-		) )."\n";
+		] )."\n";
 
 		if ( ! $verbose )
 			return $html;
@@ -661,7 +667,7 @@ class HTML extends Base
 		echo $html;
 	}
 
-	public static function headerNav( $uri = '', $active = '', $subs = array(), $prefix = 'nav-tab', $wrap = 'h3', $item = FALSE )
+	public static function headerNav( $uri = '', $active = '', $subs = [], $prefix = 'nav-tab', $wrap = 'h3', $item = FALSE )
 	{
 		if ( empty( $subs ) )
 			return '';
@@ -672,31 +678,29 @@ class HTML extends Base
 
 			if ( is_array( $page ) ) {
 				$title = empty( $page['title'] ) ? $slug : $page['title'];
-				$args  = empty( $page['args'] ) ? array( 'sub' => $slug ) : $page['args'];
+				$args  = empty( $page['args'] ) ? [ 'sub' => $slug ] : $page['args'];
 			} else {
 				$title = $page;
-				$args  = array( 'sub' => $slug );
+				$args  = [ 'sub' => $slug ];
 			}
 
 			$url   = add_query_arg( $args, $uri );
 			$class = $prefix.' '.$prefix.'-'.$slug.( $slug == $active ? ' '.$prefix.'-active -active' : '' );
 
 			if ( $item )
-				$html.= self::tag( $item, array( 'class' => $class ), self::link( $title, $url ) );
+				$html.= self::tag( $item, [ 'class' => $class ], self::link( $title, $url ) );
 			else
-				$html.= self::tag( 'a', array( 'class' => $class, 'href' => $url ), $title );
+				$html.= self::tag( 'a', [ 'class' => $class, 'href' => $url ], $title );
 		}
 
 		if ( $wrap )
-			echo self::tag( $wrap, array(
-				'class' => $prefix.'-wrapper',
-			), $html );
+			echo self::tag( $wrap, [ 'class' => $prefix.'-wrapper' ], $html );
 
 		else
 			echo $html;
 	}
 
-	public static function tabNav( $active = '', $tabs = array(), $prefix = 'nav-tab-', $tag = 'div' )
+	public static function tabNav( $active = '', $tabs = [], $prefix = 'nav-tab-', $tag = 'div' )
 	{
 		if ( empty( $tabs ) )
 			return;
@@ -704,30 +708,28 @@ class HTML extends Base
 		$html = '';
 
 		foreach ( $tabs as $tab => $title )
-			$html.= self::tag( 'a', array(
+			$html.= self::tag( 'a', [
 				'class' => 'nav-tab '.$prefix.$tab.( $tab == $active ? ' nav-tab-active -active' : '' ),
 				'href'  => '#'.$tab,
-				'data'  => array( 'tab' => $tab, 'toggle' => 'tab' ),
-			), $title );
+				'data'  => [ 'tab' => $tab, 'toggle' => 'tab' ],
+			], $title );
 
-		echo self::tag( $tag, array(
-			'class' => 'nav-tab-wrapper -wrapper',
-		), $html );
+		echo self::tag( $tag, [ 'class' => 'nav-tab-wrapper -wrapper' ], $html );
 	}
 
 	// @REF: https://make.wordpress.org/core/2019/04/02/admin-tabs-semantic-improvements-in-5-2/
-	public static function tabsList( $tabs, $atts = array() )
+	public static function tabsList( $tabs, $atts = [] )
 	{
 		if ( empty( $tabs ) )
 			return FALSE;
 
-		$args = self::atts( array(
+		$args = self::atts( [
 			'active' => NULL, // TRUE forces first tab active
 			'title'  => FALSE,
 			'class'  => FALSE,
 			'prefix' => 'nav-tab',
 			'nav'    => 'h3',
-		), $atts );
+		], $atts );
 
 		if ( TRUE === $args['active'] ) {
 
@@ -743,26 +745,26 @@ class HTML extends Base
 
 		foreach ( $tabs as $tab => $tab_atts ) {
 
-			$tab_args = self::atts( array(
+			$tab_args = self::atts( [
 				// 'active'  => FALSE, // not needed here, just for reference
 				'title'   => $tab,
 				'link'    => '#'.$tab,
 				'cb'      => FALSE,
 				'content' => '',
-			), $tab_atts );
+			], $tab_atts );
 
-			$navs.= self::tag( 'a', array(
+			$navs.= self::tag( 'a', [
 				'href'  => $tab_args['link'],
 				'class' => $args['prefix'].' -nav'.( $tab == $args['active'] ? ' '.$args['prefix'].'-active -active' : '' ),
-				'data'  => array( 'tab' => $tab, 'toggle' => 'tab' ),
-			), $tab_args['title'] );
+				'data'  => [ 'tab' => $tab, 'toggle' => 'tab' ],
+			], $tab_args['title'] );
 
 			$content = '';
 
 			if ( $tab_args['cb'] && is_callable( $tab_args['cb'] ) ) {
 
 				ob_start();
-					call_user_func_array( $tab_args['cb'], array( $tab, $tab_args, $args ) );
+					call_user_func_array( $tab_args['cb'], [ $tab, $tab_args, $args ] );
 				$content.= ob_get_clean();
 
 			} else if ( $tab_args['content'] ) {
@@ -772,38 +774,36 @@ class HTML extends Base
 
 			if ( $content ) {
 
-				$contents.= self::tag( 'div', array(
+				$contents.= self::tag( 'div', [
 					'class' => $args['prefix'].'-content'.( $tab == $args['active'] ? ' '.$args['prefix'].'-content-active -active' : '' ).' -content',
-					'data'  => array( 'tab' => $tab ),
-				), $content );
+					'data'  => [ 'tab' => $tab ],
+				], $content );
 			}
 		}
 
 		if ( isset( $args['title'] ) && $args['title'] )
 			echo $args['title'];
 
-		$navs = self::tag( $args['nav'], array(
-			'class' => $args['prefix'].'-wrapper -wrapper',
-		), $navs );
+		$navs = self::tag( $args['nav'], [ 'class' => $args['prefix'].'-wrapper -wrapper' ], $navs );
 
-		echo self::tag( 'div', array(
-			'class' => array(
+		echo self::tag( 'div', [
+			'class' => [
 				'base-tabs-list',
 				'-base',
 				$args['prefix'].'-base',
 				$args['class'],
-			),
-		), $navs.$contents );
+			],
+		], $navs.$contents );
 
 		return TRUE;
 	}
 
-	public static function tableList( $columns, $data = array(), $atts = array() )
+	public static function tableList( $columns, $data = [], $atts = [] )
 	{
 		if ( empty( $columns ) )
 			return FALSE;
 
-		$args = self::atts( array(
+		$args = self::atts( [
 			'empty'      => NULL,
 			'title'      => NULL,
 			'before'     => FALSE,
@@ -815,10 +815,10 @@ class HTML extends Base
 			'search'     => FALSE, // 'before', // 'after', // FIXME: add search box
 			'navigation' => FALSE, // 'before', // 'after',
 			'direction'  => NULL,
-			'pagination' => array(),
-			'map'        => array(),
-			'extra'      => array(), // just passing around!
-		), $atts );
+			'pagination' => [],
+			'map'        => [],
+			'extra'      => [], // just passing around!
+		], $atts );
 
 		echo '<div'.( is_null( $args['direction'] ) ? '' : ' dir="'.$args['direction'].'"' ).' class="base-table-wrap">';
 
@@ -833,7 +833,7 @@ class HTML extends Base
 		if ( $args['before'] && is_callable( $args['before'] ) ) {
 
 			echo '<div class="base-table-navigation -callable">';
-				call_user_func_array( $args['before'], array( $columns, $data, $args ) );
+				call_user_func_array( $args['before'], [ $columns, $data, $args ] );
 			echo '</div>';
 		}
 
@@ -852,14 +852,17 @@ class HTML extends Base
 					continue;
 
 				$tag   = 'th';
-				$class = [];
+				$class = [
+					'-column',
+					'-column-'.$key,
+				];
 
 				if ( is_array( $column ) ) {
 
 					$title = empty( $column['title'] ) ? $key : $column['title'];
 
 					if ( ! empty( $column['class'] ) )
-						$class[] = $column['class'];
+						$class = array_merge( $class, (array) $column['class'] );
 
 				} else if ( '_cb' === $key ) {
 
@@ -872,7 +875,7 @@ class HTML extends Base
 					$title = $column;
 				}
 
-				echo '<'.$tag.' class="'.HTML::prepClass( '-column', '-column-'.$key, $class ).'">'.$title.'</'.$tag.'>';
+				echo '<'.$tag.' class="'.self::prepClass( $class ).'">'.$title.'</'.$tag.'>';
 			}
 
 		echo '</tr></thead><tbody class="-list">';
@@ -890,18 +893,18 @@ class HTML extends Base
 			foreach ( $data as $index => $row ) {
 
 				if ( is_callable( $args['row_prep'] ) )
-					$row = call_user_func_array( $args['row_prep'], array( $row, $index, $args ) );
+					$row = call_user_func_array( $args['row_prep'], [ $row, $index, $args ] );
 
 				if ( FALSE === $row )
 					continue;
 
-				$row_class = array( '-row', '-row-'.$index );
+				$row_class = [ '-row', '-row-'.$index ];
 
 				if ( $alt )
 					$row_class[] = 'alternate';
 
 				if ( $args['row_class'] )
-					$row_class = call_user_func_array( $args['row_class'], array( $row_class, $row, $index, $args ) );
+					$row_class = call_user_func_array( $args['row_class'], [ $row_class, $row, $index, $args ] );
 
 				echo '<tr class="'.self::prepClass( $row_class ).'">';
 
@@ -910,7 +913,7 @@ class HTML extends Base
 					$cell     = 'td';
 					$value    = NULL;
 					$key      = $offset;
-					$class    = array();
+					$class    = [];
 					$callback = $actions = '';
 
 					// override key using map
@@ -920,7 +923,7 @@ class HTML extends Base
 					if ( is_array( $column ) ) {
 
 						if ( ! empty( $column['class'] ) )
-							$class[] = $column['class'];
+							$class = array_merge( $class, (array) $column['class'] );
 
 						if ( ! empty( $column['callback'] ) )
 							$callback = $column['callback'];
@@ -945,7 +948,7 @@ class HTML extends Base
 							$value = $index;
 
 						else if ( is_array( $column ) && ! empty( $column['value'] ) )
-							$value = call_user_func_array( $column['value'], array( NULL, $row, $column, $index, $key, $args ) );
+							$value = call_user_func_array( $column['value'], [ NULL, $row, $column, $index, $key, $args ] );
 
 						else if ( is_array( $row ) && array_key_exists( $column, $row ) )
 							$value = $row[$column];
@@ -1016,7 +1019,7 @@ class HTML extends Base
 		if ( $args['after'] && is_callable( $args['after'] ) ) {
 
 			echo '<div class="base-table-navigation -callable">';
-				call_user_func_array( $args['after'], array( $columns, $data, $args ) );
+				call_user_func_array( $args['after'], [ $columns, $data, $args ] );
 			echo '</div>';
 		}
 
@@ -1051,26 +1054,26 @@ class HTML extends Base
 	}
 
 	// FIXME: must use internal `add_query_arg()` and remove `message`/`count` args
-	public static function tableNavigation( $pagination = array() )
+	public static function tableNavigation( $pagination = [] )
 	{
-		$args = self::atts( array(
-			'actions'  => array(),
-			'icons'    => array(),
-			'before'   => array(),
-			'after'    => array(),
+		$args = self::atts( [
+			'actions'  => [],
+			'icons'    => [],
+			'before'   => [],
+			'after'    => [],
 			'total'    => 0,
 			'pages'    => 0,
 			'limit'    => self::limit(),
 			'paged'    => self::paged(),
 			'order'    => self::order( 'ASC' ),
-			'extra'    => array(),
+			'extra'    => [],
 			'all'      => FALSE,
 			'next'     => FALSE,
 			'previous' => FALSE,
 			'rtl'      => self::rtl(),
-		), $pagination );
+		], $pagination );
 
-		$icons = self::atts( array(
+		$icons = self::atts( [
 			'action'   => self::getDashicon( 'update' ),
 			'filter'   => self::getDashicon( 'filter' ),
 			'last'     => self::getDashicon( $args['rtl'] ? 'controls-skipback' : 'controls-skipforward' ),
@@ -1079,18 +1082,18 @@ class HTML extends Base
 			'previous' => self::getDashicon( $args['rtl'] ? 'controls-forward' : 'controls-back' ), // &lsaquo;
 			'refresh'  => self::getDashicon( 'controls-repeat' ),
 			'order'    => self::getDashicon( 'sort' ),
-		), $args['icons'] );
+		], $args['icons'] );
 
 		// echo '<div class="base-table-navigation">';
 
 			if ( count( $args['actions'] ) ) {
 				echo '<span class="-before">';
-				echo self::dropdown( $args['actions'], array(
+				echo self::dropdown( $args['actions'], [
 					'name'       => 'table_action',
 					'selected'   => self::req( 'table_action', 'none' ),
 					'none_value' => 'none',
 					'none_title' => '&mdash;',
-				) );
+				] );
 				echo '</span>&nbsp;';
 				echo '<button type="submit" class="button -action -icon" />'.$icons['action'].'</button>';
 			}
@@ -1103,13 +1106,13 @@ class HTML extends Base
 			echo '<input type="number" class="small-text -limit" name="limit" value="'.$args['limit'].'" />&nbsp;';
 			echo '<button type="submit" name="filter_action" class="button -filter -icon button-primary" />'.$icons['filter'].'</button>&nbsp;';
 
-			echo self::tag( 'a', array(
-				'href' => add_query_arg( array_merge( $args['extra'], array(
+			echo self::tag( 'a', [
+				'href' => add_query_arg( array_merge( $args['extra'], [
 					'order' => ( 'ASC' === $args['order'] ) ? 'desc' : 'asc',
 					'limit' => $args['limit'],
-				) ) ),
+			 ] ) ),
 				'class' => '-order -link button -icon',
-			), $icons['order'] );
+			], $icons['order'] );
 
 			foreach ( (array) $args['after'] as $after )
 				if ( $after )
@@ -1120,10 +1123,10 @@ class HTML extends Base
 			echo '&nbsp;';
 			echo '&nbsp;';
 
-			vprintf( '<span class="-total-pages">%s / %s</span>', array(
+			vprintf( '<span class="-total-pages">%s / %s</span>', [
 				Number::format( $args['total'] ),
 				Number::format( $args['pages'] ),
-			) );
+			] );
 
 			echo '&nbsp;';
 			echo '&nbsp;';
@@ -1133,31 +1136,31 @@ class HTML extends Base
 				echo '&nbsp;';
 				echo '<span class="-previous -span button -icon" disabled="disabled">'.$icons['previous'].'</span>';
 			} else {
-				echo self::tag( 'a', array(
-					'href' => add_query_arg( array_merge( $args['extra'], array(
+				echo self::tag( 'a', [
+					'href' => add_query_arg( array_merge( $args['extra'], [
 						'paged' => FALSE,
 						'limit' => $args['limit'],
-					) ) ),
+					] ) ),
 					'class' => '-first -link button -icon',
-				), $icons['first'] );
+				], $icons['first'] );
 				echo '&nbsp;';
-				echo self::tag( 'a', array(
-					'href' => add_query_arg( array_merge( $args['extra'], array(
+				echo self::tag( 'a', [
+					'href' => add_query_arg( array_merge( $args['extra'], [
 						'paged' => $args['previous'],
 						'limit' => $args['limit'],
-					) ) ),
+					] ) ),
 					'class' => '-previous -link button -icon',
-				), $icons['previous'] );
+				], $icons['previous'] );
 			}
 
 			echo '&nbsp;';
-			echo self::tag( 'a', array(
-				'href' => add_query_arg( array_merge( $args['extra'], array(
+			echo self::tag( 'a', [
+				'href' => add_query_arg( array_merge( $args['extra'], [
 					'paged' => $args['paged'],
 					'limit' => $args['limit'],
-				) ) ),
+				] ) ),
 				'class' => '-refresh -link button -icon',
-			), $icons['refresh'] );
+			], $icons['refresh'] );
 			echo '&nbsp;';
 
 			if ( FALSE === $args['next'] ) {
@@ -1165,24 +1168,24 @@ class HTML extends Base
 				echo '&nbsp;';
 				echo '<span class="-next -span button -icon" disabled="disabled">'.$icons['next'].'</span>';
 			} else {
-				echo self::tag( 'a', array(
-					'href' => add_query_arg( array_merge( $args['extra'], array(
+				echo self::tag( 'a', [
+					'href' => add_query_arg( array_merge( $args['extra'], [
 						'paged' => $args['next'],
 						'limit' => $args['limit'],
-					) ) ),
+					] ) ),
 					'class' => '-next -link button -icon',
-				), $icons['next'] );
+				], $icons['next'] );
 				echo '&nbsp;';
 
 				// when found count is not available
 				if ( $args['pages'] )
-					echo self::tag( 'a', array(
-						'href' => add_query_arg( array_merge( $args['extra'], array(
+					echo self::tag( 'a', [
+						'href' => add_query_arg( array_merge( $args['extra'], [
 							'paged' => $args['pages'],
 							'limit' => $args['limit'],
-						) ) ),
+					 	] ) ),
 						'class' => '-last -link button -icon',
-					), $icons['last'] );
+					], $icons['last'] );
 				else
 					echo '<span class="-last -span button -icon" disabled="disabled">'.$icons['last'].'</span>';
 			}
@@ -1191,9 +1194,9 @@ class HTML extends Base
 		// echo '</div>';
 	}
 
-	public static function tablePagination( $found, $max, $limit, $paged, $extra = array(), $all = FALSE )
+	public static function tablePagination( $found, $max, $limit, $paged, $extra = [], $all = FALSE )
 	{
-		$pagination = array(
+		$pagination = [
 			'total'    => (int) $found,
 			'pages'    => (int) $max,
 			'limit'    => (int) $limit,
@@ -1202,7 +1205,7 @@ class HTML extends Base
 			'all'      => $all, // WTF?! (probably display all!)
 			'next'     => FALSE,
 			'previous' => FALSE,
-		);
+		];
 
 		if ( FALSE === $max ) {
 
@@ -1236,7 +1239,7 @@ class HTML extends Base
 			echo '<li>';
 
 			if ( is_callable( $callback ) )
-				echo call_user_func_array( $callback, array( $item ) );
+				echo call_user_func_array( $callback, [ $item ] );
 			else
 				echo self::link( $item['title'], '#'.$item['slug'] );
 
@@ -1317,21 +1320,21 @@ class HTML extends Base
 		if ( ! Text::starts( $icon, 'dashicons-' ) )
 			$icon = sprintf( 'dashicons-%s', $icon );
 
-		return self::tag( 'span', array(
+		return self::tag( 'span', [
 			'data-icon' => 'dashicons',
 			'title'     => $title,
 			'class'     => self::attrClass( [ 'dashicons', $icon ], $class ),
-		), NULL );
+		], NULL );
 	}
 
-	public static function dropdown( $list, $atts = array() )
+	public static function dropdown( $list, $atts = [] )
 	{
 		$html = '';
 
 		if ( FALSE === $list ) // allows hiding
 			return $html;
 
-		$args = self::atts( array(
+		$args = self::atts( [
 			'id'         => FALSE,
 			'name'       => '',
 			'title'      => FALSE,
@@ -1344,16 +1347,16 @@ class HTML extends Base
 			'dir'        => FALSE,
 			'prop'       => FALSE,
 			'value'      => FALSE,
-			'exclude'    => array(),
-			'data'       => array(),
-		), $atts );
+			'exclude'    => [],
+			'data'       => [],
+		], $atts );
 
 		if ( ! is_null( $args['none_title'] ) )
-			$html.= self::tag( 'option', array(
+			$html.= self::tag( 'option', [
 				'value'    => $args['none_value'],
 				// NOTE: WTF: apparently `none` and `0` are the same via `==`
 				'selected' => empty( $args['none_value'] ) ? ( $args['selected'] === $args['none_value'] ) : ( $args['selected'] == $args['none_value'] )
-			), $args['none_title'] );
+			], $args['none_title'] );
 
 		foreach ( $list as $offset => $value ) {
 
@@ -1372,14 +1375,14 @@ class HTML extends Base
 			else
 				$title = $value;
 
-			$html.= self::tag( 'option', array(
+			$html.= self::tag( 'option', [
 				'value'    => $key,
 				// NOTE: WTF: apparently `none` and `0` are the same via `==`
 				'selected' => empty( $key ) ? ( $args['selected'] === $key ) : ( $args['selected'] == $key )
-			), $title );
+			], $title );
 		}
 
-		return self::tag( 'select', array(
+		return self::tag( 'select', [
 			'name'     => $args['name'],
 			'id'       => $args['id'],
 			'class'    => $args['class'],
@@ -1388,7 +1391,7 @@ class HTML extends Base
 			'disabled' => $args['disabled'],
 			'dir'      => $args['dir'],
 			'data'     => $args['data'],
-		), $html );
+		], $html );
 	}
 
 	public static function multiSelect( $list, $atts = [] )

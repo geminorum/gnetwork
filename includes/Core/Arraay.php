@@ -142,6 +142,66 @@ class Arraay extends Base
 		return ! array_diff_key( $one, $two ) && ! array_diff_key( $two, $one );
 	}
 
+	/**
+	 * Checks if two arrays contain the same values,
+	 * based on the type coerced values and keys, regardless of order.
+	 *
+	 * @source https://eddmann.com/posts/handling-array-equality-in-php/
+	 * @example `Arraay::equalValues( ['1', 2, 3], [3, 2, 1] )` // TRUE
+	 *
+	 * With the equal operator `==` you are able to check for equality
+	 * based on the type coerced values and keys (regardless of order).
+	 *
+	 * `[1, 2, 3] == [1, 2, 3]`                   // TRUE
+	 * `[1, 2, 3] == [1, 2, '3']`                 // TRUE
+	 * `[1, 2, 3] == [1, 3, 2]`                   // FALSE
+	 * `[1, 2, 3] == [0 => 1, '2' => 3, 1 => 2]`  // TRUE
+	 *
+	 * @param  array $a
+	 * @param  array $b
+	 * @return bool  $equal
+	 */
+	public static function equalValues( $a, $b )
+	{
+		$x = array_values( $a );
+		$y = array_values( $b );
+
+		sort( $x );
+		sort( $y );
+
+		return $x == $y;
+	}
+
+	/**
+	 * Checks if two arrays contain the same values,
+	 * based on the type and exact ordering of the keys.
+	 *
+	 * @source https://eddmann.com/posts/handling-array-equality-in-php/
+	 * @example `Arraay::identicalValues([1, 2, 3], [3, 2, 1])` // TRUE
+	 *
+	 * With the identical operator `===` you are able to check for equality
+	 * based on the type and exact ordering of the keys.
+	 *
+	 * `[1, 2, 3] === [1, 2, 3]`                // TRUE
+	 * `[1, 2, 3] === [1, 2, '3']`              // FALSE
+	 * `[1, 2, 3] === [1, 3, 2]`                // FALSE
+	 * `[1, 2, 3] === [0 => 1, 2 => 3, 1 => 2]` // FALSE
+	 *
+	 * @param  array $a
+	 * @param  array $b
+	 * @return bool  $identical
+	 */
+	public static function identicalValues( $a, $b )
+	{
+		$x = array_values( $a );
+		$y = array_values( $b );
+
+		sort( $x );
+		sort( $y );
+
+		return $x === $y;
+	}
+
 	// @REF: https://stackoverflow.com/a/56428184
 	public static function getByKeyLike( $array, $pattern )
 	{
