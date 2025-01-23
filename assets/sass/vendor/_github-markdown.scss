@@ -7,7 +7,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// sindresorhus/github-markdown-css v5.7.0 - 2024-09-26
+/// sindresorhus/github-markdown-css v5.8.1 - 2024-11-29
 // https://github.com/sindresorhus/github-markdown-css
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -149,7 +149,6 @@
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
-  scroll-behavior: auto !important;
 }
 
 .markdown-body .octicon {
@@ -342,6 +341,7 @@
   width: max-content;
   max-width: 100%;
   overflow: auto;
+  font-variant: tabular-nums;
 }
 
 .markdown-body td,
@@ -501,7 +501,6 @@
 .markdown-body input::-webkit-outer-spin-button,
 .markdown-body input::-webkit-inner-spin-button {
   margin: 0;
-  -webkit-appearance: none;
   appearance: none;
 }
 
@@ -973,6 +972,10 @@
   font-family: monospace;
 }
 
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
 .markdown-body .pl-c {
   color: var(--color-prettylights-syntax-comment);
 }
@@ -1233,4 +1236,8 @@
 
 .markdown-body>*:first-child>.heading-element:first-child {
   margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
 }

@@ -15,8 +15,18 @@
     margin-left: 115px;
     margin-top: 0;
     padding: 1px 0 0 20px;
-    min-height: 370px;
+    // min-height: 370px;
+    min-height: 100vh;
     border-left: 1px solid #ccc;
+
+    // > form > h2,
+    // > form > h3 {
+    //   margin-top: 0;
+    // }
+
+    .-wrap.-toolbox-column > .-title {
+      margin-top: 0;
+    }
   }
 
   > .-title {
@@ -58,4 +68,16 @@
       }
     }
   }
+
+  .base-table-wrap {
+    .base-table-title {
+      h2,
+      h3,
+      h4 {
+        margin-top: 0;
+      }
+    }
+  }
+
+  @include theme-clearfix;
 }

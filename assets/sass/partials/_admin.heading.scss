@@ -46,5 +46,19 @@
         }
       }
     }
+
+    &.-full-button-icon {
+      padding-left: 0;
+
+      .-iconsvg {
+        margin: 0;
+
+        svg {
+          width: 38px;
+          height: 38px;
+          vertical-align: bottom;
+        }
+      }
+    }
   }
 }
