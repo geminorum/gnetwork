@@ -12,6 +12,7 @@ class Kavenegar extends gNetwork\Provider
 
 	// https://kavenegar.com/rest.html
 	// @SEE: https://github.com/kavenegar/kavenegar-php
+	// https://github.com/kavenegar/kavenegar-examples-php/
 	// @SEE: https://github.com/MahdiMajidzadeh/laravel-kavenegar
 
 	protected $key  = 'kavenegar';
@@ -81,7 +82,7 @@ class Kavenegar extends gNetwork\Provider
 		];
 	}
 
-	protected function curlDefaultHeaders()
+	protected function curlDefaultHeaders( $method = NULL )
 	{
 		return [
 			'Accept: application/json',

@@ -321,12 +321,12 @@ class Provider extends Core\Base
 		return [];
 	}
 
-	protected function curlDefaultHeaders()
+	protected function curlDefaultHeaders( $method = NULL )
 	{
 		return [];
 	}
 
-	protected function curlExecute( $url, $data = [], $method = 'POST', $headers = [] )
+	protected function curlExecute( $url, $data = [], $method = 'get', $headers = [] )
 	{
 		if ( ! $url )
 			return new Error( 'curl_no_endpoint', 'NO EndPoint for cURL' );
@@ -334,32 +334,32 @@ class Provider extends Core\Base
 		$handle = curl_init();
 
 		curl_setopt( $handle, CURLOPT_URL, $url );
-		curl_setopt( $handle, CURLOPT_HTTPHEADER, array_merge( $this->curlDefaultHeaders(), $headers ) );
+		curl_setopt( $handle, CURLOPT_HTTPHEADER, array_merge( $this->curlDefaultHeaders( $method ), $headers ) );
 		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
 		// curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
 		curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
 
-		switch ( $method ) {
+		switch ( strtolower( $method ) ) {
 
-			case 'GET':
+			case 'get':
 
-				// curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'GET' ); // DEFAULT is `GET`
-				// curl_setopt( $handle, CURLOPT_POSTFIELDS, http_build_query( $data ) );
+				curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'GET' ); // DEFAULT is `GET`
+				curl_setopt( $handle, CURLOPT_POSTFIELDS, http_build_query( $data ) );
+				break;
 
-			break;
-			case 'POST':
+			case 'post':
 
 				curl_setopt( $handle, CURLOPT_POST, TRUE );
 				curl_setopt( $handle, CURLOPT_POSTFIELDS, http_build_query( $data ) );
+				break;
 
-			break;
-			case 'PUT':
+			case 'put':
 
 				curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'PUT' );
 				curl_setopt( $handle, CURLOPT_POSTFIELDS, $data );
+				break;
 
-			break;
-			case 'DELETE':
+			case 'delete':
 
 				curl_setopt( $handle, CURLOPT_CUSTOMREQUEST, 'DELETE' );
 		}
