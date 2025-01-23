@@ -1,3 +1,10 @@
+### 3.17.3
+* module/cleanup: term cleanups
+* module/debug: disable php sessions
+* module/mail: :new: disposable checks
+* module/profile: user identity number
+* module/taxonomy: console tab with taxonomy object dump
+
 ### 3.17.2
 * main/plugin: enforce auto load options
 * module/admin: disable all help tabs by constant
