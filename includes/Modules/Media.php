@@ -745,6 +745,9 @@ class Media extends gNetwork\Module
 		if ( $attachment_id == get_option( 'site_icon' ) )
 			return TRUE;
 
+		if ( $attachment_id == get_theme_mod( 'custom_logo' ) )
+			return TRUE;
+
 		if ( $attachment_id == get_theme_mod( 'site_logo' ) )
 			return TRUE;
 

@@ -14,7 +14,7 @@ use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
 class NotFound extends gNetwork\Module
 {
 
-	// TODO: log image loding errors via ajax after page loaded
+	// TODO: log image loading errors via AJAX after page loaded
 
 	protected $key     = 'notfound';
 	protected $network = FALSE;
@@ -66,7 +66,7 @@ class NotFound extends gNetwork\Module
 		$settings['_front'][] = [
 			'field'       => 'check_slugs',
 			'title'       => _x( 'Check Slugs', 'Modules: NotFound: Settings', 'gnetwork' ),
-			'description' => _x( 'Tries to redirect uknown posttype to it&#8217;s archive.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'description' => _x( 'Tries to redirect unknown posttype to it&#8217;s archive.', 'Modules: NotFound: Settings', 'gnetwork' ),
 			'default'     => '1',
 		];
 
@@ -103,9 +103,15 @@ class NotFound extends gNetwork\Module
 		else
 			$location = GNETWORK_REDIRECT_404_URL;
 
-		/* translators: %s: notfound location */
-		HTML::desc( sprintf( _x( 'Current Location: %s', 'Modules: NotFound: Settings', 'gnetwork' ),
-			HTML::tag( 'code', HTML::link( URL::relative( $location ), $location, TRUE ) ) ) );
+		if ( ! $location )
+			HTML::desc( _x( 'Redirect 404 disabled.', 'Modules: NotFound: Settings', 'gnetwork' ) );
+
+		else
+			HTML::desc( sprintf(
+				/* translators: %s: notfound location */
+				_x( 'Current Location: %s', 'Modules: NotFound: Settings', 'gnetwork' ),
+				HTML::tag( 'code', HTML::link( URL::relative( $location ), $location, TRUE ) )
+			) );
 	}
 
 	public function template_redirect()
@@ -148,8 +154,6 @@ class NotFound extends gNetwork\Module
 				return;
 
 			WordPress::redirect( $link, 303 );
-
-			break;
 		}
 
 		$taxonomies = get_taxonomies( [
@@ -168,8 +172,6 @@ class NotFound extends gNetwork\Module
 				return;
 
 			WordPress::redirect( $link, 303 );
-
-			break;
 		}
 	}
 

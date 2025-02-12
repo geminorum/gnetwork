@@ -13,6 +13,8 @@ class Extend extends gNetwork\Module
 {
 
 	// https://wordpress.org/plugins/meks-quick-plugin-disabler/
+	// https://wordpress.org/plugins/better-plugin-compatibility-control/
+	// https://wordpress.org/plugins/changelogger/
 
 	protected $key = 'extend';
 

@@ -62,8 +62,8 @@ class Site extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'ssl_support'       => 0,
-			'resync_sitemeta'   => 0,
+			'ssl_support'       => '0',
+			'resync_sitemeta'   => '0',
 			'redirect_notfound' => '',
 			'admin_locale'      => 'en_US',
 			'body_class'        => '',
