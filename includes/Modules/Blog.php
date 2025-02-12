@@ -114,6 +114,9 @@ class Blog extends gNetwork\Module
 			$this->filter_false( 'xmlrpc_enabled', 12 );
 		}
 
+		if ( $this->options['disable_privacytools'] )
+			$this->_setup_disable_privacytools();
+
 		$this->filter_empty_array( 'jetpack_get_default_modules' );
 
 		// ADOPTED FROM: Jetpack Without Promotions v1.0.0 by required
@@ -150,6 +153,7 @@ class Blog extends gNetwork\Module
 			'disable_emojis'       => '1',
 			'disable_pointers'     => '1',
 			'disable_globalstyles' => '1', // @REF: https://github.com/WordPress/gutenberg/issues/36834
+			'disable_privacytools' => '1',
 			'ga_override'          => '',
 			'from_email'           => '',
 			'from_name'            => '',
@@ -268,6 +272,14 @@ class Blog extends gNetwork\Module
 			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Removes the extra code bloat used to add support for Emoji\'s in older browsers.', 'Modules: Blog: Settings', 'gnetwork' ),
 			'after'       => Settings::fieldAfterIcon( 'https://wordpress.org/support/article/emoji/' ),
+			'default'     => '1',
+		];
+
+		$settings['_services'][] = [
+			'field'       => 'disable_privacytools',
+			'type'        => 'disabled',
+			'title'       => _x( 'Privacy Tools', 'Modules: Blog: Settings', 'gnetwork' ),
+			'description' => _x( 'Disables core\'s privacy tools including tools for exporting\/erasing personal data.', 'Modules: Blog: Settings', 'gnetwork' ),
 			'default'     => '1',
 		];
 
@@ -896,5 +908,49 @@ class Blog extends gNetwork\Module
 			$id = Crypto::encodeBijection( $id );
 
 		return empty( $id ) ? $return : home_url( '/'.$id );
+	}
+
+	/**
+	 * Adopted from: `Disable Privacy Tools` by Dominik Schilling v1.1
+	 * @source https://github.com/ocean90/wp-disable-privacy-tools
+	 */
+	private function _setup_disable_privacytools()
+	{
+		// Short circuits the option for the privacy policy page to always return 0.
+		// The option is used by `get_privacy_policy_url()` among others.
+		add_filter( 'pre_option_wp_page_for_privacy_policy', '__return_zero' );
+
+		// Removes the default scheduled event used to delete old export files.
+		remove_action( 'init', 'wp_schedule_delete_old_privacy_export_files' );
+
+		// Removes the hook attached to the default scheduled event for removing old export files.
+		remove_action( 'wp_privacy_delete_old_export_files', 'wp_privacy_delete_old_export_files' );
+
+		$this->filter( 'map_meta_cap', 2, 12, 'disable_privacytools' );
+	}
+
+	/**
+	 * Removes required user's capabilities for core privacy tools by adding the
+	 * `do_not_allow` capability.
+	 *
+	 *  - Disables the feature pointer.
+	 *  - Removes the Privacy and Export/Erase Personal Data admin menu items.
+	 *  - Disables the privacy policy guide and update bubbles.
+	 *
+	 * @param string[] $caps    Array of the user's capabilities.
+	 * @param string   $cap     Capability name.
+	 * @return string[] Array of the user's capabilities.
+	 */
+	public function map_meta_cap_disable_privacytools( $caps, $cap )
+	{
+		switch ( $cap ) {
+			case 'export_others_personal_data':
+			case 'erase_others_personal_data':
+			case 'manage_privacy_options':
+				$caps[] = 'do_not_allow';
+				break;
+		}
+
+		return $caps;
 	}
 }
