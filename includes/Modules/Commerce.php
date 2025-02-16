@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\Validation;
@@ -372,24 +373,27 @@ class Commerce extends gNetwork\Module
 
 	// @REF: https://www.businessbloomer.com/woocommerce-calculate-subtotal-on-quantity-increment-single-product/
 	// @SEE: https://wordpress.org/plugins/woo-product-price-x-quantity-preview/
-	// FIXME: get currency placement form wc settings
+	// FIXME: get currency placement form `wc-settings`
 	public function woocommerce_after_add_to_cart_button()
 	{
 		global $product;
 
 		$price    = $product->get_price();
 		$currency = get_woocommerce_currency_symbol();
-		/* translators: %s: price x quantity total */
-		$string   = sprintf( _x( 'Total: %s', 'Modules: Commerce', 'gnetwork' ), '<span></span>' );
+		$string   = sprintf(
+			/* translators: %s: price x quantity total */
+			_x( 'Total: %s', 'Modules: Commerce', 'gnetwork' ),
+			'<span></span>'
+		);
 
 		echo '<div id="subtot" style="display:inline-block;margin:0 1rem;">'.$string.'</div>';
 
 		wc_enqueue_js( "$('[name=quantity]').on('input change', function () {
 			var qty = $(this).val();
-			var price = '" . esc_js( $price ) . "';
+			var price = '".esc_js( $price )."';
 			// var price_string = (price*qty).toFixed();
 			var price_string = parseFloat(price*qty);
-			$('#subtot > span').html(price_string+' '+'" . esc_js( $currency ) . "');
+			$('#subtot > span').html(price_string+' '+'".esc_js( $currency )."');
 		}).trigger('change');" );
 	}
 
@@ -413,7 +417,7 @@ class Commerce extends gNetwork\Module
 
 			$fields['billing']['billing_phone']['class'] = [ 'form-row-first', 'phone' ];
 			$fields['billing']['billing_phone']['placeholder'] = _x( 'For calling on land-line', 'Modules: Commerce', 'gnetwork' );
-			$fields['billing']['billing_phone']['input_class'] = [ 'ltr', 'rtl-placeholder', 'woocommerce-Input', 'woocommerce-Input--text', 'input-text' ];
+			if ( Core\L10n::rtl() ) $fields['billing']['billing_phone']['input_class'] = [ 'ltr', 'rtl-placeholder' ];
 			// $fields['billing']['billing_phone']['custom_attributes']['pattern'] = Validation::getMobileHTMLPattern();
 
 			$mobile = is_user_logged_in() ? get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) : FALSE;
@@ -421,7 +425,7 @@ class Commerce extends gNetwork\Module
 			$fields['billing']['customer_mobile'] = [
 				'type'              => 'tel',
 				'class'             => [ 'form-row-last', 'mobile', 'validate-phone' ],
-				'input_class'       => [ 'ltr', 'rtl-placeholder', 'woocommerce-Input', 'woocommerce-Input--text', 'input-text' ],
+				'input_class'       => Core\L10n::rtl() ? [ 'ltr', 'rtl-placeholder' ] : [],
 				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'priority'          => 105, // after the `billing_phone` with priority `100`
@@ -548,7 +552,7 @@ class Commerce extends gNetwork\Module
 			woocommerce_form_field( 'account_mobile', [
 				'type'              => 'tel',
 				'class'             => [ 'form-row-wide', 'mobile' ],
-				'input_class'       => [ 'ltr', 'rtl-placeholder', 'woocommerce-Input', 'woocommerce-Input--text', 'input-text' ],
+				'input_class'       => Core\L10n::rtl() ? [ 'ltr', 'rtl-placeholder' ] : [],
 				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'required'          => TRUE,
@@ -607,7 +611,7 @@ class Commerce extends gNetwork\Module
 			woocommerce_form_field( 'account_mobile', [
 				'type'              => 'tel',
 				'class'             => [ 'form-row-wide', 'mobile' ],
-				'input_class'       => [ 'ltr', 'rtl-placeholder', 'woocommerce-Input', 'woocommerce-Input--text', 'input-text' ],
+				'input_class'       => Core\L10n::rtl() ? [ 'ltr', 'rtl-placeholder' ] : [],
 				'label'             => _x( 'Mobile', 'Modules: Commerce', 'gnetwork' ),
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'required'          => TRUE,
