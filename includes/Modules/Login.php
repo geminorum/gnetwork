@@ -33,6 +33,7 @@ class Login extends gNetwork\Module
 			$this->filter( 'register_post', 3, 1 );
 
 			$this->action( 'woocommerce_login_form', 0, 99 );
+			$this->action( 'woocommerce_lostpassword_form', 0, 99 );
 		}
 
 		$this->action( 'wp_logout', 1, 9 );
@@ -555,6 +556,11 @@ class Login extends gNetwork\Module
 	public function woocommerce_login_form()
 	{
 		echo $this->_get_html_math( 'woocommerce' );
+	}
+
+	public function woocommerce_lostpassword_form()
+	{
+		echo $this->_get_html_math( 'lostpassword' );
 	}
 
 	private function _get_html_math( $context = NULL, $label = NULL )
