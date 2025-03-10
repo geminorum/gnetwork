@@ -198,6 +198,9 @@ class Media extends Core\Base
 		if ( $attachment_id == get_option( 'site_icon' ) )
 			return 'site_icon';
 
+		if ( $attachment_id == get_theme_mod( 'custom_logo' ) )
+			return 'custom_logo';
+
 		if ( $attachment_id == get_theme_mod( 'site_logo' ) )
 			return 'site_logo';
 

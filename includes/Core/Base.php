@@ -16,6 +16,32 @@ class Base
 		return defined( $name ) ? constant( $name ) : $default;
 	}
 
+	/**
+	 * Checks if a class constant exists and returns it.
+	 * @source https://stackoverflow.com/a/50697766
+	 * @needs `PHP >= 7.1.0`
+	 *
+	 * @param  string $const
+	 * @param  object $object
+	 * @return mixed  $value
+	 */
+	public static function classConst( $const, $object = NULL )
+	{
+		$class = $object ? get_class( $object ) : __CLASS__;
+
+		try {
+
+			$reflex = new \ReflectionClassConstant( $class, $const );
+			$value  = $reflex->getValue();
+
+		} catch ( \ReflectionException $e ) {
+
+			$value = NULL;
+		}
+
+		return $value;
+	}
+
 	public static function empty( $value )
 	{
 		if ( empty( $value ) )
@@ -317,6 +343,34 @@ class Base
 
 			return 0;
 		}
+	}
+
+	/**
+	 * Converts a comma- or space-separated list of scalar values to an array.
+	 * @ref: `wp_parse_list()`
+	 *
+	 * @param mixed $input
+	 * @return array $list
+	 */
+	public static function list( $input )
+	{
+		if ( ! is_array( $input ) )
+			return preg_split( '/[\s,]+/', $input, -1, PREG_SPLIT_NO_EMPTY );
+
+		// NOTE: A value is considered scalar if it is of type `int`, `float`, `string` or `bool`.
+		return array_filter( $input, 'is_scalar' );
+	}
+
+	/**
+	 * Cleans up an array, comma- or space-separated list of IDs.
+	 * @ref `wp_parse_id_list()`
+	 *
+	 * @param mixed $input
+	 * @return array $ids
+	 */
+	public static function ids( $input )
+	{
+		return Arraay::prepNumeral( self::list( $input ) );
 	}
 
 	// @REF: `shortcode_atts()`

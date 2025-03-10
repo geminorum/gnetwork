@@ -764,9 +764,9 @@ class Taxonomy extends Core\Base
 	}
 
 	// @REF: https://developer.wordpress.org/?p=22286
-	public static function listTerms( $taxonomy, $fields = NULL, $extra = array() )
+	public static function listTerms( $taxonomy, $fields = NULL, $extra = [] )
 	{
-		$query = new \WP_Term_Query( array_merge( array(
+		$query = new \WP_Term_Query( array_merge( [
 			'taxonomy'   => (array) $taxonomy,
 			'order'      => 'ASC',
 			'orderby'    => 'meta_value_num', // 'name',
@@ -785,10 +785,10 @@ class Taxonomy extends Core\Base
 			],
 			'fields'     => is_null( $fields ) ? 'id=>name' : $fields,
 			'hide_empty' => FALSE,
-		), $extra ) );
+		], $extra ) );
 
 		if ( empty( $query->terms ) )
-			return array();
+			return [];
 
 		return $query->terms;
 	}

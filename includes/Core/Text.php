@@ -419,7 +419,7 @@ class Text extends Base
 		// cleans zwnj after characters that don't conncet to the next
 		$text = preg_replace( '/([إأةؤورزژاآدذ،؛,:«»\\/@#$٪×*()ـ\-=|])x{200C}/u', '$1', $text );
 
-		return $text;
+		return self::trim( $text );
 	}
 
 	// @REF: `normalize_whitespace()`
@@ -913,13 +913,19 @@ class Text extends Base
 		return $code;
 	}
 
-	// count str_length in UTF-8 string
-	// @REF: https://www.php.net/manual/en/function.preg-match-all.php#81559
-	// [:print:] - printing characters, including space
-	// \pL - UTF-8 Letter
+	/**
+	 * Counts `str_length` in `UTF-8` string.
+	 * - `[:print:]`: printing characters, including space
+	 * - `\pL`: `UTF-8` Letter
+	 *
+	 * @source https://www.php.net/manual/en/function.preg-match-all.php#81559
+	 *
+	 * @param string $text
+	 * @return int $length
+	 */
 	public static function utf8Len( $text )
 	{
-		return preg_match_all( '/[[:print:]\pL]/u', $text, $$matches );
+		return preg_match_all( '/[[:print:]\pL]/u', $text );
 	}
 
 	public static function wordCount( $text, $normalize = TRUE )

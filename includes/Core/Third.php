@@ -5,11 +5,13 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Third extends Base
 {
 
+	// TODO: move to `Misc\ThirdParty`
+
 	public static function getHandleURL( $string, $service, $prefix = '@' )
 	{
 		$url = $string;
 
-		// bail if already is a link
+		// Bail if already is a link.
 		if ( URL::isValid( $url ) )
 			return $url;
 
@@ -18,6 +20,12 @@ class Third extends Base
 			case 'twitter':
 
 				$base = 'https://twitter.com/intent/user?screen_name=';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
+			case 'tiktok':
+
+				$base = 'https://www.tiktok.com/@';
 				$url  = self::getHandle( $string, TRUE, $base, $prefix );
 				break;
 
@@ -51,9 +59,21 @@ class Third extends Base
 				$url  = self::getHandle( $string, TRUE, $base, $prefix );
 				break;
 
+			case 'behkhaan':
+
+				$base = 'https://behkhaan.ir/profile/';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
 			case 'eitaa':
 
 				$base = 'https://eitaa.com/';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
+			case 'wikipedia':
+
+				$base = sprintf( 'https://%s.wikipedia.org/wiki/', L10n::getISO639() );
 				$url  = self::getHandle( $string, TRUE, $base, $prefix );
 				break;
 		}
@@ -86,19 +106,19 @@ class Third extends Base
 
 		if ( $thickbox ) {
 
-			$args  = array(
-				'href'    => add_query_arg( array( 'TB_iframe' => '1' ), $url ),
+			$args  = [
+				'href'    => add_query_arg( [ 'TB_iframe' => '1' ], $url ),
 				'title'   => HTML::wrapLTR( $handle ),
 				'class'   => '-twitter thickbox',
 				'onclick' => 'return false;',
-			);
+			];
 
 			if ( function_exists( 'add_thickbox' ) )
 				add_thickbox();
 
 		} else {
 
-			$args = array( 'href' => $url, 'class' => '-twitter' );
+			$args = [ 'href' => $url, 'class' => '-twitter' ];
 		}
 
 		return HTML::tag( 'a', $args, HTML::wrapLTR( $handle ) );
@@ -133,12 +153,12 @@ class Third extends Base
 	// @SOURCE: https://wordpress.org/plugins/gcal-events-list/
 	public static function getGoogleCalendarEvents( $atts )
 	{
-		$args = self::atts( array(
+		$args = self::atts( [
 			'calendar_id' => FALSE,
 			'api_key'     => '',
 			'time_min'    => '',
 			'max_results' => 5,
-		), $atts );
+		], $atts );
 
 		if ( ! $args['calendar_id'] )
 			return FALSE;

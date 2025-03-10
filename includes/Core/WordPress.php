@@ -67,7 +67,7 @@ class WordPress extends Base
 		if ( is_null( $page ) )
 			return $now;
 
-		return in_array( $now, (array) $page );
+		return in_array( $now, (array) $page, TRUE );
 	}
 
 	// @SEE: `is_login()` @since WP 6.1.0
@@ -356,8 +356,8 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 		global $wp;
 
 		$request = $wp->request
-			? add_query_arg( array(), $wp->request )
-			: add_query_arg( array() );
+			? add_query_arg( [], $wp->request )
+			: add_query_arg( [] );
 
 		$current = home_url( $request );
 
@@ -377,7 +377,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 		if ( ! $site && is_multisite() && function_exists( 'get_network' ) )
 			return get_network()->site_name;
 
-		// The blogname option is escaped with esc_html on the way into the database
+		// The `blogname` option is escaped with `esc_html()` on the way into the database
 		// in sanitize_option we want to reverse this for the plain text arena of emails.
 		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 	}
@@ -386,13 +386,6 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 	public static function currentSiteName( $convert_slash = TRUE )
 	{
 		return URL::prepTitle( get_option( 'home' ), $convert_slash );
-	}
-
-	// DEPRECATED
-	public static function getSiteUserID( $fallback = FALSE )
-	{
-		self::_dep();
-		return gNetwork()->user( $fallback );
 	}
 
 	public static function superAdminOnly()
@@ -404,7 +397,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 	public static function getUserRoles( $user_id = FALSE )
 	{
 		$user = get_user_by( 'id', ( $user_id ? $user_id : get_current_user_id() ) );
-		return empty( $user ) ? array() : (array) $user->roles;
+		return empty( $user ) ? [] : (array) $user->roles;
 	}
 
 	public static function userHasRole( $role, $user_id = FALSE )
@@ -412,7 +405,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 		$roles = self::getUserRoles( $user_id );
 
 		foreach ( (array) $role as $name )
-			if ( in_array( $name, $roles ) )
+			if ( in_array( $name, $roles, TRUE ) )
 				return TRUE;
 
 		return FALSE;
@@ -422,12 +415,12 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 	public static function cur( $role = FALSE )
 	{
 		$roles = self::getUserRoles();
-		return $role ? in_array( $role, $roles ) : $roles;
+		return $role ? in_array( $role, $roles, TRUE ) : $roles;
 	}
 
 	public static function getUserRoleList( $object = FALSE )
 	{
-		$roles = $object ? new stdClass : array();
+		$roles = $object ? new \stdClass : [];
 
 		foreach ( get_editable_roles() as $role_name => $role )
 
@@ -440,13 +433,13 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 		return $roles;
 	}
 
-	public static function getUsers( $all_fields = FALSE, $network = FALSE, $extra = array(), $rekey = 'ID' )
+	public static function getUsers( $all_fields = FALSE, $network = FALSE, $extra = [], $rekey = 'ID' )
 	{
-		$users = get_users( array_merge( array(
-			'blog_id' => ( $network ? '' : $GLOBALS['blog_id'] ),
+		$users = get_users( array_merge( [
 			'orderby' => 'display_name',
-			'fields'  => ( $all_fields ? 'all_with_meta' : 'all' ),
-		), $extra ) );
+			'blog_id' => $network ? '' : $GLOBALS['blog_id'],
+			'fields'  => $all_fields ? 'all_with_meta' : 'all',
+		], $extra ) );
 
 		return Arraay::reKey( $users, $rekey );
 	}
@@ -454,18 +447,18 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 	// current user can
 	public static function cuc( $cap, $none = TRUE )
 	{
-		if ( 'none' == $cap || '0' == $cap )
+		if ( 'none' === $cap || '0' == $cap )
 			return $none;
 
 		if ( ! $logged_in = is_user_logged_in() )
 			return FALSE;
 
 		// pseudo-cap for network users
-		if ( '_member_of_network' == $cap )
+		if ( '_member_of_network' === $cap )
 			return TRUE;
 
 		// pseudo-cap for site users
-		if ( '_member_of_site' == $cap )
+		if ( '_member_of_site' === $cap )
 			return is_user_member_of_blog() || self::isSuperAdmin();
 
 		return current_user_can( $cap );
@@ -603,7 +596,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 	// @REF: `get_blogs_of_user()`
 	public static function getUserSites( $user_id, $prefix )
 	{
-		$blogs = array();
+		$blogs = [];
 		$keys  = get_user_meta( $user_id );
 
 		if ( empty( $keys ) )
@@ -622,7 +615,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 			if ( $prefix && 0 !== strpos( $key, $prefix ) )
 				continue;
 
-			$blog = str_replace( array( $prefix, '_capabilities' ), '', $key );
+			$blog = str_replace( [ $prefix, '_capabilities' ], '', $key );
 
 			if ( is_numeric( $blog ) )
 				$blogs[] = (int) $blog;
@@ -651,43 +644,43 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 		return get_search_link( $query );
 	}
 
-	public static function getAdminPostLink( $action, $extra = array() )
+	public static function getAdminPostLink( $action, $extra = [] )
 	{
-		return add_query_arg( array_merge( array(
+		return add_query_arg( array_merge( [
 			'action' => $action,
-		), $extra ), admin_url( 'admin-post.php' ) );
+		], $extra ), admin_url( 'admin-post.php' ) );
 	}
 
-	public static function getPostEditLink( $post_id, $extra = array() )
+	public static function getPostEditLink( $post_id, $extra = [] )
 	{
-		return add_query_arg( array_merge( array(
+		return add_query_arg( array_merge( [
 			'action' => 'edit',
 			'post'   => $post_id,
-		), $extra ), admin_url( 'post.php' ) );
+		], $extra ), admin_url( 'post.php' ) );
 	}
 
-	public static function getPostShortLink( $post_id, $extra = array() )
+	public static function getPostShortLink( $post_id, $extra = [] )
 	{
-		return add_query_arg( array_merge( array(
+		return add_query_arg( array_merge( [
 			'p' => $post_id,
-		), $extra ), get_bloginfo( 'url' ) );
+		], $extra ), get_bloginfo( 'url' ) );
 	}
 
-	public static function getTermShortLink( $term_id, $extra = array() )
+	public static function getTermShortLink( $term_id, $extra = [] )
 	{
-		return add_query_arg( array_merge( array(
+		return add_query_arg( array_merge( [
 			't' => $term_id,
-		), $extra ), get_bloginfo( 'url' ) );
+		], $extra ), get_bloginfo( 'url' ) );
 	}
 
-	public static function getPostNewLink( $posttype, $extra = array() )
+	public static function getPostNewLink( $posttype, $extra = [] )
 	{
-		$args = 'post' == $posttype ? array() : array( 'post_type' => $posttype );
+		$args = 'post' == $posttype ? [] : [ 'post_type' => $posttype ];
 
 		return add_query_arg( array_merge( $args, $extra ), admin_url( 'post-new.php' ) );
 	}
 
-	public static function getUserEditLink( $user_id, $extra = array(), $network = FALSE, $check = TRUE )
+	public static function getUserEditLink( $user_id, $extra = [], $network = FALSE, $check = TRUE )
 	{
 		if ( ! $user_id )
 			return FALSE;
@@ -695,26 +688,26 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 		if ( $check && ! current_user_can( 'edit_user', $user_id ) )
 			return FALSE;
 
-		return add_query_arg( array_merge( array(
+		return add_query_arg( array_merge( [
 			'user_id' => $user_id,
-		), $extra ), $network
+		], $extra ), $network
 			? network_admin_url( 'user-edit.php' )
 			: admin_url( 'user-edit.php' ) );
 
 		return FALSE;
 	}
 
-	public static function getAuthorEditHTML( $post_type, $author, $extra = array() )
+	public static function getAuthorEditHTML( $post_type, $author, $extra = [] )
 	{
 		if ( $author_data = get_user_by( 'id', $author ) )
-			return HTML::tag( 'a', array(
-				'href' => add_query_arg( array_merge( array(
+			return HTML::tag( 'a', [
+				'href' => add_query_arg( array_merge( [
 					'post_type' => $post_type,
 					'author'    => $author,
-				), $extra ), admin_url( 'edit.php' ) ),
+				], $extra ), admin_url( 'edit.php' ) ),
 				'title' => $author_data->user_login,
 				'class' => '-author',
-			), HTML::escape( $author_data->display_name ) );
+			], HTML::escape( $author_data->display_name ) );
 
 		return FALSE;
 	}
@@ -754,11 +747,11 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 	// @SOURCE: `wp-load.php`
 	public static function getConfigPHP( $path = ABSPATH )
 	{
-		// The config file resides in ABSPATH
+		// The config file resides in `ABSPATH`
 		if ( file_exists( $path.'wp-config.php' ) )
 			return $path.'wp-config.php';
 
-		// The config file resides one level above ABSPATH but is not part of another install
+		// The config file resides one level above `ABSPATH` but is not part of another install
 		$above = dirname( $path );
 
 		if ( @file_exists( $above.'/wp-config.php' ) && ! @file_exists( $above.'/wp-settings.php' ) )
@@ -885,7 +878,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 
 		$original_scheme = $scheme;
 
-		if ( ! in_array( $scheme, array( 'http', 'https', 'relative' ) ) )
+		if ( ! in_array( $scheme, [ 'http', 'https', 'relative' ], TRUE ) )
 			$scheme = is_ssl() && ! is_admin() ? 'https' : 'http';
 
 		if ( 'relative' == $scheme )

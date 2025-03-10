@@ -217,7 +217,7 @@ class PostType extends Core\Base
 	{
 		global $wp_post_statuses;
 
-		$statuses = array();
+		$statuses = [];
 
 		foreach ( $wp_post_statuses as $status )
 			$statuses[$status->name] = $status->label;

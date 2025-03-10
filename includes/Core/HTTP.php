@@ -96,7 +96,7 @@ class HTTP extends Base
 				407 => 'Proxy Authentication Required',
 				408 => 'Request Timeout',
 				409 => 'Conflict',
-				410 => 'Gone',
+				410 => 'Gone',                                 // `The author deleted this story.`
 				411 => 'Length Required',
 				412 => 'Precondition Failed',
 				413 => 'Payload Too Large',

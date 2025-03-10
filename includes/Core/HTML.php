@@ -38,10 +38,22 @@ class HTML extends Base
 			$content = Number::localize( $number );
 
 		return '<a class="'.self::prepClass( '-tel', $class )
-				.'" href="'.self::sanitizePhoneNumber( $number )
+				.'" href="'.self::prepURLforTel( $number )
 				.'"'.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
 				.' data-tel-number="'.self::escape( $number ).'">'
 				.self::wrapLTR( $content ).'</a>';
+	}
+
+	public static function geo( $data, $title = FALSE, $content = NULL, $class = '' )
+	{
+		if ( is_null( $content ) )
+			$content = Number::localize( $data );
+
+		return '<a class="'.self::prepClass( '-geo', $class )
+			.'" href="'.self::prepURLforGeo( $data )
+			.'"'.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
+			.' data-geo-data="'.self::escape( $data ).'">'
+			.self::wrapLTR( $content ).'</a>';
 	}
 
 	public static function scroll( $html, $to, $title = '' )
@@ -54,6 +66,11 @@ class HTML extends Base
 	public static function img( $src, $class = '', $alt = '' )
 	{
 		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.self::escape( $alt ).'" decoding="async" loading="lazy" />' : '';
+	}
+
+	public static function heading( $level, $html, $class = NULL, $link = FALSE )
+	{
+		if ( $level && $html ) echo self::tag( sprintf( 'h%s', $level ), [ 'class' => $class ?? '-title' ], ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
 	public static function h1( $html, $class = FALSE, $link = FALSE )
@@ -83,6 +100,9 @@ class HTML extends Base
 
 	public static function desc( $string, $block = TRUE, $class = '', $nl2br = TRUE )
 	{
+		if ( ! $string )
+			return;
+
 		if ( is_array( $string ) ) {
 
 			$assoc = Arraay::isAssoc( $string );
@@ -115,6 +135,9 @@ class HTML extends Base
 
 	public static function button( $html, $link = '#', $title = FALSE, $icon = FALSE, $data = [], $id = FALSE )
 	{
+		if ( ! $html )
+			return '';
+
 		$classes = [
 			'btn',
 			'btn-default',
@@ -153,8 +176,8 @@ class HTML extends Base
 			return '';
 
 		return $block
-			? '<div'.( $id ? ' id='.$id.'" ' : ' ' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</div>'
-			: '<span'.( $id ? ' id='.$id.'" ' : ' ' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</span>';
+			? '<div'.( $id ? ' id="'.$id.'" ' : ' ' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</div>'
+			: '<span'.( $id ? ' id="'.$id.'" ' : ' ' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</span>';
 	}
 
 	public static function wrapLTR( $content )
@@ -340,6 +363,9 @@ class HTML extends Base
 			if ( in_array( $key, [ 'selected', 'checked', 'readonly', 'disabled', 'default', 'required', 'multiple' ], TRUE ) )
 				$att = $att ? $key : FALSE;
 
+			else if ( in_array( $key, [ 'autocomplete' ], TRUE ) )
+				$att = $att ?: 'off';
+
 			else if ( in_array( $key, [ 'spellcheck' ], TRUE ) )
 				$att = $att ? 'true' : 'false';
 
@@ -407,8 +433,8 @@ class HTML extends Base
 		return $sanitized;
 	}
 
-	// like WP core but without filter
-	// ANCESTOR: tag_escape()
+	// Like WP core but without filter
+	// ANCESTOR: `tag_escape()`
 	public static function sanitizeTag( $tag )
 	{
 		return preg_replace( '/[^a-zA-Z0-9_:]/', '', $tag );
@@ -417,18 +443,30 @@ class HTML extends Base
 	// @REF: https://www.billerickson.net/code/phone-number-url/
 	// @SEE: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
 	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#telephone-numbers
-	public static function sanitizePhoneNumber( $number )
+
+	// OLD: `sanitizePhoneNumberURL()`
+	public static function prepURLforTel( $number )
 	{
+		// FIXME: must check for `tel:` prefix
 		return self::escapeURL( 'tel:'.str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $number ) );
 	}
 
 	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#smsmmsfacetime
-	public static function sanitizeSMSNumber( $number )
+	// OLD: `sanitizeSMSNumberURL()`
+	public static function prepURLforSMS( $number )
 	{
+		// FIXME: must check for `sms:` prefix
 		return self::escapeURL( 'sms:'.str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $number ) );
 	}
 
-	// FIXME: DEPRECATED
+	// OLD: `sanitizeGeoURL()`
+	public static function prepURLforGeo( $number )
+	{
+		// FIXME: must check for `geo:` prefix
+		return self::escapeURL( 'geo:'.str_replace( [ '(', ')', '-', ' ' ], '', $number ) );
+	}
+
+	// NOTE: DEPRECATED
 	public static function getAtts( $string, $expecting = [] )
 	{
 		self::_dev_dep( 'HTML::parseAtts()' );
@@ -704,6 +742,9 @@ class HTML extends Base
 	{
 		if ( empty( $tabs ) )
 			return;
+
+		if ( empty( $active ) )
+			$active = Arraay::keyFirst( $tabs );
 
 		$html = '';
 
@@ -1486,6 +1527,7 @@ class HTML extends Base
 		return self::wrap( $html, '-multiselect-wrap'.( $args['panel'] ? ' wp-tab-panel' : '' ) );
 	}
 
+	// TODO: must rename to `prepList()`
 	public static function renderList( $items, $keys = FALSE, $list = 'ul' )
 	{
 		return $items ? self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : array_filter( $items ) ).'</li>' ) : '';

@@ -7,13 +7,13 @@ use geminorum\gNetwork\Core;
 class User extends Core\Base
 {
 
-	public static function get( $all_fields = FALSE, $network = FALSE, $extra = array(), $rekey = 'ID' )
+	public static function get( $all_fields = FALSE, $network = FALSE, $extra = [], $rekey = 'ID' )
 	{
-		$users = get_users( array_merge( array(
-			'blog_id' => ( $network ? '' : $GLOBALS['blog_id'] ),
+		$users = get_users( array_merge( [
 			'orderby' => 'display_name',
-			'fields'  => ( $all_fields ? 'all_with_meta' : 'all' ),
-		), $extra ) );
+			'blog_id' => $network ? '' : $GLOBALS['blog_id'],
+			'fields'  => $all_fields ? 'all_with_meta' : 'all',
+		], $extra ) );
 
 		return Arraay::reKey( $users, $rekey );
 	}
@@ -132,7 +132,7 @@ class User extends Core\Base
 	// @REF: `get_blogs_of_user()`
 	public static function getUserBlogs( $user_id, $prefix )
 	{
-		$blogs = array();
+		$blogs = [];
 		$keys  = get_user_meta( $user_id );
 
 		if ( empty( $keys ) )
@@ -166,7 +166,7 @@ class User extends Core\Base
 		if ( ! $user_id )
 			return self::getAllRoleList();
 
-		$list = array();
+		$list = [];
 		$user = is_object( $user_id ) ? $user_id : get_user_by( 'id', $user_id );
 
 		if ( ! is_object( $user ) )
@@ -223,7 +223,7 @@ class User extends Core\Base
 	public static function getAllRoleList( $filtered = TRUE, $object = FALSE )
 	{
 		$roles = $filtered ? get_editable_roles() : wp_roles()->roles;
-		$list  = $object ? new stdClass : array();
+		$list  = $object ? new \stdClass : [];
 
 		foreach ( $roles as $role_name => $role )
 

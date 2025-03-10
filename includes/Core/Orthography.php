@@ -5,37 +5,36 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Orthography extends Base
 {
 
-	public static $maps = array(
-		'pre' => array(),
-		'sub' => array(
-			'(c)'  => "\xC2\xA9", // '©', // Copyright Sign U+00A9
-			'(r)'  => "\xC2\xAE", // '®', // Registered Sign U+00AE
-			'(tm)' => "\xE2\x84\xA2", // '™', // Trade Mark Sign U+2122
-			'c/o'  => "\xE2\x84\x85", // '℅', // Care Of U+2105
-			'-->'  => "\xE2\x86\x92", // '→', // Rightwards Arrow U+2192
-			'<--'  => "\xE2\x86\x90", // '←', // Leftwards Arrow U+2190
-			'==>'  => "\xE2\x87\x92", // '⇒', // Rightwards Double Arrow U+21D2
-			'<=>'  => "\xE2\x87\x94", // '⇔', // Left Right Double Arrow U+21D4
-			'<=='  => "\xE2\x87\x90", // '⇐', // Leftwards Double Arrow U+21D0
-			'...'  => "\xE2\x80\xA6", // '…', // Horizontal Ellipsis U+2026
-
-			'1/4'  => "\xC2\xBC", // '¼', // Vulgar Fraction One Quarter U+00BC
-			'1/2'  => "\xC2\xBD", // '½', // Vulgar Fraction One Half U+00BD
-			'3/4'  => "\xC2\xBE", // '¾', // Vulgar Fraction Three Quarters U+00BE
-			'1/3'  => "\xE2\x85\x93", // '⅓', // Vulgar Fraction One Third U+2153
-			'2/3'  => "\xE2\x85\x94", // '⅔', // Vulgar Fraction Two Thirds U+2154
-			'1/5'  => "\xE2\x85\x95", // '⅕', // Vulgar Fraction One Fifth U+2155
-			'2/5'  => "\xE2\x85\x96", // '⅖', // Vulgar Fraction Two Fifths U+2156
-			'3/5'  => "\xE2\x85\x97", // '⅗', // Vulgar Fraction Three Fifths U+2157
-			'4/5'  => "\xE2\x85\x98", // '⅘', // Vulgar Fraction Four Fifths U+2158
-			'1/6'  => "\xE2\x85\x99", // '⅙', // Vulgar Fraction One Sixth U+2159
-			'5/6'  => "\xE2\x85\x9A", // '⅚', // Vulgar Fraction Five Sixths U+215A
-			'1/8'  => "\xE2\x85\x9B", // '⅛', // Vulgar Fraction One Eighth U+215B
-			'3/8'  => "\xE2\x85\x9C", // '⅜', // Vulgar Fraction Three Eighths U+215C
-			'5/8'  => "\xE2\x85\x9D", // '⅝', // Vulgar Fraction Five Eighths U+215D
-			'7/8'  => "\xE2\x85\x9E", // '⅞', // Vulgar Fraction Seven Eighths U+215E
-		),
-	);
+	public static $maps = [
+		'pre' => [],
+		'sub' => [
+			'(c)'  => "\xC2\xA9",       // '©', // Copyright Sign `U+00A9`
+			'(r)'  => "\xC2\xAE",       // '®', // Registered Sign `U+00AE`
+			'(tm)' => "\xE2\x84\xA2",   // '™', // Trade Mark Sign `U+2122`
+			'c/o'  => "\xE2\x84\x85",   // '℅', // Care Of `U+2105`
+			'-->'  => "\xE2\x86\x92",   // '→', // Rightwards Arrow `U+2192`
+			'<--'  => "\xE2\x86\x90",   // '←', // Leftwards Arrow `U+2190`
+			'==>'  => "\xE2\x87\x92",   // '⇒', // Rightwards Double Arrow `U+21D2`
+			'<=>'  => "\xE2\x87\x94",   // '⇔', // Left Right Double Arrow `U+21D4`
+			'<=='  => "\xE2\x87\x90",   // '⇐', // Leftwards Double Arrow `U+21D0`
+			'...'  => "\xE2\x80\xA6",   // '…', // Horizontal Ellipsis `U+2026`
+			'1/4'  => "\xC2\xBC",       // '¼', // Vulgar Fraction One Quarter `U+00BC`
+			'1/2'  => "\xC2\xBD",       // '½', // Vulgar Fraction One Half `U+00BD`
+			'3/4'  => "\xC2\xBE",       // '¾', // Vulgar Fraction Three Quarters `U+00BE`
+			'1/3'  => "\xE2\x85\x93",   // '⅓', // Vulgar Fraction One Third `U+2153`
+			'2/3'  => "\xE2\x85\x94",   // '⅔', // Vulgar Fraction Two Thirds `U+2154`
+			'1/5'  => "\xE2\x85\x95",   // '⅕', // Vulgar Fraction One Fifth `U+2155`
+			'2/5'  => "\xE2\x85\x96",   // '⅖', // Vulgar Fraction Two Fifths `U+2156`
+			'3/5'  => "\xE2\x85\x97",   // '⅗', // Vulgar Fraction Three Fifths `U+2157`
+			'4/5'  => "\xE2\x85\x98",   // '⅘', // Vulgar Fraction Four Fifths `U+2158`
+			'1/6'  => "\xE2\x85\x99",   // '⅙', // Vulgar Fraction One Sixth `U+2159`
+			'5/6'  => "\xE2\x85\x9A",   // '⅚', // Vulgar Fraction Five Sixths `U+215A`
+			'1/8'  => "\xE2\x85\x9B",   // '⅛', // Vulgar Fraction One Eighth `U+215B`
+			'3/8'  => "\xE2\x85\x9C",   // '⅜', // Vulgar Fraction Three Eighths `U+215C`
+			'5/8'  => "\xE2\x85\x9D",   // '⅝', // Vulgar Fraction Five Eighths `U+215D`
+			'7/8'  => "\xE2\x85\x9E",   // '⅞', // Vulgar Fraction Seven Eighths `U+215E`
+		],
+	];
 
 	public static function cleanupPersian( $string )
 	{
