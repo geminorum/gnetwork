@@ -22,7 +22,6 @@ class Tracking extends gNetwork\Module
 		$this->action( 'init', 0, 8 );
 		$this->action( 'wp_head', 0, 999 );
 		$this->action( 'login_head', 0, 999 );
-		$this->action( 'wp_footer', 0, 99999 );
 
 		$this->filter( 'amp_post_template_analytics' );
 		$this->action_module( 'maintenance', 'template_after', 0, 15 );
@@ -43,7 +42,6 @@ class Tracking extends gNetwork\Module
 			'ga_beacon'           => '',
 			'ga_userid'           => '1',
 			'ga_outbound'         => '0',
-			'quantcast'           => '',
 			'twitter_site'        => '',
 			'ignore_user'         => 'edit_others_posts',
 		];
@@ -98,15 +96,6 @@ class Tracking extends gNetwork\Module
 					'field'       => 'ga_outbound',
 					'title'       => _x( 'GA Track Outbounds', 'Modules: Tracking: Settings', 'gnetwork' ),
 					'description' => _x( 'Tracks outbound links on Google Analytics.', 'Modules: Tracking: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'quantcast',
-					'type'        => 'text',
-					'title'       => _x( 'Quantcast', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'description' => _x( 'Determines current network Quantcast P-Code.', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon( 'https://www.quantcast.com/' ),
-					'dir'         => 'ltr',
-					'placeholder' => 'x-XXXXXXXXXXXX-',
 				],
 				[
 					'field'       => 'twitter_site',
@@ -265,21 +254,6 @@ class Tracking extends gNetwork\Module
 		$extra = '!function(){document.addEventListener("DOMContentLoaded",function(){var t=document.getElementById("loginform");t.addEventListener("submit",function(n){n.preventDefault(),gtag("event","login",{transport_type:"beacon",event_callback:gtagCallback(function(){t.submit()})})})})}();';
 
 		$this->render_gtag( $account, FALSE, $extra );
-	}
-
-	public function wp_footer()
-	{
-		if ( $this->ignore() )
-			return;
-
-		if ( ! empty( $this->options['quantcast'] ) ) {
-
-			$quantcast = 'var _qevents=_qevents||[];(function(){var elem=document.createElement("script");elem.src=(document.location.protocol=="https:"?"https://secure":"http://edge")+".quantserve.com/quant.js";elem.async=true;elem.type="text/javascript";var scpt=document.getElementsByTagName("script")[0];scpt.parentNode.insertBefore(elem,scpt);})();';
-
-			HTML::wrapScript( $quantcast.'_qevents.push({qacct:"'.esc_js( $this->options['quantcast'] ).'"});' );
-
-			echo '<noscript><div style="display:none;"><img src="//pixel.quantserve.com/pixel/'.$this->options['quantcast'].'.gif" border="0" height="1" width="1" alt="Quantcast"/></div></noscript>';
-		}
 	}
 
 	// @REF: https://github.com/Automattic/amp-wp/wiki/Analytics
