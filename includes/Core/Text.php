@@ -335,7 +335,7 @@ class Text extends Base
 			: preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $string );
 	}
 
-	// like wp but without check for func_overload
+	// like wp but without check for `func_overload`
 	// @SOURCE: `seems_utf8()`
 	public static function seemsUTF8( $text )
 	{

@@ -98,6 +98,11 @@ class HTML extends Base
 		return ( empty( $string ) && '0' !== $string ) ? '' : self::tag( 'code', [ 'class' => $class ], $string );
 	}
 
+	public static function small( $string, $class = FALSE, $space = FALSE )
+	{
+		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'small', [ 'class' => $class ], $string );
+	}
+
 	public static function desc( $string, $block = TRUE, $class = '', $nl2br = TRUE )
 	{
 		if ( ! $string )

@@ -212,8 +212,9 @@ class WordPress extends Base
 
 	public static function isXML()
 	{
-		if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() )
-			return TRUE;
+		// NOTE: known conflict with caching plugins
+		// if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() )
+		// 	return TRUE;
 
 		if ( ! isset( $GLOBALS['wp_query'] ) )
 			return FALSE;

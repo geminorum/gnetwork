@@ -5,6 +5,24 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class URL extends Base
 {
 
+	/**
+	 * Sanitizes a URL for storage or redirect.
+	 * @source `sanitize_url()`
+	 *
+	 * @param string $url
+	 * @return string $sanitized
+	 */
+	public static function sanitize( $url )
+	{
+		$sanitized = Text::trim( $url );
+
+		// @SEE: `esc_url()`
+		if ( $sanitized && ! preg_match( '/^http(s)?:\/\//', $sanitized ) )
+			$sanitized = 'http://'.$sanitized;
+
+		return esc_url( $sanitized, NULL, 'db' );
+	}
+
 	// @SOURCE: http://stackoverflow.com/a/8891890
 	public static function current( $trailingslashit = FALSE, $forwarded_host = FALSE )
 	{
