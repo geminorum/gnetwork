@@ -3,13 +3,10 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
-use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Utilities;
 
 class Embed extends gNetwork\Module
 {
@@ -187,7 +184,7 @@ class Embed extends gNetwork\Module
 		Settings::fieldSection(
 			_x( 'Instagram', 'Modules: Embed: Settings', 'gnetwork' ),
 			/* translators: %s: min pixels placeholder */
-			sprintf( _x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', 'gnetwork' ), HTML::tag( 'code', Number::localize( 320 ) ) )
+			sprintf( _x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', 'gnetwork' ), Core\HTML::tag( 'code', Core\Number::localize( 320 ) ) )
 		);
 	}
 
@@ -231,7 +228,7 @@ class Embed extends gNetwork\Module
 
 	public function handle_docs_pdf( $matches, $attr, $url, $rawattr )
 	{
-		$html = HTML::tag( 'iframe', [
+		$html = Core\HTML::tag( 'iframe', [
 			'src'             => sprintf( 'https://docs.google.com/viewer?url=%s&embedded=true', urlencode( $url ) ),
 			'width'           => $attr['width'],
 			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : (int) ( 1.414 * $attr['width'] / 1 ), // A4 is 1:1.414
@@ -256,12 +253,12 @@ class Embed extends gNetwork\Module
 
 		$key = $this->hash( 'instagram', $url, $attr, $rawattr );
 
-		if ( WordPress::isFlush() )
+		if ( Core\WordPress::isFlush() )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
 
-			$json = HTTP::getJSON( $url );
+			$json = Core\HTTP::getJSON( $url );
 			$html = $json ? $json['html'] : '';
 
 			set_site_transient( $key, $html, $html ? GNETWORK_CACHE_TTL : HOUR_IN_SECONDS );
@@ -278,7 +275,7 @@ class Embed extends gNetwork\Module
 
 	public function handle_aparat_video( $matches, $attr, $url, $rawattr )
 	{
-		$html = HTML::tag( 'iframe', [
+		$html = Core\HTML::tag( 'iframe', [
 			'src'             => sprintf( 'https://www.aparat.com/video/video/embed/videohash/%s/vt/frame', $matches[1] ),
 			'width'           => $attr['width'],
 			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : (int) ( 9 * $attr['width'] / 16 ), // aparat is 16:9
@@ -298,7 +295,7 @@ class Embed extends gNetwork\Module
 		$count = empty( $rawattr['count'] ) ? $this->options['count_channel'] : $rawattr['count'];
 		$key   = $this->hash( 'aparatchannel', $url, $count, $attr, $rawattr );
 
-		if ( WordPress::isFlush() )
+		if ( Core\WordPress::isFlush() )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
@@ -329,7 +326,7 @@ class Embed extends gNetwork\Module
 			foreach ( $rss->get_items( 0, $count ) as $item ) {
 
 				$link  = esc_url( $item->get_link() );
-				$title = HTML::escape( trim( strip_tags( str_replace( [ "&amp;", "&laquo;", "&raquo;" ], [ "&", "«", "»" ], $item->get_title() ) ) ) );
+				$title = Core\HTML::escape( trim( strip_tags( str_replace( [ "&amp;", "&laquo;", "&raquo;" ], [ "&", "«", "»" ], $item->get_title() ) ) ) );
 
 				if ( empty( $title ) )
 					$title = _x( 'Untitled', 'Modules: Embed: Item With No Title', 'gnetwork' );
@@ -337,7 +334,7 @@ class Embed extends gNetwork\Module
 				if ( ! preg_match( '#https?://(?:www.)?aparat\.com\/v\/(.*?)\/#i', $link, $results ) )
 					continue;
 
-				$video = HTML::tag( 'iframe', [
+				$video = Core\HTML::tag( 'iframe', [
 					'src'             => sprintf( 'https://aparat.com/video/video/embed/videohash/%s/vt/frame', $results[1] ),
 					'width'           => $width,
 					'height'          => $height,
@@ -367,7 +364,7 @@ class Embed extends gNetwork\Module
 	// NOTE: balad default is 600x450 (4x3)
 	public function handle_balad( $matches, $attr, $url, $rawattr )
 	{
-		$html = HTML::tag( 'iframe', [
+		$html = Core\HTML::tag( 'iframe', [
 			'src'             => sprintf( 'https://balad.ir/embed?p=%s', $matches[1] ),
 			'width'           => $attr['width'],
 			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : $attr['width'],
@@ -388,7 +385,7 @@ class Embed extends gNetwork\Module
 	// @REF: https://github.com/TweetPressFr/wp-giphy-oembed
 	public function handle_giphy( $matches, $attr, $url, $rawattr )
 	{
-		$html = HTML::tag( 'iframe', [
+		$html = Core\HTML::tag( 'iframe', [
 			'src'             => add_query_arg( 'html5', TRUE, trailingslashit( 'https://giphy.com/embed/' ).$matches[1] ),
 			'width'           => $attr['width'],
 			'height'          => isset( $rawattr['height'] ) ? $rawattr['height'] : (int) ( 14 * $attr['width'] / 25 ), // 500/281

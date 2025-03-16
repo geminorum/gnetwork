@@ -3,19 +3,12 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
+use geminorum\gNetwork\Misc;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Date;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\Misc\QM;
 
 class Debug extends gNetwork\Module
 {
@@ -29,7 +22,7 @@ class Debug extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( WordPress::mustRegisterUI() )
+		if ( Core\WordPress::mustRegisterUI() )
 			$this->action( 'core_upgrade_preamble', 1, 20 );
 
 		$this->filter( 'qm/collectors', 2, 200 );
@@ -131,38 +124,38 @@ class Debug extends gNetwork\Module
 			$this->check_referer( $sub, 'tools' );
 
 			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
-				WordPress::redirectReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
+				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
 
 			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
-				WordPress::redirectReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
+				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
 
 			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
-				WordPress::redirectReferer( ( @unlink( GNETWORK_FAILED_LOG ) ? 'purged' : 'error' ) );
+				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_FAILED_LOG ) ? 'purged' : 'error' ) );
 
 			else if ( GNETWORK_NOTFOUND_LOG && 'notfoundlogs' == $sub )
-				WordPress::redirectReferer( ( @unlink( GNETWORK_NOTFOUND_LOG ) ? 'purged' : 'error' ) );
+				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_NOTFOUND_LOG ) ? 'purged' : 'error' ) );
 
 			else if ( GNETWORK_SEARCH_LOG && 'searchlogs' == $sub )
-				WordPress::redirectReferer( ( @unlink( GNETWORK_SEARCH_LOG ) ? 'purged' : 'error' ) );
+				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_SEARCH_LOG ) ? 'purged' : 'error' ) );
 
 		} else if ( isset( $_POST['download_logs'] ) ) {
 
 			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
-				File::download( GNETWORK_DEBUG_LOG, File::prepName( 'debug.log' ) );
+				Core\File::download( GNETWORK_DEBUG_LOG, Core\File::prepName( 'debug.log' ) );
 
 			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
-				File::download( GNETWORK_ANALOG_LOG, File::prepName( 'analog.log' ) );
+				Core\File::download( GNETWORK_ANALOG_LOG, Core\File::prepName( 'analog.log' ) );
 
 			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
-				File::download( GNETWORK_FAILED_LOG, File::prepName( 'failed.log' ) );
+				Core\File::download( GNETWORK_FAILED_LOG, Core\File::prepName( 'failed.log' ) );
 
 			else if ( GNETWORK_NOTFOUND_LOG && 'notfoundlogs' == $sub )
-				File::download( GNETWORK_NOTFOUND_LOG, File::prepName( 'notfound.log' ) );
+				Core\File::download( GNETWORK_NOTFOUND_LOG, Core\File::prepName( 'notfound.log' ) );
 
 			else if ( GNETWORK_SEARCH_LOG && 'searchlogs' == $sub )
-				File::download( GNETWORK_SEARCH_LOG, File::prepName( 'search.log' ) );
+				Core\File::download( GNETWORK_SEARCH_LOG, Core\File::prepName( 'search.log' ) );
 
-			WordPress::redirectReferer( 'wrong' );
+			Core\WordPress::redirectReferer( 'wrong' );
 		}
 	}
 
@@ -198,9 +191,9 @@ class Debug extends gNetwork\Module
 
 	public static function displayReport()
 	{
-		HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', 'gnetwork' ) );
+		Core\HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', 'gnetwork' ) );
 
-		HTML::tabsList( [
+		Core\HTML::tabsList( [
 			'currents' => [
 				'title'  => _x( 'Currents', 'Modules: Debug: System Report', 'gnetwork' ),
 				'cb'     => [ __CLASS__, 'summaryCurrents' ],
@@ -248,7 +241,7 @@ class Debug extends gNetwork\Module
 	private static function displayTests()
 	{
 		Settings::headerTitle( _x( 'Website Remote Tests', 'Modules: Debug', 'gnetwork' ) );
-		HTML::desc( _x( 'There are no tests available!', 'Modules: Debug', 'gnetwork' ), TRUE, '-empty' );
+		Core\HTML::desc( _x( 'There are no tests available!', 'Modules: Debug', 'gnetwork' ), TRUE, '-empty' );
 	}
 
 	// TODO: add limit/length input
@@ -256,14 +249,14 @@ class Debug extends gNetwork\Module
 	{
 		if ( $file && is_readable( $file ) ) {
 
-			if ( ! $file_size = File::getSize( $file ) )
+			if ( ! $file_size = Core\File::getSize( $file ) )
 				return FALSE;
 
-			if ( $logs = File::getLastLines( $file, self::limit( 100 ) ) ) {
+			if ( $logs = Core\File::getLastLines( $file, self::limit( 100 ) ) ) {
 
 				$length = self::req( 'length', FALSE );
 				/* translators: %s: logs count */
-				$title = sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', 'gnetwork' ), Number::format( count( $logs ) ) );
+				$title = sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', 'gnetwork' ), Core\Number::format( count( $logs ) ) );
 
 				Settings::headerTitle( $title );
 				echo '<div class="log-box"><ol>';
@@ -273,18 +266,22 @@ class Debug extends gNetwork\Module
 					if ( ! ( $line = trim( strip_tags( $log ) ) ) )
 						continue;
 
-					if ( $length && Text::strLen( $line ) > $length )
-						$line = Text::subStr( $line, 0, $length ).' <span title="'.HTML::escape( $line ).'">[&hellip;]</span>';
+					if ( $length && Core\Text::strLen( $line ) > $length )
+						$line = Core\Text::subStr( $line, 0, $length ).' <span title="'.Core\HTML::escape( $line ).'">[&hellip;]</span>';
 
 					$line = Utilities::highlightTime( $line, 1 );
 					$line = Utilities::highlightIP( $line );
 
-					echo HTML::tag( 'li', $line );
+					echo Core\HTML::tag( 'li', $line );
 				}
 
 				echo '</ol></div>';
-				/* translators: %s: file size */
-				HTML::desc( sprintf( _x( 'File Size: %s', 'Modules: Debug: Log Box', 'gnetwork' ), HTML::wrapLTR( $file_size ) ), TRUE, 'log-box-footer' );
+
+				Core\HTML::desc( sprintf(
+					/* translators: %s: file size */
+					_x( 'File Size: %s', 'Modules: Debug: Log Box', 'gnetwork' ),
+					Core\HTML::wrapLTR( $file_size )
+				), TRUE, 'log-box-footer' );
 
 			} else {
 				echo gNetwork()->na();
@@ -292,7 +289,7 @@ class Debug extends gNetwork\Module
 			}
 
 		} else {
-			echo HTML::error( _x( 'There was a problem reading the logs.', 'Modules: Debug: Log Box', 'gnetwork' ) );
+			echo Core\HTML::error( _x( 'There was a problem reading the logs.', 'Modules: Debug: Log Box', 'gnetwork' ) );
 			return FALSE;
 		}
 
@@ -315,7 +312,7 @@ class Debug extends gNetwork\Module
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Core Versions', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Core Versions', 'Modules: Debug', 'gnetwork' ) );
 
 		echo '<table class="base-table-code"><tbody>';
 		foreach ( $versions as $key => $val )
@@ -331,18 +328,19 @@ class Debug extends gNetwork\Module
 
 			$info = \gPlugin::get_info();
 
-			echo HTML::tableCode( $info[1], TRUE );
-			HTML::tableSide( $info[0] );
+			echo Core\HTML::tableCode( $info[1], TRUE );
+			Core\HTML::tableSide( $info[0] );
 
 		} else {
-			HTML::desc( _x( 'No Instance of gPlugin found.', 'Modules: Debug', 'gnetwork' ) );
+
+			Core\HTML::desc( _x( 'No Instance of gPlugin found.', 'Modules: Debug', 'gnetwork' ) );
 		}
 	}
 
 	public static function htaccessSummary()
 	{
 		echo '<pre data-prism="yes" class="language-apacheconf line-numbers" dir="ltr"><code class="language-apacheconf">';
-			echo HTML::escapeTextarea( File::getContents( trailingslashit( get_home_path() ).'.htaccess' ) );
+			echo Core\HTML::escapeTextarea( Core\File::getContents( trailingslashit( get_home_path() ).'.htaccess' ) );
 		echo '</code></pre>';
 	}
 
@@ -354,35 +352,35 @@ class Debug extends gNetwork\Module
 
 	public static function wpconfigSummary()
 	{
-		if ( $wpconfig = WordPress::getConfigPHP() )
+		if ( $wpconfig = Core\WordPress::getConfigPHP() )
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
-				.HTML::escapeTextarea( File::getContents( $wpconfig ) ).'</code></pre>';
+				.Core\HTML::escapeTextarea( Core\File::getContents( $wpconfig ) ).'</code></pre>';
 		else
-			HTML::desc( _x( 'Can not find the config file!', 'Modules: Debug', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Can not find the config file!', 'Modules: Debug', 'gnetwork' ) );
 	}
 
 	public static function customSummary()
 	{
 		if ( file_exists( WP_CONTENT_DIR.'/gnetwork-custom.php' ) )
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
-				.HTML::escapeTextarea( File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) ).'</code></pre>';
+				.Core\HTML::escapeTextarea( Core\File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) ).'</code></pre>';
 		else
-			HTML::desc( _x( 'No custom file found.', 'Modules: Debug', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'No custom file found.', 'Modules: Debug', 'gnetwork' ) );
 	}
 
 	public static function bpCustomSummary()
 	{
 		if ( file_exists( WP_PLUGIN_DIR.'/bp-custom.php' ) )
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
-				.HTML::escapeTextarea( File::getContents( WP_PLUGIN_DIR.'/bp-custom.php' ) ).'</code></pre>';
+				.Core\HTML::escapeTextarea( Core\File::getContents( WP_PLUGIN_DIR.'/bp-custom.php' ) ).'</code></pre>';
 		else
-			HTML::desc( _x( 'No bp custom file found.', 'Modules: Debug', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'No bp custom file found.', 'Modules: Debug', 'gnetwork' ) );
 	}
 
 	public static function cacheStats()
 	{
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Stats of the Cache', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Stats of the Cache', 'Modules: Debug', 'gnetwork' ) );
 
 			$GLOBALS['wp_object_cache']->stats();
 		echo '</div>';
@@ -409,9 +407,9 @@ class Debug extends gNetwork\Module
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Initial Constants', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Initial Constants', 'Modules: Debug', 'gnetwork' ) );
 
-			echo HTML::tableCode( $paths );
+			echo Core\HTML::tableCode( $paths );
 		echo '</div>';
 	}
 
@@ -436,15 +434,15 @@ class Debug extends gNetwork\Module
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Plugin Paths', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Plugin Paths', 'Modules: Debug', 'gnetwork' ) );
 
-			echo HTML::tableCode( $paths );
+			echo Core\HTML::tableCode( $paths );
 		echo '</div>';
 	}
 
 	public static function currentTime()
 	{
-		$format = Date::MYSQL_FORMAT;
+		$format = Core\Date::MYSQL_FORMAT;
 
 		$times = [
 			'date_i18n()'                     => date_i18n( $format ),
@@ -460,9 +458,9 @@ class Debug extends gNetwork\Module
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Current Time', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Current Time', 'Modules: Debug', 'gnetwork' ) );
 
-			echo HTML::tableCode( $times );
+			echo Core\HTML::tableCode( $times );
 		echo '</div>';
 	}
 
@@ -485,15 +483,15 @@ class Debug extends gNetwork\Module
 		if ( $card ) {
 
 			echo '<div class="-wrap card -floated" dir="ltr">';
-			HTML::h2( $caption ?: _x( 'IPs', 'Modules: Debug', 'gnetwork' ) );
+			Core\HTML::h2( $caption ?: _x( 'IPs', 'Modules: Debug', 'gnetwork' ) );
 
-				echo HTML::tableCode( $summary );
+				echo Core\HTML::tableCode( $summary );
 			echo '</div>';
 
 		} else {
 
 			// old fashion way!
-			echo HTML::tableCode( $summary, FALSE, $caption );
+			echo Core\HTML::tableCode( $summary, FALSE, $caption );
 		}
 	}
 
@@ -511,12 +509,12 @@ class Debug extends gNetwork\Module
 
 		foreach ( $keys as $key )
 			if ( isset( $_SERVER[$key] ) )
-				$summary[$key] = HTML::escape( $_SERVER[$key] );
+				$summary[$key] = Core\HTML::escape( $_SERVER[$key] );
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'SSL', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'SSL', 'Modules: Debug', 'gnetwork' ) );
 
-			echo HTML::tableCode( $summary );
+			echo Core\HTML::tableCode( $summary );
 		echo '</div>';
 	}
 
@@ -524,13 +522,13 @@ class Debug extends gNetwork\Module
 	public static function summarySpaceUsage()
 	{
 		$summary = [
-			'Available Space' => function_exists( 'disk_free_space' ) ? File::prefixSI( @disk_free_space( WP_CONTENT_DIR ) ) : 'UNAVAILABLE',
+			'Available Space' => function_exists( 'disk_free_space' ) ? Core\File::prefixSI( @disk_free_space( WP_CONTENT_DIR ) ) : 'UNAVAILABLE',
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'Space Usage', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Space Usage', 'Modules: Debug', 'gnetwork' ) );
 
-			echo HTML::tableCode( $summary );
+			echo Core\HTML::tableCode( $summary );
 		echo '</div>';
 	}
 
@@ -539,7 +537,7 @@ class Debug extends gNetwork\Module
 		$max_upload_size = wp_max_upload_size();
 
 		$info = [
-			'wp_max_upload_size()'     => File::formatSize( $max_upload_size ).' = '.$max_upload_size,
+			'wp_max_upload_size()'     => Core\File::formatSize( $max_upload_size ).' = '.$max_upload_size,
 			'option: max_file_size'    => get_option( 'max_file_size' ),
 			'ini: upload_max_filesize' => ini_get( 'upload_max_filesize' ).' = '.wp_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) ),
 			'ini: post_max_size'       => ini_get( 'post_max_size' ).' = '.wp_convert_hr_to_bytes( ini_get( 'post_max_size' ) ),
@@ -557,9 +555,9 @@ class Debug extends gNetwork\Module
 			$info['wp_upload: '.$key] = $val;
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'File & Upload', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'File & Upload', 'Modules: Debug', 'gnetwork' ) );
 
-			echo HTML::tableCode( $info );
+			echo Core\HTML::tableCode( $info );
 		echo '</div>';
 	}
 
@@ -625,7 +623,7 @@ class Debug extends gNetwork\Module
 		$server['REQUEST_TIME_FLOAT'] = date( 'l, j F, Y - H:i:s T', (int) $server['REQUEST_TIME_FLOAT'] ).' ('.$server['REQUEST_TIME_FLOAT'] .')';
 		$server['REQUEST_TIME']       = date( 'l, j F, Y - H:i:s T', $server['REQUEST_TIME'] ).' ('.$server['REQUEST_TIME'] .')';
 
-		echo HTML::tableCode( $server );
+		echo Core\HTML::tableCode( $server );
 	}
 
 	private static function get_phpinfo()
@@ -649,11 +647,14 @@ class Debug extends gNetwork\Module
 	public static function phpinfo()
 	{
 		if ( $phpinfo = self::get_phpinfo() )
-			echo HTML::wrap( $phpinfo, '-phpinfo' );
+			echo Core\HTML::wrap( $phpinfo, '-phpinfo' );
 
 		else
-			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s has been disabled.', 'Modules: Debug', 'gnetwork' ), '<code>phpinfo()</code>' ), TRUE, '-empty -phpinfo' );
+			Core\HTML::desc( sprintf(
+				/* translators: %s: function placeholder */
+				_x( '%s has been disabled.', 'Modules: Debug', 'gnetwork' ),
+				'<code>phpinfo()</code>'
+			), TRUE, '-empty -phpinfo' );
 	}
 
 	public static function summaryCurrents()
@@ -674,27 +675,27 @@ class Debug extends gNetwork\Module
 	public static function systemVersions()
 	{
 		echo '<div class="-wrap card -floated -currents" dir="ltr">';
-		HTML::h2( _x( 'System Versions', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'System Versions', 'Modules: Debug', 'gnetwork' ) );
 
 		/* translators: %s: mysql version */
-		HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', 'gnetwork' ), HTML::tag( 'code', $GLOBALS['wpdb']->db_version() ) ) );
+		Core\HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', 'gnetwork' ), Core\HTML::tag( 'code', $GLOBALS['wpdb']->db_version() ) ) );
 
 		echo '<hr />';
 
 		/* translators: %s: php version */
-		HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), HTML::tag( 'code', PHP_VERSION ) ) );
+		Core\HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), Core\HTML::tag( 'code', PHP_VERSION ) ) );
 
-		echo HTML::listCode( self::getPHPExtensions(),
+		echo Core\HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',
 			'<span class="description -color-success">'._x( 'Loaded Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
 		);
 
-		echo HTML::listCode( self::getPHPMissingExtensions(),
+		echo Core\HTML::listCode( self::getPHPMissingExtensions(),
 			'<code title="%2$s">%1$s</code>',
 			'<span class="description -color-danger">'._x( 'Missing Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
 		);
 
-		HTML::h2( _x( 'Image Tools', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Image Tools', 'Modules: Debug', 'gnetwork' ) );
 
 		$path      = '/usr/local/bin/';
 		$tools     = [ 'optipng', 'pngquant', 'cwebp', 'jpegoptim' ];
@@ -703,9 +704,9 @@ class Debug extends gNetwork\Module
 		foreach ( $tools as $tool )
 			$available[strtoupper( $tool )] = @is_readable( $path.$tool ) ? $path.$tool : FALSE;
 
-		echo HTML::tableCode( $available );
+		echo Core\HTML::tableCode( $available );
 
-		HTML::h2( _x( 'Extra', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Extra', 'Modules: Debug', 'gnetwork' ) );
 
 		foreach ( [
 			'phpinfo',
@@ -714,6 +715,7 @@ class Debug extends gNetwork\Module
 			'finfo_file',
 			'get_headers',
 			'getimagesize',
+			'imagewebp',
 			'mime_content_type',
 			'fpassthru',
 			'fastcgi_finish_request',
@@ -729,11 +731,11 @@ class Debug extends gNetwork\Module
 	{
 		if ( function_exists( $func ) )
 			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), HTML::code( $func ) ), TRUE, '-available -color-success' );
+			Core\HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), Core\HTML::code( $func ) ), TRUE, '-available -color-success' );
 
 		else
 			/* translators: %s: function placeholder */
-			HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), HTML::code( $func ) ), TRUE, '-not-available -color-danger' );
+			Core\HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), Core\HTML::code( $func ) ), TRUE, '-not-available -color-danger' );
 	}
 
 	public static function getPHPExtensions()
@@ -746,7 +748,7 @@ class Debug extends gNetwork\Module
 				continue;
 
 			if ( $ver = phpversion( $ext ) )
-				$extensions[$ext] = 'v'.HTML::escape( $ver );
+				$extensions[$ext] = 'v'.Core\HTML::escape( $ver );
 			else
 				$extensions[$ext] = '';
 		}
@@ -824,7 +826,7 @@ class Debug extends gNetwork\Module
 		foreach ( get_loaded_extensions() as $ext )
 			$list[$ext] = get_extension_funcs( $ext );
 
-		HTML::tableSide( $list );
+			Core\HTML::tableSide( $list );
 	}
 
 	// FIXME: DROP THIS
@@ -848,7 +850,7 @@ class Debug extends gNetwork\Module
 				if ( ! GNETWORK_DEBUG_LOG )
 					return $result;
 
-				if ( FALSE === ( $status = HTTP::getStatus( URL::fromPath( GNETWORK_DEBUG_LOG ), FALSE ) ) )
+				if ( FALSE === ( $status = Core\HTTP::getStatus( Core\URL::fromPath( GNETWORK_DEBUG_LOG ), FALSE ) ) )
 					return $result;
 
 				if ( 200 == $status ) {
@@ -901,7 +903,7 @@ class Debug extends gNetwork\Module
 		if ( self::isError( $response ) )
 			Logger::siteFAILED( 'HTTP-API', $class.': '.$response->get_error_message().' :: '.esc_url( $url ) );
 
-		if ( did_action( 'set_current_user' ) && WordPress::isSuperAdmin() )
+		if ( did_action( 'set_current_user' ) && Core\WordPress::isSuperAdmin() )
 			$this->http_calls[] = [
 				'url'    => $url,
 				'method' => empty( $args['method'] ) ? 'UNKNOWN' : $args['method'],
@@ -943,8 +945,8 @@ class Debug extends gNetwork\Module
 				continue;
 
 			$size = empty( $log[3] )
-				? File::getSize( $log[0], FALSE )
-				: File::getFolderSize( $log[0], FALSE );
+				? Core\File::getSize( $log[0], FALSE )
+				: Core\File::getFolderSize( $log[0], FALSE );
 
 			if ( ! $size )
 				continue;
@@ -952,10 +954,12 @@ class Debug extends gNetwork\Module
 			$classes = [ '-log-size' ];
 			$percent = number_format( ( $size / $quota ) * 100 );
 
-			/* translators: %1$s: quota percent, %2$s: full quota */
-			$title = sprintf( _x( '%1$s of %2$s', 'Modules: Debug', 'gnetwork' ),
-				Number::localize( $percent.'%' ),
-				HTML::wrapLTR( File::formatSize( $quota ) ) );
+			$title = sprintf(
+				/* translators: %1$s: quota percent, %2$s: full quota */
+				_x( '%1$s of %2$s', 'Modules: Debug', 'gnetwork' ),
+				Core\Number::localize( $percent.'%' ),
+				Core\HTML::wrapLTR( Core\File::formatSize( $quota ) )
+			);
 
 			if ( $percent >= 100 )
 				$classes[] = 'danger';
@@ -963,11 +967,11 @@ class Debug extends gNetwork\Module
 			else if ( $percent >= 70 )
 				$classes[] = 'warning';
 
-			$items[] = HTML::tag( 'a', [
+			$items[] = Core\HTML::tag( 'a', [
 				'href'  => empty( $log[2] ) ? $this->get_menu_url( $sub, 'network', 'tools' ) : $log[2],
 				'title' => $title,
 				'class' => $classes,
-			], sprintf( $log[1], HTML::wrapLTR( File::formatSize( $size ) ) ) );
+			], sprintf( $log[1], Core\HTML::wrapLTR( Core\File::formatSize( $size ) ) ) );
 		}
 
 		return $items;
@@ -978,12 +982,12 @@ class Debug extends gNetwork\Module
 		if ( ! GNETWORK_DEBUG_LOG && ! GNETWORK_ANALOG_LOG && ! GNETWORK_FAILED_LOG && ! GNETWORK_NOTFOUND_LOG && ! GNETWORK_SEARCH_LOG )
 			return;
 
-		HTML::h2( _x( 'Extras', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Extras', 'Modules: Debug', 'gnetwork' ) );
 
 		echo '<p class="gnetwork-admin-wrap debug-update-core">';
 
 			if ( GNETWORK_DEBUG_LOG )
-				echo HTML::tag( 'a', [
+				echo Core\HTML::tag( 'a', [
 					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'errorlogs', 'network', 'tools' ),
 				], _x( 'Check Error Logs', 'Modules: Debug', 'gnetwork' ) );
@@ -992,7 +996,7 @@ class Debug extends gNetwork\Module
 				echo '&nbsp;&nbsp;';
 
 			if ( GNETWORK_ANALOG_LOG )
-				echo HTML::tag( 'a', [
+				echo Core\HTML::tag( 'a', [
 					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'analoglogs', 'network', 'tools' ),
 				], _x( 'Check System Logs', 'Modules: Debug', 'gnetwork' ) );
@@ -1001,7 +1005,7 @@ class Debug extends gNetwork\Module
 				echo '&nbsp;&nbsp;';
 
 			if ( GNETWORK_FAILED_LOG )
-				echo HTML::tag( 'a', [
+				echo Core\HTML::tag( 'a', [
 					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'failedlogs', 'network', 'tools' ),
 				], _x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork' ) );
@@ -1010,7 +1014,7 @@ class Debug extends gNetwork\Module
 				echo '&nbsp;&nbsp;';
 
 			if ( GNETWORK_NOTFOUND_LOG )
-				echo HTML::tag( 'a', [
+				echo Core\HTML::tag( 'a', [
 					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'notfoundlogs', 'network', 'tools' ),
 				], _x( 'Check Not-Found Logs', 'Modules: Debug', 'gnetwork' ) );
@@ -1019,7 +1023,7 @@ class Debug extends gNetwork\Module
 				echo '&nbsp;&nbsp;';
 
 			if ( GNETWORK_SEARCH_LOG )
-				echo HTML::tag( 'a', [
+				echo Core\HTML::tag( 'a', [
 					'class' => 'button button-secondary button-small',
 					'href'  => $this->get_menu_url( 'searchlogs', 'network', 'tools' ),
 				], _x( 'Check Search Logs', 'Modules: Debug', 'gnetwork' ) );
@@ -1029,7 +1033,7 @@ class Debug extends gNetwork\Module
 
 	public function qm_collectors( $collectors, $qm )
 	{
-		$collectors['currentobject'] = new QM\CollectorCurrentObject();
+		$collectors['currentobject'] = new Misc\QM\CollectorCurrentObject();
 
 		return $collectors;
 	}
@@ -1037,7 +1041,7 @@ class Debug extends gNetwork\Module
 	public function qm_outputter_html( $output, $collectors )
 	{
 		if ( $collector = \QM_Collectors::get( 'currentobject' ) )
-			$output['currentobject'] = new QM\OutputterCurrentObject( $collector );
+			$output['currentobject'] = new Misc\QM\OutputterCurrentObject( $collector );
 
 		return $output;
 	}
@@ -1071,8 +1075,8 @@ class Debug extends gNetwork\Module
 		} else if ( is_string( $message ) ) {
 
 			// if it's already not wrapped
-			if ( '<' !== Text::subStr( trim( $message ), 0, 1 ) )
-				$message = Text::autoP( $message );
+			if ( '<' !== Core\Text::subStr( trim( $message ), 0, 1 ) )
+				$message = Core\Text::autoP( $message );
 		}
 
 		if ( isset( $r['back_link'] ) && $r['back_link'] ) {
@@ -1081,7 +1085,7 @@ class Debug extends gNetwork\Module
 		}
 
 		if ( empty( $title ) )
-			$title = sprintf( '%d %s', $r['response'], HTTP::getStatusDesc( $r['response'] ) );
+			$title = sprintf( '%d %s', $r['response'], Core\HTTP::getStatusDesc( $r['response'] ) );
 
 		if ( ! did_action( 'admin_head' ) ) {
 
@@ -1173,7 +1177,7 @@ class Debug extends gNetwork\Module
 
 		set_error_handler( function ( $errno, $errstr, $errfile ) {
 
-			if ( 'wp-db.php' !== File::basename( $errfile ) ) {
+			if ( 'wp-db.php' !== Core\File::basename( $errfile ) ) {
 
 				if ( preg_match( '/^(mysql_[a-zA-Z0-9_]+)/', $errstr, $matches ) ) {
 

@@ -572,9 +572,9 @@ class Login extends gNetwork\Module
 		$one = wp_rand( 0, $max );
 		$two = wp_rand( 1, $max );
 
-		$html = '<p class="login-sum">';
+		$html = '<p class="login-sum form-row">';
 
-			$html.= Core\HTML::tag( 'label', $label );
+			$html.= Core\HTML::tag( 'label', [ 'class' => 'form-label' ], $label );
 			$html.= sprintf( '&nbsp;%s&nbsp;+&nbsp;%s&nbsp;=&nbsp; ', Core\Number::localize( $one ), Core\Number::localize( $two ) );
 
 			$html.= Core\HTML::tag( 'input', [

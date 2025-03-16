@@ -3,8 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Core;
+use geminorum\gNetwork\Settings;
 
 class Optimize extends gNetwork\Module
 {
@@ -45,7 +45,7 @@ class Optimize extends gNetwork\Module
 					'field'       => 'jquery_cdn',
 					'title'       => _x( 'jQuery from CDN', 'Modules: Optimize: Settings', 'gnetwork' ),
 					'description' => _x( 'Replace WordPress jQuery with CDN.', 'Modules: Optimize: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon( 'https://code.jquery.com' ),
+					'after'       => Settings::fieldAfterIcon( 'https://releases.jquery.com' ),
 				],
 				[
 					'field'       => 'jquery_latest',
@@ -138,7 +138,7 @@ class Optimize extends gNetwork\Module
 				remove_action( $action, '_delete_option_fresh_site', 0 );
 	}
 
-	// 2024-12-26: `6.8-alpha-59274-src`
+	// 2025-03-10: `6.8-beta1-59933-src`
 	private static function getjQueryVersions()
 	{
 		return [

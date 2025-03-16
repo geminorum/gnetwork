@@ -3,12 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\Browser;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Third;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
 
 class Tracking extends gNetwork\Module
 {
@@ -117,10 +113,10 @@ class Tracking extends gNetwork\Module
 
 		$this->ignore = FALSE;
 
-		if ( WordPress::isDev() )
+		if ( Core\WordPress::isDev() )
 			$this->ignore = TRUE;
 
-		else if ( WordPress::cuc( $this->options['ignore_user'] ) )
+		else if ( Core\WordPress::cuc( $this->options['ignore_user'] ) )
 			$this->ignore = TRUE;
 
 		return $this->ignore;
@@ -143,7 +139,7 @@ class Tracking extends gNetwork\Module
 		$args = shortcode_atts( [
 			'server'  => 'https://ga-beacon.appspot.com/',
 			'beacon'  => $this->options['ga_beacon'],
-			'domain'  => URL::domain( $this->options['primary_domain'] ),
+			'domain'  => Core\URL::domain( $this->options['primary_domain'] ),
 			'page'    => '',
 			'badge'   => 'pixel', // 'flat' / 'flat-gif'
 			'alt'     => 'Analytics',
@@ -154,12 +150,12 @@ class Tracking extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$src = URL::trail( $args['server'] ).$args['beacon'].'/'.$args['domain'].'/'.$args['page'];
+		$src = Core\URL::trail( $args['server'] ).$args['beacon'].'/'.$args['domain'].'/'.$args['page'];
 
 		if ( $args['badge'] )
 			$src.= '?'. $args['badge'];
 
-		$html = HTML::tag( 'img', [
+		$html = Core\HTML::tag( 'img', [
 			'src' => $src,
 			'alt' => $args['alt'],
 		] );
@@ -206,7 +202,7 @@ class Tracking extends gNetwork\Module
 			// @SEE: /assets/js/inline/tracking.outbound.js
 			$outbound = '!function(){document.addEventListener("click",function(t){if("function"==typeof gtag&&!t.isDefaultPrevented){var e=t.target.closest("a");e&&window.location.host!==e.host&&(t.preventDefault(),gtag("event","click",{event_category:"outbound",event_label:e.href,transport_type:"beacon",event_callback:gtagCallback(function(){document.location=e.href})}))}},!1)}();';
 
-			if ( Browser::isIE() )
+			if ( Core\Browser::isIE() )
 				$script.= $polyfill;
 
 			$script.= $outbound;
@@ -214,13 +210,13 @@ class Tracking extends gNetwork\Module
 
 		echo '<script async src="https://www.googletagmanager.com/gtag/js?id='.$account.'"></script>';
 
-		HTML::wrapScript( $script.$extra );
+		Core\HTML::wrapScript( $script.$extra );
 	}
 
 	public function wp_head()
 	{
 		if ( ! empty( $this->options['twitter_site'] ) )
-			echo '<meta name="twitter:site" content="'.Third::getHandle( $this->options['twitter_site'] ).'" />'."\n";
+			echo '<meta name="twitter:site" content="'.Core\Third::getHandle( $this->options['twitter_site'] ).'" />'."\n";
 
 		if ( $this->ignore() )
 			return;
@@ -316,14 +312,14 @@ class Tracking extends gNetwork\Module
 		if ( ! $twitter = gNetwork()->option( 'twitter_site', 'tracking', $fallback ) )
 			return '';
 
-		$handle = Third::getHandle( $twitter );
+		$handle = Core\Third::getHandle( $twitter );
 
-		$html = HTML::tag( 'a',[
+		$html = Core\HTML::tag( 'a',[
 			'href'  => 'https://twitter.com/intent/user?screen_name='.substr( $handle, 1 ),
 			'title' => _x( 'Follow Us', 'Modules: Tracking', 'gnetwork' ),
 			'rel'   => 'follow',
-		], HTML::wrapLTR( $handle ) );
+		], Core\HTML::wrapLTR( $handle ) );
 
-		return $class ? HTML::wrap( $html, $class, FALSE ) : $html;
+		return $class ? Core\HTML::wrap( $html, $class, FALSE ) : $html;
 	}
 }

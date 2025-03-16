@@ -3,11 +3,7 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Core;
 
 class Locale extends gNetwork\Module
 {
@@ -37,12 +33,12 @@ class Locale extends gNetwork\Module
 
 	public static function loadedMOs()
 	{
-		HTML::tableSide( gNetwork()->locale->loaded );
+		Core\HTML::tableSide( gNetwork()->locale->loaded );
 	}
 
 	public static function changeLocale( $locale = NULL )
 	{
-		if ( ! WordPress::cuc( 'manage_options' ) )
+		if ( ! Core\WordPress::cuc( 'manage_options' ) )
 			return FALSE;
 
 		if ( is_null( $locale ) )
@@ -83,6 +79,7 @@ class Locale extends gNetwork\Module
 			'gmember',
 			'gletter',
 			'gtheme',
+			// 'woodmart',
 			// 'kowsarsync',
 		], $context );
 	}
@@ -95,7 +92,7 @@ class Locale extends gNetwork\Module
 		if ( in_array( $domain, $this->get_bypassed_domains( $context ) ) )
 			return TRUE;
 
-		if ( Text::starts( $domain, 'geditorial-' ) )
+		if ( Core\Text::starts( $domain, 'geditorial-' ) )
 			return TRUE;
 
 		return FALSE;
@@ -114,13 +111,13 @@ class Locale extends gNetwork\Module
 
 		if ( 'default' == $domain ) {
 
-			if ( Text::has( $mofile, 'admin-network' ) )
+			if ( Core\Text::has( $mofile, 'admin-network' ) )
 				$path = GNETWORK_DIR.'assets/locale/core/dist/admin-network-'.$locale.'.mo';
 
-			else if ( Text::has( $mofile, 'admin' ) )
+			else if ( Core\Text::has( $mofile, 'admin' ) )
 				$path = GNETWORK_DIR.'assets/locale/core/dist/admin-'.$locale.'.mo';
 
-			else if ( Text::has( $mofile, 'continents-cities' ) )
+			else if ( Core\Text::has( $mofile, 'continents-cities' ) )
 				$path = GNETWORK_DIR.'assets/locale/core/dist/continents-cities-'.$locale.'.mo';
 
 			else
@@ -134,9 +131,9 @@ class Locale extends gNetwork\Module
 			$path = GNETWORK_DIR.'assets/locale/'.$domain.'-'.$locale.'.mo';
 		}
 
-		$this->loaded[$locale][$domain][] = File::normalize( $mofile );
+		$this->loaded[$locale][$domain][] = Core\File::normalize( $mofile );
 
-		$target = File::normalize( $path );
+		$target = Core\File::normalize( $path );
 
 		if ( ! is_readable( $target ) ) {
 
@@ -165,21 +162,21 @@ class Locale extends gNetwork\Module
 		if ( ! empty( $filtered[$locale][$domain][$handle] ) )
 			return $filtered[$locale][$domain][$handle];
 
-		$this->loaded[$locale][$domain][$handle][] = $normalized = File::normalize( $file );
+		$this->loaded[$locale][$domain][$handle][] = $normalized = Core\File::normalize( $file );
 
 		if ( 'default' == $domain )
-			$target = GNETWORK_DIR.'assets/locale/core/dist'.str_ireplace( File::normalize( WP_LANG_DIR ), '', $normalized );
+			$target = GNETWORK_DIR.'assets/locale/core/dist'.str_ireplace( Core\File::normalize( WP_LANG_DIR ), '', $normalized );
 
 		else if ( $this->bypass_domain( $domain, 'script' ) )
 			return $file; // do nothing! NOTE: must not cache this here!
 
 		else
-			$target = GNETWORK_DIR.'assets/locale/'.File::basename( $normalized );
+			$target = GNETWORK_DIR.'assets/locale/'.Core\File::basename( $normalized );
 
 		if ( ! is_readable( $target ) )
 			return $filtered[$locale][$domain][$handle] = $file;
 
-		$this->loaded[$locale][$domain][$handle][] = File::normalize( $target );
+		$this->loaded[$locale][$domain][$handle][] = Core\File::normalize( $target );
 
 		return $filtered[$locale][$domain][$handle] = $target;
 	}
@@ -210,9 +207,9 @@ class Locale extends gNetwork\Module
 		if ( ! empty( $gNetworkCurrentLocale ) )
 			return $gNetworkCurrentLocale;
 
-		if ( WordPress::isAJAX() ) {
+		if ( Core\WordPress::isAJAX() ) {
 
-			$referer = HTTP::referer();
+			$referer = Core\HTTP::referer();
 
 			if ( FALSE !== strpos( $referer, '/wp-admin/network/' ) )
 				return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
@@ -256,7 +253,7 @@ class Locale extends gNetwork\Module
 		if ( $current == $base )
 			return $current;
 
-		if ( in_array( WordPress::pageNow(), [
+		if ( in_array( Core\WordPress::pageNow(), [
 			'about.php',
 			'credits.php',
 			'freedoms.php',
@@ -527,7 +524,7 @@ class Locale extends gNetwork\Module
 		if ( $current == $base )
 			return $current;
 
-		if ( in_array( WordPress::pageNow(), [
+		if ( in_array( Core\WordPress::pageNow(), [
 			'theme-editor.php',
 			'plugin-editor.php',
 		] ) )

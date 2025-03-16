@@ -3,18 +3,10 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Date;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\Third;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\Media as WPMedia;
+use geminorum\gNetwork\WordPress;
 
 class ShortCodes extends gNetwork\Module
 {
@@ -44,7 +36,7 @@ class ShortCodes extends gNetwork\Module
 		else if ( defined( 'GNETWORK_GPEOPLE_TAXONOMY' ) )
 			$this->people_tax = GNETWORK_GPEOPLE_TAXONOMY;
 
-		// fallback shortcodes
+		// fallback short-codes
 		add_shortcode( 'book', [ $this, 'shortcode_return_content' ] );
 		add_shortcode( 'person', [ $this, 'shortcode_person' ] );
 	}
@@ -154,60 +146,60 @@ class ShortCodes extends gNetwork\Module
 	public function register_shortcode_ui()
 	{
 		shortcode_ui_register_for_shortcode( 'ref', [
-			'label'         => HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+			'label'         => Core\HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 			'listItemImage' => 'dashicons-editor-quote',
 			'inner_content' => [
-				'label'       => HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
-				'description' => HTML::escape( _x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', 'gnetwork' ) ),
+				'label'       => Core\HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+				'description' => Core\HTML::escape( _x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', 'gnetwork' ) ),
 			],
 			'attrs' => [
 				[
-					'label'  => HTML::escape( _x( 'External Resource', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label'  => Core\HTML::escape( _x( 'External Resource', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'   => 'url',
 					'type'   => 'text',
 					'encode' => TRUE,
 					'meta'   => [
-						'placeholder' => URL::home( 'about-this' ),
+						'placeholder' => Core\URL::home( 'about-this' ),
 						'dir'         => 'ltr',
 					],
 				],
 				[
-					'label' => HTML::escape( _x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label' => Core\HTML::escape( _x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'  => 'url_title',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => HTML::escape( _x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ),
+						'placeholder' => Core\HTML::escape( _x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ),
 					],
 				],
 			],
 		] );
 
 		shortcode_ui_register_for_shortcode( 'email', [
-			'label'         => HTML::escape( _x( 'Email', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+			'label'         => Core\HTML::escape( _x( 'Email', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 			'listItemImage' => 'dashicons-email-alt',
 			'inner_content' => [
-				'label'       => HTML::escape( _x( 'Email Address', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
-				'description' => HTML::escape( _x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', 'gnetwork' ) ),
+				'label'       => Core\HTML::escape( _x( 'Email Address', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+				'description' => Core\HTML::escape( _x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', 'gnetwork' ) ),
 				'meta'        => [ 'dir' => 'ltr' ],
 			],
 			'attrs' => [
 				[
-					'label' => HTML::escape( _x( 'Display Text', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label' => Core\HTML::escape( _x( 'Display Text', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'  => 'content',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => HTML::escape( _x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
+					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
 				],
 				[
-					'label' => HTML::escape( _x( 'Email Subject', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label' => Core\HTML::escape( _x( 'Email Subject', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'  => 'subject',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => HTML::escape( _x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
+					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
 				],
 				[
-					'label' => HTML::escape( _x( 'Link Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label' => Core\HTML::escape( _x( 'Link Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
 					'attr'  => 'title',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => HTML::escape( _x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
+					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
 				],
 			],
 		] );
@@ -340,7 +332,7 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// FIXME: move to gEditorial Terms (using api)
-	// USAGE: [in-term tax="category" slug="ungategorized" order="menu_order" /]
+	// USAGE: [in-term tax="category" slug="uncategorized" order="menu_order" /]
 	// EDITED: 4/5/2016, 5:03:30 PM
 	public function shortcode_in_term( $atts = [], $content = NULL, $tag = '' )
 	{
@@ -475,17 +467,17 @@ class ShortCodes extends gNetwork\Module
 				} else {
 
 					$title = get_the_title( $post->ID );
-					$order = $args['order_before'] ? Number::localize( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
+					$order = $args['order_before'] ? Core\Number::localize( $args['order_zeroise'] ? zeroise( $post->menu_order, $args['order_zeroise'] ) : $post->menu_order ).$args['order_sep'] : '';
 
 					if ( 'publish' == $post->post_status && $args['li_link'] )
-						$list = $args['li_before'].HTML::tag( 'a', [
+						$list = $args['li_before'].Core\HTML::tag( 'a', [
 							'href'  => apply_filters( 'the_permalink', get_permalink( $post ), $post ),
 							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
 							'class' => '-link',
 						], $order.$title );
 
 					else
-						$list = $args['li_before'].HTML::tag( 'span', [
+						$list = $args['li_before'].Core\HTML::tag( 'span', [
 							'title' => $args['li_title'] ? sprintf( $args['li_title'], $title ) : FALSE,
 							'class' => $args['li_link'] ? '-future' : FALSE,
 						], $order.$title );
@@ -494,13 +486,13 @@ class ShortCodes extends gNetwork\Module
 					// TODO: add show/more js
 				}
 
-				$html.= HTML::tag( 'li', [
+				$html.= Core\HTML::tag( 'li', [
 					'id'    => $args['li_anchor'].$post->ID,
 					'class' => '-item',
 				], $list );
 			}
 
-			$html = HTML::tag( $args['list'], [ 'class' => '-list' ], $html );
+			$html = Core\HTML::tag( $args['list'], [ 'class' => '-list' ], $html );
 
 			if ( $args['title'] )
 				$html = $args['title'].$html;
@@ -601,10 +593,10 @@ class ShortCodes extends gNetwork\Module
 		else
 			$title = $args['title'];
 
-		$html = Date::htmlDateTime( $local, $gmt, $args['format'], $title );
+		$html = Core\Date::htmlDateTime( $local, $gmt, $args['format'], $title );
 
 		if ( $args['link'] )
-			$html = HTML::link( $html, $args['link'] );
+			$html = Core\HTML::link( $html, $args['link'] );
 
 		return self::shortcodeWrap( $html, 'last-edited', $args, FALSE );
 	}
@@ -679,10 +671,10 @@ class ShortCodes extends gNetwork\Module
 		$html = Utilities::prepTitle( $post->post_title, $post->ID );
 
 		if ( TRUE === $args['link'] )
-			$html = HTML::link( $html, apply_filters( 'the_permalink', get_permalink( $post ), $post ) );
+			$html = Core\HTML::link( $html, apply_filters( 'the_permalink', get_permalink( $post ), $post ) );
 
 		else if ( $args['link'] )
-			$html = HTML::link( $html, $args['link'] );
+			$html = Core\HTML::link( $html, $args['link'] );
 
 		return self::shortcodeWrap( $html, 'post-title', $args, FALSE );
 	}
@@ -719,10 +711,10 @@ class ShortCodes extends gNetwork\Module
 			return $content;
 
 		if ( $args['text'] )
-			$text = trim( $args['text'] );
+			$text = Core\Text::trim( $args['text'] );
 
 		else if ( trim( $content ) )
-			$text = Text::wordWrap( $content );
+			$text = Core\Text::wordWrap( $content );
 
 		else if ( ! empty( $post->post_title ) )
 			$text = Utilities::prepTitle( $post->post_title, $post->ID );
@@ -730,7 +722,7 @@ class ShortCodes extends gNetwork\Module
 		else
 			return $content;
 
-		$html = HTML::tag( 'a', [
+		$html = Core\HTML::tag( 'a', [
 			'href'   => apply_filters( 'the_permalink', get_permalink( $post ), $post ).( $args['params'] ? '?'.$args['params'] : '' ),
 			'title'  => $args['title'] ?: FALSE,
 			'class'  => $args['class'] ?: FALSE,
@@ -772,7 +764,7 @@ class ShortCodes extends gNetwork\Module
 
 					if ( $parent = get_post( $post->post_parent ) ) {
 
-						$html = HTML::tag( 'a', [
+						$html = Core\HTML::tag( 'a', [
 							'href'        => apply_filters( 'the_permalink', get_permalink( $parent ), $parent ),
 							'title'       => get_the_title( $parent ),
 							'class'       => 'parent',
@@ -782,7 +774,7 @@ class ShortCodes extends gNetwork\Module
 
 					} else {
 
-						$html = HTML::tag( 'a', [
+						$html = Core\HTML::tag( 'a', [
 							'href'        => home_url( '/' ),
 							'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 							'class'       => 'home',
@@ -795,7 +787,7 @@ class ShortCodes extends gNetwork\Module
 			break;
 			case 'home':
 
-				$html = HTML::tag( 'a', [
+				$html = Core\HTML::tag( 'a', [
 					'href'        => home_url( '/' ),
 					'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 					'class'       => 'home',
@@ -824,22 +816,22 @@ class ShortCodes extends gNetwork\Module
 
 		$html = '';
 
-		$classes = HTML::attrClass( 'button', $args['class'] );
+		$classes = Core\HTML::attrClass( 'button', $args['class'] );
 
 		if ( $args['genericon'] )
-			$html.= HTML::getDashicon( $args['genericon'] );
+			$html.= Core\HTML::getDashicon( $args['genericon'] );
 
 		if ( $content )
 			$html.= ' '.trim( $content );
 
 		if ( $args['url'] )
-			$html = HTML::tag( 'a', [
+			$html = Core\HTML::tag( 'a', [
 				'href'  => $args['url'],
 				'class' => $classes,
 			], $html );
 
 		else
-			$html = HTML::tag( 'button', [
+			$html = Core\HTML::tag( 'button', [
 				'class' => $classes,
 			], $html );
 
@@ -881,7 +873,7 @@ class ShortCodes extends gNetwork\Module
 				if ( $image = wp_get_attachment_image_src( $attachment->ID, $args['size'], FALSE ) )
 					$src = $image[0];
 
-				if ( $src && is_null( $args['alt'] ) && ( $alt = WPMedia::getAttachmentImageAlt( $attachment->ID ) ) )
+				if ( $src && is_null( $args['alt'] ) && ( $alt = WordPress\Media::getAttachmentImageAlt( $attachment->ID ) ) )
 					$args['alt'] = $alt;
 
 				if ( $src && is_null( $args['caption'] ) && ( $caption = wp_get_attachment_caption( $attachment->ID ) ) )
@@ -916,18 +908,18 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $src )
 			return $content;
 
-		$html = HTML::tag( 'img', [
+		$html = Core\HTML::tag( 'img', [
 			'src'     => $src,
 			'alt'     => $args['alt'],
 			'width'   => $args['width'],
 			'height'  => $args['height'],
 			'loading' => $args['load'],
 			'style'   => $args['style'],
-			'class'   => HTML::attrClass( 'img-fluid', $args['figure'] ? 'figure-img' : '', $args['img_class'] ),
+			'class'   => Core\HTML::attrClass( 'img-fluid', $args['figure'] ? 'figure-img' : '', $args['img_class'] ),
 		] );
 
 		if ( $args['link'] && ! in_array( $args['link'], [ 'full', 'image', 'parent', 'page' ], TRUE ) )
-			$html = HTML::link( $html, $args['link'] );
+			$html = Core\HTML::link( $html, $args['link'] );
 
 		if ( is_null( $args['figure'] ) && $args['caption'] )
 			$args['figure'] = TRUE;
@@ -937,7 +929,7 @@ class ShortCodes extends gNetwork\Module
 			if ( $args['caption'] )
 				$html.= '<figcaption class="figure-caption">'.$args['caption'].'</figcaption>';
 
-			$html = '<figure class="'.HTML::prepClass( 'figure', $args['figure'] ).'">'.$html.'</figure>';
+			$html = '<figure class="'.Core\HTML::prepClass( 'figure', $args['figure'] ).'">'.$html.'</figure>';
 		}
 
 		return self::shortcodeWrap( $html, 'image', $args );
@@ -958,7 +950,7 @@ class ShortCodes extends gNetwork\Module
 			'after'   => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isXML() || WordPress::isREST() )
+		if ( FALSE === $args['context'] || Core\WordPress::isXML() || Core\WordPress::isREST() )
 			return NULL;
 
 		if ( ! $args['url'] )
@@ -970,7 +962,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = _x( 'Loading &hellip;', 'Modules: ShortCodes: Defaults', 'gnetwork' );
 
-		$html = HTML::tag( 'iframe', [
+		$html = Core\HTML::tag( 'iframe', [
 			'frameborder' => '0',
 			'src'         => $args['url'],
 			'style'       => $args['style'],
@@ -1015,16 +1007,16 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = _x( 'More Info', 'Modules: ShortCodes: Defaults: ThickBox', 'gnetwork' );
 
-		$html = HTML::tag( 'a', [
+		$html = Core\HTML::tag( 'a', [
 			'href'    => add_query_arg( $query, $args['url'] ),
 			'title'   => $args['title'],
-			'class'   => HTML::attrClass( 'thickbox', $args['class'] ),
+			'class'   => Core\HTML::attrClass( 'thickbox', $args['class'] ),
 			'onclick' => 'return false;',
 		], $content );
 
 		unset( $args['class'] );
 
-		if ( ! WordPress::isXML() && ! WordPress::isREST() )
+		if ( ! Core\WordPress::isXML() && ! Core\WordPress::isREST() )
 			Scripts::enqueueThickBox();
 
 		return self::shortcodeWrap( $html, 'thickbox', $args, FALSE );
@@ -1063,7 +1055,7 @@ class ShortCodes extends gNetwork\Module
 			$text = $email;
 
 		$html = '<a class="email" href="'.antispambot( "mailto:".$email.( $args['subject'] ? '?subject='.urlencode( $args['subject'] ) : '' ) )
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] ).'"' : '' ).'>'
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] ).'"' : '' ).'>'
 				.( $email == $text ? antispambot( $email ) : $text ).'</a>';
 
 		return self::shortcodeWrap( $html, 'email', $args, FALSE );
@@ -1096,7 +1088,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = HTML::tel( $number, $args['title'], Number::localize( $content ) );
+		$html = Core\HTML::tel( $number, $args['title'], Core\Number::localize( $content ) );
 
 		return self::shortcodeWrap( $html, 'tel', $args, FALSE );
 	}
@@ -1130,12 +1122,12 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = '<a class="sms" href="'.HTML::sanitizeSMSNumber( $number )
+		$html = '<a class="sms" href="'.Core\HTML::prepURLforSMS( $number )
 				.( $args['body'] ? '?body='.rawurlencode( $args['body'] )
-				.'" data-sms-body="'.HTML::escape( $args['body'] ) : '' )
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] )
-				.'"' : '' ).' data-sms-number="'.HTML::escape( $number ).'">'
-				.HTML::wrapLTR( Number::localize( $content ) ).'</a>';
+				.'" data-sms-body="'.Core\HTML::escape( $args['body'] ) : '' )
+				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] )
+				.'"' : '' ).' data-sms-number="'.Core\HTML::escape( $number ).'">'
+				.Core\HTML::wrapLTR( Core\Number::localize( $content ) ).'</a>';
 
 		return self::shortcodeWrap( $html, 'sms', $args, FALSE );
 	}
@@ -1144,7 +1136,7 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: add def atts / wrap
 	public function shortcode_qrcode( $atts = [], $content = NULL, $tag = '' )
 	{
-		return $content ? Third::getGoogleQRCode( trim( $content ), $atts ) : $content;
+		return $content ? Core\Third::getGoogleQRCode( trim( $content ), $atts ) : $content;
 	}
 
 	public function shortcode_search( $atts = [], $content = NULL, $tag = '' )
@@ -1169,8 +1161,8 @@ class ShortCodes extends gNetwork\Module
 		$text = trim( strip_tags( $content ) );
 		$for  = $args['for'] ? trim( $args['for'] ) : $text;
 
-		$html = HTML::tag( 'a', [
-			'href'  => WordPress::getSearchLink( $for, $args['url'] ),
+		$html = Core\HTML::tag( 'a', [
+			'href'  => Core\WordPress::getSearchLink( $for, $args['url'] ),
 			'title' => sprintf( $args['title'], $for ),
 		], $text );
 
@@ -1196,7 +1188,7 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( WordPress::isXML() || WordPress::isREST() )
+		if ( Core\WordPress::isXML() || Core\WordPress::isREST() )
 			return $content;
 
 		if ( ! $args['key'] )
@@ -1236,7 +1228,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $args['url'] && $args['id'] )
 			$args['url'] = wp_get_attachment_url( $args['id'] );
 
-		if ( WordPress::isXML() || WordPress::isREST() ) {
+		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
 
 			if ( $content )
 				return $content;
@@ -1256,7 +1248,7 @@ class ShortCodes extends gNetwork\Module
 		$selector = $this->selector( 'pdfobject-%2$s' );
 		$this->scripts_nojquery[$selector] = 'PDFObject.embed("'.$args['url'].'", "#'.$selector.'",'.wp_json_encode( $options ).');';
 
-		Scripts::enqueueScriptVendor( 'pdfobject', [], '2.3.0' );
+		Scripts::enqueueScriptVendor( 'pdfobject', [], '2.3.1' );
 		return self::shortcodeWrap( '<div id="'.$selector.'"></div>', 'pdf', $args );
 	}
 
@@ -1283,7 +1275,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $args['id'] && ! $args['url'] )
 			return $content;
 
-		if ( WordPress::isXML() || WordPress::isREST() ) {
+		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
 
 			if ( $content )
 				return $content;
@@ -1292,13 +1284,13 @@ class ShortCodes extends gNetwork\Module
 				return NULL;
 
 			return $args['id']
-				? WPMedia::htmlAttachmentShortLink( $args['id'], $args['string_view'] )
-				: HTML::link( $args['string_view'], $args['url'] );
+				? WordPress\Media::htmlAttachmentShortLink( $args['id'], $args['string_view'] )
+				: Core\HTML::link( $args['string_view'], $args['url'] );
 		}
 
 		$key = $this->hash( 'csv', $args );
 
-		if ( WordPress::isFlush() )
+		if ( Core\WordPress::isFlush() )
 			delete_transient( $key );
 
 		if ( FALSE === ( $html = get_transient( $key ) ) ) {
@@ -1310,19 +1302,19 @@ class ShortCodes extends gNetwork\Module
 				if ( $file = get_attached_file( $args['id'] ) ) {
 
 					$csv = new \ParseCsv\Csv();
-					$csv->auto( File::normalize( $file ) );
+					$csv->auto( Core\File::normalize( $file ) );
 
 					$titles = $args['columns'] ? explode( ',', $args['columns'] ) : $csv->titles;
 					$data   = $csv->data;
 
 				} else {
 
-					return $content ?: ( $args['string_view'] ? WPMedia::htmlAttachmentShortLink( $args['id'], $args['string_view'] ) : NULL );
+					return $content ?: ( $args['string_view'] ? WordPress\Media::htmlAttachmentShortLink( $args['id'], $args['string_view'] ) : NULL );
 				}
 
 			} else {
 
-				if ( $string = HTTP::getContents( $args['url'] ) ) {
+				if ( $string = Core\HTTP::getContents( $args['url'] ) ) {
 
 					$csv = new \ParseCsv\Csv();
 					$csv->parse( $string );
@@ -1332,17 +1324,17 @@ class ShortCodes extends gNetwork\Module
 
 				} else {
 
-					return $content ?: ( $args['string_view'] ? HTML::link( $args['string_view'], $args['url'] ) : NULL );
+					return $content ?: ( $args['string_view'] ? Core\HTML::link( $args['string_view'], $args['url'] ) : NULL );
 				}
 			}
 
 			if ( empty( $data ) )
-				return $args['string_empty'] ? HTML::wrap( $args['string_empty'], '-empty' ) : NULL;
+				return $args['string_empty'] ? Core\HTML::wrap( $args['string_empty'], '-empty' ) : NULL;
 
 			$title_callback = $args['cb_title'] && is_callable( $args['cb_title'] ) ? $args['cb_title'] : [ $this, 'default_csv_callback' ];
 			$data_callback  = $args['cb_data']  && is_callable( $args['cb_data'] )  ? $args['cb_data']  : [ $this, 'default_csv_callback' ];
 
-			$html = '<table class="'.HTML::prepClass( $args['class_table'] ).'">';
+			$html = '<table class="'.Core\HTML::prepClass( $args['class_table'] ).'">';
 
 			if ( count( $titles ) ) {
 
@@ -1371,7 +1363,7 @@ class ShortCodes extends gNetwork\Module
 			}
 
 			$html.= '</tbody></table>';
-			$html = Text::minifyHTML( $html );
+			$html = Core\Text::minifyHTML( $html );
 
 			set_transient( $key, $html, GNETWORK_CACHE_TTL );
 		}
@@ -1381,7 +1373,7 @@ class ShortCodes extends gNetwork\Module
 
 	public function default_csv_callback( $data, $title = NULL, $fallback = '' )
 	{
-		return $data ? HTML::escape( apply_filters( 'html_format_i18n', $data ) ) : $fallback;
+		return $data ? Core\HTML::escape( apply_filters( 'html_format_i18n', $data ) ) : $fallback;
 	}
 
 	public function shortcode_redirect( $atts = [], $content = NULL, $tag = '' )
@@ -1429,7 +1421,7 @@ class ShortCodes extends gNetwork\Module
 			$info = '<span class="-wrap shortcode-bloginfo -key-'.$args['key'].' '.sprintf( $args['class'], $args['key'] ).'">'.$info.'</span>';
 
 		else if ( $args['class'] )
-			$info = '<span class="'.HTML::prepClass( sprintf( $args['class'], $args['key'] ) ).'">'.$info.'</span>';
+			$info = '<span class="'.Core\HTML::prepClass( sprintf( $args['class'], $args['key'] ) ).'">'.$info.'</span>';
 
 		return $info;
 	}
@@ -1442,7 +1434,7 @@ class ShortCodes extends gNetwork\Module
 		if ( is_null( $content ) || ! is_singular() )
 			return NULL;
 
-		if ( WordPress::isXML() || WordPress::isREST() ) {
+		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
 			$this->ref_ids[] = FALSE; // for the notice
 			return NULL;
 		}
@@ -1465,12 +1457,12 @@ class ShortCodes extends gNetwork\Module
 		if ( $content ) {
 			$content = Utilities::kses( $content, 'text' );
 			$content = apply_filters( 'html_format_i18n', $content );
-			$title   = trim( strip_tags( $content ) );
-			$ref     = Text::wordWrap( trim( $content ) );
+			$title   = Core\Text::trim( strip_tags( $content ) );
+			$ref     = Core\Text::wordWrap( trim( $content ) );
 		}
 
 		if ( $args['url'] )
-			$url = HTML::tag( 'a', [
+			$url = Core\HTML::tag( 'a', [
 				'class'       => 'reference-external',
 				'data-toggle' => 'tooltip',
 				'href'        => $args['url'],
@@ -1496,12 +1488,12 @@ class ShortCodes extends gNetwork\Module
 			$this->ref_ids[$key] = $ref;
 		}
 
-		$html = HTML::tag( 'a', [
+		$html = Core\HTML::tag( 'a', [
 			'href'        => '#citenote-'.$key,
 			'title'       => $title,
 			'class'       => 'cite-scroll',
 			'data-toggle' => 'tooltip',
-		], sprintf( $args['template'], Number::localize( $key ) ) );
+		], sprintf( $args['template'], Core\Number::localize( $key ) ) );
 
 		return '&#xfeff;'.'<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'" data-ref="'.$key.'">'.$html.'</sup>'.' '; // plus extra space
 	}
@@ -1514,7 +1506,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! is_singular() || empty( $this->ref_ids ) )
 			return NULL;
 
-		if ( WordPress::isXML() || WordPress::isREST() ) {
+		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
 			$this->ref_list = TRUE;
 			return '<p>'._x( 'See the footnotes on the site.', 'Shortcodes Module: Defaults', 'gnetwork' ).'</p>';
 		}
@@ -1546,12 +1538,12 @@ class ShortCodes extends gNetwork\Module
 			$html.= '<li data-ref="'.$number.'" id="citenote-'.$number.'" '.( $args['number'] ? '' : ' class="-anchor"' ).'>';
 
 			if ( $args['number'] )
-				$html.= '<span class="-number -anchor ref-number">'.Number::localize( $number ).$args['number_after'].'</span>';
+				$html.= '<span class="-number -anchor ref-number">'.Core\Number::localize( $number ).$args['number_after'].'</span>';
 
 			$html.= '<span class="-text ref-text"><span class="citation">'.$text.'</span></span>';
 
 			if ( $args['back'] )
-				$html.= ' '.HTML::tag( 'a', [
+				$html.= ' '.Core\HTML::tag( 'a', [
 					'href'        => '#citeref-'.$number,
 					'title'       => $args['back_title'],
 					'class'       => 'cite-scroll -back',
@@ -1618,7 +1610,7 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: check this!
 	public function shortcode_ref_manual( $atts = [], $content = NULL, $tag = '' )
 	{
-		if ( is_null( $content ) || ! is_singular() || WordPress::isXML() || WordPress::isREST() )
+		if ( is_null( $content ) || ! is_singular() || Core\WordPress::isXML() || Core\WordPress::isREST() )
 			return NULL;
 
 		// [ref-m id="0" caption="Caption Title"]
@@ -1647,13 +1639,13 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['id'] )
 			return NULL;
 
-		return '&#xfeff;'.'<sup id="citeref-'.$args['id'].'-m" class="reference '.$args['class'].'" title="'.trim( strip_tags( $args['title'] ) ).'" ><a href="#citenote-'.$args['id'].'-m" class="cite-scroll">['.( $args['format_number'] ? Number::localize( $args['id'] ) : $args['id'] ).']</a></sup>';
+		return '&#xfeff;'.'<sup id="citeref-'.$args['id'].'-m" class="reference '.$args['class'].'" title="'.trim( strip_tags( $args['title'] ) ).'" ><a href="#citenote-'.$args['id'].'-m" class="cite-scroll">['.( $args['format_number'] ? Core\Number::localize( $args['id'] ) : $args['id'] ).']</a></sup>';
 	}
 
 	// FIXME: check this!
 	public function shortcode_reflist_manual( $atts = [], $content = NULL, $tag = '' )
 	{
-		if ( WordPress::isXML() || WordPress::isREST() )
+		if ( Core\WordPress::isXML() || Core\WordPress::isREST() )
 			return NULL;
 
 		// [reflist-m id="0" caption="Caption Title"]
@@ -1686,7 +1678,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! defined( 'GNETWORK_DISABLE_REFLIST_JS' ) || ! GNETWORK_DISABLE_REFLIST_JS )
 			Scripts::enqueueScript( 'front.cite' );
 
-		return '<span>'.( $args['format_number'] ? Number::localize( $args['id'] ) : $args['id'] ).$args['after_number']
+		return '<span>'.( $args['format_number'] ? Core\Number::localize( $args['id'] ) : $args['id'] ).$args['after_number']
 				.'<span class="ref-backlink"><a href="#citeref-'.$args['id'].'-m" class="cite-scroll">'.$args['back']
 				.'</a></span><span class="ref-text"><span class="citation" id="citenote-'.$args['id'].'-m">&nbsp;</span></span></span>';
 	}
@@ -1723,7 +1715,7 @@ class ShortCodes extends gNetwork\Module
 			$name = sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' );
 
 			// FIXME: must cache the term, not html
-			$this->people[$person] = HTML::tag( 'a', [
+			$this->people[$person] = Core\HTML::tag( 'a', [
 				'href'  => get_term_link( $term, $term->taxonomy ),
 				'title' => $content == $name ? FALSE : $name,
 				'class' => 'reference-people',

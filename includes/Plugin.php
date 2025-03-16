@@ -315,7 +315,6 @@ class Plugin extends Base
 		return $fallback;
 	}
 
-	// @OLD: `WordPress::getSiteUserID()`
 	public function user( $fallback = FALSE )
 	{
 		if ( $user_id = $this->option( 'site_user_id', 'user' ) )
