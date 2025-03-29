@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\Number;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\Text;
@@ -595,7 +596,12 @@ class Typography extends gNetwork\Module
 		if ( is_null( $content ) || ! is_singular() )
 			return NULL;
 
-		return '<h3 class="numeral-section-title">'.$content.'</h3>';
+		return vsprintf( '<%4$s class="%3$s" title="%2$s">%1$s</%4$s>', [
+			Core\Number::localize( $content ),
+			Core\HTML::escape( Core\Number::toOrdinal( $content ) ),
+			'numeral-section-title',
+			'h3',
+		] );
 	}
 
 	// FIXME: use entities in tel short code
