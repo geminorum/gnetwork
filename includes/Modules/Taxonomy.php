@@ -171,10 +171,11 @@ class Taxonomy extends gNetwork\Module
 		if ( 'gnetwork_description' !== $column_name )
 			return $string;
 
-		if ( $term = get_term( (int) $term_id ) )
-			return sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
+		if ( ! $term = get_term( (int) $term_id ) )
+			return $string;
 
-		return $string;
+		echo sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
+		echo '<div class="hidden">'.$term->description.'</div>';
 	}
 
 	public function quick_edit_custom_box( $column_name, $screen, $taxonomy )
@@ -192,7 +193,16 @@ class Taxonomy extends gNetwork\Module
 			echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
 		echo '</span></label></div></fieldset>';
 
-		HTML::wrapjQueryReady( '$("#the-list").on("click",".editinline",function(){var now=$(this).closest("tr").find("td.gnetwork_description").text();$("#inline-desc").text(now);});' );
+		$script = <<<JS
+(function($) {
+	$("#the-list").on("click",".editinline",function(){
+		const now = $(this).closest("tr").find("td.gnetwork_description .hidden").text();
+		$("#inline-desc").text(now);
+	});
+})(jQuery);
+JS;
+
+		HTML::wrapjQueryReady( $script );
 	}
 
 	// WTF: has to be `edited_term` not `edit_term`
