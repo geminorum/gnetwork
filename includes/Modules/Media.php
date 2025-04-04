@@ -65,6 +65,9 @@ class Media extends gNetwork\Module
 
 			$this->filter( 'single_post_title', 2, 9 );
 		}
+
+		// https://wordpress.stackexchange.com/a/425695
+		// add_filter( 'wp_image_editors', function() { return [ 'WP_Image_Editor_GD', 'WP_Image_Editor_Imagick' ]; } );
 	}
 
 	public function setup_menu( $context )
@@ -1344,8 +1347,8 @@ class Media extends gNetwork\Module
 	}
 
 	// FIXME: add based on current user: needs testing: for svg,json
-	// FIXME: add general option to select mimes
 	// FIXME: add administrative option to select mimes: svg,json
+	// FIXME: add general option to select mimes
 	// @SEE: https://core.trac.wordpress.org/ticket/40175
 	// @SEE: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
 	public function upload_mimes( $mimes )
@@ -1367,7 +1370,7 @@ class Media extends gNetwork\Module
 			'mpa'       => 'audio/mpa',
 			'mp4|mpg4'  => 'video/mp4',
 			'flv'       => 'video/x-flv',
-			'svg|svgz'  => 'image/svg+xml',
+			'svg|svgz'  => 'image/svg+xml', // @SEE: https://library.wpcode.com/snippet/r5plmlo8/
 			'psd'       => 'image/vnd.adobe.photoshop',
 			'mobi'      => 'application/x-mobipocket-ebook', // 'application/octet-stream'
 			'epub'      => 'application/epub+zip', // 'application/octet-stream'
@@ -1385,8 +1388,8 @@ class Media extends gNetwork\Module
 	{
 		if ( extension_loaded( 'fileinfo' ) ) {
 
-			// with the php-extension, a CSV file is issues type text/plain
-			// so we fix that back to text/csv by trusting the file extension
+			// With the PHP extension, a `CSV` file is issues type `text/plain`
+			// so we fix that back to `text/csv` by trusting the file extension
 			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
 			$real_mime = finfo_file( $finfo, $file );
 			finfo_close( $finfo );
@@ -1400,7 +1403,7 @@ class Media extends gNetwork\Module
 
 		} else {
 
-			// without the php-extension, we probably don't have the issue
+			// Without the PHP extension, we probably don't have the issue
 			// at all, but just to be sure
 			if ( preg_match( '/\.(csv)$/i', $filename ) ) {
 

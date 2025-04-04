@@ -677,12 +677,12 @@ class Debug extends gNetwork\Module
 		echo '<div class="-wrap card -floated -currents" dir="ltr">';
 		Core\HTML::h2( _x( 'System Versions', 'Modules: Debug', 'gnetwork' ) );
 
-		/* translators: %s: mysql version */
-		Core\HTML::desc( sprintf( _x( 'Current MySQL version: %s', 'Modules: Debug', 'gnetwork' ), Core\HTML::tag( 'code', $GLOBALS['wpdb']->db_version() ) ) );
+		/* translators: `%s`: db version */
+		Core\HTML::desc( sprintf( _x( 'Current Database version: %s', 'Modules: Debug', 'gnetwork' ), Core\HTML::tag( 'code', $GLOBALS['wpdb']->db_version() ) ) );
 
 		echo '<hr />';
 
-		/* translators: %s: php version */
+		/* translators: `%s`: PHP version */
 		Core\HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), Core\HTML::tag( 'code', PHP_VERSION ) ) );
 
 		echo Core\HTML::listCode( self::getPHPExtensions(),
@@ -695,6 +695,7 @@ class Debug extends gNetwork\Module
 			'<span class="description -color-danger">'._x( 'Missing Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
 		);
 
+		// TODO: https://php.watch/versions/8.1/gd-webp-lossless
 		Core\HTML::h2( _x( 'Image Tools', 'Modules: Debug', 'gnetwork' ) );
 
 		$path      = '/usr/local/bin/';

@@ -228,7 +228,7 @@ class Dashboard extends gNetwork\Module
 			}
 		}
 
-		// filters the array of extra elements to list in the 'At a Glance' dashboard widget
+		// NOTE: filters the array of extra elements to list in the 'At a Glance' dashboard widget
 		if ( $elements = apply_filters( 'dashboard_glance_items', [] ) )
 			$html.= HTML::renderList( $elements, FALSE, FALSE );
 

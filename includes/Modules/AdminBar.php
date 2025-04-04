@@ -317,6 +317,7 @@ class AdminBar extends gNetwork\Module
 			}
 		}
 
+		// TODO: add endpoints on terms
 		if ( ! is_admin() && is_singular() ) {
 
 			if ( $post = get_queried_object() ) {

@@ -508,7 +508,7 @@ class ShortCodes extends gNetwork\Module
 		return $content;
 	}
 
-	// FIXME: move to gEditorial Terms (using api)
+	// FIXME: move to `gEditorial` Terms (using api)
 	// FIXME: working draft
 	// EDITED: 4/5/2016, 5:01:31 PM
 	public function shortcode_all_terms( $atts = [], $content = NULL, $tag = '' )
@@ -544,7 +544,7 @@ class ShortCodes extends gNetwork\Module
 
 				foreach ( $terms as $term )
 					$html.= vsprintf( '<li class="-term"><a href="%1$s">%2$s</a></li>', [
-						esc_url( get_term_link( $term->slug, $taxonomy->name ) ),
+						esc_url( get_term_link( $term, $term->taxonomy ) ),
 						sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy->name, 'display' ),
 					] );
 
@@ -555,7 +555,7 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'all-terms', $args );
 	}
 
-	// FIXME: move to gEditorial Modified
+	// FIXME: move to `gEditorial` Modified
 	/**
 	 * [last-edited format="l, F j, Y"] : 'Friday, January 11, 2012'
 	 * [last-edited format="G:i a (T)"] : '7:02 pm (EST)'

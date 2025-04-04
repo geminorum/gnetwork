@@ -35,13 +35,13 @@ class Player extends gNetwork\Module
 	}
 
 	/**
-	 * Builds the `Audio-Go` shortcode output.
+	 * Builds the `Audio-Go` short-code output.
 	 * @source https://bavotasan.com/2015/working-with-wordpress-and-mediaelement-js/
 	 * @example `[audio-go to="60"]Go to 60 second mark and play[/audio-go]`
 	 *
-	 * @param  array  $atts
-	 * @param  string $content
-	 * @param  string $tag
+	 * @param array $atts
+	 * @param string $content
+	 * @param string $tag
 	 * @return string $html
 	 */
 	public function shortcode_audio_go( $atts = [], $content = NULL, $tag = '' )
@@ -49,7 +49,7 @@ class Player extends gNetwork\Module
 		$args = shortcode_atts( [
 			'to'       => '0',
 			'instance' => '0',
-			/* translators: %s: number of seconds */
+			/* translators: `%s`: number of seconds */
 			'title'    => _x( 'Go to %s second mark and play', 'Modules: Player: Defaults', 'gnetwork' ),
 			'context'  => NULL,
 			'wrap'     => TRUE,
@@ -104,11 +104,11 @@ class Player extends gNetwork\Module
 	}
 
 	/**
-	 * Wraps the default core `Audio` shortcode output.
+	 * Wraps the default core `Audio` short-code output.
 	 *
-	 * @param  array  $atts
-	 * @param  string $content
-	 * @param  string $tag
+	 * @param array $atts
+	 * @param string $content
+	 * @param string $tag
 	 * @return string $html
 	 */
 	public function shortcode_audio( $atts = [], $content = NULL, $tag = '' )
