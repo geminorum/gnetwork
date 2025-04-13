@@ -581,7 +581,22 @@ class Typography extends gNetwork\Module
 	// @REF: https://unicode-table.com/en/FDFD/
 	public function shortcode_bismillah( $atts = [], $content = NULL, $tag = '' )
 	{
-		return self::shortcodeWrap( html_entity_decode( '&#65021;', ENT_QUOTES, 'UTF-8' ), 'bismillah', [ 'wrap' => TRUE ] );
+		$args = shortcode_atts( [
+			'markup'  => NULL,
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		return self::shortcodeWrap(
+			$args['markup'] ?? html_entity_decode( '&#65021;', ENT_QUOTES, 'UTF-8' ),
+			'bismillah',
+			$args
+		);
 	}
 
 	// @SOURCE: http://writers.stackexchange.com/a/3304
