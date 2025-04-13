@@ -180,7 +180,8 @@ class Scripts extends Core\Base
 						$item['label'] = sprintf(
 							/* translators: %s: playback speed rate */
 							_x( '%s&times;', 'Scripts: Playback Speed Label', 'gnetwork' ),
-							Core\Number::localize( $item['rate'] )
+							// Core\Number::localize( $item['rate'] )
+							$item['rate']
 						);
 
 					$classes = [ 'playback-rate-button' ];

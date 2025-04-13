@@ -277,7 +277,7 @@ class Typography extends gNetwork\Module
 					// TODO: must warn for customized slugs
 					// TODO: title attr for more info
 					return HTML::tag( 'code', urldecode( $row->post_name ) )
-						.'<br />'.HTML::tag( 'code', urldecode( Text::formatSlug( Number::translate( $row->post_title ) ) ) );
+						.'<br />'.HTML::tag( 'code', urldecode( Text::formatSlug( $row->post_title ) ) );
 						// .'<br />'.HTML::tag( 'code', urldecode( sanitize_title( Number::translate( $row->post_title ) ) ) );
 				},
 			],
@@ -491,7 +491,7 @@ class Typography extends gNetwork\Module
 	// @SEE: https://wordpress.stackexchange.com/a/51809
 	public function sanitize_title( $title, $raw_title = '', $context = 'display' )
 	{
-		return 'save' == $context && seems_utf8( $raw_title )
+		return 'save' === $context && seems_utf8( $raw_title )
 			? Text::formatSlug( $raw_title )
 			: $title;
 	}

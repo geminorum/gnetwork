@@ -40,7 +40,7 @@ class Themes extends gNetwork\Module
 			// @REF: https://www.wpexplorer.com/how-to-disable-wordpress-gutenberg-block-patterns/
 			$this->filter_false( 'should_load_remote_block_patterns' );
 			add_action( 'init', static function () { remove_theme_support( 'core-block-patterns' ); }, 999 );
-			// add_action( 'admin_init', static function () { remove_submenu_page( 'themes.php', 'edit.php?post_type=wp_block' ); }, 999 );
+			add_action( 'admin_init', static function () { remove_submenu_page( 'themes.php', 'site-editor.php?p=/pattern' ); }, 999 );
 		}
 
 		if ( ! is_admin() ) {

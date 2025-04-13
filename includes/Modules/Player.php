@@ -116,8 +116,9 @@ class Player extends gNetwork\Module
 		$args = shortcode_atts( [
 			'playbackspeed' => FALSE,
 			'download'      => FALSE,
-			'filename'      => FALSE,   // @REF: http://davidwalsh.name/download-attribute
+			'filename'      => FALSE,           // @REF: http://davidwalsh.name/download-attribute
 			'context'       => NULL,
+			'class'         => '-print-hide',
 			'wrap'          => TRUE,
 			'before'        => '',
 			'after'         => '',

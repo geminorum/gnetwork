@@ -447,8 +447,8 @@ class Profile extends gNetwork\Module
 	{
 		return array_merge( Arraay::stripByKeys( $contactmethods, [ 'aim', 'yim', 'jabber' ] ), [
 			'mobile'    => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', 'gnetwork' ), // @SEE: `GNETWORK_COMMERCE_MOBILE_METAKEY`
-			'twitter'   => _x( 'Twitter', 'Modules: Profile: User Contact Method', 'gnetwork' ),
-			'facebook'  => _x( 'Facebook', 'Modules: Profile: User Contact Method', 'gnetwork' ),
+			'twitter'   => _x( 'X (Twitter)', 'Modules: Profile: User Contact Method', 'gnetwork' ),
+			// 'facebook'  => _x( 'Facebook', 'Modules: Profile: User Contact Method', 'gnetwork' ), // DROP support
 			'instagram' => _x( 'Instagram', 'Modules: Profile: User Contact Method', 'gnetwork' ),
 			'telegram'  => _x( 'Telegram', 'Modules: Profile: User Contact Method', 'gnetwork' ),
 		] );
