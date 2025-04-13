@@ -1,6 +1,7 @@
 {
   "intelephense.environment.phpVersion": "7.4.0",
   "search.useIgnoreFiles": false,
+  "search.useGlobalIgnoreFiles": false,
   "search.exclude": {
     "./assets/bin": true,
     "./assets/packages": true,

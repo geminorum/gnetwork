@@ -3,6 +3,8 @@
 .gulp
 .imdone
 .temp
+.todos
+.TODOs
 
 /assets/bin
 /assets/css/*.css
