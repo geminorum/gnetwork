@@ -7,56 +7,88 @@
 ////////////////////////////////////////////////////////////////////////////////
 .wrap { // wp core class
 
-  // .wp-heading-inline {}
+  body.wp-admin.edit-php & {
+    .wp-heading-inline { // wp core class
+      + .page-title-action {
+        margin-right: 0; // needed only on edit-posts, not edit-tags!
+      }
+    }
+  }
 
-  .page-title-action {
-
-    &.-button {
-      margin-right: 4px;
-      vertical-align: unset;
+  .page-title-action { // wp core class
+    &:active {
+      margin-left: unset;
     }
 
-    &.-button-icon {
-      padding-left: 5px;
+    margin-left: 0;
+    margin-right: $spacer * .25;
 
-      .dashicons {
-        vertical-align: middle;
-        position: unset;
-        top: unset;
+    .dashicons {
+      vertical-align: middle;
+      position: unset;
+      top: unset;
 
-        width: 22px !important;
-        height: 18px;
-        margin: 0 2px 0 -2px;
-        // vertical-align: text-top;
+      width: 22px !important;
+      height: 18px;
+      margin: 0 2px 0 -2px;
+      // vertical-align: text-top;
 
-        &::before {
-          color: $gray-light;
-          font-size: 20px;
-        }
-      }
-
-      .-iconsvg {
-        margin: 0 2px 0 -2px;
-
-        svg {
-          width: 22px;
-          height: 20px;
-          vertical-align: text-top;
-          color: $gray-light;
-        }
+      &::before {
+        color: $gray-light;
+        font-size: 20px;
       }
     }
 
-    &.-full-button-icon {
-      padding-left: 0;
+    .-iconsvg {
+      margin: 0 2px 0 -2px;
 
+      svg {
+        width: 22px;
+        height: 20px;
+        vertical-align: text-top;
+        color: $gray-light;
+      }
+    }
+
+    img.-icon.-encoded {
+      margin: 0 2px 0 -2px;
+      width: 22px;
+      height: 20px;
+      vertical-align: text-top;
+      fill: $gray-light;
+    }
+
+    // &.-has-icon {}
+
+    &.-only-icon {
+      padding: 0 ($spacer * .5);
+
+      .dashicons,
       .-iconsvg {
         margin: 0;
+      }
+    }
+  }
+}
 
-        svg {
-          width: 38px;
-          height: 38px;
-          vertical-align: bottom;
+////////////////////////////////////////////////////////////////////////////////
+@media screen and ( max-width: 782px ) {
+
+  .wrap { // wp core class
+    .page-title-action { // wp core class
+
+      // NOTE: large icons on mobile
+      &.-only-icon {
+        padding: 0 8px 3px;
+        top: -4px;
+
+        .-iconsvg {
+          vertical-align: middle;
+
+          svg {
+            width: 42px;
+            height: 42px;
+          }
         }
       }
     }

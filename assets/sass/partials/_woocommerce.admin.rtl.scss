@@ -103,10 +103,15 @@ body.woocommerce-admin-page {
 
   .woocommerce_options_panel {
     input#_sku,
+    input#_global_unique_id,
     input#_product_url,
     input#_sale_price,
     input#_regular_price {
       direction: ltr;
     }
+  }
+
+  #order-attribution-install-banner-slotfill {
+    display: none;
   }
 }

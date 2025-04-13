@@ -243,3 +243,18 @@ $spacer: 1rem !default;
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+.wrap-die-message {
+  // width: 100%;
+  background-color: #fff;
+  margin: ($spacer * 2) auto;
+  padding: ($spacer * .5) $spacer;
+  max-width: 700px;
+  border: 1px solid #ccd0d4;
+  color: #444;
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}

@@ -14,7 +14,7 @@ div.base-tabs-list {
   .-wrapper {
     margin-bottom: 0.5em;
 
-    .-nav {}
+    // .-nav {}
   }
 
   .-content {
@@ -25,7 +25,7 @@ div.base-tabs-list {
       margin-top: 1em;
     }
 
-    > *:first-child,
+    // > *:first-child,
     > form > .card:first-of-type {
       margin-top: 0;
     }
@@ -37,4 +37,4 @@ div.base-tabs-list {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-.-wrap.code {}
+// .-wrap.code {}

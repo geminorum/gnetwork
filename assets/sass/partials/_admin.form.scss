@@ -40,6 +40,37 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+.form-field {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  p,
+  select,
+  textarea {
+    width: 99.5%;
+    max-width: unset;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.wp-tab-panel {
+  .inline-edit-row & {
+    margin: ($spacer * .25) 0;
+
+    // reset `label` styles on quick-edit
+    ul li > label {
+      display: inline;
+      margin: unset;
+      line-height: inherit;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 .-wrap.field-wrap,
 .wrap {
   input[type="text"] {

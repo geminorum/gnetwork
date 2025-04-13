@@ -1,8 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// gNetwork Partials: Shortcodes Module ---------------------------------------
+/// gNetwork Partials: Shortcodes Module
 
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 .-wrap {
   &.shortcode-reflist {
     @include theme-gutter-reset;
@@ -40,7 +42,7 @@
   &.shortcode-children {
     ul {
       li {
-        a {}
+        // a {}
       }
     }
   }
@@ -48,13 +50,13 @@
   &.shortcode-siblings {
     ul {
       li {
-        a {}
+        // a {}
       }
     }
   }
 
   &.shortcode-back {
-    a {}
+    // a {}
   }
 
   &.shortcode-last-edited {
@@ -68,11 +70,11 @@
   }
 
   &.shortcode-iframe {
-    iframe {}
+    // iframe {}
   }
 
   &.shortcode-email {
-    a.email {}
+    // a.email {}
   }
 
   &.shortcode-tel {
@@ -90,7 +92,7 @@
   &.shortcode-audio {
 
     // WP core shortcode
-    .wp-audio-shortcode {}
+    // .wp-audio-shortcode {}
 
     .-download {
       padding: 0.5em;
@@ -99,11 +101,11 @@
   }
 
   &.shortcode-audio-go {
-    a.audio-go-to-time {}
+    // a.audio-go-to-time {}
   }
 
   &.shortcode-person {
-    a.reference-people {}
+    // a.reference-people {}
   }
 
   &.-bloginfo {
@@ -112,14 +114,14 @@
   }
 
   &.-beacon {
-    img {}
+    // img {}
   }
 
   &.shortcode-pdf {
-    .-fallback {}
+    // .-fallback {}
 
     .pdfobject-container {
-      embed {}
+      // embed {}
     }
   }
 }

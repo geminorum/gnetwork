@@ -5,32 +5,32 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-.woocommerce-input-wrapper {
-  input.input-text.ltr {
-    /*rtl:ignore*/
-    direction: ltr;
-  }
+// .woocommerce {
+//   input.input-text.ltr {
+//     /*rtl:ignore*/
+//     direction: ltr;
+//   }
 
-  input.input-text.rtl-placeholder {
-    &::-webkit-input-placeholder {
-      direction: ltr; // will switch for rtl
-    }
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-#add_payment_method,
-.woocommerce-cart,
-.woocommerce-checkout {
-  #payment ul.payment_methods li img {
-    max-height: 1.618em; // storefront default
-    width: auto;
-  }
-}
+//   input.input-text.ltr.rtl-placeholder {
+//     &::-webkit-input-placeholder {
+//       direction: ltr; // will switch for rtl
+//     }
+//   }
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
-.woocommerce-MyAccount-navigation ul li a::before {
-  margin-left: 0; // will switch for rtl
-  margin-right: 0.540791em; // will switch for rtl
-  float: left; // will switch for rtl
-}
+// #add_payment_method,
+// .woocommerce-cart,
+// .woocommerce-checkout {
+//   #payment ul.payment_methods li img {
+//     max-height: 1.618em; // storefront default
+//     width: auto;
+//   }
+// }
+
+////////////////////////////////////////////////////////////////////////////////
+// .woocommerce-MyAccount-navigation ul li a::before {
+//   margin-left: 0; // will switch for rtl
+//   margin-right: 0.540791em; // will switch for rtl
+//   float: left; // will switch for rtl
+// }
