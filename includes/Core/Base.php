@@ -57,7 +57,7 @@ class Base
 		if ( ! $value = Number::translate( $value ) )
 			return TRUE;
 
-		// TODO: check empty types: html/dashes
+		// TODO: check empty types: HTML/dashes
 		// @see `WordPress\Strings::isEmpty()`
 
 		return FALSE;

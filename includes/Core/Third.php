@@ -65,6 +65,12 @@ class Third extends Base
 				$url  = self::getHandle( $string, TRUE, $base, $prefix );
 				break;
 
+			case 'fidibo':
+
+				$base = 'https://fidibo.com/publishers/';
+				$url  = self::getHandle( $string, TRUE, $base, $prefix );
+				break;
+
 			case 'eitaa':
 
 				$base = 'https://eitaa.com/';
@@ -73,6 +79,7 @@ class Third extends Base
 
 			case 'wikipedia':
 
+				// https://en.wikipedia.org/w/index.php?title=Style_(manner_of_address)
 				$base = sprintf( 'https://%s.wikipedia.org/wiki/', L10n::getISO639() );
 				$url  = self::getHandle( $string, TRUE, $base, $prefix );
 				break;
@@ -130,10 +137,10 @@ class Third extends Base
 	 *
 	 * @source: https://gist.github.com/boonebgorges/5537311
 	 *
-	 * @param  string  $string provided twitter token
-	 * @param  boolean $url    convert token to profile link
-	 * @param  string  $base   prefix if the url
-	 * @return string          handle or the url
+	 * @param string $string provided twitter token
+	 * @param boolean $url convert token to profile link
+	 * @param string $base prefix if the URL
+	 * @return string handle or the URL
 	 */
 	public static function getTwitter( $string, $url = FALSE, $base = 'https://twitter.com/' )
 	{

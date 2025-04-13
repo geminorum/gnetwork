@@ -130,6 +130,37 @@ class Date extends Base
 		];
 	}
 
+	/**
+	 * Gets First and Last Day of Week by Week Number.
+	 *
+	 * The problem I've run into is that “first day of the week” is subjective.
+	 * Some people believe the first day of the week is “Monday” while others
+	 * believe the first day of the week is “Sunday”. ISO-8601 specifies the
+	 * first day of the week as “Monday”. Whereas, most western calendars
+	 * display Sunday as the first day of the week and Saturday as the last
+	 * day of the week.
+	 *
+	 * @source https://dev.to/jeremysawesome/php-get-first-and-last-day-of-week-by-week-number-3pcd
+	 * @source https://jeremysawesome.com/2019/08/12/php-get-first-and-last-day-of-week-by-week-number/
+	 *
+	 * @param int $year
+	 * @param int $week
+	 * @param string $format
+	 * @param string $calendar_type
+	 * @return array
+	 */
+	public static function weekFirstAndLast( $year, $week, $format = NULL, $calendar_type = 'gregorian' )
+	{
+		// We need to specify 'today' otherwise `datetime`
+		// constructor uses 'now' which includes current time.
+		$today = new \DateTime( 'today' );
+
+		return [
+			$today->setISODate( $year, $week, 0 )->format( $format ?? static::MYSQL_FORMAT ),
+			$today->setISODate( $year, $week, 6 )->format( $format ?? static::MYSQL_FORMAT ),
+		];
+	}
+
 	public static function makeFromInput( $input, $calendar = 'gregorian', $timezone = NULL, $fallback = '' )
 	{
 		if ( empty( $input ) )

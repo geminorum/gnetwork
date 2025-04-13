@@ -132,6 +132,15 @@ class HTML extends Base
 		.'</'.$tag.'>';
 	}
 
+	public static function dieMessage( $html )
+	{
+		echo '<div class="wrap-die-message">';
+			echo wpautop( $html );
+		echo '</div>';
+
+		return FALSE;
+	}
+
 	public static function label( $input, $for = FALSE, $wrap = 'p' )
 	{
 		$html = self::tag( 'label', [ 'for' => $for, 'class' => 'form-label' ], $input );
@@ -166,7 +175,7 @@ class HTML extends Base
 
 	public static function row( $html, $class = '', $data = [], $tag = 'li' )
 	{
-		if ( ! $html )
+		if ( ! $html && ! '0' === $html )
 			return '';
 
 		return '<'.( $tag ?: 'div' )
@@ -175,9 +184,24 @@ class HTML extends Base
 			.'</'.( $tag ?: 'div' ).'>';
 	}
 
+	public static function rows( $rows, $class = '', $data = [], $tag = 'ul', $sub_tag = 'li' )
+	{
+		if ( empty( $rows ) )
+			return '';
+
+		$html = '<'.( $tag ?: 'div' )
+			.' class="'.self::prepClass( '-rows', $class )
+			.'"'.self::propData( $data ).'>';
+
+			foreach ( $rows as $row )
+				$html.= self::row( $row, '', [], $sub_tag );
+
+		return $html.'</'.( $tag ?: 'div' ).'>';
+	}
+
 	public static function wrap( $html, $class = '', $block = TRUE, $data = [], $id = FALSE )
 	{
-		if ( ! $html )
+		if ( ! $html && ! '0' === $html )
 			return '';
 
 		return $block
@@ -314,6 +338,9 @@ class HTML extends Base
 
 	public static function propData( $data )
 	{
+		if ( empty( $data ) )
+			return '';
+
 		if ( ! is_array( $data ) )
 			return ' data="'.trim( self::escape( $data ) ).'"';
 
@@ -1532,7 +1559,7 @@ class HTML extends Base
 		return self::wrap( $html, '-multiselect-wrap'.( $args['panel'] ? ' wp-tab-panel' : '' ) );
 	}
 
-	// TODO: must rename to `prepList()`
+	// NOTE: DEPRECATED: use `HTML::rows()`
 	public static function renderList( $items, $keys = FALSE, $list = 'ul' )
 	{
 		return $items ? self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : array_filter( $items ) ).'</li>' ) : '';

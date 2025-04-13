@@ -190,7 +190,8 @@ class L10n extends Base
 	{
 		$first = strtoupper( Text::subStr( $string, 0, 1 ) );
 
-		if ( in_array( Number::translate( $first ), range( 0, 9 ), TRUE ) )
+		// NOTE: must be non-strict comparison
+		if ( in_array( Number::translate( $first ), range( 0, 9 ) ) )
 			return '#';
 
 		foreach ( Arraay::column( $alphabet, 'search', 'letter' ) as $letter => $searchs )

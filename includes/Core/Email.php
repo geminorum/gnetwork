@@ -45,7 +45,7 @@ class Email extends Base
 	 * @param  string $context
 	 * @return string $prepped
 	 */
-	public static function prep( $value, $field = [], $context = 'display' )
+	public static function prep( $value, $field = [], $context = 'display', $icon = NULL )
 	{
 		if ( self::empty( $value ) )
 			return '';
@@ -56,7 +56,7 @@ class Email extends Base
 		switch ( $context ) {
 			case 'edit' : return $raw;
 			case 'print': return HTML::wrapLTR( trim( $raw ) );
-			case 'icon' : return HTML::mailto( $raw, HTML::getDashicon( 'email-alt' ), self::is( $value ) ? '-is-valid' : '-is-not-valid' );
+			case 'icon' : return HTML::mailto( $raw, $icon ?? HTML::getDashicon( 'email-alt' ), self::is( $value ) ? '-is-valid' : '-is-not-valid' );
 			     default: return HTML::mailto( $raw, NULL, self::is( $value ) ? '-is-valid' : '-is-not-valid' );
 		}
 
