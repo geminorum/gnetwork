@@ -1,3 +1,12 @@
+### 3.17.4
+* module/blog: disable privacy tools
+* module/cleanup: more obsoletes
+* module/login: math on woo-commerce lost password form
+* module/taxonomy: better handling description on quick-edit
+* module/tracking: drop support for `quantcast`
+* module/typography: ordinal title on numeral section titles
+* module/typography: short-code filters for `bismillah`
+
 ### 3.17.3
 * module/cleanup: term cleanups
 * module/debug: disable php sessions
