@@ -1,0 +1,1014 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced Woo Search\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: geminorum <contact@geminorum.ir>\n"
+"Language-Team: \n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Generator: Poedit 3.5\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
+"esc_html_x:1,2c\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/class-aws-admin.php:129
+msgid "Save Changes"
+msgstr "ذخیره تغییرات"
+
+#: includes/class-aws-admin.php:351
+msgid "Reindex table"
+msgstr ""
+
+msgid ""
+"This action only need for %s one time %s - after you activate this plugin. "
+"After this all products changes will be re-indexed automatically."
+msgstr ""
+
+msgid "Go to Settings Page"
+msgstr ""
+
+#: includes/class-aws-admin.php:352
+msgid ""
+"Update all data in plugins index table. Index table - table with products "
+"data where plugin is searching all typed terms.<br>Use this button if you "
+"think that plugin not shows last actual data in its search results."
+"<br><strong>CAUTION:</strong> this can take large amount of time."
+msgstr ""
+
+msgid "Index table options can be found inside %s section."
+msgstr ""
+
+#: includes/class-aws-admin.php:362
+msgid "Clear cache"
+msgstr ""
+
+#: includes/class-aws-admin.php:363
+msgid "Clear cache for all search results."
+msgstr ""
+
+#: includes/options.php:111
+msgid "Smart scraping sentences with searching terms from product description."
+msgstr ""
+
+#: includes/options.php:112
+msgid ""
+"First N words of product description ( number of words that you choose "
+"below. )"
+msgstr ""
+
+#: advanced-woo-search.php:113
+msgid "Sale!"
+msgstr "فروش ویژه!"
+
+msgid "SKU"
+msgstr "شناسه کالا"
+
+msgid "View all results"
+msgstr "مشاهده همه نتایج"
+
+#: advanced-woo-search.php:127
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: advanced-woo-search.php:130 includes/class-aws-admin.php:63
+msgid "Get Premium"
+msgstr "دریافت نگارش ویژه"
+
+#: advanced-woo-search.php:166
+msgid ""
+"Advanced Woo Search plugin is enabled but not effective. It requires "
+"WooCommerce in order to work."
+msgstr ""
+
+#: includes/widget.php:15
+msgid "Advanced WooCommerce search widget"
+msgstr ""
+
+#: includes/widget.php:17
+msgid "&raquo; AWS Widget"
+msgstr ""
+
+#: includes/widget.php:56
+msgid "Search..."
+msgstr "جست‌وجو…"
+
+#: includes/widget.php:62
+msgid "Title:"
+msgstr "عنوان:"
+
+#: includes/class-aws-admin.php:38
+msgid "Adv. Woo Search"
+msgstr ""
+
+#: includes/class-aws-admin.php:49
+msgid "General"
+msgstr "همگانی"
+
+#: includes/class-aws-admin.php:296
+msgid "Active sources"
+msgstr ""
+
+#: includes/class-aws-admin.php:297
+msgid "Change order by drag&drop"
+msgstr ""
+
+#: includes/class-aws-admin.php:316
+msgid "Deactivated sources"
+msgstr ""
+
+#: includes/class-aws-admin.php:317
+msgid "Excluded from search results"
+msgstr ""
+
+msgid "Cache options"
+msgstr ""
+
+msgid "Cache results"
+msgstr ""
+
+msgid "Sync index table"
+msgstr ""
+
+msgid ""
+"Automatically update plugin index table when product content was changed. "
+"This means that in search there will be always latest product data."
+msgstr ""
+
+msgid "Turn this off if you have any problems with performance."
+msgstr ""
+
+msgid "Main Settings"
+msgstr "تنظیمات اصلی"
+
+msgid "Seamless integration"
+msgstr ""
+
+msgid ""
+"Replace all the standard search forms on your website ( may not work with "
+"some themes )."
+msgstr ""
+
+msgid "Activation"
+msgstr "فعال‌سازی"
+
+msgid ""
+"In case you need to add plugin search form on your website, you can do it in "
+"several ways:"
+msgstr ""
+
+msgid "Enable a %s option ( may not work with some themes )"
+msgstr ""
+
+msgid "Using shortcode %s"
+msgstr ""
+
+msgid ""
+"Add search form as a widget. Go to %s and drag&drop 'AWS Widget' to one of "
+"your widget areas"
+msgstr ""
+
+msgid "Widgets Screen"
+msgstr ""
+
+msgid "Add PHP code to the necessary files of your theme: %s"
+msgstr ""
+
+msgid "Cache search results to increase search speed."
+msgstr ""
+
+msgid ""
+"Turn off if you have old data in the search results after the content of "
+"products was changed."
+msgstr ""
+
+#: includes/options.php:15 includes/options.php:43 includes/options.php:55
+#: includes/options.php:67 includes/options.php:99 includes/options.php:123
+#: includes/options.php:135 includes/options.php:147 includes/options.php:159
+msgid "On"
+msgstr ""
+
+#: includes/options.php:16 includes/options.php:44 includes/options.php:56
+#: includes/options.php:68 includes/options.php:100 includes/options.php:124
+#: includes/options.php:136 includes/options.php:148 includes/options.php:160
+msgid "Off"
+msgstr "خاموش"
+
+#: includes/options.php:21
+msgid "Text for search field"
+msgstr ""
+
+#: includes/options.php:22
+msgid "Text for search field placeholder."
+msgstr ""
+
+#: includes/options.php:35
+msgid "Search"
+msgstr "جست‌وجو"
+
+msgid "Text for show more button"
+msgstr ""
+
+msgid ""
+"Text for link to search results page at the bottom of search results block."
+msgstr ""
+
+#: includes/options.php:40
+msgid "Nothing found field"
+msgstr ""
+
+#: includes/options.php:41
+msgid "Text when there is no search results."
+msgstr ""
+
+#: includes/options.php:43
+msgid "Nothing found"
+msgstr "چیزی پیدا نشد"
+
+#: includes/options.php:29
+msgid "Minimum number of characters"
+msgstr ""
+
+#: includes/options.php:30
+msgid "Minimum number of characters required to run ajax search."
+msgstr ""
+
+#: includes/options.php:37
+msgid "Show loader"
+msgstr ""
+
+#: includes/options.php:38
+msgid "Show loader animation while searching."
+msgstr ""
+
+msgid "Show clear button"
+msgstr ""
+
+msgid ""
+"Show 'Clear search string' button for desktop devices ( for mobile it is "
+"always visible )."
+msgstr ""
+
+msgid "Show 'View All Results'"
+msgstr ""
+
+msgid "Show link to search results page at the bottom of search results block."
+msgstr ""
+
+msgid "Mobile full screen"
+msgstr ""
+
+msgid ""
+"Full screen search on focus. Will not work if the search form is inside the "
+"block with position: fixed."
+msgstr ""
+
+msgid "Form Styling"
+msgstr ""
+
+msgid "Choose search form layout"
+msgstr ""
+
+msgid ""
+"Filter button will be visible only if you have more than one active filter "
+"for current search form instance."
+msgstr ""
+
+msgid "Highlight words"
+msgstr ""
+
+msgid "Highlight search words inside products content."
+msgstr ""
+
+#: includes/options.php:49
+msgid "Show image"
+msgstr ""
+
+#: includes/options.php:50
+msgid "Show product image for each search result."
+msgstr ""
+
+#: includes/options.php:61
+msgid "Show description"
+msgstr "نمایش توضیحات"
+
+#: includes/options.php:62
+msgid "Show product description for each search result."
+msgstr ""
+
+#: includes/options.php:73
+msgid "Description source"
+msgstr ""
+
+#: includes/options.php:74
+msgid ""
+"From where to take product description.<br>If first source is empty data "
+"will be taken from other sources."
+msgstr ""
+
+#: includes/options.php:79
+msgid "Content"
+msgstr "محتوا"
+
+#: includes/options.php:80
+msgid "Short description"
+msgstr "توضیح کوتاه"
+
+#: includes/options.php:85
+msgid "Description length"
+msgstr ""
+
+#: includes/options.php:86
+msgid "Maximal allowed number of words for product description."
+msgstr ""
+
+#: includes/options.php:93
+msgid "Show price"
+msgstr "نمایش قیمت"
+
+#: includes/options.php:94
+msgid "Show product price for each search result."
+msgstr ""
+
+msgid "Show price for out of stock"
+msgstr ""
+
+msgid "Show product price for out of stock products."
+msgstr ""
+
+#: includes/options.php:105
+msgid "Description content"
+msgstr ""
+
+#: includes/options.php:106
+msgid "What to show in product description?"
+msgstr ""
+
+#: includes/options.php:141
+msgid "Show sale badge"
+msgstr ""
+
+#: includes/options.php:142
+msgid "Show sale badge for products in search results."
+msgstr ""
+
+#: includes/options.php:153
+msgid "Show product SKU"
+msgstr ""
+
+#: includes/options.php:154
+msgid "Show product SKU in search results."
+msgstr ""
+
+msgid "Show stock status"
+msgstr ""
+
+msgid "Show stock status for every product in search results."
+msgstr ""
+
+msgid "Show featured icon"
+msgstr ""
+
+msgid "Show or not star icon for featured products."
+msgstr ""
+
+#: includes/options.php:167
+msgid "Max number of results"
+msgstr ""
+
+#: includes/options.php:168
+msgid "Maximum number of displayed search results."
+msgstr ""
+
+#: includes/options.php:175
+msgid "Search in"
+msgstr "جست‌وجو در"
+
+#: includes/options.php:30
+msgid "Show out-of-stock"
+msgstr ""
+
+#: includes/options.php:31
+msgid "Show out-of-stock products in search"
+msgstr ""
+
+msgid "Stop words list"
+msgstr ""
+
+msgid "Comma separated list of words that will be excluded from search."
+msgstr ""
+
+msgid "Re-index required on change."
+msgstr ""
+
+msgid "Synonyms"
+msgstr ""
+
+msgid ""
+"Comma separated list of synonym words. Each group of synonyms must be on "
+"separated text line."
+msgstr ""
+
+msgid "Misspelling fix"
+msgstr ""
+
+msgid "Fix typos inside search words %s."
+msgstr ""
+
+msgid "Applied if the current search query returns no results."
+msgstr ""
+
+#: includes/options.php:42
+msgid "Use Google Analytics"
+msgstr ""
+
+#: includes/options.php:42
+msgid ""
+"Use google analytics to track searches. You need google analytics to be "
+"installed on your site."
+msgstr ""
+
+msgid ""
+"Data will be visible inside Google Analytics 'Site Search' report. Need to "
+"activate 'Site Search' feature inside GA. %s"
+msgstr ""
+
+msgid "More info"
+msgstr "اطلاعات بیشتر"
+
+#: includes/options.php:42
+msgid ""
+"Also will send event with category - 'AWS search', action - 'AWS Search "
+"Term' and label of value of search term."
+msgstr ""
+
+msgid "In stock"
+msgstr "موجود"
+
+msgid "Out of stock"
+msgstr "در انبار موجود نیست"
+
+#. Name of the plugin
+msgid "Advanced Woo Search"
+msgstr ""
+
+#. Description of the plugin
+msgid "Advance ajax WooCommerce product search."
+msgstr ""
+
+#. Author of the plugin
+msgid "ILLID"
+msgstr ""
+
+msgid "Placeholder"
+msgstr "جای‌نما"
+
+msgid "Add placeholder text or leave empty to use default."
+msgstr ""
+
+msgid "Disable this source"
+msgstr ""
+
+msgid "Enable this source"
+msgstr ""
+
+msgid "Yes"
+msgstr "بله"
+
+msgid "No"
+msgstr ""
+
+msgid ""
+"Click on the status icon to enable or disable the search source for products "
+"search."
+msgstr ""
+
+msgid "Search Source"
+msgstr ""
+
+msgid "Category"
+msgstr "دسته"
+
+msgid "Tag"
+msgstr "برچسب"
+
+msgid "ID"
+msgstr "شناسه"
+
+#, fuzzy
+msgid "Archive pages"
+msgstr "برای الگو در صفحات بایگانی نوع‌نوشته استفاده خواهد شد."
+
+msgid ""
+"Search for taxonomies and displayed their archive pages in search results."
+msgstr ""
+
+#, fuzzy
+msgid "Welcome to %s"
+msgstr "به افزونه \"اعتبار من\" ( %s ) نسخه %s خوش آمدید ."
+
+msgid "Powerful search plugin for WooCommerce."
+msgstr ""
+
+#, fuzzy
+msgid "Get Started"
+msgstr "آغاز کنید"
+
+msgid ""
+"In order to start using the plugin search form you need to take following "
+"steps:"
+msgstr ""
+
+msgid "Index plugin table."
+msgstr ""
+
+msgid ""
+"Click on the 'Reindex table' button and wait till the index process is "
+"finished."
+msgstr ""
+
+msgid "Set plugin settings."
+msgstr ""
+
+msgid "Leave it to default values or customize some of them."
+msgstr ""
+
+msgid "Add search form."
+msgstr ""
+
+msgid ""
+"There are several ways you can add a search form to your site. Use the "
+"'Seamless integration' option, shortcode, widget or custom php function. "
+"Read more inside %s section or read %s."
+msgstr ""
+
+msgid "guide article"
+msgstr ""
+
+#, fuzzy
+msgid "Finish!"
+msgstr "تکمیل"
+
+msgid ""
+"Now all is set and you can check your search form on the pages where you add "
+"it."
+msgstr ""
+
+msgid "Documentation"
+msgstr "مستندات"
+
+msgid "Steps to Get Started"
+msgstr ""
+
+msgid "How to Add Search Form"
+msgstr ""
+
+msgid "Search Sources"
+msgstr ""
+
+msgid "Terms Pages Search"
+msgstr ""
+
+msgid "Help"
+msgstr "راهنما"
+
+#, fuzzy
+msgid "Support Forums"
+msgstr "تالارهای پشتیبانی"
+
+#, fuzzy
+msgid "Contact Form"
+msgstr "فرم ارتباط"
+
+#, fuzzy
+msgid "Premium Version"
+msgstr "دریافت نگارش ویژه"
+
+msgid "Premium"
+msgstr "ویژه"
+
+#, fuzzy
+msgid "Upgrade to the"
+msgstr "ارتقاء"
+
+msgid "Premium plugin version"
+msgstr ""
+
+msgid "to have all available features!"
+msgstr ""
+
+msgid "30-day money back guarantee"
+msgstr ""
+
+msgid "Priority support"
+msgstr ""
+
+msgid "1 year of support and updates"
+msgstr ""
+
+msgid "Premium Features"
+msgstr ""
+
+msgid "New Search Sources"
+msgstr ""
+
+msgid ""
+"Search additionally inside %sproduct attributes%s, %staxonomies%s and "
+"%scustom fields%s. Inside the plugin settings page it is possible to choose "
+"some specific sources that must be available for search ( for example only "
+"several product attributes ) or just search for all of them."
+msgstr ""
+
+#, fuzzy
+msgid "Learn more"
+msgstr "بیشتر بیاموزید"
+
+msgid "Product Variations Support"
+msgstr ""
+
+msgid ""
+"Search and show inside search results %svariable product%s, %sproduct "
+"variations%s or %sboth%s. With the variable products will be displayed all "
+"attributes that belong to that specific variation."
+msgstr ""
+
+msgid "Archive Pages Search"
+msgstr ""
+
+msgid ""
+"Search for WooCommerce product %scustom taxonomies%s and %sattributes "
+"archive pages%s. Display them right inside the search results list along "
+"with the product search results."
+msgstr ""
+
+msgid "Users Search"
+msgstr ""
+
+msgid ""
+"Search for website users and display them right inside the search results "
+"box. Choose what role the user must have to be available for search."
+msgstr ""
+
+msgid "Search Form Filters"
+msgstr ""
+
+msgid ""
+"For each search form you can create a unique set of tabs. These tabs have "
+"their own %sset of settings%s and work as %sfilters%s for your search "
+"results."
+msgstr ""
+
+msgid "Search Form Instances"
+msgstr ""
+
+msgid ""
+"Unlimited number of search form instances with totally different settings "
+"and products look. You can create totally different search forms for any of "
+"your needs. Each instance is %sindependent%s and has its own %sset of "
+"settings%s."
+msgstr ""
+
+msgid "Search Logic Change"
+msgstr ""
+
+msgid ""
+"Switch from %sOR%s to %sAND%s search logic. Choose from %spartial%s or "
+"%sexact match%s search."
+msgstr ""
+
+msgid "Add to Cart Button"
+msgstr "دکمه افزودن به سبد خرید"
+
+msgid ""
+"Display %sAdd to Cart%s button right inside the search results. This makes "
+"it possible to add the product to the cart without visiting the product "
+"page. This button works perfectly also and with product variations."
+msgstr ""
+
+msgid "Search Results Layouts"
+msgstr ""
+
+msgid ""
+"Choose between several %spredefined search results layouts%s. For example "
+"you can display all products in search results in a grid or in column one by "
+"one."
+msgstr ""
+
+msgid "Exclude/Include Products Filters"
+msgstr ""
+
+msgid ""
+"Option to exclude or include products from search results by %sproduct "
+"ids%s, %staxonomies%s or %sattributes%s. Show only those products that you "
+"want. This option works great with the search form filters."
+msgstr ""
+
+msgid "Search Suggestions"
+msgstr ""
+
+msgid ""
+"Generate and show %sterms suggestions for current search query%s. Such "
+"suggestions will be visible at the top of the search results list."
+msgstr ""
+
+msgid "ACF Plugin Support"
+msgstr ""
+
+msgid ""
+"All fields that were created with the help of %sAdvanced Custom Fields%s "
+"plugin are available for search. Also use a special built-in filter to "
+"display any ACF field value right inside the search results list."
+msgstr ""
+
+msgid ""
+"You will benefit from our full support for any issues you have with this "
+"plugin."
+msgstr ""
+
+msgid "Frequently Asked Questions"
+msgstr "سؤالات متداول"
+
+msgid "Do you offer refunds?"
+msgstr ""
+
+msgid ""
+"If you're not completely happy with your purchase and we're unable to "
+"resolve the issue, let us know and we'll refund the full purchase price. "
+"Refunds can be processed within 30 days of the original purchase."
+msgstr ""
+
+msgid "What payment methods do you accept?"
+msgstr ""
+
+msgid ""
+"Checkout is powered FastSpring company. They supports major credit and debit "
+"cards, PayPal, and a variety of other mainstream payment methods, so there’s "
+"plenty to pick from."
+msgstr ""
+
+msgid "Do you offer support if I need help?"
+msgstr ""
+
+msgid ""
+"Yes! You will benefit of our full support for any issues you have with this "
+"plugin."
+msgstr ""
+
+msgid "I have other pre-sale questions, can you help?"
+msgstr ""
+
+msgid "Yes! You can ask us any question through our"
+msgstr ""
+
+#, fuzzy
+msgid "contact form."
+msgstr "فرم ارتباط"
+
+#, fuzzy
+msgid "Website Links:"
+msgstr "رنگ لینک‌های وب سایت"
+
+msgid "Plugin home page"
+msgstr ""
+
+#, fuzzy
+msgid "Features"
+msgstr "ویژگی‌ها"
+
+#, fuzzy
+msgid "Pricing"
+msgstr "قیمت‌گذاری"
+
+msgid "WooCommerce search form"
+msgstr ""
+
+msgid "To configure your Advanced Woo Search form please visit %s."
+msgstr ""
+
+msgid "plugin settings page"
+msgstr ""
+
+msgid "Please do not close the page."
+msgstr ""
+
+#, fuzzy
+msgid "Performance"
+msgstr "نمایشی"
+
+msgid "(index disabled)"
+msgstr ""
+
+#, fuzzy
+msgid "(enable)"
+msgstr "فعال‌سازی"
+
+msgid "Source index disabled"
+msgstr ""
+
+msgid ""
+"Advanced Woo Search: In order to apply the changes in the index table you "
+"need to reindex. %s"
+msgstr ""
+
+#, fuzzy
+msgid "Search options"
+msgstr "نمایش گزینه‌های جست‌وجو"
+
+msgid "Search rule"
+msgstr ""
+
+msgid "Search rule that will be used for terms search."
+msgstr ""
+
+msgid ""
+"( contains ). Search query can be inside any part of the product words "
+"( beginning, end, middle ). Slow."
+msgstr ""
+
+msgid ""
+"( begins ). Search query can be only at the beginning of the product words. "
+"Fast."
+msgstr ""
+
+msgid "AJAX timeout"
+msgstr ""
+
+msgid ""
+"Time after user input that script is waiting before sending a search event "
+"to the server, ms."
+msgstr ""
+
+msgid "Search words number"
+msgstr ""
+
+msgid ""
+"The maximum number of words allowed for the search. All extra words will be "
+"removed from the search query."
+msgstr ""
+
+msgid "Index table options"
+msgstr ""
+
+#, fuzzy
+msgid "Overview"
+msgstr "بررسی اجمالی"
+
+msgid ""
+"To perform the search plugin use a special index table. This table contains "
+"normalized words of all your products from all available sources."
+msgstr ""
+
+msgid ""
+"Sometimes when there are too many products in your store index table can be "
+"very large and that can reflect on search speed."
+msgstr ""
+
+msgid ""
+"In this section you can use several options to change the table size by "
+"disabling some unused product data."
+msgstr ""
+
+#, fuzzy
+msgid "Note:"
+msgstr "نکته:"
+
+msgid "Reindex is required after options changes."
+msgstr ""
+
+msgid "Data to index"
+msgstr ""
+
+msgid "Choose what products data to add inside the plugin index table."
+msgstr ""
+
+msgid "What to index"
+msgstr ""
+
+msgid "Index variations"
+msgstr ""
+
+msgid "Index or not content of product variations."
+msgstr ""
+
+msgid "Run shortcodes"
+msgstr ""
+
+msgid "Execute or not any shortcodes inside product content."
+msgstr ""
+
+msgid "Search results page"
+msgstr ""
+
+msgid "Enable results page"
+msgstr ""
+
+msgid ""
+"Show plugin search results on a separated search results page. Will use your "
+"current theme products search results page template."
+msgstr ""
+
+msgid ""
+"Maximal total number of search results. Larger values can lead to slower "
+"search speed."
+msgstr ""
+
+msgid "Results per page"
+msgstr ""
+
+msgid ""
+"Number of search results per page. Empty or 0 - use theme default value."
+msgstr ""
+
+msgid "Change query hook"
+msgstr ""
+
+msgid ""
+"If you have any problems with correct products results on the search results "
+"page - try to change this option."
+msgstr ""
+
+#, fuzzy
+msgid "Default"
+msgstr "پیش‌فرض"
+
+#, fuzzy
+msgid "AJAX search"
+msgstr "جست‌وجوی ایجکس"
+
+msgid "Use or not live search feature."
+msgstr ""
+
+msgid ""
+"Hi! Looks like you are using some plugins that have the advanced integration "
+"with %s. Please find more details below."
+msgstr ""
+
+msgid "WCFM Multivendor Marketplace plugin."
+msgstr ""
+
+msgid "Advanced Custom Fields ( ACF ) plugin."
+msgstr ""
+
+msgid "Integrations for your plugins"
+msgstr ""
+
+msgid "All PRO Features"
+msgstr ""
+
+msgid "View Pricing"
+msgstr ""
+
+#, fuzzy
+msgid "Dismiss"
+msgstr "بستن"
+
+msgid "Products number"
+msgstr ""
+
+msgid "Maximum number of displayed products search results."
+msgstr ""
+
+msgid "Archive pages number"
+msgstr ""
+
+msgid "Maximum number of displayed archive pages search results."
+msgstr ""
+
+#, fuzzy
+msgid "logo"
+msgstr "لوگو"
+
+msgid "Support"
+msgstr "پشتیبانی"
+
+msgid "Showing results for"
+msgstr ""
+
+msgid "Did you mean:"
+msgstr ""
+
+msgid "On. Automatically search for fixed terms."
+msgstr ""
+
+msgid ""
+"On. Additionally show text \"Showing results for ...\" with a list of fixed "
+"terms at the top of search results."
+msgstr ""
+
+msgid "Off. Totally disable misspelling fix."
+msgstr ""
+
+msgid ""
+"Off. Instead show text \"Did you mean ...\" with a clickable list of fixed "
+"terms at the top of search results."
+msgstr ""
