@@ -201,7 +201,7 @@ class HTML extends Base
 
 	public static function wrap( $html, $class = '', $block = TRUE, $data = [], $id = FALSE )
 	{
-		if ( ! $html && ! '0' === $html )
+		if ( '0' !== $html && ! $html )
 			return '';
 
 		return $block

@@ -1149,4 +1149,23 @@ class Arraay extends Base
 
 		return NULL;
 	}
+
+	/**
+	 * Merges consecutive values to one value in one array.
+	 * @source https://stackoverflow.com/a/41814878
+	 *
+	 * @param array $array
+	 * @param int $chunk
+	 * @param string $glue
+	 * @return array
+	 */
+	public static function mergeConsecutive( $array, $chunk = 2, $glue = '' )
+	{
+		return array_map(
+			static function ( $value ) use ( $glue ) {
+				return implode( $glue, $value );
+			},
+			array_chunk( $array, $chunk )
+		);
+	}
 }

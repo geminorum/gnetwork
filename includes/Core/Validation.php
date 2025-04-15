@@ -250,7 +250,7 @@ class Validation extends Base
 	// @SEE: http://www.aliarash.com/article/creditcart/credit-debit-cart.htm
 	public static function isIranCardNumber( $input, $iranian = TRUE )
 	{
-		$input  = (string) preg_replace( '/\D/','',$input );
+		$input  = (string) preg_replace( '/\D/','', $input );
 		$strlen = strlen( $input );
 
 		if ( $iranian && 16 !== $strlen )

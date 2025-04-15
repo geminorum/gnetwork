@@ -8,9 +8,9 @@ class File extends Base
 	/**
 	 * Wraps the `file_exists()` and uses current install absolute path.
 	 *
-	 * @param  string $path
-	 * @param  string $base
-	 * @return bool   $exists
+	 * @param string $path
+	 * @param string $base
+	 * @return bool $exists
 	 */
 	public static function exists( $path, $base = ABSPATH )
 	{
@@ -23,8 +23,8 @@ class File extends Base
 	/**
 	 * Tells whether a file exists and is readable.
 	 *
-	 * @param  string $path
-	 * @return bool   $readable
+	 * @param string $path
+	 * @return bool $readable
 	 */
 	public static function readable( $path )
 	{
@@ -53,12 +53,12 @@ class File extends Base
 	}
 
 	/**
-	 * Retrieves the file type from the file name.
+	 * Retrieves the filetype from the filename.
 	 * NOTE: wrapper for `wp_check_filetype()`
 	 *
-	 * @param  string $filename
-	 * @param  array  $mimes
-	 * @return array  $data
+	 * @param string $filename
+	 * @param array $mimes
+	 * @return array $data
 	 */
 	public static function type( $filename, $mimes = NULL )
 	{
@@ -98,8 +98,8 @@ class File extends Base
 	 * if the filename ends in suffix this will also be cut off
 	 * @source `wp_basename()`
 	 *
-	 * @param  string $path
-	 * @param  string $suffix
+	 * @param string $path
+	 * @param string $suffix
 	 * @return string $basename
 	 */
 	public static function basename( $path, $suffix = '' )
@@ -111,11 +111,11 @@ class File extends Base
 	}
 
 	/**
-	 * Retrieves file-name from given path or URL.
+	 * Retrieves filename from given path or URL.
 	 *
-	 * @param  string     $path
-	 * @param  null|array $mimes
-	 * @return string     $filename
+	 * @param string $path
+	 * @param null|array $mimes
+	 * @return string $filename
 	 */
 	public static function filename( $path, $mimes = NULL )
 	{
@@ -317,10 +317,10 @@ class File extends Base
 	 * Reads the last n lines of a file without reading through all of it.
 	 * @source http://stackoverflow.com/a/6451391
 	 *
-	 * @param  string $path
-	 * @param  int    $count
-	 * @param  int    $block_size
-	 * @return array  $lines
+	 * @param string $path
+	 * @param int $count
+	 * @param int $block_size
+	 * @return array $lines
 	 */
 	public static function getLastLines( $path, $count, $block_size = 512 )
 	{
