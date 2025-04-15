@@ -575,6 +575,32 @@ class Cleanup extends gNetwork\Module
 				WHERE meta_key = %s
 			", $key ) );
 
+		$ins = $this->filters( 'usermeta_obsolete_ins', [
+			'billing_first_name'  => '',
+			'billing_company'     => '',
+			'billing_address_1'   => '',
+			'billing_address_2'   => '',
+			'billing_city'        => '',
+			'billing_postcode'    => '',
+			'billing_state'       => '',
+			'billing_phone'       => '',
+			'shipping_first_name' => '',
+			'shipping_company'    => '',
+			'shipping_address_1'  => '',
+			'shipping_address_2'  => '',
+			'shipping_city'       => '',
+			'shipping_postcode'   => '',
+			'shipping_state'      => '',
+			'shipping_phone'      => '',
+		] );
+
+		foreach ( $ins as $key => $val )
+			$count += $wpdb->query( $wpdb->prepare( "
+				DELETE FROM {$wpdb->usermeta}
+				WHERE meta_key = %s
+				AND meta_value IN ( '".implode( "', '", esc_sql( (array) $val ) )."' )
+			", $key ) );
+
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->usermeta}" );
 
 		return $count ? [
