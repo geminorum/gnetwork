@@ -703,33 +703,30 @@ class Cleanup extends gNetwork\Module
 			", $key ) );
 
 		$ins = $this->filters( 'postmeta_obsolete_ins', [
-			'_gmeta' => [ '', 'a:1:{i:0;s:0:\"\";}' ],
+			'_gmeta'                      => [ '', 'a:1:{i:0;s:0:"";}' ],
+			'_ge_series'                  => 'a:0:{}',
+			'_wp_page_template'           => 'default',
+			'_menu_item_classes'          => 'a:1:{i:0;s:0:"";}',
+			'_menu_item_menu_item_parent' => '0',
+			'_menu_item_target'           => '',
+			'_menu_item_xfn'              => '',
+			'_menu_item_url'              => '',
+			'footnotes'                   => '',
 		] );
 
 		foreach ( $ins as $key => $val )
 			$count += $wpdb->query( $wpdb->prepare( "
 				DELETE FROM {$wpdb->postmeta}
 				WHERE meta_key = %s
-				AND meta_value IN ( '".implode( "', '", esc_sql( $val ) )."' )
+				AND meta_value IN ( '".implode( "', '", esc_sql( (array) $val ) )."' )
 			", $key ) );
 
-		$equals = $this->filters( 'postmeta_obsolete_equals', [
-			'_ge_series'        => 'a:0:{}',
-			'_wp_page_template' => 'default',
-		] );
-
-		foreach ( $equals as $key => $val )
-			$count += $wpdb->query( $wpdb->prepare( "
-				DELETE FROM {$wpdb->postmeta}
-				WHERE meta_key = %s
-				AND meta_value = %s
-			", $key, $val ) );
-
 		$likes = $this->filters( 'postmeta_obsolete_likes', [
-			'_yoast_wpseo_%', // Yoast SEO
-			'_ad_participant_%', // Assignment Desk
-			'_ad_pitched_by_%', // Assignment Desk
-			'_ad_total_%', // Assignment Desk
+			'_yoast_wpseo_%'    ,   // Yoast SEO
+			'_ad_participant_%' ,   // Assignment Desk
+			'_ad_pitched_by_%'  ,   // Assignment Desk
+			'_ad_total_%'       ,   // Assignment Desk
+			'wp_user_activity_%',   // BP
 		] );
 
 		foreach ( $likes as $like )
