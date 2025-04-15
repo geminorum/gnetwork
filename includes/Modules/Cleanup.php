@@ -925,6 +925,10 @@ class Cleanup extends gNetwork\Module
 
 			// [Really Simple SSL](https://wordpress.org/plugins/really-simple-ssl/)
 			'rlrsssl_options',
+
+			'auto_update_core_dev',
+			'auto_update_core_minor',
+			'auto_update_core_major',
 		];
 
 		if ( ! is_main_site() )
@@ -950,6 +954,32 @@ class Cleanup extends gNetwork\Module
 
 		foreach ( $likes as $like )
 			$count += $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '{$like}'" );
+
+		$ins = $this->filters( 'options_obsolete_ins', [
+			'theme_switched'                  => '',
+			'disallowed_keys'                 => '',
+			'db_upgraded'                     => '1',
+			'site_icon'                       => '0',
+			'fresh_site'                      => '0',
+			'link_manager_enabled'            => '0',
+			'fs_accounts'                     => 'a:0:{}',
+			'recovery_keys'                   => 'a:0:{}',
+			'recently_activated'              => 'a:0:{}',
+			'category_children'               => 'a:0:{}',
+			'auto_plugin_theme_update_emails' => 'a:0:{}',
+			'wp_force_deactivated_plugins'    => 'a:0:{}',
+			'_wp_privacy_text_change_check'   => 'check',
+		] );
+
+		foreach ( $ins as $key => $val )
+			$count += $wpdb->query( $wpdb->prepare( "
+				DELETE FROM {$wpdb->options}
+				WHERE option_name = %s
+				AND option_value IN ( '".implode( "', '", esc_sql( (array) $val ) )."' )
+			", $key ) );
+
+		// WTF: WORKING BUT: on next refresh the core makes them again!
+		// $count += $wpdb->query( "DELETE FROM `{$wpdb->options}` WHERE `option_name` LIKE 'widget%' AND `option_value` = 'a:1:{s:12:\"_multiwidget\";i:1;}'" );
 
 		$wpdb->query( "OPTIMIZE TABLE {$wpdb->options}" );
 
