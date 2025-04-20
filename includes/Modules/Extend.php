@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Core\HTML;
 use geminorum\gNetwork\Core\URL;
 use geminorum\gNetwork\WordPress\SwitchSite;
@@ -48,6 +49,7 @@ class Extend extends gNetwork\Module
 				'stylesheet' => get_option( 'stylesheet' ),
 				'template'   => get_option( 'template' ),
 				'plugins'    => get_option( 'active_plugins' ),
+				'editorial'  => get_option( 'geditorial_options', [] ),
 			];
 
 			if ( isset( $themes[$_site['stylesheet']] ) )
@@ -55,6 +57,9 @@ class Extend extends gNetwork\Module
 
 			if ( isset( $themes[$_site['template']] ) )
 				$_site['template'] = $themes[$_site['template']]->name;
+
+			if ( ! empty( $_site['editorial'] ) )
+				$_site['editorial'] = array_keys( array_filter( Core\Arraay::pluck( $_site['editorial'], 'enabled' ) ) );
 
 			$data[$site->blog_id] = $_site;
 
@@ -88,6 +93,16 @@ class Extend extends gNetwork\Module
 					}
 
 					return $list ? HTML::renderList( $list ) : Utilities::htmlEmpty();
+				},
+			],
+
+			'editorial' => [
+				'title'    => _x( 'Editorial', 'Modules: Extend', 'gnetwork' ),
+				'class'    => '-extend-editorial -has-list -has-list-ltr',
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+					return empty( $value )
+						? Utilities::htmlEmpty()
+						: Core\HTML::rows( array_map( [ 'geminorum\\gNetwork\\Core\\HTML', 'code' ], $value ) );
 				},
 			],
 
