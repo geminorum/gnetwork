@@ -3,12 +3,11 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Admin extends gNetwork\Module
 {
@@ -21,7 +20,7 @@ class Admin extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! WordPress::mustRegisterUI() )
+		if ( ! Core\WordPress::mustRegisterUI() )
 			return;
 
 		$this->filter( 'admin_body_class' );
@@ -49,7 +48,7 @@ class Admin extends gNetwork\Module
 	public function admin_body_class( $classes )
 	{
 		if ( function_exists( 'get_network' ) )
-			$classes.= ' network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
+			$classes.= ' network-'.Core\HTML::sanitizeClass( Core\URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
 
 		if ( gNetwork()->option( 'admin_chosen', 'blog' ) )
 			$classes.= ' enhancement-chosen-enabled';
@@ -66,7 +65,7 @@ class Admin extends gNetwork\Module
 		if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::isRestricted() )
 			$classes.= ' hide-admin-menu';
 
-		if ( WordPress::isSuperAdmin() )
+		if ( Core\WordPress::isSuperAdmin() )
 			$classes.= ' current-user-superadmin';
 
 		return $classes;
@@ -74,8 +73,12 @@ class Admin extends gNetwork\Module
 
 	public function admin_title( $admin_title, $title )
 	{
-		/* translators: %1$s: page title, %2$s: site name */
-		return sprintf( _x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', 'gnetwork' ), $title, get_bloginfo( 'name', 'display' ) );
+		return sprintf(
+			/* translators: `%1$s`: page title, `%2$s`: site name */
+			_x( '%1$s &lsaquo; %2$s &#8212; Content Management', 'Modules: Admin: HTML Title', 'gnetwork' ),
+			$title,
+			get_bloginfo( 'name', 'display' )
+		);
 	}
 
 	public function tablepress_admin_menu_entry_name()
@@ -87,7 +90,7 @@ class Admin extends gNetwork\Module
 	{
 		do_action( $this->hook_base( 'setup_menu' ), 'admin' );
 
-		if ( WordPress::cuc( 'manage_options' ) ) {
+		if ( Core\WordPress::cuc( 'manage_options' ) ) {
 
 			$hook = add_menu_page(
 				_x( 'Network Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
@@ -103,8 +106,11 @@ class Admin extends gNetwork\Module
 				foreach ( $this->get_menus() as $priority => $group )
 					foreach ( $group as $sub => $args )
 						add_submenu_page( $this->base,
-							/* translators: %s: menu title */
-							sprintf( _x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', 'gnetwork' ), $args['title'] ),
+							sprintf(
+								/* translators: `%s`: menu title */
+								_x( 'gNetwork Extras: %s', 'Modules: Admin: Page Menu', 'gnetwork' ),
+								$args['title']
+							),
 							$args['title'],
 							$args['cap'],
 							$this->base.'&sub='.$sub,
@@ -165,7 +171,7 @@ class Admin extends gNetwork\Module
 		// 	$GLOBALS['menu'][50][0] = _x( 'Sensei', 'Modules: Admin: Page Menu', 'gnetwork' );
 
 		// @REF: http://justintadlock.com/?p=3320
-		if ( ! WordPress::cuc( 'update_plugins' ) )
+		if ( ! Core\WordPress::cuc( 'update_plugins' ) )
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
 	}
 
@@ -174,7 +180,7 @@ class Admin extends gNetwork\Module
 		if ( 'tools' == $context )
 			$relative = 'tools.php?page='.static::BASE.'-tools';
 		else
-			$relative = WordPress::cuc( 'manage_options' )
+			$relative = Core\WordPress::cuc( 'manage_options' )
 				? 'admin.php?page='.static::BASE
 				: 'index.php?page='.static::BASE;
 
@@ -291,7 +297,7 @@ class Admin extends gNetwork\Module
 		if ( $this->cucSub( $sub ) ) {
 
 			Settings::headerTitle( NULL, 'version' );
-			HTML::headerNav( $uri, $sub, $subs );
+			Core\HTML::headerNav( $uri, $sub, $subs );
 			Settings::message( $this->filters( 'settings_messages', Settings::messages(), $sub ) );
 
 			if ( 'overview' == $sub )
@@ -345,7 +351,7 @@ class Admin extends gNetwork\Module
 		$tabs     = [];
 		$sitemeta = is_site_meta_supported();
 
-		HTML::h2( _x( 'Site Reports', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Site Reports', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' )
 			&& current_user_can( 'manage_options' ) )
@@ -368,22 +374,22 @@ class Admin extends gNetwork\Module
 				'cb'    => [ __NAMESPACE__.'\\Media', 'registeredImageSizes' ],
 			];
 
-		if ( $sitemeta && WordPress::isSuperAdmin() )
+		if ( $sitemeta && Core\WordPress::isSuperAdmin() )
 			$tabs['sitemeta'] = [
 				'title' => _x( 'Site Meta', 'Modules: Admin: Site Overview', 'gnetwork' ),
 				'cb'    => static function () {
-					HTML::tableSide( get_metadata( 'blog', get_current_blog_id() ) );
+					Core\HTML::tableSide( get_metadata( 'blog', get_current_blog_id() ) );
 				},
 			];
 
-		if ( HTML::tabsList( $this->filters( 'overview', $tabs ), [ 'active' => TRUE ] ) )
+		if ( Core\HTML::tabsList( $this->filters( 'overview', $tabs ), [ 'active' => TRUE ] ) )
 			Scripts::enqueueMasonry();
 	}
 
 	protected function settings_overview( $uri )
 	{
-		HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', 'gnetwork' ) );
-		HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Current Site Overview', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		Core\HTML::desc( _x( 'Below you can find various information about current site and contents.', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 		echo '<hr />';
 
 		echo '<div class="masonry-grid">';
@@ -435,16 +441,16 @@ class Admin extends gNetwork\Module
 	public static function summaryShortcodes()
 	{
 		echo '<div class="-wrap card -floated">';
-		HTML::h2( _x( 'Available Shortcodes', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Available Shortcodes', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
-			echo HTML::listCode( array_keys( $GLOBALS['shortcode_tags'] ), '<code>[%2$s]</code>' );
+			echo Core\HTML::listCode( array_keys( $GLOBALS['shortcode_tags'] ), '<code>[%2$s]</code>' );
 		echo '</div>';
 	}
 
 	public static function summaryComments()
 	{
 		echo '<div class="-wrap card -floated">';
-		HTML::h2( _x( 'Comment Counts', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Comment Counts', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			Comments::commentSummary();
 		echo '</div>';
@@ -453,7 +459,7 @@ class Admin extends gNetwork\Module
 	public static function summaryAuthors()
 	{
 		echo '<div class="-wrap card -floated">';
-		HTML::h2( _x( 'Authors & Roles', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Authors & Roles', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			Authors::summarySiteUser();
 		echo '</div>';
@@ -462,7 +468,7 @@ class Admin extends gNetwork\Module
 	public static function summaryAttachments()
 	{
 		echo '<div class="-wrap card -floated">';
-		HTML::h2( _x( 'Attachment Mime-Types', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Attachment Mime-Types', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			Media::summaryAttachments();
 		echo '</div>';
@@ -471,7 +477,7 @@ class Admin extends gNetwork\Module
 	public static function summaryjQuery()
 	{
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		HTML::h2( _x( 'jQuery Versions', 'Modules: Admin: Site Overview', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'jQuery Versions', 'Modules: Admin: Site Overview', 'gnetwork' ) );
 
 			echo Optimize::summaryjQuery();
 		echo '</div>';
@@ -480,7 +486,7 @@ class Admin extends gNetwork\Module
 	public function admin_enqueue_scripts()
 	{
 		if ( gNetwork()->option( 'admin_chosen', 'blog' )
-			&& ! WordPress::isBlockEditor() ) {
+			&& ! Core\WordPress::isBlockEditor() ) {
 
 			$script = 'jQuery(function($) {
 				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select:not(.no-chosen):not(.postform), .tablenav select:not(#bulk-action-selector-top):not(#bulk-action-selector-bottom)").chosen({
@@ -508,17 +514,17 @@ class Admin extends gNetwork\Module
 
 	public function admin_print_styles()
 	{
-		if ( WordPress::isIFrame() )
+		if ( Core\WordPress::isIFrame() )
 			Utilities::linkStyleSheet( 'admin.iframe' );
 		else
 			Utilities::linkStyleSheet( 'admin.all' );
 
 		if ( is_rtl() )
-			HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.rtl.css', GNETWORK_VERSION );
+			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.rtl.css', GNETWORK_VERSION );
 
 		if ( $this->dark_mode )
 			// @SEE: https://github.com/WordPress/gutenberg/pull/28233
-			HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.darkmode.css', GNETWORK_VERSION );
+			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.darkmode.css', GNETWORK_VERSION );
 
 		Utilities::customStyleSheet( 'admin.css' );
 
@@ -539,9 +545,9 @@ class Admin extends gNetwork\Module
 	protected function localize_script()
 	{
 		return [
-			'metabox_controls_collapse' => HTML::escape( _x( 'Collapse All', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
-			'metabox_controls_expand'   => HTML::escape( _x( 'Expand All', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
-			'reset_button_text'         => HTML::escape( _x( 'Reset', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
+			'metabox_controls_collapse' => Core\HTML::escape( _x( 'Collapse All', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
+			'metabox_controls_expand'   => Core\HTML::escape( _x( 'Expand All', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
+			'reset_button_text'         => Core\HTML::escape( _x( 'Reset', 'Modules: Admin: Localize Script', 'gnetwork' ) ),
 			'reset_button_disabled'     => isset( $_GET['filter_action'] ) ? '' : 'disabled',
 		];
 	}
@@ -567,6 +573,6 @@ class Admin extends gNetwork\Module
 		if ( $branding = gNetwork()->option( 'text_slogan', 'branding' ) )
 			return $content = $branding;
 
-		return HTML::wrap( $content, '-slogan', FALSE );
+		return Core\HTML::wrap( $content, '-slogan', FALSE );
 	}
 }

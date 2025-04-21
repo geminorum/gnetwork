@@ -3,11 +3,10 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Legal extends gNetwork\Module
 {
@@ -103,7 +102,7 @@ class Legal extends gNetwork\Module
 	{
 		if ( file_exists( ABSPATH.'ads.txt' ) ) {
 
-			echo HTML::tag( 'a', [
+			echo Core\HTML::tag( 'a', [
 				'href'   => home_url( '/ads.txt' ),
 				'class'  => 'button button-secondary button-small',
 				'target' => '_blank',
@@ -125,11 +124,11 @@ class Legal extends gNetwork\Module
 			// @REF: https://webmasters.stackexchange.com/a/129389
 			$default = 'placeholder.example.com, placeholder, DIRECT, placeholder';
 
-			if ( FALSE === File::putContents( 'ads.txt', $default, ABSPATH, FALSE ) )
-				WordPress::redirectReferer( 'wrong' );
+			if ( FALSE === Core\File::putContents( 'ads.txt', $default, ABSPATH, FALSE ) )
+				Core\WordPress::redirectReferer( 'wrong' );
 
 			Logger::INFO( 'LEGAL: ads.txt created' );
-			WordPress::redirectReferer( 'maked' );
+			Core\WordPress::redirectReferer( 'maked' );
 		}
 	}
 
@@ -173,7 +172,12 @@ class Legal extends gNetwork\Module
 		return $result;
 	}
 
-	// FALSE for buddypress
+	/**
+	 * Renders the Terms-of-Service Form.
+	 *
+	 * @param bool|object $errors, FALSE for buddy-press
+	 * @return void
+	 */
 	private function tos_form( $errors = FALSE )
 	{
 		echo '<div style="clear:both;"></div><br />';

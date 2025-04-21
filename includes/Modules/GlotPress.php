@@ -3,7 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class GlotPress extends gNetwork\Module
 {
@@ -13,7 +14,7 @@ class GlotPress extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! WordPress::isPluginActive( 'glotpress/glotpress.php' ) )
+		if ( ! Core\WordPress::isPluginActive( 'glotpress/glotpress.php' ) )
 			return FALSE;
 
 		if ( is_admin() )

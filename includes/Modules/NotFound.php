@@ -3,19 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\PostType as WPPostType;
-use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
+use geminorum\gNetwork\WordPress;
 
 class NotFound extends gNetwork\Module
 {
-
-	// TODO: log image loading errors via AJAX after page loaded
-
 	protected $key     = 'notfound';
 	protected $network = FALSE;
 
@@ -104,13 +98,13 @@ class NotFound extends gNetwork\Module
 			$location = GNETWORK_REDIRECT_404_URL;
 
 		if ( ! $location )
-			HTML::desc( _x( 'Redirect 404 disabled.', 'Modules: NotFound: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Redirect 404 disabled.', 'Modules: NotFound: Settings', 'gnetwork' ) );
 
 		else
-			HTML::desc( sprintf(
-				/* translators: %s: notfound location */
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: not-found location */
 				_x( 'Current Location: %s', 'Modules: NotFound: Settings', 'gnetwork' ),
-				HTML::tag( 'code', HTML::link( URL::relative( $location ), $location, TRUE ) )
+				Core\HTML::tag( 'code', Core\HTML::link( Core\URL::relative( $location ), $location, TRUE ) )
 			) );
 	}
 
@@ -125,10 +119,10 @@ class NotFound extends gNetwork\Module
 		if ( $this->options['page_404'] && is_page( $this->options['page_404'] ) )
 			return;
 
-		if ( GNETWORK_REDIRECT_404_URL && GNETWORK_REDIRECT_404_URL == URL::current() )
+		if ( GNETWORK_REDIRECT_404_URL && GNETWORK_REDIRECT_404_URL == Core\URL::current() )
 			return;
 
-		Logger::siteNotFound( '404', HTML::escapeURL( rawurldecode( $_SERVER['REQUEST_URI'] ) ) );
+		Logger::siteNotFound( '404', Core\HTML::escapeURL( rawurldecode( $_SERVER['REQUEST_URI'] ) ) );
 	}
 
 	private function _do_check_object_slugs()
@@ -150,10 +144,10 @@ class NotFound extends gNetwork\Module
 			if ( $query !== $posttype->rewrite['slug'] )
 				continue;
 
-			if ( ! $link = WPPostType::getArchiveLink( $posttype->name ) )
+			if ( ! $link = WordPress\PostType::getArchiveLink( $posttype->name ) )
 				return;
 
-			WordPress::redirect( $link, 303 );
+			Core\WordPress::redirect( $link, 303 );
 		}
 
 		$taxonomies = get_taxonomies( [
@@ -168,10 +162,10 @@ class NotFound extends gNetwork\Module
 			if ( $query !== $taxonomy->rewrite['slug'] )
 				continue;
 
-			if ( ! $link = WPTaxonomy::getArchiveLink( $taxonomy->name ) )
+			if ( ! $link = WordPress\Taxonomy::getArchiveLink( $taxonomy->name ) )
 				return;
 
-			WordPress::redirect( $link, 303 );
+			Core\WordPress::redirect( $link, 303 );
 		}
 	}
 

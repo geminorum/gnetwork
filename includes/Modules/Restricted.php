@@ -3,21 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Error;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Restricted extends gNetwork\Module
 {
-
-	// what if the frontpage is the same as open page: too many redirects?
-
 	protected $key     = 'restricted';
 	protected $network = FALSE;
 
@@ -64,12 +56,12 @@ class Restricted extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'access_site'        => 'none', // restricted_site
-			'access_admin'       => 'none', // restricted_admin
-			'access_profile'     => 'open', // restricted_profile
-			'redirect_to_page'   => '0', // redirect_page
-			'restricted_notice'  => '', // login_message
-			'restricted_message' => '', // restricted_access
+			'access_site'        => 'none',   // restricted_site
+			'access_admin'       => 'none',   // restricted_admin
+			'access_profile'     => 'open',   // restricted_profile
+			'redirect_to_page'   => '0',      // redirect_page
+			'restricted_notice'  => '',       // login_message
+			'restricted_message' => '',       // restricted_access
 		];
 	}
 
@@ -114,18 +106,26 @@ class Restricted extends gNetwork\Module
 					'field'       => 'restricted_notice',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Notice', 'Modules: Restricted: Settings', 'gnetwork' ),
-					/* translators: %1$s: `%1$s` placeholder, %2$s: `%2$s` placeholder */
-					'description' => sprintf( _x( 'Displays on top of the site login page. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', 'gnetwork' ), '<code>%1$s</code>', '<code>%2$s</code>' ),
-					/* translators: %1$s: `%1$s` placeholder, %2$s: `%2$s` placeholder */
+					'description' => sprintf(
+						/* translators: `%1$s`: `%1$s` placeholder, `%2$s`: `%2$s` placeholder */
+						_x( 'Displays on top of the site login page. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', 'gnetwork' ),
+						'<code>%1$s</code>',
+						'<code>%2$s</code>'
+					),
+					/* translators: `%1$s`: `%1$s` placeholder, `%2$s`: `%2$s` placeholder */
 					'default'     => _x( '<p>This site is restricted to users with %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'restricted_message',
 					'type'        => 'textarea-quicktags',
 					'title'       => _x( 'Restricted Message', 'Modules: Restricted: Settings', 'gnetwork' ),
-					/* translators: %1$s: `%1$s` placeholder, %2$s: `%2$s` placeholder */
-					'description' => sprintf( _x( 'Displays on 403 status page for logged-in users. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', 'gnetwork' ), '<code>%1$s</code>', '<code>%2$s</code>' ),
-					/* translators: %1$s: `%1$s` placeholder, %2$s: `%2$s` placeholder */
+					'description' => sprintf(
+						/* translators: `%1$s`: `%1$s` placeholder, `%2$s`: `%2$s` placeholder */
+						_x( 'Displays on 403 status page for logged-in users. Use %1$s for the role, and %2$s for the page.', 'Modules: Restricted: Settings', 'gnetwork' ),
+						'<code>%1$s</code>',
+						'<code>%2$s</code>'
+					),
+					/* translators: `%1$s`: `%1$s` placeholder, `%2$s`: `%2$s` placeholder */
 					'default'     => _x( '<p>You do not have %1$s access level. Please visit <a href="%2$s">here</a> to request access.</p>', 'Modules: Restricted: Settings', 'gnetwork' ),
 				],
 			],
@@ -136,19 +136,21 @@ class Restricted extends gNetwork\Module
 	{
 		if ( $layout = Utilities::getLayout( 'status.403' ) ) {
 
-			/* translators: %s: restricted page path */
-			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Restricted: Settings', 'gnetwork' ),
-				HTML::tag( 'code', HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ) ) ) );
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: restricted page path */
+				_x( 'Current Layout: %s', 'Modules: Restricted: Settings', 'gnetwork' ),
+				Core\HTML::tag( 'code', Core\HTML::link( Core\File::normalize( $layout ), Core\URL::fromPath( $layout ), TRUE ) )
+			) );
 
 		} else {
 
-			HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Restricted: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Restricted: Settings', 'gnetwork' ) );
 		}
 	}
 
 	public static function isRestricted()
 	{
-		return ( ! WordPress::cuc( gNetwork()->option( 'access_site', 'restricted', 'none' ) ) );
+		return ( ! Core\WordPress::cuc( gNetwork()->option( 'access_site', 'restricted', 'none' ) ) );
 	}
 
 	public static function isEnabled()
@@ -190,7 +192,7 @@ class Restricted extends gNetwork\Module
 			$link = get_page_link( $page );
 
 		else if ( $register )
-			$link = WordPress::registerURL( 'site' );
+			$link = Core\WordPress::registerURL( 'site' );
 
 		else
 			$link = '#';
@@ -247,11 +249,11 @@ class Restricted extends gNetwork\Module
 	{
 		$this->filter( 'feed_link', 2, 12 );
 
-		if ( WordPress::cuc( $this->options['access_admin'] ) )
+		if ( Core\WordPress::cuc( $this->options['access_admin'] ) )
 			return;
 
 		if ( 'open' == $this->options['access_profile']
-			&& WordPress::pageNow( 'profile.php' ) ) {
+			&& Core\WordPress::pageNow( 'profile.php' ) ) {
 
 			// do nothing
 
@@ -266,7 +268,7 @@ class Restricted extends gNetwork\Module
 
 		} else if ( $this->options['redirect_to_page'] ) {
 
-			WordPress::redirect( get_page_link( $this->options['redirect_to_page'] ), 302 );
+			Core\WordPress::redirect( get_page_link( $this->options['redirect_to_page'] ), 302 );
 
 		} else {
 
@@ -279,7 +281,7 @@ class Restricted extends gNetwork\Module
 	{
 		$this->filter( 'feed_link', 2, 12 );
 
-		if ( WordPress::cuc( $this->options['access_site'] ) )
+		if ( Core\WordPress::cuc( $this->options['access_site'] ) )
 			return;
 
 		// blocks search engines and robots
@@ -314,13 +316,13 @@ class Restricted extends gNetwork\Module
 
 	public function status_header( $status_header, $header, $text, $protocol )
 	{
-		return $protocol.' '.$this->status_code.' '.HTTP::getStatusDesc( $this->status_code );
+		return $protocol.' '.$this->status_code.' '.Core\HTTP::getStatusDesc( $this->status_code );
 	}
 
 	public function rest_authentication_errors( $null )
 	{
 		return self::isRestricted()
-			? new Error( 'restricted', $this->get_restricted_notice(), [ 'status' => $this->status_code ] )
+			? new Core\Error( 'restricted', $this->get_restricted_notice(), [ 'status' => $this->status_code ] )
 			: $null;
 	}
 
@@ -348,12 +350,15 @@ class Restricted extends gNetwork\Module
 
 	public function dashboard_pointers( $items )
 	{
-		$can = WordPress::cuc( 'manage_options' );
+		$can = Core\WordPress::cuc( 'manage_options' );
 
-		$items[] = HTML::tag( $can ? 'a' : 'span', [
+		$items[] = Core\HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'restricted' ) : FALSE,
-			/* translators: %s: access role */
-			'title' => sprintf( _x( 'This site is restricted to users with %s access level.', 'Modules: Restricted', 'gnetwork' ), Settings::getUserCapList( $this->options['access_site'] ) ),
+			'title' => sprintf(
+				/* translators: `%s`: access role */
+				_x( 'This site is restricted to users with %s access level.', 'Modules: Restricted', 'gnetwork' ),
+				Settings::getUserCapList( $this->options['access_site'] )
+			),
 			'class' => '-restricted',
 		], _x( 'Site is Restricted', 'Modules: Restricted', 'gnetwork' ) );
 
@@ -381,19 +386,19 @@ class Restricted extends gNetwork\Module
 
 		$current_user = get_current_user_id();
 
-		if ( $current_user && WordPress::cuc( $this->options['access_site'] ) )
+		if ( $current_user && Core\WordPress::cuc( $this->options['access_site'] ) )
 			return;
 
 		if ( ! $current_user && ! is_front_page() && ! is_home() )
-			WordPress::redirectLogin( URL::current() );
+			Core\WordPress::redirectLogin( Core\URL::current() );
 
 		if ( $this->options['redirect_to_page'] )
-			WordPress::redirect( get_page_link( $this->options['redirect_to_page'] ), 303 );
+			Core\WordPress::redirect( get_page_link( $this->options['redirect_to_page'] ), 303 );
 
 		if ( $current_user )
 			$this->render_restricted_layout( $current_user );
 
-		WordPress::redirectLogin();
+		Core\WordPress::redirectLogin();
 	}
 
 	private function is_restricted_feed( $feedkey )
@@ -447,7 +452,7 @@ class Restricted extends gNetwork\Module
 			// TODO: use `_xml_wp_die_handler()` @since WP 5.2.0
 
 			$message = htmlspecialchars( _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', 'gnetwork' ) );
-			$title   = htmlspecialchars( HTTP::getStatusDesc( $this->status_code ) );
+			$title   = htmlspecialchars( Core\HTTP::getStatusDesc( $this->status_code ) );
 
 			$xml = <<<EOD
 <error>
@@ -538,7 +543,7 @@ EOD;
 					'type'   => 'custom',
 					'cap'    => 'read',
 					'title'  => _x( 'Posts Feed for You', 'Modules: Restricted', 'gnetwork' ),
-					'values' => '<code><a href="'.HTML::escapeURL( $posts_feed ).'" target="_blank">'.$posts_feed.'</a></code>',
+					'values' => '<code><a href="'.Core\HTML::escapeURL( $posts_feed ).'" target="_blank">'.$posts_feed.'</a></code>',
 					'wrap'   => 'tr',
 				] );
 
@@ -547,7 +552,7 @@ EOD;
 					'type'   => 'custom',
 					'cap'    => 'read',
 					'title'  => _x( 'Comments Feed for You', 'Modules: Restricted', 'gnetwork' ),
-					'values' => '<code><a href="'.HTML::escapeURL( $comments_feed ).'" target="_blank">'.$comments_feed.'</a></code>',
+					'values' => '<code><a href="'.Core\HTML::escapeURL( $comments_feed ).'" target="_blank">'.$comments_feed.'</a></code>',
 					'wrap'   => 'tr',
 				] );
 			}
@@ -573,7 +578,7 @@ EOD;
 
 	public static function get403Logout( $class = 'logout' )
 	{
-		$html = HTML::tag( 'a', [
+		$html = Core\HTML::tag( 'a', [
 			'title' => gNetwork()->brand( 'name' ),
 			'href'  => gNetwork()->brand( 'url' ),
 		], _x( 'Home Page', 'Modules: Restricted', 'gnetwork' ) );
@@ -581,19 +586,19 @@ EOD;
 		if ( is_user_logged_in() ) {
 
 			if ( is_user_member_of_blog() ) {
-				$html.= ' / '.HTML::tag( 'a', [
+				$html.= ' / '.Core\HTML::tag( 'a', [
 					'href'  => admin_url( 'profile.php' ),
 					'title' => _x( 'View and update your profile', 'Modules: Restricted', 'gnetwork' ),
 				], _x( 'Your Profile', 'Modules: Restricted', 'gnetwork' ) );
 			}
 
-			$html.= ' / '.HTML::tag( 'a', [
+			$html.= ' / '.Core\HTML::tag( 'a', [
 				'href'  => wp_logout_url(),
 				'title' => _x( 'Log-out of this site', 'Modules: Restricted', 'gnetwork' ),
 			], _x( 'Log Out', 'Modules: Restricted', 'gnetwork' ) );
 		}
 
-		return $class ? HTML::wrap( $html, $class ) : $html;
+		return $class ? Core\HTML::wrap( $html, $class ) : $html;
 	}
 
 	public static function get403Message( $class = 'message' )
@@ -601,13 +606,13 @@ EOD;
 		if ( ! $html = gNetwork()->restricted->get_restricted_message() )
 			$html = _x( 'You do not have sufficient access level.', 'Modules: Restricted', 'gnetwork' );
 
-		return $class ? HTML::wrap( $html, $class ) : $html;
+		return $class ? Core\HTML::wrap( $html, $class ) : $html;
 	}
 
 	public function default_template()
 	{
 		$content_title   = $head_title = $this->status_code;
-		$content_desc    = HTTP::getStatusDesc( $this->status_code );
+		$content_desc    = Core\HTTP::getStatusDesc( $this->status_code );
 		$content_message = self::get403Message( FALSE );
 		$content_menu    = self::get403Logout( FALSE );
 		$head_callback   = '';
@@ -630,11 +635,11 @@ EOD;
 
 		$this->actions( 'template_before' );
 
-		HTML::h1( $content_title );
-		HTML::h3( $content_desc );
+		Core\HTML::h1( $content_title );
+		Core\HTML::h3( $content_desc );
 
 		echo $rtl ? '<div dir="rtl">' : '<div>';
-			echo Text::autoP( $content_message );
+			echo Core\Text::autoP( $content_message );
 			echo $content_menu;
 		echo '</div>';
 

@@ -3,14 +3,10 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\PostType as WPPostType;
-use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
+use geminorum\gNetwork\WordPress;
 
 class Navigation extends gNetwork\Module
 {
@@ -240,18 +236,18 @@ class Navigation extends gNetwork\Module
 	public function get_sites_pages()
 	{
 		$items = [];
-		$admin = WordPress::isSuperAdmin();
-		$sites = WordPress::getAllSites( ( $admin ? FALSE : get_current_user_id() ), $admin );
+		$admin = Core\WordPress::isSuperAdmin();
+		$sites = Core\WordPress::getAllSites( ( $admin ? FALSE : get_current_user_id() ), $admin );
 
 		foreach ( $sites as $site ) {
 
-			if ( ! $name = WordPress::getSiteName( $site->userblog_id ) )
-				$name = URL::untrail( $site->domain.$site->path );
+			if ( ! $name = Core\WordPress::getSiteName( $site->userblog_id ) )
+				$name = Core\URL::untrail( $site->domain.$site->path );
 
 			$items[] = [
 				'name' => $name,
 				'slug' => 'site-'.$site->userblog_id,
-				'link' => URL::trail( $site->siteurl ),
+				'link' => Core\URL::trail( $site->siteurl ),
 			];
 		}
 
@@ -264,7 +260,7 @@ class Navigation extends gNetwork\Module
 
 		foreach ( $items as $item )
 			$objects[$item['slug']] = (object) [
-				'label'          => isset( $item['label'] ) ? $item['label'] : Text::trimChars( $item['name'], 60 ),
+				'label'          => isset( $item['label'] ) ? $item['label'] : Core\Text::trimChars( $item['name'], 60 ),
 				'ID'             => -1,
 				'post_title'     => $item['name'],
 				'post_author'    => 0,
@@ -352,7 +348,7 @@ class Navigation extends gNetwork\Module
 			case 'posts_feed':
 
 				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::isEnabled() )
-					WordPress::doNotCache();
+					Core\WordPress::doNotCache();
 
 				$menu_item->url = get_feed_link();
 
@@ -360,7 +356,7 @@ class Navigation extends gNetwork\Module
 			case 'comments_feed':
 
 				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::isEnabled() )
-					WordPress::doNotCache();
+					Core\WordPress::doNotCache();
 
 				$menu_item->url = get_feed_link( 'comments_'.get_default_feed() );
 
@@ -368,11 +364,11 @@ class Navigation extends gNetwork\Module
 			default:
 
 				// network sites
-				if ( $menu_item->url && Text::starts( $matches[1], 'site-' ) )
+				if ( $menu_item->url && Core\Text::starts( $matches[1], 'site-' ) )
 					break;
 
 				// via filter customs
-				if ( $menu_item->url && Text::starts( $matches[1], 'custom-' ) )
+				if ( $menu_item->url && Core\Text::starts( $matches[1], 'custom-' ) )
 					break;
 
 				// all other nav items are specific to the logged-in user,
@@ -389,7 +385,7 @@ class Navigation extends gNetwork\Module
 			// if component is deactivated, make sure menu item doesn't render
 			$menu_item->_invalid = TRUE;
 
-		} else if ( FALSE !== strpos( URL::current(), $menu_item->url ) ) {
+		} else if ( FALSE !== strpos( Core\URL::current(), $menu_item->url ) ) {
 
 			// highlight the current page
 			if ( is_array( $menu_item->classes ) ) {
@@ -408,7 +404,7 @@ class Navigation extends gNetwork\Module
 
 	public function wp_nav_menu_items( $items, $args )
 	{
-		$current = URL::current();
+		$current = Core\URL::current();
 
 		foreach ( $this->filters( 'replace_nav_menu', [], $current ) as $pattern => $replacement )
 			$items = preg_replace( $pattern, sprintf( $replacement, urlencode( $current ) ), $items );
@@ -418,21 +414,21 @@ class Navigation extends gNetwork\Module
 
 	private function get_register_url()
 	{
-		return $this->filters( 'register_url', WordPress::registerURL() );
+		return $this->filters( 'register_url', Core\WordPress::registerURL() );
 	}
 
 	// FIXME: check if not caching then add redirect arg
 	// @SEE: `wp_using_ext_object_cache()`
 	private function get_login_url()
 	{
-		return $this->filters( 'login_url', WordPress::loginURL() );
+		return $this->filters( 'login_url', Core\WordPress::loginURL() );
 	}
 
 	// FIXME: check if not caching then add redirect arg
 	// @SEE: `wp_using_ext_object_cache()`
 	private function get_logout_url()
 	{
-		return $this->filters( 'logout_url', WordPress::loginURL( '', TRUE ) );
+		return $this->filters( 'logout_url', Core\WordPress::loginURL( '', TRUE ) );
 	}
 
 	private function get_edit_profile_url()
@@ -466,10 +462,10 @@ class Navigation extends gNetwork\Module
 		if ( ! in_array( $item->type, [ 'post_type', 'taxonomy' ], TRUE ) )
 			return;
 
-		if ( 'post_type' == $item->type && ! WPPostType::object( $item->object )->hierarchical )
+		if ( 'post_type' == $item->type && ! WordPress\PostType::object( $item->object )->hierarchical )
 			return;
 
-		if ( 'taxonomy' == $item->type && ! WPTaxonomy::object( $item->object )->hierarchical )
+		if ( 'taxonomy' == $item->type && ! WordPress\Taxonomy::object( $item->object )->hierarchical )
 			return;
 
 		echo '<fieldset class="description description-wide"><label for="edit-menu-item-children-'.$item_id.'">';
@@ -536,7 +532,7 @@ class Navigation extends gNetwork\Module
 	{
 		$i     = 1;
 		$list  = [];
-		$terms = WPTaxonomy::listTerms( $item->object, 'all', [
+		$terms = WordPress\Taxonomy::listTerms( $item->object, 'all', [
 			'include'    => get_term_children( $item->object_id, $item->object ),
 			'hide_empty' => TRUE, // TODO: make this optional
 		] );
@@ -574,7 +570,7 @@ class Navigation extends gNetwork\Module
 
 		$key = static::BASE.'_'.$name.( $items ? '' : '_html' );
 
-		if ( WordPress::isFlush() && is_main_site() )
+		if ( Core\WordPress::isFlush() && is_main_site() )
 			update_network_option( NULL, $key, '' );
 
 		else if ( $menu = get_network_option( NULL, $key, NULL ) )
@@ -625,14 +621,14 @@ class Navigation extends gNetwork\Module
 						$results = wp_nav_menu( [
 							'menu'         => $term->term_id,
 							'menu_id'      => $name,
-							'menu_class'   => HTML::prepClass( $classes ),
+							'menu_class'   => Core\HTML::prepClass( $classes ),
 							'container'    => '',
 							'item_spacing' => 'discard',
 							'fallback_cb'  => FALSE,
 							'echo'         => FALSE,
 						] );
 
-						$menu = $results ? Text::minifyHTML( $results ) : FALSE;
+						$menu = $results ? Core\Text::minifyHTML( $results ) : FALSE;
 					}
 				}
 			}
@@ -649,6 +645,7 @@ class Navigation extends gNetwork\Module
 }
 
 // @SOURCE: `BP_Walker_Nav_Menu_Checklist`
+#[\AllowDynamicProperties]
 class Walker_Nav_Menu_Checklist extends \Walker_Nav_Menu
 {
 

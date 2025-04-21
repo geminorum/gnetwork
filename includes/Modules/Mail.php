@@ -4,29 +4,15 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\WordPress;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\WordPress;
 
 class Mail extends gNetwork\Module
 {
-
 	protected $key  = 'mail';
 	protected $ajax = TRUE;
-
-	/**
-	 * 	TODO: wrap all mail in html with direction attr
-	 * 		-- convert mime-type header
-
-	 * The default content type is ‘text/plain’ which does not allow using HTML. You can set the content type of the email either by using the ‘wp_mail_content_type‘ filter ( see example below), or by including a header like “Content-type: text/html”. Be careful to reset ‘wp_mail_content_type’ back to ‘text/plain’ after you send your message, though, because failing to do so could lead to unexpected problems with e-mails from WP or plugins/themes.
-	 * The default charset is based on the charset used on the blog. The charset can be set using the ‘wp_mail_charset‘ filter.
-	 * https://developer.wordpress.org/reference/functions/wp_mail/
-	 */
 
 	protected function setup_actions()
 	{
@@ -231,7 +217,7 @@ class Mail extends gNetwork\Module
 	{
 		echo $this->wrap_open_buttons();
 
-		echo HTML::tag( 'a', [
+		echo Core\HTML::tag( 'a', [
 			'class' => 'button button-secondary button-small',
 			'href'  => $this->get_menu_url( 'testmail', NULL, 'tools' ),
 		], _x( 'Test Mail', 'Modules: Mail', 'gnetwork' ) );
@@ -240,7 +226,7 @@ class Mail extends gNetwork\Module
 
 			echo '&nbsp;';
 
-			echo HTML::tag( 'a', [
+			echo Core\HTML::tag( 'a', [
 				'class' => 'button button-secondary button-small',
 				'href'  => $this->get_menu_url( 'emaillogs', NULL, 'tools' ),
 			], _x( 'Email Logs', 'Modules: Mail', 'gnetwork' ) );
@@ -258,9 +244,9 @@ class Mail extends gNetwork\Module
 
 			$this->check_referer( $sub, 'settings' );
 
-			$created = File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
+			$created = Core\File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
 
-			WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
+			Core\WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 		}
 	}
 
@@ -293,32 +279,26 @@ class Mail extends gNetwork\Module
 
 				$this->check_referer( $sub, 'tools' );
 
-				// TODO: add exporting to .eml files
-				// http://stackoverflow.com/a/16039103
-				// http://stackoverflow.com/a/8777197
-				// http://www.alexcasamassima.com/2013/02/send-pre-formatted-eml-file-in-php.html
-				// https://wiki.zarafa.com/index.php/Eml_vs_msg
-
 				if ( self::isTablelistAction( 'deletelogs_all' ) ) {
 
-					WordPress::redirectReferer( ( FALSE === File::emptyDir( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'purged' ) );
+					Core\WordPress::redirectReferer( ( FALSE === Core\File::emptyDir( GNETWORK_MAIL_LOG_DIR, TRUE ) ? 'error' : 'purged' ) );
 
 				} else if ( self::isTablelistAction( 'deletelogs_selected', TRUE ) ) {
 
 					$count = 0;
 
 					foreach ( $_POST['_cb'] as $log )
-						if ( TRUE === unlink( File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' ) ) )
+						if ( TRUE === unlink( Core\File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' ) ) )
 							$count++;
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'deleted',
 						'count'   => $count,
 					] );
 
 				} else {
 
-					WordPress::redirectReferer( 'wrong' );
+					Core\WordPress::redirectReferer( 'wrong' );
 				}
 			}
 		}
@@ -393,7 +373,7 @@ class Mail extends gNetwork\Module
 	public function phpmailer_init( &$phpmailer )
 	{
 		$phpmailer->Mailer   = $this->options['mailer'];
-		$phpmailer->Hostname = WordPress::getHostName();
+		$phpmailer->Hostname = Core\WordPress::getHostName();
 
 		if ( 'from' == strtolower( $this->options['sender'] ) )
 			$phpmailer->Sender = $phpmailer->From;
@@ -444,10 +424,10 @@ class Mail extends gNetwork\Module
 	{
 		$contents = array_merge( [
 			'timestamp' => current_time( 'mysql' ),
-			'site'      => WordPress::currentSiteName(),
+			'site'      => Core\WordPress::currentSiteName(),
 			'locale'    => get_locale(),
 			'user'      => get_current_user_id(),
-		], Arraay::filterArray( $atts ) );
+		], Core\Arraay::filterArray( $atts ) );
 
 		if ( is_rtl() )
 			$contents['rtl'] = 'true';
@@ -460,10 +440,10 @@ class Mail extends gNetwork\Module
 		if ( is_array( $recipient ) )
 			$recipient = array_shift( $recipient );
 
-		$filename = File::escFilename( sprintf( '%s-%s', current_time( 'Ymd-His' ), $recipient ) ).'.json';
+		$filename = Core\File::escFilename( sprintf( '%s-%s', current_time( 'Ymd-His' ), $recipient ) ).'.json';
 		$logged   = wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT );
 
-		if ( FALSE === File::putContents( $filename, $logged, GNETWORK_MAIL_LOG_DIR ) )
+		if ( FALSE === Core\File::putContents( $filename, $logged, GNETWORK_MAIL_LOG_DIR ) )
 			return Logger::FAILED( sprintf( 'EMAIL-LOGS: can not log email to: %s', $recipient ) );
 
 		Logger::INFO( sprintf( 'EMAIL-LOGS: logged email to: %s', $recipient ) );
@@ -494,29 +474,29 @@ class Mail extends gNetwork\Module
 
 	public function log_actions()
 	{
-		if ( ! WordPress::cuc( $this->is_network() ? 'manage_network_options' : 'manage_options' ) )
-			WordPress::cheatin();
+		if ( ! Core\WordPress::cuc( $this->is_network() ? 'manage_network_options' : 'manage_options' ) )
+			Core\WordPress::cheatin();
 
 		if ( ! $log = self::req( 'log' ) )
-			WordPress::redirectReferer( 'wrong' );
+			Core\WordPress::redirectReferer( 'wrong' );
 
-		$file = File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' );
+		$file = Core\File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' );
 
 		switch ( self::req( 'what' ) ) {
 
 			case 'download':
 
 				if ( ! File::download( $file, $log.'.json' ) )
-					WordPress::redirectReferer( 'wrong' );
+					Core\WordPress::redirectReferer( 'wrong' );
 
 			break;
 			case 'delete':
 
 				if ( TRUE === unlink( $file ) )
-					WordPress::redirectReferer( [ 'message' => 'deleted', 'count' => 1 ] );
+					Core\WordPress::redirectReferer( [ 'message' => 'deleted', 'count' => 1 ] );
 		}
 
-		WordPress::redirectReferer( 'wrong' );
+		Core\WordPress::redirectReferer( 'wrong' );
 	}
 
 	// TODO: optional send HTML
@@ -524,7 +504,7 @@ class Mail extends gNetwork\Module
 	{
 		$to      = isset( $_POST['send_testmail_to'] ) ? $_POST['send_testmail_to'] : $this->get_from_email();
 		/* translators: %s: site name */
-		$subject = isset( $_POST['send_testmail_subject'] ) ? $_POST['send_testmail_subject'] : sprintf( _x( '[%s] Test Mail', 'Modules: Mail', 'gnetwork' ), WordPress::getSiteNameforEmail() );
+		$subject = isset( $_POST['send_testmail_subject'] ) ? $_POST['send_testmail_subject'] : sprintf( _x( '[%s] Test Mail', 'Modules: Mail', 'gnetwork' ), Core\WordPress::getSiteNameforEmail() );
 		$message = isset( $_POST['send_testmail_message'] ) ? $_POST['send_testmail_message'] : _x( 'This is a test email generated by the gNetwork Mail plugin.', 'Modules: Mail', 'gnetwork' );
 
 		echo '<table class="form-table"><tbody>';
@@ -570,20 +550,20 @@ class Mail extends gNetwork\Module
 			$smtp_debug = ob_get_clean();
 
 			$classes = 'notice-'.( FALSE === $result ? 'error' : 'success' ).' fade inline';
-			echo HTML::notice( _x( 'Test message sent.', 'Modules: Mail', 'gnetwork' ), $classes, FALSE );
+			echo Core\HTML::notice( _x( 'Test message sent.', 'Modules: Mail', 'gnetwork' ), $classes, FALSE );
 
-			HTML::desc( _x( 'The result was:', 'Modules: Mail', 'gnetwork' ) );
-			HTML::dump( $result );
-
-			echo '<hr />';
-
-			HTML::desc( _x('The SMTP debugging output:', 'Modules: Mail', 'gnetwork' ) );
-			echo HTML::wrap( $smtp_debug, '-smtp-debug' );
+			Core\HTML::desc( _x( 'The result was:', 'Modules: Mail', 'gnetwork' ) );
+			Core\HTML::dump( $result );
 
 			echo '<hr />';
 
-			HTML::desc( _x('The full phpmailer object properties:', 'Modules: Mail', 'gnetwork' ) );
-			HTML::tableSide( $phpmailer );
+			Core\HTML::desc( _x('The SMTP debugging output:', 'Modules: Mail', 'gnetwork' ) );
+			echo Core\HTML::wrap( $smtp_debug, '-smtp-debug' );
+
+			echo '<hr />';
+
+			Core\HTML::desc( _x('The full phpmailer object properties:', 'Modules: Mail', 'gnetwork' ) );
+			Core\HTML::tableSide( $phpmailer );
 
 			unset( $phpmailer );
 		}
@@ -601,7 +581,7 @@ class Mail extends gNetwork\Module
 		if ( empty( $logs ) )
 			return Utilities::emptyDataLogs( GNETWORK_MAIL_LOG_DIR );
 
-		return HTML::tableList( [
+		return Core\HTML::tableList( [
 			'_cb' => 'file',
 
 			'info' => [
@@ -615,16 +595,16 @@ class Mail extends gNetwork\Module
 						if ( is_array( $row['to'] ) ) {
 
 							foreach ( $row['to'] as $to )
-								$html.= HTML::code( HTML::mailto( $to ) ).' ';
+								$html.= Core\HTML::code( Core\HTML::mailto( $to ) ).' ';
 
-						} else if ( Text::has( $row['to'], ',' ) ) {
+						} else if ( Core\Text::has( $row['to'], ',' ) ) {
 
 							foreach ( explode( ',', $row['to'] ) as $to )
-								$html.= HTML::code(HTML::mailto( $to ) ).' ';
+								$html.= Core\HTML::code( Core\HTML::mailto( $to ) ).' ';
 
 						} else {
 
-							$html.= HTML::code(HTML::mailto( $row['to'] ) ).' ';
+							$html.= Core\HTML::code( Core\HTML::mailto( $row['to'] ) ).' ';
 						}
 					}
 
@@ -636,7 +616,7 @@ class Mail extends gNetwork\Module
 
 					if ( ! empty( $row['user'] ) )
 						$html.= '<code title="'._x( 'User', 'Modules: Mail: Email Logs Table', 'gnetwork' )
-							.'">'.HTML::link( get_user_by( 'id', $row['user'] )->user_login, WordPress::getUserEditLink( $row['user'] ) ).'</code> @ ';
+							.'">'.Core\HTML::link( get_user_by( 'id', $row['user'] )->user_login, Core\WordPress::getUserEditLink( $row['user'] ) ).'</code> @ ';
 
 					if ( ! empty( $row['site'] ) )
 						$html.= '<code title="'._x( 'Site', 'Modules: Mail: Email Logs Table', 'gnetwork' )
@@ -653,7 +633,7 @@ class Mail extends gNetwork\Module
 							$row['headers'] = explode( "\n", $row['headers']  );
 
 						foreach ( array_filter( $row['headers'] ) as $header )
-							$html.= '<code class="-header">'.HTML::escapeTextarea( $header ).'</code><br />';
+							$html.= '<code class="-header">'.Core\HTML::escapeTextarea( $header ).'</code><br />';
 					}
 
 					if ( ! empty( $row['attachments'] ) ) {
@@ -669,18 +649,18 @@ class Mail extends gNetwork\Module
 						}
 					}
 
-					return HTML::wrap( $html, '-info' );
+					return Core\HTML::wrap( $html, '-info' );
 				},
 				'actions' => function ( $value, $row, $column, $index, $key, $args ) {
 
 					return [
-						'download' => HTML::tag( 'a', [
-							'href'  => WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'download' ] ),
+						'download' => Core\HTML::tag( 'a', [
+							'href'  => Core\WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'download' ] ),
 							'class' => '-link -row-link -row-link-download',
 						], _x( 'Download', 'Modules: Mail: Row Action', 'gnetwork' ) ),
 
-						'delete' => HTML::tag( 'a', [
-							'href'  => WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'delete' ] ),
+						'delete' => Core\HTML::tag( 'a', [
+							'href'  => Core\WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'delete' ] ),
 							'class' => '-link -row-link -row-link-delete',
 						], _x( 'Delete', 'Modules: Mail: Row Action', 'gnetwork' ) ),
 					];
@@ -712,7 +692,7 @@ class Mail extends gNetwork\Module
 		], $logs, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of Email Logs', 'Modules: Mail', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Email Logs', 'Modules: Mail', 'gnetwork' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -723,7 +703,7 @@ class Mail extends gNetwork\Module
 			return FALSE;
 
 		foreach ( (array) $mail['headers'] as $header )
-			if ( Text::has( $header, $needle ) )
+			if ( Core\Text::has( $header, $needle ) )
 				return TRUE;
 
 		return FALSE;

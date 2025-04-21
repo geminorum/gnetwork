@@ -3,13 +3,10 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Code extends gNetwork\Module
 {
@@ -104,17 +101,17 @@ class Code extends gNetwork\Module
 			'after'   => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isXML() )
+		if ( FALSE === $args['context'] || Core\WordPress::isXML() )
 			return NULL;
 
 		$key = $this->hash( 'githubreadme', $args );
 
-		if ( WordPress::isFlush() )
+		if ( Core\WordPress::isFlush() )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
 
-			$args['repo'] = str_replace( 'https://github.com/', '', URL::untrail( $args['repo'] ) );
+			$args['repo'] = str_replace( 'https://github.com/', '', Core\URL::untrail( $args['repo'] ) );
 
 			switch ( $args['type'] ) {
 				case 'wiki'     : $url = 'https://raw.githubusercontent.com/wiki/'.$args['repo'].'/'.$args['page'].'.md'; break;
@@ -130,9 +127,9 @@ class Code extends gNetwork\Module
 			// ];
 
 			if ( in_array( $args['type'], [ 'wiki', 'markdown', 'changelog' ] ) )
-				$md = HTTP::getHTML( $url );
+				$md = Core\HTTP::getHTML( $url );
 
-			else if ( $json = HTTP::getJSON( $url ) )
+			else if ( $json = Core\HTTP::getJSON( $url ) )
 				$md = base64_decode( $json['content'] );
 
 			else
@@ -149,7 +146,7 @@ class Code extends gNetwork\Module
 					$html = self::convertGitHubWikiLinks( $html, $args['repo'] );
 
 				$html = self::convertGitHubLinks( $html, $args['repo'], $args['branch'] );
-				$html = Text::minifyHTML( $html );
+				$html = Core\Text::minifyHTML( $html );
 
 				set_site_transient( $key, $html, GNETWORK_CACHE_TTL );
 
@@ -172,7 +169,7 @@ class Code extends gNetwork\Module
 
 			$slug = $text = $match[1];
 
-			if ( Text::has( $text, '|' ) )
+			if ( Core\Text::has( $text, '|' ) )
 				list( $text, $slug ) = explode( '|', $text, 2 );
 
 			$slug = preg_replace( '/\s+/', '-', $slug );
@@ -221,13 +218,13 @@ class Code extends gNetwork\Module
 			'after'             => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isXML() )
+		if ( FALSE === $args['context'] || Core\WordPress::isXML() )
 			return NULL;
 
 		if ( FALSE == $args['id'] )
 			return $content;
 
-		$html = HTML::tag( 'code', [
+		$html = Core\HTML::tag( 'code', [
 			'data' => [
 				'gist-id'                => $args['id'],
 				'gist-hide-line-numbers' => $args['hide-line-numbers'] ? 'true' : FALSE,
@@ -254,17 +251,17 @@ class Code extends gNetwork\Module
 			'wrap'     => TRUE,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isXML() )
+		if ( FALSE === $args['context'] || Core\WordPress::isXML() )
 			return NULL;
 
 		if ( ! $content )
 			return NULL;
 
-		$html = HTML::tag( 'textarea', [
+		$html = Core\HTML::tag( 'textarea', [
 			'class'    => $args['class'],
 			'readonly' => $args['readonly'],
 			'onclick'  => $args['js'] ? 'this.focus();this.select()' : FALSE,
-		], HTML::escapeTextarea( $content ) );
+		], Core\HTML::escapeTextarea( $content ) );
 
 		unset( $args['class'] );
 
@@ -295,7 +292,7 @@ class Code extends gNetwork\Module
 		$html  = '<img class="-badge" src="'.$args['provider'].$badge.'.'.$args['extension'].'?style='.$args['style'].'" />';
 
 		if ( $args['link'] )
-			$html = HTML::tag( 'a', [
+			$html = Core\HTML::tag( 'a', [
 				'href'  => $args['link'],
 				'title' => $args['subject'].' '.$args['status'],
 			], $html );

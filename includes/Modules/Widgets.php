@@ -3,9 +3,9 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Widgets extends gNetwork\Module
 {
@@ -29,7 +29,7 @@ class Widgets extends gNetwork\Module
 		else if ( is_admin() )
 			add_action( 'widgets_init', [ $this, 'populate_widgets' ], 100 );
 
-		if ( count( $this->options['disabled_dashboard_widgets'] ) && WordPress::mustRegisterUI() )
+		if ( count( $this->options['disabled_dashboard_widgets'] ) && Core\WordPress::mustRegisterUI() )
 			add_action( 'wp_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
 	}
 
@@ -84,7 +84,7 @@ class Widgets extends gNetwork\Module
 			if ( in_array( $value_name, $exclude ) )
 				continue;
 
-			$html = HTML::tag( 'input', [
+			$html = Core\HTML::tag( 'input', [
 				'type'     => 'checkbox',
 				'class'    => $args['field_class'],
 				'name'     => $name.'['.$value_name.']',
@@ -95,7 +95,7 @@ class Widgets extends gNetwork\Module
 				'dir'      => $args['dir'],
 			] );
 
-			HTML::label( $html.'&nbsp;'.HTML::escape( $value_title ).' <code>'.$value_name.'</code>', $id.'-'.$value_name );
+			Core\HTML::label( $html.'&nbsp;'.Core\HTML::escape( $value_title ).' <code>'.$value_name.'</code>', $id.'-'.$value_name );
 		}
 	}
 
@@ -121,7 +121,7 @@ class Widgets extends gNetwork\Module
 		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 		extract( $pre, EXTR_SKIP );
 
-		$html = HTML::tag( 'input', [
+		$html = Core\HTML::tag( 'input', [
 			'type'    => 'checkbox',
 			'class'   => $args['field_class'],
 			'name'    => $name.'[core::dashboard_welcome_panel]',
@@ -130,7 +130,7 @@ class Widgets extends gNetwork\Module
 			'checked' => in_array( 'core::dashboard_welcome_panel', (array) $value ),
 		] );
 
-		HTML::label( $html.'&nbsp;'.__( 'Welcome to WordPress!' ).' <code>dashboard_welcome_panel</code>', $id.'-core-dashboard_welcome_panel' );
+		Core\HTML::label( $html.'&nbsp;'.__( 'Welcome to WordPress!' ).' <code>dashboard_welcome_panel</code>', $id.'-core-dashboard_welcome_panel' );
 
 		foreach ( $wp_meta_boxes['dashboard'] as $context => $priority ) {
 
@@ -141,7 +141,7 @@ class Widgets extends gNetwork\Module
 					if ( FALSE === $widget )
 						continue;
 
-					$html = HTML::tag( 'input', [
+					$html = Core\HTML::tag( 'input', [
 						'type'    => 'checkbox',
 						'class'   => $args['field_class'],
 						'name'    => $name.'['.$context.'::'.$value_name.']',
@@ -150,10 +150,10 @@ class Widgets extends gNetwork\Module
 						'checked' => in_array( $context.'::'.$value_name, (array) $value ),
 					] );
 
-					$html.= '&nbsp;'.HTML::escape( strip_tags( $widget['title'] ) );
+					$html.= '&nbsp;'.Core\HTML::escape( strip_tags( $widget['title'] ) );
 					$html.= ' <code>'.$value_name.'</code>';
 
-					HTML::label( $html, $id.'-'.$context.'-'.$value_name );
+					Core\HTML::label( $html, $id.'-'.$context.'-'.$value_name );
 				}
 			}
 		}

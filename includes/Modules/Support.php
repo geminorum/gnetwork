@@ -4,16 +4,13 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Support extends gNetwork\Module
 {
-
 	protected $key     = 'support';
 	protected $network = FALSE;
 	protected $front   = FALSE;
@@ -101,9 +98,11 @@ class Support extends gNetwork\Module
 
 	protected function get_widget_report_info()
 	{
-		/* translators: %s: support provider name */
-		$html = sprintf( _x( 'Please use this form to report encountered bugs, issues and other support requests directly to %s.', 'Modules: Support', 'gnetwork' ),
-			$this->get_option_fallback( 'provider_name', gNetwork()->brand( 'name' ) ) );
+		$html = sprintf(
+			/* translators: `%s`: support provider name */
+			_x( 'Please use this form to report encountered bugs, issues and other support requests directly to %s.', 'Modules: Support', 'gnetwork' ),
+			$this->get_option_fallback( 'provider_name', gNetwork()->brand( 'name' ) )
+		);
 
 		$html.= ' '._x( 'Note that a response e-mail will be sent to the address associated with your profile.', 'Modules: Support', 'gnetwork' );
 		$html.= ' '._x( 'In order to change that please visit your profile page.', 'Modules: Support', 'gnetwork' );
@@ -116,12 +115,12 @@ class Support extends gNetwork\Module
 		if ( $this->check_hidden_metabox( 'report' ) )
 			return;
 
-		HTML::desc( $this->options['dashboard_intro'], TRUE, '-intro' );
+		Core\HTML::desc( $this->options['dashboard_intro'], TRUE, '-intro' );
 
 		echo $this->wrap_open( '-widget-form' );
 		$this->render_form_start( NULL, 'report', 'ajax', 'widget', FALSE );
 
-		echo HTML::wrap( ' ', '-message' );
+		echo Core\HTML::wrap( ' ', '-message' );
 
 		$this->do_settings_field( [
 			'type'        => 'text',
@@ -139,7 +138,7 @@ class Support extends gNetwork\Module
 				'type'        => 'select',
 				'name_attr'   => 'report_topic',
 				'field'       => 'topic',
-				'values'      => Arraay::sameKey( explode( "\n", $this->options['report_topics'] ) ),
+				'values'      => Core\Arraay::sameKey( explode( "\n", $this->options['report_topics'] ) ),
 				'description' => _x( 'Pick one that suits your issue.', 'Modules: Support', 'gnetwork' ),
 				'cap'         => TRUE,
 				'wrap'        => TRUE,
@@ -178,7 +177,7 @@ class Support extends gNetwork\Module
 
 				$this->check_referer_ajax( 'report', 'widget' );
 
-				$done = $this->do_submit_report( Arraay::parseSerialized( $post['form'] ) );
+				$done = $this->do_submit_report( Core\Arraay::parseSerialized( $post['form'] ) );
 
 				if ( TRUE === $done )
 					Ajax::successMessage( _x( 'Your report has been sent.', 'Modules: Support: Ajax', 'gnetwork' ) );
@@ -193,31 +192,48 @@ class Support extends gNetwork\Module
 
 	private function default_subject_template()
 	{
-		/* translators: %1$s: site placeholder, %2$s: subject placeholder */
-		return sprintf( _x( '[%1$s] Support Ticket: %2$s', 'Modules: Support: Template', 'gnetwork' ), '{{site}}', '{{subject}}' );
+		return sprintf(
+			/* translators: `%1$s`: site placeholder, `%2$s`: subject placeholder */
+			_x( '[%1$s] Support Ticket: %2$s', 'Modules: Support: Template', 'gnetwork' ),
+			'{{site}}',
+			'{{subject}}'
+		);
 	}
 
 	private function default_message_template()
 	{
-		/* translators: %s: domain placeholder */
-		$template = sprintf( _x( 'A new support ticket has been submitted at %s. Details follow:', 'Modules: Support: Template', 'gnetwork' ), '{{domain}}' );
-		$template.= "\n\n";
+		$template = sprintf(
+			/* translators: `%s`: domain placeholder */
+			_x( 'A new support ticket has been submitted at %s. Details follow:', 'Modules: Support: Template', 'gnetwork' ),
+			'{{domain}}'
+		);
 
-		/* translators: %1$s: display name placeholder, %2$s: email placeholder */
-		$template.= sprintf( _x( 'From: %1$s (%2$s)', 'Modules: Support: Template', 'gnetwork' ), '{{display_name}}', '{{email}}' );
+		$template.= "\n\n";
+		$template.= sprintf(
+			/* translators: `%1$s`: display name placeholder, `%2$s`: email placeholder */
+			_x( 'From: %1$s (%2$s)', 'Modules: Support: Template', 'gnetwork' ),
+			'{{display_name}}',
+			'{{email}}'
+		);
+
 		$template.= "\n";
+		$template.= sprintf(
+			/* translators: `%s`: topic placeholder */
+			_x( 'Related to: %s', 'Modules: Support: Template', 'gnetwork' ),
+			'{{topic}}'
+		);
 
-		/* translators: %s: topic placeholder */
-		$template.= sprintf( _x( 'Related to: %s', 'Modules: Support: Template', 'gnetwork' ), '{{topic}}' );
 		$template.= "\n\n";
-
 		$template.= '<h3>{{subject}}</h3>';
 		$template.= '{{content}}';
 		$template.= "\n\n";
 		$template.= '<hr />';
 
-		/* translators: %s: domain placeholder */
-		$template.= sprintf( _x( '%s &mdash; Technical Support', 'Modules: Support: Template', 'gnetwork' ), '{{domain}}' );
+		$template.= sprintf(
+			/* translators: `%s`: domain placeholder */
+			_x( '%s &mdash; Technical Support', 'Modules: Support: Template', 'gnetwork' ),
+			'{{domain}}'
+		);
 
 		return $template;
 	}
@@ -245,25 +261,28 @@ class Support extends gNetwork\Module
 			'subject'      => $parsed['report_subject'],
 			'content'      => $parsed['report_content'],
 			'topic'        => $parsed['report_topic'],
-			'site'         => WordPress::getSiteNameforEmail(),
-			'domain'       => WordPress::currentSiteName(),
+			'site'         => Core\WordPress::getSiteNameforEmail(),
+			'domain'       => Core\WordPress::currentSiteName(),
 			'url'          => get_option( 'home' ),
 			'display_name' => $user->display_name,
 			'email'        => $user->user_email,
 			'useragent'    => $_SERVER['HTTP_USER_AGENT'],
 		];
 
-		$subject = Text::replaceTokens( $this->get_option_fallback( 'subject_template', $this->default_subject_template() ), $tokens );
-		$message = Text::replaceTokens( $this->get_option_fallback( 'message_template', $this->default_message_template() ), $tokens );
-		$message = Text::autoP( $message );
+		$subject = Core\Text::replaceTokens( $this->get_option_fallback( 'subject_template', $this->default_subject_template() ), $tokens );
+		$message = Core\Text::replaceTokens( $this->get_option_fallback( 'message_template', $this->default_message_template() ), $tokens );
+		$message = Core\Text::autoP( $message );
 
-		if ( HTML::rtl() )
+		if ( Core\L10n::rtl() )
 			$message = '<div dir="rtl">'.$message.'</div>';
 
 		if ( wp_mail( $email, $subject, $message, $headers ) )
 			return TRUE;
 
-		/* translators: %s: email address */
-		return sprintf( _x( 'E-mail could not be sent, please contact support directly: %s', 'Modules: Support: Ajax', 'gnetwork' ), Settings::fieldAfterEmail( $email ) );
+		return sprintf(
+			/* translators: `%s`: email address */
+			_x( 'E-mail could not be sent, please contact support directly: %s', 'Modules: Support: Ajax', 'gnetwork' ),
+			Settings::fieldAfterEmail( $email )
+		);
 	}
 }

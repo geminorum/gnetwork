@@ -3,19 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Error;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Maintenance extends gNetwork\Module
 {
-
 	protected $key     = 'maintenance';
 	protected $network = FALSE;
 
@@ -113,8 +107,11 @@ class Maintenance extends gNetwork\Module
 
 			echo $this->wrap_open_buttons();
 
-				/* translators: %s: `maintenance.php` placeholder */
-				Settings::submitButton( 'store_maintenance_php', sprintf( _x( 'Store as %s', 'Modules: Maintenance', 'gnetwork' ), 'maintenance.php' ), 'small', [
+				Settings::submitButton( 'store_maintenance_php', sprintf(
+					/* translators: `%s`: `maintenance.php` placeholder */
+					_x( 'Store as %s', 'Modules: Maintenance', 'gnetwork' ),
+					'maintenance.php'
+				), 'small', [
 					'title' => _x( 'Tries to store available layout as WordPress core maintenance template.', 'Modules: Maintenance', 'gnetwork' ),
 				] );
 
@@ -123,13 +120,15 @@ class Maintenance extends gNetwork\Module
 
 		if ( $layout = $this->get_maintenance_layout() ) {
 
-			/* translators: %s: maintenance page path */
-			HTML::desc( sprintf( _x( 'Current Layout: %s', 'Modules: Maintenance: Settings', 'gnetwork' ),
-				HTML::tag( 'code', HTML::link( File::normalize( $layout ), URL::fromPath( $layout ), TRUE ) ) ) );
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: maintenance page path */
+				_x( 'Current Layout: %s', 'Modules: Maintenance: Settings', 'gnetwork' ),
+				Core\HTML::tag( 'code', Core\HTML::link( Core\File::normalize( $layout ), Core\URL::fromPath( $layout ), TRUE ) )
+			) );
 
 		} else {
 
-			HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Maintenance: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Maintenance: Settings', 'gnetwork' ) );
 		}
 	}
 
@@ -144,9 +143,9 @@ class Maintenance extends gNetwork\Module
 
 				$this->render_maintenance_layout();
 
-			$created = File::putContents( 'maintenance.php', ob_get_clean(), WP_CONTENT_DIR, FALSE );
+			$created = Core\File::putContents( 'maintenance.php', ob_get_clean(), WP_CONTENT_DIR, FALSE );
 
-			WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
+			Core\WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 		}
 	}
 
@@ -157,7 +156,7 @@ class Maintenance extends gNetwork\Module
 		foreach ( Utilities::getFeeds() as $feed )
 			add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
 
-		if ( WordPress::cuc( $this->options['access_site'] ) )
+		if ( Core\WordPress::cuc( $this->options['access_site'] ) )
 			return;
 
 		$this->action( 'template_redirect' );
@@ -174,7 +173,7 @@ class Maintenance extends gNetwork\Module
 		if ( $this->options['admin_notice'] )
 			$this->action( 'admin_notices' );
 
-		if ( ! WordPress::cuc( $this->options['access_admin'] ) )
+		if ( ! Core\WordPress::cuc( $this->options['access_admin'] ) )
 			Utilities::redirectHome();
 	}
 
@@ -184,28 +183,28 @@ class Maintenance extends gNetwork\Module
 
 		status_header( $this->options['status_code'] );
 
-		HTTP::headerRetryInMinutes( $this->options['retry_after'] );
+		Core\HTTP::headerRetryInMinutes( $this->options['retry_after'] );
 
-		echo '<?xml version="1.0" encoding="UTF-8"?><status>'.HTTP::getStatusDesc( $this->options['status_code'] ).'</status>';
+		echo '<?xml version="1.0" encoding="UTF-8"?><status>'.Core\HTTP::getStatusDesc( $this->options['status_code'] ).'</status>';
 
 		die();
 	}
 
 	public function status_header( $status_header, $header, $text, $protocol )
 	{
-		return $protocol.' '.$this->options['status_code'].' '.HTTP::getStatusDesc( $this->options['status_code'] );
+		return $protocol.' '.$this->options['status_code'].' '.Core\HTTP::getStatusDesc( $this->options['status_code'] );
 	}
 
 	public function admin_notices()
 	{
-		echo HTML::warning( $this->options['admin_notice'] );
+		echo Core\HTML::warning( $this->options['admin_notice'] );
 	}
 
 	public function dashboard_pointers( $items )
 	{
-		$can = WordPress::cuc( 'manage_options' );
+		$can = Core\WordPress::cuc( 'manage_options' );
 
-		$items[] = HTML::tag( $can ? 'a' : 'span', [
+		$items[] = Core\HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'maintenance' ) : FALSE,
 			'title' => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance', 'gnetwork' ),
 			'class' => '-maintenance',
@@ -216,12 +215,12 @@ class Maintenance extends gNetwork\Module
 
 	public function login_message( $message )
 	{
-		return HTML::wrap( Text::autoP( $this->options['login_message'] ), 'message -warning' ).$message;
+		return Core\HTML::wrap( Core\Text::autoP( $this->options['login_message'] ), 'message -warning' ).$message;
 	}
 
 	public function rest_authentication_errors( $null )
 	{
-		return new Error( 'maintenance', $this->options['login_message'], [ 'status' => $this->options['status_code'] ] );
+		return new Core\Error( 'maintenance', $this->options['login_message'], [ 'status' => $this->options['status_code'] ] );
 	}
 
 	public function template_redirect()
@@ -258,7 +257,7 @@ class Maintenance extends gNetwork\Module
 
 	public static function is()
 	{
-		return ( ! WordPress::cuc( gNetwork()->option( 'access_site', 'maintenance', 'none' ) ) );
+		return ( ! Core\WordPress::cuc( gNetwork()->option( 'access_site', 'maintenance', 'none' ) ) );
 	}
 
 	public static function enabled()
@@ -274,13 +273,13 @@ class Maintenance extends gNetwork\Module
 
 		$html = gNetwork()->option( 'login_message', 'maintenance', $fallback );
 
-		return $class ? HTML::wrap( $html, $class ) : $html;
+		return $class ? Core\HTML::wrap( $html, $class ) : $html;
 	}
 
 	public function default_template()
 	{
 		$content_title   = $head_title = $this->options['status_code'];
-		$content_desc    = HTTP::getStatusDesc( $this->options['status_code'] );
+		$content_desc    = Core\HTTP::getStatusDesc( $this->options['status_code'] );
 		$content_message = self::get503Message( FALSE );
 		$content_menu    = ''; // FIXME
 		$head_callback   = '';
@@ -303,11 +302,11 @@ class Maintenance extends gNetwork\Module
 
 		$this->actions( 'template_before' );
 
-		HTML::h1( $content_title );
-		HTML::h3( $content_desc );
+		Core\HTML::h1( $content_title );
+		Core\HTML::h3( $content_desc );
 
 		echo $rtl ? '<div dir="rtl">' : '<div>';
-			echo Text::autoP( $content_message );
+			echo Core\Text::autoP( $content_message );
 			echo $content_menu;
 		echo '</div>';
 

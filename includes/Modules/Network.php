@@ -3,19 +3,15 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\SwitchSite;
+use geminorum\gNetwork\WordPress;
 
 class Network extends gNetwork\Module
 {
-
 	protected $key = 'network';
 
 	protected function setup_actions()
@@ -105,7 +101,7 @@ class Network extends gNetwork\Module
 
 		return $full
 			? ( $multisite
-				? WordPress::networkAdminURL( $network, $relative, $scheme )
+				? Core\WordPress::networkAdminURL( $network, $relative, $scheme )
 				: get_admin_url( NULL, $relative, $scheme ) )
 			: $relative;
 	}
@@ -167,7 +163,7 @@ class Network extends gNetwork\Module
 		if ( $this->cucSub( $sub ) ) {
 
 			Settings::headerTitle( NULL, 'version' );
-			HTML::headerNav( $uri, $sub, $subs );
+			Core\HTML::headerNav( $uri, $sub, $subs );
 			Settings::message( $this->filters( 'settings_messages', Settings::messages(), $sub ) );
 
 			if ( 'overview' == $sub )
@@ -300,7 +296,7 @@ class Network extends gNetwork\Module
 
 			foreach ( $blogs as $blog_id ) {
 
-				SwitchSite::to( $blog_id );
+				WordPress\SwitchSite::to( $blog_id );
 
 				update_option( 'siteurl', str_replace( $switch[0], $switch[1], get_option( 'siteurl' ) ) );
 				update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
@@ -309,13 +305,13 @@ class Network extends gNetwork\Module
 
 				$count++;
 
-				SwitchSite::lap();
+				WordPress\SwitchSite::lap();
 			}
 
-			SwitchSite::restore();
+			WordPress\SwitchSite::restore();
 		}
 
-		WordPress::redirectReferer( [
+		Core\WordPress::redirectReferer( [
 			'updated' => $action,
 			'count'   => $count,
 		] );
@@ -323,34 +319,40 @@ class Network extends gNetwork\Module
 
 	public function updated_message_resetadminemail( $msg )
 	{
-		/* translators: %1$s: number of sites, %2$s: admin email */
+		/* translators: `%1$s`: number of sites, `%2$s`: admin email */
 		$message = _x( '%1$s site(s) admin email reset to %2$s', 'Modules: Network: Message', 'gnetwork' );
 
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
 
 		return sprintf( $message,
-			Number::format( self::req( 'count', 0 ) ),
-			HTML::tag( 'code', get_network_option( NULL, 'admin_email' ) )
+			Core\Number::format( self::req( 'count', 0 ) ),
+			Core\HTML::tag( 'code', get_network_option( NULL, 'admin_email' ) )
 		);
 	}
 
 	public function updated_message_enable( $msg )
 	{
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
-		/* translators: %s: enabled sites count */
-		return Utilities::getCounted( self::req( 'count', 0 ), _x( '%s site(s) SSL Enabled', 'Modules: Network: Message', 'gnetwork' ) );
+
+		return Utilities::getCounted( self::req( 'count', 0 ),
+			/* translators: `%s`: enabled sites count */
+			_x( '%s site(s) SSL Enabled', 'Modules: Network: Message', 'gnetwork' )
+		);
 	}
 
 	public function updated_message_disable( $msg )
 	{
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
-		/* translators: %s: disabled sites count */
-		return Utilities::getCounted( self::req( 'count', 0 ), _x( '%s site(s) SSL Disabled', 'Modules: Network: Message', 'gnetwork' ) );
+
+		return Utilities::getCounted( self::req( 'count', 0 ),
+			/* translators: `%s`: disabled sites count */
+			_x( '%s site(s) SSL Disabled', 'Modules: Network: Message', 'gnetwork' )
+		);
 	}
 
 	public function wpmu_blogs_columns( $columns )
 	{
-		$columns = Arraay::insert( $columns, [
+		$columns = Core\Arraay::insert( $columns, [
 			$this->classs( 'ssl' ) => _x( 'SSL', 'Modules: Network: Column', 'gnetwork' ),
 		], 'blogname', 'before' );
 
@@ -366,7 +368,7 @@ class Network extends gNetwork\Module
 		} else if ( $this->classs( 'id' ) == $column_name ) {
 
 			echo '<div class="'.static::BASE.'-admin-wrap-column -network -id">';
-				echo HTML::escape( $blog_id );
+				echo Core\HTML::escape( $blog_id );
 			echo '</div>';
 		}
 	}

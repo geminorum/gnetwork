@@ -3,14 +3,12 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\Error;
-use geminorum\gNetwork\Core\HTTP;
+use geminorum\gNetwork\WordPress;
 
 class Lockdown extends gNetwork\Module
 {
-
 	protected $key = 'lockdown';
 
 	private $locked_prefix = 'gnld_locked_';
@@ -68,7 +66,7 @@ class Lockdown extends gNetwork\Module
 					'title'       => _x( 'Login Attempt Limit', 'Modules: Lockdown: Settings', 'gnetwork' ),
 					'description' => _x( 'What is the maximum number of failed login attempts?', 'Modules: Lockdown: Settings', 'gnetwork' ),
 					'default'     => '4',
-					'values'      => Arraay::range( 4, 20, 2 ),
+					'values'      => Core\Arraay::range( 4, 20, 2 ),
 				],
 				[
 					'field'       => 'locked_expiration',
@@ -92,7 +90,7 @@ class Lockdown extends gNetwork\Module
 	private function get_ip()
 	{
 		if ( $this->options['trust_proxied_ip'] )
-			return array_shift( array_map( 'trim', explode( ',', HTTP::IP() ) ) );
+			return array_shift( array_map( 'trim', explode( ',', Core\HTTP::IP() ) ) );
 
 		if ( getenv( 'HTTP_FORWARDED' ) )
 			return getenv( 'HTTP_FORWARDED' );
@@ -163,7 +161,7 @@ class Lockdown extends gNetwork\Module
 		remove_action( 'wp_login_failed', [ $this, 'wp_login_failed' ] );
 		remove_filter( 'authenticate', 'wp_authenticate_username_password', 20, 3 );
 
-		return new Error( 'gnetwork_lockdown_locked', $this->options['locked_notice'] );
+		return new Core\Error( 'gnetwork_lockdown_locked', $this->options['locked_notice'] );
 	}
 
 	public function wp_login()

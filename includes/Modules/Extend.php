@@ -3,20 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\WordPress\SwitchSite;
+use geminorum\gNetwork\WordPress;
 
 class Extend extends gNetwork\Module
 {
-
-	// https://wordpress.org/plugins/meks-quick-plugin-disabler/
-	// https://wordpress.org/plugins/better-plugin-compatibility-control/
-	// https://wordpress.org/plugins/changelogger/
-
 	protected $key = 'extend';
 
 	protected function setup_actions()
@@ -41,7 +34,7 @@ class Extend extends gNetwork\Module
 
 		foreach ( get_sites( [ 'network_id' => $network ] ) as $site ) {
 
-			SwitchSite::to( $site->blog_id );
+			WordPress\SwitchSite::to( $site->blog_id );
 
 			$_site = [
 				'_site'      => $site,
@@ -63,17 +56,17 @@ class Extend extends gNetwork\Module
 
 			$data[$site->blog_id] = $_site;
 
-			SwitchSite::lap();
+			WordPress\SwitchSite::lap();
 		}
 
-		SwitchSite::restore();
+		WordPress\SwitchSite::restore();
 
-		return HTML::tableList( [
+		return Core\HTML::tableList( [
 			'site' => [
 				'title'    => _x( 'Site', 'Modules: Extend', 'gnetwork' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
-					return '<code title="'.HTML::escape( $row['blogname'] ).'">'.
-						URL::untrail( $row['_site']->domain.$row['_site']->path ).
+					return '<code title="'.Core\HTML::escape( $row['blogname'] ).'">'.
+						Core\URL::untrail( $row['_site']->domain.$row['_site']->path ).
 					'</code>';
 				},
 			],
@@ -92,7 +85,7 @@ class Extend extends gNetwork\Module
 						$list[] = sprintf( '<code>%s</code>', array_shift( $plugin ) );
 					}
 
-					return $list ? HTML::renderList( $list ) : Utilities::htmlEmpty();
+					return $list ? Core\HTML::rows( $list ) : Utilities::htmlEmpty();
 				},
 			],
 
@@ -107,8 +100,8 @@ class Extend extends gNetwork\Module
 			],
 
 		], $data, [
-			'title' => HTML::tag( 'h3', _x( 'Overview of Current Active Theme and Plugins', 'Modules: Extend', 'gnetwork' ) ),
-			'empty' => HTML::warning( _x( 'No site found!', 'Modules: Extend', 'gnetwork' ), FALSE ),
+			'title' => Core\HTML::tag( 'h3', _x( 'Overview of Current Active Theme and Plugins', 'Modules: Extend', 'gnetwork' ) ),
+			'empty' => Core\HTML::warning( _x( 'No site found!', 'Modules: Extend', 'gnetwork' ), FALSE ),
 		] );
 	}
 

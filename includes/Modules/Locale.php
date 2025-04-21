@@ -502,6 +502,9 @@ class Locale extends gNetwork\Module
 
 			'wpdesk_checkout_fields_settings' => 'page',
 
+			'wp-crontrol'           => 'page',
+			'wp-crontrol-schedules' => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );

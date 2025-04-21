@@ -3,20 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Update extends gNetwork\Module
 {
-
-	// TODO: filter `file_mod_allowed` for non super admins
-	// TODO: re-install mechanisem!
-
 	protected $key        = 'update';
 	protected $front      = FALSE;
 	protected $ajax       = TRUE;
@@ -25,7 +18,7 @@ class Update extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! WordPress::isMainNetwork() ) {
+		if ( ! Core\WordPress::isMainNetwork() ) {
 
 			$this->action( 'admin_init', 0, 100, 'not_mainsite' );
 
@@ -170,11 +163,11 @@ class Update extends gNetwork\Module
 			if ( $this->options['remote_updates'] ) {
 
 				Settings::submitButton( 'refresh_packages', _x( 'Refresh Packages', 'Modules: Update', 'gnetwork' ), 'small' );
-				HTML::desc( _x( 'Regenerates package informations.', 'Modules: Update', 'gnetwork' ), FALSE );
+				Core\HTML::desc( _x( 'Regenerates package informations.', 'Modules: Update', 'gnetwork' ), FALSE );
 
 			} else {
 
-				HTML::desc( _x( 'Remote updates are disabled.', 'Modules: Update', 'gnetwork' ), FALSE, '-empty' );
+				Core\HTML::desc( _x( 'Remote updates are disabled.', 'Modules: Update', 'gnetwork' ), FALSE, '-empty' );
 			}
 
 		echo '</p>';
@@ -188,7 +181,7 @@ class Update extends gNetwork\Module
 
 			$count = $this->refresh_packages();
 
-			WordPress::redirectReferer( FALSE === $count ? 'nochange' : [
+			Core\WordPress::redirectReferer( FALSE === $count ? 'nochange' : [
 				'message' => 'synced',
 				'count'   => $count,
 			] );
@@ -273,7 +266,7 @@ class Update extends gNetwork\Module
 	private function get_packages( $lite = FALSE )
 	{
 		$packages = get_network_option( NULL, $this->hook( 'packages' ), [] );
-		return $lite ? Arraay::column( $packages, 'name', 'slug' ) : $packages;
+		return $lite ? Core\Arraay::column( $packages, 'name', 'slug' ) : $packages;
 	}
 
 	public function admin_init()
@@ -328,12 +321,12 @@ class Update extends gNetwork\Module
 
 		$key = $this->hash( 'package', $package, $endpoint );
 
-		if ( WordPress::isFlush( 'update_core', 'force-check' ) )
+		if ( Core\WordPress::isFlush( 'update_core', 'force-check' ) )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $data = get_site_transient( $key ) ) ) {
 
-			$json = HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] );
+			$json = Core\HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] );
 			$data = $json ? $this->cleanup_package_data( $json, $package ) : '';
 
 			set_site_transient( $key, $data, $data ? GNETWORK_CACHE_TTL : HOUR_IN_SECONDS );
@@ -463,10 +456,10 @@ class Update extends gNetwork\Module
 				continue;
 
 			if ( isset( $extra['plugin'] ) && $extra['plugin'] == $package['path'] )
-				$new = URL::trail( $remote ).dirname( $extra['plugin'] );
+				$new = Core\URL::trail( $remote ).dirname( $extra['plugin'] );
 
 			if ( isset( $extra['theme'] ) && $extra['theme'] == $package['slug'] )
-				$new = URL::trail( $remote ).$extra['theme'];
+				$new = Core\URL::trail( $remote ).$extra['theme'];
 
 			if ( $new )
 				break;
@@ -480,7 +473,7 @@ class Update extends gNetwork\Module
 
 		$wp_filesystem->move( $source, $new );
 
-		return URL::trail( $new );
+		return Core\URL::trail( $new );
 	}
 
 	// @REF: https://developer.github.com/v3/#current-version
@@ -542,7 +535,7 @@ class Update extends gNetwork\Module
 
 		if ( in_array( $type, [ 'github_plugin', 'github_theme' ] ) ) {
 
-			$parts = explode( '/', str_replace( 'https://github.com/', '', URL::untrail( $uri ) ) );
+			$parts = explode( '/', str_replace( 'https://github.com/', '', Core\URL::untrail( $uri ) ) );
 
 			if ( 2 !== count( $parts ) )
 				return [];
@@ -554,7 +547,7 @@ class Update extends gNetwork\Module
 
 		} else if ( in_array( $type, [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
 
-			$parts = explode( '/', str_replace( 'https://gitlab.com/', '', URL::untrail( $uri ) ) );
+			$parts = explode( '/', str_replace( 'https://gitlab.com/', '', Core\URL::untrail( $uri ) ) );
 
 			if ( 2 !== count( $parts ) )
 				return [];

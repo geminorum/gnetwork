@@ -3,18 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\PostType as WPPostType;
+use geminorum\gNetwork\WordPress;
 
 class Typography extends gNetwork\Module
 {
-
 	protected $key     = 'typography';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
@@ -47,11 +42,11 @@ class Typography extends gNetwork\Module
 			|| $this->options['linkify_content'] )
 				$this->filter( 'the_content', 1, 1000, 'late' );
 
-		add_filter( $this->hook( 'general' ), [ $this, 'general_typography' ] ); // force apply
-		add_filter( $this->hook( 'arabic' ), [ $this, 'arabic_typography' ] ); // force apply
-		add_filter( $this->hook( 'persian' ), [ $this, 'persian_typography' ] ); // force apply
-		add_filter( $this->hook( 'linkify' ), [ $this, 'linkify_content' ] ); // force apply
-		add_filter( $this->hook(), [ $this, 'the_content_late' ] ); // only applies enabled
+		add_filter( $this->hook( 'general' ), [ $this, 'general_typography' ] );  // force apply
+		add_filter( $this->hook( 'arabic' ), [ $this, 'arabic_typography' ] );    // force apply
+		add_filter( $this->hook( 'persian' ), [ $this, 'persian_typography' ] );  // force apply
+		add_filter( $this->hook( 'linkify' ), [ $this, 'linkify_content' ] );     // force apply
+		add_filter( $this->hook(), [ $this, 'the_content_late' ] );               // only applies enabled
 	}
 
 	public function setup_menu( $context )
@@ -170,7 +165,7 @@ class Typography extends gNetwork\Module
 
 						$updated = wp_update_post( [
 							'ID'        => $post->ID,
-							'post_name' => Text::formatSlug( $post->post_title ),
+							'post_name' => Core\Text::formatSlug( $post->post_title ),
 						] );
 
 						if ( ! $updated || self::isError( $updated ) )
@@ -179,7 +174,7 @@ class Typography extends gNetwork\Module
 						$count++;
 					}
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'changed',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -197,7 +192,7 @@ class Typography extends gNetwork\Module
 
 						$updated = wp_update_post( [
 							'ID'        => $post->ID,
-							'post_name' => Utilities::URLifyDownCode( Text::formatSlug( $post->post_title ) ),
+							'post_name' => Utilities::URLifyDownCode( Core\Text::formatSlug( $post->post_title ) ),
 						] );
 
 						if ( ! $updated || self::isError( $updated ) )
@@ -206,7 +201,7 @@ class Typography extends gNetwork\Module
 						$count++;
 					}
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'changed',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -233,7 +228,7 @@ class Typography extends gNetwork\Module
 						$count++;
 					}
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'changed',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -242,7 +237,7 @@ class Typography extends gNetwork\Module
 
 				} else {
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'wrong',
 						'limit'   => self::limit(),
 						'paged'   => self::paged(),
@@ -258,12 +253,12 @@ class Typography extends gNetwork\Module
 
 		$pagination['before'][] = self::filterTablelistSearch();
 
-		return HTML::tableList( [
+		return Core\HTML::tableList( [
 			'_cb'  => 'ID',
 			'ID'   => _x( 'ID', 'Modules: Typography: Column Title', 'gnetwork' ),
 			'type' => [
 				'title'    => _x( 'Type', 'Modules: Typography: Column Title', 'gnetwork' ),
-				'args'     => [ 'post_types' => WPPostType::get( 2 ) ],
+				'args'     => [ 'post_types' => WordPress\PostType::get( 2 ) ],
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
 						? $column['args']['post_types'][$row->post_type]
@@ -276,9 +271,9 @@ class Typography extends gNetwork\Module
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					// TODO: must warn for customized slugs
 					// TODO: title attr for more info
-					return HTML::tag( 'code', urldecode( $row->post_name ) )
-						.'<br />'.HTML::tag( 'code', urldecode( Text::formatSlug( $row->post_title ) ) );
-						// .'<br />'.HTML::tag( 'code', urldecode( sanitize_title( Number::translate( $row->post_title ) ) ) );
+					return Core\HTML::tag( 'code', urldecode( $row->post_name ) )
+						.'<br />'.Core\HTML::tag( 'code', urldecode( Core\Text::formatSlug( $row->post_title ) ) );
+						// .'<br />'.Core\HTML::tag( 'code', urldecode( sanitize_title( Number::translate( $row->post_title ) ) ) );
 				},
 			],
 			'title' => [
@@ -290,15 +285,15 @@ class Typography extends gNetwork\Module
 					$list = [];
 
 					if ( current_user_can( 'edit_post', $row->ID ) )
-						$list['edit'] = HTML::tag( 'a', [
-							'href'   => WordPress::getPostEditLink( $row->ID ),
+						$list['edit'] = Core\HTML::tag( 'a', [
+							'href'   => Core\WordPress::getPostEditLink( $row->ID ),
 							'class'  => '-link -row-link -row-link-edit',
 							'data'   => [ 'id' => $row->ID, 'row' => 'edit' ],
 							'target' => '_blank',
 						], _x( 'Edit', 'Modules: Typography: Row Action', 'gnetwork' ) );
 
-					$list['view'] = HTML::tag( 'a', [
-						'href'   => WordPress::getPostShortLink( $row->ID ),
+					$list['view'] = Core\HTML::tag( 'a', [
+						'href'   => Core\WordPress::getPostShortLink( $row->ID ),
 						'class'  => '-link -row-link -row-link-view',
 						'data'   => [ 'id' => $row->ID, 'row' => 'view' ],
 						'target' => '_blank',
@@ -310,8 +305,8 @@ class Typography extends gNetwork\Module
 		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of Titles and Slugs', 'Modules: Typography', 'gnetwork' ) ),
-			'empty'      => HTML::warning( _x( 'No Posts!', 'Modules: Typography', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Titles and Slugs', 'Modules: Typography', 'gnetwork' ) ),
+			'empty'      => Core\HTML::warning( _x( 'No Posts!', 'Modules: Typography', 'gnetwork' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -405,13 +400,13 @@ class Typography extends gNetwork\Module
 		if ( gNetwork()->option( 'linkify_hashtags', 'search' )
 			&& ! self::const( 'GNETWORK_DISABLE_LINKIFY_CONTENT' ) ) {
 
-			$content = Text::replaceSymbols( '#', $content, static function ( $matched, $string ) {
-				return HTML::link( str_replace( '_', ' ', $matched ), WordPress::getSearchLink( $matched ) );
+			$content = Core\Text::replaceSymbols( '#', $content, static function ( $matched, $string ) {
+				return Core\HTML::link( str_replace( '_', ' ', $matched ), Core\WordPress::getSearchLink( $matched ) );
 			} );
 
 			// telegram hash-tag links!
 			$content = preg_replace_callback( '/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu', static function ( $matched ) {
-				return HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), WordPress::getSearchLink( '#'.$matched[2] ) );
+				return Core\HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), Core\WordPress::getSearchLink( '#'.$matched[2] ) );
 			}, $content );
 		}
 
@@ -420,8 +415,8 @@ class Typography extends gNetwork\Module
 			$brand_name = gNetwork()->brand( 'name' );
 			$brand_url  = gNetwork()->brand( 'url' );
 
-			$content = Text::replaceWords( [ $brand_name ], $content, static function ( $matched ) use ( $brand_url ) {
-				return '<em>'.HTML::link( $matched, $brand_url ).'</em>';
+			$content = Core\Text::replaceWords( [ $brand_name ], $content, static function ( $matched ) use ( $brand_url ) {
+				return '<em>'.Core\HTML::link( $matched, $brand_url ).'</em>';
 			} );
 		}
 
@@ -492,18 +487,18 @@ class Typography extends gNetwork\Module
 	public function sanitize_title( $title, $raw_title = '', $context = 'display' )
 	{
 		return 'save' === $context && seems_utf8( $raw_title )
-			? Text::formatSlug( $raw_title )
+			? Core\Text::formatSlug( $raw_title )
 			: $title;
 	}
 
 	public function pre_term_slug( $value, $taxonomy )
 	{
-		return Text::formatSlug( $value );
+		return Core\Text::formatSlug( $value );
 	}
 
 	public function taxonomy_term_rewrite_slug( $name, $term, $taxonomy )
 	{
-		return Text::formatSlug( $name );
+		return Core\Text::formatSlug( $name );
 	}
 
 	public function the_content_early( $content )
@@ -572,7 +567,7 @@ class Typography extends gNetwork\Module
 		$url = $args['scheme'].'://'.$lang.$args['domain'].'/'.urlencode( str_ireplace( ' ', '_', $slug ) );
 
 		$html = '<a href="'.esc_url( $url ).'" class="wiki wikipedia"'
-				.( $args['title'] ? ' data-toggle="tooltip" title="'.HTML::escape( $args['title'] ).'"' : '' )
+				.( $args['title'] ? ' data-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] ).'"' : '' )
 				.'>'.trim( $content ).'</a>';
 
 		return self::shortcodeWrap( $html, 'wikipedia', $args, FALSE );
@@ -657,7 +652,7 @@ class Typography extends gNetwork\Module
 		for ( $i = 1; $i <= $args['space']; $i++ )
 			$html.= '<span></span>';
 
-		return HTML::tag( 'span', [
+		return Core\HTML::tag( 'span', [
 			'class' => $args['class'],
 		], $html );
 	}
@@ -686,7 +681,7 @@ class Typography extends gNetwork\Module
 		$args['style'] = 'height:'.absint( $args['space'] ).'px;margin:0;padding:0;';
 		unset( $args['space'], $args['context'] );
 
-		return HTML::tag( 'div', $args, NULL );
+		return Core\HTML::tag( 'div', $args, NULL );
 	}
 
 	public function shortcode_clearleft( $atts = [], $content = NULL, $tag = '' )
@@ -705,7 +700,7 @@ class Typography extends gNetwork\Module
 		$args['style'] = 'clear:left;';
 		unset( $args['span'], $args['context'] );
 
-		return HTML::tag( $tag, $args, NULL );
+		return Core\HTML::tag( $tag, $args, NULL );
 	}
 
 	public function shortcode_clearright( $atts = [], $content = NULL, $tag = '' )
@@ -724,7 +719,7 @@ class Typography extends gNetwork\Module
 		$args['style'] = 'clear:right;';
 		unset( $args['span'], $args['context'] );
 
-		return HTML::tag( $tag, $args, NULL );
+		return Core\HTML::tag( $tag, $args, NULL );
 	}
 
 	public function shortcode_clearboth( $atts = [], $content = NULL, $tag = '' )
@@ -743,7 +738,7 @@ class Typography extends gNetwork\Module
 		$args['style'] = 'clear:both;';
 		unset( $args['span'], $args['context'] );
 
-		return HTML::tag( $tag, $args, NULL );
+		return Core\HTML::tag( $tag, $args, NULL );
 	}
 
 	public function the_title( $title )
@@ -752,16 +747,16 @@ class Typography extends gNetwork\Module
 			return $title;
 
 		if ( $this->options['title_titlecase'] )
-			$title = Text::titleCase( $title );
+			$title = Core\Text::titleCase( $title );
 
-		if ( $this->options['title_wordwrap'] && ! WordPress::isREST() )
-			$title = Text::wordWrap( $title );
+		if ( $this->options['title_wordwrap'] && ! Core\WordPress::isREST() )
+			$title = Core\Text::wordWrap( $title );
 
 		return $title;
 	}
 
 	public function widget_title( $title )
 	{
-		return empty( $title ) ? $title : Text::wordWrap( $title );
+		return empty( $title ) ? $title : Core\Text::wordWrap( $title );
 	}
 }

@@ -6,18 +6,10 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\Email;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\Media as WPMedia;
+use geminorum\gNetwork\WordPress;
 
 class Profile extends gNetwork\Module
 {
-
 	protected $key  = 'profile';
 	protected $ajax = TRUE;
 
@@ -191,12 +183,15 @@ class Profile extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		$wpupload = WPMedia::upload();
+		$wpupload = WordPress\Media::upload();
 
 		if ( ! empty( $wpupload['error'] ) ) {
 
-			/* translators: %s: upload error */
-			echo HTML::error( sprintf( _x( 'Before you can upload a file, you will need to fix the following error: %s', 'Modules: Profile', 'gnetwork' ), '<b>'.$wpupload['error'].'</b>' ), FALSE );
+			echo Core\HTML::error( sprintf(
+				/* translators: `%s`: upload error */
+				_x( 'Before you can upload a file, you will need to fix the following error: %s', 'Modules: Profile', 'gnetwork' ),
+				'<b>'.$wpupload['error'].'</b>'
+			), FALSE );
 
 		} else {
 
@@ -211,11 +206,14 @@ class Profile extends gNetwork\Module
 
 				echo '<br />';
 
-				$size = File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
+				$size = Core\File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
 
 				Settings::submitButton( 'import_users_csv', _x( 'Import Users', 'Modules: Profile', 'gnetwork' ), 'small' );
-				/* translators: %s: maximum file size */
-				HTML::desc( sprintf( _x( 'Upload a list of users in CSV. Maximum size: <b>%s</b>', 'Modules: Profile', 'gnetwork' ), HTML::wrapLTR( $size ) ), FALSE );
+				Core\HTML::desc( sprintf(
+					/* translators: `%s`: maximum file size */
+					_x( 'Upload a list of users in CSV. Maximum size: <b>%s</b>', 'Modules: Profile', 'gnetwork' ),
+					Core\HTML::wrapLTR( $size )
+				), FALSE );
 
 			echo '</p>';
 			echo '<hr />';
@@ -224,7 +222,7 @@ class Profile extends gNetwork\Module
 		echo $this->wrap_open_buttons();
 
 			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: Profile', 'gnetwork' ), 'small' );
-			HTML::desc( _x( 'Click to get all registered users in CSV.', 'Modules: Profile', 'gnetwork' ), FALSE );
+			Core\HTML::desc( _x( 'Click to get all registered users in CSV.', 'Modules: Profile', 'gnetwork' ), FALSE );
 
 		echo '</p>';
 	}
@@ -235,7 +233,7 @@ class Profile extends gNetwork\Module
 			[
 				'id'      => $this->classs( 'help' ),
 				'title'   => _x( 'Contact Methods', 'Modules: Profile: Help Tab Title', 'gnetwork' ),
-				'content' => HTML::tableCode( wp_get_user_contact_methods() ),
+				'content' => Core\HTML::tableCode( wp_get_user_contact_methods() ),
 			],
 		];
 	}
@@ -246,14 +244,14 @@ class Profile extends gNetwork\Module
 
 			$this->check_referer( $sub, 'settings' );
 
-			$file = WPMedia::handleImportUpload( $this->classs( 'import' ) );
+			$file = WordPress\Media::handleImportUpload( $this->classs( 'import' ) );
 
 			if ( ! $file || isset( $file['error'] ) || empty( $file['file'] ) )
-				WordPress::redirectReferer( 'wrong' );
+				Core\WordPress::redirectReferer( 'wrong' );
 
 			$count = $this->import_users_csv( $file['file'], get_option( 'default_role' ) );
 
-			WordPress::redirectReferer( [
+			Core\WordPress::redirectReferer( [
 				'message'    => 'imported',
 				'count'      => $count,
 				'attachment' => $file['id'],
@@ -263,9 +261,9 @@ class Profile extends gNetwork\Module
 
 			$this->check_referer( $sub, 'settings' );
 
-			Text::download( $this->get_csv_users(), File::prepName( 'users.csv' ) );
+			Core\Text::download( $this->get_csv_users(), Core\File::prepName( 'users.csv' ) );
 
-			WordPress::redirectReferer( 'wrong' );
+			Core\WordPress::redirectReferer( 'wrong' );
 		}
 	}
 
@@ -273,11 +271,11 @@ class Profile extends gNetwork\Module
 	{
 		$count = 0;
 
-		// skiping ip on the imported
+		// skipping ip on the imported
 		$this->options['store_signup_ip'] = FALSE;
 
 		$csv = new \ParseCsv\Csv();
-		$csv->auto( File::normalize( $file_path ) );
+		$csv->auto( Core\File::normalize( $file_path ) );
 
 		foreach ( $csv->data as $offset => $row ) {
 
@@ -300,7 +298,7 @@ class Profile extends gNetwork\Module
 				$data['user_login'] = strtolower( $data['user_login'] );
 
 			if ( empty( $data['user_login'] ) )
-				$data['user_login'] = Email::toUsername( $data['user_email'] );
+				$data['user_login'] = Core\Email::toUsername( $data['user_email'] );
 
 			if ( empty( $data['user_login'] ) || ! validate_username( $data['user_login'] ) )
 				continue;
@@ -369,13 +367,13 @@ class Profile extends gNetwork\Module
 	// TODO: must check if user is member of the site
 	public function load_profile_php()
 	{
-		WordPress::redirect( add_query_arg( [ static::BASE.'_action' => 'edit-profile-banned' ], admin_url( 'index.php' ) ) );
+		Core\WordPress::redirect( add_query_arg( [ static::BASE.'_action' => 'edit-profile-banned' ], admin_url( 'index.php' ) ) );
 	}
 
 	public function admin_notices()
 	{
 		if ( $this->is_request_action( 'edit-profile-banned' ) )
-			echo HTML::warning( _x( 'Sorry, you are not allowed to edit your profile.', 'Modules: Profile', 'gnetwork' ) );
+			echo Core\HTML::warning( _x( 'Sorry, you are not allowed to edit your profile.', 'Modules: Profile', 'gnetwork' ) );
 	}
 
 	public function setup_screen( $screen )
@@ -391,7 +389,7 @@ class Profile extends gNetwork\Module
 	public function user_register( $user_id )
 	{
 		if ( $this->options['store_signup_ip']
-			&& ( $ip = HTTP::normalizeIP( $_SERVER['REMOTE_ADDR'] ) ) )
+			&& ( $ip = Core\HTTP::normalizeIP( $_SERVER['REMOTE_ADDR'] ) ) )
 				update_user_meta( $user_id, 'register_ip', $ip );
 
 		if ( $this->options['default_colorscheme'] )
@@ -408,10 +406,10 @@ class Profile extends gNetwork\Module
 	public function before_signup_header()
 	{
 		if ( $this->options['page_signup_disabled'] && 'none' == get_network_option( NULL, 'registration', 'none' ) )
-			WordPress::redirect( get_page_link( $this->options['page_signup_disabled'] ), 303 );
+			Core\WordPress::redirect( get_page_link( $this->options['page_signup_disabled'] ), 303 );
 
 		if ( $this->options['redirect_signup_url'] )
-			WordPress::redirect( $this->options['redirect_signup_url'], 303 );
+			Core\WordPress::redirect( $this->options['redirect_signup_url'], 303 );
 	}
 
 	public function wp_signup_location( $url )
@@ -445,7 +443,7 @@ class Profile extends gNetwork\Module
 
 	public function user_contactmethods( $contactmethods, $user )
 	{
-		return array_merge( Arraay::stripByKeys( $contactmethods, [ 'aim', 'yim', 'jabber' ] ), [
+		return array_merge( Core\Arraay::stripByKeys( $contactmethods, [ 'aim', 'yim', 'jabber' ] ), [
 			'mobile'    => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', 'gnetwork' ), // @SEE: `GNETWORK_COMMERCE_MOBILE_METAKEY`
 			'twitter'   => _x( 'X (Twitter)', 'Modules: Profile: User Contact Method', 'gnetwork' ),
 			// 'facebook'  => _x( 'Facebook', 'Modules: Profile: User Contact Method', 'gnetwork' ), // DROP support
@@ -465,7 +463,7 @@ class Profile extends gNetwork\Module
 
 		if ( isset( $profileuser->register_ip )
 			&& $profileuser->register_ip )
-				$register_ip = HTML::tag( 'code', gnetwork_ip_lookup( $profileuser->register_ip ) );
+				$register_ip = Core\HTML::tag( 'code', gnetwork_ip_lookup( $profileuser->register_ip ) );
 		else
 			$register_ip = gNetwork()->na();
 
@@ -514,11 +512,11 @@ class Profile extends gNetwork\Module
 			$name_nicename = $this->hook( 'nicename' );
 			echo '<tr><th><label for="'.$name_nicename.'">'._x( 'Slug', 'Modules: Profile', 'gnetwork' )
 				.'</label></th><td><input type="text" name="'.$name_nicename.'" id="'.$name_nicename.'" value="'
-				.HTML::escape( $nicename ).'" class="regular-text" dir="ltr" /><p class="description">'.
+				.Core\HTML::escape( $nicename ).'" class="regular-text" dir="ltr" /><p class="description">'.
 					_x( 'This will be used in the URL of the user\'s page.', 'Modules: Profile', 'gnetwork' )
 				.'</p></td></tr>';
 
-			// prevents lockin himself out!
+			// prevents locking himself out!
 			if ( ! IS_PROFILE_PAGE ) {
 
 				$name_disable = $this->hook( 'disable_user' );
@@ -635,7 +633,7 @@ class Profile extends gNetwork\Module
 			echo '<tr><th><label for="custom_display_name">'
 				._x( 'Nickname for this site', 'Modules: Profile', 'gnetwork' )
 				.'</label></th><td><input type="text" name="custom_display_name" id="custom_display_name" value="'
-				.( $name ? HTML::escape( $name ) : '' )
+				.( $name ? Core\HTML::escape( $name ) : '' )
 				.'" class="regular-text" /><p class="description">'
 					._x( 'This will be displayed as your name in this site only.', 'Modules: Profile', 'gnetwork' )
 				.'</p></td></tr>';
@@ -834,7 +832,7 @@ class Profile extends gNetwork\Module
 			$data[] = $row;
 		}
 
-		return Text::toCSV( $data );
+		return Core\Text::toCSV( $data );
 	}
 
 	private function _store_identity_number( $user_id )
@@ -869,7 +867,7 @@ class Profile extends gNetwork\Module
 		echo '<tr><th><label for="'.$key.'">'
 			._x( 'Identity Number', 'Modules: Profile', 'gnetwork' )
 			.'</label></th><td><input type="text" name="'.$key.'" id="'.$key.'" value="'
-			.( empty( $profileuser->{$meta} ) ? '' : HTML::escape( $profileuser->{$meta} ) )
+			.( empty( $profileuser->{$meta} ) ? '' : Core\HTML::escape( $profileuser->{$meta} ) )
 			.'" class="regular-text -identity-number"'
 			.' pattern="'.Core\Validation::getIdentityNumberHTMLPattern().'"'
 			.' dir="ltr" data-ortho="identity" /><p class="description">'

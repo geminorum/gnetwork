@@ -3,17 +3,12 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Dashboard extends gNetwork\Module
 {
-
-	// TODO: rewrite: `wp_dashboard_right_now()`
-
 	protected $key   = 'dashboard';
 	protected $front = FALSE;
 	protected $ajax  = TRUE;
@@ -177,7 +172,7 @@ class Dashboard extends gNetwork\Module
 			echo '<div class="gnetwork-admin-wrap-widget -usermenu">'.$html.'</div>';
 
 		else
-			HTML::desc( _x( '&#8220;Not all those who wander are lost!&#8221;', 'Modules: Dashboard: User Menu', 'gnetwork' ), FALSE, '-empty' );
+			Core\HTML::desc( _x( '&#8220;Not all those who wander are lost!&#8221;', 'Modules: Dashboard: User Menu', 'gnetwork' ), FALSE, '-empty' );
 	}
 
 	public function render_widget_user_sites()
@@ -190,7 +185,7 @@ class Dashboard extends gNetwork\Module
 		echo '<div class="gnetwork-admin-wrap-widget -user-sites">';
 
 			if ( empty( $blogs ) )
-				HTML::desc( gNetwork()->na() );
+				Core\HTML::desc( gNetwork()->na() );
 			else
 				echo Site::tableUserSites( $blogs, FALSE );
 
@@ -217,7 +212,7 @@ class Dashboard extends gNetwork\Module
 					? _n( '%s Post', '%s Posts', $num_posts->publish )
 					: _n( '%s Page', '%s Pages', $num_posts->publish );
 
-				$text   = sprintf( $text, Number::format( $num_posts->publish ) );
+				$text   = sprintf( $text, Core\Number::format( $num_posts->publish ) );
 				$object = get_post_type_object( $post_type );
 
 				if ( $object && current_user_can( $object->cap->edit_posts ) )
@@ -230,18 +225,18 @@ class Dashboard extends gNetwork\Module
 
 		// NOTE: filters the array of extra elements to list in the 'At a Glance' dashboard widget
 		if ( $elements = apply_filters( 'dashboard_glance_items', [] ) )
-			$html.= HTML::renderList( $elements, FALSE, FALSE );
+			$html.= Core\HTML::renderList( $elements, FALSE, FALSE );
 
 		if ( $num_comm = wp_count_comments() ) {
 
 			if ( $num_comm->approved || $num_comm->moderated ) {
 
 				/* translators: %s: comments count */
-				$text = sprintf( _nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', 'gnetwork' ), Number::format( $num_comm->approved ) );
+				$text = sprintf( _nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', 'gnetwork' ), Core\Number::format( $num_comm->approved ) );
 
 				$html.= '<li class="comment-count"><a href="edit-comments.php">'.$text.'</a></li>';
 
-				$moderated_comments_count_i18n = Number::format( $num_comm->moderated );
+				$moderated_comments_count_i18n = Core\Number::format( $num_comm->moderated );
 
 				/* translators: %s: awaiting comments count */
 				$text = sprintf( _nx( '%s Awaiting Comment', '%s Awaiting Comments', $num_comm->moderated, 'Modules: Dashboard: Right Now', 'gnetwork' ), $moderated_comments_count_i18n );
@@ -255,7 +250,7 @@ class Dashboard extends gNetwork\Module
 
 			if ( $num_comm->spam > 0 ) {
 				/* translators: %s: spam comments count */
-				$spam = sprintf( _nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', 'gnetwork' ), Number::format( $num_comm->spam ) );
+				$spam = sprintf( _nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', 'gnetwork' ), Core\Number::format( $num_comm->spam ) );
 				$html.= '<li class="comment-spam-count"><a href="edit-comments.php?comment_status=spam">'.$spam.'</a></li>';
 			}
 		}
@@ -263,7 +258,7 @@ class Dashboard extends gNetwork\Module
 		if ( $html )
 			echo '<div class="main"><ul>'.$html.'</ul></div>';
 		else
-			HTML::desc( _x( 'There are no contents available!', 'Modules: Dashboard: Right Now', 'gnetwork' ), FALSE, '-empty' );
+		Core\HTML::desc( _x( 'There are no contents available!', 'Modules: Dashboard: Right Now', 'gnetwork' ), FALSE, '-empty' );
 
 		ob_start();
 		// do_action( 'rightnow_end' ); // old hook
@@ -334,9 +329,9 @@ class Dashboard extends gNetwork\Module
 
 				vprintf( $template, [
 					( $alt ? ' class="alternate"' : '' ),
-					HTML::escape( $user->display_name ),
-					HTML::escape( Text::truncateString( $user->user_email, 32 ) ),
-					HTML::escape( Utilities::dateFormat( $registered, 'monthday' ) ),
+					Core\HTML::escape( $user->display_name ),
+					Core\HTML::escape( Core\Text::truncateString( $user->user_email, 32 ) ),
+					Core\HTML::escape( Utilities::dateFormat( $registered, 'monthday' ) ),
 					sprintf(
 						/* translators: %1$s: human time diff, %2$s: registred date */
 						_x( '%1$s ago &mdash; %2$s', 'Modules: Dashboard: Signups', 'gnetwork' ),
@@ -344,7 +339,7 @@ class Dashboard extends gNetwork\Module
 						Utilities::dateFormat( $registered )
 					),
 					get_edit_user_link( $user->ID ),
-					'mailto:'.HTML::escape( $user->user_email ),
+					'mailto:'.Core\HTML::escape( $user->user_email ),
 					$user->user_login,
 					( $register_ip ? gnetwork_ip_lookup( $register_ip ) : gNetwork()->na( FALSE ) )
 				] );
@@ -448,11 +443,11 @@ class Dashboard extends gNetwork\Module
 
 				vprintf( $template, [
 					( $alt ? ' class="alternate"' : '' ),
-					HTML::escape( $user->display_name ),
-					HTML::escape( human_time_diff( $lastlogin, $time ) ),
+					Core\HTML::escape( $user->display_name ),
+					Core\HTML::escape( human_time_diff( $lastlogin, $time ) ),
 					get_edit_user_link( $user->ID ),
 					$user->user_login,
-					HTML::escape( Utilities::dateFormat( $lastlogin, 'timedate' ) ),
+					Core\HTML::escape( Utilities::dateFormat( $lastlogin, 'timedate' ) ),
 				] );
 
 				$alt = ! $alt;
@@ -475,7 +470,7 @@ class Dashboard extends gNetwork\Module
 		if ( ! isset( $preferred->response ) || 'upgrade' != $preferred->response )
 			return $items;
 
-		$items[] = HTML::tag( 'a', [
+		$items[] = Core\HTML::tag( 'a', [
 			'href'  => network_admin_url( 'update-core.php' ),
 			'title' => sprintf( __( 'Update to %s' ), $preferred->current ? $preferred->current : __( 'Latest' ) ),
 			'class' => '-update',
@@ -494,7 +489,7 @@ class Dashboard extends gNetwork\Module
 		$content = apply_filters( 'privacy_on_link_text', _x( 'Search Engines Discouraged', 'Modules: Dashboard: Blog Public', 'gnetwork' ) );
 
 		if ( $content )
-			$items[] = HTML::tag( 'a', [
+			$items[] = Core\HTML::tag( 'a', [
 				'href'  => admin_url( 'options-reading.php' ),
 				'title' => $title ?: FALSE,
 				'class' => '-privacy',
@@ -519,12 +514,12 @@ class Dashboard extends gNetwork\Module
 		else if ( $percent >= 70 )
 			$classes[] = 'warning';
 
-		$items[] = HTML::tag( 'a', [
+		$items[] = Core\HTML::tag( 'a', [
 			'href'  => admin_url( 'upload.php' ),
-			'title' => sprintf( HTML::wrapLTR( '%s MB/%s MB' ), Number::format( round( $used, 2 ), 2 ), Number::format( $quota ) ),
+			'title' => sprintf( Core\HTML::wrapLTR( '%s MB/%s MB' ), Core\Number::format( round( $used, 2 ), 2 ), Core\Number::format( $quota ) ),
 			'class' => $classes,
 		/* translators: %s: space used percent */
-		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), Number::localize( $percent.'%' ) ) );
+		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), Core\Number::localize( $percent.'%' ) ) );
 
 		return $items;
 	}
@@ -535,7 +530,7 @@ class Dashboard extends gNetwork\Module
 			return;
 
 		echo '<ul class="-pointers">';
-			echo HTML::renderList( $items, FALSE, FALSE );
+			echo Core\HTML::renderList( $items, FALSE, FALSE );
 		echo '</ul>';
 	}
 }

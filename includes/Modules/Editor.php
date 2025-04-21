@@ -3,8 +3,9 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Editor extends gNetwork\Module
 {
@@ -83,7 +84,7 @@ class Editor extends gNetwork\Module
 		return $query;
 	}
 
-	// using shortlinks instead of permalinks inside the editor
+	// using short-links instead of perma-links inside the editor
 	public function wp_link_query( $results, $query )
 	{
 		foreach ( $results as &$result )
@@ -117,7 +118,7 @@ class Editor extends gNetwork\Module
 
 	public function teeny_mce_buttons( $buttons, $editor_id )
 	{
-		if ( WordPress::isBlockEditor() )
+		if ( Core\WordPress::isBlockEditor() )
 			return $buttons;
 
 		if ( empty( $this->tinymce[0] ) )
@@ -131,7 +132,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons( $buttons, $editor_id )
 	{
-		if ( WordPress::isBlockEditor() )
+		if ( Core\WordPress::isBlockEditor() )
 			return $buttons;
 
 		// skip adding on term description editors
@@ -149,7 +150,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_2( $buttons, $editor_id )
 	{
-		if ( WordPress::isBlockEditor() )
+		if ( Core\WordPress::isBlockEditor() )
 			return $buttons;
 
 		// skip adding on term description editors
@@ -167,7 +168,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_3( $buttons, $editor_id )
 	{
-		if ( WordPress::isBlockEditor() )
+		if ( Core\WordPress::isBlockEditor() )
 			return $buttons;
 
 		if ( empty( $this->tinymce[3] ) )
@@ -181,7 +182,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_4( $buttons, $editor_id )
 	{
-		if ( WordPress::isBlockEditor() )
+		if ( Core\WordPress::isBlockEditor() )
 			return $buttons;
 
 		if ( empty( $this->tinymce[4] ) )
@@ -213,7 +214,7 @@ class Editor extends gNetwork\Module
 // http://10up.com/plugins-modules/wordpress-mce-table-buttons/
 // @SOURCE: https://wordpress.org/plugins/mce-table-buttons/
 
-	// fixes weirdness resulting from wpautop and formatting clean up not built for tables
+	// fixes weirdness resulting from `wpautop` and formatting clean up not built for tables
 	public function content_save_pre( $content )
 	{
 		if ( FALSE !== strpos( $content, '<table' ) ) {

@@ -3,12 +3,10 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Dev extends gNetwork\Module
 {
@@ -61,7 +59,7 @@ class Dev extends gNetwork\Module
 
 	public function redirect_canonical( $redirect_url, $requested_url )
 	{
-		if ( $redirect_url && URL::stripFragment( $redirect_url ) !== URL::stripFragment( $requested_url ) )
+		if ( $redirect_url && Core\URL::stripFragment( $redirect_url ) !== Core\URL::stripFragment( $requested_url ) )
 			Logger::siteDEBUG( 'CANONICAL', esc_url( $requested_url ).' >> '.esc_url( $redirect_url ) );
 
 		return $redirect_url;
@@ -83,7 +81,7 @@ class Dev extends gNetwork\Module
 	// it's faster than airplane-mode
 	public function pre_get_avatar( $null, $id_or_email, $args )
 	{
-		return HTML::tag( 'img', [
+		return Core\HTML::tag( 'img', [
 			'src'    => 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
 			'alt'    => $args['alt'],
 			'width'  => $args['size'],
@@ -129,46 +127,46 @@ class Dev extends gNetwork\Module
 		if ( is_admin() )
 			$log[] = 'Admin';
 
-		if ( WordPress::isFlush() )
+		if ( Core\WordPress::isFlush() )
 			$log[] = 'Flush';
 
-		if ( WordPress::isCLI() )
+		if ( Core\WordPress::isCLI() )
 			$log[] = 'CLI';
 
-		if ( WordPress::isCRON() )
+		if ( Core\WordPress::isCRON() )
 			$log[] = 'CRON';
 
-		if ( WordPress::isAJAX() )
+		if ( Core\WordPress::isAJAX() )
 			$log[] = 'AJAX';
 
-		if ( WordPress::isREST() )
+		if ( Core\WordPress::isREST() )
 			$log[] = 'REST';
 
 		if ( function_exists( 'gNetwork' ) )
-			$log[] = 'gN:'.File::formatSize( self::varSize( gNetwork() ) );
+			$log[] = 'gN:'.Core\File::formatSize( self::varSize( gNetwork() ) );
 
 		if ( function_exists( 'gEditorial' ) )
-			$log[] = 'gE:'.File::formatSize( self::varSize( gEditorial() ) );
+			$log[] = 'gE:'.Core\File::formatSize( self::varSize( gEditorial() ) );
 
 		if ( $gPeopleNetwork )
-			$log[] = 'gP:'.File::formatSize( self::varSize( $gPeopleNetwork ) );
+			$log[] = 'gP:'.Core\File::formatSize( self::varSize( $gPeopleNetwork ) );
 
 		if ( $gMemberNetwork )
-			$log[] = 'gM:'.File::formatSize( self::varSize( $gMemberNetwork ) );
+			$log[] = 'gM:'.Core\File::formatSize( self::varSize( $gMemberNetwork ) );
 
 		if ( function_exists( 'gPersianDate' ) )
-			$log[] = 'gPD:'.File::formatSize( self::varSize( gPersianDate() ) );
+			$log[] = 'gPD:'.Core\File::formatSize( self::varSize( gPersianDate() ) );
 
 		if ( $_SERVER['REQUEST_URI'] )
 			$log[] = $_SERVER['REQUEST_URI'];
 
-		if ( ! empty( $pagenow ) && ! WordPress::isREST() )
+		if ( ! empty( $pagenow ) && ! Core\WordPress::isREST() )
 			$log[] = 'PAGE:'.$pagenow;
 
 		$prefix = 'BENCHMARK: ';
 
 		if ( is_multisite() )
-			$prefix.= WordPress::currentSiteName().': ';
+			$prefix.= Core\WordPress::currentSiteName().': ';
 
 		Logger::DEBUG( $prefix.implode( '|', $log ) );
 	}
@@ -189,7 +187,7 @@ class Dev extends gNetwork\Module
 		];
 
 		$contents = Utilities::renderMustache( 'db-error', $data, FALSE );
-		File::putContents( 'db-error.php', $contents, WP_CONTENT_DIR );
+		Core\File::putContents( 'db-error.php', $contents, WP_CONTENT_DIR );
 	}
 
 	public static function generateCustomTax_Post()

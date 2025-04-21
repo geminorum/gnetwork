@@ -3,8 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
-use geminorum\gNetwork\Core\Exception;
 
 class BBQ extends gNetwork\Module
 {

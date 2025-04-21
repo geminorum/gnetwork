@@ -3,17 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\PostType as WPPostType;
+use geminorum\gNetwork\WordPress;
 
 class Authors extends gNetwork\Module
 {
-
-	// TODO: disable sitemap for authors
-
 	protected $key     = 'authors';
 	protected $network = FALSE;
 
@@ -128,7 +124,7 @@ class Authors extends gNetwork\Module
 			'all'  => Settings::showOptionAll(),
 		];
 
-		foreach ( WordPress::getUsers() as $user_id => $user )
+		foreach ( Core\WordPress::getUsers() as $user_id => $user )
 			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
 
 		Settings::headerTitle( _x( 'Author Tools', 'Modules: Authors', 'gnetwork' ) );
@@ -141,7 +137,7 @@ class Authors extends gNetwork\Module
 				echo $this->wrap_open_buttons();
 
 				if ( is_user_member_of_blog( $user ) )
-					HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', 'gnetwork' ) );
+					Core\HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', 'gnetwork' ) );
 
 				else
 					Settings::submitButton( 'add_site_user', _x( 'Add User to this Site', 'Modules: Authors: Settings', 'gnetwork' ) );
@@ -180,7 +176,7 @@ class Authors extends gNetwork\Module
 				'field'     => 'on_post_type',
 				'name_attr' => 'on_post_type',
 				'default'   => 'post',
-				'values'    => WPPostType::get( 0, [ 'show_ui' => TRUE ] ),
+				'values'    => WordPress\PostType::get( 0, [ 'show_ui' => TRUE ] ),
 			] );
 
 			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';
@@ -200,10 +196,10 @@ class Authors extends gNetwork\Module
 				$added = add_user_to_blog( get_current_blog_id(), $user, get_option( 'default_role', 'subscriber' ) );
 
 				if ( $added && ! self::isError( $added ) )
-					WordPress::redirectReferer( 'updated' );
+					Core\WordPress::redirectReferer( 'updated' );
 			}
 
-			WordPress::redirectReferer( 'wrong' );
+			Core\WordPress::redirectReferer( 'wrong' );
 
 		} else if ( ! empty( $_POST['bulk_change_author'] ) ) {
 
@@ -225,10 +221,10 @@ class Authors extends gNetwork\Module
 				$count = $this->bulk_change_author( (int) $_POST['from_user_id'], $to_user, $posttype );
 
 			if ( FALSE === $count )
-				WordPress::redirectReferer( 'wrong' );
+				Core\WordPress::redirectReferer( 'wrong' );
 
 			else
-				WordPress::redirectReferer( [
+				Core\WordPress::redirectReferer( [
 					'message' => 'changed',
 					'count'   => $count,
 				] );
@@ -237,7 +233,7 @@ class Authors extends gNetwork\Module
 
 	public static function userRoles()
 	{
-		HTML::tableSide( get_editable_roles() );
+		Core\HTML::tableSide( get_editable_roles() );
 	}
 
 	public static function summarySiteUser( $default_role = TRUE )
@@ -245,22 +241,26 @@ class Authors extends gNetwork\Module
 		if ( $user = gNetwork()->user() ) {
 
 			$name = get_userdata( $user )->display_name;
-			$edit = WordPress::getUserEditLink( $user );
+			$edit = Core\WordPress::getUserEditLink( $user );
 
-			/* translators: %s: site-user */
-			HTML::desc( sprintf( _x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
-				$edit ? HTML::link( $name, $edit, TRUE ) : $name ) );
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: site-user */
+				_x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
+				$edit ? Core\HTML::link( $name, $edit, TRUE ) : $name )
+			);
 
 		} else {
 
-			HTML::desc( _x( 'Site-User for current network is <strong>not</strong> defined.', 'Modules: Authors: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Site-User for current network is <strong>not</strong> defined.', 'Modules: Authors: Settings', 'gnetwork' ) );
 		}
 
 		if ( $default_role ) {
 
-			/* translators: %s: user role */
-			HTML::desc( sprintf( _x( 'Default role for this site is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
-				HTML::tag( 'code', get_option( 'default_role' ) ) ) );
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: user role */
+				_x( 'Default role for this site is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
+				Core\HTML::tag( 'code', get_option( 'default_role' ) )
+			) );
 		}
 	}
 
@@ -303,7 +303,7 @@ class Authors extends gNetwork\Module
 			return;
 
 		if ( $this->options['replace_author_links'] )
-			WordPress::redirect( $this->options['replace_author_links'], $this->options['status_code'] );
+			Core\WordPress::redirect( $this->options['replace_author_links'], $this->options['status_code'] );
 
 		Utilities::redirect404();
 	}
@@ -348,16 +348,16 @@ class Authors extends gNetwork\Module
 			'context' => NULL,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isXML() )
+		if ( FALSE === $args['context'] || Core\WordPress::isXML() )
 			return NULL;
 
-		if ( $args['cap'] && ! WordPress::cuc( $args['cap'] ) )
+		if ( $args['cap'] && ! Core\WordPress::cuc( $args['cap'] ) )
 			return $args['text'];
 
 		if ( ! is_user_logged_in() )
 			return $args['text'];
 
-		WordPress::doNotCache();
+		Core\WordPress::doNotCache();
 
 		return apply_shortcodes( $content );
 	}
@@ -374,7 +374,7 @@ class Authors extends gNetwork\Module
 
 		if ( is_user_logged_in() ) {
 
-			WordPress::doNotCache();
+			Core\WordPress::doNotCache();
 
 			return $args['text'];
 		}

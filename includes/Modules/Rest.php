@@ -3,14 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\WordPress\Media as WPMedia;
-use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
+use geminorum\gNetwork\WordPress;
 
 class Rest extends gNetwork\Module
 {
-
 	protected $key     = 'rest';
 	protected $network = FALSE;
 
@@ -140,13 +139,13 @@ class Rest extends gNetwork\Module
 		foreach ( get_object_taxonomies( $object_type, 'objects' ) as $taxonomy ) {
 
 			if ( ! is_taxonomy_viewable( $taxonomy )
-				&& ! WPTaxonomy::can( $taxonomy, 'assign_terms', $user_id ) )
+				&& ! WordPress\Taxonomy::can( $taxonomy, 'assign_terms', $user_id ) )
 					continue;
 
 			if ( in_array( $taxonomy->name, $ignored, TRUE ) )
 				continue;
 
-			$list = WPTaxonomy::getTheTermList( $taxonomy->name, $post['id'] );
+			$list = WordPress\Taxonomy::getTheTermList( $taxonomy->name, $post['id'] );
 			$html = $this->filters( 'terms_rendered_html',
 				Utilities::getJoined( $list ),
 				$taxonomy,
@@ -176,7 +175,7 @@ class Rest extends gNetwork\Module
 		);
 
 		return $this->filters( 'thumbnail_data',
-			WPMedia::prepAttachmentData( $thumbnail_id ),
+			WordPress\Media::prepAttachmentData( $thumbnail_id ),
 			$thumbnail_id,
 			$post_array['id'],
 			$post_array

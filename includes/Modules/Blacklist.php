@@ -3,15 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
 
 class Blacklist extends gNetwork\Module
 {
-
 	protected $key  = 'blacklist';
 	protected $ajax = TRUE;
 	protected $cron = TRUE;
@@ -61,9 +59,11 @@ class Blacklist extends gNetwork\Module
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
 					'title'       => _x( 'IP Addresses', 'Modules: Blacklist: Settings', 'gnetwork' ),
-					/* translators: %s: IP range example */
-					'description' => sprintf( _x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: Blacklist: Settings', 'gnetwork' ),
-						'<code>1.6.0.0-1.7.255.255, 1.2.3/24, 1.2.3.4/255.255.255.0, 1.8.0.0, 1.8.0.1</code>' ),
+					'description' => sprintf(
+						/* translators: `%s`: IP range example */
+						_x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: Blacklist: Settings', 'gnetwork' ),
+						Core\HTML::code( '1.6.0.0-1.7.255.255, 1.2.3/24, 1.2.3.4/255.255.255.0, 1.8.0.0, 1.8.0.1' )
+					),
 					'field_class' => [ 'regular-text', 'code-text', 'textarea-autosize' ],
 					'after'       => defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' )
 						? Settings::fieldAfterButton( Utilities::buttonImportRemoteContent(
@@ -85,14 +85,18 @@ class Blacklist extends gNetwork\Module
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) )
 			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: Blacklist: Settings', 'gnetwork' ), FALSE );
 		else
-			/* translators: %1$s: Final IP, %2$s: Remote IP */
-			HTML::desc( sprintf( _x( 'Your IP: <code title="%1$s">%2$s</code>', 'Modules: Blacklist: Settings', 'gnetwork' ), HTTP::IP(), $_SERVER['REMOTE_ADDR'] ) );
+			Core\HTML::desc( sprintf(
+				/* translators: `%1$s`: Final IP, `%2$s`: Remote IP */
+				_x( 'Your IP: <code title="%1$s">%2$s</code>', 'Modules: Blacklist: Settings', 'gnetwork' ),
+				Core\HTTP::IP(),
+				$_SERVER['REMOTE_ADDR']
+			) );
 
 		if ( $this->options['check_ip'] && defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) ) {
 
 			echo '<hr />';
 
-			HTML::desc( _x( 'Your site is scheduled for regularly blacklist updates from the pre-configured remote source.', 'Modules: Blacklist: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Your site is scheduled for regularly blacklist updates from the pre-configured remote source.', 'Modules: Blacklist: Settings', 'gnetwork' ) );
 		}
 	}
 
@@ -113,7 +117,7 @@ class Blacklist extends gNetwork\Module
 		if ( ! defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) )
 			return;
 
-		if ( ! $content = HTTP::getHTML( GNETWORK_BLACKLIST_REMOTE_CONTENT ) )
+		if ( ! $content = Core\HTTP::getHTML( GNETWORK_BLACKLIST_REMOTE_CONTENT ) )
 			return Logger::FAILED( 'BLACKLIST: Problem getting remote content' );
 
 		if ( $content === $this->options['blacklisted_ips'] )
@@ -129,11 +133,11 @@ class Blacklist extends gNetwork\Module
 			return FALSE;
 
 		$blocks  = explode( ',', str_replace( "\n", ',', $this->options['blacklisted_ips'] ) );
-		$current = HTTP::normalizeIP( $_SERVER['REMOTE_ADDR'] );
+		$current = Core\HTTP::normalizeIP( $_SERVER['REMOTE_ADDR'] );
 
 		foreach ( $blocks as $block ) {
 
-			if ( HTTP::IPinRange( $current, trim( $block ) ) ) {
+			if ( Core\HTTP::IPinRange( $current, trim( $block ) ) ) {
 
 				Logger::siteFAILED( 'BLACKLIST: Blacklisted', $current );
 

@@ -5,30 +5,13 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
 use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\L10n;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\WordPress\Media as WPMedia;
-use geminorum\gNetwork\WordPress\PostType as WPPostType;
-use geminorum\gNetwork\WordPress\Strings;
+use geminorum\gNetwork\WordPress;
 
 class Media extends gNetwork\Module
 {
-
-	// TODO: move tools tab to Images module
-	// TODO: new tools tab for orphaned attachments: also support for term thumbnails on `image` term-meta
-	// TODO: DROP: row actions
-	// TODO: https://wordpress.org/plugins/safe-svg/
-	// TODO: https://github.com/darylldoyle/svg-sanitizer
-
 	protected $key     = 'media';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
@@ -127,7 +110,7 @@ class Media extends gNetwork\Module
 	// FIXME: get mime names
 	public static function summaryAttachments()
 	{
-		echo HTML::tableCode( wp_count_attachments() );
+		echo Core\HTML::tableCode( wp_count_attachments() );
 	}
 
 	public function init()
@@ -166,7 +149,7 @@ class Media extends gNetwork\Module
 	{
 		if ( 'upload' == $screen->base ) {
 
-			if ( WordPress::cuc( $this->options['tools_accesscap'] ) ) {
+			if ( Core\WordPress::cuc( $this->options['tools_accesscap'] ) ) {
 				add_filter( 'bulk_actions-'.$screen->id, [ $this, 'bulk_actions' ] );
 				add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
 			}
@@ -192,10 +175,12 @@ class Media extends gNetwork\Module
 
 	public function post_plupload_upload_ui()
 	{
-		if ( WordPress::cuc( $this->options['dashboard_accesscap'] ) )
-			/* translators: %1$s: link markup start, %2$s: link markup end */
-			HTML::desc( sprintf( _x( 'Alternatively, you can use %1$sLarge File Uploader%2$s widget on the dashoard.', 'Modules: Media', 'gnetwork' ),
-				'<a href="'.HTML::escapeURL( get_dashboard_url() ).'">', '</a>' ) );
+		if ( Core\WordPress::cuc( $this->options['dashboard_accesscap'] ) )
+			Core\HTML::desc( sprintf(
+				/* translators: `%1$s`: link markup start, `%2$s`: link markup end */
+				_x( 'Alternatively, you can use %1$sLarge File Uploader%2$s widget on the dashoard.', 'Modules: Media', 'gnetwork' ),
+				'<a href="'.Core\HTML::escapeURL( get_dashboard_url() ).'">', '</a>'
+			) );
 	}
 
 	public function tools( $sub = NULL, $key = NULL )
@@ -228,7 +213,7 @@ class Media extends gNetwork\Module
 						if ( $this->sync_attachments( $post_id ) )
 							$count++;
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'synced',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -248,7 +233,7 @@ class Media extends gNetwork\Module
 						else if ( $this->clean_attachments( $post_id ) )
 							$count++;
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'cleaned',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -263,7 +248,7 @@ class Media extends gNetwork\Module
 						if ( $this->cache_in_content( $post_id ) )
 							$count++;
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'imported',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -278,7 +263,7 @@ class Media extends gNetwork\Module
 						if ( $this->ssl_correction( $post_id ) )
 							$count++;
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'converted',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -293,7 +278,7 @@ class Media extends gNetwork\Module
 						if ( $this->purge_meta( $post_id ) )
 							$count++;
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'purged',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -302,7 +287,7 @@ class Media extends gNetwork\Module
 
 				} else {
 
-					WordPress::redirectReferer( [
+					Core\WordPress::redirectReferer( [
 						'message' => 'wrong',
 						'limit'   => self::limit(),
 						'paged'   => self::paged(),
@@ -320,9 +305,9 @@ class Media extends gNetwork\Module
 		global $_wp_additional_image_sizes;
 
 		if ( empty( $_wp_additional_image_sizes ) )
-			HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', 'gnetwork' ) );
 		else
-			HTML::tableSide( $_wp_additional_image_sizes );
+			Core\HTML::tableSide( $_wp_additional_image_sizes );
 	}
 
 	// @SEE: `get_post_types_by_support()`
@@ -337,7 +322,7 @@ class Media extends gNetwork\Module
 
 		$pagination['before'][] = self::filterTablelistSearch();
 
-		return HTML::tableList( [
+		return Core\HTML::tableList( [
 			'_cb' => 'ID',
 			'ID'  => _x( 'ID', 'Modules: Media: Column Title', 'gnetwork' ),
 
@@ -350,7 +335,7 @@ class Media extends gNetwork\Module
 
 			'type' => [
 				'title'    => _x( 'Type', 'Modules: Media: Column Title', 'gnetwork' ),
-				'args'     => [ 'post_types' => WPPostType::get( 2 ) ],
+				'args'     => [ 'post_types' => WordPress\PostType::get( 2 ) ],
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
 						? $column['args']['post_types'][$row->post_type]
@@ -368,7 +353,7 @@ class Media extends gNetwork\Module
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::getPostTitle( $row )
 						.get_the_term_list( $row->ID, 'post_tag',
-							'<div><small>', Strings::separator(), '</small></div>' );
+							'<div><small>', WordPress\Strings::separator(), '</small></div>' );
 				},
 				'actions' => function ( $value, $row, $column, $index, $key, $args ) {
 					$query = [
@@ -381,37 +366,37 @@ class Media extends gNetwork\Module
 
 						// TODO: new row/bulk action: delete all image/other attachments of this post
 
-						'edit' => HTML::tag( 'a', [
+						'edit' => Core\HTML::tag( 'a', [
 							'href'   => add_query_arg( [ 'action' => 'edit', 'post' => $row->ID ], $column['args']['admin'] ),
 							'class'  => '-link -row-link -row-link-edit',
 							'target' => '_blank',
 						], _x( 'Edit', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
-						'view' => HTML::tag( 'a', [
+						'view' => Core\HTML::tag( 'a', [
 							'href'   => add_query_arg( [ 'p' => $row->ID ], $column['args']['url'] ),
 							'class'  => '-link -row-link -row-link-view',
 							'target' => '_blank',
 						], _x( 'View', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
-						'clean' => HTML::tag( 'a', [
+						'clean' => Core\HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'clean_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-clean',
 							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
 						], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
-						'sync' => HTML::tag( 'a', [
+						'sync' => Core\HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'sync_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-sync',
 							'data'  => [ 'spinner' => _x( 'Syncing &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
 						], _x( 'Sync', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
-						'cache' => HTML::tag( 'a', [
+						'cache' => Core\HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-cache',
 							'data'  => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
 						], _x( 'Cache', 'Modules: Media: Row Action', 'gnetwork' ) ),
 
-						'correct' => HTML::tag( 'a', [
+						'correct' => Core\HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'correct_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-correct',
 							'data'  => [ 'spinner' => _x( 'Correcting SSL &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
@@ -436,7 +421,7 @@ class Media extends gNetwork\Module
 					$list     = [];
 					$original = _x( 'Original Size', 'Modules: Media: Title Attr', 'gnetwork' );
 					$sizes    = _x( 'Number of Sizes', 'Modules: Media: Title Attr', 'gnetwork' );
-					$checked  = HTTP::checkURLs( Arraay::column( $attachments, 'url' ) );
+					$checked  = Core\HTTP::checkURLs( Core\Arraay::column( $attachments, 'url' ) );
 
 					$thumbnail_id  = get_post_meta( $row->ID, '_thumbnail_id', TRUE );
 					$gtheme_images = get_post_meta( $row->ID, '_gtheme_images', TRUE );
@@ -447,9 +432,9 @@ class Media extends gNetwork\Module
 						$meta = wp_get_attachment_metadata( $attachment['ID'] );
 						$code = $checked && isset( $checked[$attachment['url']] ) ? $checked[$attachment['url']] : NULL;
 
-						$html = HTTP::htmlStatus( $code );
+						$html = Core\HTTP::htmlStatus( $code );
 
-						$html.= HTML::tag( 'a', [
+						$html.= Core\HTML::tag( 'a', [
 							'href'   => $attachment['url'],
 							'class'  => 200 === $code ? 'thickbox' : '-error',
 							'target' => '_blank',
@@ -458,8 +443,8 @@ class Media extends gNetwork\Module
 						$html.= ' &ndash;'.$attachment['ID'];
 
 						if ( ! empty( $meta['original_image'] ) )
-							$html.= sprintf( ' &ndash;<span title="%s">%s</span>', $original, HTML::tag( 'a', [
-								'href'   => File::join( dirname( $attachment['url'] ), $meta['original_image'] ),
+							$html.= sprintf( ' &ndash;<span title="%s">%s</span>', $original, Core\HTML::tag( 'a', [
+								'href'   => Core\File::join( dirname( $attachment['url'] ), $meta['original_image'] ),
 								'class'  => 'original',
 								'target' => '_blank',
 							], 'O' ) );
@@ -479,7 +464,7 @@ class Media extends gNetwork\Module
 						$list[] = $html;
 					}
 
-					return $list ? HTML::renderList( $list ) : Utilities::htmlEmpty();
+					return $list ? Core\HTML::rows( $list ) : Utilities::htmlEmpty();
 				},
 			],
 
@@ -496,37 +481,37 @@ class Media extends gNetwork\Module
 						return Utilities::htmlEmpty();
 
 					$list     = [];
-					$externals = URL::checkExternals( $matches[1] );
+					$externals = Core\URL::checkExternals( $matches[1] );
 
 					$external = sprintf( '<small><code class="-external-resource" title="%s">%s</code></small>',
 						_x( 'External Resource', 'Modules: Media: Title Attr', 'gnetwork' ),
 						_x( 'Ex', 'Modules: Media: External Resource', 'gnetwork' ) );
 
-					if ( FALSE === ( $checked = HTTP::checkURLs( $matches[1] ) ) )
+					if ( FALSE === ( $checked = Core\HTTP::checkURLs( $matches[1] ) ) )
 						$checked = array_fill_keys( $matches[1], NULL );
 
 					foreach ( $checked as $src => $code ) {
 
-						$link = HTTP::htmlStatus( $code );
+						$link = Core\HTTP::htmlStatus( $code );
 
 						if ( isset( $externals[$src] ) && $externals[$src] )
 							$link.= $external;
 
-						$list[] = $link.' '.HTML::tag( 'a', [
+						$list[] = $link.' '.Core\HTML::tag( 'a', [
 							'href'   => $src,
 							'class'  => 200 === $code ? 'thickbox' : '-error',
 							'target' => '_blank',
-						], URL::prepTitle( $src ) );
+						], Core\URL::prepTitle( $src ) );
 					}
 
-					return $list ? HTML::renderList( $list ) : Utilities::htmlEmpty();
+					return $list ? Core\HTML::rows( $list ) : Utilities::htmlEmpty();
 				},
 			],
 		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of Posts with Attachments', 'Modules: Media', 'gnetwork' ) ),
-			'empty'      => HTML::warning( _x( 'No Posts!', 'Modules: Media', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Posts with Attachments', 'Modules: Media', 'gnetwork' ) ),
+			'empty'      => Core\HTML::warning( _x( 'No Posts!', 'Modules: Media', 'gnetwork' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -538,12 +523,12 @@ class Media extends gNetwork\Module
 
 		$list = [];
 
-		foreach ( WPMedia::getAttachments( $parent_id, $mime_type ) as $attachment ) {
+		foreach ( WordPress\Media::getAttachments( $parent_id, $mime_type ) as $attachment ) {
 
 			if ( ! $file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) )
 				continue;
 
-			if ( Text::has( $file, $wpupload['basedir'] ) )
+			if ( Core\Text::has( $file, $wpupload['basedir'] ) )
 				$url = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
 
 			else
@@ -598,12 +583,12 @@ class Media extends gNetwork\Module
 			return $metadata;
 
 		$wpupload = wp_get_upload_dir();
-		$editor   = wp_get_image_editor( File::join( $wpupload['basedir'], $metadata['file'] ) );
+		$editor   = wp_get_image_editor( Core\File::join( $wpupload['basedir'], $metadata['file'] ) );
 
 		if ( ! self::isError( $editor ) )
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
 
-		if ( WordPress::isDev() ) {
+		if ( Core\WordPress::isDev() ) {
 			self::_log( $parent_type, $metadata );
 		}
 
@@ -683,7 +668,7 @@ class Media extends gNetwork\Module
 			return $metadata;
 
 		$wpupload = wp_get_upload_dir();
-		$editor   = wp_get_image_editor( File::join( $wpupload['basedir'], $metadata['file'] ) );
+		$editor   = wp_get_image_editor( Core\File::join( $wpupload['basedir'], $metadata['file'] ) );
 
 		if ( ! self::isError( $editor ) )
 			$metadata['sizes'] = array_merge( $metadata['sizes'], $editor->multi_resize( $sizes ) );
@@ -691,7 +676,7 @@ class Media extends gNetwork\Module
 		if ( empty( $metadata['sizes'] ) )
 			unset( $metadata['sizes'] );
 
-		if ( WordPress::isDev() )
+		if ( Core\WordPress::isDev() )
 			self::_log( $taxonomy, $metadata, $wpupload );
 
 		return $metadata;
@@ -795,7 +780,7 @@ class Media extends gNetwork\Module
 
 			$wpupload = wp_get_upload_dir();
 			$img_url  = wp_get_attachment_url( $post_id );
-			$img_url  = str_replace( File::basename( $img_url ), $data['file'], $img_url );
+			$img_url  = str_replace( Core\File::basename( $img_url ), $data['file'], $img_url );
 
 			if ( GNETWORK_MEDIA_THUMBS_CHECK && file_exists( str_replace( $wpupload['baseurl'], $wpupload['basedir'], $img_url ) ) )
 				return $false;
@@ -816,7 +801,7 @@ class Media extends gNetwork\Module
 		$wpupload = wp_get_upload_dir();
 		$info     = pathinfo( $file );
 		$folder   = str_replace( $wpupload['basedir'], '', $info['dirname'] );
-		$path     = File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).$folder;
+		$path     = Core\File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() ).$folder;
 
 		if ( wp_mkdir_p( $path ) )
 			return $path;
@@ -852,12 +837,12 @@ class Media extends gNetwork\Module
 		if ( is_null( $wpupload ) )
 			$wpupload = wp_get_upload_dir();
 
-		$filetype = Core\File::type( File::basename( $file ) );
-		$pathfile = File::join( dirname( $file ), File::basename( $file, '.'.$filetype['ext'] ) );
+		$filetype = Core\File::type( Core\File::basename( $file ) );
+		$pathfile = Core\File::join( dirname( $file ), Core\File::basename( $file, '.'.$filetype['ext'] ) );
 
 		if ( $this->filters( 'thumbs_separation', GNETWORK_MEDIA_THUMBS_SEPARATION, get_current_blog_id() ) ) {
 
-			$thumbs_dir = File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() );
+			$thumbs_dir = Core\File::join( GNETWORK_MEDIA_THUMBS_DIR, get_current_blog_id() );
 			$gn_thumbs  = glob( $thumbs_dir.'/'.$pathfile.'-[0-9]*x[0-9]*.'.$filetype['ext'] );
 
 			if ( ! empty( $gn_thumbs ) )
@@ -876,7 +861,7 @@ class Media extends gNetwork\Module
 	{
 		if ( $force || ! $this->attachment_is_custom( $attachment_id ) ) {
 
-			File::remove( $this->get_attachment_thumbs( $attachment_id ) );
+			Core\File::remove( $this->get_attachment_thumbs( $attachment_id ) );
 
 			if ( $regenerate ) {
 				$file   = get_attached_file( $attachment_id, TRUE );
@@ -894,7 +879,7 @@ class Media extends gNetwork\Module
 	{
 		$count = 0;
 
-		foreach ( WPMedia::getAttachments( $post_id ) as $attachment )
+		foreach ( WordPress\Media::getAttachments( $post_id ) as $attachment )
 			if ( $this->clean_attachment( $attachment->ID, TRUE, $force ) )
 				$count++;
 
@@ -910,9 +895,9 @@ class Media extends gNetwork\Module
 
 		$clean = $moved = [];
 
-		foreach ( WPMedia::getAttachments( $post->ID ) as $attachment ) {
+		foreach ( WordPress\Media::getAttachments( $post->ID ) as $attachment ) {
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
-				if ( ! str_replace( File::basename( $attached_file ), '', $attached_file ) ) {
+				if ( ! str_replace( Core\File::basename( $attached_file ), '', $attached_file ) ) {
 					$clean[$attachment->ID] = $attached_file;
 				}
 			}
@@ -921,16 +906,16 @@ class Media extends gNetwork\Module
 		if ( empty( $clean ) )
 			return TRUE;
 
-		$wpupload = WPMedia::upload( $post );
+		$wpupload = WordPress\Media::upload( $post );
 
 		preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $post->post_content, $matches );
 
 		foreach ( $clean as $clean_id => $clean_file ) {
 
-			// $clean_upload = media_sideload_image( URL::trail( $wpupload['baseurl'] ).$clean_file, $post->ID, NULL, 'src' );
+			// $clean_upload = media_sideload_image( Core\URL::trail( $wpupload['baseurl'] ).$clean_file, $post->ID, NULL, 'src' );
 
-			$clean_path = File::join( $wpupload['basedir'], $clean_file );
-			$moved_path = File::join( $wpupload['path'], $clean_file );
+			$clean_path = Core\File::join( $wpupload['basedir'], $clean_file );
+			$moved_path = Core\File::join( $wpupload['path'], $clean_file );
 
 			// move file to correct location
 			if ( file_exists( $clean_path ) && @rename( $clean_path, $moved_path ) ) {
@@ -939,33 +924,33 @@ class Media extends gNetwork\Module
 				$urls  = [];
 
 				foreach ( $paths as $path )
-					$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], File::normalize( $path ) );
+					$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], Core\File::normalize( $path ) );
 
 				// also the original
-				$urls[] = URL::trail( $wpupload['baseurl'] ).$clean_file;
+				$urls[] = Core\URL::trail( $wpupload['baseurl'] ).$clean_file;
 
 				foreach ( $urls as $url ) {
 					foreach ( $matches[1] as $matched ) {
 						if ( $url == $matched ) {
 							$wpdb->query( $wpdb->prepare( "
 								UPDATE {$wpdb->posts} SET post_content = REPLACE( post_content, %s, %s ) WHERE ID = %d
-							", $matched, ( URL::trail( $wpupload['url'] ).File::basename( $matched ) ), $post->ID ) );
+							", $matched, ( Core\URL::trail( $wpupload['url'] ).Core\File::basename( $matched ) ), $post->ID ) );
 						}
 					}
 				}
 
-				File::remove( $paths );
+				Core\File::remove( $paths );
 
 				$meta = wp_generate_attachment_metadata( $clean_id, $moved_path );
 				wp_update_attachment_metadata( $clean_id, $meta );
 
 				$wpdb->query( $wpdb->prepare( "
 					UPDATE {$wpdb->posts} SET guid = %s WHERE ID = %d
-				", sanitize_url( URL::trail( $wpupload['url'] ).$clean_file ), $clean_id ) );
+				", sanitize_url( Core\URL::trail( $wpupload['url'] ).$clean_file ), $clean_id ) );
 
 				update_attached_file( $clean_id, $moved_path );
 
-				$moved[$clean_id] = URL::trail( $wpupload['subdir'] ).$clean_file;
+				$moved[$clean_id] = Core\URL::trail( $wpupload['subdir'] ).$clean_file;
 			}
 		}
 
@@ -997,7 +982,7 @@ class Media extends gNetwork\Module
 	{
 		if ( 'attachment' == $post->post_type ) {
 
-			if ( $alt = WPMedia::getAttachmentImageAlt( $post->ID, FALSE ) )
+			if ( $alt = WordPress\Media::getAttachmentImageAlt( $post->ID, FALSE ) )
 				return $alt;
 
 			if ( $caption = wp_get_attachment_caption( $post->ID ) )
@@ -1037,10 +1022,10 @@ class Media extends gNetwork\Module
 	{
 		$url = wp_get_attachment_url( $post->ID );
 
-		if ( WordPress::cuc( $this->options['tools_accesscap'] )
+		if ( Core\WordPress::cuc( $this->options['tools_accesscap'] )
 			&& wp_attachment_is( 'image', $post->ID ) ) {
 
-			$actions['media-clean'] = HTML::tag( 'a', [
+			$actions['media-clean'] = Core\HTML::tag( 'a', [
 				'target' => '_blank',
 				'class'  => [ 'media-clean-attachment', ( $post->post_parent ? '' : '-disabled' ) ],
 				'href'   => $post->post_parent ? $this->get_menu_url( 'images', NULL, 'tools', [ 'id' => $post->post_parent ] ) : '#',
@@ -1053,7 +1038,7 @@ class Media extends gNetwork\Module
 			], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork' ) );
 		}
 
-		$link = HTML::tag( 'a', [
+		$link = Core\HTML::tag( 'a', [
 			'target' => '_blank',
 			'class'  => 'media-url-click media-url-attachment',
 			'href'   => $url,
@@ -1183,7 +1168,7 @@ class Media extends gNetwork\Module
 	// @REF: https://deliciousbrains.com/?p=26646
 	public function render_widget_uploader()
 	{
-		HTML::desc( $this->options['dashboard_intro'], TRUE, '-intro' );
+		Core\HTML::desc( $this->options['dashboard_intro'], TRUE, '-intro' );
 
 		$html = '<form>'.Ajax::spinner();
 		$html.= '<div id="'.$this->classs( 'file-progress' ).'" class="-messages">';
@@ -1193,20 +1178,20 @@ class Media extends gNetwork\Module
 		$html.= '<div><label for="'.$this->classs( 'file-upload' ).'" class="button button-small">';
 		$html.= _x( 'Select File', 'Modules: Media', 'gnetwork' ).'</label>';
 
-		$html.= HTML::tag( 'input', [
+		$html.= Core\HTML::tag( 'input', [
 			'id'    => $this->classs( 'file-upload' ),
 			'type'  => 'file',
 			'style' => 'display:none',
 		] );
 
-		$html.= HTML::tag( 'input', [
+		$html.= Core\HTML::tag( 'input', [
 			'id'    => $this->classs( 'file-submit' ),
 			'type'  => 'submit',
 			'class' => [ 'button', 'button-small', 'button-primary' ],
 			'value' => _x( 'Upload', 'Modules: Media', 'gnetwork' ),
 			'data'  => [
 				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
-				'locale'   => L10n::locale(),
+				'locale'   => Core\L10n::locale(),
 				/* translators: %s: progress precent */
 				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', 'gnetwork' ),
 				'complete' => _x( 'Upload Complete!', 'Modules: Media', 'gnetwork' ),
@@ -1229,16 +1214,16 @@ class Media extends gNetwork\Module
 	// @REF: `media_handle_upload()`
 	private function complete_upload( $filename, $metadata = FALSE )
 	{
-		$wpupload = WPMedia::upload();
+		$wpupload = WordPress\Media::upload();
 
 		$file = sanitize_file_name( $filename );
 		$type = Core\File::type( $file );
 
-		$path = File::join( $wpupload['path'], $file );
+		$path = Core\File::join( $wpupload['path'], $file );
 		$url  = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
 
 		$ext   = pathinfo( $filename, PATHINFO_EXTENSION );
-		$name  = File::basename( $filename, ".$ext" );
+		$name  = Core\File::basename( $filename, ".$ext" );
 		$title = sanitize_text_field( $name );
 
 		$id = wp_insert_attachment( [
@@ -1253,7 +1238,7 @@ class Media extends gNetwork\Module
 		if ( $metadata )
 			wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
 
-		return [ TRUE, HTML::link( _x( 'View Uploaded File', 'Modules: Media', 'gnetwork' ), WordPress::getPostEditLink( $id ), TRUE ) ];
+		return [ TRUE, Core\HTML::link( _x( 'View Uploaded File', 'Modules: Media', 'gnetwork' ), Core\WordPress::getPostEditLink( $id ), TRUE ) ];
 	}
 
 	private function store_chaunk( $file, $data, $chunk = 0 )
@@ -1261,12 +1246,12 @@ class Media extends gNetwork\Module
 		if ( FALSE === ( $decoded = $this->decode_chunk( $data ) ) )
 			return _x( 'Something is wrong with data!', 'Modules: Media', 'gnetwork' );
 
-		$wpupload = WPMedia::upload();
+		$wpupload = WordPress\Media::upload();
 
 		if ( FALSE !== $wpupload['error'] )
 			return _x( 'Can not access upload folders!', 'Modules: Media', 'gnetwork' );
 
-		$path = File::join( $wpupload['path'], sanitize_file_name( $file ) );
+		$path = Core\File::join( $wpupload['path'], sanitize_file_name( $file ) );
 
 		if ( 0 === $chunk && file_exists( $path ) )
 			return _x( 'The file is already exists in upload folder!', 'Modules: Media', 'gnetwork' );
@@ -1419,7 +1404,7 @@ class Media extends gNetwork\Module
 	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt, $rel = '' )
 	{
 		if ( strpos( $url, 'attachment_id' ) || $url == get_attachment_link( $id ) )
-			return WPMedia::htmlAttachmentShortLink( $id,
+			return WordPress\Media::htmlAttachmentShortLink( $id,
 				get_image_tag( $id, $alt, '', $align, $size ), '-image-link' );
 
 		return $html;
@@ -1430,7 +1415,7 @@ class Media extends gNetwork\Module
 		if ( ! $attachment = get_post( $id ) )
 			return $html;
 
-		// if no link provided, check for shortcode supported types
+		// if no link provided, check for shor-tcode supported types
 		if ( empty( $data['url'] ) ) {
 
 			// TODO: must use filter system
@@ -1438,16 +1423,16 @@ class Media extends gNetwork\Module
 			// FIXME: not working!!
 			if ( 'text/csv' == $attachment->post_mime_type )
 				return '[csv id="'.$id.'"]'
-					.WPMedia::htmlAttachmentShortLink( $id, $html ).'[/csv]';
+					.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/csv]';
 
-			// WORKING BUT DISABLED: shortcode not supported, yet!
+			// WORKING BUT DISABLED: short-code not supported, yet!
 			// if ( 'application/epub+zip' == $attachment->post_mime_type )
 			// 	return '[epub id="'.$id.'"]'
-			// 		.WPMedia::htmlAttachmentShortLink( $id, $html ).'[/epub]';
+			// 		.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/epub]';
 
 			if ( 'application/pdf' == $attachment->post_mime_type )
 				return '[pdf url="'.wp_get_attachment_url( $id ).'"]'
-					.WPMedia::htmlAttachmentShortLink( $id, $html ).'[/pdf]';
+					.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/pdf]';
 
 			// bail if no link
 			return $html;
@@ -1464,7 +1449,7 @@ class Media extends gNetwork\Module
 		// core media js is failing to set title for video/audio
 		$html = isset( $data['post_title'] ) ? $data['post_title'] : strip_tags( $html );
 
-		return WPMedia::htmlAttachmentShortLink( $id, $html );
+		return WordPress\Media::htmlAttachmentShortLink( $id, $html );
 	}
 
 	// tries to set correct size for thumbnail metabox
@@ -1512,20 +1497,20 @@ class Media extends gNetwork\Module
 	// https://wpartisan.me/tutorials/rename-clean-wordpress-media-filenames
 	public function sanitize_file_name( $filename, $filename_raw )
 	{
-		if ( ! Text::seemsUTF8( $filename ) )
-			return Text::strToLower( $filename );
+		if ( ! Core\Text::seemsUTF8( $filename ) )
+			return Core\Text::strToLower( $filename );
 
 		$info = pathinfo( $filename );
 		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];
 
 		// $name = preg_replace( '/'.$ext.'$/', '', $filename );
-		$name = File::basename( $filename, $ext );
-		$name = Text::formatSlug( $name );
-		$name = trim( remove_accents( $name ) );
+		$name = Core\File::basename( $filename, $ext );
+		$name = Core\Text::formatSlug( $name );
+		$name = Core\Text::trim( remove_accents( $name ) );
 
 		$name = Utilities::URLifyDownCode( $name );
 		// $name = Utilities::URLifyFilter( trim( $name ) );
 
-		return Text::strToLower( $name ).$ext;
+		return Core\Text::strToLower( $name ).$ext;
 	}
 }

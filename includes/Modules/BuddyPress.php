@@ -3,12 +3,10 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class BuddyPress extends gNetwork\Module
 {
@@ -71,7 +69,7 @@ class BuddyPress extends gNetwork\Module
 
 				$this->action( 'bp_activity_before_save' );
 
-				// allow activity authors to delete activity comments by others
+				// allows activity authors to delete activity comments by others
 				// https://buddydev.com/?p=17058
 				$this->filter( 'bp_activity_user_can_delete', 2 );
 				$this->action( 'wp_ajax_delete_activity_comment', 0, 1 );
@@ -130,7 +128,7 @@ class BuddyPress extends gNetwork\Module
 					'type'        => 'url',
 					'title'       => _x( 'Complete Signup', 'Modules: BuddyPress: Settings', 'gnetwork' ),
 					'description' => _x( 'Redirect users after successful registration.', 'Modules: BuddyPress: Settings', 'gnetwork' ),
-					'placeholder' => URL::home( 'welcome' ),
+					'placeholder' => Core\URL::home( 'welcome' ),
 				],
 			],
 			'_xprofile' => [
@@ -250,7 +248,7 @@ class BuddyPress extends gNetwork\Module
 
 	public function init()
 	{
-		$super = WordPress::isSuperAdmin();
+		$super = Core\WordPress::isSuperAdmin();
 		$admin = is_admin();
 
 		if ( $super && ! $admin ) {
@@ -328,7 +326,7 @@ class BuddyPress extends gNetwork\Module
 
 		/* translators: %s: filed name list */
 		$message = sprintf( _x( 'Please complete your profile: %s', 'Modules: BuddyPress', 'gnetwork' ),
-			Utilities::joinItems( Arraay::column( $fields, 'name' ) ) );
+			Utilities::joinItems( Core\Arraay::column( $fields, 'name' ) ) );
 
 		bp_core_add_message( $message, 'warning' );
 	}
@@ -454,7 +452,7 @@ class BuddyPress extends gNetwork\Module
 
 	public function wp_ajax_delete_activity_comment()
 	{
-		if ( ! HTTP::isPOST() )
+		if ( ! Core\HTTP::isPOST() )
 			return;
 
 		check_admin_referer( 'bp_activity_delete_link' );

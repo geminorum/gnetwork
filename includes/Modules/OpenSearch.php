@@ -3,10 +3,8 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Core\Date;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class OpenSearch extends gNetwork\Module
 {
@@ -88,17 +86,23 @@ class OpenSearch extends gNetwork\Module
 					'type'        => 'textarea',
 					'title'       => _x( 'Description', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'description' => _x( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					/* translators: %s: site name */
-					'default'     => sprintf( _x( 'Search %s', 'Modules: OpenSearch: Settings', 'gnetwork' ), $name ),
+					'default'     => sprintf(
+						/* translators: `%s`: site name */
+						_x( 'Search %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+						$name
+					),
 				],
 				[
 					'field'       => 'attribution',
 					'type'        => 'text',
 					'title'       => _x( 'Attribution', 'Modules: OpenSearch: Settings', 'gnetwork' ),
 					'description' => _x( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					/* translators: %s: site name */
-					'default'     => sprintf( _x( 'Search data copyright %s', 'Modules: OpenSearch: Settings', 'gnetwork' ), $name ),
 					'field_class' => 'large-text',
+					'default'     => sprintf(
+						/* translators: `%s`: site name */
+						_x( 'Search data copyright %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+						$name
+					),
 				],
 				[
 					'field'       => 'syndication',
@@ -137,12 +141,15 @@ class OpenSearch extends gNetwork\Module
 
 			$manifest = self::getManifestURL();
 
-			/* translators: %s: manifest url */
-			HTML::desc( sprintf( _x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-				HTML::tag( 'code', HTML::link( URL::relative( $manifest ), $manifest ) ) ) );
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: manifest url */
+				_x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+				Core\HTML::tag( 'code', Core\HTML::link( Core\URL::relative( $manifest ), $manifest ) )
+			) );
+
 		} else {
 
-			HTML::desc( _x( 'There is no manifest available.', 'Modules: OpenSearch: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'There is no manifest available.', 'Modules: OpenSearch: Settings', 'gnetwork' ) );
 		}
 	}
 
@@ -153,7 +160,7 @@ class OpenSearch extends gNetwork\Module
 				'id'      => $this->classs( 'help' ),
 				'title'   => _x( 'OpenSearch', 'Modules: OpenSearch: Help Tab Title', 'gnetwork' ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
-					<p>This site\'s OpenSearch description file is located on:<br />'.HTML::link( NULL, self::getManifestURL() ).'</p>
+					<p>This site\'s OpenSearch description file is located on:<br />'.Core\HTML::link( NULL, self::getManifestURL() ).'</p>
 				<p>Fore more information:<br />
 					<a href="https://github.com/dewitt/opensearch" target="_blank">OpenSearch Documentation</a><br />
 					<a href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch" target="_blank">OpenSearch on MDN</a><br />
@@ -170,7 +177,7 @@ class OpenSearch extends gNetwork\Module
 
 	public function rss2_ns()
 	{
-		if ( WordPress::isExport() )
+		if ( Core\WordPress::isExport() )
 			return;
 
 		echo 'xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/"'."\n";
@@ -178,7 +185,7 @@ class OpenSearch extends gNetwork\Module
 
 	public function rss2_head()
 	{
-		if ( WordPress::isExport() )
+		if ( Core\WordPress::isExport() )
 			return;
 
 		echo "\t".'<atom:link rel="search" type="application/opensearchdescription+xml" href="'
@@ -236,7 +243,7 @@ class OpenSearch extends gNetwork\Module
 
 		echo '<script type="text/javascript">'.$script.'</script>';
 
-		echo $before.HTML::tag( 'a', [
+		echo $before.Core\HTML::tag( 'a', [
 			'href'    => $link,
 			'title'   => $title,
 			'onclick' => 'return AddSearchEngine()',
@@ -256,19 +263,19 @@ class OpenSearch extends gNetwork\Module
 
 		$url = add_query_arg( GNETWORK_SEARCH_QUERYID, '{searchTerms}', GNETWORK_SEARCH_URL );
 
-		$xml = "\t".HTML::tag( 'ShortName', trim( $this->options['shortname'] ) )."\n";
+		$xml = "\t".Core\HTML::tag( 'ShortName', trim( $this->options['shortname'] ) )."\n";
 
 		if ( $this->options['longname'] )
-			$xml.= "\t".HTML::tag( 'LongName', $this->options['longname'] )."\n";
+			$xml.= "\t".Core\HTML::tag( 'LongName', $this->options['longname'] )."\n";
 
-		$xml.= "\t".HTML::tag( 'Description', $this->options['description'] )."\n";
-		$xml.= "\t".HTML::tag( 'InputEncoding', get_bloginfo( 'charset' ) )."\n";
-		$xml.= "\t".HTML::tag( 'OutputEncoding', get_bloginfo( 'charset' ) )."\n";
-		$xml.= "\t".HTML::tag( 'Language', get_bloginfo( 'language' ) )."\n";
+		$xml.= "\t".Core\HTML::tag( 'Description', $this->options['description'] )."\n";
+		$xml.= "\t".Core\HTML::tag( 'InputEncoding', get_bloginfo( 'charset' ) )."\n";
+		$xml.= "\t".Core\HTML::tag( 'OutputEncoding', get_bloginfo( 'charset' ) )."\n";
+		$xml.= "\t".Core\HTML::tag( 'Language', get_bloginfo( 'language' ) )."\n";
 
 		if ( GNETWORK_SEARCH_REDIRECT ) {
 
-			$xml.= "\t".HTML::tag( 'moz:SearchForm', esc_url( GNETWORK_SEARCH_URL ) )."\n";
+			$xml.= "\t".Core\HTML::tag( 'moz:SearchForm', esc_url( GNETWORK_SEARCH_URL ) )."\n";
 
 		} else {
 
@@ -277,7 +284,7 @@ class OpenSearch extends gNetwork\Module
 			// SEE: https://www.drupal.org/project/opensearch
 			// ALSO : http://www.opensearch.org/Documentation/Developer_how_to_guide#How_to_indicate_errors
 
-			$xml.= "\t".HTML::tag( 'Url', [
+			$xml.= "\t".Core\HTML::tag( 'Url', [
 				'type'     => 'application/atom+xml',
 				'template' => add_query_arg( [
 					'feed'                  => 'atom',
@@ -285,7 +292,7 @@ class OpenSearch extends gNetwork\Module
 				], GNETWORK_SEARCH_URL ),
 			] )."\n";
 
-			$xml.= "\t".HTML::tag( 'Url', [
+			$xml.= "\t".Core\HTML::tag( 'Url', [
 				'type'     => 'application/rss+xml',
 				'template' => add_query_arg( [
 					'feed'                  => 'rss2',
@@ -295,7 +302,7 @@ class OpenSearch extends gNetwork\Module
 
 			if ( $this->options['suggestions'] ) {
 
-				$xml.= "\t".HTML::tag( 'Url', [
+				$xml.= "\t".Core\HTML::tag( 'Url', [
 					// 'type'     => 'application/json',
 					'type'     => 'application/x-suggestions+json',
 					// 'type'     => 'application/x-moz-keywordsearch',
@@ -315,13 +322,13 @@ class OpenSearch extends gNetwork\Module
 		// TODO: add more query strings
 		// LIKE: /?s={searchTerms}&itemstart={startIndex}&itempage={startPage}&itemlimit={count}
 
-		$xml.= "\t".HTML::tag( 'Url', [
+		$xml.= "\t".Core\HTML::tag( 'Url', [
 			'type'     => 'text/html',
 			'method'   => 'get',
 			'template' => $url,
 		] )."\n";
 
-		$xml.= "\t".HTML::tag( 'Url', [
+		$xml.= "\t".Core\HTML::tag( 'Url', [
 			'type'     => 'application/opensearchdescription+xml',
 			'rel'      => 'self',
 			'template' => self::getManifestURL(),
@@ -329,7 +336,7 @@ class OpenSearch extends gNetwork\Module
 
 		// TODO: use the one from branding module
 		if ( file_exists( ABSPATH.'favicon.ico' ) )
-			$xml.= "\t".HTML::tag( 'Image', [
+			$xml.= "\t".Core\HTML::tag( 'Image', [
 				'type'   => 'image/x-icon',
 				'width'  => '16',
 				'height' => '16',
@@ -337,33 +344,33 @@ class OpenSearch extends gNetwork\Module
 
 		// TODO: use the one from branding module
 		if ( file_exists( ABSPATH.'favicon.png' ) )
-			$xml.= "\t".HTML::tag( 'Image', [
+			$xml.= "\t".Core\HTML::tag( 'Image', [
 				'type'   => 'image/png',
 				'width'  => '64',
 				'height' => '64',
 			], get_bloginfo( 'url' ).'/favicon.png' )."\n";
 
 		if ( $this->options['contact'] )
-			$xml.= "\t".HTML::tag( 'Contact', $this->options['contact'] )."\n";
+			$xml.= "\t".Core\HTML::tag( 'Contact', $this->options['contact'] )."\n";
 
 		if ( $this->options['tags'] )
-			$xml.= "\t".HTML::tag( 'Tags', $this->options['tags'] )."\n";
+			$xml.= "\t".Core\HTML::tag( 'Tags', $this->options['tags'] )."\n";
 
 		if ( $this->options['attribution'] )
-			$xml.= "\t".HTML::tag( 'Attribution', $this->options['attribution'] )."\n";
+			$xml.= "\t".Core\HTML::tag( 'Attribution', $this->options['attribution'] )."\n";
 
-		$xml.= "\t".HTML::tag( 'SyndicationRight', $this->options['syndication'] )."\n";
+		$xml.= "\t".Core\HTML::tag( 'SyndicationRight', $this->options['syndication'] )."\n";
 
 		$xml.= "\t".'<Query role="example" searchTerms="tag" />'."\n";
 		$xml.= "\t".'<AdultContent>false</AdultContent>';
 
 		// header( 'Content-Type: text/xml; charset=utf-8' );
 		header( 'Content-Type: application/opensearchdescription+xml; charset=utf-8' );
-		header( 'Expires: '.gmdate( 'D, d M Y H:i:s', time() + Date::MONTH_IN_SECONDS ).' GMT' );
-		header( 'Cache-Control: max-age='.Date::MONTH_IN_SECONDS.', must-revalidate' );
+		header( 'Expires: '.gmdate( 'D, d M Y H:i:s', time() + Core\Date::MONTH_IN_SECONDS ).' GMT' );
+		header( 'Cache-Control: max-age='.Core\Date::MONTH_IN_SECONDS.', must-revalidate' );
 
 		echo '<?xml version="1.0" encoding="UTF-8"?>'."\n";
-		echo HTML::tag( 'OpenSearchDescription', [
+		echo Core\HTML::tag( 'OpenSearchDescription', [
 			'xmlns'             => 'http://a9.com/-/spec/opensearch/1.1/',
 			'xmlns:moz'         => 'http://www.mozilla.org/2006/browser/search/',
 			'xmlns:suggestions' => $this->options['suggestions'] ? 'http://www.opensearch.org/specifications/opensearch/extensions/suggestions/1.1' : FALSE,
@@ -422,7 +429,7 @@ class OpenSearch extends gNetwork\Module
 					$title = strip_tags( str_replace( '&nbsp;', ' ', get_the_title() ) );
 					$completions[] = $title;
 					$descriptions[] = '';
-					$query_urls[] = WordPress::getSearchLink( $title );
+					$query_urls[] = Core\WordPress::getSearchLink( $title );
 				}
 			}
 		}

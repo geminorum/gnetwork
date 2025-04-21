@@ -3,24 +3,14 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\SwitchSite;
+use geminorum\gNetwork\WordPress;
 
 class Site extends gNetwork\Module
 {
-
-	// TODO: Global Site comment lock on all posttypes
-	// - https://wordpress.org/plugins/disable-comments/
-	// - http://www.thesempost.com/how-to-disable-comments-wordpress-temporarily-permanently/
-
 	protected $key  = 'general';
 	protected $cron = TRUE;
 
@@ -42,7 +32,7 @@ class Site extends gNetwork\Module
 			$this->filter( 'allowed_redirect_hosts' );
 
 			if ( $this->options['body_class'] )
-				$this->filter_append( 'body_class', HTML::attrClass( $this->options['body_class'] ) );
+				$this->filter_append( 'body_class', Core\HTML::attrClass( $this->options['body_class'] ) );
 		}
 
 		if ( $this->options['resync_sitemeta'] ) {
@@ -112,7 +102,7 @@ class Site extends gNetwork\Module
 				'title'       => _x( 'Network Locale', 'Modules: Site: Settings', 'gnetwork' ),
 				'description' => _x( 'Overrides network admin language, despite of the main site locale.', 'Modules: Site: Settings', 'gnetwork' ),
 				'default'     => 'en_US',
-				'values'      => Arraay::sameKey( Locale::available() ),
+				'values'      => Core\Arraay::sameKey( Locale::available() ),
 			];
 		}
 
@@ -166,24 +156,34 @@ class Site extends gNetwork\Module
 				'field'       => 'access_denied',
 				'type'        => 'textarea-quicktags',
 				'title'       => _x( 'Access Denied', 'Modules: Site: Settings', 'gnetwork' ),
-				/* translators: %s: zero placeholder */
-				'description' => sprintf( _x( 'Displays when access to an admin page is denied. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>' ),
+				'description' => sprintf(
+					/* translators: `%s`: zero placeholder */
+					_x( 'Displays when access to an admin page is denied. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ),
+					Core\HTML::code( '0' )
+				),
 				'placeholder' => __( 'Sorry, you are not allowed to access this page.' ),
 			],
 			[
 				'field'       => 'denied_message',
 				'type'        => 'textarea-quicktags',
 				'title'       => _x( 'Denied Message', 'Modules: Site: Settings', 'gnetwork' ),
-				/* translators: %1$s: zero placeholder, %2$s: `%1$s` placeholder */
-				'description' => sprintf( _x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or %1$s to disable. %2$s: Blog Name', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>', '<code>%1$s</code>' ),
+				'description' => sprintf(
+					/* translators: `%1$s`: zero placeholder, `%2$s`: `%1$s` placeholder */
+					_x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or %1$s to disable. %2$s: Blog Name', 'Modules: Site: Settings', 'gnetwork' ),
+					Core\HTML::code( '0' ),
+					Core\HTML::code( '%1$s' )
+				),
 				'placeholder' => __( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ),
 			],
 			[
 				'field'       => 'denied_extra',
 				'type'        => 'textarea-quicktags',
 				'title'       => _x( 'Extra Message', 'Modules: Site: Settings', 'gnetwork' ),
-				/* translators: %s: zero placeholder */
-				'description' => sprintf( _x( 'Displays this message before the list of sites. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ), '<code>0</code>' ),
+				'description' => sprintf(
+					/* translators: `%s`: zero placeholder */
+					_x( 'Displays this message before the list of sites. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ),
+					Core\HTML::code( '0' )
+				),
 				'placeholder' => __( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.' ),
 			],
 			[
@@ -198,19 +198,25 @@ class Site extends gNetwork\Module
 			'field'       => 'lookup_ip_service',
 			'type'        => 'text',
 			'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', 'gnetwork' ),
-			/* translators: %s: `%s` placeholder */
-			'description' => sprintf( _x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', 'gnetwork' ), '<code>%s</code>' ),
+			'description' => sprintf(
+				/* translators: `%s`: `%s` placeholder */
+				_x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', 'gnetwork' ),
+				Core\HTML::code( '%s' )
+			),
 			'placeholder' => 'https://redirect.li/ip/?ip=%s',
 			'dir'         => 'ltr',
-			'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], HTTP::IP() ) ) : '',
+			'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], Core\HTTP::IP() ) ) : '',
 		];
 
 		$settings['_misc'][] = [
 			'field'       => 'lookup_country_service',
 			'type'        => 'text',
 			'title'       => _x( 'Lookup Country URL', 'Modules: Site: Settings', 'gnetwork' ),
-			/* translators: %s: `%s` placeholder */
-			'description' => sprintf( _x( 'URL template to to use for looking up Country Code. Will replace %s with the code.', 'Modules: Site: Settings', 'gnetwork' ), '<code>%s</code>' ),
+			'description' => sprintf(
+				/* translators: `%s`: `%s` placeholder */
+				_x( 'URL template to to use for looking up Country Code. Will replace %s with the code.', 'Modules: Site: Settings', 'gnetwork' ),
+				Core\HTML::code( '%s' )
+			),
 			'placeholder' => 'https://countrycode.org/%s',
 			'dir'         => 'ltr',
 			'after'       => $this->options['lookup_country_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_country_service'], GCORE_DEFAULT_COUNTRY_CODE ) ) : '',
@@ -231,8 +237,11 @@ class Site extends gNetwork\Module
 		if ( $this->options['ssl_support'] ) {
 
 			if ( GNETWORK_DISABLE_SSL ) {
-				/* translators: %s: constant name */
-				HTML::desc( sprintf( _x( 'The %s is set. The site will not redirect to HTTPS automatically.', 'Modules: Site: Settings', 'gnetwork' ), '<code>GNETWORK_DISABLE_SSL</code>' ) );
+				Core\HTML::desc( sprintf(
+					/* translators: `%s`: constant name */
+					_x( 'The %s is set. The site will not redirect to HTTPS automatically.', 'Modules: Site: Settings', 'gnetwork' ),
+					Core\HTML::code( 'GNETWORK_DISABLE_SSL' )
+				) );
 				echo '<hr />';
 			}
 
@@ -256,7 +265,7 @@ class Site extends gNetwork\Module
 		} else {
 
 			if ( ! $sitemeta )
-				HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', 'gnetwork' ), TRUE, '-empty' );
 		}
 
 		if ( $sitemeta ) {
@@ -275,7 +284,7 @@ class Site extends gNetwork\Module
 
 			} else {
 
-				HTML::desc( _x( 'Sync Metadata disabled.', 'Modules: Site', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'Sync Metadata disabled.', 'Modules: Site', 'gnetwork' ), TRUE, '-empty' );
 			}
 		}
 	}
@@ -298,7 +307,7 @@ class Site extends gNetwork\Module
 
 			Logger::siteINFO( 'SSL', sprintf( 'switched to: %s', str_replace( '://', '', $switch[1] ) ) );
 
-			WordPress::redirectReferer();
+			Core\WordPress::redirectReferer();
 
 		} else if ( isset( $_POST['resync_sitemeta'] ) ) {
 
@@ -306,7 +315,7 @@ class Site extends gNetwork\Module
 
 			$count = $this->network_resync_sitemeta();
 
-			WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+			Core\WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
 				'message' => 'synced',
 				'count'   => $count,
 			] );
@@ -317,7 +326,7 @@ class Site extends gNetwork\Module
 
 			$count = $this->network_delete_sitemeta();
 
-			WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+			Core\WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -347,17 +356,17 @@ class Site extends gNetwork\Module
 		// getting lighter list of blogs
 		$blogs = $this->options['list_sites']
 			? get_blogs_of_user( $user_id )
-			: WordPress::getUserSites( $user_id, $GLOBALS['wpdb']->base_prefix );
+			: Core\WordPress::getUserSites( $user_id, $GLOBALS['wpdb']->base_prefix );
 
 		// this will override default message
-		if ( Arraay::filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )
+		if ( Core\Arraay::filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )
 			wp_die( $access_denied, 403 );
 
 		$message = $this->default_option( 'denied_message',
 			__( 'You attempted to access the "%1$s" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the "%1$s" dashboard, please contact your network administrator.' ) );
 
 		if ( $message )
-			$message = Text::autoP( sprintf( $message, get_bloginfo( 'name' ) ) );
+			$message = Core\Text::autoP( sprintf( $message, get_bloginfo( 'name' ) ) );
 
 		if ( empty( $blogs ) )
 			wp_die( $message, 403 );
@@ -366,7 +375,7 @@ class Site extends gNetwork\Module
 			__( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.' ) );
 
 		if ( $extra )
-			$message.= Text::autoP( $extra );
+			$message.= Core\Text::autoP( $extra );
 
 		if ( $this->options['list_sites'] )
 			$message.= self::tableUserSites( $blogs );
@@ -389,9 +398,9 @@ class Site extends gNetwork\Module
 
 		foreach ( $blogs as $blog ) {
 			$html.= '<tr><td>'.$blog->blogname.'</td><td>';
-			$html.= HTML::link( _x( 'Visit Dashboard', 'Modules: Site: User Sites', 'gnetwork' ), get_admin_url( $blog->userblog_id ) );
+			$html.= Core\HTML::link( _x( 'Visit Dashboard', 'Modules: Site: User Sites', 'gnetwork' ), get_admin_url( $blog->userblog_id ) );
 			$html.= ' | ';
-			$html.= HTML::link( _x( 'View Site', 'Modules: Site: User Sites', 'gnetwork' ), $blog->siteurl );
+			$html.= Core\HTML::link( _x( 'View Site', 'Modules: Site: User Sites', 'gnetwork' ), $blog->siteurl );
 			$html.= '</td></tr>';
 		}
 
@@ -402,7 +411,7 @@ class Site extends gNetwork\Module
 	// @REF: https://core.trac.wordpress.org/ticket/41333
 	public function wp_initialize_site( $new_site, $args )
 	{
-		SwitchSite::to( $new_site->id );
+		WordPress\SwitchSite::to( $new_site->id );
 
 		if ( $site_user_id = gNetwork()->user() )
 			add_user_to_blog( $new_site->id, $site_user_id, gNetwork()->option( 'site_user_role', 'user', 'editor' ) );
@@ -435,7 +444,7 @@ class Site extends gNetwork\Module
 		foreach ( $new_blog_plugins as $new_blog_plugin => $new_blog_plugin_silent )
 			activate_plugin( $new_blog_plugin, '', FALSE, $new_blog_plugin_silent );
 
-		SwitchSite::restore();
+		WordPress\SwitchSite::restore();
 		clean_blog_cache( $new_site->id );
 	}
 
@@ -444,7 +453,7 @@ class Site extends gNetwork\Module
 	public function ms_site_not_found( $current_site, $domain, $path )
 	{
 		if ( $this->options['redirect_notfound'] )
-			WordPress::redirect( $this->options['redirect_notfound'], 303 );
+			Core\WordPress::redirect( $this->options['redirect_notfound'], 303 );
 
 		Utilities::redirect404();
 	}
@@ -478,7 +487,7 @@ class Site extends gNetwork\Module
 		static $sites = NULL;
 
 		if ( is_null( $sites ) )
-			$sites = Arraay::pluck( WordPress::getAllSites( FALSE, NULL, FALSE ), 'domain' );
+			$sites = Core\Arraay::pluck( Core\WordPress::getAllSites( FALSE, NULL, FALSE ), 'domain' );
 
 		return array_unique( array_filter( array_merge( $hosts, $sites ) ) );
 	}
@@ -532,7 +541,7 @@ class Site extends gNetwork\Module
 			$value = maybe_unserialize( $meta );
 
 			if ( in_array( $option, [ 'siteurl', 'home', 'category_base', 'tag_base' ] ) )
-				$value = URL::untrail( $value );
+				$value = Core\URL::untrail( $value );
 
 		} else {
 
@@ -583,11 +592,11 @@ class Site extends gNetwork\Module
 
 	public function wp_initialize_site_sync( $new_site, $args )
 	{
-		SwitchSite::to( $new_site->id );
+		WordPress\SwitchSite::to( $new_site->id );
 
 		$this->resync_sitemeta();
 
-		SwitchSite::restore();
+		WordPress\SwitchSite::restore();
 	}
 
 	public function delete_sitemeta( $site_id = NULL )
@@ -635,7 +644,7 @@ class Site extends gNetwork\Module
 
 	public function the_sites( $sites )
 	{
-		foreach ( Arraay::pluck( $sites, 'id' ) as $blog_id )
+		foreach ( Core\Arraay::pluck( $sites, 'id' ) as $blog_id )
 			$this->switch_blog( $blog_id );
 
 		return $sites;
@@ -658,16 +667,16 @@ class Site extends gNetwork\Module
 	public function network_resync_sitemeta( $network = NULL )
 	{
 		$count = 0;
-		$sites = WordPress::getAllSites( FALSE, $network, FALSE );
+		$sites = Core\WordPress::getAllSites( FALSE, $network, FALSE );
 
 		foreach ( $sites as $site_id => $site ) {
-			SwitchSite::to( $site_id );
+			WordPress\SwitchSite::to( $site_id );
 			$this->resync_sitemeta();
 			$count++;
-			SwitchSite::lap();
+			WordPress\SwitchSite::lap();
 		}
 
-		SwitchSite::restore();
+		WordPress\SwitchSite::restore();
 
 		return $count;
 	}
@@ -675,7 +684,7 @@ class Site extends gNetwork\Module
 	public function network_delete_sitemeta( $network = NULL )
 	{
 		$count = 0;
-		$sites = WordPress::getAllSites( FALSE, $network, FALSE );
+		$sites = Core\WordPress::getAllSites( FALSE, $network, FALSE );
 
 		foreach ( $sites as $site_id => $site )
 			if ( $this->delete_sitemeta( $site_id ) )

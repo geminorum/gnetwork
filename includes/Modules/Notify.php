@@ -3,13 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Notify extends gNetwork\Module
 {
-
 	protected $key  = 'notify';
 	protected $ajax = TRUE;
 	protected $cron = TRUE;
@@ -202,7 +202,7 @@ class Notify extends gNetwork\Module
 				substr( md5( time().wp_rand().$user->user_email ), 0, 16 )
 			);
 
-			WordPress::redirectReferer( $results ? 'mailed' : 'error' );
+			Core\WordPress::redirectReferer( $results ? 'mailed' : 'error' );
 
 		} else if ( isset( $_POST['test_signup_blog'] ) ) {
 
@@ -223,14 +223,14 @@ class Notify extends gNetwork\Module
 				substr( md5( time().wp_rand().'example.com' ), 0, 16 )
 			);
 
-			WordPress::redirectReferer( $results ? 'mailed' : 'error' );
+			Core\WordPress::redirectReferer( $results ? 'mailed' : 'error' );
 		}
 	}
 
 	// filter whether to bypass the welcome email after site activation.
 	public function wpmu_welcome_notification( $blog_id, $user_id, $password, $title, $meta )
 	{
-		if ( WordPress::isSuperAdmin( $user_id ) )
+		if ( Core\WordPress::isSuperAdmin( $user_id ) )
 			return FALSE;
 
 		return $blog_id;
@@ -289,7 +289,7 @@ class Notify extends gNetwork\Module
 		if ( ! in_array( $notify, array( 'user', 'admin', 'both', '' ), TRUE ) )
 			return;
 
-		$site = WordPress::getSiteNameforEmail();
+		$site = Core\WordPress::getSiteNameforEmail();
 		$user = get_userdata( $user_id );
 
 		Logger::ALERT( sprintf( 'NOTIFY: New user registration: %s', $user->user_login ) );
@@ -338,7 +338,7 @@ class Notify extends gNetwork\Module
 		$message = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 		$message.= __( 'To set your password, visit the following address:' )."\r\n\r\n";
 		$message.= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ).'&wp_lang='.$locale, 'login' ).">\r\n\r\n";
-		$message.= WordPress::loginURL()."\r\n";
+		$message.= Core\WordPress::loginURL()."\r\n";
 
 		$mail = [
 			'to'      => $user->user_email,
@@ -373,7 +373,7 @@ class Notify extends gNetwork\Module
 			return;
 
 		$message  = sprintf( __( 'Password changed for user: %s' ), $user->user_login )."\r\n";
-		$sitename = WordPress::getSiteNameforEmail();
+		$sitename = Core\WordPress::getSiteNameforEmail();
 
 		$mail = [
 			'to'      => get_option( 'admin_email' ),
@@ -397,7 +397,7 @@ class Notify extends gNetwork\Module
 		return $this->options['signup_user_subject'];
 	}
 
-	// FIXME: it's diffrent on admin user new
+	// FIXME: it's different on admin user new
 	// @SEE: `admin_created_user_email()`
 	public function wpmu_signup_user_notification_email( $message, $user_login, $user_email, $key, $meta )
 	{

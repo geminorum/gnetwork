@@ -3,15 +3,12 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\URL;
+use geminorum\gNetwork\WordPress;
 
 class Themes extends gNetwork\Module
 {
-
-	// @SEE: https://make.wordpress.org/core/2023/03/06/google-fonts-are-included-locally-in-bundled-themes/
-
 	protected $key     = 'themes';
 	protected $network = FALSE;
 	protected $xmlrpc  = FALSE;
@@ -714,9 +711,9 @@ class Themes extends gNetwork\Module
 			$after = trim( ob_get_clean() );
 		}
 
-		return HTML::wrap( $before, 'gnetwork-wrap-actions content-before' )
+		return Core\HTML::wrap( $before, 'gnetwork-wrap-actions content-before' )
 			.$content
-		.HTML::wrap( $after, 'gnetwork-wrap-actions content-after' );
+		.Core\HTML::wrap( $after, 'gnetwork-wrap-actions content-after' );
 	}
 
 	public static function continueReading()
@@ -740,8 +737,8 @@ class Themes extends gNetwork\Module
 		$author = get_the_author();
 
 		return $before.sprintf( $text, vsprintf( $format, [
-			HTML::escape( $author ),
-			HTML::escape( sprintf( $title, $author ) ),
+			Core\HTML::escape( $author ),
+			Core\HTML::escape( sprintf( $title, $author ) ),
 			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 		] ) ).$after;
 	}
@@ -755,9 +752,9 @@ class Themes extends gNetwork\Module
 
 		vprintf( $format, [
 			esc_url( apply_filters( 'the_permalink', get_permalink(), NULL ) ),
-			HTML::escape( get_the_time() ),
-			HTML::escape( get_the_date( 'c' ) ),
-			HTML::escape( get_the_date() ),
+			Core\HTML::escape( get_the_time() ),
+			Core\HTML::escape( get_the_date( 'c' ) ),
+			Core\HTML::escape( get_the_date() ),
 		] );
 
 		if ( $byline )
@@ -772,12 +769,12 @@ class Themes extends gNetwork\Module
 			$classes[] = trim( $this->options['body_class'] );
 
 		if ( function_exists( 'get_network' ) )
-			$classes[] = 'network-'.HTML::sanitizeClass( URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
+			$classes[] = 'network-'.Core\HTML::sanitizeClass( Core\URL::prepTitle( str_replace( '.', '-', get_network()->domain ) ) );
 
-		$classes[] = 'locale-'.HTML::sanitizeClass( strtolower( str_replace( '_', '-', get_locale() ) ) );
+		$classes[] = 'locale-'.Core\HTML::sanitizeClass( strtolower( str_replace( '_', '-', get_locale() ) ) );
 
 		if ( is_user_logged_in() )
-			$classes[] = 'locale-user-'.HTML::sanitizeClass( strtolower( str_replace( '_', '-', get_user_locale() ) ) );
+			$classes[] = 'locale-user-'.Core\HTML::sanitizeClass( strtolower( str_replace( '_', '-', get_user_locale() ) ) );
 
 		if ( is_singular() && ( $post = get_post() ) ) {
 
@@ -823,7 +820,7 @@ class Themes extends gNetwork\Module
 	// with no RTL check
 	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all', $verbose = TRUE )
 	{
-		return HTML::linkStyleSheet( GNETWORK_URL.'assets/css/themes/'.$css.'.css', $version, $media, $verbose );
+		return Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/themes/'.$css.'.css', $version, $media, $verbose );
 	}
 
 	public function publish_credits()

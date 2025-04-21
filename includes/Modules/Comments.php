@@ -3,11 +3,9 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
-use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\URL;
+use geminorum\gNetwork\WordPress;
 
 class Comments extends gNetwork\Module
 {
@@ -371,7 +369,7 @@ class Comments extends gNetwork\Module
 
 		echo '<ul>';
 		foreach ( $map as $key => $string )
-			echo '<li>'.sprintf( $string, Number::format( $comments->{$key} ) ).'</li>';
+			echo '<li>'.sprintf( $string, Core\Number::format( $comments->{$key} ) ).'</li>';
 		echo '</ul>';
 	}
 
@@ -468,10 +466,15 @@ class Comments extends gNetwork\Module
 		return 'spam';
 	}
 
-	// checks url against top spam domains
+	/**
+	 * Checks URL against top spam domains.
+	 *
+	 * @param string $url
+	 * @return bool
+	 */
 	private function is_known_spam_domain( $url )
 	{
-		$host = URL::parse( $url, PHP_URL_HOST );
+		$host = Core\URL::parse( $url, PHP_URL_HOST );
 
 		if ( empty( $host ) )
 			return FALSE;

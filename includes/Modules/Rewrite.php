@@ -3,15 +3,12 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Rewrite extends gNetwork\Module
 {
-
 	protected $key     = 'rewrite';
 	protected $network = FALSE;
 
@@ -57,8 +54,11 @@ class Rewrite extends gNetwork\Module
 				[
 					'field'       => 'remove_category_base',
 					'title'       => _x( 'Remove Category Base', 'Modules: Rewrite: Settings', 'gnetwork' ),
-					/* translators: %s: default category slug */
-					'description' => sprintf( _x( 'Removes %s from your category permalinks.', 'Modules: Rewrite: Settings', 'gnetwork' ), '<code>/category</code>' ),
+					'description' => sprintf(
+						/* translators: `%s`: default category slug */
+						_x( 'Removes %s from your category permalinks.', 'Modules: Rewrite: Settings', 'gnetwork' ),
+						Core\HTML::code( '/category' )
+					),
 				],
 			],
 		];
@@ -72,12 +72,12 @@ class Rewrite extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( WordPress::maybeFlushRules() )
-			HTML::desc( _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork' ), TRUE, '-color-danger' );
+		if ( Core\WordPress::maybeFlushRules() )
+			Core\HTML::desc( _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork' ), TRUE, '-color-danger' );
 
 		echo $this->wrap_open_buttons();
 
-		echo HTML::tag( 'a', [
+		echo Core\HTML::tag( 'a', [
 			'class' => 'button button-secondary button-small',
 			'href'  => $this->get_menu_url( NULL, NULL, 'tools' ),
 			'title' => _x( 'View and set network roles here.', 'Modules: Rewrite', 'gnetwork' ),
@@ -94,19 +94,27 @@ class Rewrite extends gNetwork\Module
 		list( $rules, $sources ) = $this->get_rules( $source, $search );
 
 		if ( $search )
-			/* translators: %1$s: rules count, %2$s: search criteria , %3$s: search criteria */
-			$title = sprintf( _x( 'A Listing of All %1$s Rewrite Rules for This Site that Match &ldquo;<a target="_blank" href="%2$s">%3$s</a>&rdquo;', 'Modules: Rewrite', 'gnetwork' ),
-				Number::format( count( $rules ) ), esc_url( $search ), esc_url( $search ) );
-		else
-			/* translators: %1$s: rules count */
-			$title = sprintf( _x( 'A Listing of All %1$s Rewrite Rules for This Site', 'Modules: Rewrite', 'gnetwork' ), Number::format( count( $rules ) ) );
+			$title = sprintf(
+				/* translators: `%1$s`: rules count, `%2$s`: search criteria, `%3$s`: search criteria */
+				_x( 'A Listing of All %1$s Rewrite Rules for This Site that Match &ldquo;<a target="_blank" href="%2$s">%3$s</a>&rdquo;', 'Modules: Rewrite', 'gnetwork' ),
+				Core\Number::format( count( $rules ) ),
+				esc_url( $search ),
+				esc_url( $search )
+			);
 
-		return HTML::tableList( [
+		else
+			$title = sprintf(
+				/* translators: `%1$s`: rules count */
+				_x( 'A Listing of All %1$s Rewrite Rules for This Site', 'Modules: Rewrite', 'gnetwork' ),
+				Core\Number::format( count( $rules ) )
+			);
+
+		return Core\HTML::tableList( [
 			'rule'    => _x( 'Rule', 'Modules: Rewrite', 'gnetwork' ),
 			'rewrite' => _x( 'Rewrite', 'Modules: Rewrite', 'gnetwork' ),
 			'source'  => _x( 'Source', 'Modules: Rewrite', 'gnetwork' ),
 		], $rules, [
-			'title'     => HTML::tag( 'h3', $title ),
+			'title'     => Core\HTML::tag( 'h3', $title ),
 			'empty'     => _x( 'No rewrite rules were found.', 'Modules: Rewrite', 'gnetwork' ),
 			'row_class' => [ $this, 'table_list_row_class' ],
 			'before'    => [ $this, 'table_list_before' ],
@@ -119,7 +127,7 @@ class Rewrite extends gNetwork\Module
 		$url = $this->get_menu_url( NULL, NULL, 'tools' );
 
 		$html = _x( 'Match URL:', 'Modules: Rewrite', 'gnetwork' );
-		$html.= ' '.HTML::tag( 'input', [
+		$html.= ' '.Core\HTML::tag( 'input', [
 			'type'  => 'text',
 			'name'  => 's',
 			'id'    => $this->classs( 'search' ),
@@ -127,13 +135,13 @@ class Rewrite extends gNetwork\Module
 			'class' => 'regular-text code',
 		] );
 
-		HTML::label( $html, $this->classs( 'search' ), FALSE );
+		Core\HTML::label( $html, $this->classs( 'search' ), FALSE );
 
 		echo '&nbsp;&nbsp;';
 
 		$sources = array_combine( $args['extra']['sources'], $args['extra']['sources'] );
 		$sources['all'] = _x( 'All Sources', 'Modules: Rewrite', 'gnetwork' );
-		echo HTML::dropdown( $sources, [ 'name' => 'source', 'selected' => $args['extra']['source'] ] );
+		echo Core\HTML::dropdown( $sources, [ 'name' => 'source', 'selected' => $args['extra']['source'] ] );
 
 		echo '&nbsp;&nbsp;';
 
@@ -246,8 +254,8 @@ class Rewrite extends gNetwork\Module
 
 		if ( ! empty( $req_search ) ) {
 
-			$match_path = URL::parse( esc_url( $req_search ), PHP_URL_PATH );
-			$wordpress  = URL::parse( home_url(), PHP_URL_PATH );
+			$match_path = Core\URL::parse( esc_url( $req_search ), PHP_URL_PATH );
+			$wordpress  = Core\URL::parse( home_url(), PHP_URL_PATH );
 
 			if ( ! empty( $wordpress ) )
 				$match_path = str_replace( $wordpress, '', $match_path ?: '' );
@@ -300,10 +308,10 @@ class Rewrite extends gNetwork\Module
 		if ( ! isset( $query_vars['category_redirect'] ) )
 			return $query_vars;
 
-		$location = URL::trail( get_option( 'home' ) )
+		$location = Core\URL::trail( get_option( 'home' ) )
 			.user_trailingslashit( $query_vars['category_redirect'], 'category' );
 
-		WordPress::redirect( $location, 301 );
+		Core\WordPress::redirect( $location, 301 );
 	}
 
 	// @REF: https://wordpress.stackexchange.com/a/172961/
@@ -328,7 +336,7 @@ class Rewrite extends gNetwork\Module
 			$slug = $term->slug;
 
 			if ( $term->parent )
-				$slug = URL::untrail( get_term_parents_list( $term->term_id, $term->taxonomy, $args ) );
+				$slug = Core\URL::untrail( get_term_parents_list( $term->term_id, $term->taxonomy, $args ) );
 
 			$slug = str_ireplace( '-', '\-', $slug );
 
@@ -341,26 +349,26 @@ class Rewrite extends gNetwork\Module
 
 		// redirect old base
 		if ( '.' != $old )
-			$new[URL::untrail( $old ).'/(.*)$'] = 'index.php?category_redirect=$matches[1]';
+			$new[Core\URL::untrail( $old ).'/(.*)$'] = 'index.php?category_redirect=$matches[1]';
 
 		return $new;
 	}
 
 	public function dashboard_pointers( $items )
 	{
-		if ( ! WordPress::maybeFlushRules() )
+		if ( ! Core\WordPress::maybeFlushRules() )
 			return $items;
 
-		if ( WordPress::cuc( 'manage_options' ) )
+		if ( Core\WordPress::cuc( 'manage_options' ) )
 			$url = $this->get_menu_url( NULL, NULL, 'tools' );
 
-		else if ( WordPress::cuc( 'edit_others_posts' ) )
-			$url = add_query_arg( static::BASE.'_action', 'flushrewrite', URL::current() );
+		else if ( Core\WordPress::cuc( 'edit_others_posts' ) )
+			$url = add_query_arg( static::BASE.'_action', 'flushrewrite', Core\URL::current() );
 
 		else
 			$url = FALSE;
 
-		$items[] = HTML::tag( $url ? 'a' : 'span', [
+		$items[] = Core\HTML::tag( $url ? 'a' : 'span', [
 			'href'  => $url,
 			'title' => _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork' ),
 			'class' => '-flush-rules',

@@ -3,20 +3,15 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
-use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class AdminBar extends gNetwork\Module
 {
-
 	protected $key     = 'adminbar';
 	protected $network = FALSE;
 	protected $xmlrpc  = FALSE;
 	protected $iframe  = FALSE;
-
 
 	private $sidebar_admin   = FALSE;
 	private $wpcf7_admin     = FALSE;
@@ -32,7 +27,7 @@ class AdminBar extends gNetwork\Module
 
 	public function init()
 	{
-		if ( WordPress::mustRegisterUI() ) {
+		if ( Core\WordPress::mustRegisterUI() ) {
 
 			$this->setup_adminbar();
 
@@ -66,8 +61,8 @@ class AdminBar extends gNetwork\Module
 		$user = new \stdClass();
 
 		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
-			$super_admin       = WordPress::isSuperAdmin();
-			$user->blogs       = WordPress::getAllSites( ( $super_admin ? FALSE : $user_id ), $super_admin );
+			$super_admin       = Core\WordPress::isSuperAdmin();
+			$user->blogs       = Core\WordPress::getAllSites( ( $super_admin ? FALSE : $user_id ), $super_admin );
 			$user->active_blog = get_user_meta( $user_id, 'primary_blog', TRUE );
 		} else {
 			$user->blogs       = [];
@@ -203,7 +198,7 @@ class AdminBar extends gNetwork\Module
 	{
 		global $wp_admin_bar;
 
-		if ( WordPress::isSuperAdmin() )
+		if ( Core\WordPress::isSuperAdmin() )
 			$this->add_nodes( $wp_admin_bar );
 
 		foreach ( $this->remove_nodes as $node )
@@ -215,7 +210,7 @@ class AdminBar extends gNetwork\Module
 	{
 		global $pagenow;
 
-		$current_url = URL::current();
+		$current_url = Core\URL::current();
 		// $network_url = Network::menuURL();
 		$admin_url   = Admin::menuURL();
 
@@ -256,7 +251,7 @@ class AdminBar extends gNetwork\Module
 
 		if ( defined( 'GNETWORK_WPLANG' )
 			&& ! is_network_admin()
-			&& WordPress::isDev()
+			&& Core\WordPress::isDev()
 			&& class_exists( __NAMESPACE__.'\\Locale' ) ) {
 
 			$wp_admin_bar->add_node( [
@@ -298,7 +293,7 @@ class AdminBar extends gNetwork\Module
 
 				foreach (  $calls as $offset => $call ) {
 
-					$url = URL::parseDeep( $call['url'] );
+					$url = Core\URL::parseDeep( $call['url'] );
 
 					$wp_admin_bar->add_node( [
 						'parent' => static::BASE.'-api-calls',
@@ -326,7 +321,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => $parent_id,
 					'id'     => static::BASE.'-current-post',
 					'title'  => _x( 'Current Post', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-					'href'   => WordPress::getPostEditLink( $post->ID ),
+					'href'   => Core\WordPress::getPostEditLink( $post->ID ),
 				] );
 
 				$wp_admin_bar->add_node( [
@@ -448,7 +443,7 @@ class AdminBar extends gNetwork\Module
 			'title' => self::getIcon( 'admin-links' ),
 			'href'  => $short,
 			'meta'  => [
-				'html'  => '<input class="shortlink-input" type="text" readonly="readonly" value="'.HTML::escape( $short ).'" />',
+				'html'  => '<input class="shortlink-input" type="text" readonly="readonly" value="'.Core\HTML::escape( $short ).'" />',
 				'title' => _x( 'Shortlink', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			],
 		] );
@@ -473,7 +468,7 @@ class AdminBar extends gNetwork\Module
 		if ( ! is_user_logged_in() )
 			return;
 
-		$super_admin = WordPress::isSuperAdmin();
+		$super_admin = Core\WordPress::isSuperAdmin();
 
 		if ( count( $wp_admin_bar->user->blogs ) < 1 && ! $super_admin )
 			return;
@@ -596,10 +591,10 @@ class AdminBar extends gNetwork\Module
 			// avoiding `switch_to_blog()`
 
 			$menu_id  = 'blog-'.$blog->userblog_id;
-			$blogname = WordPress::getSiteName( $blog->userblog_id );
+			$blogname = Core\WordPress::getSiteName( $blog->userblog_id );
 
 			if ( ! $blogname )
-				$blogname = URL::untrail( $blog->domain.$blog->path );
+				$blogname = Core\URL::untrail( $blog->domain.$blog->path );
 
 			$wp_admin_bar->add_node( [
 				'parent'    => 'my-sites-list',
@@ -658,7 +653,7 @@ class AdminBar extends gNetwork\Module
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-v',
 				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-				'href'   => URL::trail( $blog->siteurl ),
+				'href'   => Core\URL::trail( $blog->siteurl ),
 			] );
 		}
 	}
@@ -673,7 +668,7 @@ class AdminBar extends gNetwork\Module
 			return $this->wp_admin_bar_my_sites_menu( $wp_admin_bar );
 
 		// assumed the list from `user_has_networks()` have privileges!
-		$super_admin = WordPress::isSuperAdmin();
+		$super_admin = Core\WordPress::isSuperAdmin();
 
 		foreach ( $networks as $network_id ) {
 
@@ -681,12 +676,12 @@ class AdminBar extends gNetwork\Module
 			if ( ! $network = get_network( $network_id ) )
 				continue;
 
-			$node = 'network-'.URL::prepTitle( str_replace( '.', '-', $network->domain ) );
+			$node = 'network-'.Core\URL::prepTitle( str_replace( '.', '-', $network->domain ) );
 
 			$wp_admin_bar->add_node( [
 				'id'    => $node,
 				'title' => self::getIcon( 'networking' ).'<span class="screen-reader-text">'.$network->site_name.'</span>',
-				'href'  => WordPress::networkSiteURL( $network ),
+				'href'  => Core\WordPress::networkSiteURL( $network ),
 				'meta'  => [ 'class' => $this->classs( 'network-node' ) ],
 			] );
 
@@ -707,7 +702,7 @@ class AdminBar extends gNetwork\Module
 				'parent' => 'network-links-'.$network->id,
 				'id'     => 'user-admin-'.$network->id,
 				'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-				'href'   => WordPress::userAdminURL( $network ),
+				'href'   => Core\WordPress::userAdminURL( $network ),
 			] );
 
 			if ( $super_admin ) {
@@ -716,7 +711,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => 'network-links-'.$network->id,
 					'id'     => 'network-admin-'.$network->id,
 					'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-					'href'   => WordPress::networkAdminURL( $network ),
+					'href'   => Core\WordPress::networkAdminURL( $network ),
 				] );
 
 				if ( current_user_can( 'manage_sites' ) ) {
@@ -725,7 +720,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-s-'.$network->id,
 						'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => WordPress::networkAdminURL( $network, 'sites.php' ),
+						'href'   => Core\WordPress::networkAdminURL( $network, 'sites.php' ),
 					] );
 				}
 
@@ -735,7 +730,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-u-'.$network->id,
 						'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => WordPress::networkAdminURL( $network, 'users.php' ),
+						'href'   => Core\WordPress::networkAdminURL( $network, 'users.php' ),
 					] );
 				}
 
@@ -745,7 +740,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-t-'.$network->id,
 						'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => WordPress::networkAdminURL( $network, 'themes.php' ),
+						'href'   => Core\WordPress::networkAdminURL( $network, 'themes.php' ),
 					] );
 				}
 
@@ -755,7 +750,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-p-'.$network->id,
 						'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => WordPress::networkAdminURL( $network, 'plugins.php' ),
+						'href'   => Core\WordPress::networkAdminURL( $network, 'plugins.php' ),
 					] );
 				}
 
@@ -765,7 +760,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-o-'.$network->id,
 						'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => WordPress::networkAdminURL( $network, 'settings.php' ),
+						'href'   => Core\WordPress::networkAdminURL( $network, 'settings.php' ),
 					] );
 
 					$wp_admin_bar->add_node( [
@@ -776,13 +771,13 @@ class AdminBar extends gNetwork\Module
 					] );
 				}
 
-				if ( WordPress::isMainNetwork() && current_user_can( 'update_core' ) ) {
+				if ( Core\WordPress::isMainNetwork() && current_user_can( 'update_core' ) ) {
 
 					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-uc-'.$network->id,
 						'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => WordPress::networkAdminURL( $network, 'update-core.php' ),
+						'href'   => Core\WordPress::networkAdminURL( $network, 'update-core.php' ),
 					] );
 				}
 			}
@@ -802,10 +797,10 @@ class AdminBar extends gNetwork\Module
 				continue;
 
 			$menu_id  = 'blog-'.$blog->userblog_id;
-			$blogname = WordPress::getSiteName( $blog->userblog_id );
+			$blogname = Core\WordPress::getSiteName( $blog->userblog_id );
 
 			if ( ! $blogname )
-				$blogname = URL::untrail( $blog->domain.$blog->path );
+				$blogname = Core\URL::untrail( $blog->domain.$blog->path );
 
 			$wp_admin_bar->add_node( [
 				'parent'    => 'network-list-'.$network->id,
@@ -849,14 +844,14 @@ class AdminBar extends gNetwork\Module
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-s',
 					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-					'href'   => WordPress::networkAdminURL( $network, 'site-info.php?id='.$blog->userblog_id ),
+					'href'   => Core\WordPress::networkAdminURL( $network, 'site-info.php?id='.$blog->userblog_id ),
 				] );
 
 				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-t',
 					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-					'href'   => WordPress::networkAdminURL( $network, 'site-themes.php?id='.$blog->userblog_id ),
+					'href'   => Core\WordPress::networkAdminURL( $network, 'site-themes.php?id='.$blog->userblog_id ),
 				] );
 			}
 
@@ -864,7 +859,7 @@ class AdminBar extends gNetwork\Module
 				'parent' => $menu_id,
 				'id'     => $menu_id.'-v',
 				'title'  => _x( 'Visit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-				'href'   => URL::trail( $blog->siteurl ),
+				'href'   => Core\URL::trail( $blog->siteurl ),
 			] );
 		}
 	}
@@ -892,7 +887,7 @@ class AdminBar extends gNetwork\Module
 					'href'   => $item->url,
 					'meta'   => [
 						'title' => $item->attr_title,
-						'class' => HTML::prepClass( $item->classes ),
+						'class' => Core\HTML::prepClass( $item->classes ),
 					],
 				] );
 			}
@@ -922,10 +917,10 @@ class AdminBar extends gNetwork\Module
 			'parent' => $parent,
 			'id'     => 'network-login',
 			'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-			'href'   => WordPress::loginURL(),
+			'href'   => Core\WordPress::loginURL(),
 		] );
 
-		if ( $register_url = WordPress::registerURL() )
+		if ( $register_url = Core\WordPress::registerURL() )
 			$wp_admin_bar->add_node( [
 				'parent' => $parent,
 				'id'     => 'network-register',
@@ -965,7 +960,7 @@ class AdminBar extends gNetwork\Module
 						'href'   => $item->url,
 						'meta'   => [
 							'title' => $item->attr_title,
-							'class' => HTML::prepClass( $item->classes ),
+							'class' => Core\HTML::prepClass( $item->classes ),
 						],
 					] );
 				}
@@ -989,7 +984,7 @@ class AdminBar extends gNetwork\Module
 
 	public static function getIcon( $icon, $style = 'margin:2px 1px 0 1px;' )
 	{
-		return HTML::tag( 'span', [
+		return Core\HTML::tag( 'span', [
 			'class' => [
 				'ab-icon',
 				'dashicons',

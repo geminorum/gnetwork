@@ -2,13 +2,12 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class Logger
 {
-
-	const BASE = 'gnetwork';
-
+	const BASE   = 'gnetwork';
 	const LEVELS = [
 		'URGENT',
 		'ALERT',
@@ -119,7 +118,7 @@ class Logger
 		if ( $analog = self::getAnalog( $path ) ) {
 
 			if ( is_null( $level ) )
-				$level = \Analog::$default_level;
+				$level = \Analog::ERROR; // default level is `ERROR`: `3`
 
 			$analog->log( $analog->convert_log_level( $level, TRUE ), $message, (array) $context );
 		}
@@ -197,7 +196,7 @@ class Logger
 	// system is unusable
 	public static function siteURGENT( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName();
+		$site = Core\WordPress::currentSiteName();
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::URGENT, $context );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'URGENT', $context );
 	}
@@ -205,7 +204,7 @@ class Logger
 	// action must be taken immediately
 	public static function siteALERT( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName();
+		$site = Core\WordPress::currentSiteName();
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::ALERT, $context );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'ALERT', $context );
 	}
@@ -213,7 +212,7 @@ class Logger
 	// critical conditions
 	public static function siteCRITICAL( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName();
+		$site = Core\WordPress::currentSiteName();
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::CRITICAL, $context );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'CRITICAL', $context );
 	}
@@ -222,7 +221,7 @@ class Logger
 	// but should typically be logged and monitored
 	public static function siteERROR( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName();
+		$site = Core\WordPress::currentSiteName();
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::ERROR, $context );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'ERROR', $context );
 	}
@@ -230,7 +229,7 @@ class Logger
 	// exceptional occurrences that are not errors
 	public static function siteWARNING( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName();
+		$site = Core\WordPress::currentSiteName();
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::WARNING, $context );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'WARNING', $context );
 	}
@@ -238,7 +237,7 @@ class Logger
 	// normal but significant events
 	public static function siteNOTICE( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName();
+		$site = Core\WordPress::currentSiteName();
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::NOTICE, $context );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'NOTICE', $context );
 	}
@@ -246,7 +245,7 @@ class Logger
 	// interesting events
 	public static function siteINFO( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName();
+		$site = Core\WordPress::currentSiteName();
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::INFO, $context );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'INFO', $context );
 	}
@@ -254,28 +253,28 @@ class Logger
 	// detailed debug information
 	public static function siteDEBUG( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName();
+		$site = Core\WordPress::currentSiteName();
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::DEBUG, $context );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'DEBUG', $context );
 	}
 
 	public static function siteFAILED( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName( FALSE );
+		$site = Core\WordPress::currentSiteName( FALSE );
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::NOTICE, $context, GNETWORK_FAILED_LOG );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'FAILED', $context );
 	}
 
 	public static function siteSearch( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName( FALSE );
+		$site = Core\WordPress::currentSiteName( FALSE );
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::INFO, $context, GNETWORK_SEARCH_LOG );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'SEARCH', $context );
 	}
 
 	public static function siteNotFound( $prefix, $message = '', $context = [] )
 	{
-		$site = WordPress::currentSiteName( FALSE );
+		$site = Core\WordPress::currentSiteName( FALSE );
 		self::logAnalog( $prefix.': '.$site.': '.$message, \Analog::INFO, $context, GNETWORK_NOTFOUND_LOG );
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'NOTFOUND', $context );
 	}

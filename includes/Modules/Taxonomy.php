@@ -3,23 +3,14 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\Media as WPMedia;
-use geminorum\gNetwork\WordPress\Taxonomy as WPTaxonomy;
-use geminorum\gNetwork\WordPress\Strings;
+use geminorum\gNetwork\WordPress;
 
 class Taxonomy extends gNetwork\Module
 {
-
 	protected $key     = 'taxonomy';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
@@ -35,12 +26,12 @@ class Taxonomy extends gNetwork\Module
 		$this->action( 'template_redirect', 0, 99, 'redirect_terms' );
 		$this->filter( 'tag_row_actions', 2, 99, 'redirect_terms' );
 
-		add_filter( 'pre_term_name', function ( $value ) {
-			return Text::normalizeWhitespace( $value, FALSE );
+		add_filter( 'pre_term_name', static function ( $value ) {
+			return Core\Text::normalizeWhitespace( $value, FALSE );
 		}, 9 );
 
-		add_filter( 'pre_term_description', function ( $value ) {
-			return Text::normalizeWhitespace( $value, TRUE );
+		add_filter( 'pre_term_description', static function ( $value ) {
+			return Core\Text::normalizeWhitespace( $value, TRUE );
 		}, 9 );
 	}
 
@@ -202,7 +193,7 @@ class Taxonomy extends gNetwork\Module
 })(jQuery);
 JS;
 
-		HTML::wrapjQueryReady( $script );
+		Core\HTML::wrapjQueryReady( $script );
 	}
 
 	// WTF: has to be `edited_term` not `edit_term`
@@ -287,7 +278,7 @@ JS;
 
 		Settings::message( $this->filters( 'tabs_messages', Settings::messages() ) );
 
-		HTML::tabNav( 'edititem', [ 'edititem' => $object->labels->edit_item ] + Arraay::pluck( $tabs, 'title' ) );
+		Core\HTML::tabNav( 'edititem', [ 'edititem' => $object->labels->edit_item ] + Core\Arraay::pluck( $tabs, 'title' ) );
 
 		echo '<div class="nav-tab-content -content nav-tab-active -active" data-tab="edititem">';
 	}
@@ -298,7 +289,7 @@ JS;
 
 		$tabs = $this->get_term_tabs( $taxonomy, $term );
 
-		foreach ( Arraay::pluck( $tabs, 'callback' ) as $tab => $callback ) {
+		foreach ( Core\Arraay::pluck( $tabs, 'callback' ) as $tab => $callback ) {
 
 			if ( FALSE === $callback )
 				continue;
@@ -324,7 +315,7 @@ JS;
 
 		echo $this->wrap_open( '-tab-search-names card -toolbox-card' );
 
-			HTML::h4( _x( 'Similar Names', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Similar Names', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			$terms = get_terms( [
 				'exclude'    => $term->term_id,
@@ -335,16 +326,16 @@ JS;
 			// FIXME: table-list with edit/view links
 			// TODO: show taxonomy name
 			if ( ! empty( $terms ) )
-				HTML::tableSide( Arraay::pluck( $terms, 'name', 'term_id' ) );
+				Core\HTML::tableSide( Core\Arraay::pluck( $terms, 'name', 'term_id' ) );
 
 			else
-				HTML::desc( _x( 'There are no terms available with similar name.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There are no terms available with similar name.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 
 		echo '</div>';
 
 		echo $this->wrap_open( '-tab-search-descriptions card -toolbox-card' );
 
-			HTML::h4( _x( 'Similar Descriptions', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Similar Descriptions', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			if ( ! empty( $term->description ) ) {
 
@@ -357,14 +348,14 @@ JS;
 				// FIXME: table-list with edit/view links
 				// TODO: show taxonomy name
 				if ( ! empty( $terms ) )
-					HTML::tableSide( Arraay::pluck( $terms, 'name', 'term_id' ) );
+					Core\HTML::tableSide( Core\Arraay::pluck( $terms, 'name', 'term_id' ) );
 
 				else
-					HTML::desc( _x( 'There are no terms available with similar description.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+					Core\HTML::desc( _x( 'There are no terms available with similar description.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 
 			} else {
 
-				HTML::desc( _x( 'There is no description available.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There is no description available.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -381,7 +372,7 @@ JS;
 	{
 		$this->actions( 'term_tab_metadata_content_before', $taxonomy, $object, $term );
 
-		HTML::tableSide( WPTaxonomy::getTermMeta( $term, FALSE, FALSE ) );
+		Core\HTML::tableSide( WordPress\Taxonomy::getTermMeta( $term, FALSE, FALSE ) );
 
 		$this->actions( 'term_tab_metadata_content', $taxonomy, $object, $term );
 	}
@@ -402,8 +393,8 @@ JS;
 		] );
 
 		// FIXME: table-list with edit/view links
-		// TODO: show posttype name
-		HTML::tableSide( Arraay::pluck( $posts, 'post_title', 'ID' ) );
+		// TODO: show post-type name
+		Core\HTML::tableSide( Core\Arraay::pluck( $posts, 'post_title', 'ID' ) );
 
 		$this->actions( 'term_tab_posts_content', $taxonomy, $object, $term );
 	}
@@ -478,7 +469,7 @@ JS;
 
 		Settings::message( $this->filters( 'tabs_messages', Settings::messages() ) );
 
-		HTML::tabNav( 'addnew', [ 'addnew' => $object->labels->add_new_item ] + Arraay::pluck( $tabs, 'title' ) );
+		Core\HTML::tabNav( 'addnew', [ 'addnew' => $object->labels->add_new_item ] + Core\Arraay::pluck( $tabs, 'title' ) );
 
 		echo '<div class="nav-tab-content -content nav-tab-active -active" data-tab="addnew">';
 	}
@@ -490,7 +481,7 @@ JS;
 
 		$tabs = $this->get_taxonomy_tabs( $taxonomy );
 
-		foreach ( Arraay::pluck( $tabs, 'callback' ) as $tab => $callback ) {
+		foreach ( Core\Arraay::pluck( $tabs, 'callback' ) as $tab => $callback ) {
 
 			if ( FALSE === $callback )
 				continue;
@@ -519,28 +510,28 @@ JS;
 			$terms    = $this->filters( 'default_terms', [], $taxonomy );
 			$terms    = $this->filters( 'default_terms_'.$taxonomy, $terms, $taxonomy );
 			$selected = self::req( $this->classs( 'do-default-selected' ), [] );
-			$data     = $selected ? Arraay::keepByKeys( $terms, array_keys( $selected ) ) : $terms;
+			$data     = $selected ? Core\Arraay::keepByKeys( $terms, array_keys( $selected ) ) : $terms;
 
-			if ( count( $data ) && FALSE !== ( $imported = WPTaxonomy::insertDefaultTerms( $taxonomy, $data ) ) )
-				WordPress::redirectReferer( [
+			if ( count( $data ) && FALSE !== ( $imported = WordPress\Taxonomy::insertDefaultTerms( $taxonomy, $data ) ) )
+				Core\WordPress::redirectReferer( [
 					'message' => 'imported',
 					'count'   => count( $imported ),
 				] );
 
-			WordPress::redirectReferer( 'wrong' );
+			Core\WordPress::redirectReferer( 'wrong' );
 
 		} else if ( self::req( $this->classs( 'do-import-terms' ) ) ) {
 
 			$this->nonce_check( 'do-import-terms' );
 
-			$file = WPMedia::handleImportUpload( $this->classs( 'import' ) );
+			$file = WordPress\Media::handleImportUpload( $this->classs( 'import' ) );
 
 			if ( ! $file || isset( $file['error'] ) || empty( $file['file'] ) )
-				WordPress::redirectReferer( 'wrong' );
+				Core\WordPress::redirectReferer( 'wrong' );
 
 			$count = $this->import_terms_csv( $file['file'], $taxonomy );
 
-			WordPress::redirectReferer( [
+			Core\WordPress::redirectReferer( [
 				'message'    => 'imported',
 				'count'      => $count,
 				'attachment' => $file['id'],
@@ -553,9 +544,9 @@ JS;
 			$fields = self::req( $this->classs( 'do-export-fields' ), [] );
 			$data   = $this->get_csv_terms( $taxonomy, ( $fields ? array_keys( $fields ) : NULL ) );
 
-			Text::download( $data, File::prepName( sprintf( '%s.csv', $taxonomy ) ) );
+			Core\Text::download( $data, Core\File::prepName( sprintf( '%s.csv', $taxonomy ) ) );
 
-			WordPress::redirectReferer( 'wrong' );
+			Core\WordPress::redirectReferer( 'wrong' );
 
 		} else if ( self::req( $this->classs( 'do-delete-terms' ) ) ) {
 
@@ -563,15 +554,15 @@ JS;
 
 			// no need, we check the nounce
 			// if ( ! current_user_can( get_taxonomy( $taxonomy )->cap->delete_terms ) )
-			// 	WordPress::redirectReferer( 'noaccess' );
+			// 	Core\WordPress::redirectReferer( 'noaccess' );
 
 			if ( $taxonomy !== self::req( $this->classs( 'do-delete-confirm' ) ) )
-				WordPress::redirectReferer( 'huh' );
+				Core\WordPress::redirectReferer( 'huh' );
 
 			else
 				$count = $this->_handle_delete_terms( $taxonomy, TRUE, FALSE );
 
-			WordPress::redirectReferer( [
+			Core\WordPress::redirectReferer( [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -582,7 +573,7 @@ JS;
 
 			$count = $this->_handle_delete_empty_terms( $taxonomy );
 
-			WordPress::redirectReferer( [
+			Core\WordPress::redirectReferer( [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -593,7 +584,7 @@ JS;
 
 			$count = $this->_handle_delete_onesie_terms( $taxonomy );
 
-			WordPress::redirectReferer( [
+			Core\WordPress::redirectReferer( [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -607,19 +598,19 @@ JS;
 	/**
 	 * Retrieves terms with *zero* count, empty description and no children.
 	 *
-	 * @param  string|object $taxonomy
-	 * @param  bool   $check_description
+	 * @param string|object $taxonomy
+	 * @param bool $check_description
 	 * @return false|array $term_ids
 	 */
 	private function _get_empty_terms( $taxonomy, $check_description = TRUE )
 	{
-		if ( ! $object = WPTaxonomy::object( $taxonomy ) )
+		if ( ! $object = WordPress\Taxonomy::object( $taxonomy ) )
 			return FALSE;
 
 		// TODO: exclude terms with `protected_empty` meta
-		$term_ids  = WPTaxonomy::getEmptyTermIDs( $object->name, $check_description );
-		$default   = WPTaxonomy::getDefaultTermID( $object->name );
-		$hierarchy = WPTaxonomy::getHierarchy( $object );
+		$term_ids  = WordPress\Taxonomy::getEmptyTermIDs( $object->name, $check_description );
+		$default   = WordPress\Taxonomy::getDefaultTermID( $object->name );
+		$hierarchy = WordPress\Taxonomy::getHierarchy( $object );
 
 		if ( count( $term_ids ) && ( $default ) )
 			$term_ids = array_diff( $term_ids, [ $default ] );
@@ -639,13 +630,13 @@ JS;
 	 */
 	private function _get_onesie_terms( $taxonomy, $check_description = TRUE )
 	{
-		if ( ! $object = WPTaxonomy::object( $taxonomy ) )
+		if ( ! $object = WordPress\Taxonomy::object( $taxonomy ) )
 			return FALSE;
 
 		// TODO: exclude terms with `protected_empty` meta
-		$term_ids = WPTaxonomy::getEmptyTermIDs( $object->name, $check_description, 1, 1 );
-		$default  = WPTaxonomy::getDefaultTermID( $object->name );
-		$children = WPTaxonomy::getHierarchy( $object );
+		$term_ids = WordPress\Taxonomy::getEmptyTermIDs( $object->name, $check_description, 1, 1 );
+		$default  = WordPress\Taxonomy::getDefaultTermID( $object->name );
+		$children = WordPress\Taxonomy::getHierarchy( $object );
 
 		if ( count( $term_ids ) && ( $default ) )
 			$term_ids = array_diff( $term_ids, [ $default ] );
@@ -659,15 +650,15 @@ JS;
 	/**
 	 * Handles empty terms deletion.
 	 *
-	 * @param  string|object $taxonomy
-	 * @param  null|array $term_ids
-	 * @param  bool   $include_default
+	 * @param string|object $taxonomy
+	 * @param null|array $term_ids
+	 * @param bool $include_default
 	 * @return int $count
 	 */
 	private function _handle_delete_empty_terms( $taxonomy, $term_ids = NULL, $include_default = FALSE )
 	{
 		$count   = 0;
-		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
+		$default = WordPress\Taxonomy::getDefaultTermID( $taxonomy );
 
 		if ( is_null( $term_ids ) )
 			$term_ids = $this->_get_empty_terms( $taxonomy );
@@ -686,7 +677,7 @@ JS;
 				continue;
 
 			// manually re-count: skip if the term has relationships
-			if ( WPTaxonomy::countTermObjects( $term_id, $taxonomy ) )
+			if ( WordPress\Taxonomy::countTermObjects( $term_id, $taxonomy ) )
 				continue;
 
 			if ( ! $this->filters( 'delete_empty_term', TRUE, $term_id, $taxonomy ) )
@@ -712,7 +703,7 @@ JS;
 	private function _handle_delete_onesie_terms( $taxonomy, $term_ids = NULL, $include_default = FALSE )
 	{
 		$count   = 0;
-		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
+		$default = WordPress\Taxonomy::getDefaultTermID( $taxonomy );
 
 		if ( is_null( $term_ids ) )
 			$term_ids = $this->_get_onesie_terms( $taxonomy );
@@ -731,7 +722,7 @@ JS;
 				continue;
 
 			// manually re-count: skip if the term has relationships
-			if ( WPTaxonomy::countTermObjects( $term_id, $taxonomy ) > 1 )
+			if ( WordPress\Taxonomy::countTermObjects( $term_id, $taxonomy ) > 1 )
 				continue;
 
 			if ( ! $this->filters( 'delete_onesie_term', TRUE, $term_id, $taxonomy ) )
@@ -742,7 +733,7 @@ JS;
 			if ( $deleted && ! is_wp_error( $deleted ) )
 				$count++;
 
-			// TODO: must fire action hook wi compelete data!
+			// TODO: must fire action hook with complete data!
 		}
 
 		return $count;
@@ -753,7 +744,7 @@ JS;
 		$count = 0;
 		$terms = get_terms( [
 			'taxonomy'   => $taxonomy,
-			'exclude'    => $include_default ? '' : WPTaxonomy::getDefaultTermID( $taxonomy, '' ),
+			'exclude'    => $include_default ? '' : WordPress\Taxonomy::getDefaultTermID( $taxonomy, '' ),
 			'fields'     => 'all',
 			'orderby'    => 'none',
 			'hide_empty' => FALSE,
@@ -768,7 +759,7 @@ JS;
 
 			if ( ! $force ) {
 
-				if ( ! Strings::isEmpty( $term->description ) ) {
+				if ( ! WordPress\Strings::isEmpty( $term->description ) ) {
 
 					// skip if the term description is not an empty string
 					$delete = FALSE;
@@ -777,7 +768,7 @@ JS;
 
 					// NOTE: we can not rely on `$term->count` data from the term query
 					// skip if the term has relationships
-					if ( WPTaxonomy::countTermObjects( $term->term_id, $term->taxonomy ) )
+					if ( WordPress\Taxonomy::countTermObjects( $term->term_id, $term->taxonomy ) )
 						$delete = FALSE;
 				}
 			}
@@ -805,7 +796,7 @@ JS;
 		$this->actions( 'tab_search_content_before', $taxonomy, $object );
 
 		echo $this->wrap_open( '-tab-tools-search' );
-			HTML::desc( gNetwork()->na() ); // FIXME
+			Core\HTML::desc( gNetwork()->na() );  // FIXME
 		echo '</div>';
 
 		$this->actions( 'tab_search_content', $taxonomy, $object );
@@ -830,7 +821,7 @@ JS;
 			return FALSE;
 
 		echo $this->wrap_open( '-tab-tools-defaults card -toolbox-card' );
-			HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			$hook  = sprintf( 'default_terms_%s', $taxonomy );
 			$terms = $this->filters( 'default_terms', [], $taxonomy );
@@ -840,7 +831,7 @@ JS;
 				$this->render_form_start( NULL, 'defaults', 'install', 'tabs', FALSE );
 					$this->nonce_field( 'do-default-terms' );
 
-					echo HTML::multiSelect( $this->filters( $hook, $terms, $taxonomy ), [
+					echo Core\HTML::multiSelect( $this->filters( $hook, $terms, $taxonomy ), [
 						'name'     => $this->classs( 'do-default-selected' ),
 						'selected' => TRUE,
 						'panel'    => TRUE,
@@ -849,7 +840,7 @@ JS;
 						'prop'     => 'name',
 					] );
 
-					HTML::desc( _x( 'Select to install pre-configured terms for this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+					Core\HTML::desc( _x( 'Select to install pre-configured terms for this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
 
 					echo $this->wrap_open_buttons( '-toolbox-buttons' );
 						Settings::submitButton( $this->classs( 'do-default-terms' ), _x( 'Install Defaults', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
@@ -859,7 +850,7 @@ JS;
 
 			} else {
 
-				HTML::desc( _x( 'There are no pre-defined terms available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There are no pre-defined terms available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -868,7 +859,7 @@ JS;
 	private function _tab_content_tools_import( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-tools-import card -toolbox-card' );
-			HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			$this->render_form_start( NULL, 'import', 'download', 'tabs', FALSE );
 				$this->nonce_field( 'do-import-terms' );
@@ -880,9 +871,13 @@ JS;
 					'values'    => [ '.csv' ],
 				] );
 
-				$size = File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
-				/* translators: %s: maximum file size */
-				HTML::desc( sprintf( _x( 'Upload a list of terms in CSV. Maximum size: <b>%s</b>', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), HTML::wrapLTR( $size ) ) );
+				$size = Core\File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
+
+				Core\HTML::desc( sprintf(
+					/* translators: `%s`: maximum file size */
+					_x( 'Upload a list of terms in CSV. Maximum size: <b>%s</b>', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ),
+					Core\HTML::wrapLTR( $size )
+				) );
 
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
 					Settings::submitButton( $this->classs( 'do-import-terms' ), _x( 'Import from CSV', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
@@ -895,19 +890,19 @@ JS;
 	private function _tab_content_tools_export( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-tools-export card -toolbox-card' );
-			HTML::h4( _x( 'Export Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Export Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			$this->render_form_start( NULL, 'export', 'download', 'tabs', FALSE );
 				$this->nonce_field( 'do-export-terms' );
 
-				echo HTML::multiSelect( $this->get_export_term_fields( $taxonomy ), [
+				echo Core\HTML::multiSelect( $this->get_export_term_fields( $taxonomy ), [
 					'name'     => $this->classs( 'do-export-fields' ),
 					'selected' => TRUE,
 					'panel'    => TRUE,
 					'values'   => TRUE,
 				] );
 
-				HTML::desc( _x( 'Select fields to include on the the exported CSV file.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+				Core\HTML::desc( _x( 'Select fields to include on the the exported CSV file.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
 
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
 					Settings::submitButton( $this->classs( 'do-export-terms' ), _x( 'Export in CSV', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
@@ -923,12 +918,12 @@ JS;
 			return FALSE;
 
 		echo $this->wrap_open( '-tab-tools-delete card -toolbox-card' );
-			HTML::h4( _x( 'Delete Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Delete Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			$this->render_form_start( NULL, 'delete', 'bulk', 'tabs', FALSE );
 				$this->nonce_field( 'do-delete-terms' );
 
-				echo HTML::tag( 'input', [
+				echo Core\HTML::tag( 'input', [
 					'type'         => 'text',
 					'name'         => $this->classs( 'do-delete-confirm' ),
 					'placeholder'  => $taxonomy,
@@ -937,15 +932,18 @@ JS;
 					'dir'          => 'ltr',
 				] );
 
-				HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+				Core\HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
 
-				if ( $default = WPTaxonomy::getDefaultTermID( $taxonomy ) ) {
+				if ( $default = WordPress\Taxonomy::getDefaultTermID( $taxonomy ) ) {
 
 					$term = get_term( $default, $taxonomy );
 
 					if ( $term && ! self::isError( $term ) )
-						/* translators: %s: default term name */
-						HTML::desc( sprintf( _x( 'The default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
+						Core\HTML::desc( sprintf(
+							/* translators: `%s`: default term name */
+							_x( 'The default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork' ),
+							'<i>'.$term->name.'</i>'
+						) );
 				}
 
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
@@ -971,7 +969,7 @@ JS;
 			return FALSE;
 
 		echo $this->wrap_open( '-tab-tools-delete-empties card -toolbox-card' );
-			HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			if ( $empties = $this->_get_empty_terms( $object ) ) {
 
@@ -980,13 +978,16 @@ JS;
 				$this->render_form_start( NULL, 'delete', 'empties', 'tabs', FALSE );
 					$this->nonce_field( 'do-delete-empties' );
 
-					/* translators: %s: number of empty terms */
-					HTML::desc( Utilities::getCounted( $count, _nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) ) );
+					Core\HTML::desc( Utilities::getCounted( $count,
+						/* translators: `%s`: number of empty terms */
+						_nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' )
+					) );
 
 					if ( $object->hierarchical )
-						HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+						Core\HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+
 					else
-						HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+						Core\HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
 
 					echo $this->wrap_open_buttons( '-toolbox-buttons' );
 						Settings::submitButton( $this->classs( 'do-delete-empties' ), _x( 'Delete Empty Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
@@ -996,7 +997,7 @@ JS;
 
 			} else {
 
-				HTML::desc( _x( 'There are no empty terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There are no empty terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -1008,7 +1009,7 @@ JS;
 			return FALSE;
 
 		echo $this->wrap_open( '-tab-tools-delete-onesies card -toolbox-card' );
-			HTML::h4( _x( 'Delete Onesies', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Delete Onesies', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
 
 			if ( $onesies = $this->_get_onesie_terms( $object ) ) {
 
@@ -1017,13 +1018,16 @@ JS;
 				$this->render_form_start( NULL, 'delete', 'onesies', 'tabs', FALSE );
 					$this->nonce_field( 'do-delete-onesies' );
 
-					/* translators: %s: number of one-count terms */
-					HTML::desc( Utilities::getCounted( $count, _nx( 'Confirm deletion of %s one-count term.', 'Confirm deletion of %s one-count terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) ) );
+					Core\HTML::desc( Utilities::getCounted( $count,
+						/* translators: `%s`: number of one-count terms */
+						_nx( 'Confirm deletion of %s one-count term.', 'Confirm deletion of %s one-count terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' )
+					) );
 
 					if ( $object->hierarchical )
-						HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+						Core\HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+
 					else
-						HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+						Core\HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
 
 					echo $this->wrap_open_buttons( '-toolbox-buttons' );
 						Settings::submitButton( $this->classs( 'do-delete-onesies' ), _x( 'Delete One-Count Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
@@ -1033,7 +1037,7 @@ JS;
 
 			} else {
 
-				HTML::desc( _x( 'There are no one-count terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There are no one-count terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -1047,9 +1051,9 @@ JS;
 	public function tab_extra_content_i18n_reports( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-i18n-reports card -toolbox-card' );
-			HTML::h4( _x( 'i18n Reports', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'i18n Reports', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
 
-			HTML::desc( gNetwork()->na() ); // FIXME
+			Core\HTML::desc( gNetwork()->na() ); // FIXME
 
 		echo '</div>';
 	}
@@ -1058,8 +1062,8 @@ JS;
 	public function tab_extra_content_terms_stats( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-terms-stats card -toolbox-card' );
-			HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
-			HTML::desc( HTML::tag( 'code', wp_count_terms( $taxonomy ) ) );
+			Core\HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+			Core\HTML::desc( Core\HTML::tag( 'code', wp_count_terms( $taxonomy ) ) );
 		echo '</div>';
 	}
 
@@ -1069,10 +1073,10 @@ JS;
 	public function tab_extra_content_default_term( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-default-term card -toolbox-card' );
-			HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
 
 			if ( ! $this->render_info_default_term( $taxonomy ) )
-				HTML::desc( _x( 'There is no default term available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There is no default term available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
 
 		echo '</div>';
 	}
@@ -1080,7 +1084,7 @@ JS;
 	// ACTION HOOK: `after_{$taxonomy}_table`
 	public function render_info_default_term( $taxonomy )
 	{
-		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
+		$default = WordPress\Taxonomy::getDefaultTermID( $taxonomy );
 
 		if ( empty( $default ) )
 			return;
@@ -1090,8 +1094,11 @@ JS;
 		if ( ! $term || self::isError( $term ) )
 			return;
 
-		/* translators: %s: default term name */
-		HTML::desc( sprintf( _x( 'The default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<i>'.$term->name.'</i>' ) );
+		Core\HTML::desc( sprintf(
+			/* translators: `%s`: default term name */
+			_x( 'The default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ),
+			'<i>'.$term->name.'</i>'
+		) );
 
 		return TRUE;
 	}
@@ -1126,7 +1133,7 @@ JS;
 				'merge',
 			];
 
-			$default = WPTaxonomy::getDefaultTermID( $screen->taxonomy );
+			$default = WordPress\Taxonomy::getDefaultTermID( $screen->taxonomy );
 
 			if ( ! empty( $default ) && ( $current = self::req( 'tag_ID' ) ) )
 				$excludes[] = $default == $current ? 'set_default' : 'unset_default';
@@ -1139,14 +1146,14 @@ JS;
 			];
 		}
 
-		$actions = Arraay::stripByKeys( $this->get_actions( $screen->taxonomy ), $excludes );
+		$actions = Core\Arraay::stripByKeys( $this->get_actions( $screen->taxonomy ), $excludes );
 
 		if ( ! count( $actions ) )
 			return FALSE;
 
 		if ( 'edit-tags' == $screen->base ) {
 
-			if ( ! WordPress::cucTaxonomy( $screen->taxonomy, 'manage_terms' ) )
+			if ( ! Core\WordPress::cucTaxonomy( $screen->taxonomy, 'manage_terms' ) )
 				return FALSE;
 
 			add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
@@ -1170,7 +1177,7 @@ JS;
 		$screen->add_help_tab( [
 			'id'      => $this->classs( 'help-bulk-actions' ),
 			'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', 'gnetwork' ),
-			'content' => '<p>'.$intro.'</p>'.HTML::renderList( $actions ),
+			'content' => '<p>'.$intro.'</p>'.Core\HTML::renderList( $actions ),
 		] );
 
 		wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ), 'gNetworkTaxonomyActions', $actions );
@@ -1188,7 +1195,7 @@ JS;
 		if ( isset( $filtered[$taxonomy] ) )
 			return $filtered[$taxonomy];
 
-		$hierarchical = WPTaxonomy::hierarchical( $taxonomy );
+		$hierarchical = WordPress\Taxonomy::hierarchical( $taxonomy );
 		$actions      = [];
 
 		$actions['set_default']   = _x( 'Set Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
@@ -1225,7 +1232,7 @@ JS;
 
 	public function edit_form_fields_default( $term, $taxonomy )
 	{
-		$default = WPTaxonomy::getDefaultTermID( $taxonomy );
+		$default = WordPress\Taxonomy::getDefaultTermID( $taxonomy );
 
 		if ( empty( $default ) )
 			return;
@@ -1240,8 +1247,12 @@ JS;
 				_ex( 'Caution', 'Modules: Taxonomy', 'gnetwork' );
 			echo '</th><td>';
 
-			/* translators: %s: taxonomy label */
-			HTML::desc( sprintf( _x( 'This is the default term for &ldquo;%s&rdquo; taxonomy.', 'Modules: Taxonomy: Info', 'gnetwork' ), '<strong>'.$object->label.'</strong>' ) );
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: taxonomy label */
+				_x( 'This is the default term for &ldquo;%s&rdquo; taxonomy.', 'Modules: Taxonomy: Info', 'gnetwork' ),
+				'<strong>'.$object->label.'</strong>'
+			) );
+
 		echo '</td></tr>';
 	}
 
@@ -1284,7 +1295,7 @@ JS;
 		if ( 'post' == $query['post_type'] )
 			unset( $query['post_type'] );
 
-		WordPress::redirect( add_query_arg( $query, WordPress::getReferer() ) );
+		Core\WordPress::redirect( add_query_arg( $query, Core\WordPress::getReferer() ) );
 	}
 
 	public function handle_bulk_actions( $location, $action, $term_ids )
@@ -1342,25 +1353,25 @@ JS;
 
 			case 'gnetwork-taxonomy-updated':
 
-				echo HTML::success( _x( 'Terms updated.', 'Settings: Message', 'gnetwork' ) );
+				echo Core\HTML::success( _x( 'Terms updated.', 'Settings: Message', 'gnetwork' ) );
 
 			break;
 			case 'gnetwork-taxonomy-error':
 
-				echo HTML::error( _x( 'Terms not updated.', 'Settings: Message', 'gnetwork' ) );
+				echo Core\HTML::error( _x( 'Terms not updated.', 'Settings: Message', 'gnetwork' ) );
 		}
 	}
 
 	public function handle_assign_parents( $term_ids, $taxonomy )
 	{
-		WPTaxonomy::disableTermCounting();
+		WordPress\Taxonomy::disableTermCounting();
 
 		foreach ( $term_ids as $term_id ) {
 
-			if ( ! $parents = WPTaxonomy::getTermParents( $term_id, $taxonomy ) )
+			if ( ! $parents = WordPress\Taxonomy::getTermParents( $term_id, $taxonomy ) )
 				continue;
 
-			foreach ( WPTaxonomy::getTermObjects( $term_id, $taxonomy ) as $object_id )
+			foreach ( WordPress\Taxonomy::getTermObjects( $term_id, $taxonomy ) as $object_id )
 				wp_set_object_terms( $object_id, $parents, $taxonomy, TRUE );
 		}
 
@@ -1372,10 +1383,10 @@ JS;
 
 	public function handle_empty_posts( $term_ids, $taxonomy )
 	{
-		WPTaxonomy::disableTermCounting();
+		WordPress\Taxonomy::disableTermCounting();
 
 		foreach ( $term_ids as $term_id )
-			if ( FALSE === WPTaxonomy::removeTermObjects( (int) $term_id, $taxonomy ) )
+			if ( FALSE === WordPress\Taxonomy::removeTermObjects( (int) $term_id, $taxonomy ) )
 				return FALSE;
 
 		// flush the deferred term counts
@@ -1484,7 +1495,7 @@ JS;
 			if ( self::isError( $term ) )
 				continue;
 
-			$ordinal = Number::toOrdinal( $term->name );
+			$ordinal = Core\Number::toOrdinal( $term->name );
 
 			if ( $ordinal != $term->name )
 				wp_update_term( $term_id, $taxonomy, [ 'name' => $ordinal ] );
@@ -1493,7 +1504,7 @@ JS;
 		return TRUE;
 	}
 
-	// separeted because we have to keep the connected object list
+	// separated because we have to keep the connected object list
 	public function handle_multiple_merge( $targets, $term_ids, $taxonomy )
 	{
 		global $wpdb;
@@ -1507,13 +1518,13 @@ JS;
 		$new_terms = [];
 
 		foreach ( $targets as $target )
-			if ( $new_term = WPTaxonomy::getTargetTerm( $target, $taxonomy ) )
+			if ( $new_term = WordPress\Taxonomy::getTargetTerm( $target, $taxonomy ) )
 				$new_terms[$new_term->term_id] = $new_term;
 
 		if ( ! count( $new_terms ) )
 			return FALSE;
 
-		WPTaxonomy::disableTermCounting();
+		WordPress\Taxonomy::disableTermCounting();
 
 		foreach ( (array) $term_ids as $term_id ) {
 
@@ -1560,13 +1571,13 @@ JS;
 			return FALSE;
 
 		// handle multiple merge
-		if ( Text::has( $target, ',,' ) )
+		if ( Core\Text::has( $target, ',,' ) )
 			return $this->handle_multiple_merge( $target, $term_ids, $taxonomy );
 
-		if ( ! $new_term = WPTaxonomy::getTargetTerm( $target, $taxonomy ) )
+		if ( ! $new_term = WordPress\Taxonomy::getTargetTerm( $target, $taxonomy ) )
 			return FALSE;
 
-		WPTaxonomy::disableTermCounting();
+		WordPress\Taxonomy::disableTermCounting();
 
 		foreach ( (array) $term_ids as $term_id ) {
 
@@ -1606,7 +1617,7 @@ JS;
 		foreach ( $term_ids as $term_id ) {
 
 			$old_term = get_term( $term_id, $taxonomy );
-			$targets  = Strings::getSeparated( $old_term->name, $delimiter ?: NULL );
+			$targets  = WordPress\Strings::getSeparated( $old_term->name, $delimiter ?: NULL );
 
 			if ( count( $targets ) < 2 )
 				continue;
@@ -1619,7 +1630,7 @@ JS;
 
 			foreach ( $targets as $target ) {
 
-				if ( ! $new_term = WPTaxonomy::getTargetTerm( $target, $taxonomy ) )
+				if ( ! $new_term = WordPress\Taxonomy::getTargetTerm( $target, $taxonomy ) )
 					continue;
 
 				// needs to be set before our action fired
@@ -1647,7 +1658,7 @@ JS;
 	{
 		foreach ( $term_ids as $term_id ) {
 
-			update_option( WPTaxonomy::getDefaultTermOptionKey( $taxonomy ), (int) $term_id );
+			update_option( WordPress\Taxonomy::getDefaultTermOptionKey( $taxonomy ), (int) $term_id );
 
 			break; // only one can be default!
 		}
@@ -1657,7 +1668,7 @@ JS;
 
 	public function handle_unset_default( $term_ids, $taxonomy )
 	{
-		return delete_option( WPTaxonomy::getDefaultTermOptionKey( $taxonomy ) );
+		return delete_option( WordPress\Taxonomy::getDefaultTermOptionKey( $taxonomy ) );
 	}
 
 	public function handle_set_parent( $term_ids, $taxonomy )
@@ -1723,7 +1734,7 @@ JS;
 					'update_term_meta_cache' => FALSE,
 				] );
 
-				$tt_ids = array_merge( $tt_ids, Arraay::pluck( $child_terms, 'term_taxonomy_id' ) );
+				$tt_ids = array_merge( $tt_ids, Core\Arraay::pluck( $child_terms, 'term_taxonomy_id' ) );
 			}
 		}
 
@@ -1761,7 +1772,7 @@ JS;
 		if ( $cloned_tax == $current_tax )
 			return FALSE;
 
-		WPTaxonomy::disableTermCounting();
+		WordPress\Taxonomy::disableTermCounting();
 
 		foreach ( $term_ids as $term_id ) {
 
@@ -1769,9 +1780,9 @@ JS;
 			$cloned_args  = [ 'slug' => $current_term->slug, 'description' => $current_term->description ]; // not supporting parents
 
 			$current_meta = get_term_meta( $term_id );
-			$cloned_meta  = []; // empty( $current_meta ) ? [] : array_combine( Arraay::pluck( $current_meta, 0 ), array_keys( $current_meta ) ); // added manually later
+			$cloned_meta  = []; // empty( $current_meta ) ? [] : array_combine( Core\Arraay::pluck( $current_meta, 0 ), array_keys( $current_meta ) ); // added manually later
 
-			if ( ! $cloned_term = WPTaxonomy::getTargetTerm( $current_term->name, $cloned_tax, $cloned_args, $cloned_meta ) )
+			if ( ! $cloned_term = WordPress\Taxonomy::getTargetTerm( $current_term->name, $cloned_tax, $cloned_args, $cloned_meta ) )
 				continue;
 
 			$current_objects = (array) $wpdb->get_col( $wpdb->prepare( "
@@ -1821,7 +1832,7 @@ JS;
 
 	private function secondary_input_merge( $taxonomy )
 	{
-		/* translators: %s: merge/split into input */
+		/* translators: `%s`: merge/split into input */
 		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
 			'<input name="'.$this->classs( 'bulk-merge' ).'" type="text" placeholder="'
 			._x( 'Name, Slug or ID', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
@@ -1829,7 +1840,7 @@ JS;
 
 	private function secondary_input_split( $taxonomy )
 	{
-		/* translators: %s: merge/split into input */
+		/* translators: `%s`: merge/split into input */
 		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
 			'<input name="'.$this->classs( 'bulk-split' ).'" type="text" placeholder="'
 			._x( 'Delimiter', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
@@ -1924,8 +1935,8 @@ JS;
 
 		// FIXME: handle empty results
 
-		$data  = [ array_merge( [ 'term_id' ], $fields, Arraay::prefixValues( $metas, 'meta_' ) ) ];
-		$terms = Arraay::reKey( $raw, 'term_id' );
+		$data  = [ array_merge( [ 'term_id' ], $fields, Core\Arraay::prefixValues( $metas, 'meta_' ) ) ];
+		$terms = Core\Arraay::reKey( $raw, 'term_id' );
 
 		foreach ( $terms as $term ) {
 
@@ -1962,7 +1973,7 @@ JS;
 			$data[] = $row;
 		}
 
-		return Text::toCSV( $data );
+		return Core\Text::toCSV( $data );
 	}
 
 	private function import_terms_csv( $file_path, $taxonomy )
@@ -1970,7 +1981,7 @@ JS;
 		$count = 0;
 
 		$csv = new \ParseCsv\Csv();
-		$csv->auto( File::normalize( $file_path ) );
+		$csv->auto( Core\File::normalize( $file_path ) );
 
 		foreach ( $csv->data as $offset => $row ) {
 
@@ -1986,14 +1997,14 @@ JS;
 				else if ( in_array( $key, [ 'parent', 'slug', 'description' ] ) )
 					$args[$key] = trim( $value );
 
-				else if ( Text::starts( $key, 'meta_' ) )
+				else if ( Core\Text::starts( $key, 'meta_' ) )
 					$meta[preg_replace( '/^meta\_/', '', $key )] = trim( $value );
 			}
 
 			if ( empty( $name ) )
 				continue;
 
-			if ( ! $term = WPTaxonomy::getTargetTerm( $name, $taxonomy, $args ) )
+			if ( ! $term = WordPress\Taxonomy::getTargetTerm( $name, $taxonomy, $args ) )
 				continue;
 
 			// will bail if an entry with the same key is found
@@ -2030,7 +2041,7 @@ JS;
 		if ( in_array( $term->taxonomy, $this->filters( 'redirect_blacklist', [ 'nav_menu' ], $term ), TRUE ) )
 			return;
 
-		WordPress::redirect( get_term_link( $term ), 301 );
+		Core\WordPress::redirect( get_term_link( $term ), 301 );
 	}
 
 	public function tag_row_actions_redirect_terms( $actions, $term )
@@ -2038,9 +2049,12 @@ JS;
 		if ( is_taxonomy_viewable( $term->taxonomy ) )
 			$actions['shortlink'] = sprintf(
 				'<a href="%s" aria-label="%s">%s</a>',
-				WordPress::getTermShortLink( $term->term_id ),
-				/* translators: %s: Taxonomy term name. */
-				esc_attr( sprintf( _x( 'Copy Shortlink for &#8220;%s&#8221;', 'Modules: Taxonomy: Action', 'gnetwork' ), $term->name ) ),
+				Core\WordPress::getTermShortLink( $term->term_id ),
+				esc_attr( sprintf(
+					/* translators: `%s`: Taxonomy term name. */
+					_x( 'Copy Shortlink for &#8220;%s&#8221;', 'Modules: Taxonomy: Action', 'gnetwork' ),
+					$term->name
+				) ),
 				_x( 'Shortlink', 'Modules: Taxonomy: Action', 'gnetwork' )
 			);
 

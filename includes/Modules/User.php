@@ -3,21 +3,13 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\SwitchSite;
-use geminorum\gNetwork\WordPress\Strings as WPStrings;
-use geminorum\gNetwork\WordPress\User as WPUser;
+use geminorum\gNetwork\WordPress;
 
 class User extends gNetwork\Module
 {
-
 	protected $key  = 'user';
 	protected $cron = TRUE;
 
@@ -118,7 +110,7 @@ class User extends gNetwork\Module
 			'type'        => 'number',
 			'title'       => _x( 'Site User ID', 'Modules: User: Settings', 'gnetwork' ),
 			'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', 'gnetwork' ),
-			'after'       => Settings::fieldAfterIcon( WordPress::getUserEditLink( $this->options['site_user_id'], [], TRUE, FALSE ) ),
+			'after'       => Settings::fieldAfterIcon( Core\WordPress::getUserEditLink( $this->options['site_user_id'], [], TRUE, FALSE ) ),
 		];
 
 		if ( $multisite )
@@ -223,7 +215,7 @@ class User extends gNetwork\Module
 
 		echo $this->wrap_open_buttons();
 
-		if ( ! WordPress::isMainNetwork() ) {
+		if ( ! Core\WordPress::isMainNetwork() ) {
 
 			// for multi-network only!
 
@@ -236,7 +228,7 @@ class User extends gNetwork\Module
 
 		if ( $this->options['network_roles'] ) {
 
-			echo HTML::tag( 'a', [
+			echo Core\HTML::tag( 'a', [
 				'class' => 'button button-secondary button-small',
 				'href'  => $this->get_menu_url( 'roles', NULL, 'tools' ),
 				'title' => _x( 'View and set network roles here.', 'Modules: User', 'gnetwork' ),
@@ -246,7 +238,7 @@ class User extends gNetwork\Module
 		}
 
 		if ( $emtpy )
-			HTML::desc( _x( 'Network Roles are disabled.', 'Modules: User', 'gnetwork' ), TRUE, '-empty' );
+			Core\HTML::desc( _x( 'Network Roles are disabled.', 'Modules: User', 'gnetwork' ), TRUE, '-empty' );
 
 		echo '</p>';
 	}
@@ -264,7 +256,7 @@ class User extends gNetwork\Module
 
 			foreach ( $users as $user_id ) {
 
-				if ( WordPress::isSuperAdmin( $user_id ) )
+				if ( Core\WordPress::isSuperAdmin( $user_id ) )
 					continue;
 
 				if ( is_user_member_of_blog( $user_id, $site_id ) )
@@ -276,7 +268,7 @@ class User extends gNetwork\Module
 				$count++;
 			}
 
-			WordPress::redirectReferer( [
+			Core\WordPress::redirectReferer( [
 				'message' => 'synced',
 				'count'   => $count,
 			] );
@@ -312,24 +304,24 @@ class User extends gNetwork\Module
 					$saved = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
 					if ( ! $this->update_sites_roles( $saved, $roles ) )
-						WordPress::redirectReferer( 'wrong' );
+						Core\WordPress::redirectReferer( 'wrong' );
 				}
 
 				$result = update_network_option( NULL, $this->hook( 'roles' ), $roles );
 
-				WordPress::redirectReferer( $result ? 'updated' : 'error' );
+				Core\WordPress::redirectReferer( $result ? 'updated' : 'error' );
 			}
 		}
 	}
 
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
-		$sites = WordPress::getAllSites();
+		$sites = Core\WordPress::getAllSites();
 		$roles = array_reverse( get_editable_roles() ); // NOTE: roles of the main site
 		$saved = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
 		if ( empty( $sites ) )
-			return HTML::desc( gNetwork()->na() );
+			return Core\HTML::desc( gNetwork()->na() );
 
 		Settings::fieldSection( _x( 'Default User Roles', 'Modules: User: Settings', 'gnetwork' ), [
 			_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', 'gnetwork' ),
@@ -340,8 +332,8 @@ class User extends gNetwork\Module
 
 		foreach ( $sites as $site_id => $site ) {
 
-			if ( ! $name = WordPress::getSiteName( $site_id ) )
-				$name = URL::untrail( $site->domain.$site->path );
+			if ( ! $name = Core\WordPress::getSiteName( $site_id ) )
+				$name = Core\URL::untrail( $site->domain.$site->path );
 
 			$this->do_settings_field( [
 				'field'      => $site_id,
@@ -421,7 +413,7 @@ class User extends gNetwork\Module
 		$relative = 'admin.php?page='.static::BASE;
 
 		return $full
-			? WordPress::userAdminURL( $network, $relative, $scheme )
+			? Core\WordPress::userAdminURL( $network, $relative, $scheme )
 			: $relative;
 	}
 
@@ -513,28 +505,34 @@ class User extends gNetwork\Module
 
 	public function activity_box_end()
 	{
-		if ( current_user_can( 'list_users' ) && ! WPUser::isLargeCount() )
+		if ( current_user_can( 'list_users' ) && ! WordPress\User::isLargeCount() )
 			echo $this->wrap( $this->count_users(), '-count-users' );
 	}
 
 	public function count_users()
 	{
 		$result    = count_users();
-		$roles     = WPUser::getAllRoleList();
-		$separator = WPStrings::separator();
+		$roles     = WordPress\User::getAllRoleList();
+		$separator = WordPress\Strings::separator();
 
 		// TODO: report users with no role in this site
 		unset( $result['avail_roles']['none'] );
 
-		/* translators: %s: total user numebr */
-		$html = sprintf( _x( 'There are %s total users', 'Modules: User', 'gnetwork' ), Number::format( $result['total_users'] ) );
+		$html = sprintf(
+			/* translators: `%s`: total user number */
+			_x( 'There are %s total users', 'Modules: User', 'gnetwork' ),
+			Core\Number::format( $result['total_users'] )
+		);
 
 		foreach ( $result['avail_roles'] as $role => $count )
-			/* translators: %1$s: role user number, %2$s: role name */
-			$html.= $separator.sprintf( _x( '%1$s are %2$s', 'Modules: User', 'gnetwork' ), Number::format( $count ),
-				( array_key_exists( $role, $roles ) ? $roles[$role] : HTML::code( $role ) ) );
+			$html.= $separator.sprintf(
+				/* translators: `%1$s`: role user number, `%2$s`: role name */
+				_x( '%1$s are %2$s', 'Modules: User', 'gnetwork' ),
+				Core\Number::format( $count ),
+				( array_key_exists( $role, $roles ) ? $roles[$role] : Core\HTML::code( $role ) )
+			);
 
-		return HTML::tag( 'p', $html.'.' );
+		return Core\HTML::tag( 'p', $html.'.' );
 	}
 
 	/**
@@ -573,7 +571,7 @@ class User extends gNetwork\Module
 		if ( ! $username = Core\Text::trim( $username ) )
 			return FALSE;
 
-		if ( WPStrings::isEmpty( $username ) )
+		if ( WordPress\Strings::isEmpty( $username ) )
 			return FALSE;
 
 		// all dots/ellipses
@@ -623,7 +621,7 @@ class User extends gNetwork\Module
 		if ( $user instanceof \WP_User || empty( $username ) || empty( $password ) )
 			return $user;
 
-		if ( ! $mobile = WPUser::getObjectbyMeta( 'mobile', $username ) )
+		if ( ! $mobile = WordPress\User::getObjectbyMeta( 'mobile', $username ) )
 			return $user;
 
 		$mobile = apply_filters( 'wp_authenticate_user', $mobile, $password );
@@ -659,20 +657,20 @@ class User extends gNetwork\Module
 
 	private function update_sites_roles( $old, $new )
 	{
-		foreach ( WordPress::getAllSites() as $site_id => $site ) {
+		foreach ( Core\WordPress::getAllSites() as $site_id => $site ) {
 
 			if ( empty( $new[$site_id] ) && empty( $old[$site_id] ) )
 				continue;
 
-			SwitchSite::to( $site_id );
+			WordPress\SwitchSite::to( $site_id );
 
 			$users = empty( $old[$site_id] )
-				? WordPress::getUsersWithNoRole( $site_id )
-				: WordPress::getUsersWithRole( $old[$site_id], $site_id );
+				? Core\WordPress::getUsersWithNoRole( $site_id )
+				: Core\WordPress::getUsersWithRole( $old[$site_id], $site_id );
 
 			foreach ( $users as $user_id ) {
 
-				if ( WordPress::isSuperAdmin( $user_id ) )
+				if ( Core\WordPress::isSuperAdmin( $user_id ) )
 					continue;
 
 				if ( ! $user = get_userdata( $user_id ) )
@@ -685,10 +683,10 @@ class User extends gNetwork\Module
 
 			wp_cache_delete( $site_id.'_user_count', 'blog-details' );
 
-			SwitchSite::lap();
+			WordPress\SwitchSite::lap();
 		}
 
-		SwitchSite::restore();
+		WordPress\SwitchSite::restore();
 
 		return TRUE;
 	}
@@ -717,7 +715,7 @@ class User extends gNetwork\Module
 					$caps[] = 'do_not_allow';
 
 				// admins cannot modify super admins
-				else if ( isset( $args[0] ) && WordPress::isSuperAdmin( $args[0] ) )
+				else if ( isset( $args[0] ) && Core\WordPress::isSuperAdmin( $args[0] ) )
 					$caps[] = 'do_not_allow';
 
 				// fallback on `edit_users`
@@ -794,7 +792,7 @@ class User extends gNetwork\Module
 	// defaults: 'cb', 'username', 'name', 'email', 'registered', 'blogs'
 	public function wpmu_users_columns( $columns )
 	{
-		$columns = Arraay::insert( $columns, [
+		$columns = Core\Arraay::insert( $columns, [
 			'extra' => _x( 'Extra', 'Modules: User', 'gnetwork' ),
 		], 'username', 'after' );
 
@@ -856,14 +854,14 @@ class User extends gNetwork\Module
 		if ( $user->user_email ) {
 			echo '<li class="-row -email">';
 				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', 'gnetwork' ) );
-				echo HTML::mailto( $user->user_email );
+				echo Core\HTML::mailto( $user->user_email );
 			echo '</li>';
 		}
 
 		if ( $user->user_url ) {
 			echo '<li class="-row -url">';
 				echo $this->get_column_icon( FALSE, 'admin-links', _x( 'URL', 'Modules: User', 'gnetwork' ) );
-				echo HTML::link( URL::prepTitle( $user->user_url ), $user->user_url );
+				echo Core\HTML::link( Core\URL::prepTitle( $user->user_url ), $user->user_url );
 			echo '</li>';
 		}
 
