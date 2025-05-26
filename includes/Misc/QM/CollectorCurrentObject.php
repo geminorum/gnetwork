@@ -60,6 +60,15 @@ class CollectorCurrentObject extends \QM_Collector
 				$this->data['object']     = get_user_by( 'id', $user_id );
 				$this->data['meta']       = get_user_meta( $user_id );
 				$this->data['taxonomies'] = $this->_get_object_taxonomies( 'user', $user_id );
+
+			} else if ( 'woocommerce' === $screen->parent_base && 'woocommerce_page_wc-orders' === $screen->base ) {
+
+				if ( ! $order = wc_get_order( (int) ( empty( $_GET['id'] ) ? 0 : $_GET['id'] ) ) )
+					return;
+
+				$this->data['type']   = _x( 'WooCommerce Order', 'Modules: Debug: QM Collector Type', 'gnetwork' );
+				$this->data['object'] = $order->get_data();
+				$this->data['meta']   = $order->get_meta_data();
 			}
 
 		} else if ( is_tax() || is_tag() || is_category() ) {
