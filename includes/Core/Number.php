@@ -574,7 +574,7 @@ class Number extends Base
 		$l = strlen( $a );
 
 		for ( $i = 0; $i < $l; $i++ )
-			$r += pow( 26, $i ) * ( ord( $a[$l - $i - 1]) - 0x40 );
+			$r += pow( 26, $i ) * ( ord( $a[$l - $i - 1] ) - 0x40 );
 
 		return $r - 1;
 	}

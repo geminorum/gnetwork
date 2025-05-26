@@ -288,6 +288,13 @@ class HTML extends Base
 		if ( FALSE === $content )
 			return $html.$sep;
 
+		/**
+		 * Void elements: `area`, `base`, `br`, `col`, `embed`, `hr`,
+		 * `img`, `input`, `link`, `meta`, `source`, `track`, `wbr`
+		 * @source https://html.spec.whatwg.org/multipage/syntax.html#void-elements
+		 * @link https://github.com/pugjs/void-elements
+		 */
+
 		if ( is_null( $content ) )
 			return $html.'</'.$tag.'>'.$sep;
 

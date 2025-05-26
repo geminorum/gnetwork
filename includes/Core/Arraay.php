@@ -460,11 +460,11 @@ class Arraay extends Base
 	 * Key represents property name, and value represents property value.
 	 * NOTE: wrapper for `wp_list_filter()` and `wp_filter_object_list()`
 	 *
-	 * @param  array  $input
-	 * @param  array  $args
-	 * @param  string $operator
-	 * @param  bool   $field
-	 * @return array  $filtered
+	 * @param array $input
+	 * @param array $args
+	 * @param string $operator
+	 * @param bool $field
+	 * @return array
 	 */
 	public static function filter( $input, $args = [], $operator = 'and', $field = FALSE )
 	{
@@ -478,13 +478,13 @@ class Arraay extends Base
 	}
 
 	/**
-	 * Plucks a certain field out of each object or array in an array.
+	 * Plucks a certain field out of each array or object in an array.
 	 * NOTE: wrapper for `wp_list_pluck()`
 	 *
-	 * @param  array $input
-	 * @param  int|string $field
-	 * @param  int|string|null $index_key
-	 * @return array $list
+	 * @param array $input
+	 * @param int|string $field
+	 * @param int|string|null $index_key
+	 * @return array
 	 */
 	public static function pluck( $input, $field, $index_key = NULL )
 	{

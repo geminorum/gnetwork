@@ -8,6 +8,7 @@ class Text extends Base
 	/**
 	 * Advanced version of `trim()`.
 	 *
+	 * - `\u0001`: `Start Of Heading` (U+0001)
 	 * - `\u200a`: `HAIR SPACE` (U+200A)
 	 * - `\u200b`: `ZERO WIDTH SPACE` (U+200B)
 	 * - `\u200c`: `ZERO WIDTH NON-JOINER` (U+200C)
@@ -26,8 +27,8 @@ class Text extends Base
 	{
 		$text = (string) $text;
 		// $text = trim( $text, " \n\t\r\0\x0B," );
-		$text = preg_replace( '/^[\s\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}]+/u', '', $text );
-		$text = preg_replace( '/[\s\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}]+$/u', '', $text );
+		$text = preg_replace( '/^[\s\x{0001}\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}]+/u', '', $text );
+		$text = preg_replace( '/[\s\x{0001}\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}]+$/u', '', $text );
 		$text = trim( $text ); // OCD Only
 
 		if ( 0 === strlen( $text ) )
@@ -1382,6 +1383,11 @@ class Text extends Base
 	{
 		// return preg_replace( '/<a href=\"(.*?)\">(.*?)<\/a>/', "\\2", $text );
 		return preg_replace( '/<a.*?>(.*?)</a>/i', '\1', $text );
+	}
+
+	public static function dashify( $string, $chunk, $separator = NULL )
+	{
+		return implode( $separator ?? '-', str_split( $string, $chunk ) );
 	}
 
 	// case insensitive version of strtr

@@ -21,9 +21,9 @@ class Base
 	 * @source https://stackoverflow.com/a/50697766
 	 * @needs `PHP >= 7.1.0`
 	 *
-	 * @param  string $const
-	 * @param  object $object
-	 * @return mixed  $value
+	 * @param string $const
+	 * @param object $object
+	 * @return mixed
 	 */
 	public static function classConst( $const, $object = NULL )
 	{
@@ -409,16 +409,16 @@ class Base
 	}
 
 	/**
-	 * recursive argument parsing
-	 * @link: https://gist.github.com/boonebgorges/5510970
+	 * Recursive Argument Parsing
+	 * @source: https://gist.github.com/boonebgorges/5510970
 	 *
-	 * Values from $a override those from $b; keys in $b that don't exist
-	 * in $a are passed through.
+	 * Values from `$a` override those from `$b`; keys in `$b` that don't exist
+	 * in `$a` are passed through.
 	 *
-	 * This is different from array_merge_recursive(), both because of the
-	 * order of preference ($a overrides $b) and because of the fact that
-	 * array_merge_recursive() combines arrays deep in the tree, rather
-	 * than overwriting the b array with the a array.
+	 * This is different from `array_merge_recursive()`, both because of the
+	 * order of preference (`$a` overrides `$b`) and because of the fact that
+	 * `array_merge_recursive()` combines arrays deep in the tree, rather
+	 * than overwriting the `$b` array with the `$a` array.
 	*/
 	public static function recursiveParseArgs( &$a, $b )
 	{
