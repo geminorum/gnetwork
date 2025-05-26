@@ -191,7 +191,7 @@ class Debug extends gNetwork\Module
 
 	public static function displayReport()
 	{
-		Core\HTML::desc( _x( 'Below you can find various raw information about current server and WordPress installation.', 'Modules: Debug: System Report', 'gnetwork' ) );
+		Core\HTML::desc( _x( 'Below you can find various raw information about the current server and WordPress installation.', 'Modules: Debug: System Report', 'gnetwork' ) );
 
 		Core\HTML::tabsList( [
 			'currents' => [
@@ -388,28 +388,47 @@ class Debug extends gNetwork\Module
 
 	public static function initialConstants()
 	{
-		$paths = [
-			'WP_MEMORY_LIMIT'     => WP_MEMORY_LIMIT,
-			'WP_MAX_MEMORY_LIMIT' => WP_MAX_MEMORY_LIMIT,
-			'WP_LOCAL_DEV'        => defined( 'WP_LOCAL_DEV' ) ? constant( 'WP_LOCAL_DEV' ) : 'UNDEFINED',
-			'WP_DEBUG'            => WP_DEBUG,
-			'WP_DEBUG_LOG'        => WP_DEBUG_LOG,
-			'WP_DEBUG_DISPLAY'    => WP_DEBUG_DISPLAY,
-			'SCRIPT_DEBUG'        => SCRIPT_DEBUG,
-			'CONCATENATE_SCRIPTS' => defined( 'CONCATENATE_SCRIPTS' ) ? constant( 'CONCATENATE_SCRIPTS' ) : 'UNDEFINED',
-			'COMPRESS_SCRIPTS'    => defined( 'COMPRESS_SCRIPTS' ) ? constant( 'COMPRESS_SCRIPTS' ) : 'UNDEFINED',
-			'COMPRESS_CSS'        => defined( 'COMPRESS_CSS' ) ? constant( 'COMPRESS_CSS' ) : 'UNDEFINED',
-			'WP_CACHE'            => WP_CACHE,
-			'WP_CONTENT_DIR'      => WP_CONTENT_DIR,
-			'WP_POST_REVISIONS'   => WP_POST_REVISIONS,
-			'EMPTY_TRASH_DAYS'    => EMPTY_TRASH_DAYS,
-			'AUTOSAVE_INTERVAL'   => AUTOSAVE_INTERVAL,
+		$list = [
+			'WP_MEMORY_LIMIT',
+			'WP_MAX_MEMORY_LIMIT',
+
+			'WP_POST_REVISIONS',
+			'AUTOSAVE_INTERVAL',
+			'EMPTY_TRASH_DAYS',
+
+			'SCRIPT_DEBUG',
+			'COMPRESS_CSS',
+			'COMPRESS_SCRIPTS',
+			'CONCATENATE_SCRIPTS',
+
+			'DB_CHARSET',
+			'DB_COLLATE',
+
+			'WP_CACHE',
+
+			'WP_DEBUG',
+			'WP_DEBUG_DISPLAY',
+			'WP_DEBUG_LOG',
+
+			'WP_DEVELOPMENT_MODE',
+			'WP_ENVIRONMENT_TYPE',
+			'WP_LOCAL_DEV',
+
+			'WP_HOME',
+			'WP_SITEURL',
+			'WP_CONTENT_DIR',
+			'WP_PLUGIN_DIR',
 		];
+
+		$constants = [];
+
+		foreach ( $list as $constant )
+			$constants[$constant] = self::const( $constant, 'UNDEFINED' );
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
 		Core\HTML::h2( _x( 'Initial Constants', 'Modules: Debug', 'gnetwork' ) );
 
-			echo Core\HTML::tableCode( $paths );
+			echo Core\HTML::tableCode( $constants );
 		echo '</div>';
 	}
 

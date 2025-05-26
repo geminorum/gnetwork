@@ -596,6 +596,9 @@ class Typography extends gNetwork\Module
 
 	// @SOURCE: http://writers.stackexchange.com/a/3304
 	// @SOURCE: http://en.wikipedia.org/wiki/Asterisk
+	// @SEE: https://spec.commonmark.org/0.31.2/#thematic-breaks
+	// `***`/`---`/`___`
+	// `+++`/`===`
 	public function shortcode_three_asterisks( $atts = [], $content = NULL, $tag = '' )
 	{
 		return self::shortcodeWrap( '&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;', 'asterisks', [ 'wrap' => TRUE ] );

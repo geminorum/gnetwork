@@ -334,6 +334,7 @@ class Locale extends gNetwork\Module
 
 			'user-submitted-posts/user-submitted-posts.php' => 'page', // [User Submitted Posts](https://wordpress.org/plugins/user-submitted-posts/)
 
+			'insecure-content-warning'         => 'page',
 			'ssl-insecure-content-fixer'       => 'page',
 			'ssl-insecure-content-fixer-tests' => 'page',
 
@@ -504,6 +505,17 @@ class Locale extends gNetwork\Module
 
 			'wp-crontrol'           => 'page',
 			'wp-crontrol-schedules' => 'page',
+
+			'aws-options' => 'page',
+
+			'dgwt_wcas_settings' => 'page',
+
+			'zerobscrm-dash'            => 'page',
+			'zerobscrm-modules'         => 'page',
+			'zerobscrm-plugin-settings' => 'page',
+			'zbs-add-edit'              => 'page',
+			'manage-transactions'       => 'page',
+			'woo-sync-hub'              => 'page',
 
 		], $current );
 
