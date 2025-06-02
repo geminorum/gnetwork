@@ -173,10 +173,10 @@ class HTTP extends Base
 	/**
 	 * Retrieves data from the JSON body of a GET request, given a URL.
 	 *
-	 * @param  string      $url
-	 * @param  array       $atts
-	 * @param  bool        $assoc
-	 * @return false|array $data
+	 * @param string $url
+	 * @param array $atts
+	 * @param bool $assoc
+	 * @return mixed
 	 */
 	public static function getJSON( $url, $atts = [], $assoc = TRUE )
 	{

@@ -58,7 +58,7 @@ class File extends Base
 	 *
 	 * @param string $filename
 	 * @param array $mimes
-	 * @return array $data
+	 * @return array
 	 */
 	public static function type( $filename, $mimes = NULL )
 	{
