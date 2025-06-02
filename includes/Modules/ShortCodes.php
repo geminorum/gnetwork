@@ -121,6 +121,8 @@ class ShortCodes extends gNetwork\Module
 			'tel'         => 'shortcode_tel',
 			'sms'         => 'shortcode_sms',
 			'google-form' => 'shortcode_google_form',
+			'markdown'    => 'shortcode_markdown',
+			'raw'         => 'shortcode_raw',
 			'pdf'         => 'shortcode_pdf',
 			'csv'         => 'shortcode_csv',
 			'bloginfo'    => 'shortcode_bloginfo',
@@ -1197,6 +1199,72 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcode_iframe( array_merge( $args, [
 			'url' => sprintf( $args['template'], $args['key'] ),
 		] ), $content, $tag );
+	}
+
+	public function shortcode_markdown( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'id'      => FALSE,
+			'url'     => FALSE,
+			'path'    => FALSE,     // without `ABSPATH`
+			'base'    => ABSPATH,
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$markdown = FALSE;
+
+		if ( $args['id'] && ( $path = get_attached_file( $args['id'] ) ) )
+			$markdown = Core\File::getContents( $path );
+
+		else if ( $args['path'] && Core\File::exists( $args['path'], $args['base'] ) )
+			$markdown = Core\File::getContents( $args['base'].$args['path'] );
+
+		else if ( $args['url'] )
+			$markdown = Core\File::getContents( $args['url'] );
+
+		if ( ! $markdown )
+			return $content;
+
+		return self::shortcodeWrap( Utilities::mdExtra( $markdown ), 'markdown', $args );
+	}
+
+	public function shortcode_raw( $atts = [], $content = NULL, $tag = '' )
+	{
+		$args = shortcode_atts( [
+			'id'      => FALSE,
+			'url'     => FALSE,
+			'path'    => FALSE,     // without `ABSPATH`
+			'base'    => ABSPATH,
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$text = FALSE;
+
+		if ( $args['id'] && ( $path = get_attached_file( $args['id'] ) ) )
+			$text = Core\File::getContents( $path );
+
+		else if ( $args['path'] && Core\File::exists( $args['path'], $args['base'] ) )
+			$text = Core\File::getContents( $args['base'].$args['path'] );
+
+		else if ( $args['url'] )
+			$text = Core\File::getContents( $args['url'] );
+
+		if ( ! $text )
+			return $content;
+
+		return self::shortcodeWrap( Core\HTML::tag( 'pre', $text ), 'raw', $args );
 	}
 
 	// TODO: download option
