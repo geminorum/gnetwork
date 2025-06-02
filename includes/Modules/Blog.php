@@ -916,6 +916,9 @@ class Blog extends gNetwork\Module
 	 */
 	private function _setup_disable_privacytools()
 	{
+		if ( ! self::const( 'GNETWORK_DISABLE_PRIVACY_TOOLS', TRUE ) )
+			return;
+
 		// Short circuits the option for the privacy policy page to always return 0.
 		// The option is used by `get_privacy_policy_url()` among others.
 		add_filter( 'pre_option_wp_page_for_privacy_policy', '__return_zero' );

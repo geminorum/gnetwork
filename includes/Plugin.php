@@ -110,6 +110,7 @@ class Plugin extends Base
 
 			'GNETWORK_DISABLE_CREDITS'       => FALSE,
 			'GNETWORK_DISABLE_ALL_HELP_TABS' => FALSE,
+			'GNETWORK_DISABLE_PRIVACY_TOOLS' => TRUE,
 
 			'GCORE_DEFAULT_COUNTRY_CODE'   => gNetwork()->option( 'base_country', 'site' ) ?: 'IR',
 			'GCORE_DEFAULT_PROVINCE_CODE'  => gNetwork()->option( 'base_province', 'site' ) ?: 'TEH',
