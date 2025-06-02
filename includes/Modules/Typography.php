@@ -401,7 +401,10 @@ class Typography extends gNetwork\Module
 			&& ! self::const( 'GNETWORK_DISABLE_LINKIFY_CONTENT' ) ) {
 
 			$content = Core\Text::replaceSymbols( '#', $content, static function ( $matched, $string ) {
-				return Core\HTML::link( str_replace( '_', ' ', $matched ), Core\WordPress::getSearchLink( $matched ) );
+				return Core\HTML::tag( 'a', [
+					'href'  => Core\WordPress::getSearchLink( $matched ),
+					'class' => [ '-link', '-hashtag' ]
+				], str_replace( '_', ' ', $matched ) );
 			} );
 
 			// telegram hash-tag links!
