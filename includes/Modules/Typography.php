@@ -518,6 +518,9 @@ class Typography extends gNetwork\Module
 
 	public function the_content_late( $content )
 	{
+		if ( self::const( 'GTHEME_IS_SYSTEM_PAGE' ) )
+			return $content;
+
 		if ( $this->options['linkify_content'] )
 			$content = $this->filters( 'linkify', $content );
 
