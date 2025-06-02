@@ -1274,6 +1274,7 @@ class ShortCodes extends gNetwork\Module
 		$args = shortcode_atts( [
 			'id'       => FALSE,
 			'url'      => FALSE,
+			'title'    => NULL,  // NULL to fallback to attachment title
 			'width'    => FALSE, // default is full width
 			'height'   => FALSE, // '960px',
 			'view'     => FALSE, // 'FitV',  //'FitH',
@@ -1296,6 +1297,12 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $args['url'] && $args['id'] )
 			$args['url'] = wp_get_attachment_url( $args['id'] );
 
+		if ( is_null( $args['title'] ) && $args['id'] )
+			$args['title'] = get_the_title( $args['id'] );
+
+		else if ( is_null( $args['title'] ) )
+			$args['title'] = _x( 'PDF Document', 'Modules: ShortCodes: Defaults', 'gnetwork' );
+
 		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
 
 			if ( $content )
@@ -1309,7 +1316,7 @@ class ShortCodes extends gNetwork\Module
 
 		$options = [ 'fallbackLink' => '<p class="-fallback">'.sprintf( $args['fallback'], $args['url'] ).'</p>' ];
 
-		foreach ( [ 'width', 'height', 'view' ] as $option )
+		foreach ( [ 'width', 'height', 'view', 'title' ] as $option )
 			if ( $args[$option] )
 				$options[$option] = $args[$option];
 
