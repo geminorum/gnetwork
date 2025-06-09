@@ -44,7 +44,7 @@ class Authors extends gNetwork\Module
 	public function setup_menu( $context )
 	{
 		$this->register_menu( _x( 'Authors', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Authors', 'Modules: Menu Name', 'gnetwork' ), NULL, 9, 'list_users' );
+		$this->register_tool( _x( 'Authors', 'Modules: Menu Name', 'gnetwork' ), NULL, 9, 'edit_users' );
 	}
 
 	public function default_options()
@@ -153,6 +153,7 @@ class Authors extends gNetwork\Module
 				'type'      => 'select',
 				'field'     => 'from_user_id',
 				'name_attr' => 'from_user_id',
+				'cap'       => TRUE,
 				'values'    => $users,
 				'default'   => 'all',
 			] );
@@ -165,6 +166,7 @@ class Authors extends gNetwork\Module
 				'type'      => 'select',
 				'field'     => 'to_user_id',
 				'name_attr' => 'to_user_id',
+				'cap'       => TRUE,
 				'values'    => $users,
 				'default'   => gNetwork()->user(),
 			] );
@@ -175,6 +177,7 @@ class Authors extends gNetwork\Module
 				'type'      => 'select',
 				'field'     => 'on_post_type',
 				'name_attr' => 'on_post_type',
+				'cap'       => TRUE,
 				'default'   => 'post',
 				'values'    => WordPress\PostType::get( 0, [ 'show_ui' => TRUE ] ),
 			] );
