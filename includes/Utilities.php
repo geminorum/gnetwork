@@ -478,15 +478,32 @@ class Utilities extends Core\Base
 		return $file;
 	}
 
-	public static function mdExtra( $markdown )
+	// @source https://github.com/ergebnis/front-matter/blob/main/src/YamlParser.php
+	private const FRONTMATTER_PATTERN = "{^(?P<frontMatterWithDelimiters>(?:---)[\r\n|\n]*(?P<frontMatterWithoutDelimiters>.*?)[\r\n|\n]+(?:---)[\r\n|\n]{0,1})(?P<bodyMatter>.*)$}s";
+
+	public static function stripFrontMatter( $text )
+	{
+		if ( empty( $text ) )
+			return $text;
+
+		if ( ! preg_match( static::FRONTMATTER_PATTERN, (string) $text, $matches ) )
+			return $text;
+
+		return str_replace( $matches['frontMatterWithDelimiters'], '', $text );
+	}
+
+	public static function mdExtra( $markdown, $strip_frontmatter = TRUE )
 	{
 		global $gNetworkParsedownExtra;
 
 		if ( empty( $markdown ) || ! class_exists( 'ParsedownExtra' ) )
-			return $markdown;
+			return $strip_frontmatter ? self::stripFrontMatter( $markdown ) : $markdown;
 
 		if ( empty( $gNetworkParsedownExtra ) )
 			$gNetworkParsedownExtra = new \ParsedownExtra();
+
+		if ( $strip_frontmatter )
+			$markdown = self::stripFrontMatter( $markdown );
 
 		return $gNetworkParsedownExtra->text( $markdown );
 	}
