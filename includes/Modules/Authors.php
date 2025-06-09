@@ -236,6 +236,7 @@ class Authors extends gNetwork\Module
 
 	public static function userRoles()
 	{
+		Core\HTML::desc( _x( 'List of user roles that the current user is allowed to edit.', 'Modules: Authors: User Roles', 'gnetwork' ) );
 		Core\HTML::tableSide( get_editable_roles() );
 	}
 

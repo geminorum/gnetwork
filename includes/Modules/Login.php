@@ -620,20 +620,16 @@ class Login extends gNetwork\Module
 
 	public function authenticate( $null, $username, $password )
 	{
-		if ( ! isset( $_POST[ 'log' ] ) )
-			return $null;
-
-		$this->check_math();
+		if ( isset( $_POST[ 'log' ] ) || isset( $_POST['username'] ) )
+			$this->check_math();
 
 		return $null;
 	}
 
 	public function lostpassword_post( $errors )
 	{
-		if ( ! isset( $_POST[ 'user_login' ] ) )
-			return;
-
-		$this->check_math();
+		if ( isset( $_POST[ 'user_login' ] ) )
+			$this->check_math();
 	}
 
 	public function register_post( $sanitized_user_login, $user_email, $errors )

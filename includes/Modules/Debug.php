@@ -418,6 +418,9 @@ class Debug extends gNetwork\Module
 			'WP_SITEURL',
 			'WP_CONTENT_DIR',
 			'WP_PLUGIN_DIR',
+
+			'UPLOADS',
+			'MULTISITE',
 		];
 
 		$constants = [];
@@ -564,7 +567,7 @@ class Debug extends gNetwork\Module
 			'ini: realpath_cache_size' => ini_get( 'realpath_cache_size' ).' = '.wp_convert_hr_to_bytes( ini_get( 'realpath_cache_size' ) ),
 			'ms_files_rewriting'       => get_option( 'ms_files_rewriting' ),
 			'option: upload_path'      => get_option( 'upload_path' ),
-			'option: upload_url_path'  => get_site_option( 'upload_url_path' ),
+			'option: upload_url_path'  => get_option( 'upload_url_path' ),
 		];
 
 		$upload = wp_upload_dir();

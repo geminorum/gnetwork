@@ -370,7 +370,7 @@ class Blog extends gNetwork\Module
 			'type'        => 'url',
 			'title'       => _x( 'Redirect URL', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Redirects the site to a custom URL. Leave empty to disable.', 'Modules: Blog: Settings', 'gnetwork' ),
-			'placeholder' => 'http://anothersite.com',
+			'placeholder' => 'https://anothersite.com',
 		];
 
 		$settings['_misc'][] = [
