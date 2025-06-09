@@ -229,8 +229,14 @@ class Commerce extends gNetwork\Module
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
 
+					$quantity = $product->get_stock_quantity();
+
+					// `NULL` means stock not managed!
+					if ( is_null( $quantity ) )
+						return Utilities::htmlEmpty();
+
 					return '<span style="color:'.( $product->is_in_stock() ? 'green' : 'red' ).'">'
-						.Number::format( $product->get_stock_quantity() ).'</span>';
+						.Number::format( $quantity ).'</span>';
 				},
 			],
 			'title' => [
