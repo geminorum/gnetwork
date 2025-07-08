@@ -65,7 +65,7 @@ class Mail extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'disposable_check',
-					'title'       => _x( 'Check  Provider', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'Check Provider', 'Modules: Mail: Settings', 'gnetwork' ),
 					'description' => _x( 'Checks if the email comes from a disposable email provider.', 'Modules: Mail: Settings', 'gnetwork' ),
 					'default'     => '1',
 					'after'       => Settings::fieldAfterIcon( 'https://github.com/MattKetmo/EmailChecker/blob/master/res/throwaway_domains.txt' ),

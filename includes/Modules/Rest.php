@@ -117,14 +117,15 @@ class Rest extends gNetwork\Module
 	{
 		remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
 
-		add_filter( 'rest_pre_serve_request', function ( $value ) {
+		add_filter( 'rest_pre_serve_request',
+			static function ( $value ) {
 
-			header( 'Access-Control-Allow-Origin: *' );
-			header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE' );
-			header( 'Access-Control-Allow-Credentials: true' );
+				header( 'Access-Control-Allow-Origin: *' );
+				header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE' );
+				header( 'Access-Control-Allow-Credentials: true' );
 
-			return $value;
-		});
+				return $value;
+			} );
 	}
 
 	public function terms_rendered_get_callback( $post, $attr, $request, $object_type )
@@ -138,12 +139,12 @@ class Rest extends gNetwork\Module
 
 		foreach ( get_object_taxonomies( $object_type, 'objects' ) as $taxonomy ) {
 
+			if ( in_array( $taxonomy->name, $ignored, TRUE ) )
+				continue;
+
 			if ( ! is_taxonomy_viewable( $taxonomy )
 				&& ! WordPress\Taxonomy::can( $taxonomy, 'assign_terms', $user_id ) )
 					continue;
-
-			if ( in_array( $taxonomy->name, $ignored, TRUE ) )
-				continue;
 
 			$list = WordPress\Taxonomy::getTheTermList( $taxonomy->name, $post['id'] );
 			$html = $this->filters( 'terms_rendered_html',

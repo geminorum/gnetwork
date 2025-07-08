@@ -231,9 +231,9 @@ class Profile extends gNetwork\Module
 	{
 		return [
 			[
-				'id'      => $this->classs( 'help' ),
+				'id'      => $this->classs( 'contact-methods' ),
 				'title'   => _x( 'Contact Methods', 'Modules: Profile: Help Tab Title', 'gnetwork' ),
-				'content' => Core\HTML::tableCode( wp_get_user_contact_methods() ),
+				'content' => Core\HTML::tableCode( wp_get_user_contact_methods(), TRUE ),
 			],
 		];
 	}

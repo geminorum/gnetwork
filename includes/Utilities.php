@@ -557,13 +557,16 @@ class Utilities extends Core\Base
 		return $results;
 	}
 
-	// @RFEF: https://github.com/10up/Async-Transients
+	// Caution: As of 12 April 2024, this project is archived and no longer being actively maintained.
+	// USAGE: `function callback( $args ) { $data = NULL; Utilities::setTransient( $key, $data ); }`
+	// @REF: https://github.com/10up/Async-Transients
+	// @package `10up/async-transients`
 	public static function getTransient( $key, $callback, $args = [] )
 	{
 		return \TenUp\AsyncTransients\get_async_transient( static::BASE.'-'.$key, $callback, $args );
 	}
 
-	// USAGE: function callback( $args ) { $data = NULL; Utilities::setTransient( $key, $data ); }
+	// @package `10up/async-transients`
 	public static function setTransient( $key, $data, $ttl = GNETWORK_CACHE_TTL )
 	{
 		return \TenUp\AsyncTransients\set_async_transient( static::BASE.'-'.$key, $data, $ttl );
@@ -600,7 +603,7 @@ class Utilities extends Core\Base
 
 	public static function htmlSSLfromURL( $url )
 	{
-		if ( Core\Text::has( $url, 'https://' ) ) {
+		if ( Core\Text::starts( $url, 'https://' ) ) {
 			echo Core\HTML::getDashicon( 'lock', _x( 'SSL Enabled', 'Utilities: Title', 'gnetwork' ), '-success' );
 			return TRUE;
 		}
@@ -616,10 +619,13 @@ class Utilities extends Core\Base
 
 		Scripts::enqueueScript( 'api.remote.content' );
 
-		$data   = [ 'action' => 'import-remote-content', 'remote' => $remote, 'target' => $target ];
-		$label  = Core\HTML::getDashicon( 'download' ).' '._x( 'Import', 'Utilities: Remote Content', 'gnetwork' ).'&nbsp;';
 		$title  = _x( 'Import from a remote content.', 'Utilities: Remote Content', 'gnetwork' );
-		$button = Core\HTML::button( $label, '#', $title, TRUE, $data );
+		$label  = sprintf( '%s %s&nbsp;', Core\HTML::getDashicon( 'download' ), _x( 'Import', 'Utilities: Remote Content', 'gnetwork' ) );
+		$button = Core\HTML::button( $label, '#', $title, TRUE, [
+			'action' => 'import-remote-content',
+			'remote' => $remote,
+			'target' => $target,
+		] );
 
 		$icon = Core\HTML::tag( 'a', [
 			'href'   => $remote,

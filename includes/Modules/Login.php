@@ -620,7 +620,10 @@ class Login extends gNetwork\Module
 
 	public function authenticate( $null, $username, $password )
 	{
-		if ( isset( $_POST[ 'log' ] ) || isset( $_POST['username'] ) )
+		if ( Core\WordPress::isREST() || Core\WordPress::isXMLRPC() )
+			return $null;
+
+		if ( isset( $_POST['log'] ) || isset( $_POST['woocommerce-login-nonce'] ) )
 			$this->check_math();
 
 		return $null;
@@ -628,13 +631,13 @@ class Login extends gNetwork\Module
 
 	public function lostpassword_post( $errors )
 	{
-		if ( isset( $_POST[ 'user_login' ] ) )
+		if ( isset( $_POST['user_login'] ) )
 			$this->check_math();
 	}
 
 	public function register_post( $sanitized_user_login, $user_email, $errors )
 	{
-		if ( ! isset( $_POST[ 'user_email' ] ) )
+		if ( ! isset( $_POST['user_email'] ) )
 			return;
 
 		$this->check_math();
