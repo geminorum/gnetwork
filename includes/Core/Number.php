@@ -231,7 +231,7 @@ class Number extends Base
 
 	public static function format( $number, $decimals = 0, $locale = NULL )
 	{
-		return apply_filters( 'number_format_i18n', number_format( $number, absint( $decimals ) ), $number, $decimals );
+		return apply_filters( 'number_format_i18n', number_format( $number ?? 0, absint( $decimals ) ), $number, $decimals );
 	}
 
 	/**

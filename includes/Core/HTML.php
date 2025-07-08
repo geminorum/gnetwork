@@ -234,7 +234,7 @@ class HTML extends Base
 		if ( empty( $array ) )
 			return;
 
-		if ( Arraay::hasStringKeys( $array ) ) {
+		if ( Arraay::isNumeric( $array ) ) {
 
 			foreach ( $array as $key => $value ) {
 				$name = empty( $prefix ) ? $key : $prefix.'['.$key.']';

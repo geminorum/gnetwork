@@ -19,6 +19,7 @@ class Text extends Base
 	 * - `\u202c`: `POP DIRECTIONAL FORMATTING` (U+202C)
 	 * - `\u202d`: `LEFT-TO-RIGHT OVERRIDE` (U+202D)
 	 * - `\u202e`: `RIGHT-TO-LEFT OVERRIDE` (RLO)
+	 * - `\u202f`: `NARROW NO-BREAK SPACE` (U+202F)
 	 *
 	 * @param string $text
 	 * @return string $text
@@ -27,8 +28,8 @@ class Text extends Base
 	{
 		$text = (string) $text;
 		// $text = trim( $text, " \n\t\r\0\x0B," );
-		$text = preg_replace( '/^[\s\x{0001}\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}]+/u', '', $text );
-		$text = preg_replace( '/[\s\x{0001}\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}]+$/u', '', $text );
+		$text = preg_replace( '/^[\s\x{0001}\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}\x{202F}]+/u', '', $text );
+		$text = preg_replace( '/[\s\x{0001}\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}\x{202F}]+$/u', '', $text );
 		$text = trim( $text ); // OCD Only
 
 		if ( 0 === strlen( $text ) )
@@ -518,7 +519,15 @@ class Text extends Base
 		return $has;
 	}
 
-	// @REF: `str_starts_with()` @since PHP 8.0.0
+	/**
+	 * Checks if a string starts with a given substrings.
+	 * NOTE: supports multiple needles
+	 * @REF: `str_starts_with()` @since PHP 8.0.0
+	 *
+	 * @param string $haystack
+	 * @param string|array $needles
+	 * @return bool
+	 */
 	public static function starts( $haystack, $needles )
 	{
 		if ( ! $haystack )
@@ -534,7 +543,15 @@ class Text extends Base
 		return FALSE;
 	}
 
-	// @REF: `str_ends_with()` @since PHP 8.0.0
+	/**
+	 * Checks if a string ends with a given substrings.
+	 * NOTE: supports multiple needles
+	 * @REF: `str_ends_with()` @since PHP 8.0.0
+	 *
+	 * @param string $haystack
+	 * @param string|array $needles
+	 * @return bool
+	 */
 	public static function ends( $haystack, $needles )
 	{
 		if ( ! $haystack )

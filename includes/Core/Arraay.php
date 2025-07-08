@@ -581,23 +581,46 @@ class Arraay extends Base
 		return self::find( $needle, $haystack[$current], $default );
 	}
 
-	// is associative or sequential?
-	// @REF: https://stackoverflow.com/a/173479
+	/**
+	 * Is associative or sequential?
+	 * @source https://stackoverflow.com/a/173479
+	 *
+	 * @param array $array
+	 * @return bool
+	 */
 	public static function isAssoc( $array )
 	{
-		if ( $array === [] )
+		if ( ! is_array( $array ) || $array === [] )
 			return FALSE;
 
 		return array_keys( $array ) !== range( 0, count( $array ) - 1 );
 	}
 
-	// @REF: https://stackoverflow.com/a/4254008
-	// To merely check whether the array has non-integer keys, not whether the
-	// array is sequentially-indexed or zero-indexed. If there is at least one
-	// string key, the array will be regarded as an associative array.
+	/**
+	 * Determines if the variable is a numeric-indexed array.
+	 *
+	 * To merely check whether the array has non-integer keys, not whether the
+	 * array is sequentially-indexed or zero-indexed. If there is at least one
+	 * string key, the array will be regarded as an associative array.
+	 *
+	 * @source https://stackoverflow.com/a/4254008
+	 * @source `wp_is_numeric_array()`
+	 *
+	 * @param array $array
+	 * @return bool
+	 */
+	public static function isNumeric( $array )
+	{
+		if ( ! is_array( $array ) || $array === [] )
+			return FALSE;
+
+		return count( array_filter( array_keys( $array ), 'is_string' ) ) === 0;
+	}
+
+	// NOTE: DEPRECATED
 	public static function hasStringKeys( $array )
 	{
-		return count( array_filter( array_keys( $array ), 'is_string' ) ) > 0;
+		return self::isNumeric( $array );
 	}
 
 	public static function changeCaseLower( $array )

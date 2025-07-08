@@ -6,19 +6,19 @@ class WordPress extends Base
 {
 
 	// @REF: https://wordpress.org/support/topic/how-to-change-plugins-load-order/
-	// @USAGE: add_action( 'activated_plugin', function () {} );
+	// @USAGE: `add_action( 'activated_plugin', function () {} );`
 	public static function pluginFirst( $plugin )
 	{
 		if ( empty( $plugin ) )
 			return;
 
-		// ensure path to this file is via main wp plugin path
-		// $wp_path_to_this_file = preg_replace( '/(.*)plugins\/(.*)$/', WP_PLUGIN_DIR."/$2", __FILE__ );
-		// $plugin = plugin_basename( trim( $wp_path_to_this_file ) );
+		// Ensure path to this file is via main `wp-plugin` path
+		// `$wp_path_to_this_file = preg_replace( '/(.*)plugins\/(.*)$/', WP_PLUGIN_DIR."/$2", __FILE__ );`
+		// `$plugin = plugin_basename( trim( $wp_path_to_this_file ) );`
 
 		$active = get_option( 'active_plugins' );
 
-		// if it's 0 it's the first plugin already, no need to continue
+		// If it's `0` it's the first plugin already, no need to continue
 		if ( $key = array_search( $plugin, $active ) ) {
 			array_splice( $active, $key, 1 );
 			array_unshift( $active, $plugin );
@@ -26,7 +26,7 @@ class WordPress extends Base
 		}
 	}
 
-	// checks compatibility with the current WordPress version
+	// Checks compatibility with the current WordPress version
 	// @REF: `is_wp_version_compatible()`
 	public static function isWPcompatible( $required )
 	{

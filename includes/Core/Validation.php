@@ -94,7 +94,8 @@ class Validation extends Base
 		if ( self::empty( $input ) )
 			return FALSE;
 
-		if ( ! Phone::is( $input ) )
+		// @SOURCE: `WC_Validation::is_phone()`
+		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $input ) ) ) )
 			return FALSE;
 
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
@@ -119,6 +120,8 @@ class Validation extends Base
 	// @REF: https://fandogh.github.io/codemeli/codemeli.html
 	// @REF: https://gist.github.com/ebraminio/5292017#gistcomment-3435493
 	// @SEE: http://www.aliarash.com/article/codemeli/codemeli.htm
+	// @SEE: https://en.wikipedia.org/wiki/Luhn_algorithm
+	// FIXME: Check for the first 3 digits @see persiantools.js
 	public static function isIranNationalCode( $input )
 	{
 		if ( self::empty( $input ) )
@@ -127,9 +130,7 @@ class Validation extends Base
 		if ( ! preg_match( '/^\d{10}$/', $input ) )
 			return FALSE;
 
-		if ( FALSE !== array_search( $input, array_map( function ( $i ) {
-			return str_repeat( $i, 10 );
-		}, range( 0, 9 ) ) ) )
+		if ( Number::repeated( $input, 10 ) )
 			return FALSE;
 
 		$chk = (int) $input[9];
