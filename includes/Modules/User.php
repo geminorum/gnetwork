@@ -578,8 +578,12 @@ class User extends gNetwork\Module
 		if ( 0 === strlen( preg_replace( '/[\.…]/', '', $username ) ) )
 			return FALSE;
 
+		// If contains any chars but numbers we are done checking!
+		if ( preg_replace( '/[0-9۰-۹۰-۹]/miu', '', $username ) )
+			return $valid;
+
 		// all number and below 10 digits
-		if ( 10 < strlen( $username ) && 0 < strlen( preg_replace( '/[0-9۰-۹۰-۹]/miu', '', $username ) ) )
+		if ( strlen( $username ) < 10 )
 			return FALSE;
 
 		return $valid;
