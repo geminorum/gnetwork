@@ -95,9 +95,9 @@ class Text extends Base
 	 * Removes given needle from the end of the string.
 	 * @source https://stackoverflow.com/a/5573340
 	 *
-	 * @param  string $text
-	 * @param  string $needle
-	 * @return string $removed
+	 * @param string $text
+	 * @param string $needle
+	 * @return string
 	 */
 	public static function removeFromEnd( $text, $needle )
 	{
@@ -132,10 +132,10 @@ class Text extends Base
 	}
 
 	/**
-	 * Splits string by new line characters.
+	 * Splits string by new-line characters.
 	 *
-	 * @param  string $text
-	 * @return array  $lines
+	 * @param string $text
+	 * @return array
 	 */
 	public static function splitLines( $text )
 	{
@@ -182,7 +182,7 @@ class Text extends Base
 		$text = str_ireplace( [
 			"\xD8\x8C", // `،` // Arabic Comma
 			"\xD8\x9B", // `؛` // Arabic Semicolon
-			"\xD9\x94", // `ٔ` // Arabic Hamza Above
+			"\xD9\x94", // `ٔ`  // Arabic Hamza Above
 			"\xD9\xAC", // `٬` // Arabic Thousands Separator
 			"\xD8\x8D", // `؍` // Arabic Date Separator
 
@@ -223,7 +223,7 @@ class Text extends Base
 		if ( FALSE !== stripos( $text, trim( $separator ) ) )
 			return $text;
 
-		// remove NULL, FALSE and empty strings (""), but leave values of 0
+		// removes `NULL`, `FALSE` and empty strings (""), but leave values of `0`
 		$parts = array_filter( explode( ' ', trim( $text ), 2 ), 'strlen' );
 
 		if ( 1 == count( $parts ) )
@@ -316,8 +316,14 @@ class Text extends Base
 		], $text );
 	}
 
-	// removes empty paragraph tags, and remove broken paragraph tags from around block level elements
-	// @SOURCE: https://github.com/ninnypants/remove-empty-p
+	/**
+	 * Removes empty paragraph tags, and remove broken paragraph tags
+	 * from around block level elements.
+	 * @source https://github.com/ninnypants/remove-empty-p
+	 *
+	 * @param string $text
+	 * @return string
+	 */
 	public static function noEmptyP( $text )
 	{
 		$text = preg_replace( [
@@ -337,13 +343,19 @@ class Text extends Base
 		return preg_replace( '#<p>(\s|&nbsp;)*+(<br\s*/*>)*(\s|&nbsp;)*</p>#i', '', $text );
 	}
 
-	// removes paragraph from around images
-	// @SOURCE: https://css-tricks.com/?p=15293
-	public static function replaceImageP( $string, $tag = 'figure' )
+	/**
+	 * Removes paragraph from around images.
+	 * @source https://css-tricks.com/?p=15293
+	 *
+	 * @param string $text
+	 * @param string $tag
+	 * @return string
+	 */
+	public static function replaceImageP( $text, $tag = 'figure' )
 	{
 		return $tag && trim( $tag )
-			? preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', sprintf( '<%s>\1\2\3</%s>', $tag, $tag ), $string )
-			: preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $string );
+			? preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', sprintf( '<%s>\1\2\3</%s>', $tag, $tag ), $text )
+			: preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $text );
 	}
 
 	// like wp but without check for `func_overload`
@@ -357,27 +369,27 @@ class Text extends Base
 			$c = ord( $text[$i] );
 
 			if ( $c < 0x80 )
-				$n = 0; // 0bbbbbbb
+				$n = 0; // `0bbbbbbb`
 
 			else if ( ( $c & 0xE0 ) == 0xC0 )
-				$n = 1; // 110bbbbb
+				$n = 1; // `110bbbbb`
 
 			else if ( ( $c & 0xF0 ) == 0xE0 )
-				$n = 2; // 1110bbbb
+				$n = 2; // `1110bbbb`
 
 			else if ( ( $c & 0xF8 ) == 0xF0 )
-				$n = 3; // 11110bbb
+				$n = 3; // `11110bbb`
 
 			else if ( ( $c & 0xFC ) == 0xF8 )
-				$n = 4; // 111110bb
+				$n = 4; // `111110bb`
 
 			else if ( ( $c & 0xFE ) == 0xFC )
-				$n = 5; // 1111110b
+				$n = 5; // `1111110b`
 
 			else
 				return FALSE; // does not match any model
 
-			for ( $j = 0; $j < $n; $j++ ) // n bytes matching 10bbbbbb follow ?
+			for ( $j = 0; $j < $n; $j++ ) // `n` bytes matching `10bbbbbb` follow?
 				if ( ( ++$i == $length )
 					|| ( ( ord( $text[$i] ) & 0xC0 ) != 0x80 ) )
 						return FALSE;
@@ -389,8 +401,8 @@ class Text extends Base
 	/**
 	 * Consolidates contiguous whitespace.
 	 *
-	 * @param  string $text
-	 * @return string $text
+	 * @param string $text
+	 * @return string
 	 */
 	public static function singleWhitespace( $text )
 	{
@@ -427,7 +439,7 @@ class Text extends Base
 		// removes unnecessary zwnj on start/end of each line
 		$text = preg_replace( '/(^\x{200C}|\x{200C})$/u', '', $text );
 
-		// cleans zwnj after characters that don't conncet to the next
+		// cleans zwnj after characters that don't connect to the next
 		$text = preg_replace( '/([إأةؤورزژاآدذ،؛,:«»\\/@#$٪×*()ـ\-=|])\x{200C}/u', '$1', $text );
 
 		return self::trim( $text );
@@ -1186,18 +1198,18 @@ class Text extends Base
 	 * @source https://stackoverflow.com/a/15193543
 	 *
 	 * Allow you to create a unique hash with a maximum value of 32.
-	 * Hash Gen uses phps substr, md5, uniqid, and rand to generate a unique
+	 * Hash Gen uses php's `substr`, `md5`, `uniqid`, and rand to generate a unique
 	 * id or hash and allow you to have some added functionality.
 	 *
 	 * You can also supply a hash to be prefixed or appened
 	 * to the hash. hash[optional] is by default appened to the hash
 	 * unless the param prefix[optional] is set to prefix[true].
 	 *
-	 * @param  int    $start
-	 * @param  int    $end
-	 * @param  bool   $hash
-	 * @param  bool   $prefix
-	 * @return string $hashed
+	 * @param int $start
+	 * @param int $end
+	 * @param bool $hash
+	 * @param bool $prefix
+	 * @return string
 	 */
 	public static function hashLimited( $start = NULL, $end = 0, $hash = FALSE, $prefix = FALSE )
 	{
@@ -1282,11 +1294,11 @@ class Text extends Base
 	 * Replaces all tokens in the input text with appropriate values.
 	 * @source `bp_core_replace_tokens_in_text()`
 	 *
-	 * @param  string   $text
-	 * @param  array    $tokens
-	 * @param  array    $callback_args
-	 * @param  callback $general_callback
-	 * @return string   $replaced
+	 * @param string $text
+	 * @param array $tokens
+	 * @param array $callback_args
+	 * @param callback $general_callback
+	 * @return string
 	 */
 	public static function replaceTokens( $text, $tokens, $callback_args = [], $general_callback = NULL )
 	{
@@ -1306,7 +1318,7 @@ class Text extends Base
 			if ( ! is_string( $value ) && is_callable( $value ) )
 				$value = call_user_func_array( $value, [ $token, $callback_args ] );
 
-			// tokens can not be objects or arrays
+			// NOTE: tokens can not be objects or arrays
 			if ( ! is_scalar( $value ) )
 				continue;
 
@@ -1413,7 +1425,7 @@ class Text extends Base
 		return implode( $separator ?? '-', str_split( $string, $chunk ) );
 	}
 
-	// case insensitive version of strtr
+	// case insensitive version of `strtr()`
 	// by Alexander Peev
 	// @REF: https://www.php.net/manual/en/function.strtr.php#82051
 	public static function strtr( $text, $one = NULL, $two = NULL )
@@ -1458,13 +1470,13 @@ class Text extends Base
 		return $text;
 	}
 
-	// it has the exact same interface as str_split, but works with any UTF-8 string
+	// it has the exact same interface as `str_split`, but works with any `UTF-8` string
 	// @REF: https://www.php.net/manual/en/function.str-split.php#117112
 	/**
-	 * Converts an UTF-8 string to an array.
+	 * Converts an `UTF-8` string to an array.
 	 *
-	 * E.g. mb_str_split("Hello Friend");
-	 * returns ['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+	 * E.g. `mb_str_split("Hello Friend");`
+	 * returns `['H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']`
 	 *
 	 * @param string $text The input string.
 	 * @param int $split_length Maximum length of the chunk. If specified, the returned array will be broken down
@@ -1503,8 +1515,8 @@ class Text extends Base
 	 *
 	 * @source https://stackoverflow.com/a/69207369
 	 *
-	 * @param  string $string
-	 * @return string $sanitized
+	 * @param string $string
+	 * @return string
 	 */
 	public static function filterSanitizeString( $string )
 	{
@@ -1516,16 +1528,16 @@ class Text extends Base
 	 * NOTE: wrapper for deprecated `utf8_encode()`
 	 * @source https://www.php.net/manual/en/function.utf8-encode.php
 	 *
-	 * Please note that utf8_encode only converts a string encoded in
+	 * Please note that `utf8_encode` only converts a string encoded in
 	 * `ISO-8859-1` to `UTF-8`. A more appropriate name for it would
-	 * be "iso88591_to_utf8". If your text is not encoded in ISO-8859-1,
-	 * you do not need this function. If your text is already in UTF-8,
+	 * be `iso88591_to_utf8`. If your text is not encoded in `ISO-8859-1`,
+	 * you do not need this function. If your text is already in `UTF-8`,
 	 * you do not need this function. In fact, applying this function
-	 * to text that is not encoded in ISO-8859-1 will most likely simply
+	 * to text that is not encoded in `ISO-8859-1` will most likely simply
 	 * garble that text.
 	 *
-	 * @param  string $text
-	 * @return string $encoded
+	 * @param string $text
+	 * @return string
 	 */
 	public static function encodeUTF8( $text )
 	{
@@ -1543,15 +1555,15 @@ class Text extends Base
 	}
 
 	/**
-	 * Convers given text from `Windows-1250` to `UTF-8`.
+	 * Converses given text from `Windows-1250` to `UTF-8`.
 	 * @source https://www.php.net/manual/en/function.mb-convert-encoding.php#112547
 	 *
 	 * @REF: http://konfiguracja.c0.pl/iso02vscp1250en.html
 	 * @REF: http://konfiguracja.c0.pl/webpl/index_en.html#examp
 	 * @REF: http://www.htmlentities.com/html/entities/
 	 *
-	 * @param  string $text
-	 * @return string $encoded
+	 * @param string $text
+	 * @return string
 	 */
 	public static function encodeWindows1250toUTF8( $text )
 	{
@@ -1612,13 +1624,57 @@ class Text extends Base
 	 * - non printable chars (e.g. &#13;)
 	 * With other $flags some or all won't be decoded.
 	 *
-	 * It seems that ENT_XML1 and ENT_XHTML are identical when decoding.
+	 * It seems that `ENT_XML1` and `ENT_XHTML` are identical when decoding.
 	 *
-	 * @param  string $text
-	 * @return string $decoded
+	 * @param string $text
+	 * @return string
 	 */
 	public static function decodeEntities( $text )
 	{
 		return html_entity_decode( $text, ENT_QUOTES | ENT_XML1, 'UTF-8' );
+	}
+
+	/**
+	 * Splits a string into an array of individual or chunks of graphemes.
+	 * @source https://php.watch/versions/8.4/grapheme_str_split
+	 * @since PHP 8.4.0
+	 *
+	 * The following poly-fill uses `\X` regular expression which
+	 * matches a complete Grapheme. However, it does not correctly split
+	 * complex Emojis such as Emojis with skin modifiers
+	 * on `PCRE2` library versions <= 10.43.
+	 *
+	 * @param string $string The string to split into individual graphemes
+	 *  or chunks of graphemes.
+	 * @param int $length If specified, each element of the returned array
+	 *  will be composed of multiple graphemes instead of a single
+	 *  graphemes.
+	 *
+	 * @return array|false
+	 */
+	public static function splitGrapheme( string $string, int $length = 1 )
+	{
+		if ( $length < 0 || $length > 1073741823 )
+			throw new \ValueError( 'grapheme_str_split(): Argument #2 ($length) must be greater than 0 and less than or equal to 1073741823.' );
+
+		if ( '' === $string )
+			return [];
+
+		preg_match_all( '/\X/u', $string, $matches );
+
+		if ( empty( $matches[0] ) )
+			return FALSE;
+
+		if ( 1 === $length )
+			return $matches[0];
+
+		$chunks = array_chunk( $matches[0], $length );
+
+		array_walk( $chunks,
+			static function ( &$value ) {
+				$value = implode( '', $value );
+			} );
+
+		return $chunks;
 	}
 }

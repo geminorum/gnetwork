@@ -1407,6 +1407,7 @@ class HTML extends Base
 		], NULL );
 	}
 
+	// TODO: support `optgroup`: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/optgroup
 	public static function dropdown( $list, $atts = [] )
 	{
 		$html = '';

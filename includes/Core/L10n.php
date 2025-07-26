@@ -69,15 +69,15 @@ class L10n extends Base
 	}
 
 	/**
-	 * Retrieves current locale base in ISO-639.
+	 * Retrieves current locale base in `ISO-639`.
 	 *
 	 * @REF: https://en.wikipedia.org/wiki/ISO_639
 	 * @REF: http://stackoverflow.com/a/16838443
 	 * @REF: `bp_core_register_common_scripts()`
 	 * @REF: https://make.wordpress.org/polyglots/handbook/translating/packaging-localized-wordpress/working-with-the-translation-repository/#repository-file-structure
 	 *
-	 * @param  string|null $locale
-	 * @return string      $iso639
+	 * @param string|null $locale
+	 * @return string
 	 */
 	public static function getISO639( $locale = NULL )
 	{
@@ -101,9 +101,18 @@ class L10n extends Base
 		return sprintf( translate_nooped_plural( $nooped, $count ), Number::format( $count ) );
 	}
 
-	// sort array by value based on locale
-	// @REF: https://stackoverflow.com/a/7096937
-	// @REF: `WP_List_Util::sort_callback()`
+	/**
+	 * Sorts the given array by value based on locale.
+	 * @source https://stackoverflow.com/a/7096937
+	 * @see `WP_List_Util::sort_callback()`
+	 *
+	 * @param array $array
+	 * @param string|array $orderby
+	 * @param string $order
+	 * @param bool $preserve_keys
+	 * @param string $locale
+	 * @return array
+	 */
 	public static function sortAlphabet( $array, $orderby = NULL, $order = 'ASC', $preserve_keys = FALSE, $locale = NULL )
 	{
 		if ( is_null( $orderby ) )
@@ -300,14 +309,12 @@ class L10n extends Base
 	}
 
 	/**
-	 * Pluralizes a word in English
-	 *
+	 * Pluralizes a word in English.
+	 * @source https://www.grammarly.com/blog/plural-nouns/
 	 * TODO: support multiple words
 	 *
-	 * @source https://www.grammarly.com/blog/plural-nouns/
-	 *
-	 * @param  string $singular Singular form of word
-	 * @return string $plural Plural form of word
+	 * @param string $singular
+	 * @return string
 	 */
 	public static function pluralize( $singular )
 	{

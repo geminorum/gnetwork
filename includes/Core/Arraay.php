@@ -46,9 +46,9 @@ class Arraay extends Base
 	 * @source https://stackoverflow.com/a/28115783
 	 * @since PHP 5.3.0
 	 *
-	 * @param  array $array
-	 * @param  string $prefix
-	 * @return array $prefixed
+	 * @param array $array
+	 * @param string $prefix
+	 * @return array
 	 */
 	public static function prefixValues( $array, $prefix )
 	{
@@ -61,9 +61,9 @@ class Arraay extends Base
 	/**
 	 * Adds a prefix to each item key of an array.
 	 *
-	 * @param  array $array
-	 * @param  string $prefix
-	 * @return array $prefixed
+	 * @param array $array
+	 * @param string $prefix
+	 * @return array
 	 */
 	public static function prefixKeys( $array, $prefix )
 	{
@@ -120,7 +120,7 @@ class Arraay extends Base
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/24436324
-	// USEAGE: Arraay::replaceKeys( $array, [ 'old_key_1' => 'new_key_1', 'old_key_2' => 'new_key_2' ] );
+	// USAGE: `Arraay::replaceKeys( $array, [ 'old_key_1' => 'new_key_1', 'old_key_2' => 'new_key_2' ] );`
 	public static function replaceKeys( $array, $keys_map )
 	{
 		$keys = array_keys( $array );
@@ -157,9 +157,9 @@ class Arraay extends Base
 	 * `[1, 2, 3] == [1, 3, 2]`                   // FALSE
 	 * `[1, 2, 3] == [0 => 1, '2' => 3, 1 => 2]`  // TRUE
 	 *
-	 * @param  array $a
-	 * @param  array $b
-	 * @return bool  $equal
+	 * @param array $a
+	 * @param array $b
+	 * @return bool
 	 */
 	public static function equalValues( $a, $b )
 	{
@@ -187,9 +187,9 @@ class Arraay extends Base
 	 * `[1, 2, 3] === [1, 3, 2]`                // FALSE
 	 * `[1, 2, 3] === [0 => 1, 2 => 3, 1 => 2]` // FALSE
 	 *
-	 * @param  array $a
-	 * @param  array $b
-	 * @return bool  $identical
+	 * @param array $a
+	 * @param array $b
+	 * @return bool
 	 */
 	public static function identicalValues( $a, $b )
 	{
@@ -208,8 +208,8 @@ class Arraay extends Base
 		return array_intersect_key( $array, array_flip( preg_grep( $pattern, array_keys( $array ) ) ) );
 	}
 
-	// `$a == $b` TRUE if $a and $b have the same key/value pairs
-	// `$a === $b` TRUE if $a and $b have the same key/value pairs in the same order and of the same types
+	// `$a == $b` TRUE if `$a` and `$b` have the same key/value pairs
+	// `$a === $b` TRUE if `$a` and `$b` have the same key/value pairs in the same order and of the same types
 	// @REF: https://stackoverflow.com/a/5678990
 	public static function equalAssoc( $one, $two )
 	{
@@ -232,7 +232,7 @@ class Arraay extends Base
 		return $array;
 	}
 
-	// for using with $('form').serializeArray();
+	// for using with `$('form').serializeArray();`
 	// @REF: http://api.jquery.com/serializeArray/
 	// @INPUT: [{name:"a",value:"1"},{name:"b",value:"2"}]
 	// @OLD: `parseJSArray()`
@@ -378,8 +378,17 @@ class Arraay extends Base
 		return $array;
 	}
 
-	// insert an array into another array before/after a certain key
-	// @SOURCE: https://gist.github.com/scribu/588429
+	/**
+	 * Insert an array into another array before/after a certain key.
+	 * @source https://gist.github.com/scribu/588429
+	 *
+	 * @param array $array
+	 * @param array $pairs
+	 * @param string $key
+	 * @param string $position
+	 * @param bool $anyways
+	 * @return array
+	 */
 	public static function insert( $array, $pairs, $key, $position = 'after', $anyways = TRUE )
 	{
 		$key_pos = array_search( $key, array_keys( $array ) );
@@ -528,7 +537,7 @@ class Arraay extends Base
 		return $arr;
 	}
 
-	// `array_is_list()` for php < 8.1
+	// `array_is_list()` for PHP < 8.1
 	// @REF: https://www.php.net/manual/en/function.array-is-list.php#126574
 	// an array is considered a list if its keys consist of consecutive numbers from 0 to count $array
 	public static function isList_ALT( $array )
@@ -537,10 +546,11 @@ class Arraay extends Base
 	}
 
 	/**
-	 * Polyfill for `array_is_list()` function added in PHP 8.1.
+	 * Poly-fill for `array_is_list()` function added in PHP 8.1.
 	 * Determines if the given array is a list.
 	 * An array is considered a list if its keys consist of consecutive numbers from 0 to count( $array ) - 1.
 	 * @see https://github.com/symfony/polyfill-php81/tree/main
+	 * @see https://php.watch/versions/8.1/array_is_list
 	 *
 	 * @param array $array The array being evaluated.
 	 * @return bool $list `TRUE` if array is a list, `FALSE` otherwise.
@@ -1109,7 +1119,7 @@ class Arraay extends Base
 
 	/**
 	 * Returns the VALUE of the first element from $array for which the
-	 *  $callback returns true. Returns NULL if no matching element is
+	 *  `$callback` returns true. Returns NULL if no matching element is
 	 *  found.
 	 *
 	 * @source https://github.com/PHP-Polyfills/array-find
@@ -1125,7 +1135,7 @@ class Arraay extends Base
 	 *  called for further elements.
 	 *
 	 * @return mixed The function returns the value of the first
-	 *  element for which the $callback returns TRUE. NULL, if no
+	 *  element for which the `$callback` returns TRUE. NULL, if no
 	 *  matching element is found. Note that the matching element value
 	 *  itself could be NULL as well.
 	 */
@@ -1143,12 +1153,12 @@ class Arraay extends Base
 
 	/**
 	 * Returns the KEY of the first element from $array for which the
-	 *  $callback returns TRUE. If no matching element is found the
+	 *  `$callback` returns TRUE. If no matching element is found the
 	 *  function returns NULL.
 	 *
 	 * @source https://github.com/PHP-Polyfills/array-find
 	 * @REF: https://php.watch/versions/8.4/array_find-array_find_key-array_any-array_all
-	 * NOTE: Polyfill for below PHP 8.4
+	 * NOTE: Poly-fill for below PHP 8.4
 	 *
 	 * @param array $array The array that should be searched.
 	 * @param callable $callback The callback function to call to check
@@ -1159,7 +1169,7 @@ class Arraay extends Base
 	 *  elements.
 	 *
 	 * @return mixed The key of the first element for which the
-	 *  $callback returns TRUE. NULL, If no matching element is found.
+	 *  `$callback` returns TRUE. NULL, If no matching element is found.
 	 */
 	public static function array_find_key( array $array, callable $callback )
 	{
