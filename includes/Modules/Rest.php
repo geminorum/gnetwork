@@ -128,14 +128,17 @@ class Rest extends gNetwork\Module
 			} );
 	}
 
-	public function terms_rendered_get_callback( $post, $attr, $request, $object_type )
+	public function terms_rendered_get_callback( $params, $attr, $request, $object_type )
 	{
-		if ( empty( $post['id'] ) )
+		if ( empty( $params['id'] ) )
+			return [];
+
+		if ( ! $post = get_post( (int) $params['id'] ) )
 			return [];
 
 		$rendered = [];
 		$user_id  = get_current_user_id();
-		$ignored  = $this->filters( 'terms_rendered_ignored', [ 'post_format' ], $post, $object_type );
+		$ignored  = $this->filters( 'terms_rendered_ignored', [ 'post_format' ], $params, $object_type, $post );
 
 		foreach ( get_object_taxonomies( $object_type, 'objects' ) as $taxonomy ) {
 
@@ -146,12 +149,13 @@ class Rest extends gNetwork\Module
 				&& ! WordPress\Taxonomy::can( $taxonomy, 'assign_terms', $user_id ) )
 					continue;
 
-			$list = WordPress\Taxonomy::getTheTermList( $taxonomy->name, $post['id'] );
+			$rows = WordPress\Taxonomy::getTheTermRows( $taxonomy->name, $post );
 			$html = $this->filters( 'terms_rendered_html',
-				Utilities::getJoined( $list ),
+				$rows,
 				$taxonomy,
-				$post,
-				$object_type
+				$params,
+				$object_type,
+				$post
 			);
 
 			if ( FALSE === $html )
