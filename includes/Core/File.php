@@ -6,11 +6,12 @@ class File extends Base
 {
 
 	/**
-	 * Wraps the `file_exists()` and uses current install absolute path.
+	 * Checks whether a file or directory exists.
+	 * NOTE: wraps `file_exists()` and uses current install absolute path.
 	 *
 	 * @param string $path
 	 * @param string $base
-	 * @return bool $exists
+	 * @return bool
 	 */
 	public static function exists( $path, $base = ABSPATH )
 	{
@@ -24,7 +25,7 @@ class File extends Base
 	 * Tells whether a file exists and is readable.
 	 *
 	 * @param string $path
-	 * @return bool $readable
+	 * @return bool
 	 */
 	public static function readable( $path )
 	{
@@ -36,10 +37,10 @@ class File extends Base
 
 	/**
 	 * Tells whether the filename is writable.
-	 * Wraps the `wp_is_writable()` with fallback to `is_writable()`
+	 * NOTE: wraps the `wp_is_writable()` with fallback to `is_writable()`
 	 *
-	 * @param  string $path
-	 * @return bool   $writable
+	 * @param string $path
+	 * @return bool
 	 */
 	public static function writable( $path )
 	{
@@ -94,13 +95,13 @@ class File extends Base
 
 	/**
 	 * Returns trailing name component of path.
-	 * i18n friendly version of `basename()`
+	 * I18N friendly version of `basename()`
 	 * if the filename ends in suffix this will also be cut off
 	 * @source `wp_basename()`
 	 *
 	 * @param string $path
 	 * @param string $suffix
-	 * @return string $basename
+	 * @return string
 	 */
 	public static function basename( $path, $suffix = '' )
 	{
@@ -114,8 +115,8 @@ class File extends Base
 	 * Retrieves filename from given path or URL.
 	 *
 	 * @param string $path
-	 * @param null|array $mimes
-	 * @return string $filename
+	 * @param array $mimes
+	 * @return string
 	 */
 	public static function filename( $path, $mimes = NULL )
 	{
@@ -161,11 +162,11 @@ class File extends Base
 
 	/**
 	 * Joins two filesystem paths together.
-	 * @source: `path_join()`
+	 * @source `path_join()`
 	 *
 	 * @param string $base
 	 * @param string $path
-	 * @return string $joined
+	 * @return string
 	 */
 	public static function join( $base, $path )
 	{
@@ -176,13 +177,11 @@ class File extends Base
 
 	/**
 	 * Tests if a given filesystem path is absolute.
-	 *
 	 * For example, '/foo/bar', or 'c:\windows'.
-	 *
 	 * @source `path_is_absolute()`
 	 *
-	 * @param string $path File path.
-	 * @return bool True if path is absolute, false is not absolute.
+	 * @param string $path
+	 * @return bool
 	 */
 	public static function isAbsolute( $path )
 	{
@@ -250,7 +249,7 @@ class File extends Base
 	 *
 	 * @param string $path
 	 * @param bool $check_folder
-	 * @return bool $success
+	 * @return bool
 	 */
 	public static function putHTAccessDeny( $path, $check_folder = TRUE )
 	{
@@ -320,7 +319,7 @@ class File extends Base
 	 * @param string $path
 	 * @param int $count
 	 * @param int $block_size
-	 * @return array $lines
+	 * @return array
 	 */
 	public static function getLastLines( $path, $count, $block_size = 512 )
 	{
@@ -353,7 +352,7 @@ class File extends Base
 			$data.= $leftover;
 			fseek( $handle, -$can_read, SEEK_CUR );
 
-			// split lines by \n. Then reverse them,
+			// Splits lines by `\n`. Then reverse them,
 			// now the last line is most likely not a complete
 			// line which is why we do not directly add it, but
 			// append it to the data read the next time.
@@ -369,7 +368,7 @@ class File extends Base
 
 		fclose( $handle );
 
-		// usually, we will read too many lines, correct that here.
+		// Usually, we will read too many lines, correct that here.
 		return array_slice( $lines, 0, $count );
 	}
 
@@ -384,22 +383,41 @@ class File extends Base
 		return $format ? self::formatSize( $size ) : $size;
 	}
 
-	// @SOURCE: http://stackoverflow.com/a/6674672
-	// determines the file size without any acrobatics
+	/**
+	 * Determines the file size without any acrobatics.
+	 * @source http://stackoverflow.com/a/6674672
+	 *
+	 * @param string $path
+	 * @param bool $format
+	 * @return int|string
+	 */
 	public static function getSize( $path, $format = TRUE )
 	{
-		$fh   = fopen( $path, 'r+' );
-		$stat = fstat( $fh );
-		fclose( $fh );
+		$size = 0;
 
-		return $format ? self::formatSize( $stat['size'] ) : $stat['size'];
+		if ( $path && ( $fh = fopen( $path, 'r+' ) ) ) {
+			$stat = fstat( $fh );
+			fclose( $fh );
+			$size = $stat['size'];
+		}
+
+		return $format ? self::formatSize( $size ) : $size;
 	}
 
-	// wrapper for `wp_filesize` @since WP 6.0
+	/**
+	 * Wrapper for PHP `filesize()` with filters and casting the result as an integer.
+	 * @source `wp_filesize()` @since WP 6.0
+	 *
+	 * @param string $path
+	 * @return int
+	 */
 	public static function size( $path )
 	{
 		if ( function_exists( 'wp_filesize' ) )
 			return wp_filesize( $path );
+
+		if ( ! $path || ! file_exists( $path ) )
+			return 0;
 
 		return (int) @filesize( $path );
 	}
@@ -612,11 +630,11 @@ class File extends Base
 				or die ( "Can't read from file " . $file . "." ); // FIXME
 
 			// if we happen to have read to the end of the file then we need to ignore
-			// the last line as this will be a new line character
+			// the last line as this will be a newline character
 			if ( $pos + $bite >= $size)
 				$string = substr_replace( $string, '', -1 );
 
-			// since we fred() forward into the file we need to back up $bite characters
+			// since we `fread()` forward into the file we need to back up $bite characters
 			if ( $pos < $bite )
 				// if the position is less than a bite then go to the start of the file
 				rewind( $handle );
@@ -628,7 +646,7 @@ class File extends Base
 			if ( is_integer( $lb = strrpos( $string, "\n" ) ) ) {
 				// set $break to true so that we break out of the loop
 				$break = TRUE;
-				// the last line in the file is right after the linebreak
+				// the last line in the file is right after the line break
 				$line_end = ftell( $handle ) + $lb + 1;
 
 				self::_log( $line_end );
@@ -706,12 +724,30 @@ class File extends Base
 	}
 
 	/**
+	 * Stores an array in a file to access as an array later.
+	 * @source https://stackoverflow.com/a/55421531
+	 *
+	 * @param string $filename
+	 * @param array $data
+	 * @param string $path
+	 * @return bool
+	 */
+	public static function storeData( $filename, $data, $path = NULL )
+	{
+		return self::putContents(
+			$filename,
+			sprintf( '<?php return %s;', var_export( $data, TRUE ) ),
+			$path
+		);
+	}
+
+	/**
 	 * Prepares a filename with the site name and current date.
 	 *
-	 * @param  null|string       $suffix
-	 * @param  null|string       $prefix
-	 * @param  null|false|string $date_format
-	 * @return string            $filename
+	 * @param string $suffix
+	 * @param string $prefix
+	 * @param false|string $date_format
+	 * @return string
 	 */
 	public static function prepName( $suffix = NULL, $prefix = NULL, $date_format = NULL )
 	{
@@ -744,13 +780,13 @@ class File extends Base
 
 				$i++;
 
-				// case sensitive is false by default
+				// case-sensitive is false by default
 				if ( $case_sensitive == false ) {
 					$search = strtolower( $search );  //convert file and search string
 					$line   = strtolower( $line );    //to lowercase
 				}
 
-				//find the string and store it in an array
+				// find the string and store it in an array
 				if ( strpos( $line, $search ) !== false ) {
 					$line_number .=  $i.",";
 				}
@@ -769,9 +805,9 @@ class File extends Base
 	/**
 	 * Deletes BOM from an UTF-8 file.
 	 *
-	 * @param  string      $file
-	 * @param  bool        $error
-	 * @return bool|object $success
+	 * @param string $file
+	 * @param bool $error
+	 * @return true|object
 	 */
 	public static function stripBOM( $file, $error = FALSE )
 	{

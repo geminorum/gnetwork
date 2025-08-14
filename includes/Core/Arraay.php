@@ -321,39 +321,50 @@ class Arraay extends Base
 	// @REF: WooCommerce: `_sort_priority_callback()`
 	public static function sortByPriority( $array, $priority_key, $descending = TRUE )
 	{
+		if ( empty( $array ) || empty( $priority_key ) )
+			return $array;
+
 		$up   = $descending ? -1 : 1;
 		$down = $descending ? 1 : -1;
 
-		uasort( $array, static function ( $a, $b ) use ( $priority_key, $up, $down ) {
+		uasort( $array,
+			static function ( $a, $b ) use ( $priority_key, $up, $down ) {
 
-			if ( ! isset( $a[$priority_key], $b[$priority_key] )
-				|| $a[$priority_key] === $b[$priority_key] )
-					return 0;
+				if ( ! isset( $a[$priority_key], $b[$priority_key] )
+					|| $a[$priority_key] === $b[$priority_key] )
+						return 0;
 
-			return ( $a[$priority_key] < $b[$priority_key] ) ? $up : $down;
-		} );
+				return ( $a[$priority_key] < $b[$priority_key] ) ? $up : $down;
+			} );
 
 		return $array;
 	}
 
 	// @REF: WooCommerce: `_sort_priority_callback()`
-	public static function sortObjectByPriority( $array, $priority_key )
+	public static function sortObjectByPriority( $array, $priority_key, $descending = TRUE )
 	{
-		uasort( $array, static function ( $a, $b ) use ( $priority_key ) {
+		if ( empty( $array ) || empty( $priority_key ) )
+			return $array;
 
-			if ( ! isset( $a->{$priority_key}, $b->{$priority_key} )
-				|| $a->{$priority_key} === $b->{$priority_key} )
-					return 0;
+		$up   = $descending ? -1 : 1;
+		$down = $descending ? 1 : -1;
 
-			return ( $a->{$priority_key} < $b->{$priority_key} ) ? -1 : 1;
-		} );
+		uasort( $array,
+			static function ( $a, $b ) use ( $priority_key, $up, $down ) {
+
+				if ( ! isset( $a->{$priority_key}, $b->{$priority_key} )
+					|| $a->{$priority_key} === $b->{$priority_key} )
+						return 0;
+
+				return ( $a->{$priority_key} < $b->{$priority_key} ) ? $up : $down;
+			} );
 
 		return $array;
 	}
 
 	// FIXME: TEST THIS!
 	// @REF: http://stackoverflow.com/a/4582659
-	// USAGE: Arraay::multiSort( $array, [ 'key_1' => SORT_ASC, 'key_2' => SORT_ASC ] );
+	// USAGE: `Arraay::multiSort( $array, [ 'key_1' => SORT_ASC, 'key_2' => SORT_ASC ] );`
 	public static function multiSort( $array, $sort )
 	{
 		if ( empty( $array ) )

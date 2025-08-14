@@ -89,6 +89,8 @@ class Validation extends Base
 		// return '^([0-9]{10})$';
 	}
 
+	// TODO: must rename to `NIN`: National identification number
+	// @SEE: https://en.wikipedia.org/wiki/National_identification_number
 	public static function isIdentityNumber( $input )
 	{
 		if ( self::empty( $input ) )

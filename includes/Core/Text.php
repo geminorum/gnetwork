@@ -471,16 +471,16 @@ class Text extends Base
 	}
 
 	/**
-	 * Normalizes all line endings in this string by using a single unified
-	 * newline sequence (which may be specified manually)
+	 * Normalizes line endings by using a single unified newline sequence.
 	 * @source https://github.com/delight-im/PHP-Str
 	 *
-	 * @param string|null $newlineSequence (optional) the target newline sequence to use
-	 * @return static a new instance of this class
+	 * @param string $text
+	 * @param string $newline
+	 * @return string
 	 */
 	public static function normalizeLineEndings( $text, $newline = NULL )
 	{
-		return \preg_replace('/\R/u', $newline ?? "\n", $text );
+		return preg_replace( '/\R/u', $newline ?? "\n", $text );
 	}
 
 	public static function stripPrefix( $text, $prefix )
@@ -493,9 +493,9 @@ class Text extends Base
 	/**
 	 * Determines if a string contains a given substring.
 	 *
-	 * @param  string $haystack
-	 * @param  string $needle
-	 * @return bool   $contains
+	 * @param string $haystack
+	 * @param string $needle
+	 * @return bool
 	 */
 	public static function contains( $haystack, $needle )
 	{
@@ -644,19 +644,22 @@ class Text extends Base
 	{
 		$buffer = str_replace( [ "\n", "\r", "\t" ], '', $buffer );
 
-		$buffer = preg_replace(
-			array( '/<!--(.*)-->/Uis', "/[[:blank:]]+/" ),
-			array( '', ' ' ),
-		$buffer );
+		$buffer = preg_replace( [
+			'/<!--(.*)-->/Uis',
+			'/[[:blank:]]+/',
+		], [
+			'',
+			' '
+		], $buffer );
 
 		$buffer = preg_replace( [
 			'/\>[^\S ]+/s', // strip whitespaces after tags, except space
 			'/[^\S ]+\</s', // strip whitespaces before tags, except space
-			'/(\s)+/s' // shorten multiple whitespace sequences
+			'/(\s)+/s',     // shorten multiple whitespace sequences
 		], [
 			'>',
 			'<',
-			'\\1'
+			'\\1',
 		], $buffer );
 
 		return self::trim( $buffer );
@@ -669,12 +672,13 @@ class Text extends Base
 		$return = $text;
 
 		if ( strlen( trim( $text ) ) ) {
-			$arr = explode( ' ', trim( $text ) );
 
-			if ( count( $arr ) >= $min ) {
-				$arr[count( $arr ) - 2].= '&nbsp;'.$arr[count( $arr ) - 1];
-				array_pop( $arr );
-				$return = implode( ' ', $arr );
+			$parts = explode( ' ', self::trim( $text ) );
+
+			if ( count( $parts ) >= $min ) {
+				$parts[count( $parts ) - 2].= '&nbsp;'.$parts[count( $parts ) - 1];
+				array_pop( $parts );
+				$return = implode( ' ', $parts );
 			}
 		}
 
@@ -690,14 +694,14 @@ class Text extends Base
 		if ( strlen( $text ) > $length ) {
 
 			$text  = substr( $text, 0, $length + 1 );
-			$words = preg_split( "/[\s]|&nbsp;/", $text, -1, PREG_SPLIT_NO_EMPTY );
+			$parts = preg_split( '/[\s]|&nbsp;/', $text, -1, PREG_SPLIT_NO_EMPTY );
 
 			preg_match( "/[\s]|&nbsp;/", $text, $lastchar, 0, $length );
 
 			if ( empty( $lastchar ) )
-				array_pop( $words );
+				array_pop( $parts );
 
-			$text = implode( ' ', $words ).$append;
+			$text = implode( ' ', $parts ).$append;
 		}
 
 		return $text;
@@ -710,19 +714,18 @@ class Text extends Base
 		if ( strlen( $text ) <= $chars )
 			return $text;
 
-		$splitted  = str_split( $text, $chars ); // fetch first x number of characters
+		$splitted  = str_split( $text, $chars );  // fetch first x number of characters
 		$truncated = array_shift( $splitted );
-		$before    = explode( ' ', $text ); // get array of words before truncation
-		$after     = explode( ' ', $truncated ); // get array of words after truncation
-		$key       = Arraay::keyLast( $after ); // get index of last item in array of truncated words
+		$before    = explode( ' ', $text );       // get array of words before truncation
+		$after     = explode( ' ', $truncated );  // get array of words after truncation
+		$key       = Arraay::keyLast( $after );   // get index of last item in array of truncated words
 
-		// if the last word in the array of truncated words has been cut off,
-		// drop it from the array
+		// if the last word in the array of truncated words has been cut off, drop it from the array
 		if ( $after[$key] !== $before[$key] )
 			array_pop( $after );
 
-		$new = implode( ' ', $after ); // convert the array of words back into a string
-		$new = rtrim( $new, ',?;:-"\'' ); // remove any trailing punctuaction
+		$new = implode( ' ', $after );     // convert the array of words back into a string
+		$new = rtrim( $new, ',?;:-"\'' );  // remove any trailing punctuaction
 
 		return $new.$ellipsis; // add ellipsis before returning
 	}
@@ -730,7 +733,9 @@ class Text extends Base
 	// http://stackoverflow.com/a/3161830
 	public static function truncateString( $text, $length = 15, $dots = '&hellip;' )
 	{
-		return ( strlen( $text ) > $length ) ? substr( $text, 0, $length - strlen( $dots ) ).$dots : $text;
+		return ( strlen( $text ) > $length )
+			? substr( $text, 0, $length - strlen( $dots ) ).$dots
+			: $text;
 	}
 
 	public static function firstSentence( $text )
@@ -803,11 +808,7 @@ class Text extends Base
 	}
 
 	/**
-	 * Copyright (c) 2008, David R. Nadeau, NadeauSoftware.com.
-	 * All rights reserved.
-	 * License: http://www.opensource.org/licenses/bsd-license.php
-	 *
-	 * Strip punctuation characters from UTF-8 text.
+	 * Strips punctuation characters from UTF-8 text.
 	 *
 	 * Characters stripped from the text include characters in the following
 	 * Unicode categories:
@@ -820,12 +821,12 @@ class Text extends Base
 	 * - Open and close brackets
 	 * - Dashes
 	 * - Connectors
-	 * - Numer separators
+	 * - Number separators
 	 * - Spaces
 	 * - Other punctuation
 	 *
-	 * Exceptions are made for punctuation characters that occur withn URLs
-	 * (such as [ ] : ; @ & ? and others), within numbers (such as . , % # '),
+	 * Exceptions are made for punctuation characters that occur within URLs
+	 * (such as [ ] : ; @ & ? and others), within numbers (such as `.,%#'`),
 	 * and within words (such as - and ').
 	 *
 	 * Parameters: text: the UTF-8 text to strip
@@ -833,6 +834,7 @@ class Text extends Base
 	 * Return values: the stripped UTF-8 text.
 	 *
 	 * See also: http://nadeausoftware.com/articles/2007/9/php_tip_how_strip_punctuation_characters_web_page
+	 * @author David R. Nadeau, NadeauSoftware.com
 	 */
 	public static function stripPunctuation( $text )
 	{
@@ -846,15 +848,14 @@ class Text extends Base
 		$fullstop      = '\x{002E}\x{FE52}\x{FF0E}';
 		$comma         = '\x{002C}\x{FE50}\x{FF0C}';
 		$arabsep       = '\x{066B}\x{066C}';
-		$numseparators = $fullstop . $comma . $arabsep;
+		$numseparators = $fullstop.$comma.$arabsep;
 
 		$numbersign    = '\x{0023}\x{FE5F}\x{FF03}';
 		$percent       = '\x{066A}\x{0025}\x{066A}\x{FE6A}\x{FF05}\x{2030}\x{2031}';
 		$prime         = '\x{2032}\x{2033}\x{2034}\x{2057}';
-		$nummodifiers  = $numbersign . $percent . $prime;
+		$nummodifiers  = $numbersign.$percent.$prime;
 
-		return preg_replace(
-			array(
+		return preg_replace( [
 			// Remove separator, control, formatting, surrogate,
 			// open/close quotes.
 				'/[\p{Z}\p{Cc}\p{Cf}\p{Cs}\p{Pi}\p{Pf}]/u',
@@ -874,9 +875,7 @@ class Text extends Base
 				'/((?<= )|^)\p{Pd}+(?![\p{N}\p{Sc}])/u',
 			// Remove consecutive spaces
 				'/ +/',
-			),
-			' ',
-			$text );
+		], ' ', $text );
 	}
 
 	public static function utf8StripBOM( $text )
@@ -991,14 +990,14 @@ class Text extends Base
 		// return preg_match_all( "/\\p{L}[\\p{L}\\p{Mn}\\p{Pd}'\\x{2019}]*/u", $html, $matches );
 
 		/**
-		* This simple utf-8 word count function (it only counts)
-		* is a bit faster then the one with preg_match_all
-		* about 10x slower then the built-in str_word_count
+		* This simple UTF-8 word count function (it only counts)
+		* is a bit faster than the one with `preg_match_all`
+		* about 10x slower than the built-in `str_word_count`
 		*
 		* If you need the hyphen or other code points as word-characters
 		* just put them into the [brackets] like [^\p{L}\p{N}\'\-]
-		* If the pattern contains utf-8, utf8_encode() the pattern,
-		* as it is expected to be valid utf-8 (using the u modifier).
+		* If the pattern contains UTF-8, `utf8_encode()` the pattern,
+		* as it is expected to be valid UTF-8 (using the u modifier).
 		*
 		* @link http://php.net/manual/en/function.str-word-count.php#107363
 		**/
@@ -1021,7 +1020,7 @@ class Text extends Base
 
 		$html = strip_tags( $html );
 
-		// FIXME: convert back html entities
+		// FIXME: convert back HTML entities
 
 		$html = str_replace( [
 			"&nbsp;",
@@ -1201,8 +1200,8 @@ class Text extends Base
 	 * Hash Gen uses php's `substr`, `md5`, `uniqid`, and rand to generate a unique
 	 * id or hash and allow you to have some added functionality.
 	 *
-	 * You can also supply a hash to be prefixed or appened
-	 * to the hash. hash[optional] is by default appened to the hash
+	 * You can also supply a hash to be prefixed or appended
+	 * to the hash. hash[optional] is by default appended to the hash
 	 * unless the param prefix[optional] is set to prefix[true].
 	 *
 	 * @param int $start

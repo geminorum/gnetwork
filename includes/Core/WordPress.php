@@ -26,15 +26,25 @@ class WordPress extends Base
 		}
 	}
 
-	// Checks compatibility with the current WordPress version
-	// @REF: `is_wp_version_compatible()`
+	/**
+	 * Checks compatibility with the current WordPress version.
+	 * @source `is_wp_version_compatible()`
+	 *
+	 * @param string $required
+	 * @return bool
+	 */
 	public static function isWPcompatible( $required )
 	{
 		return empty( $required ) || version_compare( get_bloginfo( 'version' ), $required, '>=' );
 	}
 
-	// checks compatibility with the current php version
-	// @REF: `wp_is_php_compatible()`
+	/**
+	 * Checks compatibility with the current PHP version.
+	 * @source `is_php_version_compatible()`
+	 *
+	 * @param string $required
+	 * @return bool
+	 */
 	public static function isPHPcompatible( $required )
 	{
 		return empty( $required ) || version_compare( PHP_VERSION, $required, '>=' );
@@ -156,7 +166,7 @@ class WordPress extends Base
 	// @REF: https://developer.wordpress.org/reference/functions/is_ssl/#comment-4265
 	public static function isSSL()
 	{
-		// cloudflare
+		// Cloudflare
 		if ( ! empty( $_SERVER['HTTP_CF_VISITOR'] ) ) {
 
 			$visitor = json_decode( $_SERVER['HTTP_CF_VISITOR'] );
@@ -199,10 +209,36 @@ class WordPress extends Base
 		return defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST;
 	}
 
-	// @SEE: `wp_is_serving_rest_request()`/`wp_is_rest_endpoint()`
+	/**
+	 * Determines whether WordPress is currently serving a REST API request.
+	 * @source `wp_is_serving_rest_request()`
+	 *
+	 * @return bool
+	 */
 	public static function isREST()
 	{
+		if ( function_exists( 'wp_is_serving_rest_request' ) )
+			return wp_is_serving_rest_request(); // @since WP 6.5.0
+
 		return defined( 'REST_REQUEST' ) && REST_REQUEST;
+	}
+
+	/**
+	 * Checks whether an REST API endpoint request is currently being handled.
+	 *
+	 * This maybe a standalone REST API request, or an internal request
+	 * dispatched from within a regular page load.
+	 *
+	 * @source `wp_is_rest_endpoint()`
+	 *
+	 * @return bool
+	 */
+	public static function isEndpointREST()
+	{
+		if ( function_exists( 'wp_is_rest_endpoint' ) )
+			return wp_is_rest_endpoint(); // @since WP 6.5.0
+
+		return self::isREST();
 	}
 
 	public static function isIFrame()
