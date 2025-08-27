@@ -427,10 +427,13 @@ JS;
 		add_action( $object->name.'_pre_add_form', [ $this, 'edittags_pre_add_form' ], -9999 );
 		add_action( $object->name.'_add_form', [ $this, 'edittags_add_form' ], 9999 );
 
-		$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_empties' );
+		if ( ! in_array( $object->name, (array) $this->filters( 'exclude_empty', [] ) ) ) {
 
-		if ( ! $object->hierarchical ) // allows category types to be onesies!
-			$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_onesies' );
+			$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_empties' );
+
+			if ( ! $object->hierarchical ) // allows category types to be onesies!
+				$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_onesies' );
+		}
 
 		$this->action_self( 'tab_extra_content', 2, 12, 'default_term' );
 		// $this->action_self( 'tab_extra_content', 2, 22, 'terms_stats' ); // FIXME
