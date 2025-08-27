@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class HTML extends Base
 {
 
-	// FIXME: DEPRECATED: use `Core\L10n::rtl()`
+	// NOTE: DEPRECATED: use `Core\L10n::rtl()`
 	public static function rtl()
 	{
 		return L10n::rtl();
@@ -25,23 +25,23 @@ class HTML extends Base
 	}
 
 	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#e-mail-address
-	public static function mailto( $email, $content = NULL, $class = '' )
+	public static function mailto( $email, $title = FALSE, $content = NULL, $class = '' )
 	{
-		$content = $content ?: self::wrapLTR( trim( $email ) );
-		return '<a class="'.self::prepClass( '-mailto', $class )
-			.'" href="mailto:'.trim( $email ).'">'.$content.'</a>';
+		return '<a class="'.self::prepClass( '-mailto', $class ).'"'
+			.' href="mailto:'.trim( $email ).'"'
+			.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
+			.'>'.( $content ?? self::wrapLTR( trim( $email ) ) )
+		.'</a>';
 	}
 
 	public static function tel( $number, $title = FALSE, $content = NULL, $class = '' )
 	{
-		if ( is_null( $content ) )
-			$content = Number::localize( $number );
-
-		return '<a class="'.self::prepClass( '-tel', $class )
-				.'" href="'.self::prepURLforTel( $number )
-				.'"'.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
-				.' data-tel-number="'.self::escape( $number ).'">'
-				.self::wrapLTR( $content ).'</a>';
+		return '<a class="'.self::prepClass( '-tel', $class ).'"'
+			.' href="'.self::prepURLforTel( $number ).'"'
+			.' data-tel-number="'.self::escape( $number ).'"'
+			.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
+			.'>'.( $content ?? self::wrapLTR( Number::localize( $number ) ) )
+		.'</a>';
 	}
 
 	public static function geo( $data, $title = FALSE, $content = NULL, $class = '' )
@@ -123,7 +123,7 @@ class HTML extends Base
 
 		$tag = $block ? 'p' : 'span';
 
-		if ( Text::starts( $string, [ '<ul', '<ol', '<h3', '<h4', '<h5', '<h6' ] ) )
+		if ( Text::starts( $string, [ '<p', '<ul', '<ol', '<h3', '<h4', '<h5', '<h6' ] ) )
 			$tag = 'div';
 
 		echo '<'.$tag.' class="'.self::prepClass( 'description', '-description', $class ).'">'
@@ -443,7 +443,7 @@ class HTML extends Base
 			: '';
 	}
 
-	// FIXME: DEPRECATED
+	// NOTE: DEPRECATED
 	public static function escapeAttr( $text )
 	{
 		return self::escape( $text );
@@ -1580,156 +1580,5 @@ class HTML extends Base
 			.'" class="'.self::prepClass( '-input-for-copy', $class, $code ? 'code' : '' )
 			.'" onclick="this.focus();this.select()" '
 			.( $readonly ? 'readonly' : '' ).' />';
-	}
-
-	// FIXME
-	// @REF: https://www.php.net/manual/en/function.var-dump.php#116041
-	public static function dumpVar( $input, $collapse = FALSE, $wrap = 'pre' )
-	{
-		$recursive = function ( $data, $level = 0 ) use ( &$recursive, $collapse ) {
-			global $argv;
-
-			$isTerminal = isset( $argv );
-
-			if ( ! $isTerminal && $level === 0 && ! defined( 'DUMP_DEBUG_SCRIPT' ) ) {
-
-				define( 'DUMP_DEBUG_SCRIPT', TRUE );
-
-				echo '<script language="Javascript">function toggleDisplay(id) {';
-				echo 'var state = document.getElementById("container"+id).style.display;';
-				echo 'document.getElementById("container"+id).style.display = state == "inline" ? "none" : "inline";';
-				echo 'document.getElementById("plus"+id).style.display = state == "inline" ? "inline" : "none";';
-				echo '}</script>';
-			}
-
-			$type        = ! is_string( $data ) && is_callable( $data ) ? 'Callable' : ucfirst( gettype( $data ) );
-			$type_data   = NULL;
-			$type_color  = NULL;
-			$type_length = NULL;
-
-			switch ( $type ) {
-
-				case 'String':
-
-					$type_color  = 'green';
-					$type_length = strlen( $data );
-					$type_data   = '"'.htmlentities( $data ).'"';
-
-					break;
-
-				case 'Double':
-				case 'Float':
-
-					$type        = 'Float';
-					$type_color  = '#0099c5';
-					$type_length = strlen( $data );
-					$type_data   = htmlentities( $data );
-
-					break;
-
-				case 'Integer':
-
-					$type_color  = 'red';
-					$type_length = strlen( $data );
-					$type_data   = htmlentities( $data );
-
-					break;
-
-				case 'Boolean':
-
-					$type_color  = '#92008d';
-					$type_length = strlen( $data );
-					$type_data   = $data ? 'TRUE' : 'FALSE';
-
-					break;
-
-				case 'NULL':
-
-					$type_length = 0;
-
-					break;
-
-				case 'Array':
-
-					$type_length = count( $data );
-			}
-
-			if ( in_array( $type, [ 'Object', 'Array' ] ) ) {
-
-				$notEmpty = FALSE;
-
-				foreach ( $data as $key => $value ) {
-
-					if ( ! $notEmpty ) {
-
-						$notEmpty = TRUE;
-
-						if ( $isTerminal ) {
-
-							echo $type.( $type_length !== NULL ? '('.$type_length.')' : '' )."\n";
-
-						} else {
-
-							$id = substr( md5( rand().':'.$key.':'.$level ), 0, 8 );
-
-							echo "<a href=\"javascript:toggleDisplay('". $id ."');\" style=\"text-decoration:none\">";
-							echo "<span style='color:#666666'>" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "</span>";
-							echo "</a>";
-							echo "<span id=\"plus". $id ."\" style=\"display: " . ($collapse ? "inline" : "none") . ";\">&nbsp;&#10549;</span>";
-							echo "<div id=\"container". $id ."\" style=\"display: " . ($collapse ? "" : "inline") . ";\">";
-							echo "<br />";
-						}
-
-						for ($i=0; $i <= $level; $i++) {
-							echo $isTerminal ? "|" : "<span style='color:black'>|</span>&nbsp";
-						}
-
-						echo $isTerminal ? "\n" : "<br />";
-					}
-
-					for ($i=0; $i <= $level; $i++) {
-						echo $isTerminal ? "|    " : "<span style='color:black'>|</span>&nbsp;";
-					}
-
-					echo $isTerminal ? "[" . $key . "] => " : "<span style='color:black'>[" . $key . "]&nbsp;=>&nbsp;</span>";
-
-					call_user_func($recursive, $value, $level+1);
-				}
-
-				if ($notEmpty) {
-					for ($i=0; $i <= $level; $i++) {
-						echo $isTerminal ? "|" : "<span style='color:black'>|</span>&nbsp";
-					}
-
-					if (!$isTerminal) {
-						echo "</div>";
-					}
-
-				} else {
-					echo $isTerminal ?
-							$type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " :
-							"<span style='color:#666666'>" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "</span>&nbsp;";
-				}
-
-			} else {
-				echo $isTerminal ?
-						$type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " :
-						"<span style='color:#666666'>" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "</span>&nbsp;";
-
-				if ($type_data != null) {
-					echo $isTerminal ? $type_data : "<span style='color:" . $type_color . "'>" . $type_data . "</span>";
-				}
-			}
-
-			echo $isTerminal ? "\n" : "<br />";
-		};
-
-		if ( $wrap )
-			echo '<'.$wrap.' class="-dump-debug">';
-
-		call_user_func( $recursive, $input );
-
-		if ( $wrap )
-			echo '</'.$wrap.'>';
 	}
 }

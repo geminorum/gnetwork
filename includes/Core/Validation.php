@@ -330,4 +330,12 @@ class Validation extends Base
 
 		return $sanitized;
 	}
+
+	public static function isBibliographic( $input )
+	{
+		if ( ! Number::is( Text::stripAllSpaces( $input ) ) )
+			return FALSE;
+
+		return TRUE;
+	}
 }

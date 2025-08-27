@@ -358,8 +358,9 @@ class Text extends Base
 			: preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $text );
 	}
 
-	// like wp but without check for `func_overload`
+	// Like core's but without check for `func_overload`
 	// @SOURCE: `seems_utf8()`
+	// NOTE: DEPRECATED: in favor of `wp_is_valid_utf8()`
 	public static function seemsUTF8( $text )
 	{
 		$length = strlen( $text );
@@ -396,6 +397,28 @@ class Text extends Base
 		}
 
 		return TRUE;
+	}
+
+	/**
+	 * String contains multi-byte (non-ASCII/non-single-byte) UTF-8 characters.
+	 *
+	 * @param string $text
+	 * @return bool
+	 */
+	public static function containsUTF8( $text )
+	{
+		return strlen( $text ) !== mb_strlen( $text, 'UTF-8' );
+	}
+
+	/**
+	 * String is strictly UTF-8 encoded.
+	 *
+	 * @param string $text
+	 * @return bool
+	 */
+	public static function strictUTF8( $text )
+	{
+		return 'UTF-8' === mb_detect_encoding( $text, 'UTF-8', TRUE );
 	}
 
 	/**
@@ -454,19 +477,26 @@ class Text extends Base
 			return '';
 
 		$text = self::normalizeZWNJ( $text );
-		$text = str_replace( "\r", "\n", trim( $text ) );
+		$text = str_replace( "\r", "\n", self::trim( $text ) );
 
 		return $multiline
 			? self::trim( preg_replace( [ "/\n\n+/", "/[ \t]+/" ], [ "\n\n", ' ' ], $text ) )
 			: self::trim( preg_replace( [ "/\n+/", "/[ \t]+/" ], [ "\n", ' ' ], $text ) );
 	}
 
+	// NOTE: DEPRECATED
 	// @REF: http://stackoverflow.com/a/3226746
 	public static function normalizeWhitespaceUTF8( $text, $check = FALSE )
 	{
 		if ( $check && ! self::seemsUTF8( $text ) )
 			return self::normalizeWhitespace( $text );
 
+		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $text );
+	}
+
+	// @REF: http://stackoverflow.com/a/3226746
+	public static function singleWhitespaceUTF8( $text )
+	{
 		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $text );
 	}
 
@@ -883,18 +913,26 @@ class Text extends Base
 		return preg_replace( '/\x{FEFF}/u', '', $text );
 	}
 
-	// @SOURCE: http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness
-	// @SEE: http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
-	// @SEE: `wp_check_invalid_utf8()`
+	/**
+	 * Checks given string for UTF-8 for Well-Formed
+	 * @source http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness
+	 * @ref http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
+	 * @see `wp_check_invalid_utf8()`
+	 *
+	 * @param string $text
+	 * @return bool
+	 */
 	public static function utf8Compliant( $text )
 	{
 		if ( 0 === strlen( $text ?? '' ) )
 			return TRUE;
 
-		// If even just the first character can be matched, when the /u
-		// modifier is used, then it's valid UTF-8. If the UTF-8 is somehow
-		// invalid, nothing at all will match, even if the string contains
-		// some valid sequences
+		/**
+		 * If even just the first character can be matched, when the `/u`
+		 * modifier is used, then it's valid UTF-8. If the UTF-8 is somehow
+		 * invalid, nothing at all will match, even if the string contains
+		 * some valid sequences.
+		 */
 		return ( 1 === @preg_match( '/^.{1}/us', $text ) );
 	}
 
@@ -916,8 +954,8 @@ class Text extends Base
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.ord.php#109812
-	// As ord() doesn't work with utf-8,
-	// and if you do not have access to mb_* functions
+	// As `ord()` doesn't work with utf-8,
+	// and if you do not have access to `mb_*` functions
 	public static function utf8Ord( $text, &$offset )
 	{
 		$code = ord( substr( $text, $offset, 1 ) );
@@ -997,7 +1035,7 @@ class Text extends Base
 		* If you need the hyphen or other code points as word-characters
 		* just put them into the [brackets] like [^\p{L}\p{N}\'\-]
 		* If the pattern contains UTF-8, `utf8_encode()` the pattern,
-		* as it is expected to be valid UTF-8 (using the u modifier).
+		* as it is expected to be valid UTF-8 (using the `u` modifier).
 		*
 		* @link http://php.net/manual/en/function.str-word-count.php#107363
 		**/
@@ -1040,7 +1078,8 @@ class Text extends Base
 
 		$html = self::noLineBreak( $html );
 		$html = self::stripPunctuation( $html );
-		$html = self::normalizeWhitespaceUTF8( $html, TRUE );
+		// $html = self::normalizeWhitespaceUTF8( $html, TRUE );
+		$html = self::singleWhitespaceUTF8( $html );
 
 		return trim( $html );
 	}

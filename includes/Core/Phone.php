@@ -10,7 +10,7 @@ class Phone extends Base
 	 *
 	 * @source `WC_Validation::is_phone()`
 	 *
-	 * @param  string $text Phone number to validate.
+	 * @param string $text Phone number to validate.
 	 * @return bool
 	 */
 	public static function is( $text )
@@ -93,7 +93,7 @@ class Phone extends Base
 	/**
 	 * Convert plaintext phone number to clickable phone number.
 	 *
-	 * Remove formatting and allow "+".
+	 * Remove formatting and allow `+`.
 	 * Example and specs: https://developer.mozilla.org/en/docs/Web/HTML/Element/a#Creating_a_phone_link
 	 *
 	 * @source `wc_make_phone_clickable()`

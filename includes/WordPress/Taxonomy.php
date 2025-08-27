@@ -29,8 +29,8 @@ class Taxonomy extends Core\Base
 	 *
 	 * @source `is_taxonomy_hierarchical()`
 	 *
-	 * @param  string|object $taxonomy
-	 * @return bool $hierarchical
+	 * @param string|object $taxonomy
+	 * @return bool
 	 */
 	public static function hierarchical( $taxonomy )
 	{
@@ -86,12 +86,12 @@ class Taxonomy extends Core\Base
 	 * assign_cap
 	 * _builtin
 	 *
-	 * @param  int    $mod
-	 * @param  array  $args
-	 * @param  bool   $object
-	 * @param  null|string $capability
-	 * @param  null|int $user_id
-	 * @return array $list
+	 * @param int $mod
+	 * @param array $args
+	 * @param bool $object
+	 * @param null|string $capability
+	 * @param null|int $user_id
+	 * @return array
 	 */
 	public static function get( $mod = 0, $args = [], $object = FALSE, $capability = NULL, $user_id = NULL )
 	{
@@ -383,16 +383,16 @@ class Taxonomy extends Core\Base
 
 	/**
 	 * Determines whether a taxonomy term exists.
-	 * Formerly is_term(), introduced in 2.3.0.
+	 * Formerly `is_term()`, Introduced in WP 2.3.0.
 	 *
 	 * @SEE: https://make.wordpress.org/core/2022/04/28/taxonomy-performance-improvements-in-wordpress-6-0/
 	 * @SOURCE: OLD VERSION OF `term_exists()`
 	 *
 	 * @global wpdb $wpdb WordPress database abstraction object.
 	 *
-	 * @param int|string $term     The term to check. Accepts term ID, slug, or name.
-	 * @param string     $taxonomy Optional. The taxonomy name to use.
-	 * @param int        $parent   Optional. ID of parent term under which to confine the exists search.
+	 * @param int|string $term: The term to check. Accepts term ID, slug, or name.
+	 * @param string $taxonomy: Optional. The taxonomy name to use.
+	 * @param int $parent: Optional. ID of parent term under which to confine the exists search.
 	 * @return mixed Returns null if the term does not exist.
 	 *               Returns the term ID if no taxonomy is specified and the term ID exists.
 	 *               Returns an array of the term ID and the term taxonomy ID if the taxonomy is specified and the pairing exists.
@@ -409,14 +409,19 @@ class Taxonomy extends Core\Base
 		$tax_select = "SELECT tt.term_id, tt.term_taxonomy_id FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy as tt ON tt.term_id = t.term_id WHERE ";
 
 		if ( is_int( $term ) ) {
-			if ( 0 === $term ) {
+
+			if ( 0 === $term )
 				return 0;
-			}
+
 			$where = 't.term_id = %d';
+
 			if ( ! empty( $taxonomy ) ) {
+
 				// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
 				return $wpdb->get_row( $wpdb->prepare( $tax_select . $where . ' AND tt.taxonomy = %s', $term, $taxonomy ), ARRAY_A );
+
 			} else {
+
 				return $wpdb->get_var( $wpdb->prepare( $select . $where, $term ) );
 			}
 		}
@@ -430,6 +435,7 @@ class Taxonomy extends Core\Base
 		$else_where_fields = array( $term );
 		$orderby           = 'ORDER BY t.term_id ASC';
 		$limit             = 'LIMIT 1';
+
 		if ( ! empty( $taxonomy ) ) {
 			if ( is_numeric( $parent ) ) {
 				$parent              = (int) $parent;
@@ -452,9 +458,9 @@ class Taxonomy extends Core\Base
 
 		// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 		$result = $wpdb->get_var( $wpdb->prepare( "SELECT term_id FROM $wpdb->terms as t WHERE $where $orderby $limit", $where_fields ) );
-		if ( $result ) {
+
+		if ( $result )
 			return $result;
-		}
 
 		// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
 		return $wpdb->get_var( $wpdb->prepare( "SELECT term_id FROM $wpdb->terms as t WHERE $else_where $orderby $limit", $else_where_fields ) );
@@ -462,14 +468,13 @@ class Taxonomy extends Core\Base
 
 	/**
 	 * Inserts set of terms into a taxonomy.
-	 *
 	 * `$update_terms` accepts: `not_name_desc`, `not_name`
 	 *
-	 * @param  string|object $taxonomy
-	 * @param  array $terms
-	 * @param  bool|string $update_terms
-	 * @param  int $force_parent
-	 * @return array $count
+	 * @param string|object $taxonomy
+	 * @param array $terms
+	 * @param bool|string $update_terms
+	 * @param int $force_parent
+	 * @return array
 	 */
 	public static function insertDefaultTerms( $taxonomy, $terms, $update_terms = TRUE, $force_parent = 0 )
 	{
@@ -663,7 +668,7 @@ class Taxonomy extends Core\Base
 		return $count;
 	}
 
-	// @REF: `_update_post_term_count()`
+	// @REF: `_update_generic_term_count()`
 	public static function countTermObjects( $term, $taxonomy )
 	{
 		global $wpdb;
@@ -682,12 +687,12 @@ class Taxonomy extends Core\Base
 
 	/**
 	 * Retrieves children of taxonomy as term IDs.
-	 * without option save and accepts taxonomy object.
+	 * Without option save and accepts taxonomy object.
 	 *
 	 * @source `_get_term_hierarchy()`
 	 *
-	 * @param  string|object $taxonomy
-	 * @return array $children
+	 * @param string|object $taxonomy
+	 * @return array
 	 */
 	public static function getHierarchy( $taxonomy )
 	{
@@ -735,9 +740,9 @@ class Taxonomy extends Core\Base
 	/**
 	 * Retrieves terms with no children.
 	 *
-	 * @param  string|object $taxonomy
-	 * @param  array $extra
-	 * @return array $list
+	 * @param string|object $taxonomy
+	 * @param array $extra
+	 * @return array
 	 */
 	public static function listChildLessTerms( $taxonomy, $fields = NULL, $extra = [] )
 	{
@@ -855,11 +860,11 @@ class Taxonomy extends Core\Base
 	}
 
 	/**
-	 * retrieves meta-data for a given term.
+	 * Retrieves meta-data for a given term.
 	 *
-	 * @param  object|int $term
-	 * @param  bool|array $keys `false` for all meta
-	 * @param  bool $single
+	 * @param object|int $term
+	 * @param bool|array $keys `false` for all meta
+	 * @param bool $single
 	 * @return array
 	 */
 	public static function getTermMeta( $term, $keys = FALSE, $single = TRUE )
@@ -901,7 +906,7 @@ class Taxonomy extends Core\Base
 	{
 		wp_defer_term_counting( TRUE );
 
-		// also avoids query for post terms
+		// Also avoids query for post terms
 		remove_action( 'transition_post_status', '_update_term_count_on_transition_post_status', 10 );
 
 		// WooCommerce
