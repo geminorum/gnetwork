@@ -10,6 +10,7 @@ class Captcha extends gNetwork\Module
 {
 
 	// @SEE: https://contactform7.com/faq-about-recaptcha-v3/
+	// https://wpwebinfotech.com/blog/how-to-add-recaptcha-on-wordpress/
 
 	protected $key = 'captcha';
 

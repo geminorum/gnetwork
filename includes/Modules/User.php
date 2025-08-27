@@ -538,9 +538,10 @@ class User extends gNetwork\Module
 	/**
 	 * Filters a sanitized username string.
 	 *
-	 * @param string $username     Sanitized username.
-	 * @param string $raw_username The username prior to sanitization.
-	 * @param bool   $strict       Whether to limit the sanitization to specific characters.
+	 * @param string $username
+	 * @param string $raw_username
+	 * @param bool $strict
+	 * @return string
 	 */
 	public function sanitize_user( $username, $raw_username, $strict )
 	{
@@ -560,8 +561,9 @@ class User extends gNetwork\Module
 	/**
 	 * Filters whether the provided username is valid.
 	 *
-	 * @param bool   $valid    Whether given username is valid.
-	 * @param string $username Username to check.
+	 * @param bool $valid
+	 * @param string $username
+	 * @return string
 	 */
 	public function validate_username( $valid, $username )
 	{

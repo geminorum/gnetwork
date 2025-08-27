@@ -259,7 +259,7 @@ class Locale extends gNetwork\Module
 			'freedoms.php',
 			'privacy.php',
 			'site-health.php',
-			'authorize-application.php',
+			// 'authorize-application.php',
 		] ) )
 			return $base;
 

@@ -84,7 +84,7 @@ class Rest extends gNetwork\Module
 
 	public function rest_api_init()
 	{
-		$this->_init_terms_rendered();
+		// $this->_init_terms_rendered();
 		$this->_init_thumbnail_data();
 
 		if ( $this->options['allow_cors_requests'] )

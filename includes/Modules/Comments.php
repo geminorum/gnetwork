@@ -307,7 +307,10 @@ class Comments extends gNetwork\Module
 		if ( ! isset( $comment_args['type'] )
 			&& ! isset( $comment_args['type__in'] )
 			&& ! isset( $comment_args['type__not_in'] ) )
-				$comment_args['type'] = 'comment';
+				$comment_args['type'] = [
+					'comment',  // wp-core
+					'review',   // woo-commerce
+				];
 
 		return $comment_args;
 	}

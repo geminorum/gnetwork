@@ -489,7 +489,7 @@ class Typography extends gNetwork\Module
 	// @SEE: https://wordpress.stackexchange.com/a/51809
 	public function sanitize_title( $title, $raw_title = '', $context = 'display' )
 	{
-		return 'save' === $context && seems_utf8( $raw_title )
+		return 'save' === $context && Core\Text::containsUTF8( $raw_title )
 			? Core\Text::formatSlug( $raw_title )
 			: $title;
 	}

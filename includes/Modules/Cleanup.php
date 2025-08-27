@@ -456,7 +456,6 @@ class Cleanup extends gNetwork\Module
 		] : 'optimized';
 	}
 
-	// FIXME: remove `googleplus`
 	private function users_contactmethods()
 	{
 		global $wpdb;
@@ -464,15 +463,11 @@ class Cleanup extends gNetwork\Module
 		$count    = 0;
 		$metakeys = array_merge( array_keys( wp_get_user_contact_methods() ), [
 			'feed_key',
-			'aim',     // old wp contact method
-			'yim',     // old wp contact method
-			'jabber',  // old wp contact method
 			'ssn',
 			'identity_number',
 			'identity',
 			'mobile',
 			'phone',
-			'googleplus',
 			'instagram',
 			'telegram',
 			'facebook',
@@ -567,6 +562,11 @@ class Cleanup extends gNetwork\Module
 			'dark_mode',
 			'ef_calendar_filters',
 			'gmember_display_name',
+
+			'aim',     // old wp contact method
+			'yim',     // old wp contact method
+			'jabber',  // old wp contact method
+			'googleplus',
 		];
 
 		foreach ( $metakeys as $key )

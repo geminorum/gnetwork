@@ -1497,7 +1497,7 @@ class Media extends gNetwork\Module
 	// https://wpartisan.me/tutorials/rename-clean-wordpress-media-filenames
 	public function sanitize_file_name( $filename, $filename_raw )
 	{
-		if ( ! Core\Text::seemsUTF8( $filename ) )
+		if ( ! Core\Text::containsUTF8( $filename ) )
 			return Core\Text::strToLower( $filename );
 
 		$info = pathinfo( $filename );

@@ -359,7 +359,7 @@ class Utilities extends Core\Base
 	public static function prepContact( $value, $title = NULL )
 	{
 		if ( Core\Email::is( $value ) )
-			$prepared = Core\HTML::mailto( $value, $title );
+			$prepared = Core\HTML::mailto( $value, FALSE, $title );
 
 		else if ( Core\URL::isValid( $value ) )
 			$prepared = Core\HTML::link( $title, Core\URL::untrail( $value ) );
@@ -388,14 +388,14 @@ class Utilities extends Core\Base
 		if ( ! empty( $gNetworkMustache ) )
 			return $gNetworkMustache;
 
-		$gNetworkMustache = new \Mustache_Engine( [
+		$gNetworkMustache = new \Mustache\Engine( [
 			'template_class_prefix' => '__'.static::BASE.'_',
 			'cache_file_mode'        => FS_CHMOD_FILE,
 			// 'cache'                  => $base.'assets/views/cache',
 			'cache'                  => get_temp_dir(),
 
-			'loader'          => new \Mustache_Loader_FilesystemLoader( $base.'assets/views' ),
-			'partials_loader' => new \Mustache_Loader_FilesystemLoader( $base.'assets/views/partials' ),
+			'loader'          => new \Mustache\Loader\FilesystemLoader( $base.'assets/views' ),
+			'partials_loader' => new \Mustache\Loader\FilesystemLoader( $base.'assets/views/partials' ),
 			'escape'          => static function ( $value ) {
 				return htmlspecialchars( $value, ENT_COMPAT, 'UTF-8' );
 			},
@@ -405,6 +405,7 @@ class Utilities extends Core\Base
 	}
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags
+	// TODO: drop mustache for gNetwork
 	public static function renderMustache( $part, $data = [], $verbose = TRUE )
 	{
 		$mustache = self::getMustache();

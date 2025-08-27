@@ -192,7 +192,6 @@ class Taxonomy extends gNetwork\Module
 	});
 })(jQuery);
 JS;
-
 		Core\HTML::wrapjQueryReady( $script );
 	}
 
@@ -603,7 +602,7 @@ JS;
 	 *
 	 * @param string|object $taxonomy
 	 * @param bool $check_description
-	 * @return false|array $term_ids
+	 * @return false|array
 	 */
 	private function _get_empty_terms( $taxonomy, $check_description = TRUE )
 	{
@@ -627,9 +626,9 @@ JS;
 	/**
 	 * Retrieves terms with *one* count, empty description and no children.
 	 *
-	 * @param  string|object $taxonomy
-	 * @param  bool   $check_description
-	 * @return false|array $term_ids
+	 * @param string|object $taxonomy
+	 * @param bool $check_description
+	 * @return false|array
 	 */
 	private function _get_onesie_terms( $taxonomy, $check_description = TRUE )
 	{
@@ -656,7 +655,7 @@ JS;
 	 * @param string|object $taxonomy
 	 * @param null|array $term_ids
 	 * @param bool $include_default
-	 * @return int $count
+	 * @return int
 	 */
 	private function _handle_delete_empty_terms( $taxonomy, $term_ids = NULL, $include_default = FALSE )
 	{
@@ -679,7 +678,7 @@ JS;
 			if ( ! current_user_can( 'delete_term', $term_id ) )
 				continue;
 
-			// manually re-count: skip if the term has relationships
+			// Manually re-count: skip if the term has relationships
 			if ( WordPress\Taxonomy::countTermObjects( $term_id, $taxonomy ) )
 				continue;
 
@@ -698,10 +697,10 @@ JS;
 	/**
 	 * Handles onesie terms deletion.
 	 *
-	 * @param  string|object $taxonomy
-	 * @param  null|array $term_ids
-	 * @param  bool   $include_default
-	 * @return int $count
+	 * @param string|object $taxonomy
+	 * @param null|array $term_ids
+	 * @param bool $include_default
+	 * @return int
 	 */
 	private function _handle_delete_onesie_terms( $taxonomy, $term_ids = NULL, $include_default = FALSE )
 	{
@@ -724,7 +723,7 @@ JS;
 			if ( ! current_user_can( 'delete_term', $term_id ) )
 				continue;
 
-			// manually re-count: skip if the term has relationships
+			// Manually re-count: skip if the term has relationships
 			if ( WordPress\Taxonomy::countTermObjects( $term_id, $taxonomy ) > 1 )
 				continue;
 
@@ -764,13 +763,13 @@ JS;
 
 				if ( ! WordPress\Strings::isEmpty( $term->description ) ) {
 
-					// skip if the term description is not an empty string
+					// Skip if the term description is not an empty string
 					$delete = FALSE;
 
 				} else {
 
 					// NOTE: we can not rely on `$term->count` data from the term query
-					// skip if the term has relationships
+					// Skip if the term has relationships
 					if ( WordPress\Taxonomy::countTermObjects( $term->term_id, $term->taxonomy ) )
 						$delete = FALSE;
 				}
@@ -1115,7 +1114,7 @@ JS;
 	{
 		echo $this->wrap_open( '-tab-console-taxonomy-object card -toolbox-card' );
 			Core\HTML::h4( _x( 'Taxonomy Object', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
-			Core\HTML::dumpVar( $object );
+			gNetwork\Misc\DumpDebug::render( $object );
 		echo '</div>';
 	}
 
@@ -1434,7 +1433,7 @@ JS;
 			if ( self::isError( $term ) )
 				continue;
 
-			if ( ! seems_utf8( $term->name ) )
+			if ( ! Core\Text::containsUTF8( $term->name ) )
 				continue;
 
 			$slug = Utilities::URLifyDownCode( $term->name );
@@ -1507,7 +1506,7 @@ JS;
 		return TRUE;
 	}
 
-	// separated because we have to keep the connected object list
+	// Separated because we have to keep the connected object list
 	public function handle_multiple_merge( $targets, $term_ids, $taxonomy )
 	{
 		global $wpdb;
@@ -1716,12 +1715,11 @@ JS;
 			if ( $already = get_term_by( 'slug', $term->slug, $new_tax ) )
 				$merging[$term_id] = $already->term_id;
 
-			if ( $term->parent && ! in_array( $term->parent, (array) $term_ids ) ) {
+			if ( $term->parent && ! in_array( $term->parent, (array) $term_ids ) )
 				$wpdb->update( $wpdb->term_taxonomy,
 					[ 'parent' => 0 ],
 					[ 'term_taxonomy_id' => $term->term_taxonomy_id ]
 				);
-			}
 
 			$tt_ids[] = $term->term_taxonomy_id;
 
