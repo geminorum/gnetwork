@@ -362,11 +362,11 @@ task('github:package', function (done) {
 
   // @REF: https://cli.github.com/manual/gh_release_create
   githubCommand('release create ' +
-    pkg.version + ' ' +
-    filename + ' ' +
+    '"' + pkg.version + '" ' +
+    '"./' + filename + '#WordPress Plugin" ' +
     '--draft' + ' ' +
     '--latest' + ' ' + // default: automatic based on date and version
-    '--title ' + pkg.version + ' ' +
+    '--title "' + pkg.version + '" ' +
     '--notes "' + normalizeEOL(changes.versions[0].rawNote.toString()) + '"' +
     '',
   done);

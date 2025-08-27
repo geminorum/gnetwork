@@ -29,3 +29,6 @@ environment.yml
 .ftpconfig
 
 *.WinMerge
+
+logs
+*.log
