@@ -24,6 +24,7 @@ class Mail extends gNetwork\Module
 
 		$this->filter( 'wp_mail_from', 1, 5 );
 		$this->filter( 'wp_mail_from_name', 1, 5 );
+		$this->filter( 'wp_mail_embed_args' );
 		$this->action( 'bp_email', 2, 5 );
 
 		$this->action( 'phpmailer_init' );
@@ -337,6 +338,21 @@ class Mail extends gNetwork\Module
 			$name = $this->get_from_name( $name );
 
 		return $this->filters( 'from_name', $name );
+	}
+
+	/**
+	 * Sets the correct `Content-Type` when embedding SVG images.
+	 * @source https://make.wordpress.org/core/2025/09/04/prettier-emails-supporting-inline-embedded-images/
+	 *
+	 * @param array $args
+	 * @return array
+	 */
+	public function wp_mail_embed_args( $args )
+	{
+		if ( isset( $args['path'] ) && '.svg' === substr( $args['path'], -4 ) )
+        	$args['type'] = 'image/svg+xml';
+
+    	return $args;
 	}
 
 	public function bp_email( $email_type, $bp_email )
