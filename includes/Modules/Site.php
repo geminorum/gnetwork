@@ -460,13 +460,11 @@ class Site extends gNetwork\Module
 
 	public function get_header( $name )
 	{
-		$disable_styles = defined( 'GNETWORK_DISABLE_FRONT_STYLES' ) && GNETWORK_DISABLE_FRONT_STYLES;
-
 		if ( 'wp-signup' == $name ) {
 
 			remove_action( 'wp_head', 'wpmu_signup_stylesheet' );
 
-			if ( ! $disable_styles )
+			if ( ! self::const( 'GNETWORK_DISABLE_FRONT_STYLES' ) )
 				add_action( 'wp_head', static function () {
 					Utilities::linkStyleSheet( 'front.signup' );
 				} );
@@ -475,7 +473,7 @@ class Site extends gNetwork\Module
 
 			remove_action( 'wp_head', 'wpmu_activate_stylesheet' );
 
-			if ( ! $disable_styles )
+			if ( ! self::const( 'GNETWORK_DISABLE_FRONT_STYLES' ) )
 				add_action( 'wp_head', static function () {
 					Utilities::linkStyleSheet( 'front.activate' );
 				} );

@@ -2,7 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class Scripts extends Core\Base
 {
@@ -78,7 +79,7 @@ class Scripts extends Core\Base
 
 		$args = self::atts( [
 			'dependencies' => [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-polyfill' ],
-			'version'      => WordPress::isDev() ? filemtime( $path ) : $version,
+			'version'      => Core\WordPress::isDev() ? filemtime( $path ) : $version,
 		], is_readable( $info ) ? require( $info ) : [] );
 
 		wp_register_script( $handle, $url, $args['dependencies'], $args['version'] );
@@ -269,6 +270,6 @@ class Scripts extends Core\Base
 	{
 		$strings = apply_filters( self::BASE.'_tinymce_strings', [] );
 
-		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.'.self::BASE.'", '.wp_json_encode( $strings ).');'."\n" : '';
+		return count( $strings ) ? 'tinyMCE.addI18n("'.$locale.'.'.self::BASE.'", '.Core\HTML::encode( $strings ).');'."\n" : '';
 	}
 }

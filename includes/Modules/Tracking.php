@@ -188,7 +188,7 @@ class Tracking extends gNetwork\Module
 		$script = 'window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);};function gtagCallback(callback,timeout){var called=false;function fn(){if(!called){called=true;callback();}};setTimeout(fn,timeout||1000);return fn;};gtag("js",new Date());';
 
 		if ( count( $config ) )
-			$script.= "gtag('config','".esc_js( $account )."',".wp_json_encode( $config ).");";
+			$script.= "gtag('config','".esc_js( $account )."',".Core\HTML::encode( $config ).");";
 
 		else
 			$script.= "gtag('config','".esc_js( $account )."');";

@@ -1321,7 +1321,7 @@ class ShortCodes extends gNetwork\Module
 				$options[$option] = $args[$option];
 
 		$selector = $this->selector( 'pdfobject-%2$s' );
-		$this->scripts_nojquery[$selector] = 'PDFObject.embed("'.$args['url'].'", "#'.$selector.'",'.wp_json_encode( $options ).');';
+		$this->scripts_nojquery[$selector] = 'PDFObject.embed("'.$args['url'].'", "#'.$selector.'",'.Core\HTML::encode( $options ).');';
 
 		Scripts::enqueueScriptVendor( 'pdfobject', [], '2.3.1' );
 		return self::shortcodeWrap( '<div id="'.$selector.'"></div>', 'pdf', $args );

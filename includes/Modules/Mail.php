@@ -244,7 +244,8 @@ class Mail extends gNetwork\Module
 
 			$this->check_referer( $sub, 'settings' );
 
-			$created = Core\File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE );
+			if ( $created = Core\File::putHTAccessDeny( GNETWORK_MAIL_LOG_DIR, TRUE ) )
+				Core\File::putDoNotBackup( GNETWORK_MAIL_LOG_DIR, FALSE );
 
 			Core\WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 		}
