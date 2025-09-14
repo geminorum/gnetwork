@@ -356,7 +356,7 @@ class HTML extends Base
 		foreach ( $data as $key => $value ) {
 
 			if ( is_array( $value ) )
-				$html.= ' data-'.$key.'=\''.wp_json_encode( $value ).'\'';
+				$html.= ' data-'.$key.'=\''.self::encode( $value ).'\'';
 
 			else if ( FALSE === $value )
 				continue;
@@ -433,6 +433,20 @@ class HTML extends Base
 			return $html.' />';
 
 		return $html.'>';
+	}
+
+	/**
+	 * Encodes a variable into JSON, with some confidence checks.
+	 * `wp_json_encode()` with default arguments is insufficient to safely
+	 * escape JSON for script tags.
+	 * @source https://core.trac.wordpress.org/ticket/63851
+	 *
+	 * @param mixed $data
+	 * @return string
+	 */
+	public static function encode( $data )
+	{
+		return wp_json_encode( $data, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES );
 	}
 
 	// @ref: `esc_html()`, `esc_attr()`

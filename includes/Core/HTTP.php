@@ -297,7 +297,9 @@ class HTTP extends Base
 
 		$contents = curl_exec( $handle );
 
-		curl_close( $handle );
+		// `curl_close()` has no effect as of PHP 8.0.0
+		if ( PHP_VERSION_ID < 80000 )
+			curl_close( $handle );
 
 		if ( ! $contents )
 			return FALSE;
@@ -644,7 +646,10 @@ class HTTP extends Base
 			return FALSE;
 		}
 
-		curl_close( $in_out );
+		// `curl_close()` has no effect as of PHP 8.0.0
+		if ( PHP_VERSION_ID < 80000 )
+			curl_close( $in_out );
+
 		rewind( $stream );
 
 		$line = trim( fgets( $stream ) );
@@ -735,7 +740,9 @@ class HTTP extends Base
 		$output = curl_exec( $ch );
 		$status = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
 
-		curl_close( $ch );
+		// `curl_close()` has no effect as of PHP 8.0.0
+		if ( PHP_VERSION_ID < 80000 )
+			curl_close( $ch );
 
 		return $status;
 	}
@@ -775,7 +782,9 @@ class HTTP extends Base
 		$status = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
 		$length = curl_getinfo( $ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD );
 
-		curl_close( $ch );
+		// `curl_close()` has no effect as of PHP 8.0.0
+		if ( PHP_VERSION_ID < 80000 )
+			curl_close( $ch );
 
 		// http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 		if ( $status == 200 || ( $status > 300 && $status <= 308 ) )

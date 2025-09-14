@@ -726,7 +726,7 @@ class Text extends Base
 			$text  = substr( $text, 0, $length + 1 );
 			$parts = preg_split( '/[\s]|&nbsp;/', $text, -1, PREG_SPLIT_NO_EMPTY );
 
-			preg_match( "/[\s]|&nbsp;/", $text, $lastchar, 0, $length );
+			preg_match( '/[\s]|&nbsp;/', $text, $lastchar, 0, $length );
 
 			if ( empty( $lastchar ) )
 				array_pop( $parts );
@@ -1061,13 +1061,13 @@ class Text extends Base
 		// FIXME: convert back HTML entities
 
 		$html = str_replace( [
-			"&nbsp;",
-			"&mdash;",
-			"&ndash;",
+			'&nbsp;',
+			'&mdash;',
+			'&ndash;',
 		], ' ', $html );
 
 		$html = str_replace( [
-			"&zwnj;",
+			'&zwnj;',
 			"\xE2\x80\x8C", // Zero Width Non-Joiner U+200C
 			"\xE2\x80\x8F", // Right-To-Left Mark U+200F
 			"\xE2\x80\x8E", // Right-To-Left Mark U+200E
@@ -1134,7 +1134,7 @@ class Text extends Base
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#91950
-	// USAGE: `Text::replaceWords( $words, $text, static function ( $matched ) { return "<strong>{$matched}</strong>"; } );`
+	// USAGE: `Text::replaceWords( $words, $text, static function ( $matched ) { return '<strong>{$matched}</strong>'; } );`
 	// FIXME: maybe space before/after the words
 	public static function replaceWords( $words, $text, $callback, $skip_links = TRUE )
 	{
@@ -1143,9 +1143,10 @@ class Text extends Base
 		if ( $skip_links )
 			$pattern = '<a[^>]*>.*?<\/a\s*>(*SKIP)(*FAIL)|'.$pattern;
 
-		return preg_replace_callback( '/'.$pattern.'/miu', static function ( $matched ) use ( $callback ) {
-			return $matched[1].call_user_func( $callback, $matched[2] ).$matched[3];
-		}, $text );
+		return preg_replace_callback( '/'.$pattern.'/miu',
+			static function ( $matched ) use ( $callback ) {
+				return $matched[1].call_user_func( $callback, $matched[2] ).$matched[3];
+			}, $text );
 	}
 
 	// USAGE: `Text::replaceSymbols( [ '#', '$' ], $text, static function ( $matched, $text ) { return "<strong>{$matched}</strong>"; });`
@@ -1253,35 +1254,35 @@ class Text extends Base
 	{
 		if ( isset( $start, $end ) && FALSE === $hash ) {
 
-			// start IS set NO hash
+			// `start` IS set NO `hash`
 
-			$md_hash  = substr( md5( uniqid (rand(), TRUE ) ), $start, $end );
+			$md_hash  = substr( md5( uniqid( rand(), TRUE ) ), $start, $end );
 			$new_hash = $md_hash;
 
 		} else if ( isset( $start, $end ) && FALSE !== $hash && FALSE === $prefix ) {
 
-			// start IS set WITH hash NOT prefixing
+			// `start` IS set WITH `hash` NOT prefixing
 
 			$md_hash  = substr( md5( uniqid( rand(), TRUE ) ), $start, $end );
 			$new_hash = $md_hash.$hash;
 
 		} else if ( ! isset( $start, $end ) && FALSE !== $hash && FALSE === $prefix ) {
 
-			// start NOT set WITH hash NOT prefixing
+			// `start` NOT set WITH `hash` NOT prefixing
 
 			$md_hash  = md5( uniqid( rand(), TRUE ) );
 			$new_hash = $md_hash.$hash;
 
 		} else if ( isset( $start, $end ) && FALSE !== $hash && TRUE === $prefix ) {
 
-			// start IS set WITH hash IS prefixing
+			// `start` IS set WITH `hash` IS prefixing
 
 			$md_hash  = substr( md5( uniqid( rand(), TRUE ) ), $start, $end );
 			$new_hash = $hash.$md_hash;
 
 		} else if ( ! isset( $start, $end ) && FALSE !== $hash && TRUE === $prefix ) {
 
-			// start NOT set WITH hash IS prefixing
+			// `start` NOT set WITH `hash` IS prefixing
 
 			$md_hash  = md5( uniqid( rand(), TRUE ) );
 			$new_hash = $hash.$md_hash;
@@ -1297,9 +1298,9 @@ class Text extends Base
 	// @SOURCE: `_deep_replace()`
 	public static function deepStrip( $search, $text )
 	{
-		$text = (string) $text;
-
+		$text  = (string) $text;
 		$count = 1;
+
 		while ( $count )
 			$text = str_replace( $search, '', $text, $count );
 

@@ -251,7 +251,9 @@ class URL extends Base
 
 		$headers = curl_exec( $ch );
 
-		curl_close( $ch );
+		// `curl_close()` has no effect as of PHP 8.0.0
+		if ( PHP_VERSION_ID < 80000 )
+			curl_close( $ch );
 
 		// Check if there's a Location: header (redirect)
 		if ( preg_match( '/^Location: (.+)$/im', $headers, $matches ) )
@@ -286,7 +288,9 @@ class URL extends Base
 
 		$target = curl_getinfo( $ch, CURLINFO_EFFECTIVE_URL );
 
-		curl_close( $ch );
+		// `curl_close()` has no effect as of PHP 8.0.0
+		if ( PHP_VERSION_ID < 80000 )
+			curl_close( $ch );
 
 		return $target ?: FALSE;
 	}

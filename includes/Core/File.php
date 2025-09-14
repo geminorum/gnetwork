@@ -8,6 +8,7 @@ class File extends Base
 	/**
 	 * Checks whether a file or directory exists.
 	 * NOTE: wraps `file_exists()` and uses current install absolute path.
+	 * @SEE: `clearstatcache()`
 	 *
 	 * @param string $path
 	 * @param string $base
@@ -245,14 +246,36 @@ class File extends Base
 	}
 
 	/**
+	 * Puts `.donotbackup` on a given folder.
+	 *
+	 * @param string $path
+	 * @param bool $check_folder
+	 * @param bool $force_overwrite
+	 * @return bool
+	 */
+	public static function putDoNotBackup( $path, $check_folder = TRUE, $force_overwrite = FALSE )
+	{
+		if ( ! $force_overwrite && @file_exists( $path.'/.donotbackup' ) )
+			return TRUE;
+
+		$content = 'This directory (and its sub-directories) will be excluded from the backup.';
+
+		return self::putContents( '.donotbackup', $content, $path, FALSE, $check_folder );
+	}
+
+	/**
 	 * Puts `.htaccess` deny from all on a given folder.
 	 *
 	 * @param string $path
 	 * @param bool $check_folder
+	 * @param bool $force_overwrite
 	 * @return bool
 	 */
-	public static function putHTAccessDeny( $path, $check_folder = TRUE )
+	public static function putHTAccessDeny( $path, $check_folder = TRUE, $force_overwrite = FALSE )
 	{
+		if ( ! $force_overwrite && @file_exists( $path.'/.htaccess' ) )
+			return TRUE;
+
 		$content = '<Files ~ ".*\..*">'.PHP_EOL.
 				'<IfModule mod_access.c>'.PHP_EOL.
 					'Deny from all'.PHP_EOL.
@@ -270,10 +293,17 @@ class File extends Base
 		return self::putContents( '.htaccess', $content, $path, FALSE, $check_folder );
 	}
 
-	// wrapper for `file_get_contents()`
-	// TODO: use `$wp_filesystem`
-	// @REF: https://github.com/markjaquith/feedback/issues/33
-	// @REF: `$wp_filesystem->get_contents()`
+	/**
+	 * Reads entire file into a string.
+	 * NOTE: wrapper for `file_get_contents()`
+	 *
+	 * TODO: use `$wp_filesystem`
+	 * @REF: https://github.com/markjaquith/feedback/issues/33
+	 * @REF: `$wp_filesystem->get_contents()`
+	 *
+	 * @param string $filename
+	 * @return string
+	 */
 	public static function getContents( $filename )
 	{
 		if ( empty( $filename ) )
@@ -306,10 +336,11 @@ class File extends Base
 		if ( ! $dir )
 			return $dir;
 
-		if ( $append )
-			return file_put_contents( self::join( $dir, $filename ), $contents.PHP_EOL, FILE_APPEND );
-
-		return file_put_contents( self::join( $dir, $filename ), $contents.PHP_EOL );
+		return file_put_contents(
+			self::join( $dir, $filename ),
+			$contents.PHP_EOL,
+			$append ? FILE_APPEND : 0
+		);
 	}
 
 	/**

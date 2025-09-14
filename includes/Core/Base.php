@@ -258,7 +258,7 @@ class Base
 		$func = $table ? 'table' : 'log';
 
 		if ( is_array( $data ) || is_object( $data ) )
-			echo '<script>console.'.$func.'('.wp_json_encode( $data ).');</script>';
+			echo '<script>console.'.$func.'('.wp_json_encode( $data, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES ).');</script>';
 		else
 			echo '<script>console.'.$func.'('.$data.');</script>';
 	}
