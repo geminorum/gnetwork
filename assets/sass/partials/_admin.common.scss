@@ -5,11 +5,11 @@
 
 
 ////////////////////////////////////////////////////////////////////////////////
-.gnetwork-admin-wrap {
-  &.footer-wp-version {
-    cursor: pointer;
-  }
-}
+// .gnetwork-admin-wrap {
+//   &.footer-wp-version {
+//     cursor: pointer;
+//   }
+// }
 
 // .gnetwork-admin-wrap-metabox {}
 // .gnetwork-admin-wrap-column {}
@@ -59,33 +59,33 @@ body.hide-admin-menu {
   }
 }
 
-#dashboard_activity {
-  #future-posts,
-  #published-posts {
-    ul {
-      margin-top: 0;
-    }
+// #dashboard_activity {
+//   #future-posts,
+//   #published-posts {
+//     ul {
+//       margin-top: 0;
+//     }
 
-    // @REF: http://jsfiddle.net/VaSn6/5/
-    li {
-      span {
-        float: left;
-        margin-right: 10px;
-        clear: both;
-      }
+//     // @REF: http://jsfiddle.net/VaSn6/5/
+//     li {
+//       span {
+//         float: left;
+//         margin-right: 10px;
+//         clear: both;
+//       }
 
-      a {
-        margin-left: 0;
-        overflow: auto;
-        display: block;
+//       a {
+//         margin-left: 0;
+//         overflow: auto;
+//         display: block;
 
-        &:focus {
-          box-shadow: none;
-        }
-      }
-    }
-  }
-}
+//         &:focus {
+//           box-shadow: none;
+//         }
+//       }
+//     }
+//   }
+// }
 
 // #dashboard_right_now #wp-version-message,
 // #dashboard_right_now .inside .versions p,

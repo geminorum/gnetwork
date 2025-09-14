@@ -17,6 +17,7 @@ div.wpcf7 {
   }
 
   .screen-reader-response {
+    /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
     @extend .screen-reader-text;
   }
 

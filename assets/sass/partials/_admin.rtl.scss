@@ -238,31 +238,31 @@ span.description {
     }
   }
 
-  #latest-comments #the-comment-list {
-    .comment-item {
-      p.comment-meta {
-        font-size: 0.95em;
-        margin-bottom: 0.5em;
+  // #latest-comments #the-comment-list {
+  //   .comment-item {
+  //     p.comment-meta {
+  //       font-size: 0.95em;
+  //       margin-bottom: 0.5em;
 
-        span.approve::before {
-          @include theme-transform-flip-horizontal;
-          display: inline-block;
-        }
-      }
+  //       span.approve::before {
+  //         @include theme-transform-flip-horizontal;
+  //         display: inline-block;
+  //       }
+  //     }
 
-      .dashboard-comment-wrap {
-        blockquote p {
-          font-size: 0.85em;
-          margin-bottom: 0.5em;
-          display: block;
-        }
-      }
+  //     .dashboard-comment-wrap {
+  //       blockquote p {
+  //         font-size: 0.85em;
+  //         margin-bottom: 0.5em;
+  //         display: block;
+  //       }
+  //     }
 
-      p.row-actions {
-        font-size: 0.85em;
-      }
-    }
-  }
+  //     p.row-actions {
+  //       font-size: 0.85em;
+  //     }
+  //   }
+  // }
 }
 
 // #dashboard_right_now {

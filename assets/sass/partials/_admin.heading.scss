@@ -15,6 +15,11 @@
     }
   }
 
+  // WooCommerce
+  h2.wc-shipping-zones-heading > span {
+    margin-right: 5px;
+  }
+
   .page-title-action { // wp core class
     &:active {
       margin-left: unset;

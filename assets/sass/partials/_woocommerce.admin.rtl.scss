@@ -115,3 +115,10 @@ body.woocommerce-admin-page {
     display: none;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+body.woocommerce_page_wc-settings {
+  .nav-tab-wrapper a {
+    font-family: $font-family-regular !important;
+  }
+}
