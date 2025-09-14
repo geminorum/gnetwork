@@ -12,7 +12,7 @@
       return;
     }
 
-    var link = event.target.closest('a');
+    const link = event.target.closest('a');
 
     if (!link || window.location.host === link.host) {
       return;
@@ -21,10 +21,10 @@
     event.preventDefault();
 
     gtag('event', 'click', {
-      'event_category': 'outbound',
-      'event_label': link.href,
-      'transport_type': 'beacon',
-      'event_callback': gtagCallback(function () {
+      event_category: 'outbound',
+      event_label: link.href,
+      transport_type: 'beacon',
+      event_callback: gtagCallback(function () {
         document.location = link.href;
       })
     });

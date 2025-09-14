@@ -3,7 +3,7 @@
     editor.addShortcut('ctrl+3', editor.getLang('gnetwork.gnetworksearch-title'), 'gnetworksearch');
 
     editor.addCommand('gnetworksearch', function () {
-      var text = editor.selection.getContent();
+      const text = editor.selection.getContent();
       editor.insertContent('[search]' + (text ? text + '[/search]' : ''));
     });
 
@@ -13,7 +13,7 @@
       icon: 'icon gnetwork-tinymce-icon icon-gnetworksearch',
 
       onclick: function () {
-        var selected = editor.selection.getContent();
+        const selected = editor.selection.getContent();
 
         editor.windowManager.open({
           title: editor.getLang('gnetwork.gnetworksearch-title'),

@@ -1,5 +1,5 @@
 (function (tinymce) {
-  var htmlEscape = function (str) {
+  const htmlEscape = function (str) {
     return str.replace(/&/g, '&amp;') // Removing )
       .replace(/"/g, '&quot;') // Removing "
       .replace(/'/g, '&#39;') // Removing '

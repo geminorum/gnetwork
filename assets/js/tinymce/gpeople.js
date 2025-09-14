@@ -6,7 +6,7 @@
       icon: 'icon gnetwork-tinymce-icon icon-gnetworkgpeople',
 
       onclick: function () {
-        var selected = editor.selection.getContent();
+        const selected = editor.selection.getContent();
 
         editor.windowManager.open({
           title: editor.getLang('gnetwork.gnetworkgpeople-title'),

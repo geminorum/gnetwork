@@ -3,7 +3,7 @@
     editor.addShortcut('ctrl+e', editor.getLang('gnetwork.gnetworkemail-title'), 'gnetworkemail');
 
     editor.addCommand('gnetworkemail', function () {
-      var text = editor.selection.getContent();
+      const text = editor.selection.getContent();
       editor.insertContent('[email]' + (text ? text + '[/email]' : ''));
     });
 
@@ -13,7 +13,7 @@
       icon: 'icon gnetwork-tinymce-icon icon-gnetworkemail',
 
       onclick: function () {
-        var selected = editor.selection.getContent();
+        const selected = editor.selection.getContent();
 
         editor.windowManager.open({
           title: editor.getLang('gnetwork.gnetworkemail-title'),
@@ -48,7 +48,7 @@
             onclick: 'close'
           }],
           onsubmit: function (e) {
-            var open = '[email' + (
+            const open = '[email' + (
               e.data.subject ? ' subject="' + e.data.subject + '"' : ''
             ) + (
               e.data.hover ? ' title="' + e.data.hover + '"' : ''

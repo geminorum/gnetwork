@@ -6,7 +6,7 @@
       icon: 'icon gnetwork-tinymce-icon icon-gnetworkquote',
 
       onclick: function () {
-        var selected = editor.selection.getContent();
+        const selected = editor.selection.getContent();
 
         editor.windowManager.open({
           title: editor.getLang('gnetwork.gnetworkquote-title'),
@@ -79,7 +79,7 @@
           ],
           onsubmit: function (e) {
             if (e.data.text) {
-              var classes = [];
+              const classes = [];
 
               if (e.data.epigraph) {
                 classes.push('epigraph');
@@ -96,7 +96,7 @@
                 classes.push('-align-' + e.data.align);
               }
 
-              var open = classes.length > 0 ? '<blockquote class="' + classes.join(' ') + '">' : '<blockquote>';
+              const open = classes.length > 0 ? '<blockquote class="' + classes.join(' ') + '">' : '<blockquote>';
 
               if (e.data.cite) {
                 if (e.data.url) {

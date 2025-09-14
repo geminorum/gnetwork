@@ -3,7 +3,7 @@
     editor.addShortcut('ctrl+q', editor.getLang('gnetwork.gnetworkref-title'), 'gnetworkref');
 
     editor.addCommand('gnetworkref', function () {
-      var text = editor.selection.getContent();
+      const text = editor.selection.getContent();
       editor.insertContent('[ref]' + (text ? text.trim().replace(/^\(([^)]*)\)$/g, '$1').trim() : '') + '[/ref]');
     });
 
@@ -13,7 +13,7 @@
       icon: 'icon gnetwork-tinymce-icon icon-gnetworkref',
 
       onclick: function () {
-        var selected = editor.selection.getContent();
+        const selected = editor.selection.getContent();
 
         editor.windowManager.open({
           title: editor.getLang('gnetwork.gnetworkref-title'),

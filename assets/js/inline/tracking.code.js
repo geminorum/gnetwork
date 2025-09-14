@@ -16,12 +16,13 @@
 
 window.dataLayer = window.dataLayer || [];
 function gtag () {
-  dataLayer.push(arguments);
+  window.dataLayer.push(arguments);
 }
 
 // @REF: https://developers.google.com/analytics/devguides/collection/gtagjs/sending-data
+/* eslint-disable-next-line no-unused-vars */
 function gtagCallback (callback, timeout) {
-  var called = false;
+  let called = false;
   function fn () {
     if (!called) {
       called = true;
