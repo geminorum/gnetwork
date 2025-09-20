@@ -1286,8 +1286,8 @@ class Media extends gNetwork\Module
 			case 'image/svg+xml':
 
 				$label = _x( 'View Image URL', 'Modules: Media: Row Action', 'gnetwork' );
+				break;
 
-			break;
 			case 'video/mpeg':
 			case 'video/mp4':
 			case 'video/webm':
@@ -1295,33 +1295,33 @@ class Media extends gNetwork\Module
 			case 'video/quicktime':
 
 				$label = _x( 'View Video URL', 'Modules: Media: Row Action', 'gnetwork' );
+				break;
 
-			break;
 			case 'text/csv':
 			case 'text/xml':
 
 				$label = _x( 'View Data File URL', 'Modules: Media: Row Action', 'gnetwork' );
+				break;
 
-			break;
 			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
 			case 'application/vnd.ms-excel':
 
 				$label = _x( 'View Spreadsheet URL', 'Modules: Media: Row Action', 'gnetwork' );
+				break;
 
-			break;
 			case 'application/pdf':
 			case 'application/rtf':
 			case 'application/msword':
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
 
 				$label = _x( 'View Document URL', 'Modules: Media: Row Action', 'gnetwork' );
+				break;
 
-			break;
 			case 'text/html':
 
 				$label = _x( 'View HTML file URL', 'Modules: Media: Row Action', 'gnetwork' );
+				break;
 
-			break;
 			default:
 
 				$label = _x( 'View Item URL', 'Modules: Media: Row Action', 'gnetwork' );
@@ -1470,6 +1470,10 @@ class Media extends gNetwork\Module
 				return '[csv id="'.$id.'"]'
 					.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/csv]';
 
+			if ( 'text/markdown' === $attachment->post_mime_type )
+				return '[markdown id="'.$id.'"]'
+					.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/markdown]';
+
 			// WORKING BUT DISABLED: short-code not supported, yet!
 			// if ( 'application/epub+zip' == $attachment->post_mime_type )
 			// 	return '[epub id="'.$id.'"]'
@@ -1497,7 +1501,7 @@ class Media extends gNetwork\Module
 		return WordPress\Media::htmlAttachmentShortLink( $id, $html );
 	}
 
-	// tries to set correct size for thumbnail metabox
+	// tries to set correct size for thumbnail meta-box
 	public function admin_post_thumbnail_size( $size, $thumbnail_id, $post )
 	{
 		$_wp_additional_image_sizes = wp_get_additional_image_sizes();

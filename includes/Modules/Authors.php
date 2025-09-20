@@ -307,7 +307,10 @@ class Authors extends gNetwork\Module
 			return;
 
 		if ( $this->options['replace_author_links'] )
-			Core\WordPress::redirect( $this->options['replace_author_links'], $this->options['status_code'] );
+			Core\WordPress::redirect(
+				$this->options['replace_author_links'],
+				$this->options['replace_status_code']
+			);
 
 		Utilities::redirect404();
 	}

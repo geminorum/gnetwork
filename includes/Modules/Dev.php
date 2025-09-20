@@ -25,7 +25,7 @@ class Dev extends gNetwork\Module
 		// $this->action( 'http_api_curl', 3, 999 );
 		$this->filter_false( 'https_ssl_verify' );
 		$this->filter_false( 'https_local_ssl_verify' );
-		// $this->filter_false( 'wp_is_php_version_acceptable' ); // to help with translation
+		// $this->filter_false( 'wp_is_php_version_acceptable', 1, 9999 ); // to help with translation
 		// $this->filter_true( 'jetpack_development_mode' );
 		// $this->filter_true( 'jetpack_offline_mode' ); // https://jetpack.com/support/offline-mode/
 		$this->filter_true( 'wp_is_application_passwords_available' );

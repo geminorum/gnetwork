@@ -112,10 +112,11 @@ class Plugin extends Base
 			'GNETWORK_DISABLE_ALL_HELP_TABS' => FALSE,
 			'GNETWORK_DISABLE_PRIVACY_TOOLS' => TRUE,
 
-			'GCORE_DEFAULT_COUNTRY_CODE'   => gNetwork()->option( 'base_country', 'site' ) ?: 'IR',
-			'GCORE_DEFAULT_PROVINCE_CODE'  => gNetwork()->option( 'base_province', 'site' ) ?: 'TEH',
-			'GCORE_DEFAULT_COUNTRY_PHONE'  => gNetwork()->option( 'base_country_phone', 'site' ) ?: '98',
-			'GCORE_DEFAULT_PROVINCE_PHONE' => gNetwork()->option( 'base_province_phone', 'site' ) ?: '21',
+			'GCORE_DEFAULT_COUNTRY_CODE'    => gNetwork()->option( 'base_country', 'site' ) ?: 'IR',
+			'GCORE_DEFAULT_PROVINCE_CODE'   => gNetwork()->option( 'base_province', 'site' ) ?: 'TEH',
+			// 'GCORE_DEFAULT_PROVINCE_LATLNG' => gNetwork()->option( 'base_province_latlng', 'site' ) ?: '35.688889,51.389722',
+			'GCORE_DEFAULT_COUNTRY_PHONE'   => gNetwork()->option( 'base_country_phone', 'site' ) ?: '98',
+			'GCORE_DEFAULT_PROVINCE_PHONE'  => gNetwork()->option( 'base_province_phone', 'site' ) ?: '21',
 		];
 	}
 

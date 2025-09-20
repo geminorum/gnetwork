@@ -337,6 +337,7 @@ class Debug extends gNetwork\Module
 		}
 	}
 
+	// TODO: Move to `Htaccess` Module
 	public static function htaccessSummary()
 	{
 		echo '<pre data-prism="yes" class="language-apacheconf line-numbers" dir="ltr"><code class="language-apacheconf">';
@@ -345,9 +346,10 @@ class Debug extends gNetwork\Module
 	}
 
 	// FIXME: DRAFT: not used
-	public static function htaccessAppend( $block, $content )
+	// TODO: Move to `Htaccess` Module
+	public static function htaccessAppend( $marker, $content )
 	{
-		return insert_with_markers( trailingslashit( get_home_path() ).'.htaccess', $block, $content );
+		return insert_with_markers( trailingslashit( get_home_path() ).'.htaccess', $marker, $content );
 	}
 
 	public static function wpconfigSummary()
