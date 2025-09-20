@@ -374,6 +374,13 @@ class Admin extends gNetwork\Module
 				'cb'    => [ __NAMESPACE__.'\\Media', 'registeredImageSizes' ],
 			];
 
+		if ( class_exists( __NAMESPACE__.'\\Mimes' )
+			&& current_user_can( gNetwork()->option( 'tools_accesscap', 'mimes', 'edit_others_posts' ) ) )
+			$tabs['mimetypes'] = [
+				'title' => _x( 'Allowed Mime-Types', 'Modules: Admin: Site Overview', 'gnetwork' ),
+				'cb'    => [ __NAMESPACE__.'\\Mimes', 'allowedMimeTypes' ],
+			];
+
 		if ( $sitemeta && Core\WordPress::isSuperAdmin() )
 			$tabs['sitemeta'] = [
 				'title' => _x( 'Site Meta', 'Modules: Admin: Site Overview', 'gnetwork' ),

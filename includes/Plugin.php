@@ -152,6 +152,7 @@ class Plugin extends Base
 			'Extend',
 			// 'DB',
 			'Media',
+			'Mimes',
 			'Images',
 			'Player',
 			'Embed',

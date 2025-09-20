@@ -27,8 +27,8 @@ class Media extends gNetwork\Module
 		// @REF: https://core.trac.wordpress.org/ticket/57913
 		$this->filter_false( 'pre_option_wp_attachment_pages_enabled' );
 
-		$this->filter( 'upload_mimes' );
-		// $this->filter( 'wp_check_filetype_and_ext', 4, 12 );
+		// $this->filter( 'upload_mimes' );
+		// $this->filter( 'wp_check_filetype_and_ext', 5, 12 );
 
 		// if ( function_exists( 'normalizer_normalize' ) )
 		// 	$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
@@ -41,8 +41,6 @@ class Media extends gNetwork\Module
 
 			if ( $this->options['dashboard_widget'] )
 				$this->action( 'post-plupload-upload-ui', 0, 12 );
-
-			$this->filter( 'post_mime_types' );
 
 		} else {
 
@@ -1272,6 +1270,7 @@ class Media extends gNetwork\Module
 		return base64_decode( $parts[1] ) ?: FALSE;
 	}
 
+	// TODO: Move to `Mimes` Module
 	private function get_media_type_label( $post_id, $mime_type = NULL )
 	{
 		if ( is_null( $mime_type ) )
@@ -1341,49 +1340,80 @@ class Media extends gNetwork\Module
 		return array_merge( $mimes, [
 			'pptx'      => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			'ppt'       => 'application/vnd.ms-powerpoint',
-			'doc'       => 'application/msword',
+			// 'doc'       => 'application/msword', // core support
 			'docx|docm' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 			'xls'       => 'application/vnd.ms-excel', // @SEE: https://core.trac.wordpress.org/ticket/39550#comment:156
 			'xlsx'      => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-			'csv'       => 'text/csv', // NOTE: the one in core does not work, WTF?!
-			'json'      => 'text/plain', // 'application/json', // @REF: https://stackoverflow.com/a/477819/
+			// 'csv'       => 'text/csv', // core support
+			'json'      => 'application/json', // 'text/plain' // @REF: https://stackoverflow.com/a/477819/
 			'xml'       => 'text/xml',
 			'md'        => 'text/markdown',
 			'webm'      => 'video/webm',
-			'flv'       => 'video/x-flv',
+			// 'flv'       => 'video/x-flv',
 			'ac3'       => 'audio/ac3',
 			'mpa'       => 'audio/mpa',
 			'mp4|mpg4'  => 'video/mp4',
 			'flv'       => 'video/x-flv',
-			'svg|svgz'  => 'image/svg+xml', // @SEE: https://library.wpcode.com/snippet/r5plmlo8/
+			// 'svg|svgz'  => 'image/svg+xml', // @SEE: https://library.wpcode.com/snippet/r5plmlo8/
+			'svg'       => 'image/svg+xml',
+			'svgz'      => 'application/x-gzip',
 			'psd'       => 'image/vnd.adobe.photoshop',
 			'mobi'      => 'application/x-mobipocket-ebook', // 'application/octet-stream'
 			'epub'      => 'application/epub+zip', // 'application/octet-stream'
 			'bib'       => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
 			// 'woff'      => 'font/woff', // 'application/font-woff', // @REEF: https://core.trac.wordpress.org/ticket/56817
-
+			'mht|mhtml' => 'multipart/related',
+			'txt'       => 'text/plain',
 		] );
 	}
 
-	// @REF: https://gist.github.com/rmpel/e1e2452ca06ab621fe061e0fde7ae150
-	// @SEE: https://core.trac.wordpress.org/ticket/45615
-	// @SEE: https://make.wordpress.org/core/2018/12/13/backwards-compatibility-breaks-in-5-0-1/
-	// WORKING but DISABLED
-	public function wp_check_filetype_and_ext( $data, $file, $filename, $mimes )
+	/**
+	 * Filters the “real” file type of the given file.
+	 * @source https://gist.github.com/rmpel/e1e2452ca06ab621fe061e0fde7ae150
+	 * @see https://core.trac.wordpress.org/ticket/45615
+	 *
+	 * @param array $data
+	 * @param string $file
+	 * @param string $filename
+	 * @param array $mimes
+	 * @param string $real_mime
+	 * @return array
+	 */
+	public function wp_check_filetype_and_ext( $data, $file, $filename, $mimes, $real_mime )
 	{
 		if ( extension_loaded( 'fileinfo' ) ) {
 
-			// With the PHP extension, a `CSV` file is issues type `text/plain`
-			// so we fix that back to `text/csv` by trusting the file extension
-			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
-			$real_mime = finfo_file( $finfo, $file );
-			finfo_close( $finfo );
+			// $finfo     = finfo_open( FILEINFO_MIME_TYPE );
+			// $real_mime = finfo_file( $finfo, $file );
+			// finfo_close( $finfo );
 
-			if ( 'text/plain' === $real_mime
-				&& preg_match( '/\.(csv)$/i', $filename ) ) {
+			if ( 'text/plain' === $real_mime ) {
 
-				$data['ext']  = 'csv';
-				$data['type'] = 'text/csv';
+				// With the PHP extension, a `CSV` file is issues type `text/plain`
+				// so we fix that back to `text/csv` by trusting the file extension
+				if ( preg_match( '/\.(csv)$/i', $filename ) ) {
+
+					$data['ext']  = 'csv';
+					$data['type'] = 'text/csv';
+
+				} else if ( preg_match( '/\.(md)$/i', $filename ) ) {
+
+					$data['ext']  = 'md';
+					$data['type'] = 'text/markdown';
+				}
+
+			} else if ( 'message/rfc822' === $real_mime ) {
+
+				if ( preg_match( '/\.(mht)$/i', $filename ) ) {
+
+					$data['ext']  = 'mht';
+					$data['type'] = 'multipart/related';
+
+				} else if ( preg_match( '/\.(mhtml)$/i', $filename ) ) {
+
+					$data['ext']  = 'mhtml';
+					$data['type'] = 'multipart/related';
+				}
 			}
 
 		} else {
@@ -1394,6 +1424,21 @@ class Media extends gNetwork\Module
 
 				$data['ext']  = 'csv';
 				$data['type'] = 'text/csv';
+
+			} else if ( preg_match( '/\.(md)$/i', $filename ) ) {
+
+				$data['ext']  = 'md';
+				$data['type'] = 'text/markdown';
+
+			} else if ( preg_match( '/\.(mht)$/i', $filename ) ) {
+
+				$data['ext']  = 'mht';
+				$data['type'] = 'multipart/related';
+
+			} else if ( preg_match( '/\.(mhtml)$/i', $filename ) ) {
+
+				$data['ext']  = 'mhtml';
+				$data['type'] = 'multipart/related';
 			}
 		}
 
@@ -1461,25 +1506,6 @@ class Media extends gNetwork\Module
 			return $post->post_type.'-thumbnail';
 
 		return $size;
-	}
-
-	// @REF: https://core.trac.wordpress.org/ticket/38195
-	public function post_mime_types( $post_mime_types )
-	{
-		return array_merge( $post_mime_types, [
-			'text' => [
-				_x( 'Text', 'Modules: Media: Post Mime Type', 'gnetwork' ),
-				_x( 'Manage Texts', 'Modules: Media: Post Mime Type', 'gnetwork' ),
-				/* translators: %s: media texts count */
-				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', 'gnetwork' ),
-			],
-			'application' => [
-				_x( 'Application', 'Modules: Media: Post Mime Type', 'gnetwork' ),
-				_x( 'Manage Applications', 'Modules: Media: Post Mime Type', 'gnetwork' ),
-				/* translators: %s: media applications count */
-				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Media: Post Mime Type', 'gnetwork' ),
-			],
-		] );
 	}
 
 	// ADOPTED FROM: Filename Normalizer v1.0.1 by required
