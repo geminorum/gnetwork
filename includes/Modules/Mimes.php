@@ -100,66 +100,65 @@ class Mimes extends gNetwork\Module
 	];
 
 	/**
-	 * Filter: `upload_mimes`; add additional filetypes to the allowed upload filetypes.
+	 * Adds additional filetypes to the allowed upload filetypes.
+	 * @hook: `upload_mimes`
 	 *
 	 * @param string[] $mimes Array of allowed mime types keyed by the file extension.
 	 * @return mixed
 	 */
 	public function upload_mimes( $mimes )
 	{
-		$additional_mimes = self::$mimes;
-
-		// Reduce the array to only the first mime type.
-		$additional_mimes = array_map( 'reset', $additional_mimes );
-
-		// Merge the additional mimes with the existing mimes.
-		$mimes = array_merge( $mimes, $additional_mimes );
-
-		return $mimes;
+		// Reduce the array to only the first mime-type
+		// and merge the additional with the existing mimes.
+		return array_merge( $mimes, array_combine(
+			array_keys( static::$mimes ),
+			array_column( static::$mimes, 0 )
+		) );
 	}
 
 	/**
-	 * Filter: `site_option_upload_filetypes`; add additional filetypes to the allowed upload filetypes.
+	 * Adds additional filetypes to the allowed upload file-types.
+	 * @hook: `site_option_upload_filetypes`
 	 *
 	 * @param string $option_value Space separated list of allowed filetypes (extensions).
 	 * @return string
 	 */
 	public function site_option_upload_filetypes( $option_value )
 	{
-		$option_value = explode( ' ', $option_value );
-		$option_value = array_merge( $option_value, array_keys( self::$mimes ) );
-		$option_value = array_unique( $option_value );
-		$option_value = implode( ' ', $option_value );
-
-		return $option_value;
+		return implode( ' ', Core\Arraay::prepString(
+			explode( ' ', $option_value ?: '' ),
+			array_keys( static::$mimes )
+		) );
 	}
 
 	/**
-	 * Filter: `wp_check_filetype_and_ext`; determine the proper filetype based on extension and a list of allowed mime types.
-	 * WordPress only allows one filetype per extension, this filter implementation allows us to support multiple filetypes per extension.
+	 * Determines the proper filetype based on extension and a list of
+	 * allowed mime-types. WordPress only allows one filetype per extension,
+	 * this filter implementation allows us to support multiple filetypes
+	 * per extension.
+	 * @hook: `wp_check_filetype_and_ext`
 	 *
-	 * @param array $file_data An array of data for a single file, as determined by WordPress during upload.
+	 * @param array $data An array of data for a single file, as determined by WordPress during upload.
 	 * @param string $file Unused in this implementation. The path to the uploaded file.
 	 * @param string $filename The name of the uploaded file.
 	 * @param string[] $mimes Unused in this implementation.
 	 * @param string $real_mime The mime-type as determined by PHP's `Fileinfo` extension.
 	 * @return mixed
 	 */
-	public function wp_check_filetype_and_ext( $file_data, $file, $filename, $mimes, $real_mime )
+	public function wp_check_filetype_and_ext( $data, $file, $filename, $mimes, $real_mime )
 	{
 		if ( ! extension_loaded( 'fileinfo' ) )
-			return $file_data;
+			return $data;
 
 		$file_ext = pathinfo( $filename, PATHINFO_EXTENSION );
 
-		foreach ( self::$mimes as $ext => $mime ) {
-			if ( $ext === $file_ext && in_array( $real_mime, self::$mimes[ $ext ], true ) ) {
-				$file_data['ext']  = $ext;
-				$file_data['type'] = reset( self::$mimes[ $ext ] );
+		foreach ( static::$mimes as $ext => $mime ) {
+			if ( $ext === $file_ext && in_array( $real_mime, static::$mimes[$ext], TRUE ) ) {
+				$data['ext']  = $ext;
+				$data['type'] = reset( static::$mimes[$ext] );
 			}
 		}
 
-		return $file_data;
+		return $data;
 	}
 }
-
