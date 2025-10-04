@@ -63,13 +63,13 @@ class Mimes extends gNetwork\Module
 			'text' => [
 				_x( 'Text', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
 				_x( 'Manage Texts', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
-				/* translators: %s: media texts count */
+				/* translators: `%s`: media texts count */
 				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
 			],
 			'application' => [
 				_x( 'Application', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
 				_x( 'Manage Applications', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
-				/* translators: %s: media applications count */
+				/* translators: `%s`: media applications count */
 				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
 			],
 		] );
@@ -79,14 +79,20 @@ class Mimes extends gNetwork\Module
 	 * Array of allowed mime types keyed by the file extension.
 	 * The first in the list is used when any of the mimes are found for that extension.
 	 * @source https://gist.github.com/rmpel/f5e8e17757992df631c78a15a1a6ddd6
+	 * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+	 * @see: http://fileformats.archiveteam.org/
+	 * @see: https://core.trac.wordpress.org/ticket/40175
 	 *
 	 * @var array[]
 	 */
 	static $mimes = [
-		'bib'     => [ 'application/x-bibtex', 'text/plain' ],
+		'bib'     => [ 'application/x-bibtex', 'text/plain' ],                                         // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
+		'bibtex'  => [ 'application/x-bibtex', 'text/plain' ],
 		'csv'     => [ 'text/csv', 'text/plain', 'application/csv', 'text/comma-separated-values' ],
 		'epub'    => [ 'application/epub+zip', 'application/octet-stream' ],
 		'geojson' => [ 'application/json', 'text/json' ],
+		'gpx'     => [ 'application/gpx+xml', 'text/xml', 'application/octet-stream' ],                // @specs: https://www.topografix.com/GPX/1/1/
+		'heic'    => [ 'image/heic', 'image/heif' ],                                                   // NOTE: In PHP 8.5, it returns `image/heif`. Before that, it returns `image/heic`.
 		'json'    => [ 'application/json', 'text/json' ],
 		'kml'     => [ 'application/vnd.google-earth.kml+xml', 'application/xml', 'text/xml' ],
 		'md'      => [ 'text/markdown', 'text/plain' ],
@@ -97,6 +103,8 @@ class Mimes extends gNetwork\Module
 		'svg'     => [ 'image/svg+xml' ],
 		'svgz'    => [ 'image/svg+xml', 'application/x-gzip' ],
 		'txt'     => [ 'text/plain' ],
+		'xls'     => [ 'application/vnd.ms-excel', 'application/vnd.ms-office', 'application/xml' ],   // @REF: https://core.trac.wordpress.org/ticket/39550#comment:156
+		'xlsx'    => [ 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ],
 	];
 
 	/**
@@ -104,7 +112,7 @@ class Mimes extends gNetwork\Module
 	 * @hook: `upload_mimes`
 	 *
 	 * @param string[] $mimes Array of allowed mime types keyed by the file extension.
-	 * @return mixed
+	 * @return array
 	 */
 	public function upload_mimes( $mimes )
 	{
@@ -137,13 +145,15 @@ class Mimes extends gNetwork\Module
 	 * this filter implementation allows us to support multiple filetypes
 	 * per extension.
 	 * @hook: `wp_check_filetype_and_ext`
+	 * @see https://core.trac.wordpress.org/ticket/45615
+	 * @see https://gist.github.com/rmpel/e1e2452ca06ab621fe061e0fde7ae150
 	 *
 	 * @param array $data An array of data for a single file, as determined by WordPress during upload.
 	 * @param string $file Unused in this implementation. The path to the uploaded file.
 	 * @param string $filename The name of the uploaded file.
 	 * @param string[] $mimes Unused in this implementation.
 	 * @param string $real_mime The mime-type as determined by PHP's `Fileinfo` extension.
-	 * @return mixed
+	 * @return array
 	 */
 	public function wp_check_filetype_and_ext( $data, $file, $filename, $mimes, $real_mime )
 	{

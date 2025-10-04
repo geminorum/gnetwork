@@ -27,9 +27,6 @@ class Media extends gNetwork\Module
 		// @REF: https://core.trac.wordpress.org/ticket/57913
 		$this->filter_false( 'pre_option_wp_attachment_pages_enabled' );
 
-		// $this->filter( 'upload_mimes' );
-		// $this->filter( 'wp_check_filetype_and_ext', 5, 12 );
-
 		// if ( function_exists( 'normalizer_normalize' ) )
 		// 	$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
 
@@ -84,6 +81,7 @@ class Media extends gNetwork\Module
 					'default'     => 'edit_others_posts',
 				],
 			],
+			// TODO: move to an Editorial Module: `Uploader`
 			'_uploader' => [
 				'dashboard_widget',
 				'dashboard_accesscap' => 'edit_others_posts',
@@ -113,11 +111,11 @@ class Media extends gNetwork\Module
 
 	public function init()
 	{
-		// support for taxonomy sizes
+		// Support for taxonomy sizes
 		// must be after object_sizes filter: `wp_generate_attachment_metadata_posttype`
 		$this->filter( 'wp_generate_attachment_metadata', 2, 12, 'taxonomy' );
 
-		// fires after images attached to terms
+		// Fires after images attached to terms
 		// WARNING: no prefix is not a good idea!
 		$this->action( 'clean_term_attachment_cache' );
 
@@ -558,7 +556,7 @@ class Media extends gNetwork\Module
 		if ( isset( $metadata['sizes'] ) && count( $metadata['sizes'] ) )
 			return $metadata;
 
-		if ( $this->attachment_is_custom( $attachment_id ) )
+		if ( WordPress\Media::isCustom( $attachment_id ) )
 			return $metadata;
 
 		$parent_type = $this->filters( 'object_sizes_parent', NULL, $attachment_id, $metadata );
@@ -717,29 +715,6 @@ class Media extends gNetwork\Module
 		return $sizes;
 	}
 
-	public function attachment_is_custom( $attachment_id )
-	{
-		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_header', TRUE ) )
-			return TRUE;
-
-		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_background', TRUE ) )
-			return TRUE;
-
-		if ( get_post_meta( $attachment_id, '_wp_attachment_context', TRUE ) )
-			return TRUE;
-
-		if ( $attachment_id == get_option( 'site_icon' ) )
-			return TRUE;
-
-		if ( $attachment_id == get_theme_mod( 'custom_logo' ) )
-			return TRUE;
-
-		if ( $attachment_id == get_theme_mod( 'site_logo' ) )
-			return TRUE;
-
-		return FALSE;
-	}
-
 	// core dup with posttype/taxonomy/title
 	// @REF: `add_image_size()`
 	public static function registerImageSize( $name, $atts = [] )
@@ -857,7 +832,7 @@ class Media extends gNetwork\Module
 
 	public function clean_attachment( $attachment_id, $regenerate = TRUE, $force = FALSE )
 	{
-		if ( $force || ! $this->attachment_is_custom( $attachment_id ) ) {
+		if ( $force || ! WordPress\Media::isCustom( $attachment_id ) ) {
 
 			Core\File::remove( $this->get_attachment_thumbs( $attachment_id ) );
 
@@ -1070,8 +1045,8 @@ class Media extends gNetwork\Module
 					Ajax::success();
 
 				Ajax::error( $stored );
+				break;
 
-			break;
 			case 'upload_complete':
 
 				Ajax::checkReferer( $this->classs( 'file-upload' ) );
@@ -1083,7 +1058,8 @@ class Media extends gNetwork\Module
 				else
 					Ajax::errorMessage( $completed[1] );
 
-			break;
+				break;
+
 			case 'clean_attachment':
 
 				if ( empty( $post['attachment'] ) )
@@ -1095,8 +1071,8 @@ class Media extends gNetwork\Module
 					Ajax::errorMessage();
 
 				Ajax::success( _x( 'Cleaned', 'Modules: Media: Row Action', 'gnetwork' ) );
+				break;
 
-			break;
 			case 'clean_post':
 
 				if ( empty( $post['post_id'] ) )
@@ -1113,8 +1089,8 @@ class Media extends gNetwork\Module
 					Ajax::success( _x( 'Already Cleaned!', 'Modules: Media: Row Action', 'gnetwork' ) );
 
 				Ajax::success( _x( 'Cleaned!', 'Modules: Media: Row Action', 'gnetwork' ) );
+				break;
 
-			break;
 			case 'sync_post':
 
 				if ( empty( $post['post_id'] ) )
@@ -1131,8 +1107,8 @@ class Media extends gNetwork\Module
 					Ajax::success( _x( 'Already Synced!', 'Modules: Media: Row Action', 'gnetwork' ) );
 
 				Ajax::success( _x( 'Synced!', 'Modules: Media: Row Action', 'gnetwork' ) );
+				break;
 
-			break;
 			case 'cache_post':
 
 				if ( empty( $post['post_id'] ) )
@@ -1144,8 +1120,8 @@ class Media extends gNetwork\Module
 					Ajax::errorMessage();
 
 				Ajax::success( _x( 'Cached', 'Modules: Media: Row Action', 'gnetwork' ) );
+				break;
 
-			break;
 			case 'correct_post':
 
 				if ( empty( $post['post_id'] ) )
@@ -1330,122 +1306,7 @@ class Media extends gNetwork\Module
 		return $this->filters( 'mime_type_label', $label, $mime_type, $post_id );
 	}
 
-	// FIXME: add based on current user: needs testing: for svg,json
-	// FIXME: add administrative option to select mimes: svg,json
-	// FIXME: add general option to select mimes
-	// @SEE: https://core.trac.wordpress.org/ticket/40175
-	// @SEE: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
-	public function upload_mimes( $mimes )
-	{
-		return array_merge( $mimes, [
-			'pptx'      => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-			'ppt'       => 'application/vnd.ms-powerpoint',
-			// 'doc'       => 'application/msword', // core support
-			'docx|docm' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-			'xls'       => 'application/vnd.ms-excel', // @SEE: https://core.trac.wordpress.org/ticket/39550#comment:156
-			'xlsx'      => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-			// 'csv'       => 'text/csv', // core support
-			'json'      => 'application/json', // 'text/plain' // @REF: https://stackoverflow.com/a/477819/
-			'xml'       => 'text/xml',
-			'md'        => 'text/markdown',
-			'webm'      => 'video/webm',
-			// 'flv'       => 'video/x-flv',
-			'ac3'       => 'audio/ac3',
-			'mpa'       => 'audio/mpa',
-			'mp4|mpg4'  => 'video/mp4',
-			'flv'       => 'video/x-flv',
-			// 'svg|svgz'  => 'image/svg+xml', // @SEE: https://library.wpcode.com/snippet/r5plmlo8/
-			'svg'       => 'image/svg+xml',
-			'svgz'      => 'application/x-gzip',
-			'psd'       => 'image/vnd.adobe.photoshop',
-			'mobi'      => 'application/x-mobipocket-ebook', // 'application/octet-stream'
-			'epub'      => 'application/epub+zip', // 'application/octet-stream'
-			'bib'       => 'application/x-bibtex', // 'text/plain', // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
-			// 'woff'      => 'font/woff', // 'application/font-woff', // @REEF: https://core.trac.wordpress.org/ticket/56817
-			'mht|mhtml' => 'multipart/related',
-			'txt'       => 'text/plain',
-		] );
-	}
-
-	/**
-	 * Filters the “real” file type of the given file.
-	 * @source https://gist.github.com/rmpel/e1e2452ca06ab621fe061e0fde7ae150
-	 * @see https://core.trac.wordpress.org/ticket/45615
-	 *
-	 * @param array $data
-	 * @param string $file
-	 * @param string $filename
-	 * @param array $mimes
-	 * @param string $real_mime
-	 * @return array
-	 */
-	public function wp_check_filetype_and_ext( $data, $file, $filename, $mimes, $real_mime )
-	{
-		if ( extension_loaded( 'fileinfo' ) ) {
-
-			// $finfo     = finfo_open( FILEINFO_MIME_TYPE );
-			// $real_mime = finfo_file( $finfo, $file );
-			// finfo_close( $finfo );
-
-			if ( 'text/plain' === $real_mime ) {
-
-				// With the PHP extension, a `CSV` file is issues type `text/plain`
-				// so we fix that back to `text/csv` by trusting the file extension
-				if ( preg_match( '/\.(csv)$/i', $filename ) ) {
-
-					$data['ext']  = 'csv';
-					$data['type'] = 'text/csv';
-
-				} else if ( preg_match( '/\.(md)$/i', $filename ) ) {
-
-					$data['ext']  = 'md';
-					$data['type'] = 'text/markdown';
-				}
-
-			} else if ( 'message/rfc822' === $real_mime ) {
-
-				if ( preg_match( '/\.(mht)$/i', $filename ) ) {
-
-					$data['ext']  = 'mht';
-					$data['type'] = 'multipart/related';
-
-				} else if ( preg_match( '/\.(mhtml)$/i', $filename ) ) {
-
-					$data['ext']  = 'mhtml';
-					$data['type'] = 'multipart/related';
-				}
-			}
-
-		} else {
-
-			// Without the PHP extension, we probably don't have the issue
-			// at all, but just to be sure
-			if ( preg_match( '/\.(csv)$/i', $filename ) ) {
-
-				$data['ext']  = 'csv';
-				$data['type'] = 'text/csv';
-
-			} else if ( preg_match( '/\.(md)$/i', $filename ) ) {
-
-				$data['ext']  = 'md';
-				$data['type'] = 'text/markdown';
-
-			} else if ( preg_match( '/\.(mht)$/i', $filename ) ) {
-
-				$data['ext']  = 'mht';
-				$data['type'] = 'multipart/related';
-
-			} else if ( preg_match( '/\.(mhtml)$/i', $filename ) ) {
-
-				$data['ext']  = 'mhtml';
-				$data['type'] = 'multipart/related';
-			}
-		}
-
-		return $data;
-	}
-
-	// overrides the attachment url with short-link
+	// Overrides the attachment URL with short-link
 	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt, $rel = '' )
 	{
 		if ( strpos( $url, 'attachment_id' ) || $url == get_attachment_link( $id ) )
@@ -1460,7 +1321,7 @@ class Media extends gNetwork\Module
 		if ( ! $attachment = get_post( $id ) )
 			return $html;
 
-		// if no link provided, check for shor-tcode supported types
+		// If no link provided check for short-code supported types
 		if ( empty( $data['url'] ) ) {
 
 			// TODO: must use filter system
@@ -1487,21 +1348,21 @@ class Media extends gNetwork\Module
 			return $html;
 		}
 
-		// we use another hook for images
+		// We use another hook for images
 		if ( 'image' === substr( $attachment->post_mime_type, 0, 5 ) )
 			return $html;
 
-		// bail if it's custom link
+		// Bail if it's custom link
 		if ( trim( $data['url'] ) != get_attachment_link( $id ) )
 			return $html;
 
-		// core media js is failing to set title for video/audio
+		// Core media.js is failing to set title for video/audio
 		$html = isset( $data['post_title'] ) ? $data['post_title'] : strip_tags( $html );
 
 		return WordPress\Media::htmlAttachmentShortLink( $id, $html );
 	}
 
-	// tries to set correct size for thumbnail meta-box
+	// Tries to set correct size for thumbnail meta-box
 	public function admin_post_thumbnail_size( $size, $thumbnail_id, $post )
 	{
 		$_wp_additional_image_sizes = wp_get_additional_image_sizes();
