@@ -34,12 +34,7 @@ class Media extends gNetwork\Module
 		$this->filter( 'image_send_to_editor', 9 );
 		$this->filter( 'media_send_to_editor', 3, 12 );
 
-		if ( is_admin() ) {
-
-			if ( $this->options['dashboard_widget'] )
-				$this->action( 'post-plupload-upload-ui', 0, 12 );
-
-		} else {
+		if ( ! is_admin() ) {
 
 			$this->filter( 'single_post_title', 2, 9 );
 		}
@@ -62,10 +57,7 @@ class Media extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'tools_accesscap'     => 'edit_others_posts',
-			'dashboard_widget'    => '0',
-			'dashboard_accesscap' => 'edit_others_posts',
-			'dashboard_intro'     => '',
+			'tools_accesscap' => 'edit_others_posts',
 		];
 	}
 
@@ -81,21 +73,7 @@ class Media extends gNetwork\Module
 					'default'     => 'edit_others_posts',
 				],
 			],
-			// TODO: move to an Editorial Module: `Uploader`
-			'_uploader' => [
-				'dashboard_widget',
-				'dashboard_accesscap' => 'edit_others_posts',
-				'dashboard_intro',
-			],
 		];
-	}
-
-	public function settings_section_uploader()
-	{
-		Settings::fieldSection(
-			_x( 'Large File Uploader', 'Modules: Media: Settings', 'gnetwork' ),
-			_x( 'Simple javascript powered widget to upload large files.', 'Modules: Media: Settings', 'gnetwork' )
-		);
 	}
 
 	public function settings_sidebox( $sub, $uri )
@@ -158,25 +136,6 @@ class Media extends gNetwork\Module
 
 			$this->filter( 'admin_post_thumbnail_size', 3, 9 );
 		}
-	}
-
-	public function setup_dashboard()
-	{
-		if ( ! current_user_can( 'upload_files' ) )
-			return;
-
-		if ( $this->add_dashboard_widget( 'uploader', _x( 'Large File Uploader', 'Modules: Media: Widget Title', 'gnetwork' ), 'info' ) )
-			Scripts::enqueueScript( 'admin.media.uploader' );
-	}
-
-	public function post_plupload_upload_ui()
-	{
-		if ( Core\WordPress::cuc( $this->options['dashboard_accesscap'] ) )
-			Core\HTML::desc( sprintf(
-				/* translators: `%1$s`: link markup start, `%2$s`: link markup end */
-				_x( 'Alternatively, you can use %1$sLarge File Uploader%2$s widget on the dashoard.', 'Modules: Media', 'gnetwork' ),
-				'<a href="'.Core\HTML::escapeURL( get_dashboard_url() ).'">', '</a>'
-			) );
 	}
 
 	public function tools( $sub = NULL, $key = NULL )
@@ -1035,31 +994,6 @@ class Media extends gNetwork\Module
 
 		switch ( $what ) {
 
-			case 'upload_chaunk':
-
-				Ajax::checkReferer( $this->classs( 'file-upload' ) );
-
-				$stored = $this->store_chaunk( $post['file'], $post['file_data'], (int) $post['chunk'] );
-
-				if ( TRUE === $stored )
-					Ajax::success();
-
-				Ajax::error( $stored );
-				break;
-
-			case 'upload_complete':
-
-				Ajax::checkReferer( $this->classs( 'file-upload' ) );
-
-				$completed = $this->complete_upload( $post['file'] );
-
-				if ( $completed[0] )
-					Ajax::success( $completed[1] );
-				else
-					Ajax::errorMessage( $completed[1] );
-
-				break;
-
 			case 'clean_attachment':
 
 				if ( empty( $post['attachment'] ) )
@@ -1136,114 +1070,6 @@ class Media extends gNetwork\Module
 		}
 
 		Ajax::errorWhat();
-	}
-
-	// @REF: https://github.com/deliciousbrains/wp-dbi-file-uploader
-	// @REF: https://deliciousbrains.com/?p=26646
-	public function render_widget_uploader()
-	{
-		Core\HTML::desc( $this->options['dashboard_intro'], TRUE, '-intro' );
-
-		$html = '<form>'.Ajax::spinner();
-		$html.= '<div id="'.$this->classs( 'file-progress' ).'" class="-messages">';
-		$html.= _x( 'Please select a file and click &#8220;Upload&#8221; to continue.', 'Modules: Media', 'gnetwork' );
-		$html.= '</div>';
-
-		$html.= '<div><label for="'.$this->classs( 'file-upload' ).'" class="button button-small">';
-		$html.= _x( 'Select File', 'Modules: Media', 'gnetwork' ).'</label>';
-
-		$html.= Core\HTML::tag( 'input', [
-			'id'    => $this->classs( 'file-upload' ),
-			'type'  => 'file',
-			'style' => 'display:none',
-		] );
-
-		$html.= Core\HTML::tag( 'input', [
-			'id'    => $this->classs( 'file-submit' ),
-			'type'  => 'submit',
-			'class' => [ 'button', 'button-small', 'button-primary' ],
-			'value' => _x( 'Upload', 'Modules: Media', 'gnetwork' ),
-			'data'  => [
-				'nonce'    => wp_create_nonce( $this->classs( 'file-upload' ) ),
-				'locale'   => Core\L10n::locale(),
-				/* translators: %s: progress precent */
-				'progress' => _x( 'Uploading File - %s%', 'Modules: Media', 'gnetwork' ),
-				'complete' => _x( 'Upload Complete!', 'Modules: Media', 'gnetwork' ),
-			],
-			'disabled' => TRUE,
-		] );
-
-		$html.= '</div><code id="'.$this->classs( 'file-name' ).'" class="-filename" style="display:none"></code></form>';
-
-		echo $this->wrap( $html, '-widget-form' );
-	}
-
-	protected function get_widget_uploader_info()
-	{
-		return _x( 'You can access uploaded files via Media Library.', 'Modules: Media', 'gnetwork' );
-	}
-
-	// FIXME: must check filetype for non super admins / and delete file if not allowed
-	// FIXME: maybe use `wp_check_filetype_and_ext()`
-	// @REF: `media_handle_upload()`
-	private function complete_upload( $filename, $metadata = FALSE )
-	{
-		$wpupload = WordPress\Media::upload();
-
-		$file = sanitize_file_name( $filename );
-		$type = Core\File::type( $file );
-
-		$path = Core\File::join( $wpupload['path'], $file );
-		$url  = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
-
-		$ext   = pathinfo( $filename, PATHINFO_EXTENSION );
-		$name  = Core\File::basename( $filename, ".$ext" );
-		$title = sanitize_text_field( $name );
-
-		$id = wp_insert_attachment( [
-			'guid'           => $url,
-			'post_title'     => $title,
-			'post_mime_type' => $type['type'],
-		], $path, 0, TRUE );
-
-		if ( self::isError( $id ) )
-			return [ FALSE, $id->get_error_message() ];
-
-		if ( $metadata )
-			wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
-
-		return [ TRUE, Core\HTML::link( _x( 'View Uploaded File', 'Modules: Media', 'gnetwork' ), Core\WordPress::getPostEditLink( $id ), TRUE ) ];
-	}
-
-	private function store_chaunk( $file, $data, $chunk = 0 )
-	{
-		if ( FALSE === ( $decoded = $this->decode_chunk( $data ) ) )
-			return _x( 'Something is wrong with data!', 'Modules: Media', 'gnetwork' );
-
-		$wpupload = WordPress\Media::upload();
-
-		if ( FALSE !== $wpupload['error'] )
-			return _x( 'Can not access upload folders!', 'Modules: Media', 'gnetwork' );
-
-		$path = Core\File::join( $wpupload['path'], sanitize_file_name( $file ) );
-
-		if ( 0 === $chunk && file_exists( $path ) )
-			return _x( 'The file is already exists in upload folder!', 'Modules: Media', 'gnetwork' );
-
-		if ( ! file_put_contents( $path, $decoded, FILE_APPEND ) )
-			return _x( 'Can not put contents into file!', 'Modules: Media', 'gnetwork' );
-
-		return TRUE;
-	}
-
-	private function decode_chunk( $data )
-	{
-		$parts = explode( ';base64,', $data );
-
-		if ( ! is_array( $parts ) || ! isset( $parts[1] ) )
-			return FALSE;
-
-		return base64_decode( $parts[1] ) ?: FALSE;
 	}
 
 	// TODO: Move to `Mimes` Module
