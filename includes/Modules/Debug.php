@@ -543,14 +543,17 @@ class Debug extends gNetwork\Module
 	}
 
 	// @SEE: `WP_Site_Health::get_test_available_updates_disk_space()`
-	public static function summarySpaceUsage()
+	public static function summaryDiskSpace()
 	{
 		$summary = [
-			'Available Space' => function_exists( 'disk_free_space' ) ? Core\File::prefixSI( @disk_free_space( WP_CONTENT_DIR ) ) : 'UNAVAILABLE',
+			'disk_free_space()'  => function_exists( 'disk_free_space' ) ? Core\File::prefixSI( @disk_free_space( WP_CONTENT_DIR ) ) : 'UNAVAILABLE',
+			'sys_get_temp_dir()' => function_exists( 'sys_get_temp_dir' ) ? sys_get_temp_dir() : 'UNAVAILABLE',
+			'get_temp_dir()'     => get_temp_dir(),
+			'WP_TEMP_DIR'        => self::const( 'WP_TEMP_DIR', 'UNDEFINED' )
 		];
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		Core\HTML::h2( _x( 'Space Usage', 'Modules: Debug', 'gnetwork' ) );
+		Core\HTML::h2( _x( 'Disk Space', 'Modules: Debug', 'gnetwork' ) );
 
 			echo Core\HTML::tableCode( $summary );
 		echo '</div>';
@@ -689,7 +692,7 @@ class Debug extends gNetwork\Module
 			self::summaryWordPress();
 			self::summaryIPs();
 			self::summarySSL();
-			self::summarySpaceUsage();
+			self::summaryDiskSpace();
 			self::initialConstants();
 			self::pluginPaths();
 
