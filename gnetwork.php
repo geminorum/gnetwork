@@ -5,7 +5,7 @@ Plugin Name: gNetwork
 Plugin URI: https://geminorum.ir/wordpress/gnetwork
 Update URI: https://github.com/geminorum/gnetwork
 Description: Network Helper
-Version: 3.17.4
+Version: 3.18.0
 License: GPLv3+
 Author: geminorum
 Author URI: https://geminorum.ir/
@@ -20,7 +20,7 @@ Requires at least: 5.7.0
 Requires PHP: 7.4
 */
 
-define( 'GNETWORK_VERSION', '3.17.4' );
+define( 'GNETWORK_VERSION', '3.18.0' );
 define( 'GNETWORK_MIN_PHP', '7.2' );
 define( 'GNETWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GNETWORK_URL', plugin_dir_url( __FILE__ ) );

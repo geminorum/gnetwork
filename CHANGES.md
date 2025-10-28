@@ -1,3 +1,22 @@
+### 3.18.0
+* main/utilities: handle front-matter on markdown
+* misc/qm/current-object: support for woo-commerce orders
+* module/authors: better cap checks
+* module/blog: constant for disable privacy tools
+* module/commerce: handle not managed stocks
+* module/debug: disk space summary revised
+* module/extend: list enabled editorial modules
+* module/mail: correct mime for svg on embeds
+* module/media: drop large file uploader
+* module/mimes: 🆕 module
+* module/rest: using list as rendered html
+* module/shortcodes: customize pdf title via attachment or attribute
+* module/shortcodes: 🆕 raw/markdown short-codes
+* module/taxonomy: filter for exclude empties
+* module/typography: css class for hashtag links
+* module/typography: disable content filters on system-pages
+* module/user: check for count if only numbers on username
+
 ### 3.17.4
 * module/blog: disable privacy tools
 * module/cleanup: more obsoletes
