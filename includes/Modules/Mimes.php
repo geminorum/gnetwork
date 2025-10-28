@@ -79,7 +79,7 @@ class Mimes extends gNetwork\Module
 	 * Array of allowed mime types keyed by the file extension.
 	 * The first in the list is used when any of the mimes are found for that extension.
 	 * @source https://gist.github.com/rmpel/f5e8e17757992df631c78a15a1a6ddd6
-	 * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+	 * @see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types/Common_types
 	 * @see: http://fileformats.archiveteam.org/
 	 * @see: https://core.trac.wordpress.org/ticket/40175
 	 *
@@ -94,11 +94,13 @@ class Mimes extends gNetwork\Module
 		'gpx'     => [ 'application/gpx+xml', 'text/xml', 'application/octet-stream' ],                // @specs: https://www.topografix.com/GPX/1/1/
 		'heic'    => [ 'image/heic', 'image/heif' ],                                                   // NOTE: In PHP 8.5, it returns `image/heif`. Before that, it returns `image/heic`.
 		'json'    => [ 'application/json', 'text/json' ],
-		'kml'     => [ 'application/vnd.google-earth.kml+xml', 'application/xml', 'text/xml' ],
+		'kml'     => [ 'application/vnd.google-earth.kml+xml', 'application/xml', 'text/xml' ],        // https://en.wikipedia.org/wiki/Keyhole_Markup_Language
+		'kmz'     => [ 'application/vnd.google-earth.kmz', 'application/zip', 'application/x-zip' ],   // @REF: https://stackoverflow.com/a/24662632
 		'md'      => [ 'text/markdown', 'text/plain' ],
 		'mht'     => [ 'multipart/related', 'message/rfc822' ],
 		'mhtml'   => [ 'multipart/related', 'message/rfc822' ],
 		'mobi'    => [ 'application/x-mobipocket-ebook', 'application/octet-stream' ],
+		'msg'     => [ 'application/vnd.ms-outlook' ],
 		'psd'     => [ 'image/vnd.adobe.photoshop' ],
 		'svg'     => [ 'image/svg+xml' ],
 		'svgz'    => [ 'image/svg+xml', 'application/x-gzip' ],

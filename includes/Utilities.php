@@ -22,7 +22,7 @@ class Utilities extends Core\Base
 
 		if ( ! empty( $updates[$plugin] ) )
 			echo Core\HTML::info( sprintf(
-				/* translators: %1$s: plugin name, %2$s: version number */
+				/* translators: `%1$s`: plugin name, `%2$s`: version number */
 				_x( 'A new version of %1$s is available. Please update to version %2$s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', 'gnetwork' ),
 				Core\HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
 				$updates[$plugin]->update->new_version
@@ -82,8 +82,11 @@ class Utilities extends Core\Base
 
 	public static function humanTimeAgo( $from, $to = '' )
 	{
-		/* translators: %s: time string */
-		return sprintf( _x( '%s ago', 'Utilities: Human Time Ago', 'gnetwork' ), human_time_diff( $from, $to ) );
+		return sprintf(
+			/* translators: `%s`: time string */
+			_x( '%s ago', 'Utilities: Human Time Ago', 'gnetwork' ),
+			human_time_diff( $from, $to )
+		);
 	}
 
 	public static function humanTimeDiffRound( $local, $round = NULL, $format = NULL, $now = NULL )
@@ -105,7 +108,7 @@ class Utilities extends Core\Base
 		if ( is_null( $format ) )
 			$format = self::dateFormats( 'default' );
 
-		return Core\Date::get( $format, $local, FALSE );
+		return Core\Date::get( $format, $local );
 	}
 
 	public static function humanTimeDiff( $timestamp, $now = '' )
@@ -115,22 +118,22 @@ class Utilities extends Core\Base
 		if ( is_null( $strings ) )
 			$strings = [
 				'now'    => _x( 'Now', 'Utilities: Human Time Diff', 'gnetwork' ),
-				/* translators: %s: time string */
+				/* translators: `%s`: time string */
 				'_s_ago' => _x( '%s ago', 'Utilities: Human Time Diff', 'gnetwork' ),
-				/* translators: %s: time string */
+				/* translators: `%s`: time string */
 				'in__s'  => _x( 'in %s', 'Utilities: Human Time Diff', 'gnetwork' ),
 
-				/* translators: %s: number of minutes */
+				/* translators: `%s`: number of minutes */
 				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: %s: number of hours */
+				/* translators: `%s`: number of hours */
 				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: %s: number of days */
+				/* translators: `%s`: number of days */
 				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: %s: number of weeks */
+				/* translators: `%s`: number of weeks */
 				'noop_weeks'   => _nx_noop( '%s week', '%s weeks', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: %s: number of months */
+				/* translators: `%s`: number of months */
 				'noop_months'  => _nx_noop( '%s month', '%s months', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: %s: number of years */
+				/* translators: `%s`: number of years */
 				'noop_years'   => _nx_noop( '%s year', '%s years', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
 			];
 
@@ -148,13 +151,13 @@ class Utilities extends Core\Base
 			$strings = [
 				'sep' => WordPress\Strings::separator(),
 
-				/* translators: %s: number of seconds */
+				/* translators: `%s`: number of seconds */
 				'noop_seconds' => _nx_noop( '%s second', '%s seconds', 'Utilities: From Seconds: Noop', 'gnetwork' ),
-				/* translators: %s: number of minutes */
+				/* translators: `%s`: number of minutes */
 				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: From Seconds: Noop', 'gnetwork' ),
-				/* translators: %s: number of hours */
+				/* translators: `%s`: number of hours */
 				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: From Seconds: Noop', 'gnetwork' ),
-				/* translators: %s: number of days */
+				/* translators: `%s`: number of days */
 				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: From Seconds: Noop', 'gnetwork' ),
 			];
 
@@ -171,27 +174,27 @@ class Utilities extends Core\Base
 				'now'            => _x( 'Now', 'Utilities: Date: Moment', 'gnetwork' ),
 				'just_now'       => _x( 'Just now', 'Utilities: Date: Moment', 'gnetwork' ),
 				'one_minute_ago' => _x( 'One minute ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: %s: number of minutes */
+				/* translators: `%s`: number of minutes */
 				'_s_minutes_ago' => _x( '%s minutes ago', 'Utilities: Date: Moment', 'gnetwork' ),
 				'one_hour_ago'   => _x( 'One hour ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: %s: number of hours */
+				/* translators: `%s`: number of hours */
 				'_s_hours_ago'   => _x( '%s hours ago', 'Utilities: Date: Moment', 'gnetwork' ),
 				'yesterday'      => _x( 'Yesterday', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: %s: number of days */
+				/* translators: `%s`: number of days */
 				'_s_days_ago'    => _x( '%s days ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: %s: number of weeks */
+				/* translators: `%s`: number of weeks */
 				'_s_weeks_ago'   => _x( '%s weeks ago', 'Utilities: Date: Moment', 'gnetwork' ),
 				'last_month'     => _x( 'Last month', 'Utilities: Date: Moment', 'gnetwork' ),
 				'last_year'      => _x( 'Last year', 'Utilities: Date: Moment', 'gnetwork' ),
 				'in_a_minute'    => _x( 'in a minute', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: %s: number of minutes */
+				/* translators: `%s`: number of minutes */
 				'in__s_minutes'  => _x( 'in %s minutes', 'Utilities: Date: Moment', 'gnetwork' ),
 				'in_an_hour'     => _x( 'in an hour', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: %s: number of hours */
+				/* translators: `%s`: number of hours */
 				'in__s_hours'    => _x( 'in %s hours', 'Utilities: Date: Moment', 'gnetwork' ),
 				'tomorrow'       => _x( 'Tomorrow', 'Utilities: Date: Moment', 'gnetwork' ),
 				'next_week'      => _x( 'next week', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: %s: number of weeks */
+				/* translators: `%s`: number of weeks */
 				'in__s_weeks'    => _x( 'in %s weeks', 'Utilities: Date: Moment', 'gnetwork' ),
 				'next_month'     => _x( 'next month', 'Utilities: Date: Moment', 'gnetwork' ),
 				'format_l'       => _x( 'l', 'Utilities: Date: Moment', 'gnetwork' ),
@@ -389,10 +392,10 @@ class Utilities extends Core\Base
 			return $gNetworkMustache;
 
 		$gNetworkMustache = new \Mustache\Engine( [
-			'template_class_prefix' => '__'.static::BASE.'_',
-			'cache_file_mode'        => FS_CHMOD_FILE,
-			// 'cache'                  => $base.'assets/views/cache',
-			'cache'                  => get_temp_dir(),
+			'template_class_prefix' => sprintf( '__%s_', static::BASE ),
+
+			'cache_file_mode' => FS_CHMOD_FILE,
+			'cache'           => get_temp_dir(),   // $base.'assets/views/cache',
 
 			'loader'          => new \Mustache\Loader\FilesystemLoader( $base.'assets/views' ),
 			'partials_loader' => new \Mustache\Loader\FilesystemLoader( $base.'assets/views/partials' ),
@@ -578,7 +581,7 @@ class Utilities extends Core\Base
 		if ( ! $path )
 			return;
 
-		$log = '['.gmdate( 'd-M-Y H:i:s e' ).'] '; // [03-Feb-2015 21:20:19 UTC]
+		$log = '['.gmdate( 'd-M-Y H:i:s e' ).'] '; // `[03-Feb-2015 21:20:19 UTC]`
 		$log.= $error.' ';
 		$log.= Core\HTTP::IP( TRUE );
 		$log.= $message ? ' :: '.strip_tags( $message ) : '';
@@ -659,11 +662,11 @@ class Utilities extends Core\Base
 
 			} else {
 
-				/* translators: %s: log folder path */
+				/* translators: `%s`: log folder path */
 				Core\HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ), Core\HTML::tag( 'code', $constant ) ) );
 
 				if ( ! file_exists( $constant.'/.htaccess' ) )
-					/* translators: %s: .htaccess */
+					/* translators: `%s`: `.htaccess` */
 					Core\HTML::desc( sprintf( _x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ), '<code>.htaccess</code>' ) );
 			}
 
@@ -743,7 +746,7 @@ class Utilities extends Core\Base
 		if ( ! wp_mkdir_p( $path ) )
 			return FALSE;
 
-		// FIXME: chack if the folder is writable
+		// FIXME: check if the folder is writable
 		Core\File::putIndexHTML( $path, GNETWORK_DIR.'index.html' );
 
 		return Core\URL::untrail( $path );

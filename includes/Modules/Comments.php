@@ -310,6 +310,7 @@ class Comments extends gNetwork\Module
 				$comment_args['type'] = [
 					'comment',  // wp-core
 					'review',   // woo-commerce
+					// 'note',     // wp-core
 				];
 
 		return $comment_args;

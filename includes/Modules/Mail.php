@@ -421,17 +421,22 @@ class Mail extends gNetwork\Module
 
 	/**
 	 * Filters whether an email address is unsafe.
-	 * @source https://github.com/MattKetmo/EmailChecker
 	 *
-	 * @param  bool   $unsafe
-	 * @param  string $email
-	 * @return bool   $unsafe
+	 * @see https://github.com/amieiro/disposable-email-domains
+	 *
+	 * @param bool $unsafe
+	 * @param string $email
+	 * @return bool
 	 */
 	public function is_email_address_unsafe( $unsafe, $email )
 	{
 		if ( $unsafe )
 			return $unsafe;
 
+		/**
+		 * @package `mattketmo/email-checker`
+		 * @source https://github.com/MattKetmo/EmailChecker
+		 */
 		$checker = new \EmailChecker\EmailChecker();
 		return ! $checker->isValid( $email );
 	}

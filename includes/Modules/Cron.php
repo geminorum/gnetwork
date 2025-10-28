@@ -51,7 +51,7 @@ class Cron extends gNetwork\Module
 	{
 		return [
 			'schedule_revision'    => '0',
-			'dashboard_widget'     => '0',
+			'dashboard_widget'     => '1',
 			'dashboard_accesscap'  => 'edit_theme_options',
 			'dashboard_intro'      => '',
 			'status_email_failure' => '0',
