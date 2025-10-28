@@ -8,10 +8,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-04-15 12:57+0330\n"
+"PO-Revision-Date: 2025-10-02 16:14+0330\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 "X-Poedit-Basepath: ../../../../..\n"
 "X-Poedit-Bookmarks: 674,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
 
@@ -39,12 +39,15 @@ msgctxt "default GMT offset or timezone string"
 msgid "0"
 msgstr "+3.5"
 
+#: wp-admin/about.php:93
+msgid "Speculative loading speeds up navigation by preloading links before users navigate to them, bcrypt hashing strengthens password security automatically, and database optimizations improve performance."
+msgstr ""
+
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
 #. 3: The PHP extension name needed.
 #: wp-admin/upgrade.php:68
-#, fuzzy
 msgid "You cannot upgrade because <a href=\"%1$s\">WordPress %2$s</a> requires the %3$s PHP extension."
-msgstr "نمی‌توانید به‌روزرسانی کنید، چون <a href=\"%1$s\">وردپرس %2$s</a> نیازمند PHP نگارش %3$s یا بالاتر است. شما در حال اجرا بر روی PHP نگارش %4$s هستید."
+msgstr ""
 
 #: wp-admin/themes.php:70
 msgid "An error occurred while deleting the theme."
@@ -119,9 +122,8 @@ msgstr ""
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
 #. 3: The PHP extension name needed.
 #: wp-admin/install.php:312
-#, fuzzy
 msgid "You cannot install because <a href=\"%1$s\">WordPress %2$s</a> requires the %3$s PHP extension."
-msgstr "وردپرس نمی‌تواند نصب شود زیرا <a href=\"%1$s\">وردپرس %2$s</a> نیازمند PHP نگارش %3$s یا بالاتر است. شما در حال اجرا بر روی PHP نگارش %4$s هستید."
+msgstr ""
 
 #: wp-admin/includes/template.php:738
 msgid "Add Custom Field:"
@@ -235,76 +237,68 @@ msgstr ""
 msgid "Release Coordination"
 msgstr ""
 
-#: wp-admin/about.php:164
+#: wp-admin/about.php:194
 msgid "WordPress 6.8 packs a wide range of performance fixes and enhancements to speed up everything from editing to browsing. Beyond speculative loading, WordPress 6.8 pays special attention to the block editor, block type registration, and query caching. Plus, imagine never waiting longer than 50 milliseconds—for any interaction. In WordPress 6.8, the Interactivity API takes a first step toward that goal."
 msgstr ""
 
-#: wp-admin/about.php:151
+#: wp-admin/about.php:181
 msgid "Work continues on optimizing cache key generation in the <code>WP_Query</code> class. The goal is, as ever, to boost your site&#8217;s performance, in this case by taking some more of the load off your database. This is especially good if you get a lot of traffic."
 msgstr ""
 
-#: wp-admin/about.php:150
+#: wp-admin/about.php:180
 msgid "Take a load off the database"
 msgstr ""
 
-#: wp-admin/about.php:142
+#: wp-admin/about.php:172
 msgid "100+ accessibility fixes and enhancements touch a broad spectrum of the WordPress experience. This release includes fixes to every bundled theme, improvements to the navigation menu management, the customizer, and simplified labeling. The Block Editor has over 70 improvements to blocks, DataViews, and to its overall user experience."
 msgstr ""
 
-#: wp-admin/about.php:128
+#: wp-admin/about.php:158
 msgid "Now passwords are harder to crack with bcrypt hashing, which takes a lot more computing power to break. This strengthens overall security, as do other encryption improvements across WordPress. You don&#8217;t need to do anything—everything updates automatically."
 msgstr ""
 
-#: wp-admin/about.php:127
+#: wp-admin/about.php:157
 msgid "Stronger password security with bcrypt"
 msgstr ""
 
-#: wp-admin/about.php:111
+#: wp-admin/about.php:141
 msgid "In WordPress 6.8, pages load faster than ever. When you or your user hovers over or clicks a link, WordPress may preload the next page, for a smoother, near-instant experience. The system balances speed and efficiency, and you can control how it works, with a plugin or your own code. This feature only works in modern browsers—older ones will simply ignore it without any impact."
 msgstr ""
 
-#: wp-admin/about.php:110
+#: wp-admin/about.php:140
 msgid "Near-instant page loads, thanks to Speculative Loading"
 msgstr ""
 
-#: wp-admin/about.php:104
+#: wp-admin/about.php:134
 msgid "Easier ways to see your options in Data Views, and you can exclude sticky posts from the Query Loop. Plus, you&#8217;ll find lots of little improvements in the editor that smooth your way through everything you build."
 msgstr ""
 
-#: wp-admin/about.php:83
+#: wp-admin/about.php:113
 msgid "Plus, now you can see it in Classic themes that have editor-styles or a theme.json file. Find the Style Book under Appearance > Design and use it to preview your theme&#8217;s evolution, as you edit CSS or make changes in the Customizer."
 msgstr ""
 
 #. translators: %s is a direct link to the Style Book.
-#: wp-admin/about.php:79
+#: wp-admin/about.php:109
 msgid "Plus, now you can see it in Classic themes that have editor-styles or a theme.json file. Find <a href=\"%s\">the Style Book</a> under Appearance > Design and use it to preview your theme&#8217;s evolution, as you edit CSS or make changes in the Customizer."
 msgstr ""
 
-#: wp-admin/about.php:71
+#: wp-admin/about.php:101
 msgid "The Style Book has a new, structured layout and clearer labels, to make it even easier to edit colors, typography—almost all your site styles—in one place."
 msgstr ""
 
-#: wp-admin/about.php:69
+#: wp-admin/about.php:99
 msgid "The Style Book gets a cleaner look—and a few new tricks"
 msgstr ""
 
-#: wp-admin/about.php:63
-msgid "Behind the scenes, database optimizations improve performance, and a new security warning system helps prevent vulnerabilities before they become a problem."
-msgstr ""
-
-#: wp-admin/about.php:62
-msgid "Speculative loading speeds up navigation by preloading links before users navigate to them, while bcrypt hashing strengthens password security automatically."
-msgstr ""
-
-#: wp-admin/about.php:61
+#: wp-admin/about.php:92
 msgid "The Style Book now has a structured layout and works with Classic themes, giving you more control over global styles."
 msgstr ""
 
-#: wp-admin/about.php:60
+#: wp-admin/about.php:91
 msgid "WordPress 6.8 polishes and refines the tools you use every day, making your site faster, more secure, and easier to manage."
 msgstr ""
 
-#: wp-admin/about.php:59
+#: wp-admin/about.php:90
 msgid "A release polished to a high sheen."
 msgstr ""
 
@@ -408,12 +402,12 @@ msgid "Skip to Editor"
 msgstr ""
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:259
+#: wp-admin/about.php:289
 msgid "WordPress %s Field Guide"
 msgstr ""
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:232
+#: wp-admin/about.php:262
 msgid "WordPress %s Release Notes"
 msgstr ""
 
@@ -580,20 +574,20 @@ msgstr ""
 msgid "If you are a plugin author, you can learn more about <a href=\"https://developer.wordpress.org/plugins/privacy/adding-the-personal-data-eraser-to-your-plugin/\">how to add the Personal Data Eraser to a plugin</a>."
 msgstr ""
 
-#: wp-admin/about.php:185
+#: wp-admin/about.php:215
 msgid "See everything new"
 msgstr ""
 
-#: wp-admin/about.php:185
+#: wp-admin/about.php:215
 msgid "https://wordpress.org/download/releases/6-8/"
 msgstr ""
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:177
+#: wp-admin/about.php:207
 msgid "For a comprehensive overview of all the new features and enhancements in WordPress %s, please visit the feature-showcase website."
 msgstr ""
 
-#: wp-admin/about.php:171
+#: wp-admin/about.php:201
 msgid "And much more"
 msgstr ""
 
@@ -742,11 +736,11 @@ msgstr "هم‌اکنون نصب کنید"
 msgid "Created by a worldwide team of passionate individuals"
 msgstr ""
 
-#: wp-admin/about.php:141
+#: wp-admin/about.php:171
 msgid "Accessibility improvements"
 msgstr ""
 
-#: wp-admin/about.php:163
+#: wp-admin/about.php:193
 msgid "Performance updates"
 msgstr ""
 
@@ -776,15 +770,15 @@ msgstr "افزودن سایت تازه"
 
 #: wp-admin/includes/image-edit.php:80
 msgid "Rotate 180&deg;"
-msgstr ""
+msgstr "چرخش &deg;۱۸۰"
 
 #: wp-admin/includes/image-edit.php:79
 msgid "Rotate 90&deg; right"
-msgstr ""
+msgstr "چرخش &deg;۹۰ راست"
 
 #: wp-admin/includes/image-edit.php:78
 msgid "Rotate 90&deg; left"
-msgstr ""
+msgstr "چرخش &deg;۹۰ چپ"
 
 #. translators: %s: Number of patterns.
 #: wp-admin/edit.php:392
@@ -814,12 +808,12 @@ msgid "When using Bulk Edit, you can change the metadata (categories, author, et
 msgstr ""
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:242
+#: wp-admin/about.php:272
 msgid "Read the WordPress %s Release Notes for information on installation, enhancements, fixed issues, release contributors, learning resources, and the list of file changes."
 msgstr ""
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:269
+#: wp-admin/about.php:299
 msgid "Explore the WordPress %s Field Guide. Learn about the changes in this release with detailed developer notes to help you build with WordPress."
 msgstr ""
 
@@ -838,6 +832,11 @@ msgstr ""
 #. the new plugin version.
 #: wp-admin/includes/class-plugin-upgrader.php:353
 msgid "Your WordPress version is %1$s, however the new plugin version requires %2$s."
+msgstr ""
+
+#. translators: %s: WordPress version.
+#: wp-admin/about.php:79
+msgid "https://wordpress.org/support/wordpress-version/version-%s/"
 msgstr ""
 
 #: wp-admin/contribute.php:103
@@ -881,16 +880,16 @@ msgstr ""
 
 #: wp-admin/includes/template.php:762
 msgid "New custom field name"
-msgstr ""
+msgstr "نام زمینه سفارش تازه"
 
 #. translators: Hidden accessibility text.
 #: wp-admin/includes/media.php:2758
 msgid "Search Media:"
-msgstr ""
+msgstr "جست‌وجوی رسانه:"
 
 #: wp-admin/includes/image-edit.php:270
 msgid "Clear Crop"
-msgstr ""
+msgstr "پاک‌کردن برش قاب"
 
 #: wp-admin/includes/image-edit.php:270
 msgid "Apply Crop"
@@ -908,11 +907,11 @@ msgstr ""
 
 #: wp-admin/includes/image-edit.php:250
 msgid "Starting Coordinates:"
-msgstr ""
+msgstr "مختصات شروع:"
 
 #: wp-admin/includes/image-edit.php:193
 msgid "Crop Image"
-msgstr ""
+msgstr "برش قاب تصویر"
 
 #: wp-admin/includes/image-edit.php:163
 #: wp-admin/includes/image-edit.php:935
@@ -921,11 +920,11 @@ msgstr ""
 
 #: wp-admin/includes/image-edit.php:101
 msgid "Save Edits"
-msgstr ""
+msgstr "ذخیره ویرایش"
 
 #: wp-admin/includes/image-edit.php:100
 msgid "Cancel Editing"
-msgstr ""
+msgstr "لغو ویرایش"
 
 #: wp-admin/includes/file.php:2027
 msgid "Could not create the destination directory."
@@ -1306,7 +1305,7 @@ msgid "Be the future of WordPress"
 msgstr ""
 
 #. translators: 1: Learn WordPress link, 2: Workshops link.
-#: wp-admin/about.php:210
+#: wp-admin/about.php:240
 msgid "<a href=\"%1$s\">Learn WordPress</a> is a free resource for new and experienced WordPress users. Learn is stocked with how-to videos on using various features in WordPress, <a href=\"%2$s\">interactive workshops</a> for exploring topics in-depth, and lesson plans for diving deep into specific areas of WordPress."
 msgstr ""
 
@@ -1480,12 +1479,12 @@ msgid "<a href=\"https://wordpress.org/documentation/article/customizer/\">Docum
 msgstr "<a href=\"https://wordpress.org/documentation/article/customizer/\">مستندات سفارشی‌ساز</a>"
 
 #. translators: The localized WordPress download URL.
-#: wp-admin/about.php:350
+#: wp-admin/about.php:380
 msgid "https://wordpress.org/download/"
 msgstr ""
 
 #. translators: %s: The major version of WordPress for this branch.
-#: wp-admin/about.php:347
+#: wp-admin/about.php:377
 msgid "This is the final release of WordPress %s"
 msgstr ""
 
@@ -1586,7 +1585,7 @@ msgstr "%s، کمینه نگارش توصیه‌شده برای PHP‌ است."
 
 #: wp-admin/includes/dashboard.php:1900
 msgid "PHP is one of the programming languages used to build WordPress. Newer versions of PHP receive regular security updates and may increase your site&#8217;s performance."
-msgstr "PHP یکی زبان‌های برنامه‌نویسی است که برای ساخت وردپرس استفاده می‌شود. نگارش‌های تازه‌تر PHP به‌روزرسانی‌های امنیتی منظم را دریافت می‌کنند و ممکن است کیفیت عمل‌کرد سایت شما را افزایش دهند."
+msgstr "PHP یکی از زبان‌های برنامه‌نویسی است که برای ساخت وردپرس استفاده می‌شود. نگارش‌های تازه‌تر PHP به‌روزرسانی‌های امنیتی منظم را دریافت می‌کنند و ممکن است کیفیت عمل‌کرد سایت شما را افزایش دهند."
 
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/dashboard.php:1885
@@ -1808,12 +1807,12 @@ msgid "Reach out to WordPress Core developers to ensure you'll never have this p
 msgstr ""
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:344
+#: wp-admin/about.php:374
 msgid "Important! Your version of WordPress (%1$s) will stop receiving security updates in the near future. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr ""
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:341
+#: wp-admin/about.php:371
 msgid "Important! Your version of WordPress (%1$s) is no longer supported, you will not receive any security updates for your website. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr ""
 
@@ -1823,7 +1822,7 @@ msgid "https://make.wordpress.org/core/wordpress-%s-field-guide/"
 msgstr ""
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:201
+#: wp-admin/about.php:231
 msgid "Learn more about WordPress %s"
 msgstr ""
 
@@ -1910,6 +1909,21 @@ msgid ""
 "All at ###SITENAME###\n"
 "###SITEURL###"
 msgstr ""
+"سلام،\n"
+"\n"
+"مدیر سایت (###USERNAME###) اخیراً درخواست تغییر آدرس ایمیل مدیریت در این سایت را داده است:\n"
+"###SITEURL###\n"
+"\n"
+"برای تأیید این تغییر، لطفاً روی لینک زیر کلیک کنید:\n"
+"###ADMIN_URL###\n"
+"\n"
+"اگر نمی‌خواهید این اقدام را انجام دهید، می‌توانید با خیال راحت این ایمیل را نادیده گرفته و حذف کنید.\n"
+"\n"
+"این ایمیل به ###EMAIL### ارسال شده است.\n"
+"\n"
+"با احترام،\n"
+"همه در ###SITENAME###\n"
+"###SITEURL###"
 
 #. translators: Default privacy policy heading.
 #: wp-admin/includes/class-wp-privacy-policy-content.php:598
@@ -1977,14 +1991,14 @@ msgstr ""
 
 #: wp-admin/edit-form-advanced.php:462
 msgid "This post is being backed up in your browser, just in case."
-msgstr ""
+msgstr "در صورت نیاز، رونوشت پشتیبان از این فرسته در مرورگر شما ذخیره می‌شود."
 
 #. translators: 1: URL to my-sites.php, 2: Number of sites the user has.
 #: wp-admin/authorize-application.php:185
 msgid "This will grant access to <a href=\"%1$s\">the %2$s site on the network as you have Super Admin rights</a>."
 msgid_plural "This will grant access to <a href=\"%1$s\">all %2$s sites on the network as you have Super Admin rights</a>."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "رمز‌های برنامه، دسترسی به <a href=\"%1$s\">سایت %2$s در این شبکه، که شما دسترسی مدیریت کل آن را دارید</a> اعطا کرده است."
+msgstr[1] "رمز‌های برنامه، دسترسی به <a href=\"%1$s\">سایت %2$s در این شبکه، که شما دسترسی مدیریت کل آن را دارید</a> اعطا کرده است."
 
 #: wp-admin/includes/dashboard.php:2122
 msgid "Learn about block themes"
@@ -2012,7 +2026,7 @@ msgstr ""
 
 #: wp-admin/includes/dashboard.php:2104
 msgid "Open the Customizer"
-msgstr ""
+msgstr "بازکردن سفارشی‌سازی"
 
 #: wp-admin/includes/dashboard.php:2102
 msgid "Configure your site&#8217;s logo, header, menus, and more in the Customizer."
@@ -2020,7 +2034,7 @@ msgstr ""
 
 #: wp-admin/includes/dashboard.php:2101
 msgid "Start Customizing"
-msgstr ""
+msgstr "شروع به سفارشی‌سازی"
 
 #: wp-admin/includes/dashboard.php:2099
 msgid "Open site editor"
@@ -2036,7 +2050,7 @@ msgstr ""
 
 #: wp-admin/includes/dashboard.php:2087
 msgid "Add a new page"
-msgstr ""
+msgstr "افزودن برگه تازه"
 
 #: wp-admin/includes/dashboard.php:2086
 msgid "Block patterns are pre-configured block layouts. Use them to get inspired or create new pages in a flash."
@@ -2368,7 +2382,7 @@ msgstr ""
 
 #: wp-admin/options-privacy.php:265
 msgid "Create a new Privacy Policy page"
-msgstr ""
+msgstr "ایجاد برگه تازه سیاست حریم خصوصی"
 
 #: wp-admin/export-personal-data.php:132
 msgid "Send personal data export confirmation email."
@@ -2737,7 +2751,7 @@ msgstr "افزودن رمز برنامه"
 msgid "Required to create an Application Password, but not to update the user."
 msgstr "برای ایجاد یک رمز برنامه الزامی است، اما نه برای به‌روزرسانی کاربر."
 
-#: wp-admin/about.php:285
+#: wp-admin/about.php:315
 msgid "Go to Updates"
 msgstr "بازگشت به به‌روزرسانی‌ها"
 
@@ -2794,7 +2808,7 @@ msgstr ""
 
 #: wp-admin/authorize-application.php:271
 msgid "Yes, I approve of this connection"
-msgstr ""
+msgstr "بله، این اتصال را می‌پذیرم"
 
 #. translators: 1: URL to my-sites.php, 2: Number of sites the user has.
 #: wp-admin/authorize-application.php:177
@@ -2814,17 +2828,17 @@ msgstr ""
 
 #: wp-admin/authorize-application.php:152
 msgid "An application would like to connect to your account."
-msgstr ""
+msgstr "یک برنامه نیازمند اتصال به حساب کاربری شماست."
 
 #: wp-admin/authorize-application.php:88
 #: wp-admin/authorize-application.php:95
 #: wp-admin/authorize-application.php:113
 msgid "Cannot Authorize Application"
-msgstr ""
+msgstr "عدم امکان صدور جواز برنامه"
 
 #: wp-admin/authorize-application.php:87
 msgid "The Authorize Application request is not allowed."
-msgstr ""
+msgstr "اجازه درخواست برای صدور جواز برنامه ناممکن است."
 
 #: wp-admin/authorize-application.php:66
 msgid "Authorize Application"
@@ -2925,7 +2939,7 @@ msgstr "ویدئو سربرگ کنونی"
 
 #: wp-admin/includes/class-wp-site-health.php:2810
 msgid "Authorization header"
-msgstr ""
+msgstr "سربرگ جواز"
 
 #: wp-admin/includes/class-wp-site-health.php:2369
 msgid "Learn how to configure the Authorization header."
@@ -2933,7 +2947,7 @@ msgstr ""
 
 #: wp-admin/includes/class-wp-site-health.php:2363
 msgid "Flush permalinks"
-msgstr ""
+msgstr "بازسازی پایاپیوندها"
 
 #: wp-admin/includes/class-wp-site-health.php:2344
 msgid "The authorization header is invalid"
@@ -6532,7 +6546,7 @@ msgstr ""
 
 #: wp-admin/options-privacy.php:193
 msgid "As a website owner, you may need to follow national or international privacy laws. For example, you may need to create and display a privacy policy."
-msgstr ""
+msgstr "به عنوان مالک یک وب‌سایت، شاید نیاز به پیروی از قوانین حریم خصوصی ملی و یا بین‌المللی داشته باشید. برای نمونه، شاید مکلف به ساخت و نمایش سیاست حریم خصوصی باشید."
 
 #: wp-admin/includes/class-wp-privacy-data-removal-requests-list-table.php:68
 msgid "Force erasure has failed."
@@ -7311,7 +7325,7 @@ msgstr "باز"
 
 #: wp-admin/includes/image-edit.php:66
 msgid "Image Rotation"
-msgstr ""
+msgstr "چرخش تصویر"
 
 #. translators: %s: Meetup organization documentation URL.
 #: wp-admin/includes/dashboard.php:1507
@@ -7887,7 +7901,7 @@ msgstr ""
 msgid "Release Design Lead"
 msgstr ""
 
-#: wp-admin/about.php:103
+#: wp-admin/about.php:133
 msgid "Editor improvements"
 msgstr ""
 
@@ -8340,7 +8354,7 @@ msgid "(Currently set to: %s)"
 msgstr "(تنظیم کنونی: %s)"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:315
+#: wp-admin/about.php:345
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr ""
 
@@ -8354,15 +8368,15 @@ msgstr "https://fa.gravatar.com/"
 msgid "Profile Picture"
 msgstr "تصویر نمایه"
 
-#: wp-admin/about.php:312
+#: wp-admin/about.php:342
 msgid "Maintenance and Security Releases"
 msgstr ""
 
-#: wp-admin/about.php:309
+#: wp-admin/about.php:339
 msgid "Security Releases"
 msgstr ""
 
-#: wp-admin/about.php:306
+#: wp-admin/about.php:336
 msgid "Maintenance Releases"
 msgstr ""
 
@@ -10475,7 +10489,7 @@ msgstr "رونوشت توسط %s"
 
 #: wp-admin/edit-form-advanced.php:461
 msgid "<strong>Connection lost.</strong> Saving has been disabled until you are reconnected."
-msgstr ""
+msgstr "<strong>اتصال ناممکن است.</strong> ذخیره تا زمان اتصال دوباره شما غیرفعال خواهد بود."
 
 #: wp-admin/install.php:160
 #: wp-admin/user-new.php:614
@@ -11466,13 +11480,13 @@ msgstr "سایت‌های شما"
 
 #: wp-admin/includes/ms.php:590
 msgid "If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way."
-msgstr ""
+msgstr "اگر می‌خواستید به یکی از سایت‌های خودتان وارد شوید و به‌صورت تصادفی به این صفحه رسیده‌اید؛ می‌توانید در ادامه از میان‌برهای زیر استفاده کنید."
 
 #. translators: 1: Site title.
 #: wp-admin/includes/ms.php:578
 #: wp-admin/includes/ms.php:587
 msgid "You attempted to access the \"%1$s\" dashboard, but you do not currently have privileges on this site. If you believe you should be able to access the \"%1$s\" dashboard, please contact your network administrator."
-msgstr ""
+msgstr "برای دسترسی به پیشخوان «%1$s» تلاش کرده‌اید، اما در حال حاضر اجازه دسترسی به این سایت را ندارید. اگر گمان دارید که باید دسترسی به پیشخوان «%1$s» داشته باشید، لطفاً با مدیر شبکه خود تماس بگیرید."
 
 #: wp-admin/includes/ms.php:316
 msgid "MB (Leave blank for network default)"
@@ -11710,14 +11724,16 @@ msgstr "ایمیل یک کاربر موجود در شبکه را برای دعو
 msgid "Show Toolbar when viewing site"
 msgstr "هنگام مشاهده سایت، نوارابزار نمایش داده شود"
 
+#. translators: %s: HelpHub URL.
 #. translators: %s: Documentation URL.
-#: wp-admin/about.php:338
+#: wp-admin/about.php:76
+#: wp-admin/about.php:368
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "برای اطلاعات بیشتر، <a href=\"%s\">یادداشت‌های این انتشار</a> را ببینید."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:332
+#: wp-admin/about.php:362
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] ""
@@ -11725,33 +11741,35 @@ msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:326
+#: wp-admin/about.php:356
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs.
-#: wp-admin/about.php:320
+#: wp-admin/about.php:64
+#: wp-admin/about.php:350
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:317
+#: wp-admin/about.php:347
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr ""
 
-#: wp-admin/about.php:311
+#: wp-admin/about.php:59
+#: wp-admin/about.php:341
 msgid "Maintenance and Security Release"
 msgstr ""
 
-#: wp-admin/about.php:308
+#: wp-admin/about.php:338
 msgid "Security Release"
 msgstr ""
 
-#: wp-admin/about.php:305
+#: wp-admin/about.php:335
 msgid "Maintenance Release"
 msgstr ""
 
@@ -12032,11 +12050,11 @@ msgstr ""
 msgid "Because this is a multisite installation, you may add accounts that already exist on the Network by specifying a username or email, and defining a role. For more options, such as specifying a password, you have to be a Network Administrator and use the hover link under an existing user&#8217;s name to Edit the user profile under Network Admin > All Users."
 msgstr ""
 
-#: wp-admin/about.php:292
+#: wp-admin/about.php:322
 msgid "Go to Dashboard &rarr; Home"
 msgstr ""
 
-#: wp-admin/about.php:285
+#: wp-admin/about.php:315
 msgid "Go to Dashboard &rarr; Updates"
 msgstr ""
 
@@ -13326,7 +13344,7 @@ msgstr "خطا در بارگذاری تصویر"
 
 #: wp-admin/includes/class-custom-image-header.php:773
 msgid "Text Color"
-msgstr ""
+msgstr "رنگ متن"
 
 #: wp-admin/includes/class-custom-image-header.php:750
 msgid "Restore Original Header Image"
@@ -13845,7 +13863,7 @@ msgstr "به‌روزرسانی‌های وردپرس"
 msgid "Edit menu item"
 msgstr "ویرایش گزینه فهرست"
 
-#: wp-admin/about.php:292
+#: wp-admin/about.php:322
 msgid "Go to Dashboard"
 msgstr "بازگشت به پیشخوان"
 
@@ -16012,7 +16030,7 @@ msgstr "نمی‌توان پرونده را از بایگانی دریافت ک�
 
 #: wp-admin/includes/file.php:1169
 msgid "Could not create temporary file."
-msgstr ""
+msgstr "ایجاد پرونده موقتی ناممکن است."
 
 #: wp-admin/includes/file.php:931
 msgid "Specified file failed upload test."
@@ -16218,7 +16236,7 @@ msgstr "لطفاً پرونده‌ای را انتخاب کنید"
 
 #: wp-admin/includes/class-file-upload-upgrader.php:89
 msgid "Return to the Theme Installer"
-msgstr ""
+msgstr "بازگشت به نصب‌کنندهٔ پوسته‌ها"
 
 #. translators: %s: Post title.
 #. translators: %s: Theme name.
@@ -16234,7 +16252,7 @@ msgstr "پوسته با موفقیت نصب شد <strong>%1$s %2$s</strong>."
 
 #: wp-admin/includes/class-file-upload-upgrader.php:80
 msgid "Return to the Plugin Installer"
-msgstr ""
+msgstr "بازگشت به نصب‌کنندهٔ افزونه‌ها"
 
 #. translators: 1: Plugin name, 2: Plugin version.
 #: wp-admin/includes/class-plugin-upgrader.php:86
@@ -16377,7 +16395,7 @@ msgstr "خطای سامانه پرونده‌ها."
 
 #: wp-admin/includes/class-wp-site-health.php:1898
 msgid "Could not access filesystem"
-msgstr ""
+msgstr "دسترسی به filesystem ناممکن است."
 
 #: wp-admin/includes/class-wp-upgrader.php:188
 msgid "Invalid data provided."
@@ -16952,10 +16970,6 @@ msgstr "&laquo;"
 
 #~ msgid "Add New Plugin"
 #~ msgstr "افزودن افزونه تازه"
-
-#, fuzzy
-#~ msgid "https://wordpress.org/support/wordpress-version/version-%s/"
-#~ msgstr "https://fa.wordpress.org/about/requirements/"
 
 #~ msgctxt "theme"
 #~ msgid "Active"

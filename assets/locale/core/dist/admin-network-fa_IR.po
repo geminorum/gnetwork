@@ -8,10 +8,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-04-15 12:57+0330\n"
+"PO-Revision-Date: 2025-08-28 21:38+0330\n"
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 "X-Poedit-Basepath: ../../../../..\n"
 
 #: wp-admin/network/upgrade.php:32
@@ -20,11 +20,11 @@ msgstr ""
 
 #: wp-admin/network/sites.php:124
 msgid "Deleting a site is a permanent action that cannot be undone. This will delete the entire site and its uploads directory."
-msgstr ""
+msgstr "حذف سایت یک کنش دائمی و غیرقابل بازگشت است. این کار کل سایت و دایرکتوری بارگذاری آن را حذف خواهد کرد."
 
 #: wp-admin/network/sites.php:121
 msgid "Delete this site permanently"
-msgstr ""
+msgstr "این سایت برای همیشه حذف شود"
 
 #: wp-admin/network/sites.php:38
 msgid "Visit to go to the front-end of the live site."
@@ -54,7 +54,7 @@ msgstr "فعال‌سازی"
 
 #: wp-admin/network/site-new.php:87
 msgid "Missing site title."
-msgstr ""
+msgstr "عنوان سایت جاافتاده است."
 
 #: wp-admin/includes/class-wp-ms-users-list-table.php:218
 msgid "Table ordered by User Registered Date."
@@ -114,7 +114,7 @@ msgstr ""
 #. translators: %s: Theme name.
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:744
 msgid "Visit theme site for %s"
-msgstr ""
+msgstr "سایت پوسته %s را بازدید کنید"
 
 #. translators: %s: Theme name.
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:757
