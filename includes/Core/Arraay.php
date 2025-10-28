@@ -405,7 +405,7 @@ class Arraay extends Base
 		$key_pos = array_search( $key, array_keys( $array ) );
 
 		if ( 'after' == $position )
-			$key_pos++;
+			++$key_pos;
 
 		if ( FALSE !== $key_pos ) {
 
@@ -449,6 +449,27 @@ class Arraay extends Base
 		}
 
 		return $new;
+	}
+
+	/**
+	 * Retrieves the value in an array given the key or the first key.
+	 *
+	 * @param array $input
+	 * @param string|int $key
+	 * @param mixed $fallback
+	 * @return mixed
+	 */
+	public static function getByKeyOrFirst( $input, $key, $fallback = NULL )
+	{
+		if ( empty( $input ) )
+			return $fallback;
+
+		if ( array_key_exists( $key, $input ) )
+			return $input[$key];
+
+		$first = self::keyFirst( $input );
+
+		return $input[$first];
 	}
 
 	// `array_key_first()` for php < 7.3.0
@@ -499,6 +520,8 @@ class Arraay extends Base
 
 	/**
 	 * Plucks a certain field out of each array or object in an array.
+	 * This has the same functionality and prototype of `array_column()`
+	 * but also supports objects.
 	 * NOTE: wrapper for `wp_list_pluck()`
 	 *
 	 * @param array $input
@@ -581,6 +604,19 @@ class Arraay extends Base
 				return FALSE;
 
 		return TRUE;
+	}
+
+	/**
+	 * Checks if a value exists in an array.
+	 * NOTE: case-insensitive version of `in_array()`
+	 *
+	 * @param string $needle
+	 * @param array $haystack
+	 * @return bool
+	 */
+	public static function in( $needle, $haystack )
+	{
+		return in_array( strtolower( $needle ), array_map( 'strtolower', $haystack ) );
 	}
 
 	public static function has( $needle, $haystack, $strict = TRUE )
@@ -849,16 +885,16 @@ class Arraay extends Base
 	 * @source https://www.php.net/manual/en/function.xml-parse.php#97556
 	 * @example `XML::objectsInto( simplexml_load_string( file_get_contents( 'feed.xml' ) ) );`
 	 *
-	 * This works with not only SimpleXML but any kind of object.
+	 * This works with not only `SimpleXML` but any kind of object.
 	 * The input can be either array or object. This function also
 	 * takes an options parameter as array of indices to be excluded
 	 * in the return array. And keep in mind, this returns only the
 	 * array of non-static and accessible variables of the object
 	 * since using the function `get_object_vars()`.
 	 *
-	 * @param  object $object
-	 * @param  array  $arrSkipIndices
-	 * @return array  $array
+	 * @param object $object
+	 * @param array $arrSkipIndices
+	 * @return array
 	 */
 	public static function objectsInto( $object, $arrSkipIndices = [] )
 	{
@@ -890,8 +926,8 @@ class Arraay extends Base
 	 *
 	 * @source https://stackoverflow.com/a/16111687
 	 *
-	 * @param  object $object
-	 * @return array $array
+	 * @param object $object
+	 * @return array
 	 */
 	public static function fromObject_ALT( $object )
 	{
@@ -902,8 +938,8 @@ class Arraay extends Base
 	 * Flips an array and group the elements by value.
 	 * @source https://www.php.net/manual/en/function.array-combine.php#116714
 	 *
-	 * @param  array $array
-	 * @return array $grouped
+	 * @param array $array
+	 * @return array
 	 */
 	public static function flipAndGroup( $array )
 	{

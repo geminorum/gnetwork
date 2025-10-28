@@ -213,7 +213,7 @@ class Third extends Base
 			'src'    => $src,
 			'width'  => $args['size'],
 			'height' => $args['size'],
-			'alt'    => strip_tags( $data ),
+			'alt'    => Text::stripTags( $data ),
 		] );
 	}
 

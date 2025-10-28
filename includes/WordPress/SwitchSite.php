@@ -10,7 +10,7 @@ class SwitchSite extends Core\Base
 	/**
 	 * Wraps core function for `switch_to_blog()`
 	 *
-	 * @param  int  $site_id
+	 * @param int $site_id
 	 * @return bool $switched
 	 */
 	public static function to( $site_id )

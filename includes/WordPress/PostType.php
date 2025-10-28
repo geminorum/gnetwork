@@ -7,6 +7,8 @@ use geminorum\gNetwork\Core;
 class PostType extends Core\Base
 {
 
+	const MAP_CAP_IMPORT_POSTS  = 'edit_others_posts';
+
 	public static function object( $posttype_or_post )
 	{
 		if ( ! $posttype_or_post )
@@ -71,10 +73,10 @@ class PostType extends Core\Base
 	}
 
 	/**
-	 * Checks for posttype capability.
+	 * Checks for post-type capability.
 	 * NOTE: caches the result
 	 *
-	 * If assigned posttype `capability_type` arg:
+	 * If assigned post-type `capability_type` argument:
 	 *
 	 * /// Meta capabilities
 	 * 	[edit_post]   => "edit_{$capability_type}"
@@ -97,11 +99,11 @@ class PostType extends Core\Base
 	 * 	[edit_published_posts]   => "edit_published_{$capability_type}s"
 	 * 	[create_posts]           => "edit_{$capability_type}s"
 	 *
-	 * @param  string|object   $posttype
-	 * @param  null|string     $capability
-	 * @param  null|int|object $user_id
-	 * @param  bool            $fallback
-	 * @return bool            $can
+	 * @param string|object $posttype
+	 * @param null|string $capability
+	 * @param null|int|object $user_id
+	 * @param bool $fallback
+	 * @return bool
 	 */
 	public static function can( $posttype, $capability = 'edit_posts', $user_id = NULL, $fallback = FALSE )
 	{
@@ -115,6 +117,10 @@ class PostType extends Core\Base
 
 		if ( ! $object = self::object( $posttype ) )
 			return $fallback;
+
+		// Fallbacks if it was a custom capability.
+		if ( ! isset( $object->cap->{$capability} ) && 'import_posts' === $capability )
+			$capability = static::MAP_CAP_IMPORT_POSTS;
 
 		if ( ! isset( $object->cap->{$capability} ) )
 			return $fallback;
@@ -132,6 +138,10 @@ class PostType extends Core\Base
 			return $cache[$user_id][$object->name][$capability];
 
 		$can = user_can( $user_id, $object->cap->{$capability} );
+
+		// fallback for super-admins
+		// if ( ! $can && is_multisite() )
+		// 	$can = user_can( $user_id, 'manage_network' );
 
 		return $cache[$user_id][$object->name][$capability] = $can;
 	}
@@ -212,7 +222,7 @@ class PostType extends Core\Base
 	// * 'private' - not visible to users who are not logged in
 	// * 'inherit' - a revision. see get_children.
 	// * 'trash' - post is in trashbin. added with Version 2.9.
-	// FIXME: DEPRECATED
+	// NOTE: DEPRECATED
 	public static function getStatuses()
 	{
 		global $wp_post_statuses;

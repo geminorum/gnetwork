@@ -22,7 +22,8 @@ class Media extends Core\Base
 	}
 
 	// @REF: `wp_import_handle_upload()`
-	public static function handleImportUpload( $name = 'import' )
+	// NOTE: for upload see `settings_render_upload_field()`
+	public static function handleImportUpload( $name = 'import', $cleanup = TRUE )
 	{
 		if ( ! isset( $_FILES[$name] ) )
 			return FALSE;
@@ -43,8 +44,12 @@ class Media extends Core\Base
 			'post_status'    => 'private',
 		], $upload['file'] );
 
-		// schedule a cleanup for one day from now in case of failed import or missing `wp_import_cleanup()` call
-		wp_schedule_single_event( time() + DAY_IN_SECONDS, 'importer_scheduled_cleanup', [ $id ] );
+		if ( $cleanup ) {
+
+			// schedule a cleanup for one day from now in case of failed
+			// import or missing `wp_import_cleanup()` call
+			wp_schedule_single_event( time() + DAY_IN_SECONDS, 'importer_scheduled_cleanup', [ $id ] );
+		}
 
 		return [ 'file' => $upload['file'], 'id' => $id ];
 	}
@@ -178,7 +183,7 @@ class Media extends Core\Base
 		) );
 	}
 
-	// TODO: get title if html is empty
+	// TODO: get title if HTML is empty
 	public static function htmlAttachmentShortLink( $id, $html, $extra = '', $rel = 'attachment' )
 	{
 		return Core\HTML::tag( 'a', [
@@ -200,6 +205,9 @@ class Media extends Core\Base
 		if ( get_post_meta( $attachment_id, '_wp_attachment_is_custom_background', TRUE ) )
 			return 'custom_background';
 
+		if ( get_post_meta( $attachment_id, '_wp_attachment_context', TRUE ) )
+			return 'custom_context';
+
 		if ( get_post_meta( $attachment_id, '_wp_attachment_is_term_image', TRUE ) )
 			return 'term_image';
 
@@ -215,18 +223,18 @@ class Media extends Core\Base
 		return FALSE;
 	}
 
-	// PDF: 'application/pdf'
-	// MP3: 'audio/mpeg'
-	// CSV: 'application/vnd.ms-excel'
+	// `PDF`: `application/pdf`
+	// `MP3`: `audio/mpeg`
+	// `CSV`: `application/vnd.ms-excel`
 	public static function selectAttachment( $selected = 0, $mime = NULL, $name = 'attach_id', $empty = '' )
 	{
-		$attachments = get_posts( array(
+		$attachments = get_posts( [
 			'post_type'      => 'attachment',
 			'numberposts'    => -1,
 			'post_status'    => NULL,
 			'post_mime_type' => $mime,
 			'post_parent'    => NULL,
-		) );
+		] );
 
 		if ( empty( $attachments ) ) {
 			echo $empty;
@@ -316,10 +324,10 @@ class Media extends Core\Base
 	}
 
 	// @SOURCE: `bp_attachments_get_mime_type()`
-	// NOTE: checks against all mimetypes, not just only allowed by WordPress!
+	// NOTE: checks against all mime-types, not just only allowed by WordPress!
 	public static function getMimeType( $path )
 	{
-		$type = Core\File::type( $path, wp_get_mime_types() );
+		$type = Core\File::type( $path );
 		$mime = $type['type'];
 
 		if ( FALSE === $mime && is_dir( $path ) )

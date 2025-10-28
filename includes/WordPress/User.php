@@ -15,11 +15,14 @@ class User extends Core\Base
 			'fields'  => $all_fields ? 'all_with_meta' : 'all',
 		], $extra ) );
 
-		return Arraay::reKey( $users, $rekey );
+		return Core\Arraay::reKey( $users, $rekey );
 	}
 
 	public static function user( $field, $key = FALSE )
 	{
+		if ( ! $field )
+			return FALSE;
+
 		if ( $field instanceof \WP_User )
 			$user = $field;
 
@@ -64,12 +67,39 @@ class User extends Core\Base
 		return current_user_can( $cap );
 	}
 
-	public static function getTitleRow( $user, $fallback = '' )
+	/**
+	 * Retrieves the URL for editing a given user.
+	 * OLD: `Core\WordPress::getUserEditLink()`
+	 *
+	 * @param int $user_id
+	 * @param array $extra
+	 * @param bool $network
+	 * @param bool $check
+	 * @return false|string
+	 */
+	public static function edit( $user_id, $extra = [], $network = FALSE, $check = TRUE )
+	{
+		if ( ! $user_id )
+			return FALSE;
+
+		if ( $check && ! current_user_can( 'edit_user', $user_id ) )
+			return FALSE;
+
+		return add_query_arg( array_merge( [
+			'user_id' => $user_id,
+		], $extra ), $network
+			? network_admin_url( 'user-edit.php' )
+			: admin_url( 'user-edit.php' ) );
+
+		return FALSE;
+	}
+
+	public static function getTitleRow( $user, $fallback = '', $template = NULL )
 	{
 		if ( ! $object = self::user( $user ) )
 			return $fallback;
 
-		return sprintf( '%s (%s)', $object->display_name, $object->user_email );
+		return sprintf( $template ?? '%s (%s)', $object->display_name, $object->user_email );
 	}
 
 	// alt to `is_super_admin()`
@@ -151,7 +181,7 @@ class User extends Core\Base
 			if ( $prefix && 0 !== strpos( $key, $prefix ) )
 				continue;
 
-			$blog = str_replace( array( $prefix, '_capabilities' ), '', $key );
+			$blog = str_replace( [ $prefix, '_capabilities' ], '', $key );
 
 			if ( is_numeric( $blog ) )
 				$blogs[] = (int) $blog;
@@ -161,6 +191,7 @@ class User extends Core\Base
 	}
 
 	// @REF: `get_role_list()`
+	// FIXME: move to `WordPress\Role`
 	public static function getRoleList( $user_id = FALSE )
 	{
 		if ( ! $user_id )
@@ -183,9 +214,10 @@ class User extends Core\Base
 
 	/**
 	 * Retrieves roles for given user.
+	 * FIXME: move to `WordPress\Role`
 	 *
-	 * @param  null|int $user_id
-	 * @return array    $roles
+	 * @param null|int $user_id
+	 * @return array
 	 */
 	public static function getRoles( $user_id = NULL )
 	{
@@ -195,10 +227,11 @@ class User extends Core\Base
 
 	/**
 	 * Checks if the user has given role.
+	 * FIXME: move to `WordPress\Role`
 	 *
-	 * @param  string|array $role
-	 * @param  null|int     $user_id
-	 * @return bool         $has
+	 * @param string|array $role
+	 * @param null|int $user_id
+	 * @return bool
 	 */
 	public static function hasRole( $role, $user_id = NULL )
 	{
@@ -214,12 +247,14 @@ class User extends Core\Base
 	}
 
 	// current user role
+	// TODO: move to `WordPress\Role`
 	public static function cur( $role = FALSE )
 	{
 		$roles = self::getRoles();
 		return $role ? in_array( $role, $roles, TRUE ) : $roles;
 	}
 
+	// TODO: move to `WordPress\Role`
 	public static function getAllRoleList( $filtered = TRUE, $object = FALSE )
 	{
 		$roles = $filtered ? get_editable_roles() : wp_roles()->roles;
@@ -249,5 +284,53 @@ class User extends Core\Base
 			return get_user_count( $network_id ) > GNETWORK_LARGE_NETWORK_IS;
 
 		return FALSE;
+	}
+
+	public static function changeUsername( $old, $new )
+	{
+		global $wpdb;
+
+		// do nothing if old username does not exist.
+		if ( ! username_exists( $old ) || username_exists( $new ) )
+			return FALSE;
+
+		// change username
+		$wpdb->query( $wpdb->prepare( "
+			UPDATE $wpdb->users
+			SET user_login = %s
+			WHERE user_login = %s
+		", $new, $old ) );
+
+		// change nicename if needed
+		$wpdb->query( $wpdb->prepare( "
+			UPDATE $wpdb->users
+			SET user_nicename = %s
+			WHERE user_login = %s
+			AND user_nicename = %s
+		", $new, $new, $old ) );
+
+		// change display name if needed
+		$wpdb->query( $wpdb->prepare( "
+			UPDATE $wpdb->users
+			SET display_name = %s
+			WHERE user_login = %s
+			AND display_name = %s
+		", $new, $new, $old ) );
+
+		if ( is_multisite() ) {
+
+			// when on multisite, check if old username is in the `site_admins`
+			// options array. if so, replace with new username to retain
+			// superadmin rights.
+
+			$supers = (array) get_site_option( 'site_admins', [ 'admin' ] );
+
+			if ( $key = array_search( $old, $supers ) )
+				$supers[$key] = $new;
+
+			update_site_option( 'site_admins', $supers );
+		}
+
+		return $new;
 	}
 }

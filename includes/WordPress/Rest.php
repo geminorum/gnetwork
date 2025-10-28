@@ -15,6 +15,7 @@ class Rest extends Core\Base
 
 		if ( 'GET' == $method )
 			$request->set_query_params( $params );
+
 		else
 			$request->set_body_params( $params );
 

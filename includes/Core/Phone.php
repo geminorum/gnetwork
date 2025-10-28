@@ -5,33 +5,42 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Phone extends Base
 {
 
+	// TODO: must convert to `DataType`
+	// @SEE: https://github.com/brick/phonenumber
+
 	/**
 	 * Validates a phone number using a regular expression.
 	 *
 	 * @source `WC_Validation::is_phone()`
 	 *
-	 * @param string $text Phone number to validate.
+	 * @param string $data Phone number to validate.
 	 * @return bool
 	 */
-	public static function is( $text )
+	public static function is( $data )
 	{
-		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $text ) ) ) )
+		if ( self::empty( $data ) )
+			return FALSE;
+
+		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $data ) ) ) )
 			return FALSE;
 
 		// all zeros!
-		if ( ! intval( $text ) )
+		if ( ! intval( $data ) )
 			return FALSE;
 
 		return TRUE;
 	}
 
-	public static function sanitize( $input )
+	public static function sanitize( $input, $default = '', $field = [], $context = 'save' )
 	{
+		if ( self::empty( $input ) )
+			return $default;
+
 		$sanitized = Number::translate( Text::trim( $input ) );
 		$sanitized = preg_replace( '/^tel\:([\+\d]+)$/i', '$1', $sanitized );
 
 		if ( ! self::is( $sanitized ) )
-			return '';
+			return $default;
 
 		$sanitized = trim( str_ireplace( [
 			' ',
@@ -44,19 +53,19 @@ class Phone extends Base
 		], '', $sanitized ) );
 
 		if ( Number::repeated( $input, 11 ) )
-			return '';
+			return $default;
 
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
 
 			if ( strlen( $sanitized ) > 13 )
-				return '';
+				return $default;
 
 			$province_prefix = self::const( 'GCORE_DEFAULT_PROVINCE_PHONE', '21' );
 			$province_length = strlen( $province_prefix );
 
 			// under 10 digits and starts with `9`
 			if ( preg_match( '/^9\d{0,8}$/', $sanitized ) )
-				return '';
+				return $default;
 
 			// 10 digits and starts with `9`
 			if ( preg_match( '/^9\d{9}$/', $sanitized ) )
@@ -84,10 +93,89 @@ class Phone extends Base
 
 			// NOTE: invalidate likes of `+989120000000`/`+981111111111`
 			if ( 13 === strlen( $sanitized ) && Number::repeated( substr( $sanitized, -7 ), 7 ) )
-				return '';
+				return $default;
 		}
 
 		return $sanitized;
+	}
+
+	/**
+	 * Prepares a value as phone number for the given context.
+	 *
+	 * @param string $value
+	 * @param array $field
+	 * @param string $context
+	 * @param string $icon
+	 * @return string
+	 */
+	public static function prep( $value, $field = [], $context = 'display', $icon = NULL )
+	{
+		if ( self::empty( $value ) )
+			return '';
+
+		$raw   = $value;
+		$title = empty( $field['title'] ) ? NULL : $field['title'];
+
+		// tries to sanitize with fallback
+		if ( ! $value = self::sanitize( $value ) )
+			$value = $raw;
+
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
+
+			if ( Text::starts( $value, '+98' ) )
+				$value = '0'.Text::stripPrefix( $value, '+98' );
+
+			$value = Number::localize( $value );
+		}
+
+		switch ( $context ) {
+			case 'raw'   : return $raw;
+			case 'edit'  : return $raw;
+			case 'print' : return $value;
+			case 'input' : return Number::translate( $value );
+			case 'export': return Number::translate( $value );
+			case 'icon'  : return HTML::tel( $raw, $title ?: $value, $icon ?? HTML::getDashicon( 'phone' ), self::is( $raw ) ? '-is-valid' : '-is-not-valid' );
+			case 'admin' :
+			     default : return HTML::tel( $raw, $title ?: FALSE, $value, self::is( $raw ) ? '-is-valid' : '-is-not-valid' );
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Tries to discover if given criteria is supported.
+	 *
+	 * @param string $criteria
+	 * @return string|false
+	 */
+	public static function discovery( $criteria )
+	{
+		if ( ! $sanitized = self::sanitize( $criteria ) )
+			return FALSE;
+
+		// // only numbers
+		// if ( ! Number::is( $sanitized ) )
+		// 	return FALSE;
+
+		// // only between 10-13 digits
+		// if ( ! preg_match( '/^\d{10,13}$/', $sanitized ) )
+		// 	return FALSE;
+
+		return $sanitized;
+	}
+
+	// @REF: https://www.abstractapi.com/guides/validate-phone-number-javascript
+	// @SEE: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel
+	public static function getHTMLPattern()
+	{
+		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
+			return '[0-9۰-۹]{3}-[0-9۰-۹]{3}-[0-9۰-۹]{4}';
+
+		// @REF: https://www.material-tailwind.com/docs/html/input-phone
+		// `maxlength="16"`
+		// return '^\+\d{1,3}\s\d{1,4}-\d{1,4}-\d{4}$';
+
+		return '[0-9]{3}-[0-9]{3}-[0-9]{4}';
 	}
 
 	/**

@@ -56,7 +56,7 @@ class File extends Base
 
 	/**
 	 * Retrieves the filetype from the filename.
-	 * NOTE: wrapper for `wp_check_filetype()`
+	 * NOTE: wrapper for `wp_check_filetype()` with check for all mime-types.
 	 *
 	 * @param string $filename
 	 * @param array $mimes
@@ -64,7 +64,7 @@ class File extends Base
 	 */
 	public static function type( $filename, $mimes = NULL )
 	{
-		return wp_check_filetype( $filename, $mimes );
+		return wp_check_filetype( $filename, $mimes ?? wp_get_mime_types() );
 	}
 
 	/**
@@ -186,7 +186,7 @@ class File extends Base
 	 */
 	public static function isAbsolute( $path )
 	{
-		// Check to see if the path is a stream and check to see if its an actual
+		// Check to see if the path is a stream and check to see if it's an actual
 		// path or file as `realpath()` does not support stream wrappers.
 		if ( wp_is_stream( $path ) && ( is_dir( $path ) || is_file( $path ) ) )
 			return TRUE;
@@ -218,7 +218,7 @@ class File extends Base
 		if ( empty( $path ) )
 			return '';
 
-		// everything to lower and no spaces begin or end
+		// Everything to lower and no spaces begin or end
 		$path = strtolower( trim( $path ) );
 
 		// adding - for spaces and union characters
@@ -526,7 +526,7 @@ class File extends Base
 
 		foreach ( (array) $files as $file )
 			if ( @unlink( self::normalize( $file ) ) )
-				$count++;
+				++$count;
 
 		return $count;
 	}
@@ -564,13 +564,52 @@ class File extends Base
 		return $put_access_deny ? self::putHTAccessDeny( $path, FALSE ) : TRUE;
 	}
 
-	// output up to 5MB is kept in memory, if it becomes bigger
+	/**
+	 * Lists files and directories inside the specified path.
+	 *
+	 * @param string $path
+	 * @param bool $full
+	 * @return array
+	 */
+	public static function listDir( $path, $full = TRUE )
+	{
+		if ( self::empty( $path ) )
+			return [];
+
+		$list = [];
+		$path = self::normalize( $path );
+		$base = $full ? $path : self::basename( $path );
+
+		if ( ! $directory = @scandir( $path ) )
+			return $list;
+
+		foreach ( $directory as $item ) {
+
+			if ( in_array( $item, [ '..', '.' ] ) )
+				continue;
+
+			$file = self::normalize( rtrim( $path, '/' ).'/'.$item );
+
+			if ( is_dir( $file ) )
+				$list[$base][] = self::listDir( $file, $full );
+
+			else if ( $full )
+				$list[$base][] = $file;
+
+			else
+				$list[$base][] = $item;
+		}
+
+		return $list;
+	}
+
+	// output up to `5MB` is kept in memory, if it becomes bigger
 	// it will automatically be written to a temporary file
 	// @REF: http://php.net/manual/en/function.fputcsv.php#74118
 	public static function toCSV( $data, $maxmemory = NULL )
 	{
 		if ( is_null( $maxmemory ) )
-			$maxmemory =  5 * 1024 * 1024; // 5MB
+			$maxmemory =  5 * 1024 * 1024; // `5MB`
 
 		$handle = fopen( 'php://temp/maxmemory:'.$maxmemory, 'r+' );
 
@@ -589,13 +628,69 @@ class File extends Base
 		return $csv;
 	}
 
+	// The most perfect or least imperfect CSV file parsing, taking in account line-endings in cells
+	// @source https://gist.github.com/rmpel/ce4892bb180b7bae6ce73717f2f76fc2
+	public static function fromCSV( $file, $separator = ',', $encapsulation = '"', $replace_encapsed_le_with = NULL )
+	{
+		$virtual_lines = [];
+		$encapsulated  = FALSE;
+		$virtual_line  = '';
+
+		foreach ( file( $file ) as $line ) {
+
+			$chars = str_split( trim( $line ) );
+			$chars[] = "\n"; // certain line ending
+
+			foreach ( $chars as $i => $char ) {
+
+				if ( $char === $encapsulation ) {
+
+					if ( $chars[$i-1] === "\\" && ( $chars[$i-2] !== "\\" || $chars[$i-3] === "\\" ) && $chars[$i+1] !== $encapsulation ) {
+
+						// not an escaped quote
+						// here for clarification
+
+					} else {
+
+						$encapsulated = ! $encapsulated;
+					}
+				}
+
+				if ( "\n" === $char ) {
+
+					if ( ! $encapsulated ) {
+
+						$virtual_lines[] = $virtual_line;
+						$virtual_line = '';
+
+						continue;
+
+					} else {
+
+						$char = $replace_encapsed_le_with ?? "\n";
+					}
+				}
+
+				$virtual_line.= $char;
+			}
+		}
+
+		$virtual_lines = array_map( 'str_getcsv', $virtual_lines );
+
+		while ( ( $end = end( $virtual_lines ) ) && ! array_filter( $end ) )
+			array_pop( $virtual_lines );
+
+		return $virtual_lines;
+	}
+
 	// @REF: https://www.hashbangcode.com/article/remove-last-line-file-php
 	public static function processCSVbyLine( $file, $callback, $args = [] )
 	{
 		if ( ! is_callable( $callback ) )
 			return FALSE;
 
-		$rows = file( $file ); // read the file into an array
+		// Reads the file into an array.
+		$rows = file( $file );
 
 		if ( empty( $rows ) || count( $rows ) < 2 )
 			return FALSE;
@@ -636,9 +731,9 @@ class File extends Base
 		$size   = filesize( $file );
 		$break  = FALSE;
 		$start  = FALSE;
-		$bite   = 50; // number of bytes to look at
+		$bite   = 50; // the number of bytes to look at
 
-		// put pointer to the end of the file
+		// Puts pointer to the end of the file
 		fseek( $handle, 0, SEEK_END );
 
 		while ( FALSE === $break && FALSE === $start ) {
@@ -747,6 +842,15 @@ class File extends Base
 		exit;
 	}
 
+	/**
+	 * Includes and evaluates the specified file.
+	 *
+	 * @see https://konstantin.blog/2021/php-benchmark-include-vs-file_get_contents/
+	 *
+	 * @param string $path
+	 * @param mixed $fallback
+	 * @return mixed
+	 */
 	public static function requireData( $path, $fallback = FALSE )
 	{
 		return self::readable( $path )
@@ -809,18 +913,17 @@ class File extends Base
 
 			while ( $line = fgets( $file_handler ) ) {
 
-				$i++;
+				++$i;
 
 				// case-sensitive is false by default
-				if ( $case_sensitive == false ) {
+				if ( FALSE === $case_sensitive ) {
 					$search = strtolower( $search );  //convert file and search string
 					$line   = strtolower( $line );    //to lowercase
 				}
 
-				// find the string and store it in an array
-				if ( strpos( $line, $search ) !== false ) {
+				// Finds the string and store it in an array.
+				if ( FALSE !== strpos( $line, $search ) )
 					$line_number .=  $i.",";
-				}
 			}
 
 			fclose( $file_handler );
@@ -834,11 +937,11 @@ class File extends Base
 	}
 
 	/**
-	 * Deletes BOM from an UTF-8 file.
+	 * Deletes BOM from an `UTF-8` file.
 	 *
 	 * @param string $file
 	 * @param bool $error
-	 * @return true|object
+	 * @return true|Error
 	 */
 	public static function stripBOM( $file, $error = FALSE )
 	{

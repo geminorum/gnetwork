@@ -7,14 +7,18 @@ use geminorum\gNetwork\Core;
 class Strings extends Core\Base
 {
 
-	// wrapper for `wp_get_list_item_separator()` @since WP 6.0.0
+	/**
+	 * Retrieves the list item separator based on the locale.
+	 * wrapper for `wp_get_list_item_separator()` @since WP 6.0.0
+	 *
+	 * @return string $separator
+	 */
 	public static function separator()
 	{
 		if ( function_exists( 'wp_get_list_item_separator' ) )
 			return wp_get_list_item_separator();
 
-		// return _x( ', ', 'Strings: Item Seperator', 'gnetwork' );
-		return __( ', ' );
+		return __( ', ' ); // _x( ', ', 'Strings: Item Seperator', 'gnetwork' );
 	}
 
 	public static function isEmpty( $string, $empties = NULL )
@@ -75,18 +79,30 @@ class Strings extends Core\Base
 
 	public static function trimChars( $text, $length = 45, $append = '&nbsp;&hellip;' )
 	{
-		$append = '<span title="'.HTML::escape( $text ).'">'.$append.'</span>';
+		$append = '<span title="'.Core\HTML::escape( $text ).'">'.$append.'</span>';
 
 		return Core\Text::trimChars( $text, $length, $append );
 	}
 
+	/**
+	 * Separates given string by set of delimiters into an array.
+	 *
+	 * @param string $string
+	 * @param null|string|array $delimiters
+	 * @param null|int $limit
+	 * @param string $delimiter
+	 * @return array $separated
+	 */
 	public static function getSeparated( $string, $delimiters = NULL, $limit = NULL, $delimiter = '|' )
 	{
+		if ( '0' === $string || 0 === $string )
+			return [ '0' ];
+
 		if ( empty( $string ) )
 			return [];
 
 		if ( is_array( $string ) )
-			return $string;
+			return Core\Arraay::prepString( $string );
 
 		if ( is_null( $delimiters ) )
 			$delimiters = [
@@ -100,12 +116,16 @@ class Strings extends Core\Base
 				'|',
 			];
 
-		$string = str_ireplace( $delimiters, $delimiter, $string );
+		else if ( $delimiters && is_string( $delimiters ) )
+			$delimiters = Core\Arraay::prepSplitters( $delimiters, $delimiter );
 
-		$seperated = is_null( $limit )
+		if ( ! empty( $delimiters ) )
+			$string = str_ireplace( $delimiters, $delimiter, $string );
+
+		$separated = is_null( $limit )
 			? explode( $delimiter, $string )
 			: explode( $delimiter, $string, $limit );
 
-		return Core\Arraay::prepString( $seperated );
+		return Core\Arraay::prepString( $separated );
 	}
 }

@@ -78,9 +78,11 @@ class Base
 		return TRUE;
 	}
 
-	public static function req( $key, $default = '' )
+	public static function req( $key, $default = '', $subkey = FALSE )
 	{
-		return isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default;
+		return $subkey
+			? ( isset( $_REQUEST[$key][$subkey] ) ? $_REQUEST[$key][$subkey] : $default )
+			: ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default );
 	}
 
 	public static function do( $values, $key = 'action', $default = FALSE )
@@ -139,6 +141,26 @@ class Base
 			call_user_func_array( $callback, $args );
 
 		return trim( ob_get_clean() );
+	}
+
+	public static function dumpSuccess()
+	{
+		echo '<div style="color:green;">';
+
+		foreach ( func_get_args() as $arg )
+			self::dump( $arg );
+
+		echo '</div>';
+	}
+
+	public static function dumpError()
+	{
+		echo '<div style="color:red;">';
+
+		foreach ( func_get_args() as $arg )
+			self::dump( $arg );
+
+		echo '</div>';
 	}
 
 	public static function dump( $var, $safe = TRUE, $verbose = TRUE )
@@ -216,7 +238,7 @@ class Base
 
 		$log.= $trace[$offset]['function'].'()';
 
-		$offset++;
+		++$offset;
 
 		if ( isset( $trace[$offset]['function'] ) ) {
 
@@ -291,9 +313,10 @@ class Base
 	{
 		print str_repeat( '=', 50 )."\n";
 		$i = 1;
+
 		foreach ( $stacktrace as $node ) {
 			print "$i. ".basename( $node['file'] ).':'.$node['function'].'('.$node['line'].")\n";
-			$i++;
+			++$i;
 		}
 	}
 

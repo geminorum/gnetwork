@@ -66,25 +66,25 @@ class Taxonomy extends Core\Base
 	/**
 	 * Retrieves the list of taxonomies.
 	 *
-	 * Parameter $args is an array of key -> value arguments to match against
+	 * Parameter `$args` is an array of key -> value arguments to match against
 	 * the taxonomies. Only taxonomies having attributes that match all
 	 * arguments are returned:
-	 * name
-	 * object_type (array)
-	 * label
-	 * singular_label
-	 * show_ui
-	 * show_tagcloud
-	 * show_in_rest
-	 * public
-	 * update_count_callback
-	 * rewrite
-	 * query_var
-	 * manage_cap
-	 * edit_cap
-	 * delete_cap
-	 * assign_cap
-	 * _builtin
+	 * `name`
+	 * `object_type` (array)
+	 * `label`
+	 * `singular_label`
+	 * `show_ui`
+	 * `show_tagcloud`
+	 * `show_in_rest`
+	 * `public`
+	 * `update_count_callback`
+	 * `rewrite`
+	 * `query_var`
+	 * `manage_cap`
+	 * `edit_cap`
+	 * `delete_cap`
+	 * `assign_cap`
+	 * `_builtin`
 	 *
 	 * @param int $mod
 	 * @param array $args
@@ -100,7 +100,7 @@ class Taxonomy extends Core\Base
 		if ( FALSE === $object || 'any' == $object )
 			$objects = get_taxonomies( $args, 'objects' );
 		else
-			$objects = get_object_taxonomies( $object, 'objects' );
+			$objects = Core\Arraay::filter( get_object_taxonomies( $object, 'objects' ), $args );
 
 		foreach ( $objects as $taxonomy => $taxonomy_obj ) {
 
@@ -140,11 +140,15 @@ class Taxonomy extends Core\Base
 
 			// with object_type
 			else if ( 5 === $mod )
-				$list[$taxonomy] = $taxonomy_obj->labels->name.Core\HTML::joined( $taxonomy_obj->object_type, ' [', ']' );
+				$list[$taxonomy] = $taxonomy_obj->labels->name.Core\HTML::joined( (array) $taxonomy_obj->object_type, ' [', ']' );
 
 			// with name
 			else if ( 6 === $mod )
 				$list[$taxonomy] = $taxonomy_obj->labels->menu_name.' ('.$taxonomy_obj->name.')';
+
+			// list of object types
+			else if ( 7 === $mod )
+				$list[$taxonomy] = (array) $taxonomy_obj->object_type;
 		}
 
 		return $list;
@@ -516,7 +520,6 @@ class Taxonomy extends Core\Base
 
 				} else if ( ! empty( $term['parent'] ) ) {
 
-
 					if ( is_numeric( $term['parent'] ) )
 						$args['parent'] = $term['parent'];
 
@@ -686,8 +689,8 @@ class Taxonomy extends Core\Base
 	}
 
 	/**
-	 * Retrieves children of taxonomy as term IDs.
-	 * Without option save and accepts taxonomy object.
+	 * Retrieves children of taxonomy as term IDs,
+	 * without option save and accepts taxonomy object.
 	 *
 	 * @source `_get_term_hierarchy()`
 	 *
@@ -911,5 +914,18 @@ class Taxonomy extends Core\Base
 
 		// WooCommerce
 		add_filter( 'woocommerce_product_recount_terms', '__return_false' );
+	}
+
+	public static function sortByName( $terms )
+	{
+		usort( $terms, function ( $a, $b ) {
+
+			$aLast = end( explode( ' ', $a->name ) );
+			$bLast = end( explode( ' ', $b->name ) );
+
+			return strcasecmp( $aLast, $bLast );
+		} );
+
+		return $terms;
 	}
 }

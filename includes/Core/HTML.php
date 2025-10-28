@@ -154,8 +154,10 @@ class HTML extends Base
 
 		$classes = [
 			'btn',
-			'btn-default',
-			'btn-xs',
+			'btn-default', // DEPRECATED
+			'btn-outline-secondary', // BS5
+			// 'btn-xs',
+			'btn-sm',
 			'button',
 			'-button',
 		];
@@ -169,7 +171,7 @@ class HTML extends Base
 			'title'  => $title,
 			'class'  => $classes,
 			'data'   => $data,
-			'target' => '_blank',
+			// 'target' => '_blank',
 		], $html );
 	}
 
@@ -234,7 +236,7 @@ class HTML extends Base
 		if ( empty( $array ) )
 			return;
 
-		if ( Arraay::isNumeric( $array ) ) {
+		if ( ! Arraay::isNumeric( $array ) ) {
 
 			foreach ( $array as $key => $value ) {
 				$name = empty( $prefix ) ? $key : $prefix.'['.$key.']';
@@ -902,16 +904,16 @@ class HTML extends Base
 			'title'      => NULL,
 			'before'     => FALSE,
 			'after'      => FALSE,
-			'row_prep'   => FALSE, // call back to prep each row data
-			'row_class'  => FALSE, // call back to filter each row class
-			'callback'   => FALSE, // for all cells
-			'sanitize'   => TRUE, // using sanitizeDisplay()
-			'search'     => FALSE, // 'before', // 'after', // FIXME: add search box
-			'navigation' => FALSE, // 'before', // 'after',
+			'row_prep'   => FALSE,   // call back to prep each row data
+			'row_class'  => FALSE,   // call back to filter each row class
+			'callback'   => FALSE,   // for all cells
+			'sanitize'   => TRUE,    // using `sanitizeDisplay()`
+			'search'     => FALSE,   // 'before', // 'after', // FIXME: add search box
+			'navigation' => FALSE,   // 'before', // 'after',
 			'direction'  => NULL,
 			'pagination' => [],
 			'map'        => [],
-			'extra'      => [], // just passing around!
+			'extra'      => [],      // just passing around!
 		], $atts );
 
 		echo '<div'.( is_null( $args['direction'] ) ? '' : ' dir="'.$args['direction'].'"' ).' class="base-table-wrap">';

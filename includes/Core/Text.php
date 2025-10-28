@@ -6,31 +6,43 @@ class Text extends Base
 {
 
 	/**
-	 * Advanced version of `trim()`.
-	 *
-	 * - `\u0001`: `Start Of Heading` (U+0001)
-	 * - `\u200a`: `HAIR SPACE` (U+200A)
-	 * - `\u200b`: `ZERO WIDTH SPACE` (U+200B)
-	 * - `\u200c`: `ZERO WIDTH NON-JOINER` (U+200C)
-	 * - `\u200e`: `LEFT-TO-RIGHT MARK` (U+200E)
-	 * - `\u200f`: `RIGHT-TO-LEFT MARK` (U+200F)
-	 * - `\u202a`: `LEFT-TO-RIGHT EMBEDDING` (U+202A)
-	 * - `\u202b`: `RIGHT-TO-LEFT EMBEDDING` (U+202B)
-	 * - `\u202c`: `POP DIRECTIONAL FORMATTING` (U+202C)
-	 * - `\u202d`: `LEFT-TO-RIGHT OVERRIDE` (U+202D)
-	 * - `\u202e`: `RIGHT-TO-LEFT OVERRIDE` (RLO)
-	 * - `\u202f`: `NARROW NO-BREAK SPACE` (U+202F)
+	 * Strips whitespace (or other characters) from the beginning and end of a string.
 	 *
 	 * @param string $text
-	 * @return string $text
+	 * @return string $additional
+	 * @return string
 	 */
-	public static function trim( $text )
+	public static function trim( $text, $additional = NULL )
 	{
-		$text = (string) $text;
-		// $text = trim( $text, " \n\t\r\0\x0B," );
-		$text = preg_replace( '/^[\s\x{0001}\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}\x{202F}]+/u', '', $text );
-		$text = preg_replace( '/[\s\x{0001}\x{200A}\x{200B}\x{200C}\x{200E}\x{200F}\x{202A}\x{202B}\x{202C}\x{202D}\x{202E}\x{202F}]+$/u', '', $text );
-		$text = trim( $text ); // OCD Only
+		if ( empty( $text ) )
+			return $text;
+
+		$chars = [
+			"\s",
+			"\x{0001}", // `Start Of Heading` (U+0001)
+			"\x{200A}", // `HAIR SPACE` (U+200A)
+			"\x{200B}", // `ZERO WIDTH SPACE` (U+200B)
+			"\x{200C}", // `ZERO WIDTH NON-JOINER` (U+200C)
+			"\x{200D}", // `ZERO WIDTH JOINER` (U+200D)
+			"\x{200E}", // `LEFT-TO-RIGHT MARK` (U+200E)
+			"\x{200F}", // `RIGHT-TO-LEFT MARK` (U+200F)
+			"\x{202A}", // `LEFT-TO-RIGHT EMBEDDING` (U+202A)
+			"\x{202B}", // `RIGHT-TO-LEFT EMBEDDING` (U+202B)
+			"\x{202C}", // `POP DIRECTIONAL FORMATTING` (U+202C)
+			"\x{202D}", // `LEFT-TO-RIGHT OVERRIDE` (U+202D)
+			"\x{202E}", // `RIGHT-TO-LEFT OVERRIDE` (RLO)
+			"\x{202F}", // `NARROW NO-BREAK SPACE` (U+202F)
+		];
+
+		if ( $additional )
+			$chars = array_merge( $chars, array_map( 'preg_quote', preg_split( '//u', (string) $additional, -1, PREG_SPLIT_NO_EMPTY ) ) );
+
+		$text = preg_replace(
+			// @REF: https://www.php.net/manual/en/ref.mbstring.php#113569
+			'/^['.implode( '', $chars ).']*(?U)(.*)['.implode( '', $chars ).']*$/u',
+			'\\1',
+			(string) $text
+		);
 
 		if ( 0 === strlen( $text ) )
 			return '';
@@ -42,14 +54,14 @@ class Text extends Base
 	 * right trim of a string
 	 * @source https://stackoverflow.com/a/32739088
 	 *
-	 * @param string    $text          Original string
-	 * @param string    $needle        String to trim from the end of $str
-	 * @param bool|true $caseSensitive Perform case sensitive matching, defaults to true
+	 * @param string $text Original string
+	 * @param string $needle String to trim from the end of $text
+	 * @param bool|true $case_sensitive Perform case-sensitive matching, defaults to true
 	 * @return string Trimmed string
 	 */
-	public static function rightTrim( $text, $needle, $caseSensitive = TRUE )
+	public static function rightTrim( $text, $needle, $case_sensitive = TRUE )
 	{
-		$strPosFunction = $caseSensitive ? 'strpos' : 'stripos';
+		$strPosFunction = $case_sensitive ? 'strpos' : 'stripos';
 
 		if ( FALSE !== $strPosFunction( $text, $needle, strlen( $text ) - strlen( $needle ) ) )
 			$text = substr( $text, 0, -strlen( $needle ) );
@@ -61,14 +73,14 @@ class Text extends Base
 	 * left trim of a string
 	 * @source https://stackoverflow.com/a/32739088
 	 *
-	 * @param string    $text          Original string
-	 * @param string    $needle        String to trim from the beginning of $str
-	 * @param bool|true $caseSensitive Perform case sensitive matching, defaults to true
+	 * @param string $text Original string
+	 * @param string $needle String to trim from the beginning of $text
+	 * @param bool|true $case_sensitive Perform case-sensitive matching, defaults to true
 	 * @return string Trimmed string
 	 */
-	public static function leftTrim( $text, $needle, $caseSensitive = TRUE )
+	public static function leftTrim( $text, $needle, $case_sensitive = TRUE )
 	{
-		$strPosFunction = $caseSensitive ? 'strpos' : 'stripos';
+		$strPosFunction = $case_sensitive ? 'strpos' : 'stripos';
 
 		if ( 0 === $strPosFunction( $text, $needle ) )
 			$text = substr( $text, strlen( $needle ) );
@@ -78,10 +90,11 @@ class Text extends Base
 
 	/**
 	 * Removes given needle from the start of the string.
+	 * NOTE: see `Text::stripPrefix()`
 	 *
-	 * @param  string $text
-	 * @param  string $needle
-	 * @return string $removed
+	 * @param string $text
+	 * @param string $needle
+	 * @return string
 	 */
 	public static function removeFromstart( $text, $needle )
 	{
@@ -349,12 +362,13 @@ class Text extends Base
 	 *
 	 * @param string $text
 	 * @param string $tag
+	 * @param string $class
 	 * @return string
 	 */
-	public static function replaceImageP( $text, $tag = 'figure' )
+	public static function replaceImageP( $text, $tag = 'figure', $class = '' )
 	{
 		return $tag && trim( $tag )
-			? preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', sprintf( '<%s>\1\2\3</%s>', $tag, $tag ), $text )
+			? preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', sprintf( '<%s%s>\1\2\3</%s>', $tag, ( $class ? ( ' class="'.$class.'"' ) : '' ), $tag ), $text )
 			: preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $text );
 	}
 
@@ -400,7 +414,7 @@ class Text extends Base
 	}
 
 	/**
-	 * String contains multi-byte (non-ASCII/non-single-byte) UTF-8 characters.
+	 * String contains multi-byte (non-ASCII/non-single-byte) `UTF-8` characters.
 	 *
 	 * @param string $text
 	 * @return bool
@@ -411,7 +425,7 @@ class Text extends Base
 	}
 
 	/**
-	 * String is strictly UTF-8 encoded.
+	 * String is strictly `UTF-8` encoded.
 	 *
 	 * @param string $text
 	 * @return bool
@@ -438,7 +452,7 @@ class Text extends Base
 		return self::trim( $text );
 	}
 
-	// props @ebraminio/persiantools
+	// props `@ebraminio/persiantools`
 	public static function normalizeZWNJ( $text )
 	{
 		$text = (string) $text;
@@ -446,23 +460,32 @@ class Text extends Base
 		if ( 0 === strlen( $text ) )
 			return '';
 
-		// converts all soft hyphens (&shy;) into zwnj
-		$text = preg_replace( '/\x{00AD}/u', '‌', $text );
+		// Removes all `ZWJ`
+		$text = preg_replace( '/\x{200D}+/u', '', $text );
 
-		// converts all angled dash (&not;) into zwnj
-		$text = preg_replace( '/\x{00AC}/u', '‌', $text );
+		// Converts all RIGHT-TO-LEFT MARK (&rlm;) into `ZWNJ`
+		$text = preg_replace( '/\x{200F}+/u', '‌', $text );
 
-		// removes more than one zwnj
+		// Converts all RIGHT-TO-LEFT EMBEDDING into `ZWNJ`
+		$text = preg_replace( '/\x{202B}+/u', '‌', $text );
+
+		// Converts all soft hyphens (&shy;) into `ZWNJ`
+		$text = preg_replace( '/\x{00AD}+/u', '‌', $text );
+
+		// Converts all angled dash (&not;) into `ZWNJ`
+		$text = preg_replace( '/\x{00AC}+/u', '‌', $text );
+
+		// Removes more than one `ZWNJ`
 		$text = preg_replace( '/\x{200C}{2,}/u', '‌', $text );
 
-		// cleans zwnj before and after numbers, english words, spaces and punctuations
+		// Cleans `ZWNJ` before and after numbers, English words, spaces, and punctuation.
 		$text = preg_replace( '/\x{200C}([\sa-zA-Z0-9۰-۹[\](){}«»“”.…,:;?!$%@#*=+\-\/\،؛٫٬×٪؟ـ])/u', '$1', $text );
 		$text = preg_replace( '/([\sa-zA-Z0-9۰-۹[\](){}«»“”.…,:;?!$%@#*=+\-\/\،؛٫٬×٪؟ـ])\x{200C}/u', '$1', $text );
 
-		// removes unnecessary zwnj on start/end of each line
+		// Removes unnecessary `ZWNJ` on start and end of each line.
 		$text = preg_replace( '/(^\x{200C}|\x{200C})$/u', '', $text );
 
-		// cleans zwnj after characters that don't connect to the next
+		// Cleans `ZWNJ` after characters that don't connect to the next.
 		$text = preg_replace( '/([إأةؤورزژاآدذ،؛,:«»\\/@#$٪×*()ـ\-=|])\x{200C}/u', '$1', $text );
 
 		return self::trim( $text );
@@ -513,6 +536,7 @@ class Text extends Base
 		return preg_replace( '/\R/u', $newline ?? "\n", $text );
 	}
 
+	// NOTE: see `Text::removeFromstart()`
 	public static function stripPrefix( $text, $prefix )
 	{
 		return 0 === strpos( $text, $prefix )
@@ -544,7 +568,7 @@ class Text extends Base
 		if ( ! is_array( $needles ) )
 			return FALSE !== stripos( $haystack, $needles );
 
-		if ( 'OR' == $operator ) {
+		if ( 'OR' === strtoupper( $operator ) ) {
 			foreach ( $needles as $needle )
 				if ( FALSE !== stripos( $haystack, $needle ) )
 					return TRUE;
@@ -552,13 +576,11 @@ class Text extends Base
 			return FALSE;
 		}
 
-		$has = FALSE;
-
 		foreach ( $needles as $needle )
-			if ( FALSE !== stripos( $haystack, $needle ) )
-				$has = TRUE;
+			if ( FALSE === stripos( $haystack, $needle ) )
+				return FALSE;
 
-		return $has;
+		return TRUE;
 	}
 
 	/**
@@ -636,6 +658,22 @@ class Text extends Base
 	{
 		preg_match_all( '/.{1,'.$length.'}/us', $text, $matches );
 		return $matches[0];
+	}
+
+	/**
+	 * Pads a string to a certain length with another string.
+	 * @source https://www.php.net/manual/en/ref.mbstring.php#90611
+	 *
+	 * @param string $input
+	 * @param int $pad_length
+	 * @param string $pad_string
+	 * @param int $pad_style
+	 * @param string $encoding
+	 * @return string
+	 */
+	public static function strPad( $input, $length, $pad_string, $pad_type, $encoding = 'UTF-8' )
+	{
+		return str_pad( $input, strlen( $input ) - mb_strlen( $input, $encoding ) + $length, $pad_string, $pad_type );
 	}
 
 	public static function internalEncoding( $encoding = 'UTF-8' )
@@ -719,7 +757,7 @@ class Text extends Base
 	public static function trimChars( $text, $length = 45, $append = '&hellip;' )
 	{
 		$length = (int) $length;
-		$text   = trim( strip_tags( $text ) );
+		$text   = self::stripTags( $text );
 
 		if ( strlen( $text ) > $length ) {
 
@@ -972,7 +1010,7 @@ class Text extends Base
 			$codetemp = $code - 192 - ( $bytesnumber > 2 ? 32 : 0 ) - ( $bytesnumber > 3 ? 16 : 0 );
 
 			for ( $i = 2; $i <= $bytesnumber; $i++ ) {
-				$offset++;
+				++$offset;
 
 				$code2    = ord( substr( $text, $offset, 1 ) ) - 128; // 10xxxxxx
 				$codetemp = $codetemp * 64 + $code2;
@@ -1094,10 +1132,17 @@ class Text extends Base
 		return preg_replace( '/(width|height)="\d*"\s/', '', $text );
 	}
 
-	// @SOURCE: `wp_strip_all_tags()`
+	/**
+	 * Properly strips all HTML tags including ‘script’ and ‘style’.
+	 * @source `wp_strip_all_tags()`
+	 * @see https://core.trac.wordpress.org/ticket/57579
+	 *
+	 * @param string $text
+	 * @return string
+	 */
 	public static function stripTags( $text )
 	{
-		return self::trim( strip_tags( preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $text ) ) );
+		return $text ? self::trim( strip_tags( preg_replace( '@<(script|style)[^>]*?>.*?</\\1>@si', '', $text ) ) ) : $text;
 	}
 
 	// @SEE: [wp_strip_all_tags()](https://developer.wordpress.org/reference/functions/wp_strip_all_tags/)
@@ -1413,7 +1458,7 @@ class Text extends Base
 			$output.= implode( $delimiter, $row )."\n";
 		}
 
-		return $output;
+		return "\xEF\xBB\xBF".$output; // UTF8 Bom for the Damn Excel!
 	}
 
 	public static function download( $contents, $name, $mime = 'application/octet-stream' )

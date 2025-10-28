@@ -35,8 +35,8 @@ class Number extends Base
 	 * Determines whether a string contains only of digits.
 	 * @source https://stackoverflow.com/a/4878242
 	 *
-	 * @param  string $string
-	 * @return bool   $is
+	 * @param string $string
+	 * @return bool
 	 */
 	public static function is( $string )
 	{
@@ -46,8 +46,8 @@ class Number extends Base
 	/**
 	 * Converts digits into English numbers.
 	 *
-	 * @param  string $string
-	 * @return string $translated
+	 * @param string $string
+	 * @return string
 	 */
 	public static function translate( $string )
 	{
@@ -63,8 +63,8 @@ class Number extends Base
 	/**
 	 * Converts digits into Persian numbers.
 	 *
-	 * @param  string $string
-	 * @return string $translated
+	 * @param string $string
+	 * @return string
 	 */
 	public static function translatePersian( $string )
 	{
@@ -92,6 +92,26 @@ class Number extends Base
 		$string = strtr( $string, static::ARABIC );                 // english to arabic
 
 		return $string;
+	}
+
+	// TODO: unified api
+	public static function toPersianOrdinal( $number )
+	{
+		if ( ! class_exists( 'geminorum\\gEditorial\\Misc\\NumbersInPersian' ) )
+			return self::toOrdinal( $number, 'fa_IR' );
+
+		$numbers = new \geminorum\gEditorial\Misc\NumbersInPersian();
+		return $numbers->number_to_ordinal( $number );
+	}
+
+	// TODO: unified api
+	public static function toPersianWords( $number )
+	{
+		if ( ! class_exists( 'geminorum\\gEditorial\\Misc\\NumbersInPersian' ) )
+			return self::toWords( $number, 'fa_IR' );
+
+		$numbers = new \geminorum\gEditorial\Misc\NumbersInPersian();
+		return $numbers->number_to_words( $number );
 	}
 
 	/**
@@ -151,6 +171,12 @@ class Number extends Base
 		return $number.$ends[$number % 10];
 	}
 
+	// @REF: https://stackoverflow.com/a/8346173
+	public static function englishOrdinalSuffix( $n )
+	{
+		return date( 'S', mktime( 1, 1, 1, 1, ( ( ( $n >= 10 ) + ( $n >= 20 ) + ( $n == 0 ) ) * 10 + $n % 10 ) ) );
+	}
+
 	public static function toWords( $number, $locale = NULL )
 	{
 		if ( ! $sanitized = self::intval( $number ) )
@@ -194,7 +220,7 @@ class Number extends Base
 		$num_levels = str_split( $number, 3 );
 
 		for ( $i = 0; $i < count( $num_levels ); $i++ ) {
-			$levels--;
+			--$levels;
 
 			$hundreds = (int) ( $num_levels[$i] / 100 );
 			$hundreds = ( $hundreds ? ' '.$list1[$hundreds].' hundred'.' ' : '' );
@@ -268,25 +294,30 @@ class Number extends Base
 		return self::intval( $number ) % 2 === 0;
 	}
 
-	// never let a numeric value be less than zero
-	// @SOURCE: `bbp_number_not_negative()`
+	/**
+	 * Never let a numeric value be less than zero.
+	 * @source: `bbp_number_not_negative()`
+	 *
+	 * @param mixed $number
+	 * @return int
+	 */
 	public static function notNegative( $number )
 	{
 		if ( is_string( $number ) ) {
 
-			// protect against formatted strings
-			$number = strip_tags( $number ); // no HTML
-			$number = apply_filters( 'string_format_i18n_back', $number );
-			$number = preg_replace( '/[^0-9-]/', '', $number ); // no number-format
+			// Protects against formatted strings.
+			$number = strip_tags( $number );                     // no HTML
+			$number = self::translate( $number );                // standard numbers
+			$number = preg_replace( '/[^0-9-]/', '', $number );  // no number-format
 
 		} else if ( ! is_numeric( $number ) ) {
 
-			// protect against objects, arrays, scalars, etc...
+			// Protects against objects, arrays, scalars, etc.
 			$number = 0;
 		}
 
-		// make the number an integer
-		// pick the maximum value, never less than zero
+		// Makes the number an integer.
+		// Picks the maximum value, never less than zero.
 		return max( 0, (int) $number );
 	}
 
@@ -294,10 +325,10 @@ class Number extends Base
 	 * Adds leading zeros when necessary.
 	 * @source `zeroise()`
 	 *
-	 * @param  int         $number
-	 * @param  int         $threshold
-	 * @param  null|string $locale
-	 * @return string      $zeroised
+	 * @param int $number
+	 * @param int $threshold
+	 * @param string $locale
+	 * @return string
 	 */
 	public static function zeroise( $number, $threshold, $locale = NULL )
 	{
@@ -308,12 +339,12 @@ class Number extends Base
 	 * Removes all leading zeroes in a string.
 	 * @source https://stackoverflow.com/a/30622697
 	 *
-	 * @param  string $zeroised
-	 * @return string $number
+	 * @param string $number
+	 * @return string
 	 */
-	public static function notZeroise( $zeroised )
+	public static function notZeroise( $number )
 	{
-		return preg_replace( '/^0+/', '', self::translate( $zeroised ) );
+		return preg_replace( '/^0+/', '', self::translate( $number ) );
 	}
 
 	public static $readable_suffix = [
@@ -353,7 +384,7 @@ class Number extends Base
 	// @REF: http://php.net/manual/en/function.number-format.php#89655
 	public static function formatOrdinal_en( $number )
 	{
-		// special case "teenth"
+		// special case "tenth"
 		if ( ( $number / 10 ) % 10 != 1 ) {
 
 			// handle 1st, 2nd, 3rd
@@ -374,7 +405,7 @@ class Number extends Base
 	// @REF: https://www.irwebdesign.ir/work-with-number-or-int-varible-in-php/
 	public static function wordsToNumber( $string )
 	{
-		// replace all number words with an equivalent numeric value
+		// Replaces all number words with an equivalent numeric value.
 		$string = strtr( $string, [
 			'zero'      => '0',
 			'a'         => '1',
@@ -400,7 +431,7 @@ class Number extends Base
 			'twenty'    => '20',
 			'thirty'    => '30',
 			'forty'     => '40',
-			'fourty'    => '40', // common misspelling
+			'fourty'    => '40',           // common misspelling
 			'fifty'     => '50',
 			'sixty'     => '60',
 			'seventy'   => '70',
@@ -426,7 +457,7 @@ class Number extends Base
 
 			if ( ! $stack->isEmpty() ) {
 
-				// we're part way through a phrase
+				// We're part way through a phrase
 				if ( $stack->top() > $part ) {
 
 					// decreasing step, e.g. from hundreds to ones
@@ -463,20 +494,20 @@ class Number extends Base
 	}
 
 	/**
-	 * Round a number using the built-in `round` function, but unless the value to round is numeric
-	 * (a number or a string that can be parsed as a number), apply 'floatval' first to it
+	 * Rounds a number using the built-in `round()`.
+	 * But unless the value to round is numeric (a number or a string
+	 * that can be parsed as a number), apply `floatval()` first to it
 	 * (so it will convert it to 0 in most cases).
 	 *
-	 * This is needed because in PHP 7 applying `round` to a non-numeric value returns 0,
-	 * but in PHP 8 it throws an error. Specifically, in WooCommerce we have a few places where
-	 * round('') is often executed.
+	 * This is needed because in PHP 7 applying `round()` to a non-numeric
+	 * value returns `0`, but in PHP 8 it throws an error. Specifically,
+	 * in WooCommerce we have a few places where `round('')` is often executed.
 	 *
 	 * @source `Automattic\WooCommerce\Utilities\NumberUtil::round()`
 	 *
 	 * @param mixed $val The value to round.
-	 * @param int   $precision The optional number of decimal digits to round to.
-	 * @param int   $mode A constant to specify the mode in which rounding occurs.
-	 *
+	 * @param int $precision The optional number of decimal digits to round to.
+	 * @param int $mode A constant to specify the mode in which rounding occurs.
 	 * @return float The value rounded to the given precision as a float, or the supplied default value.
 	 */
 	public static function round( $val, int $precision = 0, int $mode = PHP_ROUND_HALF_UP )
@@ -488,21 +519,20 @@ class Number extends Base
 	}
 
 	/**
-	 * get modulus (substitute for bcmod)
+	 * Gets modulus (substitute for `bcmod`)
 	 * by Andrius Baranauskas and Laurynas Butkus
 	 *
-	 * left_operand can be really big, but be carefull with modulus
+	 * `left_operand` can be really big, but be careful with modulus.
 	 *
 	 * @source https://www.php.net/manual/en/function.bcmod.php#38474
 	 *
-	 * @param  string $left_operand
-	 * @param  int $modulus
-	 *
+	 * @param string $left_operand
+	 * @param int $modulus
 	 * @return string
 	 */
 	public static function bcmod( $left_operand, $modulus )
 	{
-		// how many numbers to take at once? carefull not to exceed (int)
+		// How many numbers to take at once? Careful not to exceed (int)
 		$take = 5;
 		$mod  = '';
 
@@ -519,10 +549,10 @@ class Number extends Base
 	 * Calculates the average value from array excluding empty.
 	 * @source https://stackoverflow.com/a/63839420
 	 *
-	 * @param  array     $numbers
-	 * @param  bool      $round_up
-	 * @param  bool      $include_empties
-	 * @return int|float $average
+	 * @param array $numbers
+	 * @param bool $round_up
+	 * @param bool $include_empties
+	 * @return int|float
 	 */
 	public static function average( array $numbers, bool $round_up = FALSE, bool $include_empties = FALSE )
 	{
@@ -582,9 +612,9 @@ class Number extends Base
 	/**
 	 * Checks if number is repeated, e.g. `5555555555` given length.
 	 *
-	 * @param  int  $number
-	 * @param  int  $length
-	 * @return bool $repeated
+	 * @param int $number
+	 * @param int $length
+	 * @return bool
 	 */
 	public static function repeated( $number, $length = 10 )
 	{
