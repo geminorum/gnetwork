@@ -187,8 +187,7 @@ class Taxonomy extends gNetwork\Module
 		$script = <<<JS
 (function($) {
 	$("#the-list").on("click",".editinline",function(){
-		const now = $(this).closest("tr").find("td.gnetwork_description .hidden").text();
-		$("#inline-desc").text(now);
+		$("#inline-desc").html($(this).closest("tr").find("td.gnetwork_description .hidden").html()); // `.text()`
 	});
 })(jQuery);
 JS;
