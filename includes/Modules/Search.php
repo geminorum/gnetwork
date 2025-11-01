@@ -64,7 +64,7 @@ class Search extends gNetwork\Module
 			'search_columns'      => [],
 			'search_context'      => 'default',
 			'include_taxonomies'  => [],
-			'redirect_single'     => '1',
+			'redirect_single'     => '0',
 			'linkify_hashtags'    => '0',
 			'register_shortcodes' => '0',
 			'exclusion_prefix'    => '-',
@@ -112,10 +112,16 @@ class Search extends gNetwork\Module
 					'description' => _x( 'Filters the prefix that indicates that a search term should be excluded from results.', 'Modules: Search: Settings', 'gnetwork' ),
 					'default'     => '-',
 					'values'      => [
-						/* translators: %s: prefix char */
-						'-' => sprintf( _x( '%s Hyphen &ndash; Default WordPress character to exclude terms.', 'Modules: Search: Settings', 'gnetwork' ), HTML::tag( 'code', '-' ) ),
-						/* translators: %s: prefix char */
-						'!' => sprintf( _x( '%s Exclamation Mark &ndash; Using exclamation as exclude prfix.', 'Modules: Search: Settings', 'gnetwork' ), HTML::tag( 'code', '!' ) ),
+						'-' => sprintf(
+							/* translators: `%s`: prefix char */
+							_x( '%s Hyphen &ndash; Default WordPress character to exclude terms.', 'Modules: Search: Settings', 'gnetwork' ),
+							HTML::tag( 'code', '-' )
+						),
+						'!' => sprintf(
+							/* translators: `%s`: prefix char */
+							_x( '%s Exclamation Mark &ndash; Using exclamation as exclude prfix.', 'Modules: Search: Settings', 'gnetwork' ),
+							HTML::tag( 'code', '!' )
+						),
 						'0' => _x( 'Disable Exclusion &ndash; Ignores exclude prefixes all together.', 'Modules: Search: Settings', 'gnetwork' ),
 					],
 				],
@@ -123,7 +129,6 @@ class Search extends gNetwork\Module
 					'field'       => 'redirect_single',
 					'title'       => _x( 'Redirect Single Result', 'Modules: Search: Settings', 'gnetwork' ),
 					'description' => _x( 'Redirects to the post if search results only returns single post.', 'Modules: Search: Settings', 'gnetwork' ),
-					'default'     => '1',
 				],
 				[
 					'field'       => 'linkify_hashtags',
@@ -139,9 +144,11 @@ class Search extends gNetwork\Module
 	{
 		$page = WordPress::getSearchLink();
 
-		/* translators: %s: search page path */
-		HTML::desc( sprintf( _x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork' ),
-			HTML::tag( 'code', HTML::link( URL::relative( $page ), $page, TRUE ) ) ) );
+		HTML::desc( sprintf(
+			/* translators: `%s`: search page path */
+			_x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork' ),
+			HTML::tag( 'code', HTML::link( URL::relative( $page ), $page, TRUE ) )
+		) );
 	}
 
 	public function init()
@@ -176,7 +183,7 @@ class Search extends gNetwork\Module
 		return $request;
 	}
 
-	// search for terms in default locations like title and content replacing
+	// Search for terms in default locations like title and content replacing
 	// the old search terms seems to be the best way to avoid issue with
 	// multiple terms
 	// @SOURCE: `se_search_default()`
@@ -195,14 +202,14 @@ class Search extends gNetwork\Module
 		return $clause ? "( {$clause} )" : '';
 	}
 
-	// creates the list of search keywords from the 's' parameters.
+	// Creates the list of search keywords from the 's' parameters.
 	// @SOURCE: `se_get_search_terms()`
 	private function searched( $wp_query )
 	{
 		if ( empty( $wp_query->query_vars['s'] ) )
 			return [];
 
-		// added slashes screw with quote grouping when done early, so done later
+		// Added slashes screw with quote grouping when done early, so done later.
 		$searched = stripslashes( $wp_query->query_vars['s'] );
 
 		if ( ! empty( $wp_query->query_vars['sentence'] ) )
@@ -216,7 +223,7 @@ class Search extends gNetwork\Module
 		}, $matches[0] ) );
 	}
 
-	// create the search meta data query
+	// Creates the search meta data query
 	// @SOURCE: `se_build_search_metadata()`
 	private function clause_meta( $wp_query )
 	{
@@ -375,7 +382,7 @@ class Search extends gNetwork\Module
 		return $this->search_form();
 	}
 
-	// also overrided for strings!
+	// also overrides for strings!
 	public function search_form()
 	{
 		$html = '<form role="search" method="get" class="search-form" action="'.esc_url( GNETWORK_SEARCH_URL ).'">';

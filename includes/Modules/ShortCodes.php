@@ -1044,8 +1044,8 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		$text  = $args['content'] ? trim( $args['content'] ) : trim( $content );
-		$email = $args['email'] && is_email( $args['email'] ) ? trim( $args['email'] ) : trim( $content );
+		$text  = $args['content'] ? trim( $args['content'] ) : trim( $content ?: '' );
+		$email = $args['email'] && is_email( $args['email'] ) ? trim( $args['email'] ) : trim( $content ?: '' );
 
 		if ( ! $email && $args['fallback'] )
 			$email = gNetwork()->email();
