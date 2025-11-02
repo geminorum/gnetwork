@@ -34,6 +34,23 @@ table.base-table-list { // Plugin Core
     }
   }
 
+  .cell-wrap {
+    &.-needs-refresh {
+      font-size: 0.9em;
+      color: #555;
+
+      a {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+          text-decoration: underline;
+          color: #222;
+        }
+      }
+    }
+  }
+
   td {
     > .-wrap.-icon-list {
       ul {
@@ -75,6 +92,32 @@ table.base-table-list { // Plugin Core
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+table.wp-list-table { // WordPress Core
+  .inline-edit-col {
+
+    .input-text-wrap {
+      .-description.-empty {
+        margin: 0;
+        padding-top: .5rem;
+        font-size: smaller;
+        color: #555;
+
+        a {
+          text-decoration: none;
+          color: inherit;
+
+          &:hover {
+            text-decoration: underline;
+            color: #222;
+          }
+        }
+      }
+    }
+  }
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 div.base-table-wrap {
