@@ -891,7 +891,7 @@ class File extends Base
 		if ( $prefix )
 			$filename.= $prefix.'-';
 
-		$filename.= WordPress::currentSiteName();
+		$filename.= URL::prepTitle( get_option( 'home' ), TRUE );
 
 		if ( FALSE !== $date_format )
 			$filename.= '-'.wp_date( $date_format ?? 'Ymd' );

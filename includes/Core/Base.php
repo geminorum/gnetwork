@@ -182,10 +182,7 @@ class Base
 
 	public static function cheatin( $message = NULL )
 	{
-		if ( is_null( $message ) )
-			$message = __( 'You don&#8217;t have permission to do this.' );
-
-		wp_die( $message, 403 );
+		wp_die( $message ?? __( 'You don&#8217;t have permission to do this.' ), 403 );
 	}
 
 	public static function _log_req()
@@ -262,7 +259,7 @@ class Base
 	// INTERNAL: used on anything deprecated : only on dev mode
 	protected static function _dev_dep( $note = '', $prefix = 'DEP: ', $offset = 2 )
 	{
-		if ( WordPress::isDev() )
+		if ( 'development' === self::const( 'WP_STAGE' ) )
 			self::_dep( $note, $prefix, $offset );
 	}
 

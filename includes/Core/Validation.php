@@ -78,6 +78,8 @@ class Validation extends Base
 		return TRUE;
 	}
 
+	// @SEE: http://www.aliarash.com/article/shenasameli/shenasa_meli.htm
+	// @SEE: https://github.com/whatwg/html/issues/5740
 	// ^(\d{7}|\d{10})$
 	public static function getIdentityNumberHTMLPattern()
 	{
@@ -337,5 +339,54 @@ class Validation extends Base
 			return FALSE;
 
 		return TRUE;
+	}
+
+	// @SEE: https://en.wikipedia.org/wiki/Vehicle_registration_plate
+	// @SEE: https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Iran
+	// @SEE: https://en.wikipedia.org/wiki/European_vehicle_registration_plate
+	public static function sanitizePlateNumber( $input )
+	{
+		$sanitized = Number::translate( Text::trim( $input ) );
+		$sanitized = strtoupper( str_replace( ' ', '', $sanitized ) );
+
+		if ( ! self::isPlateNumber( $sanitized ) )
+			return '';
+
+		return $sanitized;
+	}
+
+	// @SEE https://github.com/persian-tools/persian-tools#-geographic--utilities
+	// type: "Car",
+	// template: `12${"ب"}145${"ایران"}47`,
+	// province: "مرکزی",
+	// category: "شخصی",
+	// details: {
+	// 	firstTwoDigits: "12",
+	// 	nextThreeDigits: "145",
+	// 	provinceCode: "47",
+	// 	plateCharacter: "ب",
+	// },
+
+	// type: "Car",
+	// template: `12${"g"}451${"ایران"}50`, // province 50 does not exist
+	// category: "دولتی",
+	// province: null,
+	// details: {
+	// 	firstTwoDigits: "12",
+	// 	nextThreeDigits: "451",
+	// 	provinceCode: "50",
+	// 	plateCharacter: "الف",
+	// },
+	public static function isPlateNumber( $input )
+	{
+		if ( self::empty( $input ) )
+			return FALSE;
+
+		return TRUE; // FIXME!
+	}
+
+	public static function getPlateHTMLPattern()
+	{
+		return FALSE; // FIXME!
 	}
 }

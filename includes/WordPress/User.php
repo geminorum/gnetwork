@@ -7,6 +7,7 @@ use geminorum\gNetwork\Core;
 class User extends Core\Base
 {
 
+	// OLD: `WordPress::getUsers()`
 	public static function get( $all_fields = FALSE, $network = FALSE, $extra = [], $rekey = 'ID' )
 	{
 		$users = get_users( array_merge( [
@@ -18,10 +19,46 @@ class User extends Core\Base
 		return Core\Arraay::reKey( $users, $rekey );
 	}
 
+	// @REF: `get_blogs_of_user()`
+	// OLD:: `Core\WordPress::getUserSites()`
+	public static function getSites( $user_id, $prefix )
+	{
+		$blogs = [];
+		$keys  = get_user_meta( $user_id );
+
+		if ( empty( $keys ) )
+			return $blogs;
+
+		if ( isset( $keys[$prefix.'capabilities'] ) && defined( 'MULTISITE' ) ) {
+			$blogs[] = 1;
+			unset( $keys[$prefix.'capabilities'] );
+		}
+
+		foreach ( array_keys( $keys ) as $key ) {
+
+			if ( 'capabilities' !== substr( $key, -12 ) )
+				continue;
+
+			if ( $prefix && 0 !== strpos( $key, $prefix ) )
+				continue;
+
+			$blog = str_replace( [ $prefix, '_capabilities' ], '', $key );
+
+			if ( is_numeric( $blog ) )
+				$blogs[] = (int) $blog;
+		}
+
+		return $blogs;
+	}
+
+	// MAYBE: rename to `object`
 	public static function user( $field, $key = FALSE )
 	{
-		if ( ! $field )
+		if ( 0 === $field || '0' === $field || FALSE === $field )
 			return FALSE;
+
+		if ( is_null( $field ) )
+			$user = wp_get_current_user();
 
 		if ( $field instanceof \WP_User )
 			$user = $field;
@@ -48,6 +85,7 @@ class User extends Core\Base
 	}
 
 	// current user can
+	// OLD: `Core\WordPress::cuc()`
 	public static function cuc( $cap, $none = TRUE )
 	{
 		if ( 'none' == $cap || '0' == $cap )
@@ -102,13 +140,15 @@ class User extends Core\Base
 		return sprintf( $template ?? '%s (%s)', $object->display_name, $object->user_email );
 	}
 
-	// alt to `is_super_admin()`
+	// NOTE: alternative to `is_super_admin()`
+	// OLD: `Core\WordPress::isSuperAdmin()`
 	public static function isSuperAdmin( $user_id = FALSE )
 	{
 		$cap = is_multisite() ? 'manage_network' : 'manage_options';
 		return $user_id ? user_can( $user_id, $cap ) : current_user_can( $cap );
 	}
 
+	// OLD: `Core\WordPress::superAdminOnly()`
 	public static function superAdminOnly()
 	{
 		if ( ! self::isSuperAdmin() )
@@ -134,29 +174,62 @@ class User extends Core\Base
 		return reset( $users );
 	}
 
-	public static function getIDbyMeta( $meta, $value, $single = TRUE )
+	public static function getIDbyMeta( $key, $value, $single = TRUE )
 	{
-		static $data = [];
+		global $wpdb, $gEditorialUserIDbyMeta;
+
+		if ( empty( $key ) || empty( $value ) )
+			return FALSE;
+
+		if ( empty( $gEditorialUserIDbyMeta ) )
+			$gEditorialUserIDbyMeta = [];
 
 		$group = $single ? 'single' : 'all';
 
-		if ( isset( $data[$meta][$group][$value] ) )
-			return $data[$meta][$group][$value];
-
-		global $wpdb;
+		if ( isset( $gEditorialUserIDbyMeta[$key][$group][$value] ) )
+			return $gEditorialUserIDbyMeta[$key][$group][$value];
 
 		$query = $wpdb->prepare( "
 			SELECT user_id
 			FROM {$wpdb->usermeta}
 			WHERE meta_key = %s
 			AND meta_value = %s
-		", $meta, $value );
+		", $key, $value );
 
 		$results = $single
 			? $wpdb->get_var( $query )
 			: $wpdb->get_col( $query );
 
-		return $data[$meta][$group][$value] = $results;
+		return $gEditorialUserIDbyMeta[$key][$group][$value] = $results;
+	}
+
+	public static function invalidateIDbyMeta( $meta, $value = FALSE )
+	{
+		global $gEditorialUserIDbyMeta;
+
+		if ( empty( $meta ) )
+			return TRUE;
+
+		if ( empty( $gEditorialUserIDbyMeta ) )
+			return TRUE;
+
+		if ( FALSE === $value ) {
+
+			// clear all meta by key
+			foreach ( (array) $meta as $key ) {
+				unset( $gEditorialUserIDbyMeta[$key]['all'] );
+				unset( $gEditorialUserIDbyMeta[$key]['single'] );
+			}
+
+		} else {
+
+			foreach ( (array) $meta as $key ) {
+				unset( $gEditorialUserIDbyMeta[$key]['all'][$value] );
+				unset( $gEditorialUserIDbyMeta[$key]['single'][$value] );
+			}
+		}
+
+		return TRUE;
 	}
 
 	// @REF: `get_blogs_of_user()`
@@ -190,87 +263,6 @@ class User extends Core\Base
 		return $blogs;
 	}
 
-	// @REF: `get_role_list()`
-	// FIXME: move to `WordPress\Role`
-	public static function getRoleList( $user_id = FALSE )
-	{
-		if ( ! $user_id )
-			return self::getAllRoleList();
-
-		$list = [];
-		$user = is_object( $user_id ) ? $user_id : get_user_by( 'id', $user_id );
-
-		if ( ! is_object( $user ) )
-			return $list;
-
-		$roles = wp_roles();
-
-		foreach ( $user->roles as $role )
-			if ( isset( $roles->role_names[$role] ) )
-				$list[$role] = translate_user_role( $roles->role_names[$role] );
-
-		return $list;
-	}
-
-	/**
-	 * Retrieves roles for given user.
-	 * FIXME: move to `WordPress\Role`
-	 *
-	 * @param null|int $user_id
-	 * @return array
-	 */
-	public static function getRoles( $user_id = NULL )
-	{
-		$user = get_user_by( 'id', ( $user_id ?: get_current_user_id() ) );
-		return empty( $user ) ? [] : (array) $user->roles;
-	}
-
-	/**
-	 * Checks if the user has given role.
-	 * FIXME: move to `WordPress\Role`
-	 *
-	 * @param string|array $role
-	 * @param null|int $user_id
-	 * @return bool
-	 */
-	public static function hasRole( $role, $user_id = NULL )
-	{
-		if ( empty( $role ) )
-			return FALSE;
-
-		$currents = self::getRoles( $user_id );
-
-		if ( empty( $currents ) )
-			return FALSE;
-
-		return (bool) count( array_intersect( (array) $role, $currents ) );
-	}
-
-	// current user role
-	// TODO: move to `WordPress\Role`
-	public static function cur( $role = FALSE )
-	{
-		$roles = self::getRoles();
-		return $role ? in_array( $role, $roles, TRUE ) : $roles;
-	}
-
-	// TODO: move to `WordPress\Role`
-	public static function getAllRoleList( $filtered = TRUE, $object = FALSE )
-	{
-		$roles = $filtered ? get_editable_roles() : wp_roles()->roles;
-		$list  = $object ? new \stdClass : [];
-
-		foreach ( $roles as $role_name => $role )
-
-			if ( $object )
-				$list->{$role_name} = translate_user_role( $role['name'] );
-
-			else
-				$list[$role_name] = translate_user_role( $role['name'] );
-
-		return $list;
-	}
-
 	// @SEE: https://core.trac.wordpress.org/ticket/38741
 	public static function isLargeCount( $network_id = NULL )
 	{
@@ -290,18 +282,18 @@ class User extends Core\Base
 	{
 		global $wpdb;
 
-		// do nothing if old username does not exist.
+		// Do nothing if old username does not exist.
 		if ( ! username_exists( $old ) || username_exists( $new ) )
 			return FALSE;
 
-		// change username
+		// change `username`
 		$wpdb->query( $wpdb->prepare( "
 			UPDATE $wpdb->users
 			SET user_login = %s
 			WHERE user_login = %s
 		", $new, $old ) );
 
-		// change nicename if needed
+		// change `nicename` if needed
 		$wpdb->query( $wpdb->prepare( "
 			UPDATE $wpdb->users
 			SET user_nicename = %s
@@ -309,7 +301,7 @@ class User extends Core\Base
 			AND user_nicename = %s
 		", $new, $new, $old ) );
 
-		// change display name if needed
+		// change `display_name` if needed
 		$wpdb->query( $wpdb->prepare( "
 			UPDATE $wpdb->users
 			SET display_name = %s
@@ -319,9 +311,9 @@ class User extends Core\Base
 
 		if ( is_multisite() ) {
 
-			// when on multisite, check if old username is in the `site_admins`
-			// options array. if so, replace with new username to retain
-			// superadmin rights.
+			// When on multi-site, check if old username is in the `site_admins`
+			// options array. If so, replace with new username to retain
+			// super-admin rights.
 
 			$supers = (array) get_site_option( 'site_admins', [ 'admin' ] );
 

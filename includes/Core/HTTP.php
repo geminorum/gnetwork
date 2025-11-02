@@ -246,7 +246,7 @@ class HTTP extends Base
 
 		$response = wp_remote_post( $url, $args );
 
-		if ( WordPress::isDev() )
+		if ( 'development' === self::const( 'WP_STAGE' ) )
 			self::_log( $args, wp_remote_retrieve_body( $response ) );
 
 		if ( self::isError( $response ) )
@@ -690,10 +690,10 @@ class HTTP extends Base
 		if ( ! $headers = get_headers( $url, TRUE ) )
 			return FALSE;
 
-		if ( \array_key_exists( 'content-length', $headers ) )
+		if ( array_key_exists( 'content-length', $headers ) )
 			return $headers['content-length'];
 
-		if ( \array_key_exists( 'Content-Length', $headers ) )
+		if ( array_key_exists( 'Content-Length', $headers ) )
 			return $headers['Content-Length'];
 
 		return -1;

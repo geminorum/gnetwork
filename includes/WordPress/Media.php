@@ -21,6 +21,202 @@ class Media extends Core\Base
 		return wp_upload_dir( ( substr( $post->post_date, 0, 4 ) > 0 ? $post->post_date : NULL ), TRUE, FALSE );
 	}
 
+	/**
+	 * Retrieves available mime types for given post-type in media library.
+	 * @ref `wp_count_attachments()`
+	 *
+	 * @return array
+	 */
+	public static function availableMIMETypes( $posttype = 'attachment', $excludes = NULL )
+	{
+		global $wpdb;
+
+		$query = $wpdb->prepare( "
+			SELECT DISTINCT post_mime_type
+			FROM {$wpdb->posts}
+			WHERE post_type = '%s'
+			AND post_status != 'trash'
+			ORDER BY post_mime_type ASC
+		", $posttype );
+
+		return $wpdb->get_col( $query );
+	}
+
+	/**
+	 * Retrieves file extension given a mime-type.
+	 *
+	 * @param string $mime_type
+	 * @param null|array $extensions
+	 * @return string
+	 */
+	public static function getExtension( $mime_type, $extensions = NULL, $uppercase = TRUE )
+	{
+		if ( is_null( $extensions ) )
+			$extensions = wp_get_mime_types();
+
+		if ( FALSE === ( $key = array_search( $mime_type, $extensions ) ) )
+			return FALSE;
+
+		$parts = explode( '|', $key );
+
+		return $uppercase ? strtoupper( $parts[0] ) : $parts[0];
+	}
+
+	// WP default sizes from options
+	public static function defaultImageSizes()
+	{
+		static $sizes = NULL;
+
+		if ( ! is_null( $sizes ) )
+			return $sizes;
+
+		$sizes = [
+			'thumbnail' => [
+				'n' => __( 'Thumbnail' ),
+				'w' => get_option( 'thumbnail_size_w' ),
+				'h' => get_option( 'thumbnail_size_h' ),
+				'c' => get_option( 'thumbnail_crop' ),
+			],
+			'medium' => [
+				'n' => __( 'Medium' ),
+				'w' => get_option( 'medium_size_w' ),
+				'h' => get_option( 'medium_size_h' ),
+				'c' => 0,
+			],
+			// 'medium_large' => [
+			// 	'n' => __( 'Medium Large' ),
+			// 	'w' => get_option( 'medium_large_size_w' ),
+			// 	'h' => get_option( 'medium_large_size_h' ),
+			// 	'c' => 0,
+			// ],
+			'large' => [
+				'n' => __( 'Large' ),
+				'w' => get_option( 'large_size_w' ),
+				'h' => get_option( 'large_size_h' ),
+				'c' => 0,
+			],
+		];
+
+		return $sizes;
+	}
+
+	// core dup with posttype/taxonomy/title
+	// @REF: `add_image_size()`
+	public static function registerImageSize( $name, $atts = [] )
+	{
+		global $_wp_additional_image_sizes;
+
+		$args = self::atts( [
+			'n' => __( 'Untitled' ),
+			'w' => 0,
+			'h' => 0,
+			'c' => 0,
+			'p' => [ 'post' ],                                 // posttype: TRUE: all/array: posttypes/FALSE: none
+			't' => FALSE,                                      // taxonomy: TRUE: all/array: taxes/FALSE: none
+			'f' => empty( $atts['s'] ) ? FALSE : $atts['s'],   // featured
+		], $atts );
+
+		$_wp_additional_image_sizes[$name] = [
+			'width'     => absint( $args['w'] ),
+			'height'    => absint( $args['h'] ),
+			'crop'      => $args['c'],
+			'post_type' => $args['p'],
+			'taxonomy'  => $args['t'],
+			'title'     => $args['n'],
+			'thumbnail' => $args['f'],
+		];
+	}
+
+	// this must be core's
+	// call this late on 'after_setup_theme' hook
+	public static function themeThumbnails( $posttypes )
+	{
+		global $_wp_theme_features;
+
+		$feature = 'post-thumbnails';
+
+		if ( isset( $_wp_theme_features[$feature] ) ) {
+
+			// registered for all types
+			if ( TRUE === $_wp_theme_features[$feature] ) {
+
+				// WORKING: but if it is true, it's true!
+				// $posttypes[] = 'post';
+				// $_wp_theme_features[$feature] = [ $posttypes ];
+
+			} else if ( is_array( $_wp_theme_features[$feature][0] ) ) {
+				$_wp_theme_features[$feature][0] = array_merge( $_wp_theme_features[$feature][0], $posttypes );
+			}
+
+		} else {
+			$_wp_theme_features[$feature] = [ $posttypes ];
+		}
+	}
+
+	// OLD: `getRegisteredImageSizes()`
+	public static function getPosttypeImageSizes( $posttype = 'post', $fallback = FALSE )
+	{
+		global $_wp_additional_image_sizes;
+
+		$sizes = [];
+
+		foreach ( (array) $_wp_additional_image_sizes as $name => $args ) {
+
+			if ( array_key_exists( 'post_type', $args ) ) {
+
+				if ( is_array( $args['post_type'] ) ) {
+
+					if ( in_array( $posttype, $args['post_type'] ) )
+						$sizes[$name] = $args;
+
+					else if ( is_string( $fallback ) && in_array( $fallback, $args['post_type'] ) )
+						$sizes[$name] = $args;
+
+				} else if ( $args['post_type'] ) {
+
+					$sizes[$name] = $args;
+				}
+
+			} else if ( TRUE === $fallback ) {
+
+				$sizes[$name] = $args;
+			}
+		}
+
+		return $sizes;
+	}
+
+	public static function getTaxonomyImageSizes( $taxonomy = 'category', $fallback = FALSE )
+	{
+		global $_wp_additional_image_sizes;
+
+		$sizes = [];
+
+		foreach ( (array) $_wp_additional_image_sizes as $name => $args ) {
+
+			if ( array_key_exists( 'taxonomy', $args ) ) {
+
+				if ( is_array( $args['taxonomy'] ) ) {
+
+					if ( in_array( $taxonomy, $args['taxonomy'] ) )
+						$sizes[$name] = $args;
+
+					else if ( is_string( $fallback ) && in_array( $fallback, $args['taxonomy'] ) )
+						$sizes[$name] = $args;
+
+				} else if ( $args['taxonomy'] ) {
+					$sizes[$name] = $args;
+				}
+
+			} else if ( TRUE === $fallback ) {
+
+				$sizes[$name] = $args;
+			}
+		}
+
+		return $sizes;
+	}
+
 	// @REF: `wp_import_handle_upload()`
 	// NOTE: for upload see `settings_render_upload_field()`
 	public static function handleImportUpload( $name = 'import', $cleanup = TRUE )
@@ -92,7 +288,7 @@ class Media extends Core\Base
 		if ( empty( $url ) )
 			return FALSE;
 
-		// filters the list of allowed file extensions when sideloading an image from a URL @since 5.6.0
+		// filters the list of allowed file extensions when sideloading an image from a URL @since WP 5.6.0
 		$extensions = apply_filters( 'image_sideload_extensions', [ 'jpg', 'jpeg', 'jpe', 'png', 'gif', 'webp', 'avif' ], $url );
 
 		// set variables for storage, fix file filename for query strings
@@ -166,28 +362,21 @@ class Media extends Core\Base
 	public static function getUploadURL( $sub = '' )
 	{
 		$upload = wp_upload_dir( NULL, FALSE, FALSE );
-		$base   = Core\WordPress::isSSL() ? str_ireplace( 'http://', 'https://', $upload['baseurl'] ) : $upload['baseurl'];
+		$base   = IsIt::ssl() ? str_ireplace( 'http://', 'https://', $upload['baseurl'] ) : $upload['baseurl'];
 		return $sub ? $base.'/'.$sub : $base;
 	}
 
+	// NOTE: DEPRECATED: USE: `Attachment::list()`
 	public static function getAttachments( $post_id, $mime_type = 'image' )
 	{
-		return get_children( array(
-			'post_mime_type' => $mime_type,
-			'post_parent'    => $post_id,
-			'post_type'      => 'attachment',
-			'post_status'    => 'inherit',
-			'numberposts'    => -1,
-			'orderby'        => 'menu_order',
-			'order'          => 'ASC',
-		) );
+		return Attachment::list( $post_id, $mime_type );
 	}
 
 	// TODO: get title if HTML is empty
 	public static function htmlAttachmentShortLink( $id, $html, $extra = '', $rel = 'attachment' )
 	{
 		return Core\HTML::tag( 'a', [
-			'href'  => Core\WordPress::getPostShortLink( $id ),
+			'href'  => Post::shortlink( $id ),
 			'rel'   => $rel,
 			'class' => Core\HTML::attrClass( $extra, '-attachment' ),
 			'data'  => [ 'id' => $id ],
@@ -245,7 +434,7 @@ class Media extends Core\Base
 			Core\Arraay::reKey( $attachments, 'ID' ),
 			array(
 				'name'       => $name,
-				'none_title' => Settings::showOptionNone(),
+				'none_title' => __( 'Select an item' ), // Settings::showOptionNone(),
 				'class'      => '-attachment',
 				'selected'   => $selected,
 				'prop'       => 'post_title',
@@ -258,8 +447,8 @@ class Media extends Core\Base
 	 * NOTE: searches only for portion of the attached file
 	 * like: `2021/10/filename` where `filename.ext` is the filename
 	 *
-	 * @param  int  $attachment_id
-	 * @return array $post_ids
+	 * @param int $attachment_id
+	 * @return array
 	 */
 	public static function searchAttachment( $attachment_id )
 	{
@@ -284,6 +473,46 @@ class Media extends Core\Base
 		return empty( $attachment ) ? NULL : $attachment[0];
 	}
 
+	// @REF: https://wpscholar.com/blog/get-attachment-id-from-wp-image-url/
+	// @SEE: `attachment_url_to_postid()`: Notably this will not work on image
+	// sizes, core version only searches "main" attached file.
+	public static function getAttachmentByURL_ALT( $url )
+	{
+		$upload = self::upload();
+
+		// Is URL in uploads directory?
+		if ( FALSE === strpos( $url, $upload['baseurl'] . '/' ) )
+			return 0;
+
+		$file  = Core\File::basename( $url );
+		$query = new \WP_Query( [
+			'post_type'   => 'attachment',
+			'post_status' => 'inherit',
+			'fields'      => 'ids',
+			'meta_query'  => [ [
+				'value'   => $file,
+				'compare' => 'LIKE',
+				'key'     => '_wp_attachment_metadata',
+			] ],
+		] );
+
+		if ( ! $query->have_posts() )
+			return 0;
+
+		foreach ( $query->posts as $post_id ) {
+
+			$meta = wp_get_attachment_metadata( $post_id );
+
+			$original = Core\File::basename( $meta['file'] );
+			$cropped  = Core\Arraay::pluck( $meta['sizes'], 'file' );
+
+			if ( $original === $file || in_array( $file, $cropped ) )
+				return $post_id;
+		}
+
+		return 0;
+	}
+
 	public static function getAttachmentImageAlt( $attachment_id, $fallback = '', $raw = FALSE )
 	{
 		if ( empty( $attachment_id ) )
@@ -293,6 +522,72 @@ class Media extends Core\Base
 			return $raw ? $alt : trim( strip_tags( $alt ) );
 
 		return $fallback;
+	}
+
+	public static function getAttachmentImageDefaultSize( $perent_posttype = NULL, $perent_taxonomy = NULL, $fallback = 'thumbnail' )
+	{
+		$size     = NULL;
+		$sizes    = wp_get_additional_image_sizes();
+		$template = $fallback ? ( '%s-'.$fallback ) : '%s-thumbnail';
+		$posttype = $perent_posttype ? sprintf( $template, $perent_posttype ) : FALSE;
+		$taxonomy = $perent_taxonomy ? sprintf( $template, $perent_taxonomy ) : FALSE;
+
+		if ( $posttype && isset( $sizes[$posttype] ) )
+			$size = $posttype;
+
+		else if ( $taxonomy && isset( $sizes[$taxonomy] ) )
+			$size = $taxonomy;
+
+		$size = apply_filters( 'geditorial_get_thumbnail_default_size', $size, $perent_posttype, $perent_taxonomy, $fallback );
+
+		return $size ?: $fallback;
+	}
+
+	// WTF: rename to `getAttachmentSrc`
+	public static function htmlAttachmentSrc( $attachment_id, $size = NULL, $fallback = '' )
+	{
+		$img = NULL;
+		$src = $fallback;
+
+		if ( is_null( $size ) )
+			$size = self::getAttachmentImageDefaultSize();
+
+		if ( ! empty( $attachment_id ) ) {
+
+			if ( $img = wp_get_attachment_image_src( $attachment_id, $size ) )
+				$src = $img[0];
+		}
+
+		return apply_filters( 'geditorial_get_thumbnail_src', $src, $attachment_id, $img, $fallback );
+	}
+
+	public static function htmlAttachmentImage( $attachment_id, $size = NULL, $link = TRUE, $data = [], $class = '-attachment-image' )
+	{
+		if ( empty( $attachment_id ) )
+			return '';
+
+		if ( ! $src = self::htmlAttachmentSrc( $attachment_id, $size, FALSE ) )
+			return '';
+
+		if ( empty( $data['attachment'] ) )
+			$data['attachment'] = $attachment_id;
+
+		$image = Core\HTML::tag( 'img', [
+			'src'      => $src,
+			'alt'      => self::getAttachmentImageAlt( $attachment_id ),
+			'data'     => $data,
+			'class'    => $class,
+			'loading'  => 'lazy',
+			'decoding' => 'async',
+		] );
+
+		return $link ? Core\HTML::tag( 'a', [
+			'href'   => wp_get_attachment_url( $attachment_id ),
+			'title'  => get_the_title( $attachment_id ),
+			'data'    => $data,
+			'class'  => 'thickbox',
+			'target' => '_blank',
+		], $image ) : $image;
 	}
 
 	// @REF: https://wordpress.stackexchange.com/a/315447
@@ -336,10 +631,84 @@ class Media extends Core\Base
 		return $mime;
 	}
 
-	public static function getAttachmentFileSize( $attachment_id, $format = FALSE, $template = NULL )
+	// NOTE: DEPRECATED
+	public static function deleteAttachmentThumbnails( $attachment_id )
 	{
-		// $filesize = filesize( get_attached_file( $attachment_id ), 2 );
-		$filesize = Core\File::getSize( get_attached_file( $attachment_id ), FALSE );
+		self::_dev_dep( 'WordPress\Media::deleteImageSizes()' );
+		return self::deleteImageSizes( $attachment_id );
+	}
+
+	// @REF: `wp_delete_attachment_files()
+	public static function deleteImageSizes( $attachment_id )
+	{
+		if ( ! $attachment_id )
+			return FALSE;
+
+		$attachment = get_post( $attachment_id );
+
+		if ( 'attachment' !== $attachment->post_type )
+			return FALSE;
+
+		$deleted      = TRUE;
+		$uploads      = self::upload();
+		$metadata     = wp_get_attachment_metadata( $attachment_id );
+		$backup_sizes = get_post_meta( $attachment->ID, '_wp_attachment_backup_sizes', TRUE );
+		$file         = get_attached_file( $attachment_id );
+
+		// Removes intermediate and backup images if there are any
+		if ( isset( $metadata['sizes'] ) && is_array( $metadata['sizes'] ) ) {
+
+			$intermediate_dir = path_join( $uploads['basedir'], dirname( $file ) );
+
+			foreach ( $metadata['sizes'] as $size => $sizeinfo ) {
+
+				$intermediate_file = str_replace( wp_basename( $file ), $sizeinfo['file'], $file );
+
+				if ( ! empty( $intermediate_file ) ) {
+
+					$intermediate_file = path_join( $uploads['basedir'], $intermediate_file );
+
+					if ( ! wp_delete_file_from_directory( $intermediate_file, $intermediate_dir ) )
+						$deleted = FALSE;
+				}
+			}
+
+			unset( $metadata['sizes'] );
+			wp_update_attachment_metadata( $attachment_id, $metadata );
+		}
+
+		if ( is_array( $backup_sizes ) ) {
+
+			$del_dir = path_join( $uploads['basedir'], dirname( $metadata['file'] ) );
+
+			foreach ( $backup_sizes as $size ) {
+
+				$del_file = path_join( dirname( $metadata['file'] ), $size['file'] );
+
+				if ( ! empty( $del_file ) ) {
+
+					$del_file = path_join( $uploads['basedir'], $del_file );
+
+					if ( ! wp_delete_file_from_directory( $del_file, $del_dir ) )
+						$deleted = FALSE;
+				}
+			}
+
+			delete_post_meta( $attachment->ID, '_wp_attachment_backup_sizes' );
+		}
+
+		if ( is_multisite() && is_string( $file ) && ! empty( $file ) )
+			clean_dirsize_cache( $file );
+
+		clean_post_cache( $attachment );
+
+		return $deleted;
+	}
+
+	public static function getAttachmentFileSize( $attachment_id, $format = FALSE, $template = NULL, $fallback = '' )
+	{
+		if ( ! $filesize = Core\File::size( get_attached_file( $attachment_id ) ) )
+			return $fallback;
 
 		return $format
 			? sprintf( $template ?? '<span class="-filesize">%s</span>', Core\HTML::wrapLTR( Core\File::formatSize( $filesize ) ) )

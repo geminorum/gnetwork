@@ -7,20 +7,64 @@ use geminorum\gNetwork\Core;
 class Taxonomy extends Core\Base
 {
 
-	public static function object( $taxonomy )
-	{
-		if ( ! $taxonomy )
-			return $taxonomy;
+	const NAME_INPUT_PATTERN = '[-a-zA-Z0-9_]{3,32}';
 
-		return is_object( $taxonomy ) ? $taxonomy : get_taxonomy( $taxonomy );
+	public static function object( $taxonomy_or_term )
+	{
+		if ( ! $taxonomy_or_term )
+			return FALSE;
+
+		if ( $taxonomy_or_term instanceof \WP_Term )
+			return get_taxonomy( $taxonomy_or_term->taxonomy );
+
+		if ( $taxonomy_or_term instanceof \WP_Taxonomy )
+			return $taxonomy_or_term;
+
+		return get_taxonomy( $taxonomy_or_term );
 	}
 
+	/**
+	 * Determines whether a taxonomy is registered.
+	 * @source: `taxonomy_exists()`
+	 *
+	 * @param string|object $taxonomy_or_term
+	 * @return bool
+	 */
+	public static function exists( $taxonomy_or_term )
+	{
+		return (bool) self::object( $taxonomy_or_term );
+	}
+
+	/**
+	 * Determines whether a taxonomy is considered “viewable”.
+	 *
+	 * @param string|object $taxonomy
+	 * @return bool
+	 */
 	public static function viewable( $taxonomy )
 	{
 		if ( ! $taxonomy )
 			return $taxonomy;
 
 		return is_taxonomy_viewable( $taxonomy );
+	}
+
+	public static function queryVar( $taxonomy )
+	{
+		if ( ! $object = self::object( $taxonomy ) )
+			return FALSE;
+
+		return empty( $object->query_var )
+			? $object->name
+			: $object->query_var;
+	}
+
+	public static function types( $taxonomy )
+	{
+		if ( ! $object = self::object( $taxonomy ) )
+			return [];
+
+		return (array) $object->object_type;
 	}
 
 	/**
@@ -40,27 +84,72 @@ class Taxonomy extends Core\Base
 		return FALSE;
 	}
 
-	// @REF: `is_term_publicly_viewable()` @since WP6.1.0
-	public static function viewableTerm( $term )
+	/**
+	 * Checks for taxonomy capability.
+	 * NOTE: caches the results
+	 *
+	 * @param string|object $taxonomy
+	 * @param null|string $capability
+	 * @param null|int|object $user_id
+	 * @param bool $fallback
+	 * @return bool
+	 */
+	public static function can( $taxonomy, $capability = 'manage_terms', $user_id = NULL, $fallback = FALSE )
 	{
-		$term = get_term( $term );
+		static $cache = [];
 
-		if ( ! $term || is_wp_error( $term ) )
-			return FALSE;
+		if ( is_null( $capability ) )
+			return TRUE;
 
-		return self::viewable( $term->taxonomy );
+		else if ( ! $capability )
+			return $fallback;
+
+		if ( ! $object = self::object( $taxonomy ) )
+			return $fallback;
+
+		if ( ! isset( $object->cap->{$capability} ) )
+			return $fallback;
+
+		if ( is_null( $user_id ) )
+			$user_id = get_current_user_id();
+
+		else if ( is_object( $user_id ) )
+			$user_id = $user_id->ID;
+
+		if ( ! $user_id )
+			return user_can( $user_id, $object->cap->{$capability} );
+
+		if ( isset( $cache[$user_id][$object->name][$capability] ) )
+			return $cache[$user_id][$object->name][$capability];
+
+		$can = user_can( $user_id, $object->cap->{$capability} );
+
+		return $cache[$user_id][$object->name][$capability] = $can;
 	}
 
-	public static function can( $taxonomy, $capability = 'manage_terms', $user_id = NULL )
+	/**
+	 * Retrieves the capability assigned to the taxonomy.
+	 *
+	 * @param string|object $taxonomy
+	 * @param string $capability
+	 * @param string $fallback
+	 * @return string
+	 */
+	public static function cap( $taxonomy, $capability = 'manage_terms', $fallback = NULL )
 	{
 		if ( is_null( $capability ) )
 			return TRUE;
 
-		$cap = self::object( $taxonomy )->cap->{$capability};
+		else if ( ! $capability )
+			return $fallback;
 
-		return is_null( $user_id )
-			? current_user_can( $cap )
-			: user_can( $user_id, $cap );
+		if ( ! $object = self::object( $taxonomy ) )
+			return $fallback;
+
+		if ( isset( $object->cap->{$capability} ) )
+			return $object->cap->{$capability};
+
+		return $fallback ?? $object->cap->manage_terms; // WTF?!
 	}
 
 	/**
@@ -154,6 +243,43 @@ class Taxonomy extends Core\Base
 		return $list;
 	}
 
+	/**
+	 * Retrieves taxonomy archive link.
+	 *
+	 * @param string|object $taxonomy
+	 * @param mixed $fallback
+	 * @return string
+	 */
+	public static function link( $taxonomy, $fallback = NULL )
+	{
+		if ( ! $object = self::object( $taxonomy ) )
+			return $fallback;
+
+		return apply_filters( 'geditorial_taxonomy_archive_link', $fallback, $object->name );
+	}
+
+	/**
+	 * Retrieves the URL for editing a given taxonomy.
+	 * @old `WordPress::getEditTaxLink()`
+	 *
+	 * @param string|object $taxonomy
+	 * @param array $extra
+	 * @param mixed $fallback
+	 * @return string
+	 */
+	public static function edit( $taxonomy, $extra = [], $fallback = FALSE )
+	{
+		if ( ! $object = self::object( $taxonomy ) )
+			return $fallback;
+
+		if ( ! self::can( $object, 'manage_terms' ) )
+			return $fallback;
+
+		return add_query_arg( array_merge( [
+			'taxonomy' => $object->name,
+		], $extra ), admin_url( 'edit-tags.php' ) );
+	}
+
 	public static function getDefaultTermID( $taxonomy, $fallback = FALSE )
 	{
 		return get_option( self::getDefaultTermOptionKey( $taxonomy ), $fallback );
@@ -164,14 +290,126 @@ class Taxonomy extends Core\Base
 		if ( 'category' == $taxonomy )
 			return 'default_category'; // WordPress
 
-		if ( 'product_cat' == $taxonomy )
+		if ( $taxonomy == WooCommerce::PROCUCT_CATEGORY && WooCommerce::isActive() )
 			return 'default_product_cat'; // WooCommerce
 
 		return 'default_term_'.$taxonomy;
 	}
 
+	/**
+	 * Counts posts with no terms assigned given taxonomy and post-types.
+	 *
+	 * @also: `Database::countPostsByNotTaxonomy()`
+	 * @ref: `https://core.trac.wordpress.org/ticket/29181`
+	 *
+	 * @param string $taxonomy
+	 * @param string|array $posttypes
+	 * @param string|object $extra_term
+	 * @param null|false|array $exclude_statuses
+	 * @return int
+	 */
+	public static function countPostsWithoutTerms( $taxonomy, $posttypes, $extra_term = FALSE, $exclude_statuses = FALSE )
+	{
+		if ( ! $taxonomy || empty( $posttypes ) )
+			return 0;
+
+		$args = [
+			'orderby'        => 'none',
+			'fields'         => 'ids',
+			'post_status'    => Status::acceptable( $posttypes ),
+			'post_type'      => $posttypes,
+			'posts_per_page' => -1,
+
+			'tax_query' => [ [
+				'taxonomy' => $taxonomy,
+				'operator' => 'NOT EXISTS',
+			] ],
+
+			'no_found_rows'          => TRUE,
+			'suppress_filters'       => TRUE,
+			'update_post_meta_cache' => FALSE,
+			'update_post_term_cache' => FALSE,
+			'lazy_load_term_meta'    => FALSE,
+		];
+
+		if ( is_null( $exclude_statuses ) || $exclude_statuses )
+			$args['post_status'] = Status::acceptable( $posttypes, 'counts', Database::getExcludeStatuses( $exclude_statuses ) );
+
+		if ( $term = Term::get( $extra_term ) ) {
+			$args['tax_query']['relation'] = 'AND';
+			$args['tax_query'][] = [
+				'taxonomy' => $term->taxonomy,
+				'terms'    => $term->term_id,
+				'field'    => 'term_id',
+			];
+		}
+
+		$query = new \WP_Query();
+		$posts = $query->query( $args );
+
+		return $posts ? count( $posts ) : 0;
+	}
+
+	// NOTE: results are compatible with `WordPress\Database::countPostsByTaxonomy()`
+	// -> `$counts[$term_slug][$posttype] = $term_count;`
+	public static function countPostsDoubleTerms( $the_term, $second_taxonomy, $posttypes, $exclude_statuses = NULL )
+	{
+		$counts = [];
+		$totals = array_fill_keys( $posttypes, 0 );
+
+		if ( ! $the_term = Term::get( $the_term ) )
+			return $counts;
+
+		$terms = is_array( $second_taxonomy )
+			? $second_taxonomy
+			: get_terms( [ 'taxonomy' => $second_taxonomy ] );
+
+		foreach ( $terms as $term ) {
+
+			$counts[$term->slug] = $totals;
+
+			foreach ( $posttypes as $posttype ) {
+
+				$args = [
+					'orderby'        => 'none',
+					'fields'         => 'ids',
+					'post_status'    => Status::acceptable( $posttype, 'counts', Database::getExcludeStatuses( $exclude_statuses ) ),
+					'post_type'      => $posttype,
+					'posts_per_page' => -1,
+
+					'tax_query' => [
+						'relation' => 'AND',
+						[
+							'taxonomy' => $the_term->taxonomy,
+							'terms'    => $the_term->term_id,
+							'field'    => 'term_id',
+						],
+						[
+							'taxonomy' => $term->taxonomy,
+							'terms'    => $term->term_id,
+							'field'    => 'term_id',
+						]
+					],
+
+					'no_found_rows'          => TRUE,
+					'suppress_filters'       => TRUE,
+					'update_post_meta_cache' => FALSE,
+					'update_post_term_cache' => FALSE,
+					'lazy_load_term_meta'    => FALSE,
+				];
+
+				$query = new \WP_Query();
+				$posts = $query->query( $args );
+
+				$counts[$term->slug][$posttype] = $posts ? count( $posts ) : 0;
+			}
+		}
+
+		return $counts;
+	}
+
 	// @REF: `wp_count_terms()`
-	public static function hasTerms( $taxonomy, $object_id = FALSE, $empty = TRUE )
+	public static function hasTerms( $taxonomy, $object_id = FALSE, $empty = TRUE, $extra = [] )
 	{
 		$args = [
 			'taxonomy'   => $taxonomy,
@@ -188,7 +426,285 @@ class Taxonomy extends Core\Base
 			$args['object_ids'] = (array) $object_id;
 
 		$query = new \WP_Term_Query();
-		return $query->query( $args );
+		return $query->query( array_merge( $args, $extra ) );
+	}
+
+	// NOTE: DEPRECATED: use `Term::taxonomy()`
+	public static function getTermTaxonomy( $term_or_id, $fallback = FALSE )
+	{
+		return Term::taxonomy( $term_or_id ) ?: $fallback;
+	}
+
+	// NOTE: DEPRECATED: use `Term::get()`
+	public static function getTerm( $term_or_id, $taxonomy = '' )
+	{
+		return Term::get( $term_or_id, $taxonomy );
+	}
+
+	public static function getTheTermRows( $taxonomy, $post = NULL )
+	{
+		if ( ! $terms = self::getPostTerms( $taxonomy, $post ) )
+			return '';
+
+		$rows = [];
+
+		foreach ( $terms as $term )
+			$rows[] = Core\HTML::row( Core\HTML::tag( 'a', [
+				'href'  => get_term_link( $term, $taxonomy ),
+				'class' => '-term',
+			], sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy, 'display' ) ) );
+
+		return Core\HTML::rows( $rows, '-rows-'.$taxonomy, [ 'taxonomy' => $taxonomy ] );
+	}
+
+	// @REF: `get_the_term_list()`
+	public static function getTheTermList( $taxonomy, $post = NULL, $before = '', $after = '' )
+	{
+		if ( ! $terms = self::getPostTerms( $taxonomy, $post ) )
+			return [];
+
+		$list = [];
+
+		foreach ( $terms as $term )
+			$list[] = $before.Term::htmlLink( $term ).$after;
+
+		return apply_filters( 'term_links-'.$taxonomy, $list );
+	}
+
+	// FIXME: rewrite this!
+	public static function getTerms( $taxonomy, $object_id = FALSE, $object = FALSE, $key = 'term_id', $extra = [], $post_object = TRUE )
+	{
+		if ( FALSE === $object_id ) {
+
+			$id = FALSE;
+
+		} else if ( $post_object && ( $post = get_post( $object_id ) ) ) {
+
+			$id = $post->ID;
+
+		} else {
+
+			$id = (int) $object_id;
+		}
+
+		if ( $id ) {
+
+			// NOTE: use `Taxonomy::getPostTerms()` instead!
+
+			// Using cached terms, only for posts, when no extra arguments provided
+			// @REF: https://developer.wordpress.org/reference/functions/wp_get_object_terms/#comment-1582
+			$terms = $post_object && empty( $extra )
+				? get_the_terms( $id, $taxonomy )
+				: wp_get_object_terms( $id, $taxonomy, $extra );
+
+		} else {
+
+			// TODO: use WP_Term_Query directly
+
+			$terms = get_terms( array_merge( [
+				'taxonomy'   => $taxonomy,
+				'hide_empty' => FALSE,
+				// 'order'      => 'ASC',
+				'order'      => 'DESC',
+				// 'orderby'    => 'meta_value_num',
+				'orderby'    => 'order_clause',
+				'meta_query' => [
+					// @REF: https://core.trac.wordpress.org/ticket/34996
+					// @SEE: https://wordpress.stackexchange.com/a/246206
+					// @SEE: https://wordpress.stackexchange.com/a/277755
+					'relation' => 'OR',
+					'order_clause' => [
+						'key'     => 'order',
+						// 'value'   => 0,
+						// 'compare' => '>=',
+						'type'    => 'NUMERIC'
+					],
+					[
+						'key'     => 'order',
+						'compare' => 'NOT EXISTS'
+					],
+				],
+				'update_term_meta_cache' => FALSE,
+			], $extra ) );
+		}
+
+		if ( ! $terms || is_wp_error( $terms ) )
+			return [];
+
+		$list = Core\Arraay::pluck( $terms, $key );
+
+		return $object ? array_combine( $list, $terms ) : $list;
+	}
+
+	public static function prepTerms( $taxonomy, $extra = [], $terms = NULL, $key = 'term_id', $object = TRUE )
+	{
+		$new_terms = [];
+
+		if ( is_null( $terms ) ) {
+			$terms = get_terms( array_merge( [
+				'taxonomy'               => $taxonomy,
+				'hide_empty'             => FALSE,
+				'orderby'                => 'name',
+				'order'                  => 'ASC',
+				'update_term_meta_cache' => FALSE,
+			], $extra ) );
+		}
+
+		if ( is_wp_error( $terms ) || FALSE === $terms )
+			return $new_terms;
+
+		foreach ( $terms as $term ) {
+
+			/**
+			 * WP_Term Object
+			 * (
+			 *     [term_id] =>
+			 *     [name] =>
+			 *     [slug] =>
+			 *     [term_group] =>
+			 *     [term_taxonomy_id] =>
+			 *     [taxonomy] =>
+			 *     [description] =>
+			 *     [parent] =>
+			 *     [count] =>
+			 *     [filter] =>
+			 * )
+			 */
+			$new = [
+				'name'        => $term->name,
+				// 'name'        => sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' ),
+				'description' => $term->description,
+				'link'        => get_term_link( $term ),
+				'count'       => $term->count,
+				'parent'      => $term->parent,
+				'slug'        => $term->slug,
+				'id'          => $term->term_id,
+			];
+
+			$new_terms[$term->{$key}] = $object ? (object) $new : $new;
+		}
+
+		return $new_terms;
+	}
+
+	/**
+	 * Tries to re-order list of terms given meta-key or order list.
+	 *
+	 * @param array $terms
+	 * @param string|array $reference
+	 * @param string $fields
+	 * @return array
+	 */
+	public static function reorderTermsByMeta( $terms, $reference = 'order', $fields = 'all' )
+	{
+		if ( empty( $terms ) || count( $terms ) === 1 || 'count' === $fields )
+			return $terms;
+
+		$type = 'object';
+		$prop = '_order';
+		$list = [];
+
+		if ( in_array( $fields, [ 'ids', 'tt_ids' ], TRUE ) )
+			$type = 'array';
+
+		else if ( Core\Text::starts( $fields, 'id=>' ) )
+			$type = 'assoc';
+
+		foreach ( $terms as $index => $data ) {
+
+			if ( 'array' == $type )
+				$term_id = $data;
+
+			else if ( 'assoc' == $type )
+				$term_id = $index;
+
+			else if ( isset( $data->term_id ) )
+				$term_id = $data->term_id;
+
+			else
+				continue;
+
+			if ( is_array( $reference ) )
+				$order = isset( $reference[$term_id] ) ? intval( $reference[$term_id] ) : 0;
+
+			else if ( $meta = get_term_meta( $term_id, $reference, TRUE ) )
+				$order = (int) $meta;
+
+			else
+				$order = 0;
+
+			if ( 'array' == $type ) {
+
+				$list[] = [
+					'term_id' => $data,
+					$prop     => $order,
+				];
+
+			} else if ( 'assoc' == $type ) {
+
+				$list[] = [
+					'term_id' => $index,
+					'data'    => $data,
+					$prop     => $order,
+				];
+
+			} else if ( 'object' == $type ) {
+
+				$data->{$prop} = $order;
+				$list[] = $data;
+			}
+		}
+
+		// Bailing if cannot determine the term ids
+		if ( empty( $list ) )
+			return $terms;
+
+		if ( 'array' == $type )
+			return array_column( Core\Arraay::sortByPriority( $list, $prop ), 'term_id' );
+
+		if ( 'assoc' == $type )
+			return array_column( Core\Arraay::sortByPriority( $list, $prop ), 'data', 'term_id' );
+
+		return Core\Arraay::sortObjectByPriority( $list, $prop );
+	}
+
+	// EXPERIMENTAL: parsing: 'category:12,11|post_tag:3|people:58'
+	public static function parseTerms( $string )
+	{
+		if ( empty( $string ) || ! $string )
+			return FALSE;
+
+		$taxonomies = [];
+
+		foreach ( explode( '|', $string ) as $taxonomy ) {
+
+			list( $tax, $terms ) = explode( ':', $taxonomy );
+
+			$terms = explode( ',', $terms );
+			$terms = array_map( 'intval', $terms );
+
+			$taxonomies[$tax] = array_unique( $terms );
+		}
+
+		return $taxonomies;
+	}
+
+	// NOTE: hits cached terms for the post
+	public static function theTerm( $taxonomy, $post = NULL, $object = FALSE )
+	{
+		$terms = get_the_terms( $post, $taxonomy );
+
+		if ( $terms && ! is_wp_error( $terms ) )
+			foreach ( $terms as $term )
+				return $object ? $term : $term->term_id;
+
+		return '0';
+	}
+
+	// NOTE: DEPRECATED: use `Term::add()`
+	public static function addTerm( $term, $taxonomy, $sanitize = TRUE )
+	{
+		return Term::add( $term, $taxonomy, $sanitize );
 	}
 
 	// @REF: `wp_update_term_count_now()`
@@ -265,37 +781,92 @@ class Taxonomy extends Core\Base
 		return $callbacks[$object->name] = $callback;
 	}
 
-	public static function getTheTermRows( $taxonomy, $post = NULL )
+	public static function getIDbyMeta( $key, $value, $single = TRUE )
 	{
-		if ( ! $terms = self::getPostTerms( $taxonomy, $post ) )
-			return '';
+		global $wpdb, $gEditorialTermIDbyMeta;
 
-		$rows = [];
+		if ( empty( $key ) || empty( $value ) )
+			return FALSE;
 
-		foreach ( $terms as $term )
-			$rows[] = Core\HTML::row( Core\HTML::tag( 'a', [
-				'href'  => get_term_link( $term, $taxonomy ),
-				'class' => '-term',
-			], sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy, 'display' ) ) );
+		if ( empty( $gEditorialTermIDbyMeta ) )
+			$gEditorialTermIDbyMeta = [];
 
-		return Core\HTML::rows( $rows, '-rows-'.$taxonomy, [ 'taxonomy' => $taxonomy ] );
+		$group = $single ? 'single' : 'all';
+
+		if ( isset( $gEditorialTermIDbyMeta[$key][$group][$value] ) )
+			return $gEditorialTermIDbyMeta[$key][$group][$value];
+
+		$query = $wpdb->prepare( "
+			SELECT term_id
+			FROM {$wpdb->termmeta}
+			WHERE meta_key = %s
+			AND meta_value = %s
+		", $key, $value );
+
+		$results = $single
+			? $wpdb->get_var( $query )
+			: $wpdb->get_col( $query );
+
+		return $gEditorialTermIDbyMeta[$key][$group][$value] = $results;
 	}
 
-	// @REF: `get_the_term_list()`
-	public static function getTheTermList( $taxonomy, $post = NULL, $before = '', $after = '' )
+	public static function invalidateIDbyMeta( $meta, $value = FALSE )
 	{
-		if ( ! $terms = self::getPostTerms( $taxonomy, $post ) )
-			return [];
+		global $gEditorialTermIDbyMeta;
 
+		if ( empty( $meta ) )
+			return TRUE;
+
+		if ( empty( $gEditorialTermIDbyMeta ) )
+			return TRUE;
+
+		if ( FALSE === $value ) {
+
+			// clear all meta by key
+			foreach ( (array) $meta as $key ) {
+				unset( $gEditorialTermIDbyMeta[$key]['all'] );
+				unset( $gEditorialTermIDbyMeta[$key]['single'] );
+			}
+
+		} else {
+
+			foreach ( (array) $meta as $key ) {
+				unset( $gEditorialTermIDbyMeta[$key]['all'][$value] );
+				unset( $gEditorialTermIDbyMeta[$key]['single'][$value] );
+			}
+		}
+
+		return TRUE;
+	}
+
+	/**
+	 * Retrieves the list of parents by term ID.
+	 *
+	 * @param array $terms
+	 * @return array
+	 */
+	public static function getParentsList( $terms )
+	{
 		$list = [];
 
-		foreach ( $terms as $term )
-			$list[] = $before.Core\HTML::tag( 'a', [
-				'href'  => get_term_link( $term, $taxonomy ),
-				'class' => '-term',
-			], sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy, 'display' ) ).$after;
+		foreach ( (array) $terms as $data )
+			if ( $term = Term::get( $data ) )
+				$list[$term->term_id] = $term->parent;
 
-		return apply_filters( 'term_links-'.$taxonomy, $list );
+		return array_filter( $list );
+	}
+
+	public static function appendParentTermIDs( $term_ids, $taxonomy )
+	{
+		if ( ! self::object( $taxonomy )->hierarchical )
+			return $term_ids;
+
+		$terms = [];
+
+		foreach ( (array) $term_ids as $term_id )
+			$terms = array_merge( $terms, self::getTermParents( $term_id, $taxonomy ) );
+
+		return Core\Arraay::prepNumeral( $term_ids, $terms );
 	}
 
 	public static function getTermParents( $term_id, $taxonomy )
@@ -307,9 +878,9 @@ class Taxonomy extends Core\Base
 
 		$current = $term_id;
 		$parents = [];
-		$up      = TRUE;
+		$parent  = TRUE;
 
-		while ( $up ) {
+		while ( $parent ) {
 
 			$term = get_term( (int) $current, $taxonomy );
 
@@ -317,7 +888,7 @@ class Taxonomy extends Core\Base
 				$parents[] = (int) $term->parent;
 
 			else
-				$up = FALSE;
+				$parent = FALSE;
 
 			$current = $term->parent;
 		}
@@ -325,7 +896,7 @@ class Taxonomy extends Core\Base
 		return $data[$taxonomy][$term_id] = $parents;
 	}
 
-	// TODO: must suport different parents
+	// TODO: must support different parents
 	public static function getTargetTerm( $target, $taxonomy, $args = [], $meta = [] )
 	{
 		$target = trim( $target );
@@ -472,6 +1043,7 @@ class Taxonomy extends Core\Base
 
 	/**
 	 * Inserts set of terms into a taxonomy.
+	 *
 	 * `$update_terms` accepts: `not_name_desc`, `not_name`
 	 *
 	 * @param string|object $taxonomy
@@ -616,7 +1188,7 @@ class Taxonomy extends Core\Base
 			", $object_id, $tt_id );
 
 			if ( $wpdb->query( $query ) )
-				$count++;
+				++$count;
 
 			wp_cache_delete( $object_id, $taxonomy.'_relationships' );
 			do_action( 'deleted_term_relationships', $object_id, $tt_id, $taxonomy );
@@ -662,7 +1234,7 @@ class Taxonomy extends Core\Base
 			wp_cache_delete( $object_id, $taxonomy.'_relationships' );
 			do_action( 'added_term_relationship', $object_id, $tt_id, $taxonomy );
 
-			$count++;
+			++$count;
 		}
 
 		wp_cache_delete( 'last_changed', 'terms' );
@@ -770,7 +1342,17 @@ class Taxonomy extends Core\Base
 		return $query->query( $args );
 	}
 
-	// NOTE: hits cached terms for the post
+	/**
+	 * Retrieves the terms of the taxonomy that are attached to the post.
+	 * NOTE: hits cached terms for the post
+	 *
+	 * @param string $taxonomy
+	 * @param object $post
+	 * @param bool $object
+	 * @param bool $key
+	 * @param string $index_key
+	 * @return array
+	 */
 	public static function getPostTerms( $taxonomy, $post = NULL, $object = TRUE, $key = FALSE, $index_key = NULL )
 	{
 		$terms = get_the_terms( $post, $taxonomy );
@@ -787,29 +1369,37 @@ class Taxonomy extends Core\Base
 		return $terms;
 	}
 
+	// FIXME: check and exclude terms with `trashed` meta
 	// @REF: https://developer.wordpress.org/?p=22286
-	public static function listTerms( $taxonomy, $fields = NULL, $extra = [] )
+	public static function listTerms( $taxonomy, $fields = NULL, $extra = [], $ordering = TRUE )
 	{
-		$query = new \WP_Term_Query( array_merge( [
+		$args = [
 			'taxonomy'   => (array) $taxonomy,
-			'order'      => 'ASC',
-			'orderby'    => 'meta_value_num', // 'name',
-			'meta_query' => [
-				// @REF: https://core.trac.wordpress.org/ticket/34996
-				'relation' => 'OR',
-				[
-					'key'     => 'order',
-					'compare' => 'NOT EXISTS'
-				],
-				[
-					'key'     => 'order',
-					'compare' => '>=',
-					'value'   => 0,
-				],
-			],
 			'fields'     => is_null( $fields ) ? 'id=>name' : $fields,
 			'hide_empty' => FALSE,
-		], $extra ) );
+		];
+
+		if ( $ordering )
+			$args = array_merge( $args, [
+				'order'      => 'ASC',
+				'orderby'    => 'meta_value_num, name', // 'name',
+				'meta_query' => [
+					// @REF: https://core.trac.wordpress.org/ticket/34996
+					// FIXME: drop order here: see Terms: `apply_ordering`
+					'relation' => 'OR',
+					[
+						'key'     => 'order',
+						'compare' => 'NOT EXISTS'
+					],
+					[
+						'key'     => 'order',
+						'compare' => '>=',
+						'value'   => 0,
+					],
+				],
+			] );
+
+		$query = new \WP_Term_Query( array_merge( $args, $extra ) );
 
 		if ( empty( $query->terms ) )
 			return [];
@@ -817,92 +1407,150 @@ class Taxonomy extends Core\Base
 		return $query->terms;
 	}
 
-	public static function getTerm( $term_or_id, $taxonomy = '' )
+	public static function listTermsJS( $taxonomy, $fields = NULL, $extra = [] )
 	{
-		if ( $term_or_id instanceof \WP_Term )
-			return $term_or_id;
+		if ( is_null( $fields ) )
+			$fields = [ 'term_id', 'name' ];
 
-		if ( ! $term_or_id ) {
+		return array_map( function ( $term ) use ( $fields ) {
+			return Core\Arraay::keepByKeys( get_object_vars( $term ), $fields );
+		}, self::listTerms( $taxonomy, 'all', $extra ) );
+	}
 
-			if ( is_admin() ) {
+	// NOTE: DEPRECATED: use `Term::getMeta()`
+	public static function getTermMeta( $term, $keys = FALSE, $single = TRUE )
+	{
+		return Term::getMeta( $term, $keys, $single );
+	}
 
-				if ( is_null( $term_or_id ) && ( $query = self::req( 'tag_ID' ) ) )
-					return self::get( (int) $query, $taxonomy );
+	public static function addSupport( $taxonomy, $features )
+	{
+		global $gEditorialTaxonomyFeatures;
 
-				return FALSE;
-			}
+		foreach ( (array) $features as $feature )
 
-			if ( 'category' == $taxonomy && ! is_category() )
-				return FALSE;
+			if ( 2 == func_num_args() )
+				$gEditorialTaxonomyFeatures[$taxonomy][$feature] = TRUE;
 
-			if ( 'post_tag' == $taxonomy && ! is_tag() )
-				return FALSE;
+			else
+				$gEditorialTaxonomyFeatures[$taxonomy][$feature] = array_slice( func_get_args(), 2 );
+	}
 
-			if ( ! in_array( $taxonomy, array( 'category', 'post_tag' ) )
-				&& ! is_tax( $taxonomy ) )
-					return FALSE;
+	public static function removeSupport( $taxonomy, $feature )
+	{
+		global $gEditorialTaxonomyFeatures;
 
-			if ( ! $term_or_id = get_queried_object_id() )
-				return FALSE;
-		}
+		unset( $gEditorialTaxonomyFeatures[$taxonomy][$feature] );
+	}
 
-		if ( is_numeric( $term_or_id ) )
-			// $term = get_term_by( 'id', $term_or_id, $taxonomy );
-			$term = get_term( (int) $term_or_id, $taxonomy ); // allows for empty taxonomy
+	public static function getAllSupports( $taxonomy )
+	{
+		global $gEditorialTaxonomyFeatures;
 
-		else if ( $taxonomy )
-			$term = get_term_by( 'slug', $term_or_id, $taxonomy );
+		if ( isset( $gEditorialTaxonomyFeatures[$taxonomy] ) )
+			return $gEditorialTaxonomyFeatures[$taxonomy];
 
-		else
-			$term = get_term( $term_or_id, $taxonomy ); // allows for empty taxonomy
+		return [];
+	}
 
-		if ( ! $term || is_wp_error( $term ) )
+	public static function supports( $taxonomy, $feature )
+	{
+		$all = self::getAllSupports( $taxonomy );
+
+		if ( isset( $all[$feature][0] ) && is_array( $all[$feature][0] ) )
+			return $all[$feature][0];
+
+		return [];
+	}
+
+	public static function getBySupport( $feature, $operator = 'and' )
+	{
+		global $gEditorialTaxonomyFeatures;
+
+		$features = array_fill_keys( (array) $feature, TRUE );
+
+		return array_keys( wp_filter_object_list( $gEditorialTaxonomyFeatures, $features, $operator ) );
+	}
+
+	public static function isThumbnail( $attachment_id, $metakey = 'image' )
+	{
+		if ( ! $attachment_id )
 			return FALSE;
 
-		return $term;
+		$query = new \WP_Term_Query( [
+			// 'taxonomy'   => (array) $taxonomy,
+			'orderby'     => 'none',
+			'meta_query'  => [ [
+				'value'   => $attachment_id,
+				'key'     => $metakey,
+				'compare' => '=',
+			] ],
+			'fields'     => 'ids',
+			'hide_empty' => FALSE,
+		] );
+
+		return empty( $query->terms ) ? [] : $query->terms;
+	}
+
+	// NOTE: must add `add_thickbox()` for thick-box
+	// @SEE: `Scripts::enqueueThickBox()`
+	public static function htmlFeaturedImage( $term_id, $size = NULL, $link = TRUE, $metakey = NULL )
+	{
+		if ( is_null( $size ) )
+			$size = Media::getAttachmentImageDefaultSize( NULL, Term::taxonomy( $term_id ) ?: NULL );
+
+		return Media::htmlAttachmentImage(
+			self::getThumbnailID( $term_id, $metakey ),
+			$size,
+			$link,
+			[ 'term' => $term_id ],
+			'-featured'
+		);
+	}
+
+	public static function getThumbnailID( $term_id, $metakey = NULL )
+	{
+		if ( is_null( $metakey ) )
+			$thumbnail_id = (int) get_term_meta( $term_id, 'image', TRUE );
+
+		else if ( $metakey )
+			$thumbnail_id = (int) get_term_meta( $term_id, $metakey, TRUE );
+
+		else
+			$thumbnail_id = FALSE;
+
+		return apply_filters( 'geditorial_get_term_thumbnail_id', $thumbnail_id, $term_id, $metakey );
+	}
+
+	// NOTE: DEPRECATED
+	public static function getArchiveLink( $taxonomy )
+	{
+		self::_dep( 'Taxonomy::link()' );
+		return self::link( $taxonomy );
+	}
+
+	// NOTE: DEPRECATED
+	public static function getTermTitle( $term, $fallback = NULL, $filter = TRUE )
+	{
+		self::_dep( 'Term::title()' );
+		return Term::title( $term, $fallback, $filter );
 	}
 
 	/**
-	 * Retrieves meta-data for a given term.
+	 * Retrieves taxonomy rest route given taxonomy name or object.
 	 *
-	 * @param object|int $term
-	 * @param bool|array $keys `false` for all meta
-	 * @param bool $single
-	 * @return array
+	 * @param string $taxonomy
+	 * @return false|string
 	 */
-	public static function getTermMeta( $term, $keys = FALSE, $single = TRUE )
+	public static function getRestRoute( $taxonomy )
 	{
-		if ( ! $term = self::getTerm( $term ) )
+		if ( ! $object = self::object( $taxonomy ) )
 			return FALSE;
 
-		$list = [];
+		if ( ! $object->show_in_rest )
+			return FALSE;
 
-		if ( FALSE === $keys ) {
-
-			if ( $single ) {
-
-				foreach ( (array) get_term_meta( $term->term_id ) as $key => $meta )
-					$list[$key] = maybe_unserialize( $meta[0] );
-
-			} else {
-
-				foreach ( (array) get_term_meta( $term->term_id ) as $key => $meta )
-					foreach ( $meta as $offset => $value )
-						$list[$key][$offset] = maybe_unserialize( $value );
-			}
-
-		} else {
-
-			foreach ( $keys as $key => $default )
-				$list[$key] = get_term_meta( $term->term_id, $key, $single ) ?: $default;
-		}
-
-		return $list;
-	}
-
-	public static function getArchiveLink( $taxonomy )
-	{
-		return apply_filters( 'gnetwork_taxonomy_archive_link', FALSE, $taxonomy );
+		return sprintf( '/%s/%s', $object->rest_namespace, $object->rest_base );
 	}
 
 	public static function disableTermCounting()
