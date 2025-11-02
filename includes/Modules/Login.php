@@ -8,6 +8,7 @@ use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\WordPress;
 
 class Login extends gNetwork\Module
 {
@@ -276,7 +277,7 @@ class Login extends gNetwork\Module
 		if ( ! is_admin() )
 			return;
 
-		if ( Core\WordPress::isAJAX() )
+		if ( WordPress\IsIt::ajax() )
 			return;
 
 		if ( is_user_logged_in() )
@@ -294,7 +295,7 @@ class Login extends gNetwork\Module
 
 	private function check_login_page()
 	{
-		if ( ! $referer = Core\WordPress::getReferer() )
+		if ( ! $referer = WordPress\Redirect::getReferer() )
 			return;
 
 		if ( ! Core\Text::has( $referer, 'wp-activate.php' ) )
@@ -620,7 +621,7 @@ class Login extends gNetwork\Module
 
 	public function authenticate( $null, $username, $password )
 	{
-		if ( Core\WordPress::isREST() || Core\WordPress::isXMLRPC() )
+		if ( WordPress\IsIt::rest() || WordPress\IsIt::xmlRPC() )
 			return $null;
 
 		if ( isset( $_POST['log'] ) || isset( $_POST['woocommerce-login-nonce'] ) )
@@ -658,7 +659,7 @@ class Login extends gNetwork\Module
 			update_user_meta( $user->ID, 'lastlogin', current_time( 'mysql', TRUE ) );
 
 		if ( get_user_meta( $user->ID, 'disable_user', TRUE ) )
-			Core\WordPress::redirect( add_query_arg( [ 'disabled' => '' ], Core\WordPress::loginURL( '', TRUE ) ) );
+			WordPress\Redirect::doWP( add_query_arg( [ 'disabled' => '' ], WordPress\URL::login( '', TRUE ) ) );
 	}
 
 	// TODO: custom notice
@@ -734,7 +735,7 @@ class Login extends gNetwork\Module
 
 		echo '<div class="gnetwork-wrap -footer -badge">';
 
-			if ( $credits = Core\WordPress::customFile( 'credits-badge.png' ) )
+			if ( $credits = WordPress\Site::customFile( 'credits-badge.png' ) )
 				echo Core\HTML::img( $credits );
 
 			else

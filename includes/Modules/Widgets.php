@@ -29,7 +29,7 @@ class Widgets extends gNetwork\Module
 		else if ( is_admin() )
 			add_action( 'widgets_init', [ $this, 'populate_widgets' ], 100 );
 
-		if ( count( $this->options['disabled_dashboard_widgets'] ) && Core\WordPress::mustRegisterUI() )
+		if ( count( $this->options['disabled_dashboard_widgets'] ) && WordPress\Screen::mustRegisterUI() )
 			add_action( 'wp_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
 	}
 

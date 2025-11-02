@@ -125,10 +125,10 @@ class Legal extends gNetwork\Module
 			$default = 'placeholder.example.com, placeholder, DIRECT, placeholder';
 
 			if ( FALSE === Core\File::putContents( 'ads.txt', $default, ABSPATH, FALSE ) )
-				Core\WordPress::redirectReferer( 'wrong' );
+				WordPress\Redirect::doReferer( 'wrong' );
 
 			Logger::INFO( 'LEGAL: ads.txt created' );
-			Core\WordPress::redirectReferer( 'maked' );
+			WordPress\Redirect::doReferer( 'maked' );
 		}
 	}
 
@@ -196,9 +196,11 @@ class Legal extends gNetwork\Module
 			printf( '<h4 class="-title">%s</h4>', $title );
 
 		if ( FALSE === $errors ) {
+
 			do_action( 'bp_gnetwork_tos_errors' );
 
-		} else if ( $message = $errors->get_error_message( 'gnetwork_tos' ) ) {
+		} else if ( $errors && ( $message = $errors->get_error_message( 'gnetwork_tos' ) ) ) {
+
 			echo '<p class="error">'.$message.'</p>';
 		}
 

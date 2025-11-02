@@ -2,9 +2,6 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\WordPress;
-
 class Settings extends Core\Base
 {
 
@@ -1348,7 +1345,7 @@ class Settings extends Core\Base
 			case 'user':
 
 				if ( ! $args['values'] )
-					$args['values'] = Core\WordPress::getUsers( FALSE, FALSE, $args['extra'] );
+					$args['values'] = WordPress\User::get( FALSE, FALSE, $args['extra'] );
 
 				if ( ! is_null( $args['none_title'] ) ) {
 
@@ -1518,7 +1515,7 @@ class Settings extends Core\Base
 					call_user_func_array( $args['callback'], [ &$args,
 						compact( 'html', 'value', 'name', 'id', 'exclude' ) ] );
 
-				} else if ( Core\WordPress::isDev() ) {
+				} else if ( WordPress\IsIt::dev() ) {
 
 					echo 'Error: Setting is not callable!';
 				}

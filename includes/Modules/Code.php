@@ -101,12 +101,12 @@ class Code extends gNetwork\Module
 			'after'   => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || Core\WordPress::isXML() )
+		if ( FALSE === $args['context'] || WordPress\IsIt::xml() )
 			return NULL;
 
 		$key = $this->hash( 'githubreadme', $args );
 
-		if ( Core\WordPress::isFlush() )
+		if ( WordPress\IsIt::flush() )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
@@ -218,7 +218,7 @@ class Code extends gNetwork\Module
 			'after'             => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || Core\WordPress::isXML() )
+		if ( FALSE === $args['context'] || WordPress\IsIt::xml() )
 			return NULL;
 
 		if ( FALSE == $args['id'] )
@@ -251,7 +251,7 @@ class Code extends gNetwork\Module
 			'wrap'     => TRUE,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || Core\WordPress::isXML() )
+		if ( FALSE === $args['context'] || WordPress\IsIt::xml() )
 			return NULL;
 
 		if ( ! $content )

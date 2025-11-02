@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\WordPress;
 
 class Feed extends gNetwork\Module
 {

@@ -9,6 +9,7 @@ use geminorum\gNetwork\Misc;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\WordPress;
 
 class Debug extends gNetwork\Module
 {
@@ -22,7 +23,7 @@ class Debug extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( Core\WordPress::mustRegisterUI() )
+		if ( WordPress\Screen::mustRegisterUI() )
 			$this->action( 'core_upgrade_preamble', 1, 20 );
 
 		$this->filter( 'qm/collectors', 2, 200 );
@@ -124,19 +125,19 @@ class Debug extends gNetwork\Module
 			$this->check_referer( $sub, 'tools' );
 
 			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
-				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
+				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
 
 			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
-				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
+				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
 
 			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
-				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_FAILED_LOG ) ? 'purged' : 'error' ) );
+				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_FAILED_LOG ) ? 'purged' : 'error' ) );
 
 			else if ( GNETWORK_NOTFOUND_LOG && 'notfoundlogs' == $sub )
-				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_NOTFOUND_LOG ) ? 'purged' : 'error' ) );
+				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_NOTFOUND_LOG ) ? 'purged' : 'error' ) );
 
 			else if ( GNETWORK_SEARCH_LOG && 'searchlogs' == $sub )
-				Core\WordPress::redirectReferer( ( @unlink( GNETWORK_SEARCH_LOG ) ? 'purged' : 'error' ) );
+				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_SEARCH_LOG ) ? 'purged' : 'error' ) );
 
 		} else if ( isset( $_POST['download_logs'] ) ) {
 
@@ -155,7 +156,7 @@ class Debug extends gNetwork\Module
 			else if ( GNETWORK_SEARCH_LOG && 'searchlogs' == $sub )
 				Core\File::download( GNETWORK_SEARCH_LOG, Core\File::prepName( 'search.log' ) );
 
-			Core\WordPress::redirectReferer( 'wrong' );
+			WordPress\Redirect::doReferer( 'wrong' );
 		}
 	}
 
@@ -354,7 +355,7 @@ class Debug extends gNetwork\Module
 
 	public static function wpconfigSummary()
 	{
-		if ( $wpconfig = Core\WordPress::getConfigPHP() )
+		if ( $wpconfig = WordPress\Site::getConfigPHP() )
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.Core\HTML::escapeTextarea( Core\File::getContents( $wpconfig ) ).'</code></pre>';
 		else
@@ -931,7 +932,7 @@ class Debug extends gNetwork\Module
 		if ( self::isError( $response ) )
 			Logger::siteFAILED( 'HTTP-API', $class.': '.$response->get_error_message().' :: '.esc_url( $url ) );
 
-		if ( did_action( 'set_current_user' ) && Core\WordPress::isSuperAdmin() )
+		if ( did_action( 'set_current_user' ) && WordPress\User::isSuperAdmin() )
 			$this->http_calls[] = [
 				'url'    => $url,
 				'method' => empty( $args['method'] ) ? 'UNKNOWN' : $args['method'],

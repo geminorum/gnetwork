@@ -20,7 +20,7 @@ class Admin extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! Core\WordPress::mustRegisterUI() )
+		if ( ! WordPress\Screen::mustRegisterUI() )
 			return;
 
 		$this->filter( 'admin_body_class' );
@@ -65,7 +65,7 @@ class Admin extends gNetwork\Module
 		if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::isRestricted() )
 			$classes.= ' hide-admin-menu';
 
-		if ( Core\WordPress::isSuperAdmin() )
+		if ( WordPress\User::isSuperAdmin() )
 			$classes.= ' current-user-superadmin';
 
 		return $classes;
@@ -90,7 +90,7 @@ class Admin extends gNetwork\Module
 	{
 		do_action( $this->hook_base( 'setup_menu' ), 'admin' );
 
-		if ( Core\WordPress::cuc( 'manage_options' ) ) {
+		if ( WordPress\User::cuc( 'manage_options' ) ) {
 
 			$hook = add_menu_page(
 				_x( 'Network Extras', 'Modules: Admin: Page Menu', 'gnetwork' ),
@@ -171,7 +171,7 @@ class Admin extends gNetwork\Module
 		// 	$GLOBALS['menu'][50][0] = _x( 'Sensei', 'Modules: Admin: Page Menu', 'gnetwork' );
 
 		// @REF: http://justintadlock.com/?p=3320
-		if ( ! Core\WordPress::cuc( 'update_plugins' ) )
+		if ( ! WordPress\User::cuc( 'update_plugins' ) )
 			remove_submenu_page( 'themes.php', 'theme-editor.php' );
 	}
 
@@ -180,7 +180,7 @@ class Admin extends gNetwork\Module
 		if ( 'tools' == $context )
 			$relative = 'tools.php?page='.static::BASE.'-tools';
 		else
-			$relative = Core\WordPress::cuc( 'manage_options' )
+			$relative = WordPress\User::cuc( 'manage_options' )
 				? 'admin.php?page='.static::BASE
 				: 'index.php?page='.static::BASE;
 
@@ -381,7 +381,7 @@ class Admin extends gNetwork\Module
 				'cb'    => [ __NAMESPACE__.'\\Mimes', 'allowedMimeTypes' ],
 			];
 
-		if ( $sitemeta && Core\WordPress::isSuperAdmin() )
+		if ( $sitemeta && WordPress\User::isSuperAdmin() )
 			$tabs['sitemeta'] = [
 				'title' => _x( 'Site Meta', 'Modules: Admin: Site Overview', 'gnetwork' ),
 				'cb'    => static function () {
@@ -493,7 +493,7 @@ class Admin extends gNetwork\Module
 	public function admin_enqueue_scripts()
 	{
 		if ( gNetwork()->option( 'admin_chosen', 'blog' )
-			&& ! Core\WordPress::isBlockEditor() ) {
+			&& ! WordPress\IsIt::blockEditor() ) {
 
 			$script = 'jQuery(function($) {
 				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select:not(.no-chosen):not(.postform), .tablenav select:not(#bulk-action-selector-top):not(#bulk-action-selector-bottom)").chosen({
@@ -521,7 +521,7 @@ class Admin extends gNetwork\Module
 
 	public function admin_print_styles()
 	{
-		if ( Core\WordPress::isIFrame() )
+		if ( WordPress\IsIt::iFrame() )
 			Utilities::linkStyleSheet( 'admin.iframe' );
 		else
 			Utilities::linkStyleSheet( 'admin.all' );

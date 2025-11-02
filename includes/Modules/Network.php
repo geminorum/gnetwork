@@ -101,7 +101,7 @@ class Network extends gNetwork\Module
 
 		return $full
 			? ( $multisite
-				? Core\WordPress::networkAdminURL( $network, $relative, $scheme )
+				? WordPress\URL::networkAdmin( $network, $relative, $scheme )
 				: get_admin_url( NULL, $relative, $scheme ) )
 			: $relative;
 	}
@@ -311,7 +311,7 @@ class Network extends gNetwork\Module
 			WordPress\SwitchSite::restore();
 		}
 
-		Core\WordPress::redirectReferer( [
+		WordPress\Redirect::doReferer( [
 			'updated' => $action,
 			'count'   => $count,
 		] );

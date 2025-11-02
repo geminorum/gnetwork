@@ -181,10 +181,10 @@ class Cron extends gNetwork\Module
 
 			} else {
 
-				Core\WordPress::redirectReferer( 'wrong' );
+				WordPress\Redirect::doReferer( 'wrong' );
 			}
 
-			Core\WordPress::redirectReferer( [
+			WordPress\Redirect::doReferer( [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -213,7 +213,7 @@ class Cron extends gNetwork\Module
 
 	public function activity_box_end()
 	{
-		if ( Core\WordPress::cuc( $this->options['dashboard_accesscap'] ) )
+		if ( WordPress\User::cuc( $this->options['dashboard_accesscap'] ) )
 			echo $this->wrap( $this->get_status(), '-status-check' );
 	}
 
@@ -349,7 +349,7 @@ class Cron extends gNetwork\Module
 		$subject = sprintf(
 			/* translators: `%s`: site name */
 			_x( '[%s] WP-Cron Failed!', 'Modules: CRON: Email Subject', 'gnetwork' ),
-			Core\WordPress::getSiteNameforEmail( TRUE )
+			WordPress\Site::nameforEmail( TRUE )
 		);
 
 		$message = get_option( $this->hook( 'status' ) );
@@ -365,7 +365,7 @@ class Cron extends gNetwork\Module
 
 	public function dashboard_pointers( $items )
 	{
-		$can = Core\WordPress::cuc( 'manage_options' );
+		$can = WordPress\User::cuc( 'manage_options' );
 
 		if ( $ready = count( self::getCronReady() ) )
 			$title = Utilities::getCounted( $ready,
@@ -424,7 +424,7 @@ class Cron extends gNetwork\Module
 			],
 		], _x( 'Check Status Now', 'Modules: CRON', 'gnetwork' ) );
 
-		if ( $link && Core\WordPress::cuc( 'manage_options' ) ) {
+		if ( $link && WordPress\User::cuc( 'manage_options' ) ) {
 
 			echo '&nbsp;&nbsp;'.Core\HTML::tag( 'a', [
 				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),

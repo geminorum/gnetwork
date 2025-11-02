@@ -14,7 +14,7 @@ class GlotPress extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! Core\WordPress::isPluginActive( 'glotpress/glotpress.php' ) )
+		if ( ! WordPress\Extend::isPluginActive( 'glotpress/glotpress.php' ) )
 			return FALSE;
 
 		if ( is_admin() )

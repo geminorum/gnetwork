@@ -2,15 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\Exception;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
-
 class Module extends Core\Base
 {
-
 	const BASE   = 'gnetwork';
 	const MODULE = FALSE;
 
@@ -57,68 +50,68 @@ class Module extends Core\Base
 			$this->key = strtolower( str_ireplace( __NAMESPACE__.'\\Modules\\', '', get_class( $this ) ) );
 
 		if ( ! GNETWORK_BETA_FEATURES && $this->beta )
-			throw new Exception( 'Beta Feature!' );
+			throw new Core\Exception( 'Beta Feature!' );
 
-		if ( ! $this->ajax && WordPress::isAJAX() )
-			throw new Exception( 'Not on AJAX Calls!' );
+		if ( ! $this->ajax && WordPress\IsIt::ajax() )
+			throw new Core\Exception( 'Not on AJAX Calls!' );
 
-		if ( ! $this->cron && WordPress::isCRON() )
-			throw new Exception( 'Not on CRON Calls!' );
+		if ( ! $this->cron && WordPress\IsIt::cron() )
+			throw new Core\Exception( 'Not on CRON Calls!' );
 
 		// @SEE: https://core.trac.wordpress.org/ticket/23197
-		if ( ! $this->installing && wp_installing() && 'wp-activate.php' !== WordPress::pageNow() )
-			throw new Exception( 'Not while WP is Installing!' );
+		if ( ! $this->installing && wp_installing() && 'wp-activate.php' !== WordPress\Screen::pageNow() )
+			throw new Core\Exception( 'Not while WP is Installing!' );
 
 		if ( ! is_null( $this->dev ) ) {
-			if ( WordPress::isDev() ) {
+			if ( WordPress\IsIt::dev() ) {
 				if ( FALSE === $this->dev )
-					throw new Exception( 'Not on Develepment Environment!' );
+					throw new Core\Exception( 'Not on Develepment Environment!' );
 			} else {
 				if ( TRUE === $this->dev )
-					throw new Exception( 'Only on Develepment Environment!' );
+					throw new Core\Exception( 'Only on Develepment Environment!' );
 			}
 		}
 
 		if ( ! is_null( $this->cli ) ) {
-			if ( WordPress::isCLI() ) {
+			if ( WordPress\IsIt::cli() ) {
 				if ( FALSE === $this->cli )
-					throw new Exception( 'Not on CLI!' );
+					throw new Core\Exception( 'Not on CLI!' );
 			} else {
 				if ( TRUE === $this->cli )
-					throw new Exception( 'Only on CLI!' );
+					throw new Core\Exception( 'Only on CLI!' );
 			}
 		}
 
 		if ( ! is_null( $this->xmlrpc ) ) {
-			if ( WordPress::isXMLRPC() ) {
+			if ( WordPress\IsIt::xmlRPC() ) {
 				if ( FALSE === $this->xmlrpc )
-					throw new Exception( 'Not on XML-RPC!' );
+					throw new Core\Exception( 'Not on XML-RPC!' );
 			} else {
 				if ( TRUE === $this->xmlrpc )
-					throw new Exception( 'Only on XML-RPC!' );
+					throw new Core\Exception( 'Only on XML-RPC!' );
 			}
 		}
 
 		if ( ! is_null( $this->iframe ) ) {
-			if ( WordPress::isIFrame() ) {
+			if ( WordPress\IsIt::iFrame() ) {
 				if ( FALSE === $this->iframe )
-					throw new Exception( 'Not on iFrame!' );
+					throw new Core\Exception( 'Not on iFrame!' );
 			} else {
 				if ( TRUE === $this->iframe )
-					throw new Exception( 'Only on iFrame!' );
+					throw new Core\Exception( 'Only on iFrame!' );
 			}
 		}
 
 		if ( ! $this->front && ! is_admin() )
-			throw new Exception( 'Not on Frontend!' );
+			throw new Core\Exception( 'Not on Frontend!' );
 
 		if ( ! is_null( $this->user ) && is_multisite() ) {
 			if ( is_user_admin() ) {
 				if ( FALSE === $this->user )
-					throw new Exception( 'Not on User Admin!' );
+					throw new Core\Exception( 'Not on User Admin!' );
 			} else {
 				if ( TRUE === $this->user )
-					throw new Exception( 'Only on User Admin!' );
+					throw new Core\Exception( 'Only on User Admin!' );
 			}
 		}
 
@@ -126,12 +119,12 @@ class Module extends Core\Base
 			$this->base = $base;
 
 		if ( ! $this->setup_checks() )
-			throw new Exception( 'Failed to pass setup checks!' );
+			throw new Core\Exception( 'Failed to pass setup checks!' );
 
 		if ( method_exists( $this, 'default_settings' ) )
 			$this->options = $this->init_options();
 
-		if ( WordPress::isAJAX() && method_exists( $this, 'setup_ajax' ) )
+		if ( WordPress\IsIt::ajax() && method_exists( $this, 'setup_ajax' ) )
 			$this->setup_ajax( $_REQUEST );
 
 		if ( FALSE === $this->setup_actions() )
@@ -143,7 +136,7 @@ class Module extends Core\Base
 		if ( method_exists( $this, 'plugin_loaded' ) )
 			add_action( sprintf( '%s_loaded', $this->base ), [ $this, 'plugin_loaded' ] );
 
-		if ( ! WordPress::mustRegisterUI() )
+		if ( ! WordPress\Screen::mustRegisterUI() )
 			return;
 
 		if ( method_exists( $this, 'setup_menu' ) )
@@ -202,7 +195,7 @@ class Module extends Core\Base
 		return add_query_arg( array_merge( [ 'sub' => $sub ], $extra ), $url );
 	}
 
-	// we call 'setup_menu' action only if `WordPress::mustRegisterUI()`
+	// We call `setup_menu` action only if `WordPress\Screen::mustRegisterUI()`
 	public function register_menu( $title = NULL, $sub = NULL, $priority = 10, $capability = NULL, $callback = NULL )
 	{
 		if ( is_null( $sub ) )
@@ -274,10 +267,10 @@ class Module extends Core\Base
 
 		foreach ( $this->get_menus( $context ) as $priority => $group )
 			foreach ( $group as $sub => $args )
-				if ( WordPress::cuc( $args['cap'] ) )
+				if ( WordPress\User::cuc( $args['cap'] ) )
 					$subs[$sub] = $args['title'];
 
-		if ( 'settings' == $context && WordPress::isSuperAdmin() )
+		if ( 'settings' == $context && WordPress\User::isSuperAdmin() )
 			$subs['console'] = _x( 'Console', 'Module Core: Menu Name', 'gnetwork' );
 
 		return $subs;
@@ -289,11 +282,11 @@ class Module extends Core\Base
 			return TRUE;
 
 		if ( in_array( $sub, [ 'console' ] ) )
-			return WordPress::isSuperAdmin();
+			return WordPress\User::isSuperAdmin();
 
 		foreach ( $this->menus[$context] as $priority => $group )
 			if ( array_key_exists( $sub, $group ) )
-				return WordPress::cuc( $group[$sub]['cap'] );
+				return WordPress\User::cuc( $group[$sub]['cap'] );
 
 		return FALSE;
 	}
@@ -448,12 +441,12 @@ class Module extends Core\Base
 
 	protected static function sanitize_hook( $hook )
 	{
-		return Text::sanitizeHook( $hook );
+		return Core\Text::sanitizeHook( $hook );
 	}
 
 	protected static function sanitize_base( $base )
 	{
-		return Text::sanitizeBase( $base );
+		return Core\Text::sanitizeBase( $base );
 	}
 
 	protected function dotted()
@@ -837,7 +830,7 @@ class Module extends Core\Base
 		$sidebox = $check && method_exists( $this, $context.'_sidebox' );
 
 		echo '<form enctype="multipart/form-data"';
-			echo ' class="'.HTML::prepClass( $this->base.'-form', '-form', ( $sidebox ? ' has-sidebox' : '' ) ).'"'; // WPCS: XSS ok;
+			echo ' class="'.Core\HTML::prepClass( $this->base.'-form', '-form', ( $sidebox ? ' has-sidebox' : '' ) ).'"'; // WPCS: XSS ok;
 
 			if ( 'ajax' == $action ) // @SEE: `$this->check_referer_ajax()`
 				echo 'data-nonce="'.wp_create_nonce( $this->hook_base( $sub.'-'.$context ) ).'"'; // WPCS: XSS ok;
@@ -848,7 +841,7 @@ class Module extends Core\Base
 				$this->render_form_fields( $sub, $action, $context );
 
 			if ( $check && $sidebox ) {
-				echo '<div class="'.HTML::prepClass( '-sidebox', '-sidebox-'.$context, '-sidebox-'.$sub ).'">'; // WPCS: XSS ok;
+				echo '<div class="'.Core\HTML::prepClass( '-sidebox', '-sidebox-'.$context, '-sidebox-'.$sub ).'">'; // WPCS: XSS ok;
 					call_user_func_array( [ $this, $context.'_sidebox' ], [ $sub, $uri, $context ] );
 				echo '</div>';
 			}
@@ -858,7 +851,7 @@ class Module extends Core\Base
 	{
 		echo '</form>';
 
-		// if ( 'settings' == $context && WordPress::isDev() )
+		// if ( 'settings' == $context && WordPress\IsIt::dev() )
 		// 	self::dump( $this->options );
 	}
 
@@ -889,11 +882,11 @@ class Module extends Core\Base
 
 	protected function render_form_fields( $sub, $action = 'update', $context = 'settings' )
 	{
-		HTML::inputHidden( 'base', $this->base );
-		HTML::inputHidden( 'key', $this->key );
-		HTML::inputHidden( 'context', $context );
-		HTML::inputHidden( 'sub', $sub );
-		HTML::inputHidden( 'action', $action );
+		Core\HTML::inputHidden( 'base', $this->base );
+		Core\HTML::inputHidden( 'key', $this->key );
+		Core\HTML::inputHidden( 'context', $context );
+		Core\HTML::inputHidden( 'sub', $sub );
+		Core\HTML::inputHidden( 'action', $action );
 
 		wp_nonce_field( $this->hook_base( $sub.'-'.$context ) ); // @SEE: `$this->check_referer()`
 	}
@@ -935,7 +928,7 @@ class Module extends Core\Base
 			else
 				return FALSE;
 
-			WordPress::redirectReferer( $message );
+			WordPress\Redirect::doReferer( $message );
 		}
 	}
 
@@ -1066,7 +1059,7 @@ class Module extends Core\Base
 			}
 		}
 
-		// register settings on the settings page only
+		// Registers settings on the settings page only.
 		add_action( 'admin_print_footer_scripts', [ $this, 'print_scripts' ], 99 );
 
 		return TRUE;
@@ -1175,7 +1168,7 @@ class Module extends Core\Base
 
 		if ( 'debug' == $args['field'] ) {
 
-			if ( ! WordPress::isDev() )
+			if ( ! WordPress\IsIt::dev() )
 				return;
 
 			$args['type'] = 'debug';
@@ -1215,14 +1208,14 @@ class Module extends Core\Base
 				'id'      => $this->classs( 'help-shortcodes' ),
 				'title'   => _x( 'Extra Shortcodes', 'Module Core: Help Tab Title', 'gnetwork' ),
 				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', 'gnetwork' )
-					.'</p>'.HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' ),
+					.'</p>'.Core\HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' ),
 			] );
 
 		if ( $options = $this->init_options( FALSE ) )
 			$screen->add_help_tab( [
 				'id'       => $this->classs( 'help-options' ),
 				'title'    => _x( 'Saved Options', 'Module Core: Help Tab Title', 'gnetwork' ),
-				'content'  => HTML::tableCode( $options ),
+				'content'  => Core\HTML::tableCode( $options ),
 				'priority' => 999,
 			] );
 	}
@@ -1253,10 +1246,10 @@ class Module extends Core\Base
 			return;
 
 		if ( count( $this->scripts_nojquery ) )
-			HTML::wrapScript( implode( "\n", $this->scripts_nojquery ) );
+			Core\HTML::wrapScript( implode( "\n", $this->scripts_nojquery ) );
 
 		if ( count( $this->scripts ) )
-			HTML::wrapjQueryReady( implode( "\n", $this->scripts ) );
+			Core\HTML::wrapjQueryReady( implode( "\n", $this->scripts ) );
 
 		$this->scripts_printed = TRUE;
 	}
@@ -1304,20 +1297,20 @@ class Module extends Core\Base
 			$classes[] = 'context-'.$args['context'];
 
 		if ( ! empty( $args['class'] ) )
-			$classes = HTML::attrClass( $classes, $args['class'] );
+			$classes = Core\HTML::attrClass( $classes, $args['class'] );
 
 		if ( $after )
-			return $before.HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
+			return $before.Core\HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
 
-		return HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
+		return Core\HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
 
 	/**
-	 * Returns a term as title for shortcode.
+	 * Returns a term as title for short-code.
 	 *
 	 * @param array $atts
 	 * @param object|boolean $term
-	 * @return string $title
+	 * @return string
 	 */
 	public static function shortcodeTermTitle( $atts, $term = FALSE )
 	{
@@ -1334,20 +1327,20 @@ class Module extends Core\Base
 
 		if ( $args['title'] ) {
 			if ( is_null( $args['title_link'] ) && $term )
-				$args['title'] = HTML::tag( 'a', [
+				$args['title'] = Core\HTML::tag( 'a', [
 					'href'  => get_term_link( $term, $term->taxonomy ),
 					'title' => $args['title_title'],
 				], $args['title'] );
 
 			else if ( $args['title_link'] )
-				$args['title'] = HTML::tag( 'a', [
+				$args['title'] = Core\HTML::tag( 'a', [
 					'href'  => $args['title_link'],
 					'title' => $args['title_title'],
 				], $args['title'] );
 		}
 
 		if ( $args['title'] && $args['title_tag'] )
-			$args['title'] = HTML::tag( $args['title_tag'], [
+			$args['title'] = Core\HTML::tag( $args['title_tag'], [
 				'id'    => $term ? $args['title_anchor'].$term->term_id : FALSE,
 				'class' => '-title',
 			], $args['title'] );
@@ -1375,7 +1368,7 @@ class Module extends Core\Base
 	protected function remove_request_action( $extra = [], $url = NULL )
 	{
 		if ( is_null( $url ) )
-			$url = URL::current();
+			$url = Core\URL::current();
 
 		if ( is_array( $extra ) )
 			$remove = $extra;
@@ -1443,12 +1436,12 @@ class Module extends Core\Base
 			return '';
 
 		return $block
-			? '<div class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
+			? '<div class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
 				.( $hide ? ' style="display:none"' : '' )
 				.'>'.$html.'</div>'
 
-			: '<span class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
+			: '<span class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
 				.( $hide ? ' style="display:none"' : '' )
 				.'>'.$html.'</span>';
@@ -1457,11 +1450,11 @@ class Module extends Core\Base
 	protected function wrap_open( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
-			? '<div class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
+			? '<div class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
 				.( $hide ? ' style="display:none"' : '' ).'>'
 
-			: '<span class="'.HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
+			: '<span class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
 				.( $hide ? ' style="display:none"' : '' ).'>';
 	}
@@ -1469,22 +1462,22 @@ class Module extends Core\Base
 	protected function wrap_open_buttons( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
 	{
 		return $block
-			? '<p class="'.HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
+			? '<p class="'.Core\HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
 				.( $hide ? ' style="display:none"' : '' ).'>'
 
-			: '<span class="'.HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
+			: '<span class="'.Core\HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
 				.( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
-	// checks to bail early if metabox/widget is hidden
+	// Checks to bail early if meta-box/widget is hidden
 	protected function check_hidden_metabox( $widget, $after = '' )
 	{
 		if ( ! in_array( $this->classs( $widget ), get_hidden_meta_boxes( get_current_screen() ) ) )
 			return FALSE;
 
-		echo HTML::tag( 'a', [
+		echo Core\HTML::tag( 'a', [
 			'href'  => add_query_arg( 'flush', '' ),
 			'class' => [ '-description', '-refresh' ],
 		], _x( 'Please refresh the page to generate the data.', 'Module Core', 'gnetwork' ) );
@@ -1516,9 +1509,9 @@ class Module extends Core\Base
 		if ( ! $info = call_user_func( [ $this, 'get_widget_'.$hook.'_info' ] ) )
 			return '';
 
-		$html = ' <span class="postbox-title-action" data-tooltip="'.Text::wordWrap( $info ).'"';
-		$html.= ' data-tooltip-pos="'.( HTML::rtl() ? 'down-left' : 'down-right' ).'"';
-		$html.= ' data-tooltip-length="xlarge">'.HTML::getDashicon( 'info' ).'</span>';
+		$html = ' <span class="postbox-title-action" data-tooltip="'.Core\Text::wordWrap( $info ).'"';
+		$html.= ' data-tooltip-pos="'.( Core\HTML::rtl() ? 'down-left' : 'down-right' ).'"';
+		$html.= ' data-tooltip-length="xlarge">'.Core\HTML::getDashicon( 'info' ).'</span>';
 
 		return $html;
 	}
@@ -1527,7 +1520,7 @@ class Module extends Core\Base
 	protected function add_dashboard_widget( $name, $title, $action = FALSE, $extra = [], $callback = NULL, $option_key = 'dashboard_accesscap' )
 	{
 		if ( array_key_exists( $option_key, $this->options )
-			&& ! WordPress::cuc( $this->options[$option_key] ) )
+			&& ! WordPress\User::cuc( $this->options[$option_key] ) )
 				return FALSE;
 
 		$screen = get_current_screen();
@@ -1592,7 +1585,7 @@ class Module extends Core\Base
 
 				$this->providers[$provider] = new $class( $this->options, $this->base, $provider );
 
-			} catch ( Exception $e ) {
+			} catch ( Core\Exception $e ) {
 
 				do_action( 'qm/debug', $e );
 
@@ -1614,7 +1607,7 @@ class Module extends Core\Base
 	// DEFAULT FILTER
 	public function dashboard_pointers_providers( $items )
 	{
-		if ( ! WordPress::cuc( $this->options['manage_providers'] ) )
+		if ( ! WordPress\User::cuc( $this->options['manage_providers'] ) )
 			return $items;
 
 		$menu = $this->get_menu_url( $this->key, NULL );
@@ -1627,7 +1620,7 @@ class Module extends Core\Base
 			if ( FALSE === ( $status = $provider->providerStatus() ) )
 				continue;
 
-			$items[] = HTML::tag( 'a', [
+			$items[] = Core\HTML::tag( 'a', [
 				'href'  => empty( $status[2] ) ? $menu : $status[2],
 				'title' => $provider->providerName(),
 				'class' => [ '-provider-status', $status[0] ],
@@ -1656,12 +1649,12 @@ class Module extends Core\Base
 
 	public function get_column_icon( $link = FALSE, $icon = 'wordpress-alt', $title = FALSE )
 	{
-		return HTML::tag( ( $link ? 'a' : 'span' ), [
+		return Core\HTML::tag( ( $link ? 'a' : 'span' ), [
 			'href'   => $link ?: FALSE,
 			'title'  => $title ?: FALSE,
 			'class'  => [ '-icon', ( $link ? '-link' : '-info' ) ],
 			'target' => $link ? '_blank' : FALSE,
-		], HTML::getDashicon( $icon ) );
+		], Core\HTML::getDashicon( $icon ) );
 	}
 
 	protected function register_blocktype( $name, $extra = [], $deps = NULL )
@@ -1740,12 +1733,12 @@ class Module extends Core\Base
 			$classes[] = 'gnetwork-block-align-'.$args['alignment'];
 
 		if ( ! empty( $args['className'] ) )
-			$classes = HTML::attrClass( $classes, $args['className'] );
+			$classes = Core\HTML::attrClass( $classes, $args['className'] );
 
 		if ( $after )
-			return $before.HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
+			return $before.Core\HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
 
-		return HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
+		return Core\HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
 	}
 
 	public static function getTablelistPosts( $atts = [], $extra = [], $posttypes = 'any', $perpage = 25 )
@@ -1785,7 +1778,7 @@ class Module extends Core\Base
 		$query = new \WP_Query();
 		$posts = $query->query( $args );
 
-		$pagination = HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged, $extra );
+		$pagination = Core\HTML::tablePagination( $query->found_posts, $query->max_num_pages, $limit, $paged, $extra );
 
 		$pagination['orderby'] = $args['orderby'];
 		$pagination['order']   = $args['order'];
@@ -1795,7 +1788,7 @@ class Module extends Core\Base
 
 	public static function filterTablelistSearch( $list = NULL, $name = 's' )
 	{
-		return HTML::tag( 'input', [
+		return Core\HTML::tag( 'input', [
 			'type'        => 'search',
 			'name'        => $name,
 			'value'       => self::req( $name, '' ),

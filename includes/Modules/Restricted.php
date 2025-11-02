@@ -150,7 +150,7 @@ class Restricted extends gNetwork\Module
 
 	public static function isRestricted()
 	{
-		return ( ! Core\WordPress::cuc( gNetwork()->option( 'access_site', 'restricted', 'none' ) ) );
+		return ( ! WordPress\User::cuc( gNetwork()->option( 'access_site', 'restricted', 'none' ) ) );
 	}
 
 	public static function isEnabled()
@@ -192,7 +192,7 @@ class Restricted extends gNetwork\Module
 			$link = get_page_link( $page );
 
 		else if ( $register )
-			$link = Core\WordPress::registerURL( 'site' );
+			$link = WordPress\URL::register( 'site' );
 
 		else
 			$link = '#';
@@ -249,11 +249,11 @@ class Restricted extends gNetwork\Module
 	{
 		$this->filter( 'feed_link', 2, 12 );
 
-		if ( Core\WordPress::cuc( $this->options['access_admin'] ) )
+		if ( WordPress\User::cuc( $this->options['access_admin'] ) )
 			return;
 
 		if ( 'open' == $this->options['access_profile']
-			&& Core\WordPress::pageNow( 'profile.php' ) ) {
+			&& WordPress\Screen::pageNow( 'profile.php' ) ) {
 
 			// do nothing
 
@@ -268,7 +268,7 @@ class Restricted extends gNetwork\Module
 
 		} else if ( $this->options['redirect_to_page'] ) {
 
-			Core\WordPress::redirect( get_page_link( $this->options['redirect_to_page'] ), 302 );
+			WordPress\Redirect::doWP( get_page_link( $this->options['redirect_to_page'] ), 302 );
 
 		} else {
 
@@ -281,7 +281,7 @@ class Restricted extends gNetwork\Module
 	{
 		$this->filter( 'feed_link', 2, 12 );
 
-		if ( Core\WordPress::cuc( $this->options['access_site'] ) )
+		if ( WordPress\User::cuc( $this->options['access_site'] ) )
 			return;
 
 		// blocks search engines and robots
@@ -350,7 +350,7 @@ class Restricted extends gNetwork\Module
 
 	public function dashboard_pointers( $items )
 	{
-		$can = Core\WordPress::cuc( 'manage_options' );
+		$can = WordPress\User::cuc( 'manage_options' );
 
 		$items[] = Core\HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'restricted' ) : FALSE,
@@ -386,19 +386,19 @@ class Restricted extends gNetwork\Module
 
 		$current_user = get_current_user_id();
 
-		if ( $current_user && Core\WordPress::cuc( $this->options['access_site'] ) )
+		if ( $current_user && WordPress\User::cuc( $this->options['access_site'] ) )
 			return;
 
 		if ( ! $current_user && ! is_front_page() && ! is_home() )
-			Core\WordPress::redirectLogin( Core\URL::current() );
+			WordPress\Redirect::doLogin( Core\URL::current() );
 
 		if ( $this->options['redirect_to_page'] )
-			Core\WordPress::redirect( get_page_link( $this->options['redirect_to_page'] ), 303 );
+			WordPress\Redirect::doWP( get_page_link( $this->options['redirect_to_page'] ), 303 );
 
 		if ( $current_user )
 			$this->render_restricted_layout( $current_user );
 
-		Core\WordPress::redirectLogin();
+		WordPress\Redirect::doLogin();
 	}
 
 	private function is_restricted_feed( $feedkey )

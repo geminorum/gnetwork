@@ -3,11 +3,9 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Search extends gNetwork\Module
 {
@@ -115,12 +113,12 @@ class Search extends gNetwork\Module
 						'-' => sprintf(
 							/* translators: `%s`: prefix char */
 							_x( '%s Hyphen &ndash; Default WordPress character to exclude terms.', 'Modules: Search: Settings', 'gnetwork' ),
-							HTML::tag( 'code', '-' )
+							Core\HTML::tag( 'code', '-' )
 						),
 						'!' => sprintf(
 							/* translators: `%s`: prefix char */
 							_x( '%s Exclamation Mark &ndash; Using exclamation as exclude prfix.', 'Modules: Search: Settings', 'gnetwork' ),
-							HTML::tag( 'code', '!' )
+							Core\HTML::tag( 'code', '!' )
 						),
 						'0' => _x( 'Disable Exclusion &ndash; Ignores exclude prefixes all together.', 'Modules: Search: Settings', 'gnetwork' ),
 					],
@@ -142,12 +140,12 @@ class Search extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		$page = WordPress::getSearchLink();
+		$page = WordPress\URL::search();
 
-		HTML::desc( sprintf(
+		Core\HTML::desc( sprintf(
 			/* translators: `%s`: search page path */
 			_x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork' ),
-			HTML::tag( 'code', HTML::link( URL::relative( $page ), $page, TRUE ) )
+			Core\HTML::tag( 'code', Core\HTML::link( Core\URL::relative( $page ), $page, TRUE ) )
 		) );
 	}
 
@@ -309,7 +307,7 @@ class Search extends gNetwork\Module
 
 		$bypostid = "{$wpdb->posts}.ID";
 
-		if ( ! $wp_query->is_search() || Text::has( $groupby, $bypostid ) )
+		if ( ! $wp_query->is_search() || Core\Text::has( $groupby, $bypostid ) )
 			return $groupby;
 
 		return empty( trim( $groupby ) )
@@ -355,10 +353,10 @@ class Search extends gNetwork\Module
 			Logger::siteSearch( 'QUERY', sprintf( '%s -- %s', $query, ( isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : 'NO-REFERER' ) ) ); // TODO: must decode referrer
 
 		if ( GNETWORK_SEARCH_REDIRECT )
-			WordPress::redirect( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
+			WordPress\Redirect::doWP( add_query_arg( GNETWORK_SEARCH_QUERYID, $wp_query->query_vars['s'], GNETWORK_SEARCH_URL ) );
 
 		if ( $this->options['redirect_single'] && $wp_query->post_count == 1 && ! is_paged() )
-			WordPress::redirect( get_permalink( $wp_query->posts['0']->ID ) );
+			WordPress\Redirect::doWP( get_permalink( $wp_query->posts['0']->ID ) );
 	}
 
 	public function wp_query_search_exclusion_prefix( $prefix )
@@ -404,7 +402,7 @@ class Search extends gNetwork\Module
 			'context' => NULL,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress::isXML() || WordPress::isREST() )
+		if ( FALSE === $args['context'] || WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return NULL;
 
 		$html = $args['theme']

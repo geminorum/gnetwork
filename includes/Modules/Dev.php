@@ -127,19 +127,19 @@ class Dev extends gNetwork\Module
 		if ( is_admin() )
 			$log[] = 'Admin';
 
-		if ( Core\WordPress::isFlush() )
+		if ( WordPress\IsIt::flush() )
 			$log[] = 'Flush';
 
-		if ( Core\WordPress::isCLI() )
+		if ( WordPress\IsIt::cli() )
 			$log[] = 'CLI';
 
-		if ( Core\WordPress::isCRON() )
+		if ( WordPress\IsIt::cron() )
 			$log[] = 'CRON';
 
-		if ( Core\WordPress::isAJAX() )
+		if ( WordPress\IsIt::ajax() )
 			$log[] = 'AJAX';
 
-		if ( Core\WordPress::isREST() )
+		if ( WordPress\IsIt::rest() )
 			$log[] = 'REST';
 
 		if ( function_exists( 'gNetwork' ) )
@@ -160,13 +160,13 @@ class Dev extends gNetwork\Module
 		if ( $_SERVER['REQUEST_URI'] )
 			$log[] = $_SERVER['REQUEST_URI'];
 
-		if ( ! empty( $pagenow ) && ! Core\WordPress::isREST() )
+		if ( ! empty( $pagenow ) && ! WordPress\IsIt::rest() )
 			$log[] = 'PAGE:'.$pagenow;
 
 		$prefix = 'BENCHMARK: ';
 
 		if ( is_multisite() )
-			$prefix.= Core\WordPress::currentSiteName().': ';
+			$prefix.= WordPress\Site::name().': ';
 
 		Logger::DEBUG( $prefix.implode( '|', $log ) );
 	}

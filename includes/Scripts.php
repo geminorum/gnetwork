@@ -2,9 +2,6 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\WordPress;
-
 class Scripts extends Core\Base
 {
 
@@ -79,7 +76,7 @@ class Scripts extends Core\Base
 
 		$args = self::atts( [
 			'dependencies' => [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-polyfill' ],
-			'version'      => Core\WordPress::isDev() ? filemtime( $path ) : $version,
+			'version'      => WordPress\IsIt::dev() ? filemtime( $path ) : $version,
 		], is_readable( $info ) ? require( $info ) : [] );
 
 		wp_register_script( $handle, $url, $args['dependencies'], $args['version'] );

@@ -852,10 +852,12 @@ class ShortCodes extends gNetwork\Module
 			'width'     => FALSE,
 			'height'    => FALSE,
 			'style'     => FALSE,
+			'alignment' => FALSE,      // `center`/`left`/`right`/`none`
 			'img_class' => FALSE,
 			'figure'    => NULL,       // null for if has caption
 			'caption'   => NULL,       // null for getting from attachment
 			'alt'       => NULL,       // null for getting from attachment
+			'rel'       => FALSE,
 			'load'      => 'lazy',
 			'context'   => NULL,
 			'wrap'      => TRUE,
@@ -897,7 +899,7 @@ class ShortCodes extends gNetwork\Module
 
 				} else if ( in_array( $args['link'], [ 'full', 'image', 'parent', 'page' ], TRUE ) ) {
 
-					$arg['link'] = FALSE;
+					// $arg['link'] = FALSE; // NOTE: allows for custom links
 				}
 			}
 		}
@@ -913,11 +915,16 @@ class ShortCodes extends gNetwork\Module
 		$html = Core\HTML::tag( 'img', [
 			'src'     => $src,
 			'alt'     => $args['alt'],
+			'rel'     => $args['rel'],
 			'width'   => $args['width'],
 			'height'  => $args['height'],
 			'loading' => $args['load'],
 			'style'   => $args['style'],
-			'class'   => Core\HTML::attrClass( 'img-fluid', $args['figure'] ? 'figure-img' : '', $args['img_class'] ),
+			'class'   => Core\HTML::attrClass(
+				'img-fluid',
+				$args['figure'] ? 'figure-img' : ( $args['alignment'] ? sprintf( 'align%s', $args['alignment'] ) : '' ),
+				$args['img_class']
+			),
 		] );
 
 		if ( $args['link'] && ! in_array( $args['link'], [ 'full', 'image', 'parent', 'page' ], TRUE ) )
@@ -928,10 +935,15 @@ class ShortCodes extends gNetwork\Module
 
 		if ( $args['figure'] ) {
 
+			// NOTE: `$content` is fallback
 			if ( $args['caption'] )
 				$html.= '<figcaption class="figure-caption">'.$args['caption'].'</figcaption>';
 
-			$html = '<figure class="'.Core\HTML::prepClass( 'figure', $args['figure'] ).'">'.$html.'</figure>';
+			$html = '<figure class="'.Core\HTML::prepClass(
+				'figure',
+				$args['figure'],
+				$args['alignment'] ? sprintf( 'align%s', $args['alignment'] ) : ''
+			).'">'.$html.'</figure>';
 		}
 
 		return self::shortcodeWrap( $html, 'image', $args );
@@ -952,7 +964,7 @@ class ShortCodes extends gNetwork\Module
 			'after'   => '',
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || Core\WordPress::isXML() || Core\WordPress::isREST() )
+		if ( FALSE === $args['context'] || WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return NULL;
 
 		if ( ! $args['url'] )
@@ -1018,7 +1030,7 @@ class ShortCodes extends gNetwork\Module
 
 		unset( $args['class'] );
 
-		if ( ! Core\WordPress::isXML() && ! Core\WordPress::isREST() )
+		if ( ! WordPress\IsIt::xml() && ! WordPress\IsIt::rest() )
 			Scripts::enqueueThickBox();
 
 		return self::shortcodeWrap( $html, 'thickbox', $args, FALSE );
@@ -1164,7 +1176,7 @@ class ShortCodes extends gNetwork\Module
 		$for  = $args['for'] ? trim( $args['for'] ) : $text;
 
 		$html = Core\HTML::tag( 'a', [
-			'href'  => Core\WordPress::getSearchLink( $for, $args['url'] ),
+			'href'  => WordPress\URL::search( $for, $args['url'] ),
 			'title' => sprintf( $args['title'], $for ),
 		], $text );
 
@@ -1190,7 +1202,7 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() )
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return $content;
 
 		if ( ! $args['key'] )
@@ -1303,7 +1315,7 @@ class ShortCodes extends gNetwork\Module
 		else if ( is_null( $args['title'] ) )
 			$args['title'] = _x( 'PDF Document', 'Modules: ShortCodes: Defaults', 'gnetwork' );
 
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() ) {
 
 			if ( $content )
 				return $content;
@@ -1350,7 +1362,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $args['id'] && ! $args['url'] )
 			return $content;
 
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() ) {
 
 			if ( $content )
 				return $content;
@@ -1365,7 +1377,7 @@ class ShortCodes extends gNetwork\Module
 
 		$key = $this->hash( 'csv', $args );
 
-		if ( Core\WordPress::isFlush() )
+		if ( WordPress\IsIt::flush() )
 			delete_transient( $key );
 
 		if ( FALSE === ( $html = get_transient( $key ) ) ) {
@@ -1509,7 +1521,7 @@ class ShortCodes extends gNetwork\Module
 		if ( is_null( $content ) || ! is_singular() )
 			return NULL;
 
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() ) {
 			$this->ref_ids[] = FALSE; // for the notice
 			return NULL;
 		}
@@ -1581,7 +1593,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! is_singular() || empty( $this->ref_ids ) )
 			return NULL;
 
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() ) {
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() ) {
 			$this->ref_list = TRUE;
 			return '<p>'._x( 'See the footnotes on the site.', 'Shortcodes Module: Defaults', 'gnetwork' ).'</p>';
 		}
@@ -1685,7 +1697,7 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: check this!
 	public function shortcode_ref_manual( $atts = [], $content = NULL, $tag = '' )
 	{
-		if ( is_null( $content ) || ! is_singular() || Core\WordPress::isXML() || Core\WordPress::isREST() )
+		if ( is_null( $content ) || ! is_singular() || WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return NULL;
 
 		// [ref-m id="0" caption="Caption Title"]
@@ -1720,7 +1732,7 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: check this!
 	public function shortcode_reflist_manual( $atts = [], $content = NULL, $tag = '' )
 	{
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() )
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return NULL;
 
 		// [reflist-m id="0" caption="Caption Title"]

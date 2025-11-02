@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
+use geminorum\gNetwork\WordPress;
 
 class Player extends gNetwork\Module
 {
@@ -42,7 +43,7 @@ class Player extends gNetwork\Module
 	 * @param array $atts
 	 * @param string $content
 	 * @param string $tag
-	 * @return string $html
+	 * @return string
 	 */
 	public function shortcode_audio_go( $atts = [], $content = NULL, $tag = '' )
 	{
@@ -60,7 +61,7 @@ class Player extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() )
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return $content;
 
 		$title = sprintf( $args['title'], $args['to'] );
@@ -89,7 +90,7 @@ class Player extends gNetwork\Module
 		if ( ! $args['src'] )
 			return $content;
 
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() )
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return $content;
 
 		$html = vsprintf( '<audio preload="none" data-size="%s" src="%s"></audio>', [
@@ -109,7 +110,7 @@ class Player extends gNetwork\Module
 	 * @param array $atts
 	 * @param string $content
 	 * @param string $tag
-	 * @return string $html
+	 * @return string
 	 */
 	public function shortcode_audio( $atts = [], $content = NULL, $tag = '' )
 	{
@@ -127,7 +128,7 @@ class Player extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
-		if ( Core\WordPress::isXML() || Core\WordPress::isREST() )
+		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return $content;
 
 		if ( $html = wp_audio_shortcode( $atts, $content ) ) {

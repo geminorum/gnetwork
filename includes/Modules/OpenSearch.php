@@ -177,7 +177,7 @@ class OpenSearch extends gNetwork\Module
 
 	public function rss2_ns()
 	{
-		if ( Core\WordPress::isExport() )
+		if ( WordPress\IsIt::exporting() )
 			return;
 
 		echo 'xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/"'."\n";
@@ -185,7 +185,7 @@ class OpenSearch extends gNetwork\Module
 
 	public function rss2_head()
 	{
-		if ( Core\WordPress::isExport() )
+		if ( WordPress\IsIt::exporting() )
 			return;
 
 		echo "\t".'<atom:link rel="search" type="application/opensearchdescription+xml" href="'
@@ -429,7 +429,7 @@ class OpenSearch extends gNetwork\Module
 					$title = strip_tags( str_replace( '&nbsp;', ' ', get_the_title() ) );
 					$completions[] = $title;
 					$descriptions[] = '';
-					$query_urls[] = Core\WordPress::getSearchLink( $title );
+					$query_urls[] = WordPress\URL::search( $title );
 				}
 			}
 		}

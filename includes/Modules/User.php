@@ -110,7 +110,7 @@ class User extends gNetwork\Module
 			'type'        => 'number',
 			'title'       => _x( 'Site User ID', 'Modules: User: Settings', 'gnetwork' ),
 			'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', 'gnetwork' ),
-			'after'       => Settings::fieldAfterIcon( Core\WordPress::getUserEditLink( $this->options['site_user_id'], [], TRUE, FALSE ) ),
+			'after'       => Settings::fieldAfterIcon( WordPress\User::edit( $this->options['site_user_id'], [], TRUE, FALSE ) ),
 		];
 
 		if ( $multisite )
@@ -215,7 +215,7 @@ class User extends gNetwork\Module
 
 		echo $this->wrap_open_buttons();
 
-		if ( ! Core\WordPress::isMainNetwork() ) {
+		if ( ! WordPress\IsIt::mainNetwork() ) {
 
 			// for multi-network only!
 
@@ -256,7 +256,7 @@ class User extends gNetwork\Module
 
 			foreach ( $users as $user_id ) {
 
-				if ( Core\WordPress::isSuperAdmin( $user_id ) )
+				if ( WordPress\User::isSuperAdmin( $user_id ) )
 					continue;
 
 				if ( is_user_member_of_blog( $user_id, $site_id ) )
@@ -268,7 +268,7 @@ class User extends gNetwork\Module
 				$count++;
 			}
 
-			Core\WordPress::redirectReferer( [
+			WordPress\Redirect::doReferer( [
 				'message' => 'synced',
 				'count'   => $count,
 			] );
@@ -304,19 +304,19 @@ class User extends gNetwork\Module
 					$saved = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
 					if ( ! $this->update_sites_roles( $saved, $roles ) )
-						Core\WordPress::redirectReferer( 'wrong' );
+						WordPress\Redirect::doReferer( 'wrong' );
 				}
 
 				$result = update_network_option( NULL, $this->hook( 'roles' ), $roles );
 
-				Core\WordPress::redirectReferer( $result ? 'updated' : 'error' );
+				WordPress\Redirect::doReferer( $result ? 'updated' : 'error' );
 			}
 		}
 	}
 
 	protected function render_tools_html( $uri, $sub = 'general' )
 	{
-		$sites = Core\WordPress::getAllSites();
+		$sites = WordPress\Site::get();
 		$roles = array_reverse( get_editable_roles() ); // NOTE: roles of the main site
 		$saved = get_network_option( NULL, $this->hook( 'roles' ), [] );
 
@@ -332,7 +332,7 @@ class User extends gNetwork\Module
 
 		foreach ( $sites as $site_id => $site ) {
 
-			if ( ! $name = Core\WordPress::getSiteName( $site_id ) )
+			if ( ! $name = WordPress\Site::title( $site_id ) )
 				$name = Core\URL::untrail( $site->domain.$site->path );
 
 			$this->do_settings_field( [
@@ -413,7 +413,7 @@ class User extends gNetwork\Module
 		$relative = 'admin.php?page='.static::BASE;
 
 		return $full
-			? Core\WordPress::userAdminURL( $network, $relative, $scheme )
+			? WordPress\URL::userAdmin( $network, $relative, $scheme )
 			: $relative;
 	}
 
@@ -512,7 +512,7 @@ class User extends gNetwork\Module
 	public function count_users()
 	{
 		$result    = count_users();
-		$roles     = WordPress\User::getAllRoleList();
+		$roles     = WordPress\Role::get();
 		$separator = WordPress\Strings::separator();
 
 		// TODO: report users with no role in this site
@@ -663,7 +663,7 @@ class User extends gNetwork\Module
 
 	private function update_sites_roles( $old, $new )
 	{
-		foreach ( Core\WordPress::getAllSites() as $site_id => $site ) {
+		foreach ( WordPress\Site::get() as $site_id => $site ) {
 
 			if ( empty( $new[$site_id] ) && empty( $old[$site_id] ) )
 				continue;
@@ -671,12 +671,12 @@ class User extends gNetwork\Module
 			WordPress\SwitchSite::to( $site_id );
 
 			$users = empty( $old[$site_id] )
-				? Core\WordPress::getUsersWithNoRole( $site_id )
-				: Core\WordPress::getUsersWithRole( $old[$site_id], $site_id );
+				? WordPress\Role::listHasNoRole( $site_id )
+				: WordPress\Role::listWithRole( $old[$site_id], $site_id );
 
 			foreach ( $users as $user_id ) {
 
-				if ( Core\WordPress::isSuperAdmin( $user_id ) )
+				if ( WordPress\User::isSuperAdmin( $user_id ) )
 					continue;
 
 				if ( ! $user = get_userdata( $user_id ) )
@@ -721,7 +721,7 @@ class User extends gNetwork\Module
 					$caps[] = 'do_not_allow';
 
 				// admins cannot modify super admins
-				else if ( isset( $args[0] ) && Core\WordPress::isSuperAdmin( $args[0] ) )
+				else if ( isset( $args[0] ) && WordPress\User::isSuperAdmin( $args[0] ) )
 					$caps[] = 'do_not_allow';
 
 				// fallback on `edit_users`

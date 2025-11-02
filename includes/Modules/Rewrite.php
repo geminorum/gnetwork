@@ -72,7 +72,7 @@ class Rewrite extends gNetwork\Module
 
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( Core\WordPress::maybeFlushRules() )
+		if ( WordPress\URL::maybeFlushRules() )
 			Core\HTML::desc( _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork' ), TRUE, '-color-danger' );
 
 		echo $this->wrap_open_buttons();
@@ -311,7 +311,7 @@ class Rewrite extends gNetwork\Module
 		$location = Core\URL::trail( get_option( 'home' ) )
 			.user_trailingslashit( $query_vars['category_redirect'], 'category' );
 
-		Core\WordPress::redirect( $location, 301 );
+		WordPress\Redirect::doWP( $location, 301 );
 	}
 
 	// @REF: https://wordpress.stackexchange.com/a/172961/
@@ -356,13 +356,13 @@ class Rewrite extends gNetwork\Module
 
 	public function dashboard_pointers( $items )
 	{
-		if ( ! Core\WordPress::maybeFlushRules() )
+		if ( ! WordPress\URL::maybeFlushRules() )
 			return $items;
 
-		if ( Core\WordPress::cuc( 'manage_options' ) )
+		if ( WordPress\User::cuc( 'manage_options' ) )
 			$url = $this->get_menu_url( NULL, NULL, 'tools' );
 
-		else if ( Core\WordPress::cuc( 'edit_others_posts' ) )
+		else if ( WordPress\User::cuc( 'edit_others_posts' ) )
 			$url = add_query_arg( static::BASE.'_action', 'flushrewrite', Core\URL::current() );
 
 		else

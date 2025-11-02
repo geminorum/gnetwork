@@ -236,12 +236,12 @@ class Navigation extends gNetwork\Module
 	public function get_sites_pages()
 	{
 		$items = [];
-		$admin = Core\WordPress::isSuperAdmin();
-		$sites = Core\WordPress::getAllSites( ( $admin ? FALSE : get_current_user_id() ), $admin );
+		$admin = WordPress\User::isSuperAdmin();
+		$sites = WordPress\Site::get( ( $admin ? FALSE : get_current_user_id() ), $admin );
 
 		foreach ( $sites as $site ) {
 
-			if ( ! $name = Core\WordPress::getSiteName( $site->userblog_id ) )
+			if ( ! $name = WordPress\Site::title( $site->userblog_id ) )
 				$name = Core\URL::untrail( $site->domain.$site->path );
 
 			$items[] = [
@@ -348,7 +348,7 @@ class Navigation extends gNetwork\Module
 			case 'posts_feed':
 
 				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::isEnabled() )
-					Core\WordPress::doNotCache();
+					WordPress\Site::doNotCache();
 
 				$menu_item->url = get_feed_link();
 
@@ -356,7 +356,7 @@ class Navigation extends gNetwork\Module
 			case 'comments_feed':
 
 				if ( class_exists( __NAMESPACE__.'\\Restricted' ) && Restricted::isEnabled() )
-					Core\WordPress::doNotCache();
+					WordPress\Site::doNotCache();
 
 				$menu_item->url = get_feed_link( 'comments_'.get_default_feed() );
 
@@ -414,21 +414,21 @@ class Navigation extends gNetwork\Module
 
 	private function get_register_url()
 	{
-		return $this->filters( 'register_url', Core\WordPress::registerURL() );
+		return $this->filters( 'register_url', WordPress\URL::register() );
 	}
 
 	// FIXME: check if not caching then add redirect arg
 	// @SEE: `wp_using_ext_object_cache()`
 	private function get_login_url()
 	{
-		return $this->filters( 'login_url', Core\WordPress::loginURL() );
+		return $this->filters( 'login_url', WordPress\URL::login() );
 	}
 
 	// FIXME: check if not caching then add redirect arg
 	// @SEE: `wp_using_ext_object_cache()`
 	private function get_logout_url()
 	{
-		return $this->filters( 'logout_url', Core\WordPress::loginURL( '', TRUE ) );
+		return $this->filters( 'logout_url', WordPress\URL::login( '', TRUE ) );
 	}
 
 	private function get_edit_profile_url()
@@ -570,7 +570,7 @@ class Navigation extends gNetwork\Module
 
 		$key = static::BASE.'_'.$name.( $items ? '' : '_html' );
 
-		if ( Core\WordPress::isFlush() && is_main_site() )
+		if ( WordPress\IsIt::flush() && is_main_site() )
 			update_network_option( NULL, $key, '' );
 
 		else if ( $menu = get_network_option( NULL, $key, NULL ) )

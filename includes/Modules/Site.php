@@ -307,7 +307,7 @@ class Site extends gNetwork\Module
 
 			Logger::siteINFO( 'SSL', sprintf( 'switched to: %s', str_replace( '://', '', $switch[1] ) ) );
 
-			Core\WordPress::redirectReferer();
+			WordPress\Redirect::doReferer();
 
 		} else if ( isset( $_POST['resync_sitemeta'] ) ) {
 
@@ -315,7 +315,7 @@ class Site extends gNetwork\Module
 
 			$count = $this->network_resync_sitemeta();
 
-			Core\WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+			WordPress\Redirect::doReferer( FALSE === $count ? 'wrong' : [
 				'message' => 'synced',
 				'count'   => $count,
 			] );
@@ -326,7 +326,7 @@ class Site extends gNetwork\Module
 
 			$count = $this->network_delete_sitemeta();
 
-			Core\WordPress::redirectReferer( FALSE === $count ? 'wrong' : [
+			WordPress\Redirect::doReferer( FALSE === $count ? 'wrong' : [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -356,7 +356,7 @@ class Site extends gNetwork\Module
 		// getting lighter list of blogs
 		$blogs = $this->options['list_sites']
 			? get_blogs_of_user( $user_id )
-			: Core\WordPress::getUserSites( $user_id, $GLOBALS['wpdb']->base_prefix );
+			: WordPress\User::getSites( $user_id, $GLOBALS['wpdb']->base_prefix );
 
 		// this will override default message
 		if ( Core\Arraay::filter( $blogs, [ 'userblog_id' => get_current_blog_id() ] ) )
@@ -453,7 +453,7 @@ class Site extends gNetwork\Module
 	public function ms_site_not_found( $current_site, $domain, $path )
 	{
 		if ( $this->options['redirect_notfound'] )
-			Core\WordPress::redirect( $this->options['redirect_notfound'], 303 );
+			WordPress\Redirect::doWP( $this->options['redirect_notfound'], 303 );
 
 		Utilities::redirect404();
 	}
@@ -485,7 +485,7 @@ class Site extends gNetwork\Module
 		static $sites = NULL;
 
 		if ( is_null( $sites ) )
-			$sites = Core\Arraay::pluck( Core\WordPress::getAllSites( FALSE, NULL, FALSE ), 'domain' );
+			$sites = Core\Arraay::pluck( WordPress\Site::get( FALSE, NULL, FALSE ), 'domain' );
 
 		return array_unique( array_filter( array_merge( $hosts, $sites ) ) );
 	}
@@ -665,7 +665,7 @@ class Site extends gNetwork\Module
 	public function network_resync_sitemeta( $network = NULL )
 	{
 		$count = 0;
-		$sites = Core\WordPress::getAllSites( FALSE, $network, FALSE );
+		$sites = WordPress\Site::get( FALSE, $network, FALSE );
 
 		foreach ( $sites as $site_id => $site ) {
 			WordPress\SwitchSite::to( $site_id );
@@ -682,7 +682,7 @@ class Site extends gNetwork\Module
 	public function network_delete_sitemeta( $network = NULL )
 	{
 		$count = 0;
-		$sites = Core\WordPress::getAllSites( FALSE, $network, FALSE );
+		$sites = WordPress\Site::get( FALSE, $network, FALSE );
 
 		foreach ( $sites as $site_id => $site )
 			if ( $this->delete_sitemeta( $site_id ) )

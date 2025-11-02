@@ -7,6 +7,7 @@ use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\WordPress;
 
 class Blacklist extends gNetwork\Module
 {

@@ -2,8 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class BuddyPressMe extends \BP_Component
 {
@@ -47,7 +47,7 @@ class BuddyPressMe extends \BP_Component
 		if ( ! bp_is_current_component( $this->id ) )
 			return;
 
-		WordPress::doNotCache();
+		WordPress\Site::doNotCache();
 
 		$this->current_action = bp_current_action();
 
@@ -58,7 +58,7 @@ class BuddyPressMe extends \BP_Component
 			bp_core_redirect();
 
 		if ( ! bp_loggedin_user_id() )
-			bp_core_redirect( WordPress::loginURL( URL::current() ) );
+			bp_core_redirect( WordPress\URL::login( Core\URL::current() ) );
 
 		$actions = apply_filters( 'gnetwork_bp_me_actions', [
 			'profile'  => [ $this, 'me_action_profile' ],

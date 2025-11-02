@@ -135,7 +135,7 @@ if ( ! function_exists( 'gnetwork_credits' ) ) :
 endif;
 
 if ( ! function_exists( '_donot_cache_page' ) ) : function _donot_cache_page() {
-	\geminorum\gNetwork\Core\WordPress::doNotCache();
+	\geminorum\gNetwork\WordPress\Site::doNotCache();
 } endif;
 
 if ( ! function_exists( '_gpersiandate_skip' ) ) : function _gpersiandate_skip() {

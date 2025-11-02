@@ -46,7 +46,12 @@ if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
 	/* require_once GNETWORK_DIR . 'includes/Plugin.php'; */
 
 	function gNetwork() {
-		return \geminorum\gNetwork\Plugin::instance();
+		return \geminorum\gNetwork\Plugin::instance(
+			GNETWORK_DIR,
+			GNETWORK_URL,
+			GNETWORK_FILE,
+			GNETWORK_VERSION
+		);
 	}
 
 	gNetwork();

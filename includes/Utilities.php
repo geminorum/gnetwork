@@ -2,9 +2,6 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\WordPress;
-
 class Utilities extends Core\Base
 {
 
@@ -241,7 +238,7 @@ class Utilities extends Core\Base
 		$edit_last = get_post_meta( $post->ID, '_edit_last', TRUE );
 
 		if ( $edit_last && $post->post_author != $edit_last )
-			$html.= '&nbsp;(<span class="-edit-last">'.Core\WordPress::getAuthorEditHTML( $post->post_type, $edit_last ).'</span>)';
+			$html.= '&nbsp;(<span class="-edit-last">'.WordPress\PostType::authorEditMarkup( $post->post_type, $edit_last ).'</span>)';
 
 		return $class ? '<span class="'.Core\HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
 	}
@@ -459,7 +456,7 @@ class Utilities extends Core\Base
 			$layout = $plugin;
 
 		if ( $no_cache && $layout )
-			Core\WordPress::doNotCache();
+			WordPress\Site::doNotCache();
 
 		if ( $require && $layout )
 			require_once $layout;
@@ -474,7 +471,7 @@ class Utilities extends Core\Base
 
 	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )
 	{
-		$file = Core\WordPress::customFile( $css, FALSE );
+		$file = WordPress\Site::customFile( $css, FALSE );
 
 		if ( $link && $file )
 			Core\HTML::linkStyleSheet( $file, $version );
@@ -555,7 +552,7 @@ class Utilities extends Core\Base
 		$verifier = new \hbattat\VerifyEmail( $email, $from, $port );
 		$results  = $verifier->verify();
 
-		if ( Core\WordPress::isDev() )
+		if ( WordPress\IsIt::dev() )
 			self::_log( $verifier->get_debug() );
 
 		return $results;
@@ -592,7 +589,7 @@ class Utilities extends Core\Base
 
 	public static function redirectHome()
 	{
-		Core\WordPress::redirect( get_home_url(), 303 );
+		WordPress\Redirect::doWP( get_home_url(), 303 );
 	}
 
 	public static function redirect404()
@@ -602,7 +599,7 @@ class Utilities extends Core\Base
 		else
 			$location = GNETWORK_REDIRECT_404_URL;
 
-		Core\WordPress::redirect( $location, 303 );
+		WordPress\Redirect::doWP( $location, 303 );
 	}
 
 	public static function htmlSSLfromURL( $url )
@@ -814,5 +811,17 @@ class Utilities extends Core\Base
 			$suffix = $ratio;
 
 		return sprintf( '%s -ratio%s', $mainclass, $suffix );
+	}
+
+	// @REF: https://github.com/donatj/PhpUserAgent
+	public static function uaInfo()
+	{
+		$uaInfo = \donatj\UserAgent\parse_user_agent();
+
+		return [
+			'platform'        => $uaInfo[donatj\UserAgent\PLATFORM],
+			'browser'         => $uaInfo[donatj\UserAgent\BROWSER],
+			'browser_version' => $uaInfo[donatj\UserAgent\BROWSER_VERSION],
+		];
 	}
 }

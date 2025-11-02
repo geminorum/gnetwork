@@ -27,7 +27,7 @@ class AdminBar extends gNetwork\Module
 
 	public function init()
 	{
-		if ( Core\WordPress::mustRegisterUI() ) {
+		if ( WordPress\Screen::mustRegisterUI() ) {
 
 			$this->setup_adminbar();
 
@@ -61,8 +61,8 @@ class AdminBar extends gNetwork\Module
 		$user = new \stdClass();
 
 		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
-			$super_admin       = Core\WordPress::isSuperAdmin();
-			$user->blogs       = Core\WordPress::getAllSites( ( $super_admin ? FALSE : $user_id ), $super_admin );
+			$super_admin       = WordPress\User::isSuperAdmin();
+			$user->blogs       = WordPress\Site::get( ( $super_admin ? FALSE : $user_id ), $super_admin );
 			$user->active_blog = get_user_meta( $user_id, 'primary_blog', TRUE );
 		} else {
 			$user->blogs       = [];
@@ -198,7 +198,7 @@ class AdminBar extends gNetwork\Module
 	{
 		global $wp_admin_bar;
 
-		if ( Core\WordPress::isSuperAdmin() )
+		if ( WordPress\User::isSuperAdmin() )
 			$this->add_nodes( $wp_admin_bar );
 
 		foreach ( $this->remove_nodes as $node )
@@ -251,7 +251,7 @@ class AdminBar extends gNetwork\Module
 
 		if ( defined( 'GNETWORK_WPLANG' )
 			&& ! is_network_admin()
-			&& Core\WordPress::isDev()
+			&& WordPress\IsIt::dev()
 			&& class_exists( __NAMESPACE__.'\\Locale' ) ) {
 
 			$wp_admin_bar->add_node( [
@@ -321,7 +321,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => $parent_id,
 					'id'     => static::BASE.'-current-post',
 					'title'  => _x( 'Current Post', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-					'href'   => Core\WordPress::getPostEditLink( $post->ID ),
+					'href'   => WordPress\Post::edit( $post ),
 				] );
 
 				$wp_admin_bar->add_node( [
@@ -468,7 +468,7 @@ class AdminBar extends gNetwork\Module
 		if ( ! is_user_logged_in() )
 			return;
 
-		$super_admin = Core\WordPress::isSuperAdmin();
+		$super_admin = WordPress\User::isSuperAdmin();
 
 		if ( count( $wp_admin_bar->user->blogs ) < 1 && ! $super_admin )
 			return;
@@ -591,7 +591,7 @@ class AdminBar extends gNetwork\Module
 			// avoiding `switch_to_blog()`
 
 			$menu_id  = 'blog-'.$blog->userblog_id;
-			$blogname = Core\WordPress::getSiteName( $blog->userblog_id );
+			$blogname = WordPress\Site::title( $blog->userblog_id );
 
 			if ( ! $blogname )
 				$blogname = Core\URL::untrail( $blog->domain.$blog->path );
@@ -668,7 +668,7 @@ class AdminBar extends gNetwork\Module
 			return $this->wp_admin_bar_my_sites_menu( $wp_admin_bar );
 
 		// assumed the list from `user_has_networks()` have privileges!
-		$super_admin = Core\WordPress::isSuperAdmin();
+		$super_admin = WordPress\User::isSuperAdmin();
 
 		foreach ( $networks as $network_id ) {
 
@@ -681,7 +681,7 @@ class AdminBar extends gNetwork\Module
 			$wp_admin_bar->add_node( [
 				'id'    => $node,
 				'title' => self::getIcon( 'networking' ).'<span class="screen-reader-text">'.$network->site_name.'</span>',
-				'href'  => Core\WordPress::networkSiteURL( $network ),
+				'href'  => WordPress\URL::networkSite( $network ),
 				'meta'  => [ 'class' => $this->classs( 'network-node' ) ],
 			] );
 
@@ -702,7 +702,7 @@ class AdminBar extends gNetwork\Module
 				'parent' => 'network-links-'.$network->id,
 				'id'     => 'user-admin-'.$network->id,
 				'title'  => '<div class="blavatar -user"></div>'._x( 'My Dashboard', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-				'href'   => Core\WordPress::userAdminURL( $network ),
+				'href'   => WordPress\URL::userAdmin( $network ),
 			] );
 
 			if ( $super_admin ) {
@@ -711,7 +711,7 @@ class AdminBar extends gNetwork\Module
 					'parent' => 'network-links-'.$network->id,
 					'id'     => 'network-admin-'.$network->id,
 					'title'  => '<div class="blavatar -network"></div>'._x( 'Network Admin', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-					'href'   => Core\WordPress::networkAdminURL( $network ),
+					'href'   => WordPress\URL::networkAdmin( $network ),
 				] );
 
 				if ( current_user_can( 'manage_sites' ) ) {
@@ -720,7 +720,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-s-'.$network->id,
 						'title'  => _x( 'Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => Core\WordPress::networkAdminURL( $network, 'sites.php' ),
+						'href'   => WordPress\URL::networkAdmin( $network, 'sites.php' ),
 					] );
 				}
 
@@ -730,7 +730,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-u-'.$network->id,
 						'title'  => _x( 'Users', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => Core\WordPress::networkAdminURL( $network, 'users.php' ),
+						'href'   => WordPress\URL::networkAdmin( $network, 'users.php' ),
 					] );
 				}
 
@@ -740,7 +740,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-t-'.$network->id,
 						'title'  => _x( 'Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => Core\WordPress::networkAdminURL( $network, 'themes.php' ),
+						'href'   => WordPress\URL::networkAdmin( $network, 'themes.php' ),
 					] );
 				}
 
@@ -750,7 +750,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-p-'.$network->id,
 						'title'  => _x( 'Plugins', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => Core\WordPress::networkAdminURL( $network, 'plugins.php' ),
+						'href'   => WordPress\URL::networkAdmin( $network, 'plugins.php' ),
 					] );
 				}
 
@@ -760,7 +760,7 @@ class AdminBar extends gNetwork\Module
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-o-'.$network->id,
 						'title'  => _x( 'Settings', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => Core\WordPress::networkAdminURL( $network, 'settings.php' ),
+						'href'   => WordPress\URL::networkAdmin( $network, 'settings.php' ),
 					] );
 
 					$wp_admin_bar->add_node( [
@@ -771,13 +771,13 @@ class AdminBar extends gNetwork\Module
 					] );
 				}
 
-				if ( Core\WordPress::isMainNetwork() && current_user_can( 'update_core' ) ) {
+				if ( WordPress\IsIt::mainNetwork() && current_user_can( 'update_core' ) ) {
 
 					$wp_admin_bar->add_node( [
 						'parent' => 'network-admin-'.$network->id,
 						'id'     => 'network-admin-uc-'.$network->id,
 						'title'  => _x( 'Updates', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-						'href'   => Core\WordPress::networkAdminURL( $network, 'update-core.php' ),
+						'href'   => WordPress\URL::networkAdmin( $network, 'update-core.php' ),
 					] );
 				}
 			}
@@ -797,7 +797,7 @@ class AdminBar extends gNetwork\Module
 				continue;
 
 			$menu_id  = 'blog-'.$blog->userblog_id;
-			$blogname = Core\WordPress::getSiteName( $blog->userblog_id );
+			$blogname = WordPress\Site::title( $blog->userblog_id );
 
 			if ( ! $blogname )
 				$blogname = Core\URL::untrail( $blog->domain.$blog->path );
@@ -844,14 +844,14 @@ class AdminBar extends gNetwork\Module
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-s',
 					'title'  => _x( 'Edit Site', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-					'href'   => Core\WordPress::networkAdminURL( $network, 'site-info.php?id='.$blog->userblog_id ),
+					'href'   => WordPress\URL::networkAdmin( $network, 'site-info.php?id='.$blog->userblog_id ),
 				] );
 
 				$wp_admin_bar->add_node( [
 					'parent' => $menu_id,
 					'id'     => $menu_id.'-e-t',
 					'title'  => _x( 'Edit Themes', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-					'href'   => Core\WordPress::networkAdminURL( $network, 'site-themes.php?id='.$blog->userblog_id ),
+					'href'   => WordPress\URL::networkAdmin( $network, 'site-themes.php?id='.$blog->userblog_id ),
 				] );
 			}
 
@@ -917,10 +917,10 @@ class AdminBar extends gNetwork\Module
 			'parent' => $parent,
 			'id'     => 'network-login',
 			'title'  => _x( 'Log in', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-			'href'   => Core\WordPress::loginURL(),
+			'href'   => WordPress\URL::login(),
 		] );
 
-		if ( $register_url = Core\WordPress::registerURL() )
+		if ( $register_url = WordPress\URL::register() )
 			$wp_admin_bar->add_node( [
 				'parent' => $parent,
 				'id'     => 'network-register',

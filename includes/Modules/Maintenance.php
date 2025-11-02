@@ -145,7 +145,7 @@ class Maintenance extends gNetwork\Module
 
 			$created = Core\File::putContents( 'maintenance.php', ob_get_clean(), WP_CONTENT_DIR, FALSE );
 
-			Core\WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
+			WordPress\Redirect::doReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 		}
 	}
 
@@ -156,7 +156,7 @@ class Maintenance extends gNetwork\Module
 		foreach ( Utilities::getFeeds() as $feed )
 			add_action( 'do_feed_'.$feed, [ $this, 'do_feed_feed' ], 1, 1 );
 
-		if ( Core\WordPress::cuc( $this->options['access_site'] ) )
+		if ( WordPress\User::cuc( $this->options['access_site'] ) )
 			return;
 
 		$this->action( 'template_redirect' );
@@ -173,7 +173,7 @@ class Maintenance extends gNetwork\Module
 		if ( $this->options['admin_notice'] )
 			$this->action( 'admin_notices' );
 
-		if ( ! Core\WordPress::cuc( $this->options['access_admin'] ) )
+		if ( ! WordPress\User::cuc( $this->options['access_admin'] ) )
 			Utilities::redirectHome();
 	}
 
@@ -202,7 +202,7 @@ class Maintenance extends gNetwork\Module
 
 	public function dashboard_pointers( $items )
 	{
-		$can = Core\WordPress::cuc( 'manage_options' );
+		$can = WordPress\User::cuc( 'manage_options' );
 
 		$items[] = Core\HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'maintenance' ) : FALSE,
@@ -257,7 +257,7 @@ class Maintenance extends gNetwork\Module
 
 	public static function is()
 	{
-		return ( ! Core\WordPress::cuc( gNetwork()->option( 'access_site', 'maintenance', 'none' ) ) );
+		return ( ! WordPress\User::cuc( gNetwork()->option( 'access_site', 'maintenance', 'none' ) ) );
 	}
 
 	public static function enabled()

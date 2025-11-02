@@ -247,11 +247,11 @@ class Profile extends gNetwork\Module
 			$file = WordPress\Media::handleImportUpload( $this->classs( 'import' ) );
 
 			if ( ! $file || isset( $file['error'] ) || empty( $file['file'] ) )
-				Core\WordPress::redirectReferer( 'wrong' );
+				WordPress\Redirect::doReferer( 'wrong' );
 
 			$count = $this->import_users_csv( $file['file'], get_option( 'default_role' ) );
 
-			Core\WordPress::redirectReferer( [
+			WordPress\Redirect::doReferer( [
 				'message'    => 'imported',
 				'count'      => $count,
 				'attachment' => $file['id'],
@@ -263,7 +263,7 @@ class Profile extends gNetwork\Module
 
 			Core\Text::download( $this->get_csv_users(), Core\File::prepName( 'users.csv' ) );
 
-			Core\WordPress::redirectReferer( 'wrong' );
+			WordPress\Redirect::doReferer( 'wrong' );
 		}
 	}
 
@@ -367,7 +367,7 @@ class Profile extends gNetwork\Module
 	// TODO: must check if user is member of the site
 	public function load_profile_php()
 	{
-		Core\WordPress::redirect( add_query_arg( [ static::BASE.'_action' => 'edit-profile-banned' ], admin_url( 'index.php' ) ) );
+		WordPress\Redirect::doWP( add_query_arg( [ static::BASE.'_action' => 'edit-profile-banned' ], admin_url( 'index.php' ) ) );
 	}
 
 	public function admin_notices()
@@ -406,10 +406,10 @@ class Profile extends gNetwork\Module
 	public function before_signup_header()
 	{
 		if ( $this->options['page_signup_disabled'] && 'none' == get_network_option( NULL, 'registration', 'none' ) )
-			Core\WordPress::redirect( get_page_link( $this->options['page_signup_disabled'] ), 303 );
+			WordPress\Redirect::doWP( get_page_link( $this->options['page_signup_disabled'] ), 303 );
 
 		if ( $this->options['redirect_signup_url'] )
-			Core\WordPress::redirect( $this->options['redirect_signup_url'], 303 );
+			WordPress\Redirect::doWP( $this->options['redirect_signup_url'], 303 );
 	}
 
 	public function wp_signup_location( $url )

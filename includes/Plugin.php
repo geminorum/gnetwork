@@ -2,17 +2,12 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\Exception;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\WordPress\Plugin as Base;
-
-#[\AllowDynamicProperties] // TODO: implement the magic methods `__get()` and `__set()`
-class Plugin extends Base
+#[\AllowDynamicProperties]
+class Plugin extends WordPress\Plugin
 {
-
 	public $base = 'gnetwork';
 
-	protected function constants()
+	protected function early_constants()
 	{
 		return [
 			// 'GNETWORK_TEXTDOMAIN'   => $this->base,
@@ -210,11 +205,7 @@ class Plugin extends Base
 
 	public function plugins_loaded()
 	{
-		$this->defines( $this->late_constants() );
-		$this->files( [ 'Pluggable', 'Functions' ], GNETWORK_DIR );
-
-		load_plugin_textdomain( $this->base, FALSE, 'gnetwork/languages' );
-
+		$this->files( [ 'Pluggable', 'Functions' ] );
 		add_filter( 'mce_external_languages',[ $this, 'mce_external_languages' ] );
 	}
 
@@ -226,7 +217,7 @@ class Plugin extends Base
 
 				$this->buddypress = new Modules\BuddyPress( $this->base, 'buddypress' );
 
-			} catch ( Exception $e ) {
+			} catch ( Core\Exception $e ) {
 
 				// echo 'Caught exception: ',  $e->getMessage(), "\n";
 				// no need to do anything!
@@ -243,7 +234,7 @@ class Plugin extends Base
 
 				$this->bbpress = new Modules\bbPress( $this->base, 'bbpress' );
 
-			} catch ( Exception $e ) {
+			} catch ( Core\Exception $e ) {
 
 				// echo 'Caught exception: ',  $e->getMessage(), "\n";
 				// no need to do anything!
@@ -263,7 +254,7 @@ class Plugin extends Base
 	public function mce_external_languages( $languages )
 	{
 		if ( is_readable( GNETWORK_DIR.'includes/Misc/TinyMceStrings.php' ) )
-			$languages['gnetwork'] = GNETWORK_DIR.'includes/Misc/TinyMceStrings.php';
+			$languages[$this->base] = GNETWORK_DIR.'includes/Misc/TinyMceStrings.php';
 
 		return $languages;
 	}
@@ -368,7 +359,7 @@ class Plugin extends Base
 	public function na( $wrap = 'code' )
 	{
 		return $wrap
-			? HTML::tag( $wrap, [ 'title' => __( 'Not Available', 'gnetwork' ) ], __( 'N/A', 'gnetwork' ) )
+			? Core\HTML::tag( $wrap, [ 'title' => __( 'Not Available', 'gnetwork' ) ], __( 'N/A', 'gnetwork' ) )
 			: __( 'N/A', 'gnetwork' );
 	}
 }

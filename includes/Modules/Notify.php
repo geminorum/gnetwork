@@ -202,7 +202,7 @@ class Notify extends gNetwork\Module
 				substr( md5( time().wp_rand().$user->user_email ), 0, 16 )
 			);
 
-			Core\WordPress::redirectReferer( $results ? 'mailed' : 'error' );
+			WordPress\Redirect::doReferer( $results ? 'mailed' : 'error' );
 
 		} else if ( isset( $_POST['test_signup_blog'] ) ) {
 
@@ -223,14 +223,14 @@ class Notify extends gNetwork\Module
 				substr( md5( time().wp_rand().'example.com' ), 0, 16 )
 			);
 
-			Core\WordPress::redirectReferer( $results ? 'mailed' : 'error' );
+			WordPress\Redirect::doReferer( $results ? 'mailed' : 'error' );
 		}
 	}
 
 	// filter whether to bypass the welcome email after site activation.
 	public function wpmu_welcome_notification( $blog_id, $user_id, $password, $title, $meta )
 	{
-		if ( Core\WordPress::isSuperAdmin( $user_id ) )
+		if ( WordPress\User::isSuperAdmin( $user_id ) )
 			return FALSE;
 
 		return $blog_id;
@@ -289,7 +289,7 @@ class Notify extends gNetwork\Module
 		if ( ! in_array( $notify, array( 'user', 'admin', 'both', '' ), TRUE ) )
 			return;
 
-		$site = Core\WordPress::getSiteNameforEmail();
+		$site = WordPress\Site::nameforEmail();
 		$user = get_userdata( $user_id );
 
 		Logger::ALERT( sprintf( 'NOTIFY: New user registration: %s', $user->user_login ) );
@@ -338,7 +338,7 @@ class Notify extends gNetwork\Module
 		$message = sprintf( __( 'Username: %s' ), $user->user_login )."\r\n\r\n";
 		$message.= __( 'To set your password, visit the following address:' )."\r\n\r\n";
 		$message.= '<'.network_site_url( "wp-login.php?action=rp&key=$key&login=".rawurlencode( $user->user_login ).'&wp_lang='.$locale, 'login' ).">\r\n\r\n";
-		$message.= Core\WordPress::loginURL()."\r\n";
+		$message.= WordPress\URL::login()."\r\n";
 
 		$mail = [
 			'to'      => $user->user_email,
@@ -373,7 +373,7 @@ class Notify extends gNetwork\Module
 			return;
 
 		$message  = sprintf( __( 'Password changed for user: %s' ), $user->user_login )."\r\n";
-		$sitename = Core\WordPress::getSiteNameforEmail();
+		$sitename = WordPress\Site::nameforEmail();
 
 		$mail = [
 			'to'      => get_option( 'admin_email' ),

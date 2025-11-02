@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\WordPress;
 
 class Optimize extends gNetwork\Module
 {

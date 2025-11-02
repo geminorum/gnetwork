@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 use geminorum\gNetwork;
 use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\WordPress;
 
 class Tracking extends gNetwork\Module
 {
@@ -113,10 +114,10 @@ class Tracking extends gNetwork\Module
 
 		$this->ignore = FALSE;
 
-		if ( Core\WordPress::isDev() )
+		if ( WordPress\IsIt::dev() )
 			$this->ignore = TRUE;
 
-		else if ( Core\WordPress::cuc( $this->options['ignore_user'] ) )
+		else if ( WordPress\User::cuc( $this->options['ignore_user'] ) )
 			$this->ignore = TRUE;
 
 		return $this->ignore;

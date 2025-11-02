@@ -6,7 +6,6 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Ajax;
 use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
-use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
 use geminorum\gNetwork\WordPress;
 
@@ -123,7 +122,7 @@ class Media extends gNetwork\Module
 	{
 		if ( 'upload' == $screen->base ) {
 
-			if ( Core\WordPress::cuc( $this->options['tools_accesscap'] ) ) {
+			if ( WordPress\User::cuc( $this->options['tools_accesscap'] ) ) {
 				add_filter( 'bulk_actions-'.$screen->id, [ $this, 'bulk_actions' ] );
 				add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
 			}
@@ -168,7 +167,7 @@ class Media extends gNetwork\Module
 						if ( $this->sync_attachments( $post_id ) )
 							$count++;
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'synced',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -188,7 +187,7 @@ class Media extends gNetwork\Module
 						else if ( $this->clean_attachments( $post_id ) )
 							$count++;
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'cleaned',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -203,7 +202,7 @@ class Media extends gNetwork\Module
 						if ( $this->cache_in_content( $post_id ) )
 							$count++;
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'imported',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -218,7 +217,7 @@ class Media extends gNetwork\Module
 						if ( $this->ssl_correction( $post_id ) )
 							$count++;
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'converted',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -233,7 +232,7 @@ class Media extends gNetwork\Module
 						if ( $this->purge_meta( $post_id ) )
 							$count++;
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'purged',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -242,7 +241,7 @@ class Media extends gNetwork\Module
 
 				} else {
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'wrong',
 						'limit'   => self::limit(),
 						'paged'   => self::paged(),
@@ -543,9 +542,8 @@ class Media extends gNetwork\Module
 		if ( ! self::isError( $editor ) )
 			$metadata['sizes'] = $editor->multi_resize( $sizes );
 
-		if ( Core\WordPress::isDev() ) {
+		if ( WordPress\IsIt::dev() )
 			self::_log( $parent_type, $metadata );
-		}
 
 		return $metadata;
 	}
@@ -631,7 +629,7 @@ class Media extends gNetwork\Module
 		if ( empty( $metadata['sizes'] ) )
 			unset( $metadata['sizes'] );
 
-		if ( Core\WordPress::isDev() )
+		if ( WordPress\IsIt::dev() )
 			self::_log( $taxonomy, $metadata, $wpupload );
 
 		return $metadata;
@@ -954,7 +952,7 @@ class Media extends gNetwork\Module
 	{
 		$url = wp_get_attachment_url( $post->ID );
 
-		if ( Core\WordPress::cuc( $this->options['tools_accesscap'] )
+		if ( WordPress\User::cuc( $this->options['tools_accesscap'] )
 			&& wp_attachment_is( 'image', $post->ID ) ) {
 
 			$actions['media-clean'] = Core\HTML::tag( 'a', [
@@ -1132,9 +1130,12 @@ class Media extends gNetwork\Module
 		return $this->filters( 'mime_type_label', $label, $mime_type, $post_id );
 	}
 
+	// TODO: make this optional via settings
 	// Overrides the attachment URL with short-link
 	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt, $rel = '' )
 	{
+		// TODO: use `[image id="'.$id.'" link="page" alignment="'.$align.'" wrap="0" /]`
+		// TODO: use `WordPress\ShortCode::build( 'image', [] )`
 		if ( strpos( $url, 'attachment_id' ) || $url == get_attachment_link( $id ) )
 			return WordPress\Media::htmlAttachmentShortLink( $id,
 				get_image_tag( $id, $alt, '', $align, $size ), '-image-link' );

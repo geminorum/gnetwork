@@ -3,20 +3,12 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\Arraay;
-use geminorum\gNetwork\Core\Crypto;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\HTTP;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\Third;
-use geminorum\gNetwork\Core\URL;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Blog extends gNetwork\Module
 {
@@ -134,7 +126,7 @@ class Blog extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'ssl_support'          => 0, // for non-multisite only
+			'ssl_support'          => 0, // for non-multi-site only
 			'thrift_mode'          => 0,
 			'no_found_rows'        => 0,
 			'admin_locale'         => '',
@@ -188,7 +180,7 @@ class Blog extends gNetwork\Module
 				'description' => _x( 'Despite of the site language, always display admin in this locale.', 'Modules: Blog: Settings', 'gnetwork' ),
 				'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', 'gnetwork' ),
 				'none_value'  => '',
-				'values'      => Arraay::sameKey( Locale::available() ),
+				'values'      => Core\Arraay::sameKey( Locale::available() ),
 			];
 
 		$settings['_admin'][] = [
@@ -248,8 +240,11 @@ class Blog extends gNetwork\Module
 				'field'       => 'autosave_interval',
 				'type'        => 'number',
 				'title'       => _x( 'Autosave Interval', 'Modules: Blog: Settings', 'gnetwork' ),
-				/* translators: %s: constant placeholder */
-				'description' => sprintf( _x( 'Time in seconds that WordPress will save the currently editing posts. default is %s seconds.', 'Modules: Blog: Settings', 'gnetwork' ), HTML::tag( 'code', AUTOSAVE_INTERVAL ) ),
+				'description' => sprintf(
+					/* translators: `%s`: constant placeholder */
+					_x( 'Time in seconds that WordPress will save the currently editing posts. default is %s seconds.', 'Modules: Blog: Settings', 'gnetwork' ),
+					Core\HTML::tag( 'code', AUTOSAVE_INTERVAL )
+				),
 				'min_attr'    => '20',
 				'default'     => '120',
 			];
@@ -315,8 +310,11 @@ class Blog extends gNetwork\Module
 			'type'        => 'number',
 			'title'       => _x( 'Content Width', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Overrides content width of the active theme. Leave empty to disable.', 'Modules: Blog: Settings', 'gnetwork' ),
-			/* translators: %s: content width placeholder */
-			'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf( _x( 'Current is %s', 'Modules: Blog: Settings', 'gnetwork' ), HTML::tag( 'code', $GLOBALS['content_width'] ) ) ) : FALSE,
+			'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf(
+				/* translators: `%s`: content width placeholder */
+				_x( 'Current is %s', 'Modules: Blog: Settings', 'gnetwork' ),
+				Core\HTML::tag( 'code', $GLOBALS['content_width'] )
+			) ) : FALSE,
 		];
 
 		$settings['_front'][] = [
@@ -402,10 +400,16 @@ class Blog extends gNetwork\Module
 			'title'   => _x( 'Shortlink Type', 'Modules: Blog: Settings', 'gnetwork' ),
 			'default' => 'numeric',
 			'values'  => [
-				/* translators: %s: shortlink type placeholder */
-				'numeric'   => sprintf( _x( 'Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ), URL::home( '123' ) ),
-				/* translators: %s: shortlink type placeholder */
-				'bijection' => sprintf( _x( 'Alpha-Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ), URL::home( 'd3E' ) ),
+				'numeric'   => sprintf(
+					/* translators: `%s`: short-link type placeholder */
+					_x( 'Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ),
+					Core\URL::home( '123' )
+				),
+				'bijection' => sprintf(
+					/* translators: `%s`: short-link type placeholder */
+					_x( 'Alpha-Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ),
+					Core\URL::home( 'd3E' )
+				),
 			],
 		];
 
@@ -466,23 +470,23 @@ class Blog extends gNetwork\Module
 	public function wp_loaded()
 	{
 		if ( $this->is_request_action( 'flushrewrite' )
-			&& WordPress::cuc( 'edit_others_posts' ) ) {
+			&& WordPress\User::cuc( 'edit_others_posts' ) ) {
 
 			gNetwork()->rewrite->flush_rewrite_rules();
 
-			WordPress::redirect( $this->remove_request_action() );
+			WordPress\Redirect::doWP( $this->remove_request_action() );
 		}
 	}
 
 	public function init()
 	{
-		if ( $this->options['blog_redirect'] && WordPress::mustRegisterUI() )
+		if ( $this->options['blog_redirect'] && WordPress\Screen::mustRegisterUI() )
 			$this->blog_redirect();
 
 		if ( ( $locale = $this->is_request_action( 'locale', 'locale' ) )
 			&& class_exists( __NAMESPACE__.'\\Locale' )
 			&& ( $result = Locale::changeLocale( $locale ) ) )
-				WordPress::redirect( $this->remove_request_action( 'locale' ) );
+				WordPress\Redirect::doWP( $this->remove_request_action( 'locale' ) );
 
 		if ( gNetwork()->ssl() ) {
 
@@ -526,8 +530,8 @@ class Blog extends gNetwork\Module
 					$urls = array_diff( $urls, [ $filtered ] );
 
 				foreach ( $urls as $key => $url )
-					// strip out any URLs referencing the WordPress.org emoji location
-					if ( Text::has( $url, 'https://s.w.org/images/core/emoji/' ) )
+					// Strip out any URLs referencing the WordPress.org emoji location
+					if ( Core\Text::has( $url, 'https://s.w.org/images/core/emoji/' ) )
 						unset( $urls[$key] );
 
 				return $urls;
@@ -545,12 +549,12 @@ class Blog extends gNetwork\Module
 
 			} else if ( 'dashboard' == $this->options['heartbeat_mode'] ) {
 
-				if ( WordPress::pageNow( 'index.php' ) )
+				if ( WordPress\Screen::pageNow( 'index.php' ) )
 					$this->deregister_heartbeat();
 
 			} else if ( 'postedit' == $this->options['heartbeat_mode'] ) {
 
-				if ( in_array( WordPress::pageNow(), [ 'post.php', 'post-new.php' ] ) )
+				if ( in_array( WordPress\Screen::pageNow(), [ 'post.php', 'post-new.php' ] ) )
 					$this->deregister_heartbeat();
 			}
 
@@ -561,7 +565,7 @@ class Blog extends gNetwork\Module
 
 		} else {
 
-			// RSD works through xml-rpc
+			// `RSD` works through `xml-rpc`
 			if ( ! $this->options['xmlrpc_enabled'] )
 				remove_action( 'wp_head', 'rsd_link' );
 
@@ -592,21 +596,21 @@ class Blog extends gNetwork\Module
 
 	private function blog_redirect( $check = TRUE )
 	{
-		if ( WordPress::cuc( 'manage_options' ) )
+		if ( WordPress\User::cuc( 'manage_options' ) )
 			return;
 
-		// postpone checking in favor of WP Remote: https://app.maek.it/remote
+		// Postpone checking in favor of WP Remote: https://app.maek.it/remote
 		if ( $check && ! empty( $_POST['wpr_verify_key'] ) )
 			return $this->action( 'init', 0, 999, 'late_check' ); // must be over 100
 
-		if ( ( WordPress::pageNow( 'index.php' ) && ! is_admin() ) || FALSE === self::whiteListed() ) {
+		if ( ( WordPress\Screen::pageNow( 'index.php' ) && ! is_admin() ) || FALSE === self::whiteListed() ) {
 
-			$redirect = URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
-			$referer  = HTTP::referer();
+			$redirect = Core\URL::untrail( $this->options['blog_redirect'] ).$_SERVER['REQUEST_URI'];
+			$referer  = Core\HTTP::referer();
 
 			Logger::siteNOTICE( 'BLOG-REDIRECT', esc_url( $redirect ).( $referer ? ' :: '.$referer : '' ) );
 
-			WordPress::redirect( $redirect, $this->options['blog_redirect_status'] );
+			WordPress\Redirect::doWP( $redirect, $this->options['blog_redirect_status'] );
 		}
 	}
 
@@ -621,7 +625,7 @@ class Blog extends gNetwork\Module
 		if ( is_null( $request_uri ) )
 			$request_uri = $_SERVER['REQUEST_URI'];
 
-		return Arraay::strposArray( [
+		return Core\Arraay::strposArray( [
 			'wp-admin',
 			'wp-activate.php',
 			'wp-comments-post.php',
@@ -644,7 +648,7 @@ class Blog extends gNetwork\Module
 			&& GNETWORK_REDIRECT_404_URL === Core\URL::untrail( $redirect_to ) )
 			$redirect_to = ''; // reset the redirect
 
-		if ( WordPress::isAJAX() )
+		if ( WordPress\IsIt::ajax() )
 			return $redirect_to;
 
 		if ( self::isError( $user ) )
@@ -728,7 +732,7 @@ class Blog extends gNetwork\Module
 		$mainsite = is_main_site();
 		$singular = is_singular();
 
-		Third::htmlThemeColor( $this->options['theme_color'] ?: gNetwork()->option( 'theme_color', 'branding' ) );
+		Core\Third::htmlThemeColor( $this->options['theme_color'] ?: gNetwork()->option( 'theme_color', 'branding' ) );
 
 		if ( gNetwork()->option( 'opensearch', 'opensearch' ) )
 			gNetwork()->opensearch->do_link_tag();
@@ -744,7 +748,7 @@ class Blog extends gNetwork\Module
 
 		// @REF: http://universaleditbutton.org/WordPress_plugin
 		if ( $singular && ( $edit = get_edit_post_link() ) )
-			echo '<link rel="alternate" type="application/x-wiki" title="'._x( 'Edit this page', 'Modules: Blog', 'gnetwork' ).'" href="'.HTML::escapeURL( $edit ).'" />'."\n";
+			echo '<link rel="alternate" type="application/x-wiki" title="'._x( 'Edit this page', 'Modules: Blog', 'gnetwork' ).'" href="'.Core\HTML::escapeURL( $edit ).'" />'."\n";
 
 		if ( is_admin_bar_showing() ) {
 			Utilities::linkStyleSheet( 'adminbar.all' );
@@ -776,14 +780,14 @@ class Blog extends gNetwork\Module
 	// FIXME: DISABLED/DROP THIS
 	public function rest_api_init()
 	{
-		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! WordPress::isSSL() )
-			WordPress::redirect( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
+		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! WordPress\IsIt::ssl() )
+			WordPress\Redirect::doWP( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
 	}
 
 	public function wp()
 	{
-		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! WordPress::isSSL() )
-			WordPress::redirect( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
+		if ( ! empty( $_SERVER['HTTP_HOST'] ) && ! WordPress\IsIt::ssl() )
+			WordPress\Redirect::doWP( 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], 301 );
 	}
 
 	/**
@@ -876,19 +880,19 @@ class Blog extends gNetwork\Module
 		if ( ! is_404() )
 			return;
 
-		// make sure that this is not a paginatad request
+		// Make sure that this is not a paginated request
 		if ( 1 !== count( explode( '/', $wp->request ) ) )
 			return;
 
-		// get the trailing part of the request URL
-		$request = File::basename( $wp->request );
+		// Get the trailing part of the request URL
+		$request = Core\File::basename( $wp->request );
 
-		// check if request not encoded
+		// Check if request not encoded
 		if ( $request != urldecode( $request ) )
 			return;
 
 		if ( 'bijection' == $this->options['shortlink_type'] )
-			$maybe_post_id = (int) Crypto::decodeBijection( $request );
+			$maybe_post_id = (int) Core\Crypto::decodeBijection( $request );
 		else
 			$maybe_post_id = (int) $request;
 
@@ -896,7 +900,7 @@ class Blog extends gNetwork\Module
 			return;
 
 		if ( $permalink = get_permalink( $maybe_post_id ) )
-			WordPress::redirect( $permalink, 301 );
+			WordPress\Redirect::doWP( $permalink, 301 );
 	}
 
 	public function pre_get_shortlink( $return, $id, $context, $slugs )
@@ -905,7 +909,7 @@ class Blog extends gNetwork\Module
 			$id = get_queried_object_id();
 
 		if ( 'bijection' == $this->options['shortlink_type'] )
-			$id = Crypto::encodeBijection( $id );
+			$id = Core\Crypto::encodeBijection( $id );
 
 		return empty( $id ) ? $return : home_url( '/'.$id );
 	}
@@ -940,8 +944,8 @@ class Blog extends gNetwork\Module
 	 *  - Removes the Privacy and Export/Erase Personal Data admin menu items.
 	 *  - Disables the privacy policy guide and update bubbles.
 	 *
-	 * @param string[] $caps    Array of the user's capabilities.
-	 * @param string   $cap     Capability name.
+	 * @param string[] $caps Array of the user's capabilities.
+	 * @param string $cap Capability name.
 	 * @return string[] Array of the user's capabilities.
 	 */
 	public function map_meta_cap_disable_privacytools( $caps, $cap )

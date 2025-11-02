@@ -118,7 +118,7 @@ class Editor extends gNetwork\Module
 
 	public function teeny_mce_buttons( $buttons, $editor_id )
 	{
-		if ( Core\WordPress::isBlockEditor() )
+		if ( WordPress\IsIt::blockEditor() )
 			return $buttons;
 
 		if ( empty( $this->tinymce[0] ) )
@@ -132,7 +132,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons( $buttons, $editor_id )
 	{
-		if ( Core\WordPress::isBlockEditor() )
+		if ( WordPress\IsIt::blockEditor() )
 			return $buttons;
 
 		// skip adding on term description editors
@@ -150,7 +150,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_2( $buttons, $editor_id )
 	{
-		if ( Core\WordPress::isBlockEditor() )
+		if ( WordPress\IsIt::blockEditor() )
 			return $buttons;
 
 		// skip adding on term description editors
@@ -168,7 +168,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_3( $buttons, $editor_id )
 	{
-		if ( Core\WordPress::isBlockEditor() )
+		if ( WordPress\IsIt::blockEditor() )
 			return $buttons;
 
 		if ( empty( $this->tinymce[3] ) )
@@ -182,7 +182,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_buttons_4( $buttons, $editor_id )
 	{
-		if ( Core\WordPress::isBlockEditor() )
+		if ( WordPress\IsIt::blockEditor() )
 			return $buttons;
 
 		if ( empty( $this->tinymce[4] ) )

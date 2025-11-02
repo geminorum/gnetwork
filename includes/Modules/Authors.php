@@ -124,7 +124,7 @@ class Authors extends gNetwork\Module
 			'all'  => Settings::showOptionAll(),
 		];
 
-		foreach ( Core\WordPress::getUsers() as $user_id => $user )
+		foreach ( WordPress\User::get() as $user_id => $user )
 			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
 
 		Settings::headerTitle( _x( 'Author Tools', 'Modules: Authors', 'gnetwork' ) );
@@ -199,10 +199,10 @@ class Authors extends gNetwork\Module
 				$added = add_user_to_blog( get_current_blog_id(), $user, get_option( 'default_role', 'subscriber' ) );
 
 				if ( $added && ! self::isError( $added ) )
-					Core\WordPress::redirectReferer( 'updated' );
+					WordPress\Redirect::doReferer( 'updated' );
 			}
 
-			Core\WordPress::redirectReferer( 'wrong' );
+			WordPress\Redirect::doReferer( 'wrong' );
 
 		} else if ( ! empty( $_POST['bulk_change_author'] ) ) {
 
@@ -224,10 +224,10 @@ class Authors extends gNetwork\Module
 				$count = $this->bulk_change_author( (int) $_POST['from_user_id'], $to_user, $posttype );
 
 			if ( FALSE === $count )
-				Core\WordPress::redirectReferer( 'wrong' );
+				WordPress\Redirect::doReferer( 'wrong' );
 
 			else
-				Core\WordPress::redirectReferer( [
+				WordPress\Redirect::doReferer( [
 					'message' => 'changed',
 					'count'   => $count,
 				] );
@@ -245,7 +245,7 @@ class Authors extends gNetwork\Module
 		if ( $user = gNetwork()->user() ) {
 
 			$name = get_userdata( $user )->display_name;
-			$edit = Core\WordPress::getUserEditLink( $user );
+			$edit = WordPress\User::edit( $user );
 
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: site-user */
@@ -307,7 +307,7 @@ class Authors extends gNetwork\Module
 			return;
 
 		if ( $this->options['replace_author_links'] )
-			Core\WordPress::redirect(
+			WordPress\Redirect::doWP(
 				$this->options['replace_author_links'],
 				$this->options['replace_status_code']
 			);
@@ -355,16 +355,16 @@ class Authors extends gNetwork\Module
 			'context' => NULL,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || Core\WordPress::isXML() )
+		if ( FALSE === $args['context'] || WordPress\IsIt::xml() )
 			return NULL;
 
-		if ( $args['cap'] && ! Core\WordPress::cuc( $args['cap'] ) )
+		if ( $args['cap'] && ! WordPress\User::cuc( $args['cap'] ) )
 			return $args['text'];
 
 		if ( ! is_user_logged_in() )
 			return $args['text'];
 
-		Core\WordPress::doNotCache();
+		WordPress\Site::doNotCache();
 
 		return apply_shortcodes( $content );
 	}
@@ -381,7 +381,7 @@ class Authors extends gNetwork\Module
 
 		if ( is_user_logged_in() ) {
 
-			Core\WordPress::doNotCache();
+			WordPress\Site::doNotCache();
 
 			return $args['text'];
 		}

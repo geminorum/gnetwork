@@ -7,6 +7,7 @@ use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
+use geminorum\gNetwork\WordPress;
 
 class Embed extends gNetwork\Module
 {
@@ -253,7 +254,7 @@ class Embed extends gNetwork\Module
 
 		$key = $this->hash( 'instagram', $url, $attr, $rawattr );
 
-		if ( Core\WordPress::isFlush() )
+		if ( WordPress\IsIt::flush() )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
@@ -295,7 +296,7 @@ class Embed extends gNetwork\Module
 		$count = empty( $rawattr['count'] ) ? $this->options['count_channel'] : $rawattr['count'];
 		$key   = $this->hash( 'aparatchannel', $url, $count, $attr, $rawattr );
 
-		if ( Core\WordPress::isFlush() )
+		if ( WordPress\IsIt::flush() )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {

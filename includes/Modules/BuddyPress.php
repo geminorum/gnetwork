@@ -248,7 +248,7 @@ class BuddyPress extends gNetwork\Module
 
 	public function init()
 	{
-		$super = Core\WordPress::isSuperAdmin();
+		$super = WordPress\User::isSuperAdmin();
 		$admin = is_admin();
 
 		if ( $super && ! $admin ) {
@@ -538,7 +538,7 @@ class BuddyPress extends gNetwork\Module
 
 				$name = sprintf( ' %s %s',
 					get_user_meta( $userdata->id, 'first_name', TRUE ),
-					get_user_meta( $userdata->id, 'last_name' , TRUE ) );
+					get_user_meta( $userdata->id, 'last_name', TRUE ) );
 
 			break;
 			case 'username':

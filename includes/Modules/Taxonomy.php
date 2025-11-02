@@ -370,7 +370,7 @@ JS;
 	{
 		$this->actions( 'term_tab_metadata_content_before', $taxonomy, $object, $term );
 
-		Core\HTML::tableSide( WordPress\Taxonomy::getTermMeta( $term, FALSE, FALSE ) );
+		Core\HTML::tableSide( WordPress\Term::getMeta( $term, FALSE, FALSE ) );
 
 		$this->actions( 'term_tab_metadata_content', $taxonomy, $object, $term );
 	}
@@ -454,7 +454,7 @@ JS;
 		if ( $this->hooked( 'tab_extra_content' ) )
 			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
-		if ( Core\WordPress::isSuperAdmin() || Core\WordPress::isDev() )
+		if ( WordPress\User::isSuperAdmin() || WordPress\IsIt::dev() )
 			$tabs['console'] = [ 'title' => _x( 'Console', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
 		return $this->filters( 'tabs', $tabs, $taxonomy );
@@ -514,12 +514,12 @@ JS;
 			$data     = $selected ? Core\Arraay::keepByKeys( $terms, array_keys( $selected ) ) : $terms;
 
 			if ( count( $data ) && FALSE !== ( $imported = WordPress\Taxonomy::insertDefaultTerms( $taxonomy, $data ) ) )
-				Core\WordPress::redirectReferer( [
+				WordPress\Redirect::doReferer( [
 					'message' => 'imported',
 					'count'   => count( $imported ),
 				] );
 
-			Core\WordPress::redirectReferer( 'wrong' );
+			WordPress\Redirect::doReferer( 'wrong' );
 
 		} else if ( self::req( $this->classs( 'do-import-terms' ) ) ) {
 
@@ -528,11 +528,11 @@ JS;
 			$file = WordPress\Media::handleImportUpload( $this->classs( 'import' ) );
 
 			if ( ! $file || isset( $file['error'] ) || empty( $file['file'] ) )
-				Core\WordPress::redirectReferer( 'wrong' );
+				WordPress\Redirect::doReferer( 'wrong' );
 
 			$count = $this->import_terms_csv( $file['file'], $taxonomy );
 
-			Core\WordPress::redirectReferer( [
+			WordPress\Redirect::doReferer( [
 				'message'    => 'imported',
 				'count'      => $count,
 				'attachment' => $file['id'],
@@ -547,7 +547,7 @@ JS;
 
 			Core\Text::download( $data, Core\File::prepName( sprintf( '%s.csv', $taxonomy ) ) );
 
-			Core\WordPress::redirectReferer( 'wrong' );
+			WordPress\Redirect::doReferer( 'wrong' );
 
 		} else if ( self::req( $this->classs( 'do-delete-terms' ) ) ) {
 
@@ -555,15 +555,15 @@ JS;
 
 			// no need, we check the nounce
 			// if ( ! current_user_can( get_taxonomy( $taxonomy )->cap->delete_terms ) )
-			// 	Core\WordPress::redirectReferer( 'noaccess' );
+			// 	WordPress\Redirect::doReferer( 'noaccess' );
 
 			if ( $taxonomy !== self::req( $this->classs( 'do-delete-confirm' ) ) )
-				Core\WordPress::redirectReferer( 'huh' );
+				WordPress\Redirect::doReferer( 'huh' );
 
 			else
 				$count = $this->_handle_delete_terms( $taxonomy, TRUE, FALSE );
 
-			Core\WordPress::redirectReferer( [
+			WordPress\Redirect::doReferer( [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -574,7 +574,7 @@ JS;
 
 			$count = $this->_handle_delete_empty_terms( $taxonomy );
 
-			Core\WordPress::redirectReferer( [
+			WordPress\Redirect::doReferer( [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -585,7 +585,7 @@ JS;
 
 			$count = $this->_handle_delete_onesie_terms( $taxonomy );
 
-			Core\WordPress::redirectReferer( [
+			WordPress\Redirect::doReferer( [
 				'message' => 'deleted',
 				'count'   => $count,
 			] );
@@ -1154,7 +1154,7 @@ JS;
 
 		if ( 'edit-tags' == $screen->base ) {
 
-			if ( ! Core\WordPress::cucTaxonomy( $screen->taxonomy, 'manage_terms' ) )
+			if ( ! WordPress\Taxonomy::can( $screen->taxonomy, 'manage_terms' ) )
 				return FALSE;
 
 			add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
@@ -1296,7 +1296,7 @@ JS;
 		if ( 'post' == $query['post_type'] )
 			unset( $query['post_type'] );
 
-		Core\WordPress::redirect( add_query_arg( $query, Core\WordPress::getReferer() ) );
+		WordPress\Redirect::doWP( add_query_arg( $query, WordPress\Redirect::getReferer() ) );
 	}
 
 	public function handle_bulk_actions( $location, $action, $term_ids )
@@ -2041,7 +2041,7 @@ JS;
 		if ( in_array( $term->taxonomy, $this->filters( 'redirect_blacklist', [ 'nav_menu' ], $term ), TRUE ) )
 			return;
 
-		Core\WordPress::redirect( get_term_link( $term ), 301 );
+		WordPress\Redirect::doWP( get_term_link( $term ), 301 );
 	}
 
 	public function tag_row_actions_redirect_terms( $actions, $term )
@@ -2049,7 +2049,7 @@ JS;
 		if ( is_taxonomy_viewable( $term->taxonomy ) )
 			$actions['shortlink'] = sprintf(
 				'<a href="%s" aria-label="%s">%s</a>',
-				Core\WordPress::getTermShortLink( $term->term_id ),
+				WordPress\Term::shortlink( $term ),
 				esc_attr( sprintf(
 					/* translators: `%s`: Taxonomy term name. */
 					_x( 'Copy Shortlink for &#8220;%s&#8221;', 'Modules: Taxonomy: Action', 'gnetwork' ),

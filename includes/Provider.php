@@ -2,15 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Logger;
-use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\Error;
-use geminorum\gNetwork\Core\Exception;
-use geminorum\gNetwork\Core\WordPress;
-
 class Provider extends Core\Base
 {
-
 	public $options = [];
 	public $buttons = [];
 	public $scripts = [];
@@ -38,43 +31,43 @@ class Provider extends Core\Base
 	public function __construct( $options = [], $base = NULL, $slug = NULL )
 	{
 		if ( is_null( $this->key ) )
-			throw new Exception( 'Key Undefined!' );
+			throw new Core\Exception( 'Key Undefined!' );
 
 		if ( is_null( $this->type ) )
-			throw new Exception( 'Type Undefined!' );
+			throw new Core\Exception( 'Type Undefined!' );
 
 		if ( ! GNETWORK_BETA_FEATURES && $this->beta )
-			throw new Exception( 'Beta Feature!' );
+			throw new Core\Exception( 'Beta Feature!' );
 
-		if ( ! $this->ajax && WordPress::isAJAX() )
-			throw new Exception( 'Not on AJAX Calls!' );
+		if ( ! $this->ajax && WordPress\IsIt::ajax() )
+			throw new Core\Exception( 'Not on AJAX Calls!' );
 
-		if ( ! $this->cron && WordPress::isCRON() )
-			throw new Exception( 'Not on CRON Calls!' );
+		if ( ! $this->cron && WordPress\IsIt::cron() )
+			throw new Core\Exception( 'Not on CRON Calls!' );
 
 		if ( wp_installing() )
-			throw new Exception( 'Not while WP is Installing!' );
+			throw new Core\Exception( 'Not while WP is Installing!' );
 
 		if ( ! is_admin() && ! $this->front )
-			throw new Exception( 'Not on Frontend!' );
+			throw new Core\Exception( 'Not on Frontend!' );
 
 		if ( ! is_null( $this->user ) && is_multisite() ) {
 			if ( is_user_admin() ) {
 				if ( FALSE === $this->user )
-					throw new Exception( 'Not on User Admin!' );
+					throw new Core\Exception( 'Not on User Admin!' );
 			} else {
 				if ( TRUE === $this->user )
-					throw new Exception( 'Only on User Admin!' );
+					throw new Core\Exception( 'Only on User Admin!' );
 			}
 		}
 
 		if ( ! is_null( $this->dev ) ) {
-			if ( WordPress::isDev() ) {
+			if ( WordPress\IsIt::dev() ) {
 				if ( FALSE === $this->dev )
-					throw new Exception( 'Not on Develepment Environment!' );
+					throw new Core\Exception( 'Not on Develepment Environment!' );
 			} else {
 				if ( TRUE === $this->dev )
-					throw new Exception( 'Only on Develepment Environment!' );
+					throw new Core\Exception( 'Only on Develepment Environment!' );
 			}
 		}
 
@@ -82,7 +75,7 @@ class Provider extends Core\Base
 			$this->base = $base;
 
 		if ( ! $this->setup_checks() )
-			throw new Exception( 'Failed to pass setup checks!' );
+			throw new Core\Exception( 'Failed to pass setup checks!' );
 
 		add_filter( $this->base.'_'.$this->type.'_default_settings', [ $this, 'append_default_settings' ], 8, 1 );
 		add_filter( $this->base.'_'.$this->type.'_default_options', [ $this, 'append_default_options' ], 8, 1 );
@@ -93,7 +86,7 @@ class Provider extends Core\Base
 			: FALSE;
 
 		if ( ! $enabled )
-			throw new Exception( 'Not Enabled!' );
+			throw new Core\Exception( 'Not Enabled!' );
 
 		$this->enabled = TRUE;
 		$this->options = array_merge( $this->default_options(), $options );
@@ -255,34 +248,34 @@ class Provider extends Core\Base
 
 	public function botSend( $message, $target = NULL, $atts = [] )
 	{
-		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+		return new Core\Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
 	public function botLog( $log )
 	{
-		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+		return new Core\Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
 	public function smsSend( $message, $target = NULL, $atts = [] )
 	{
-		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+		return new Core\Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
 	public function smsBulk( $message, $target = NULL, $atts = [] )
 	{
-		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+		return new Core\Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
 	public function smsRecive()
 	{
-		return new Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
+		return new Core\Error( 'mothod_undefined', 'method must be over-ridden in a sub-class.' );
 	}
 
 	// @REF: https://github.com/pwnlabs/nusoap
 	protected function soapExecute( $method, $args = [] )
 	{
 		if ( ! $this->soap_wsdl )
-			return new Error( 'soap_no_wsdl', 'NO WDSL for Soap' );
+			return new Core\Error( 'soap_no_wsdl', 'NO WDSL for Soap' );
 
 		$params = array_merge( $this->soapDefaultParams(), $args );
 
@@ -312,7 +305,7 @@ class Provider extends Core\Base
 					'fault'    => $e->faultstring,
 				] );
 
-			return new Error( 'soap_fault', $e->faultstring );
+			return new Core\Error( 'soap_fault', $e->faultstring );
 		}
 	}
 
@@ -329,7 +322,7 @@ class Provider extends Core\Base
 	protected function curlExecute( $url, $data = [], $method = 'get', $headers = [] )
 	{
 		if ( ! $url )
-			return new Error( 'curl_no_endpoint', 'NO EndPoint for cURL' );
+			return new Core\Error( 'curl_no_endpoint', 'NO EndPoint for cURL' );
 
 		$handle = curl_init();
 

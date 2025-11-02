@@ -3,15 +3,10 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Number;
-use geminorum\gNetwork\Core\Validation;
-use geminorum\gNetwork\Core\WordPress;
-use geminorum\gNetwork\WordPress\Status as WPStatus;
-use geminorum\gNetwork\WordPress\User as WPUser;
+use geminorum\gNetwork\WordPress;
 
 class Commerce extends gNetwork\Module
 {
@@ -22,7 +17,7 @@ class Commerce extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! WordPress::isPluginActive( 'woocommerce/woocommerce.php' ) )
+		if ( ! WordPress\Extend::isPluginActive( 'woocommerce/woocommerce.php' ) )
 			return FALSE;
 
 		$this->action( 'init' );
@@ -170,7 +165,7 @@ class Commerce extends gNetwork\Module
 							$count++;
 					}
 
-					WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'synced',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -188,7 +183,7 @@ class Commerce extends gNetwork\Module
 						self::req( '_cb', NULL )
 					);
 
-					WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'wrong',
 						'limit'   => self::limit(),
 						'paged'   => self::paged(),
@@ -205,12 +200,12 @@ class Commerce extends gNetwork\Module
 		$pagination['actions'] = $this->filters( 'products_list_bulk_actions', [], $posts, $pagination );
 		$pagination['before'][] = self::filterTablelistSearch();
 
-		return HTML::tableList( [
+		return Core\HTML::tableList( [
 			'_cb'    => 'ID',
 			'ID'     => _x( 'ID', 'Modules: Commerce: Column Title', 'gnetwork' ),
 			'status' => [
 				'title'    => _x( 'Status', 'Modules: Commerce: Column Title', 'gnetwork' ),
-				'args'     => [ 'statuses' => WPStatus::get() ],
+				'args'     => [ 'statuses' => WordPress\Status::get() ],
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
@@ -220,7 +215,7 @@ class Commerce extends gNetwork\Module
 					if ( isset( $column['args']['statuses'][$status] ) )
 						return $column['args']['statuses'][$status];
 
-					return HTML::tag( 'code', $status );
+					return Core\HTML::tag( 'code', $status );
 				},
 			],
 			'stock' => [
@@ -236,7 +231,7 @@ class Commerce extends gNetwork\Module
 						return Utilities::htmlEmpty();
 
 					return '<span style="color:'.( $product->is_in_stock() ? 'green' : 'red' ).'">'
-						.Number::format( $quantity ).'</span>';
+						.Core\Number::format( $quantity ).'</span>';
 				},
 			],
 			'title' => [
@@ -248,8 +243,8 @@ class Commerce extends gNetwork\Module
 		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of Woocommerce Products', 'Modules: Commerce', 'gnetwork' ) ),
-			'empty'      => HTML::warning( _x( 'No Products!', 'Modules: Commerce', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Woocommerce Products', 'Modules: Commerce', 'gnetwork' ) ),
+			'empty'      => Core\HTML::warning( _x( 'No Products!', 'Modules: Commerce', 'gnetwork' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -387,7 +382,7 @@ class Commerce extends gNetwork\Module
 		$price    = $product->get_price();
 		$currency = get_woocommerce_currency_symbol();
 		$string   = sprintf(
-			/* translators: %s: price x quantity total */
+			/* translators: `%s`: price x quantity total */
 			_x( 'Total: %s', 'Modules: Commerce', 'gnetwork' ),
 			'<span></span>'
 		);
@@ -424,7 +419,7 @@ class Commerce extends gNetwork\Module
 			$fields['billing']['billing_phone']['class'] = [ 'form-row-first', 'phone' ];
 			$fields['billing']['billing_phone']['placeholder'] = _x( 'For calling on land-line', 'Modules: Commerce', 'gnetwork' );
 			if ( Core\L10n::rtl() ) $fields['billing']['billing_phone']['input_class'] = [ 'ltr', 'rtl-placeholder' ];
-			// $fields['billing']['billing_phone']['custom_attributes']['pattern'] = Validation::getMobileHTMLPattern();
+			// $fields['billing']['billing_phone']['custom_attributes']['pattern'] = Core\Validation::getMobileHTMLPattern();
 
 			$mobile = is_user_logged_in() ? get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) : FALSE;
 
@@ -437,7 +432,7 @@ class Commerce extends gNetwork\Module
 				'priority'          => 105, // after the `billing_phone` with priority `100`
 				'required'          => TRUE,
 				'default'           => $mobile ?: '',
-				'custom_attributes' => [ 'pattern' => Validation::getMobileHTMLPattern() ],
+				'custom_attributes' => [ 'pattern' => Core\Validation::getMobileHTMLPattern() ],
 			];
 		}
 
@@ -446,23 +441,23 @@ class Commerce extends gNetwork\Module
 
 	private function sanitize_mobile_field( $input )
 	{
-		return wc_sanitize_phone_number( Number::translate( $input ) );
+		return wc_sanitize_phone_number( Core\Number::translate( $input ) );
 	}
 
-	// alternatively we can use `woocommerce_process_checkout_field_{$key}` filter
+	// alternatively, we can use `woocommerce_process_checkout_field_{$key}` filter
 	public function woocommerce_checkout_posted_data( $data )
 	{
 		if ( $this->options['mobile_field'] && ! empty( $data['customer_mobile'] ) )
 			$data['customer_mobile'] = $this->sanitize_mobile_field( $data['customer_mobile'] );
 
 		if ( ! empty( $data['shipping_postcode'] ) )
-			$data['shipping_postcode'] = Number::translate( $data['shipping_postcode'] );
+			$data['shipping_postcode'] = Core\Number::translate( $data['shipping_postcode'] );
 
 		if ( ! empty( $data['billing_postcode'] ) )
-			$data['billing_postcode'] = Number::translate( $data['billing_postcode'] );
+			$data['billing_postcode'] = Core\Number::translate( $data['billing_postcode'] );
 
 		if ( ! empty( $data['billing_phone'] ) )
-			$data['billing_phone'] = Number::translate( $data['billing_phone'] );
+			$data['billing_phone'] = Core\Number::translate( $data['billing_phone'] );
 
 		return $data;
 	}
@@ -475,11 +470,11 @@ class Commerce extends gNetwork\Module
 				$errors->add( 'mobile_empty',
 					_x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
 
-			else if ( ! Validation::isMobileNumber( $data['customer_mobile'] ) )
+			else if ( ! Core\Validation::isMobileNumber( $data['customer_mobile'] ) )
 				$errors->add( 'mobile_invalid',
 					_x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
 
-			else if ( ! is_user_logged_in() && WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] ) )
+			else if ( ! is_user_logged_in() && WordPress\User::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $data['customer_mobile'] ) )
 				$errors->add( 'mobile_registered',
 					_x( 'Mobile Number is already registered.', 'Modules: Commerce', 'gnetwork' ) );
 		}
@@ -512,7 +507,7 @@ class Commerce extends gNetwork\Module
 			_ex( 'Mobile contact:', 'Modules: Commerce', 'gnetwork' );
 
 			if ( $meta )
-				echo HTML::tel( $meta, _x( 'The mobile number associated with this user.', 'Modules: Commerce', 'gnetwork' ) );
+				echo Core\HTML::tel( $meta, _x( 'The mobile number associated with this user.', 'Modules: Commerce', 'gnetwork' ) );
 
 			else
 				gNetwork()->na();
@@ -528,7 +523,7 @@ class Commerce extends gNetwork\Module
 
 		echo '<p class="form-field form-field-wide" style="margin:0">';
 			echo '<strong style="display:block">'._x( 'Mobile:', 'Modules: Commerce: Action Title', 'gnetwork' );
-			echo '</strong> '.HTML::tel( $meta );
+			echo '</strong> '.Core\HTML::tel( $meta );
 		echo '</p>';
 	}
 
@@ -544,7 +539,7 @@ class Commerce extends gNetwork\Module
 			if ( $meta && ( $mobile = wc_format_phone_number( $meta ) ) )
 				$fields[] = [
 					'label' => _x( 'Mobile Number', 'Modules: Commerce', 'gnetwork' ),
-					'value' => Number::localize( $mobile ),
+					'value' => Core\Number::localize( $mobile ),
 				];
 		}
 
@@ -563,7 +558,7 @@ class Commerce extends gNetwork\Module
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'required'          => TRUE,
 				'clear'             => TRUE,
-				'custom_attributes' => [ 'pattern' => Validation::getMobileHTMLPattern() ],
+				'custom_attributes' => [ 'pattern' => Core\Validation::getMobileHTMLPattern() ],
 			], get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) );
 
 			wc_enqueue_js( "$('p#account_mobile_field').insertAfter($('input#account_email').parent());" );
@@ -587,12 +582,12 @@ class Commerce extends gNetwork\Module
 				$errors->add( 'mobile_empty',
 					_x( 'Mobile Number cannot be empty.', 'Modules: Commerce', 'gnetwork' ) );
 
-			} else if ( ! Validation::isMobileNumber( $mobile ) ) {
+			} else if ( ! Core\Validation::isMobileNumber( $mobile ) ) {
 
 				$errors->add( 'mobile_invalid',
 					_x( 'Mobile Number is not valid.', 'Modules: Commerce', 'gnetwork' ) );
 
-			} else if ( $already = WPUser::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $mobile ) ) {
+			} else if ( $already = WordPress\User::getIDbyMeta( GNETWORK_COMMERCE_MOBILE_METAKEY, $mobile ) ) {
 
 				if ( $already != get_current_user_id() )
 					$errors->add( 'mobile_registered',
@@ -622,7 +617,7 @@ class Commerce extends gNetwork\Module
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'required'          => TRUE,
 				'clear'             => TRUE,
-				'custom_attributes' => [ 'pattern' => Validation::getMobileHTMLPattern() ],
+				'custom_attributes' => [ 'pattern' => Core\Validation::getMobileHTMLPattern() ],
 			] );
 	}
 
@@ -631,10 +626,10 @@ class Commerce extends gNetwork\Module
 		$this->woocommerce_save_account_details( $customer_id );
 	}
 
-	// MAYBE move to persiandate
+	// MAYBE move to `gpersiandate`
 	public function woocommerce_process_myaccount_field_shipping_postcode( $value )
 	{
-		return Number::translate( $value );
+		return Core\Number::translate( $value );
 	}
 
 	// adds the page ids from the WooCommerce core pages to the excluded post ids on Yoast Sitemaps

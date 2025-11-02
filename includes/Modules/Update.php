@@ -18,7 +18,7 @@ class Update extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( ! Core\WordPress::isMainNetwork() ) {
+		if ( ! WordPress\IsIt::mainNetwork() ) {
 
 			$this->action( 'admin_init', 0, 100, 'not_mainsite' );
 
@@ -181,7 +181,7 @@ class Update extends gNetwork\Module
 
 			$count = $this->refresh_packages();
 
-			Core\WordPress::redirectReferer( FALSE === $count ? 'nochange' : [
+			WordPress\Redirect::doReferer( FALSE === $count ? 'nochange' : [
 				'message' => 'synced',
 				'count'   => $count,
 			] );
@@ -321,7 +321,7 @@ class Update extends gNetwork\Module
 
 		$key = $this->hash( 'package', $package, $endpoint );
 
-		if ( Core\WordPress::isFlush( 'update_core', 'force-check' ) )
+		if ( WordPress\IsIt::flush( 'update_core', 'force-check' ) )
 			delete_site_transient( $key );
 
 		if ( FALSE === ( $data = get_site_transient( $key ) ) ) {

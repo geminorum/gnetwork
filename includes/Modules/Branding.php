@@ -6,6 +6,7 @@ use geminorum\gNetwork;
 use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Scripts;
 use geminorum\gNetwork\Settings;
+use geminorum\gNetwork\WordPress;
 
 class Branding extends gNetwork\Module
 {
@@ -395,7 +396,7 @@ class Branding extends gNetwork\Module
 	// @REF: https://make.wordpress.org/core/2020/02/19/enhancements-to-favicon-handling-in-wordpress-5-4/
 	public function do_faviconico()
 	{
-		Core\WordPress::redirect( $this->options['network_siteicon'] );
+		WordPress\Redirect::doWP( $this->options['network_siteicon'] );
 	}
 
 	public function do_adminbar_styles()

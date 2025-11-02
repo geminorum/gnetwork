@@ -144,10 +144,10 @@ class NotFound extends gNetwork\Module
 			if ( $query !== $posttype->rewrite['slug'] )
 				continue;
 
-			if ( ! $link = WordPress\PostType::getArchiveLink( $posttype->name ) )
+			if ( ! $link = WordPress\PostType::link( $posttype->name ) )
 				return;
 
-			Core\WordPress::redirect( $link, 303 );
+			WordPress\Redirect::doWP( $link, 303 );
 		}
 
 		$taxonomies = get_taxonomies( [
@@ -162,10 +162,10 @@ class NotFound extends gNetwork\Module
 			if ( $query !== $taxonomy->rewrite['slug'] )
 				continue;
 
-			if ( ! $link = WordPress\Taxonomy::getArchiveLink( $taxonomy->name ) )
+			if ( ! $link = WordPress\Taxonomy::link( $taxonomy->name ) )
 				return;
 
-			Core\WordPress::redirect( $link, 303 );
+			WordPress\Redirect::doWP( $link, 303 );
 		}
 	}
 

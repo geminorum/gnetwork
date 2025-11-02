@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
 use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class Locale extends gNetwork\Module
 {
@@ -38,7 +39,7 @@ class Locale extends gNetwork\Module
 
 	public static function changeLocale( $locale = NULL )
 	{
-		if ( ! Core\WordPress::cuc( 'manage_options' ) )
+		if ( ! WordPress\User::cuc( 'manage_options' ) )
 			return FALSE;
 
 		if ( is_null( $locale ) )
@@ -207,7 +208,7 @@ class Locale extends gNetwork\Module
 		if ( ! empty( $gNetworkCurrentLocale ) )
 			return $gNetworkCurrentLocale;
 
-		if ( Core\WordPress::isAJAX() ) {
+		if ( WordPress\IsIt::ajax() ) {
 
 			$referer = Core\HTTP::referer();
 
@@ -253,7 +254,7 @@ class Locale extends gNetwork\Module
 		if ( $current == $base )
 			return $current;
 
-		if ( in_array( Core\WordPress::pageNow(), [
+		if ( in_array( WordPress\Screen::pageNow(), [
 			'about.php',
 			'credits.php',
 			'freedoms.php',
@@ -539,7 +540,7 @@ class Locale extends gNetwork\Module
 		if ( $current == $base )
 			return $current;
 
-		if ( in_array( Core\WordPress::pageNow(), [
+		if ( in_array( WordPress\Screen::pageNow(), [
 			'theme-editor.php',
 			'plugin-editor.php',
 		] ) )

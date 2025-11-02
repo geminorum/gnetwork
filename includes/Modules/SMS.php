@@ -3,14 +3,12 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Logger;
 use geminorum\gNetwork\Provider;
 use geminorum\gNetwork\Settings;
 use geminorum\gNetwork\Utilities;
-use geminorum\gNetwork\Core\File;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\Text;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class SMS extends gNetwork\Module
 {
@@ -45,14 +43,14 @@ class SMS extends gNetwork\Module
 
 			echo $this->wrap_open_buttons();
 
-			echo HTML::tag( 'a', [
+			echo Core\HTML::tag( 'a', [
 				'class' => 'button button-secondary button-small',
 				'href'  => $this->get_menu_url( NULL, NULL, 'tools' ),
 			], _x( 'SMS Logs', 'Modules: SMS', 'gnetwork' ) );
 
 			echo '&nbsp;';
 
-			echo Settings::fieldAfterIcon( WordPress::getAdminPostLink( 'network-sms-receive' ),
+			echo Settings::fieldAfterIcon( WordPress\URL::adminPOST( 'network-sms-receive' ),
 				_x( 'SMS receive callback URL', 'Modules: SMS', 'gnetwork' ), 'external' );
 
 			echo '</p>';
@@ -71,7 +69,7 @@ class SMS extends gNetwork\Module
 			if ( $created = Core\File::putHTAccessDeny( GNETWORK_SMS_LOG_DIR, TRUE ) )
 				Core\File::putDoNotBackup( GNETWORK_SMS_LOG_DIR, FALSE );
 
-			WordPress::redirectReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
+			WordPress\Redirect::doReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
 		}
 	}
 
@@ -91,24 +89,24 @@ class SMS extends gNetwork\Module
 
 			if ( self::isTablelistAction( 'deletelogs_all' ) ) {
 
-				WordPress::redirectReferer( ( FALSE === File::emptyDir( GNETWORK_SMS_LOG_DIR, TRUE ) ? 'error' : 'purged' ) );
+				WordPress\Redirect::doReferer( ( FALSE === Core\File::emptyDir( GNETWORK_SMS_LOG_DIR, TRUE ) ? 'error' : 'purged' ) );
 
 			} else if ( self::isTablelistAction( 'deletelogs_selected', TRUE ) ) {
 
 				$count = 0;
 
 				foreach ( $_POST['_cb'] as $log )
-					if ( TRUE === unlink( File::join( GNETWORK_SMS_LOG_DIR, $log.'.json' ) ) )
+					if ( TRUE === unlink( Core\File::join( GNETWORK_SMS_LOG_DIR, $log.'.json' ) ) )
 						$count++;
 
-				WordPress::redirectReferer( [
+				WordPress\Redirect::doReferer( [
 					'message' => 'deleted',
 					'count'   => $count,
 				] );
 
 			} else {
 
-				WordPress::redirectReferer( 'wrong' );
+				WordPress\Redirect::doReferer( 'wrong' );
 			}
 		}
 	}
@@ -120,7 +118,7 @@ class SMS extends gNetwork\Module
 		if ( empty( $logs ) )
 			return Utilities::emptyDataLogs( GNETWORK_SMS_LOG_DIR );
 
-		return HTML::tableList( [
+		return Core\HTML::tableList( [
 			'_cb' => 'file',
 
 			'info' => [
@@ -144,7 +142,7 @@ class SMS extends gNetwork\Module
 
 					if ( ! empty( $row['user'] ) )
 						$html.= '<code title="'._x( 'User', 'Modules: SMS: Email Logs Table', 'gnetwork' )
-							.'">'.HTML::link( get_user_by( 'id', $row['user'] )->user_login, WordPress::getUserEditLink( $row['user'] ) ).'</code> @ ';
+							.'">'.Core\HTML::link( get_user_by( 'id', $row['user'] )->user_login, WordPress\User::edit( $row['user'] ) ).'</code> @ ';
 
 					if ( ! empty( $row['site'] ) )
 						$html.= '<code title="'._x( 'Site', 'Modules: SMS: Email Logs Table', 'gnetwork' )
@@ -155,13 +153,13 @@ class SMS extends gNetwork\Module
 				'actions' => function ( $value, $row, $column, $index, $key, $args ) {
 
 					return [
-						'download' => HTML::tag( 'a', [
-							'href'  => WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'download' ] ),
+						'download' => Core\HTML::tag( 'a', [
+							'href'  => WordPress\URL::adminPOST( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'download' ] ),
 							'class' => '-link -row-link -row-link-download',
 						], _x( 'Download', 'Modules: SMS: Row Action', 'gnetwork' ) ),
 
-						'delete' => HTML::tag( 'a', [
-							'href'  => WordPress::getAdminPostLink( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'delete' ] ),
+						'delete' => Core\HTML::tag( 'a', [
+							'href'  => WordPress\URL::adminPOST( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'delete' ] ),
 							'class' => '-link -row-link -row-link-delete',
 						], _x( 'Delete', 'Modules: SMS: Row Action', 'gnetwork' ) ),
 					];
@@ -184,8 +182,8 @@ class SMS extends gNetwork\Module
 					$content.= self::parseLogTarget( $target, '<hr />' );
 
 					if ( ! empty( $row['message'] ) )
-						$content.= '<div'.$direction.'>'.Text::autoP(
-							make_clickable( HTML::escapeTextarea( $row['message'] ) ) ).'</div>';
+						$content.= '<div'.$direction.'>'.Core\Text::autoP(
+							make_clickable( Core\HTML::escapeTextarea( $row['message'] ) ) ).'</div>';
 
 					return $content ?: Utilities::htmlEmpty();
 				},
@@ -193,7 +191,7 @@ class SMS extends gNetwork\Module
 		], $logs, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => HTML::tag( 'h3', _x( 'Overview of SMS Logs', 'Modules: SMS', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of SMS Logs', 'Modules: SMS', 'gnetwork' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -208,16 +206,16 @@ class SMS extends gNetwork\Module
 		if ( is_array( $target ) ) {
 
 			foreach ( $target as $item )
-				$html.= HTML::tag( 'code', HTML::tel( $item ) ).$suffix;
+				$html.= Core\HTML::tag( 'code', Core\HTML::tel( $item ) ).$suffix;
 
-		} else if ( Text::has( $target, ',' ) ) {
+		} else if ( Core\Text::has( $target, ',' ) ) {
 
 			foreach ( explode( ',', $target ) as $item )
-				$html.= HTML::tag( 'code', HTML::tel( $item ) ).$suffix;
+				$html.= Core\HTML::tag( 'code', Core\HTML::tel( $item ) ).$suffix;
 
 		} else if ( $target ) {
 
-			$html.= HTML::tag( 'code', HTML::tel( $target ) ).$suffix;
+			$html.= Core\HTML::tag( 'code', Core\HTML::tel( $target ) ).$suffix;
 		}
 
 		return $html;
@@ -248,29 +246,29 @@ class SMS extends gNetwork\Module
 
 	public function log_actions()
 	{
-		if ( ! WordPress::cuc( $this->is_network() ? 'manage_network_options' : 'manage_options' ) )
-			WordPress::cheatin();
+		if ( ! WordPress\User::cuc( $this->is_network() ? 'manage_network_options' : 'manage_options' ) )
+			self::cheatin();
 
 		if ( ! $log = self::req( 'log' ) )
-			WordPress::redirectReferer( 'wrong' );
+			WordPress\Redirect::doReferer( 'wrong' );
 
-		$file = File::join( GNETWORK_SMS_LOG_DIR, $log.'.json' );
+		$file = Core\File::join( GNETWORK_SMS_LOG_DIR, $log.'.json' );
 
 		switch ( self::req( 'what' ) ) {
 
 			case 'download':
 
-				if ( ! File::download( $file, $log.'.json' ) )
-					WordPress::redirectReferer( 'wrong' );
+				if ( ! Core\File::download( $file, $log.'.json' ) )
+					WordPress\Redirect::doReferer( 'wrong' );
 
 			break;
 			case 'delete':
 
 				if ( TRUE === unlink( $file ) )
-					WordPress::redirectReferer( [ 'message' => 'deleted', 'count' => 1 ] );
+					WordPress\Redirect::doReferer( [ 'message' => 'deleted', 'count' => 1 ] );
 		}
 
-		WordPress::redirectReferer( 'wrong' );
+		WordPress\Redirect::doReferer( 'wrong' );
 	}
 
 	public function log_received()
@@ -278,7 +276,7 @@ class SMS extends gNetwork\Module
 		$contents = [
 			'type'      => 'received',
 			'timestamp' => current_time( 'mysql' ),
-			'site'      => WordPress::currentSiteName(),
+			'site'      => WordPress\Site::name(),
 			'user'      => get_current_user_id(),
 		];
 
@@ -292,10 +290,10 @@ class SMS extends gNetwork\Module
 		foreach ( $map as $data => $key )
 			$contents[$data] = sanitize_text_field( self::req( $key ) );
 
-		$from = empty( $contents['from'] ) ? 'UNKNOWN' : File::escFilename( $contents['from'] );
+		$from = empty( $contents['from'] ) ? 'UNKNOWN' : Core\File::escFilename( $contents['from'] );
 		$file = current_time( 'Ymd-His' ).'-'.$from.'.received.json';
 
-		if ( FALSE === File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ), GNETWORK_SMS_LOG_DIR ) )
+		if ( FALSE === Core\File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ), GNETWORK_SMS_LOG_DIR ) )
 			Logger::CRITICAL( 'SMS-LOGS: CAN NOT LOG SMS FROM: '.$contents['from'] );
 
 		exit('1');
@@ -324,7 +322,7 @@ class SMS extends gNetwork\Module
 			$contents = [
 				'type'      => 'sent',
 				'timestamp' => current_time( 'mysql' ),
-				'site'      => WordPress::currentSiteName(),
+				'site'      => WordPress\Site::name(),
 				'user'      => get_current_user_id(),
 				'provider'  => $provider,
 				'results'   => $results,
@@ -334,10 +332,10 @@ class SMS extends gNetwork\Module
 				// 'id'      => 'id', // FIXME: get message id from provider
 			];
 
-			$to   = empty( $contents['to'] ) ? 'UNKNOWN' : File::escFilename( $contents['to'] );
+			$to   = empty( $contents['to'] ) ? 'UNKNOWN' : Core\File::escFilename( $contents['to'] );
 			$file = current_time( 'Ymd-His' ).'-'.$to.'.sent.json';
 
-			if ( FALSE === File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ), GNETWORK_SMS_LOG_DIR ) )
+			if ( FALSE === Core\File::putContents( $file, wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT ), GNETWORK_SMS_LOG_DIR ) )
 				Logger::CRITICAL( 'SMS-LOGS: CAN NOT LOG SMS TO: '.$contents['to'] );
 
 		} else if ( $this->get_option( 'debug_providers' ) ) {

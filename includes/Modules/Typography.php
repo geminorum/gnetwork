@@ -174,7 +174,7 @@ class Typography extends gNetwork\Module
 						$count++;
 					}
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'changed',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -201,7 +201,7 @@ class Typography extends gNetwork\Module
 						$count++;
 					}
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'changed',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -228,7 +228,7 @@ class Typography extends gNetwork\Module
 						$count++;
 					}
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'changed',
 						'count'   => $count,
 						'limit'   => self::limit(),
@@ -237,7 +237,7 @@ class Typography extends gNetwork\Module
 
 				} else {
 
-					Core\WordPress::redirectReferer( [
+					WordPress\Redirect::doReferer( [
 						'message' => 'wrong',
 						'limit'   => self::limit(),
 						'paged'   => self::paged(),
@@ -286,14 +286,14 @@ class Typography extends gNetwork\Module
 
 					if ( current_user_can( 'edit_post', $row->ID ) )
 						$list['edit'] = Core\HTML::tag( 'a', [
-							'href'   => Core\WordPress::getPostEditLink( $row->ID ),
+							'href'   => WordPress\Post::edit( $row ),
 							'class'  => '-link -row-link -row-link-edit',
 							'data'   => [ 'id' => $row->ID, 'row' => 'edit' ],
 							'target' => '_blank',
 						], _x( 'Edit', 'Modules: Typography: Row Action', 'gnetwork' ) );
 
 					$list['view'] = Core\HTML::tag( 'a', [
-						'href'   => Core\WordPress::getPostShortLink( $row->ID ),
+						'href'   => WordPress\Post::shortlink( $row ),
 						'class'  => '-link -row-link -row-link-view',
 						'data'   => [ 'id' => $row->ID, 'row' => 'view' ],
 						'target' => '_blank',
@@ -402,14 +402,14 @@ class Typography extends gNetwork\Module
 
 			$content = Core\Text::replaceSymbols( '#', $content, static function ( $matched, $string ) {
 				return Core\HTML::tag( 'a', [
-					'href'  => Core\WordPress::getSearchLink( $matched ),
+					'href'  => WordPress\URL::search( $matched ),
 					'class' => [ '-link', '-hashtag' ]
 				], str_replace( '_', ' ', $matched ) );
 			} );
 
 			// telegram hash-tag links!
 			$content = preg_replace_callback( '/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu', static function ( $matched ) {
-				return Core\HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), Core\WordPress::getSearchLink( '#'.$matched[2] ) );
+				return Core\HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), WordPress\URL::search( '#'.$matched[2] ) );
 			}, $content );
 		}
 
@@ -758,7 +758,7 @@ class Typography extends gNetwork\Module
 		if ( $this->options['title_titlecase'] )
 			$title = Core\Text::titleCase( $title );
 
-		if ( $this->options['title_wordwrap'] && ! Core\WordPress::isREST() )
+		if ( $this->options['title_wordwrap'] && ! WordPress\IsIt::rest() )
 			$title = Core\Text::wordWrap( $title );
 
 		return $title;

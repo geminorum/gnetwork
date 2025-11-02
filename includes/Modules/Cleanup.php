@@ -3,10 +3,9 @@
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork;
+use geminorum\gNetwork\Core;
 use geminorum\gNetwork\Settings;
-use geminorum\gNetwork\Core\Date;
-use geminorum\gNetwork\Core\HTML;
-use geminorum\gNetwork\Core\WordPress;
+use geminorum\gNetwork\WordPress;
 
 class Cleanup extends gNetwork\Module
 {
@@ -25,7 +24,7 @@ class Cleanup extends gNetwork\Module
 	{
 		$settings   = [];
 		$confirm    = Settings::getButtonConfirm();
-		$superadmin = WordPress::isSuperAdmin();
+		$superadmin = WordPress\User::isSuperAdmin();
 		$multisite  = is_multisite();
 		$mainsite   = is_main_site();
 		$sitemeta   = is_site_meta_supported();
@@ -354,7 +353,7 @@ class Cleanup extends gNetwork\Module
 			else
 				$message = 'huh';
 
-			WordPress::redirectReferer( $message );
+			WordPress\Redirect::doReferer( $message );
 		}
 	}
 
@@ -996,7 +995,7 @@ class Cleanup extends gNetwork\Module
 
 		$count = 0;
 
-		$lastmonth = gmdate( Date::MYSQL_FORMAT, strtotime( '-1 month' ) );
+		$lastmonth = gmdate( Core\Date::MYSQL_FORMAT, strtotime( '-1 month' ) );
 
 		$count += $wpdb->query( "UPDATE {$wpdb->posts} SET comment_status = 'closed' WHERE post_date_gmt < '{$lastmonth}' AND post_status = 'publish'" );
 		$count += $wpdb->query( "UPDATE {$wpdb->posts} SET ping_status = 'closed' WHERE post_date_gmt < '{$lastmonth}' AND post_status = 'publish'" );
@@ -1050,8 +1049,11 @@ class Cleanup extends gNetwork\Module
 				continue;
 
 			if ( $message )
-				/* translators: %s: filename */
-				HTML::desc( sprintf( _x( 'Removing %s &hellip;', 'Modules: Update', 'gnetwork' ), $file ) );
+				Core\HTML::desc( sprintf(
+					/* translators: `%s`: filename */
+					_x( 'Removing %s &hellip;', 'Modules: Update', 'gnetwork' ),
+					$file
+				) );
 
 			$count++;
 		}
