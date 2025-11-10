@@ -175,7 +175,13 @@ class Locale extends gNetwork\Module
 			$target = GNETWORK_DIR.'assets/locale/'.Core\File::basename( $normalized );
 
 		if ( ! is_readable( $target ) )
-			return $filtered[$locale][$domain][$handle] = $file;
+			/**
+			 * Can not cache not readable since the request may came
+			 * with different (simple/hashed) filename for the same handle.
+			 * `fa_IR-dashboard.json` / `fa_IR-e2e4c4b80f3adf2c70b431bfdb1b4872.json`
+			 */
+			// return $filtered[$locale][$domain][$handle] = $file;
+			return $file;
 
 		$this->loaded[$locale][$domain][$handle][] = Core\File::normalize( $target );
 
