@@ -624,6 +624,27 @@ class Arraay extends Base
 		return FALSE !== array_search( $needle, (array) $haystack, $strict );
 	}
 
+	/**
+	 * Determines if any value from first exists in second.
+	 * equvielnt to `return (bool) count( array_intersect( $first, $second ) );`
+	 * @source https://stackoverflow.com/a/46609738
+	 *
+	 * @param array $first
+	 * @param array $second
+	 * @return bool
+	 */
+	public static function exists( $first, $second )
+	{
+		if ( empty( $first ) || empty( $second ) )
+			return FALSE;
+
+		foreach ( $first as $value )
+  			if ( in_array( $value, $second, TRUE ) )
+				return TRUE;
+
+		return FALSE;
+	}
+
 	// @REF: http://stackoverflow.com/a/11320508
 	public static function find( $needle, &$haystack, $default = NULL )
 	{

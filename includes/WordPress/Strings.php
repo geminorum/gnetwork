@@ -120,10 +120,10 @@ class Strings extends Core\Base
 	 * Separates given string by set of delimiters into an array.
 	 *
 	 * @param string $string
-	 * @param null|string|array $delimiters
-	 * @param null|int $limit
+	 * @param string|array $delimiters
+	 * @param int $limit
 	 * @param string $delimiter
-	 * @return array $separated
+	 * @return array
 	 */
 	public static function getSeparated( $string, $delimiters = NULL, $limit = NULL, $delimiter = '|' )
 	{
@@ -274,12 +274,12 @@ class Strings extends Core\Base
 
 	/**
 	 * Filters text content and strips out disallowed HTML.
-	 * wrapper for `wp_kses()`
+	 * NOTE: wrapper for `wp_kses()`
 	 *
-	 * @param  string $text
-	 * @param  string $context
-	 * @param  array $allowed
-	 * @return string $filtered
+	 * @param string $text
+	 * @param string $context
+	 * @param array $allowed
+	 * @return string
 	 */
 	public static function kses( $text, $context = 'none', $allowed = NULL )
 	{
@@ -337,13 +337,14 @@ class Strings extends Core\Base
 		if ( $shortcode )
 			$text = ShortCode::apply( $text, TRUE );
 
-		$text = apply_filters( 'geditorial_markdown_to_html', $text );
+		$text = apply_filters( 'geditorial_markdown_to_html', $text, $autop );
 		$text = apply_filters( 'html_format_i18n', $text );
 		$text = apply_filters( 'gnetwork_typography', $text );
 
 		return $autop ? wpautop( $text ) : $text;
 	}
 
+	// TODO: move to `Misc\PersianAddress`
 	public static function prepAddress( $data, $context = 'display', $fallback = FALSE )
 	{
 		if ( self::empty( $data ) )
@@ -360,24 +361,8 @@ class Strings extends Core\Base
 
 			$data = Core\Number::translate( $data );
 
-			if ( class_exists( 'geminorum\\gEditorial\\Misc\\NumbersInPersian' ) ) {
-
-				$numbers  = new \geminorum\gEditorial\Misc\NumbersInPersian();
-				$ordinals = $numbers->get_range_ordinal_reverse( 1, 100 );
-
-				foreach ( $ordinals as $ordinal => $index ) {
-
-					$pattern = sprintf( '/[\s,،](%s|%s)[\s,،]/mu',
-						preg_quote( $ordinal ),
-						preg_quote( str_ireplace( ' ', '', $ordinal ) )
-					);
-
-					$data = preg_replace_callback( $pattern,
-						static function ( $matches ) use ( $index ) {
-							return sprintf( ' %s ', $index ); // padding with space
-						}, $data );
-				}
-			}
+			if ( class_exists( 'geminorum\\gEditorial\\Misc\\NumbersInPersian' ) )
+				$data = NumbersInPersian::textOrdinalToNumbers( $data, 100 );
 
 			$prefixes = [
 				'پلاک'   => 'پ',

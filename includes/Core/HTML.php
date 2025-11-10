@@ -770,20 +770,27 @@ class HTML extends Base
 		foreach ( $subs as $slug => $page ) {
 
 			if ( is_array( $page ) ) {
-				$title = empty( $page['title'] ) ? $slug : $page['title'];
+				$title = empty( $page['title'] ) ? $slug : sprintf( '<span class="-nav-link-title">%s</span>', $page['title'] );
+				$icon  = empty( $page['icon'] ) ? '' : sprintf( '<span class="-nav-link-icon">%s</span> ', $page['icon'] );
 				$args  = empty( $page['args'] ) ? [ 'sub' => $slug ] : $page['args'];
 			} else {
-				$title = $page;
+				$title = sprintf( '<span class="-nav-link-title">%s</span>', $page );
+				$icon  = '';
 				$args  = [ 'sub' => $slug ];
 			}
 
 			$url   = add_query_arg( $args, $uri );
-			$class = $prefix.' '.$prefix.'-'.$slug.( $slug == $active ? ' '.$prefix.'-active -active' : '' );
+			$class = [
+				$prefix,
+				sprintf( '%s-%s', $prefix, $slug ),
+				$icon ? '-has-navicon' : '-has-not-navicon',
+				$slug === $active ? sprintf( '%s-active -active', $prefix ) : '',
+			];
 
 			if ( $item )
-				$html.= self::tag( $item, [ 'class' => $class ], self::link( $title, $url ) );
+				$html.= self::tag( $item, [ 'class' => $class ], self::link( $icon.$title, $url ) );
 			else
-				$html.= self::tag( 'a', [ 'class' => $class, 'href' => $url ], $title );
+				$html.= self::tag( 'a', [ 'class' => $class, 'href' => $url ], $icon.$title );
 		}
 
 		if ( $wrap )
@@ -1149,7 +1156,6 @@ class HTML extends Base
 		echo $html;
 	}
 
-	// FIXME: must use internal `add_query_arg()` and remove `message`/`count` args
 	public static function tableNavigation( $pagination = [] )
 	{
 		$args = self::atts( [
@@ -1204,8 +1210,10 @@ class HTML extends Base
 
 			echo self::tag( 'a', [
 				'href' => add_query_arg( array_merge( $args['extra'], [
-					'order' => ( 'ASC' === $args['order'] ) ? 'desc' : 'asc',
-					'limit' => $args['limit'],
+					'message' => FALSE,
+					'count'   => FALSE,
+					'order'   => ( 'ASC' === $args['order'] ) ? 'desc' : 'asc',
+					'limit'   => $args['limit'],
 			 ] ) ),
 				'class' => '-order -link button -icon',
 			], $icons['order'] );
@@ -1234,16 +1242,20 @@ class HTML extends Base
 			} else {
 				echo self::tag( 'a', [
 					'href' => add_query_arg( array_merge( $args['extra'], [
-						'paged' => FALSE,
-						'limit' => $args['limit'],
+						'message' => FALSE,
+						'count'   => FALSE,
+						'paged'   => FALSE,
+						'limit'   => $args['limit'],
 					] ) ),
 					'class' => '-first -link button -icon',
 				], $icons['first'] );
 				echo '&nbsp;';
 				echo self::tag( 'a', [
 					'href' => add_query_arg( array_merge( $args['extra'], [
-						'paged' => $args['previous'],
-						'limit' => $args['limit'],
+						'message' => FALSE,
+						'count'   => FALSE,
+						'paged'   => $args['previous'],
+						'limit'   => $args['limit'],
 					] ) ),
 					'class' => '-previous -link button -icon',
 				], $icons['previous'] );
@@ -1252,8 +1264,10 @@ class HTML extends Base
 			echo '&nbsp;';
 			echo self::tag( 'a', [
 				'href' => add_query_arg( array_merge( $args['extra'], [
-					'paged' => $args['paged'],
-					'limit' => $args['limit'],
+					'message' => FALSE,
+					'count'   => FALSE,
+					'paged'   => $args['paged'],
+					'limit'   => $args['limit'],
 				] ) ),
 				'class' => '-refresh -link button -icon',
 			], $icons['refresh'] );
@@ -1266,8 +1280,10 @@ class HTML extends Base
 			} else {
 				echo self::tag( 'a', [
 					'href' => add_query_arg( array_merge( $args['extra'], [
-						'paged' => $args['next'],
-						'limit' => $args['limit'],
+						'message' => FALSE,
+						'count'   => FALSE,
+						'paged'   => $args['next'],
+						'limit'   => $args['limit'],
 					] ) ),
 					'class' => '-next -link button -icon',
 				], $icons['next'] );
@@ -1277,7 +1293,9 @@ class HTML extends Base
 				if ( $args['pages'] )
 					echo self::tag( 'a', [
 						'href' => add_query_arg( array_merge( $args['extra'], [
-							'paged' => $args['pages'],
+							'message' => FALSE,
+							'count'   => FALSE,
+							'paged'   => $args['pages'],
 							'limit' => $args['limit'],
 					 	] ) ),
 						'class' => '-last -link button -icon',
@@ -1408,10 +1426,9 @@ class HTML extends Base
 	}
 
 	// @REF: https://developer.wordpress.org/resource/dashicons/
-	public static function getDashicon( $icon = 'wordpress-alt', $title = FALSE, $class = '' )
+	public static function getDashicon( $icon = NULL, $title = FALSE, $class = '' )
 	{
-		if ( ! $icon )
-			$icon = 'wordpress-alt';
+		$icon = $icon ?? 'wordpress-alt';
 
 		if ( ! Text::starts( $icon, 'dashicons-' ) )
 			$icon = sprintf( 'dashicons-%s', $icon );
@@ -1419,7 +1436,7 @@ class HTML extends Base
 		return self::tag( 'span', [
 			'data-icon' => 'dashicons',
 			'title'     => $title,
-			'class'     => self::attrClass( [ 'dashicons', $icon ], $class ),
+			'class'     => self::attrClass( 'dashicons', $icon, $class ),
 		], NULL );
 	}
 

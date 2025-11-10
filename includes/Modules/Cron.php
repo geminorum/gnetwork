@@ -217,7 +217,7 @@ class Cron extends gNetwork\Module
 			echo $this->wrap( $this->get_status(), '-status-check' );
 	}
 
-	public function ajax()
+	public function do_ajax()
 	{
 		Ajax::checkReferer( $this->classs( 'status-check' ) );
 

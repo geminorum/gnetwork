@@ -354,19 +354,19 @@ class File extends Base
 	 */
 	public static function getLastLines( $path, $count, $block_size = 512 )
 	{
-		// we will always have a fragment of a non-complete line
+		// We will always have a fragment of a non-complete line
 		// keep this in here till we have our next entire line.
 		$leftover = '';
 
 		$lines  = [];
 		$handle = fopen( $path, 'r' );
 
-		// go to the end of the file
+		// Go to the end of the file
 		fseek( $handle, 0, SEEK_END );
 
 		do {
 
-			// need to know whether we can actually go back
+			// Need to know whether we can actually go back
 			$can_read = $block_size; // $block_size in bytes
 
 			if ( ftell( $handle ) < $block_size )
@@ -375,7 +375,7 @@ class File extends Base
 			if ( ! $can_read )
 				break;
 
-			// go back as many bytes as we can
+			// Go back as many bytes as we can
 			// read them to $data and then move the file pointer
 			// back to where we were.
 			fseek( $handle, -$can_read, SEEK_CUR );

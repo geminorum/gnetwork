@@ -54,8 +54,8 @@ class Number extends Base
 		if ( ! is_string( $string ) )
 			return $string;
 
-		$string = strtr( $string, array_flip( static::ARABIC ) );   // arabic to english
-		$string = strtr( $string, array_flip( static::PERSIAN ) );  // persian to english
+		$string = strtr( $string, array_flip( static::ARABIC ) );   // Arabic to English
+		$string = strtr( $string, array_flip( static::PERSIAN ) );  // Persian to English
 
 		return $string;
 	}
@@ -71,8 +71,8 @@ class Number extends Base
 		if ( ! is_string( $string ) )
 			return $string;
 
-		$string = strtr( $string, array_flip( static::ARABIC ) );  // arabic to english
-		$string = strtr( $string, static::PERSIAN );               // english to persian
+		$string = strtr( $string, array_flip( static::ARABIC ) );  // Arabic to English
+		$string = strtr( $string, static::PERSIAN );               // English to Persian
 
 		return $string;
 	}
@@ -88,30 +88,26 @@ class Number extends Base
 		if ( ! is_string( $string ) )
 			return $string;
 
-		$string = strtr( $string, array_flip( static::PERSIAN ) );  // persian to english
-		$string = strtr( $string, static::ARABIC );                 // english to arabic
+		$string = strtr( $string, array_flip( static::PERSIAN ) );  // Persian to English
+		$string = strtr( $string, static::ARABIC );                 // English to Arabic
 
 		return $string;
 	}
 
-	// TODO: unified api
 	public static function toPersianOrdinal( $number )
 	{
 		if ( ! class_exists( 'geminorum\\gEditorial\\Misc\\NumbersInPersian' ) )
 			return self::toOrdinal( $number, 'fa_IR' );
 
-		$numbers = new \geminorum\gEditorial\Misc\NumbersInPersian();
-		return $numbers->number_to_ordinal( $number );
+		return \geminorum\gEditorial\Misc\NumbersInPersian::numberToOrdinal( $number );
 	}
 
-	// TODO: unified api
 	public static function toPersianWords( $number )
 	{
 		if ( ! class_exists( 'geminorum\\gEditorial\\Misc\\NumbersInPersian' ) )
 			return self::toWords( $number, 'fa_IR' );
 
-		$numbers = new \geminorum\gEditorial\Misc\NumbersInPersian();
-		return $numbers->number_to_words( $number );
+		return \geminorum\gEditorial\Misc\NumbersInPersian::numberToWords( $number );
 	}
 
 	/**
@@ -125,17 +121,16 @@ class Number extends Base
 	 * @link https://en.wikipedia.org/wiki/Numeral_prefix
 	 * @link https://en.wiktionary.org/wiki/Appendix:English_numerals
 	 *
-	 * @param  int|string  $number
-	 * @param  null|string $locale
-	 * @return string      $ordinal
+	 * @param int|string $number
+	 * @param string $locale
+	 * @return string
 	 */
 	public static function toOrdinal( $number, $locale = NULL )
 	{
 		if ( ! $sanitized = self::intval( $number ) )
 			return $number;
 
-		if ( is_null( $locale ) )
-			$locale = L10n::locale();
+		$locale = $locale ?? L10n::locale();
 
 		if ( class_exists( 'NumberFormatter' ) ) {
 
@@ -147,7 +142,7 @@ class Number extends Base
 
 			$formatted = $formatter->format( $sanitized );
 
-		} else if ( 'en_US' == $locale ) {
+		} else if ( 'en_US' === $locale ) {
 
 			$formatted = self::englishOrdinal( $sanitized );
 
@@ -182,8 +177,7 @@ class Number extends Base
 		if ( ! $sanitized = self::intval( $number ) )
 			return $number;
 
-		if ( is_null( $locale ) )
-			$locale = L10n::locale();
+		$locale = $locale ?? L10n::locale();
 
 		if ( class_exists( 'NumberFormatter' ) ) {
 
@@ -208,6 +202,7 @@ class Number extends Base
 	public static function englishWords( $number )
 	{
 		$number = (int) $number;
+
 		$words = [];
 		$list1 = [ '', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen' ];
 		$list2 = [ '', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred' ];
@@ -252,19 +247,25 @@ class Number extends Base
 
 	public static function localize( $number )
 	{
-		return apply_filters( 'number_format_i18n', $number );
+		return apply_filters( 'number_format_i18n',
+			$number
+		);
 	}
 
 	public static function format( $number, $decimals = 0, $locale = NULL )
 	{
-		return apply_filters( 'number_format_i18n', number_format( $number ?? 0, absint( $decimals ) ), $number, $decimals );
+		return apply_filters( 'number_format_i18n',
+			number_format( $number ?? 0, absint( $decimals ) ),
+			$number,
+			$decimals
+		);
 	}
 
 	/**
 	 * Converts back number chars into English.
 	 *
-	 * @param  int|string $input
-	 * @return int        $number
+	 * @param int|string $input
+	 * @return int
 	 */
 	public static function intval( $input )
 	{
@@ -274,8 +275,8 @@ class Number extends Base
 	/**
 	 * Converts back number chars into English.
 	 *
-	 * @param  int|float|string $input
-	 * @return float            $number
+	 * @param int|float|string $input
+	 * @return float
 	 */
 	public static function floatval( $input )
 	{
@@ -286,8 +287,8 @@ class Number extends Base
 	 * Checks whether the number is `Even` or `Odd`.
 	 * @source https://www.geeksforgeeks.org/php-check-number-even-odd/
 	 *
-	 * @param  int  $number
-	 * @return bool $even_or_odd
+	 * @param int $number
+	 * @return bool
 	 */
 	public static function isEven( $number )
 	{

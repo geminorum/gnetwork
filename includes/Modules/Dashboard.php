@@ -136,7 +136,7 @@ class Dashboard extends gNetwork\Module
 		wp_dashboard_cached_rss_widget( 'gnetwork_feeds', 'wp_dashboard_primary_output', $feeds );
 	}
 
-	public function ajax()
+	public function do_ajax()
 	{
 		require_once ABSPATH.'wp-admin/includes/dashboard.php';
 

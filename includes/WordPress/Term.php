@@ -265,6 +265,24 @@ class Term extends Core\Base
 		return add_query_arg( array_merge( [ 't' => $term->term_id ], $extra ), get_bloginfo( 'url' ) );
 	}
 
+	public static function endpointURL( $endpoint, $term, $data = NULL, $extra = [], $fallback = FALSE )
+	{
+		if ( ! $term = self::get( $term ) )
+			return $fallback;
+
+		if ( ! $link = get_term_link( $term, $term->taxonomy ) )
+			return $fallback;
+
+		if ( $GLOBALS['wp_rewrite']->using_permalinks() ) {
+
+			$link = Core\URL::trail( $link ).$endpoint.( $data ? ( '/'.$data ) : '' );
+
+			return $extra ? add_query_arg( $extra, $link ) : $link;
+		}
+
+		return add_query_arg( array_merge( $extra, [ $endpoint => $data ?? '' ] ), $link );
+	}
+
 	/**
 	 * Retrieves a contextual link given a term id or term object.
 	 *

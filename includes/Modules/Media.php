@@ -985,7 +985,7 @@ class Media extends gNetwork\Module
 		return $actions;
 	}
 
-	public function ajax()
+	public function do_ajax()
 	{
 		$post = self::unslash( $_REQUEST );
 		$what = empty( $post['what'] ) ? 'nothing': trim( $post['what'] );

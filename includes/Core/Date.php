@@ -935,6 +935,7 @@ class Date extends Base
 		'i' => 'mm',     // Minutes with leading zeros: `00` to `59`
 		'a' => 'aa',     // Lowercase Ante-meridiem and Post-meridiem: `am` or `pm` // NOTE: not supported
 		'A' => 'aa',     // Uppercase Ante-meridiem and Post-meridiem: `AM` or `PM`
+		's' => 'ss',     // Seconds with leading zeros: `00` through `59`
 	];
 
 	public static function convertFormatPHPtoISO( $pattern )

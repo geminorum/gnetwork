@@ -10,12 +10,15 @@ class Hook extends Core\Base
 	// @SEE: https://github.com/Rarst/advanced-hooks-api
 
 	// shows all the "filters" currently attached to a hook
-	public static function filters( $hook )
+	public static function filters( $hook, $verbose = TRUE )
 	{
 		global $wp_filter;
 
 		if ( ! isset( $wp_filter[$hook] ) )
-			return;
+			return FALSE;
+
+		if ( ! $verbose )
+			return $wp_filter[$hook];
 
 		self::dump( $wp_filter[$hook] );
 	}

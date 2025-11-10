@@ -319,14 +319,14 @@ class Text extends Base
 	// @REF: https://github.com/michelf/php-markdown/issues/230#issuecomment-303023862
 	public static function removeP( $text )
 	{
-		return str_replace( [
+		return $text ? self::trim( str_replace( [
 			"</p>\n\n<p>",
 			'<p>',
 			'</p>',
 		], [
 			"\n\n",
 			"",
-		], $text );
+		], $text ) ) : $text;
 	}
 
 	/**

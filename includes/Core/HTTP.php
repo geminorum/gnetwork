@@ -471,15 +471,25 @@ class HTTP extends Base
 		@header( "Content-Type: text/html; charset=utf-8" );
 	}
 
-	// @REF: https://gist.github.com/eric1234/37fd102798d99d94b0dcebde6bb29ef3
-	//
-	// Abstracts the idiocy of the CURL API for something simpler. Assumes we are
-	// downloading data (so a GET request) and we need no special request headers.
-	// Returns an `IO` stream which will be the data requested. The headers of the
-	// response will be stored in the $headers param reference.
-	//
-	// If the request fails for some reason FALSE is returned with the `$err_msg`
-	// param containing more info.
+	/**
+	 * Performs an HTTP request using the GET method and returns its response.
+	 *
+	 * Abstracts the idiocy of the CURL API for something simpler. Assumes we are
+	 * downloading data (so a GET request) and we need no special request headers.
+	 * Returns an `IO` stream which will be the data requested. The headers of the
+	 * response will be stored in the $headers param reference.
+	 *
+	 * If the request fails for some reason FALSE is returned with the `$err_msg`
+	 * param containing more info.
+	 *
+	 * @source https://gist.github.com/eric1234/37fd102798d99d94b0dcebde6bb29ef3
+	 * @see `wp_remote_get()`
+	 *
+	 * @param string $url
+	 * @param array $headers
+	 * @param string $err_msg
+	 * @return false|stream
+	 */
 	public static function download( $url, &$headers, &$err_msg )
 	{
 		if ( ! extension_loaded( 'curl' ) )

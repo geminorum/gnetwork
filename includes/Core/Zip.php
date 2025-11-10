@@ -7,7 +7,7 @@ class Zip extends Base
 
 	/**
 	 * Zip a folder (include itself).
-	 * Usage: Zip::zipDir( '/path/to/sourceDir', '/path/to/out.zip' );
+	 * Usage: `Zip::zipDir( '/path/to/sourceDir', '/path/to/out.zip' );`
 	 *
 	 * @REF: http://php.net/manual/en/class.ziparchive.php#110719
 	 *
@@ -16,9 +16,9 @@ class Zip extends Base
 	*/
 	public static function zipDir( $sourcePath, $outZipPath )
 	{
-		$pathInfo   = pathInfo( $sourcePath );
-		$parentPath = $pathInfo['dirname'];
-		$dirName    = $pathInfo['basename'];
+		$pathinfo   = pathinfo( $sourcePath );
+		$parentPath = $pathinfo['dirname'];
+		$dirName    = $pathinfo['basename'];
 
 		$z = new \ZipArchive();
 
@@ -35,7 +35,7 @@ class Zip extends Base
 	 *
 	 * @param string $folder
 	 * @param ZipArchive $zipFile
-	 * @param int $exclusiveLength Number of text to be exclusived from the file path.
+	 * @param int $exclusiveLength Number of text to be exclusive from the filepath.
 	*/
 	private static function folderToZip( $folder, &$zipFile, $exclusiveLength )
 	{
@@ -47,7 +47,7 @@ class Zip extends Base
 
 				$filePath = "$folder/$f";
 
-				// remove prefix from file path before add to zip
+				// Removes prefix from file path before add to zip.
 				$localPath = substr( $filePath, $exclusiveLength );
 
 				if ( is_file( $filePath ) ) {
@@ -67,7 +67,7 @@ class Zip extends Base
 		closedir( $handle );
 	}
 
-	// ZipArchive status as a human readable string
+	// `ZipArchive` status as a human readable string
 	// @REF: http://php.net/manual/en/class.ziparchive.php#108601
 	public static function statusString( $status )
 	{

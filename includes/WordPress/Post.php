@@ -249,22 +249,23 @@ class Post extends Core\Base
 		return add_query_arg( array_merge( [ 'post_parent' => $post->ID ], $extra ), admin_url( 'upload.php' ) );
 	}
 
-	public static function endpointLink( $endpoint, $post, $extra = [], $fallback = FALSE )
+	public static function endpointURL( $endpoint, $post, $data = NULL, $extra = [], $fallback = FALSE )
 	{
 		if ( ! $post = self::get( $post ) )
 			return $fallback;
 
-		if ( ! $permalink = get_permalink( $post ) )
+		if ( ! $link = get_permalink( $post ) )
 			return $fallback;
 
 		if ( $GLOBALS['wp_rewrite']->using_permalinks()
 			&& ! in_array( $post->post_status, [ 'draft', 'pending', 'auto-draft', 'future' ] ) ) {
 
-			$link = Core\URL::trail( $permalink ).$endpoint;
+			$link = Core\URL::trail( $link ).$endpoint.( $data ? ( '/'.$data ) : '' );
+
 			return $extra ? add_query_arg( $extra, $link ) : $link;
 		}
 
-		return add_query_arg( array_merge( $extra, [ $endpoint => '' ] ), $permalink );
+		return add_query_arg( array_merge( $extra, [ $endpoint => $data ?? '' ] ), $link );
 	}
 
 	/**

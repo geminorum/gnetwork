@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-class Module extends Core\Base
+class Module extends WordPress\Module
 {
 	const BASE   = 'gnetwork';
 	const MODULE = FALSE;
@@ -41,8 +41,9 @@ class Module extends Core\Base
 	protected $scripts = [];
 	protected $buttons = [];
 	protected $errors  = [];
+	protected $cache   = [];
 
-	protected $counter = 0;
+	protected $counter = 0; // TODO: migrate to `$this->cache['counter']`
 
 	public function __construct( $base = NULL, $slug = NULL )
 	{
@@ -297,290 +298,15 @@ class Module extends Core\Base
 		return is_multisite() ? $this->network : FALSE;
 	}
 
-	protected function action( $hooks, $args = 1, $priority = 10, $suffix = FALSE, $base = FALSE )
+	// OVERRIDED BY CHILD PLUGINS
+	public static function base()
 	{
-		$hooks = (array) $hooks;
-
-		if ( $method = self::sanitize_hook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
-			foreach ( $hooks as $hook )
-				add_action( ( $base ? $base.'_'.$hook : $hook ), [ $this, $method ], $priority, $args );
-	}
-
-	protected function filter( $hooks, $args = 1, $priority = 10, $suffix = FALSE, $base = FALSE )
-	{
-		$hooks = (array) $hooks;
-
-		if ( $method = self::sanitize_hook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
-			foreach ( $hooks as $hook )
-				add_filter( ( $base ? $base.'_'.$hook : $hook ), [ $this, $method ], $priority, $args );
-	}
-
-	// USAGE: $this->action_module( 'network', 'saved', 5 );
-	protected function action_module( $module, $hook, $args = 1, $priority = 10, $suffix = FALSE )
-	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
-			add_action( $this->hook_base( $module, $hook ), [ $this, $method ], $priority, $args );
-	}
-
-	// USAGE: $this->action_self( 'saved', 5 );
-	protected function action_self( $hook, $args = 1, $priority = 10, $suffix = FALSE )
-	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
-			add_action( $this->hook_base( $this->key, $hook ), [ $this, $method ], $priority, $args );
-	}
-
-	// USAGE: $this->filter_self( 'prepare', 4 );
-	protected function filter_self( $hook, $args = 1, $priority = 10, $suffix = FALSE )
-	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
-			add_filter( $this->hook_base( $this->key, $hook ), [ $this, $method ], $priority, $args );
-	}
-
-	// USAGE: $this->filter_module( 'network', 'prepare', 4 );
-	protected function filter_module( $module, $hook, $args = 1, $priority = 10, $suffix = FALSE )
-	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
-			add_filter( $this->hook_base( $module, $hook ), [ $this, $method ], $priority, $args );
-	}
-
-	// @REF: https://gist.github.com/markjaquith/b752e3aa93d2421285757ada2a4869b1
-	protected function filter_once( $hook, $args = 1, $priority = 10, $suffix = FALSE )
-	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
-			add_filter( $hook, function() use ( $method ) {
-				static $ran = FALSE;
-
-				$params = func_get_args();
-
-				if ( $ran )
-					return $params[0];
-
-				$ran = TRUE;
-
-				return call_user_func_array( [ $this, $method ], $params );
-			}, $priority, $args );
-	}
-
-	// USAGE: $this->filter_true( 'disable_months_dropdown' );
-	protected function filter_true( $hook, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) {
-			return TRUE;
-		}, $priority, 1 );
-	}
-
-	// USAGE: $this->filter_false( 'disable_months_dropdown' );
-	protected function filter_false( $hook, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) {
-			return FALSE;
-		}, $priority, 1 );
-	}
-
-	// USAGE: $this->filter_zero( 'option_blog_public' );
-	protected function filter_zero( $hook, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) {
-			return 0;
-		}, $priority, 1 );
-	}
-
-	// USAGE: $this->filter_empty_string( 'option_blog_public' );
-	protected function filter_empty_string( $hook, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) {
-			return '';
-		}, $priority, 1 );
-	}
-
-	// USAGE: $this->filter_empty_array( 'option_blog_public' );
-	protected function filter_empty_array( $hook, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) {
-			return [];
-		}, $priority, 1 );
-	}
-
-	// USAGE: $this->filter_append( 'body_class', 'foo' );
-	protected function filter_append( $hook, $items, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) use ( $items ) {
-			foreach ( (array) $items as $value )
-				$first[] = $value;
-			return $first;
-		}, $priority, 1 );
-	}
-
-	// USAGE: $this->filter_set( 'shortcode_atts_gallery', [ 'columns' => 4 ] );
-	protected function filter_set( $hook, $items, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) use ( $items ) {
-			foreach ( $items as $key => $value )
-				$first[$key] = $value;
-			return $first;
-		}, $priority, 1 );
-	}
-
-	// USAGE: $this->filter_unset( 'shortcode_atts_gallery', [ 'columns' ] );
-	protected function filter_unset( $hook, $items, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) use ( $items ) {
-			foreach ( (array) $items as $key )
-				unset( $first[$key] );
-			return $first;
-		}, $priority, 1 );
-	}
-
-	// USAGE: $this->filter_string( 'parent_file', 'options-general.php' );
-	protected function filter_string( $hook, $text, $priority = 10 )
-	{
-		add_filter( $hook, static function ( $first ) use ( $text ) {
-			return $text;
-		}, $priority, 1 );
-	}
-
-	protected static function sanitize_hook( $hook )
-	{
-		return Core\Text::sanitizeHook( $hook );
-	}
-
-	protected static function sanitize_base( $base )
-	{
-		return Core\Text::sanitizeBase( $base );
-	}
-
-	protected function dotted()
-	{
-		$suffix = '';
-
-		foreach ( func_get_args() as $arg )
-			if ( $arg )
-				$suffix.= '.'.strtolower( self::sanitize_base( $arg ) );
-
-		return $this->key.$suffix;
-	}
-
-	protected function hook()
-	{
-		$suffix = '';
-
-		foreach ( func_get_args() as $arg )
-			if ( $arg )
-				$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
-
-		return $this->base.'_'.$this->key.$suffix;
-	}
-
-	// NOTE: same as `hook()` without the `$key`
-	protected function hook_base()
-	{
-		$suffix = '';
-
-		foreach ( func_get_args() as $arg )
-			if ( $arg )
-				$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
-
-		return $this->base.$suffix;
-	}
-
-	protected function classs()
-	{
-		$suffix = '';
-
-		foreach ( func_get_args() as $arg )
-			if ( $arg )
-				$suffix.= '-'.strtolower( self::sanitize_base( $arg ) );
-
-		return $this->base.'-'.self::sanitize_base( $this->key ).$suffix;
-	}
-
-	protected function hash()
-	{
-		$text = '';
-
-		foreach ( func_get_args() as $arg )
-			$text.= maybe_serialize( $arg );
-
-		return md5( $this->base.$this->key.$text );
-	}
-
-	protected function hashwithsalt()
-	{
-		$suffix = '';
-
-		foreach ( func_get_args() as $arg )
-			$suffix.= maybe_serialize( $arg );
-
-		return wp_hash( $this->base.$this->key.$suffix );
-	}
-
-	protected function actions()
-	{
-		$args = func_get_args();
-
-		if ( count( $args ) < 1 )
-			return FALSE;
-
-		$args[0] = $this->hook( $args[0] );
-
-		call_user_func_array( 'do_action', $args );
-
-		return has_action( $args[0] );
-	}
-
-	protected function filters()
-	{
-		$args = func_get_args();
-
-		if ( count( $args ) < 2 )
-			return FALSE;
-
-		$args[0] = $this->hook( $args[0] );
-
-		return call_user_func_array( 'apply_filters', $args );
-	}
-
-	// `has_filter()` / `has_action()`
-	protected function hooked( $hook, $suffix = FALSE, $function_to_check = FALSE )
-	{
-		if ( $tag = $this->hook( $hook, $suffix ) )
-			return has_filter( $tag, $function_to_check );
-
-		return FALSE;
-	}
-
-	// USAGE: add_filter( 'body_class', self::_array_append( 'foo' ) );
-	protected static function _array_append( $item )
-	{
-		return function ( $array ) use ( $item ) {
-			$array[] = $item;
-			return $array;
-		};
-	}
-
-	// USAGE: add_filter( 'shortcode_atts_gallery', self::_array_set( 'columns', 4 ) );
-	protected static function _array_set( $key, $value )
-	{
-		return function ( $array ) use ( $key, $value ) {
-			$array[$key] = $value;
-			return $array;
-		};
+		return gNetwork()->base;
 	}
 
 	public function default_options()
 	{
 		return [];
-	}
-
-	protected function options_key()
-	{
-		return $this->base.'_'.$this->key;
-	}
-
-	// OVERRIDED BY CHILD PLUGINS
-	public static function base()
-	{
-		return gNetwork()->base;
 	}
 
 	protected function init_options( $sanitize = TRUE, $site_id = NULL, $network_id = NULL )
@@ -623,7 +349,7 @@ class Module extends Core\Base
 		return $options;
 	}
 
-	// used for non-existant options
+	// used for non-existent options
 	public function get_option( $name, $default = FALSE )
 	{
 		return array_key_exists( $name, $this->options ) ? $this->options[$name] : $default;
@@ -889,28 +615,6 @@ class Module extends Core\Base
 		Core\HTML::inputHidden( 'action', $action );
 
 		wp_nonce_field( $this->hook_base( $sub.'-'.$context ) ); // @SEE: `$this->check_referer()`
-	}
-
-	protected function nonce_field( $context = 'settings', $key = NULL, $name = NULL )
-	{
-		if ( is_null( $key ) )
-			$key = $this->key;
-
-		if ( is_null( $name ) )
-			$name = '_'.$this->base.'-'.$key.'-'.$context; // OLD: '_wpnonce'
-
-		return wp_nonce_field( $this->base.'-'.$key.'-'.$context, $name, FALSE, TRUE );
-	}
-
-	protected function nonce_check( $context = 'settings', $key = NULL, $name = NULL )
-	{
-		if ( is_null( $key ) )
-			$key = $this->key;
-
-		if ( is_null( $name ) )
-			$name = '_'.$this->base.'-'.$key.'-'.$context; // OLD: '_wpnonce'
-
-		return check_admin_referer( $this->base.'-'.$key.'-'.$context, $name );
 	}
 
 	protected function settings_update( $sub )
@@ -1346,129 +1050,6 @@ class Module extends Core\Base
 			], $args['title'] );
 
 		return $args['title'];
-	}
-
-	protected function is_request_action( $action, $extra = NULL, $default = FALSE )
-	{
-		$key = $this->hook_base( 'action' );
-
-		if ( empty( $_REQUEST[$key] ) || $_REQUEST[$key] != $action )
-			return $default;
-
-		else if ( is_null( $extra ) )
-			return $_REQUEST[$key] == $action;
-
-		else if ( ! empty( $_REQUEST[$extra] ) )
-			return trim( $_REQUEST[$extra] );
-
-		else
-			return $default;
-	}
-
-	protected function remove_request_action( $extra = [], $url = NULL )
-	{
-		if ( is_null( $url ) )
-			$url = Core\URL::current();
-
-		if ( is_array( $extra ) )
-			$remove = $extra;
-		else
-			$remove[] = $extra;
-
-		$remove[] = $this->hook_base( 'action' );
-
-		return remove_query_arg( $remove, $url );
-	}
-
-	protected function _hook_ajax( $auth = TRUE, $hook = NULL, $method = 'ajax' )
-	{
-		if ( is_null( $hook ) )
-			$hook = $this->hook();
-
-		if ( is_null( $auth ) || TRUE === $auth )
-			add_action( 'wp_ajax_'.$hook, [ $this, $method ] );
-
-		if ( is_null( $auth ) || FALSE === $auth )
-			add_action( 'wp_ajax_nopriv_'.$hook, [ $this, $method ] );
-	}
-
-	// DEFAULT FILTER
-	public function ajax()
-	{
-		Ajax::errorWhat();
-	}
-
-	protected function _hook_post( $auth = TRUE, $hook = NULL, $method = 'post' )
-	{
-		if ( ! is_admin() )
-			return;
-
-		if ( is_null( $hook ) )
-			$hook = $this->hook();
-
-		if ( is_null( $auth ) || TRUE === $auth )
-			add_action( 'admin_post_'.$hook, [ $this, $method ] );
-
-		if ( is_null( $auth ) || FALSE === $auth )
-			add_action( 'admin_post_nopriv_'.$hook, [ $this, $method ] );
-	}
-
-	// DEFAULT FILTER
-	public function post()
-	{
-		wp_die();
-	}
-
-	// TODO: un-schedule on de-activation
-	protected function _hook_event( $name, $recurrence = 'monthly' )
-	{
-		$hook = $this->hook( $name );
-
-		if ( ! wp_next_scheduled( $hook ) )
-			return wp_schedule_event( time(), $recurrence, $hook );
-
-		return TRUE;
-	}
-
-	protected function wrap( $html, $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
-	{
-		if ( empty( $html ) )
-			return '';
-
-		return $block
-			? '<div class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
-				.( $id ? ' id="'.$id.'"' : '' )
-				.( $hide ? ' style="display:none"' : '' )
-				.'>'.$html.'</div>'
-
-			: '<span class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
-				.( $id ? ' id="'.$id.'"' : '' )
-				.( $hide ? ' style="display:none"' : '' )
-				.'>'.$html.'</span>';
-	}
-
-	protected function wrap_open( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
-	{
-		return $block
-			? '<div class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
-				.( $id ? ' id="'.$id.'"' : '' )
-				.( $hide ? ' style="display:none"' : '' ).'>'
-
-			: '<span class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
-				.( $id ? ' id="'.$id.'"' : '' )
-				.( $hide ? ' style="display:none"' : '' ).'>';
-	}
-
-	protected function wrap_open_buttons( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
-	{
-		return $block
-			? '<p class="'.Core\HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
-				.( $id ? ' id="'.$id.'"' : '' )
-				.( $hide ? ' style="display:none"' : '' ).'>'
-
-			: '<span class="'.Core\HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
-				.( $id ? ' id="'.$id.'"' : '' )
-				.( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
 	// Checks to bail early if meta-box/widget is hidden
