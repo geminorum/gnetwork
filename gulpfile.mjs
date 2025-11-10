@@ -92,7 +92,7 @@ function githubCommand (command, callback) {
   });
 }
 
-// JSON.stringify does not support unicode escaping
+// JSON.stringify does not support Unicode escaping
 // @REF: https://stackoverflow.com/a/4901205
 function stringifyJSON (json, emitUnicode) {
   const string = JSON.stringify(json);
@@ -103,25 +103,25 @@ function stringifyJSON (json, emitUnicode) {
     });
 }
 
-// clears the destination directory
+// Clears the destination directory
 task('i18n:core:clean', function (done) {
   fs.emptyDirSync(conf.i18n.core.dist);
   done();
 });
 
-// clears original wp-cli generated jsons
+// Clears original `wp-cli` generated JSON
 task('i18n:core:done', function (done) {
-  // fs.emptyDirSync(conf.i18n.core.temp); // WORKING BUT DISABLED
+  fs.emptyDirSync(conf.i18n.core.temp);
   done();
 });
 
-// makes a copy of original .po file for make-json and purged by wp-cli
+// Makes a copy of original .po file for `make-json` and purged by `wp-cli`
 task('i18n:core:copy', function (done) {
   fs.copySync(conf.i18n.core.raw, conf.i18n.core.dist);
   done();
 });
 
-// dispatches the wp-cli to make-json and purge the .po files
+// Dispatches the `wp-cli` to `make-json` and purge the `.po` files
 task('i18n:core:make', function (cb) {
   i18nCommand('make-json ' +
     conf.i18n.core.dist + ' ' +
@@ -133,7 +133,16 @@ task('i18n:core:make', function (cb) {
   cb);
 });
 
-// combines jsons with same name (generated incorrectly by wp-cli)
+// Dispatches the `wp-cli` to make-php
+task('i18n:core:php', function (cb) {
+  i18nCommand('make-php ' +
+    conf.i18n.core.dist + ' ' +
+    '--skip-plugins --skip-themes --skip-packages' +
+    (debug ? ' --debug' : ''),
+  cb);
+});
+
+// Combines JSON files with same name (generated incorrectly by `wp-cli`)
 task('i18n:core:json', function () {
   return src(conf.i18n.core.temp + '/*.json')
     .pipe(rename(function (file) {
@@ -156,11 +165,12 @@ task('i18n:core:json', function () {
     .pipe(dest(conf.i18n.core.dist));
 });
 
-// the parent task for json support of the core translations
+// The parent task for JSON support of the core translations
 task('i18n:core', series(
   'i18n:core:clean',
   'i18n:core:copy',
   'i18n:core:make',
+  'i18n:core:php',
   'i18n:core:json',
   'i18n:core:done'
 ));
