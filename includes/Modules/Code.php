@@ -17,7 +17,7 @@ class Code extends gNetwork\Module
 	{
 		$this->action( 'init', 0, 12 );
 
-		add_filter( $this->hook( 'markdown_to_html' ), [ $this, 'markdown_to_html' ] );
+		add_filter( $this->hook( 'markdown_to_html' ), [ $this, 'markdown_to_html' ], 10, 3 );
 	}
 
 	public function setup_menu( $context )
@@ -53,9 +53,9 @@ class Code extends gNetwork\Module
 		$this->register_shortcodes();
 	}
 
-	public function markdown_to_html( $raw )
+	public function markdown_to_html( $raw, $autop = TRUE, $strip_frontmatter = TRUE )
 	{
-		return empty( $raw ) ? $raw : Utilities::mdExtra( $raw );
+		return Utilities::mdExtra( Core\Text::trim( $raw ), $autop, $strip_frontmatter );
 	}
 
 	protected function get_shortcodes()

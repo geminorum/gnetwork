@@ -349,7 +349,7 @@ class Utilities extends Core\Base
 		if ( $shortcode )
 			$text = apply_shortcodes( $text, TRUE );
 
-		$text = apply_filters( 'geditorial_markdown_to_html', $text );
+		$text = apply_filters( 'geditorial_markdown_to_html', $text, $autop );
 		$text = apply_filters( 'html_format_i18n', $text );
 		$text = apply_filters( 'gnetwork_typography', $text );
 
@@ -493,7 +493,7 @@ class Utilities extends Core\Base
 		return str_replace( $matches['frontMatterWithDelimiters'], '', $text );
 	}
 
-	public static function mdExtra( $markdown, $strip_frontmatter = TRUE )
+	public static function mdExtra( $markdown, $autop = TRUE, $strip_frontmatter = TRUE )
 	{
 		global $gNetworkParsedownExtra;
 
@@ -501,12 +501,20 @@ class Utilities extends Core\Base
 			return $strip_frontmatter ? self::stripFrontMatter( $markdown ) : $markdown;
 
 		if ( empty( $gNetworkParsedownExtra ) )
+			/**
+			 * @package `erusev/parsedown-extra`
+			 * @source https://github.com/erusev/parsedown-extra
+			 * @docs https://parsedown.org/extra/
+			 */
 			$gNetworkParsedownExtra = new \ParsedownExtra();
 
 		if ( $strip_frontmatter )
 			$markdown = self::stripFrontMatter( $markdown );
 
-		return $gNetworkParsedownExtra->text( $markdown );
+		return $autop
+			? $gNetworkParsedownExtra->text( $markdown )
+			// @REF: https://github.com/erusev/parsedown/issues/43#issuecomment-40753665
+			: $gNetworkParsedownExtra->line( $markdown );
 	}
 
 	// @SEE: https://core.trac.wordpress.org/ticket/24661
