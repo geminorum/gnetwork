@@ -225,6 +225,9 @@ class Maintenance extends gNetwork\Module
 
 	public function template_redirect()
 	{
+		if ( is_robots() || is_favicon() )
+			return;
+
 		$this->render_maintenance_layout();
 		die();
 	}

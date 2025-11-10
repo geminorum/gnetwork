@@ -1202,6 +1202,8 @@ class Media extends gNetwork\Module
 
 	// ADOPTED FROM: Filename Normalizer v1.0.1 by required
 	// @SOURCE: https://github.com/wearerequired/filename-normalizer
+	// NOTE: @since WP 6.1 this is no longer required.
+	// @SEE: https://core.trac.wordpress.org/changeset/53754
 	public function wp_handle_upload_prefilter( $file )
 	{
 		if ( ! normalizer_is_normalized( $file['name'] ) )

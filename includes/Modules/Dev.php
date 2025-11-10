@@ -71,14 +71,14 @@ class Dev extends gNetwork\Module
 			curl_setopt( $handle, CURLOPT_CAINFO, $cert );
 	}
 
-	// blocks oEmbeds from displaying
+	// blocks `oEmbeds` from displaying
 	public function embed_oembed_html( $html, $url, $attr, $post_ID )
 	{
 		return '<div class="gnetwork-wrap -dev -placeholder"><p>oEmbed blocked for <code>'.esc_url( $url ).'</code></p></div>';
 	}
 
-	// replace all instances of gravatar with a local image file to remove the call to remote service.
-	// it's faster than airplane-mode
+	// Replace all instances of Gravatar with a local image file to remove the call to remote service.
+	// It's faster than airplane-mode
 	public function pre_get_avatar( $null, $id_or_email, $args )
 	{
 		return Core\HTML::tag( 'img', [
@@ -176,7 +176,7 @@ class Dev extends gNetwork\Module
 		// Utilities::renderMustache( 'posttype-post', self::generateCustomTax_Post() );
 		// Utilities::renderMustache( 'posttype-page', self::generateCustomTax_Post() );
 		// Utilities::renderMustache( 'taxonomy-tag', self::generateCustomTax_Tag() );
-		Utilities::renderMustache( 'taxonomy-cat', self::generateCustomTax_Cat() );
+		// Utilities::renderMustache( 'taxonomy-cat', self::generateCustomTax_Cat() );
 	}
 
 	public static function generateDropinFile()

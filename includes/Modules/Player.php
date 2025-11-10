@@ -10,6 +10,9 @@ use geminorum\gNetwork\WordPress;
 class Player extends gNetwork\Module
 {
 
+	// TODO: Move to Editorial Service/Attachments/Short-Codes
+	// TODO: add player toolbar based on audio/media meta info: duration/created-time/download
+
 	protected $key     = 'player';
 	protected $network = FALSE;
 

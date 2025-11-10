@@ -367,6 +367,9 @@ class Restricted extends gNetwork\Module
 
 	public function template_redirect()
 	{
+		if ( is_robots() || is_favicon() )
+			return;
+
 		if ( is_feed() || 'json' === get_query_var( 'feed' ) ) {
 
 			if ( $this->is_restricted_feed( trim( self::req( 'feedkey' ) ) ) ) {
