@@ -67,6 +67,11 @@
         }
       }
     }
+
+    // span.-nav-link-title {} // TODO: must hide on small screen if next to an icon!
+    span.-nav-link-icon {
+      margin-left: -5px;
+    }
   }
 
   .base-table-wrap {

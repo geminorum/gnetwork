@@ -294,13 +294,6 @@ table.base-table-list {
 
     &.-has-table {
       padding: 4px 5px;
-    }
-
-    &.-has-table-ltr {
-      table {
-        /*rtl:ignore*/
-        direction: ltr;
-      }
 
       td {
         font-size: smaller;
@@ -310,6 +303,20 @@ table.base-table-list {
 
       code {
         font-size: smaller;
+      }
+    }
+
+    &.-has-table-auto {
+      table,
+      code {
+        direction: inherit;
+      }
+    }
+
+    &.-has-table-ltr {
+      table {
+        /*rtl:ignore*/
+        direction: ltr;
       }
     }
   }

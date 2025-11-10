@@ -40,21 +40,44 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-.form-field {
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="number"],
-  input[type="search"],
-  input[type="tel"],
-  input[type="url"],
-  p,
-  select,
-  textarea {
-    width: 99.5%;
-    max-width: unset;
+// .form-field {
+//   input[type="text"],
+//   input[type="password"],
+//   input[type="email"],
+//   input[type="number"],
+//   input[type="search"],
+//   input[type="tel"],
+//   input[type="url"],
+//   // p,
+//   // select,
+//   textarea {
+//     width: 99.5%;
+//     max-width: unset;
+//   }
+// }
+
+.form-wrap {
+  .form-field {
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="number"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="url"],
+    textarea {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: unset;
+    }
   }
 }
+
+// .form-table {
+//   .form-field {
+
+//   }
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
 .wp-tab-panel {
