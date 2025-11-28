@@ -31,7 +31,7 @@ class Typography extends gNetwork\Module
 
 		if ( $this->options['title_titlecase']
 			|| $this->options['title_wordwrap'] )
-				$this->filter( 'the_title' );
+				$this->filter( 'the_title', 2 );
 
 		if ( $this->options['widget_wordwrap'] )
 			$this->filter( 'widget_title' );
@@ -750,7 +750,7 @@ class Typography extends gNetwork\Module
 		return Core\HTML::tag( $tag, $args, NULL );
 	}
 
-	public function the_title( $title )
+	public function the_title( $title, $post_id )
 	{
 		if ( ! $title )
 			return $title;
@@ -758,10 +758,16 @@ class Typography extends gNetwork\Module
 		if ( $this->options['title_titlecase'] )
 			$title = Core\Text::titleCase( $title );
 
-		if ( $this->options['title_wordwrap'] && ! WordPress\IsIt::rest() )
-			$title = Core\Text::wordWrap( $title );
+		if ( ! $this->options['title_wordwrap'] )
+			return $title;
 
-		return $title;
+		if ( WordPress\IsIt::rest() )
+			return $title;
+
+		if ( function_exists( 'wc_get_product' ) && wc_get_product( $post_id ) )
+			return $title;
+
+		return Core\Text::wordWrap( $title );
 	}
 
 	public function widget_title( $title )
