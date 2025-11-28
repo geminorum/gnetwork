@@ -16,8 +16,6 @@ class Admin extends gNetwork\Module
 	protected $network = FALSE;
 	protected $front   = FALSE;
 
-	private $dark_mode = 0;
-
 	protected function setup_actions()
 	{
 		if ( ! WordPress\Screen::mustRegisterUI() )
@@ -39,7 +37,6 @@ class Admin extends gNetwork\Module
 				$this->filter_false( 'show_network_active_plugins' );
 		}
 
-		$this->action( 'doing_dark_mode' );
 		$this->action( 'admin_print_styles', 0, 999 );
 		$this->filter( 'admin_footer_text', 1, 9999 );
 		$this->filter( 'update_footer', 1, 9999 );
@@ -510,15 +507,6 @@ class Admin extends gNetwork\Module
 			get_current_screen()->remove_help_tabs();
 	}
 
-	// @REF: https://github.com/danieltj27/Dark-Mode/wiki/Help:-Plugin-Compatibility-Guide
-	public function doing_dark_mode( $user_id )
-	{
-		$this->dark_mode = $user_id;
-
-		// @REF: https://github.com/johnbillion/query-monitor/issues/366
-		self::define( 'QM_DARK_MODE', TRUE );
-	}
-
 	public function admin_print_styles()
 	{
 		if ( WordPress\IsIt::iFrame() )
@@ -528,10 +516,6 @@ class Admin extends gNetwork\Module
 
 		if ( is_rtl() )
 			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.rtl.css', GNETWORK_VERSION );
-
-		if ( $this->dark_mode )
-			// @SEE: https://github.com/WordPress/gutenberg/pull/28233
-			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.darkmode.css', GNETWORK_VERSION );
 
 		Utilities::customStyleSheet( 'admin.css' );
 
