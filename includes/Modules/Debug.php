@@ -364,7 +364,7 @@ class Debug extends gNetwork\Module
 
 	public static function customSummary()
 	{
-		if ( file_exists( WP_CONTENT_DIR.'/gnetwork-custom.php' ) )
+		if ( Core\File::exists( 'gnetwork-custom.php', WP_CONTENT_DIR ) )
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.Core\HTML::escapeTextarea( Core\File::getContents( WP_CONTENT_DIR.'/gnetwork-custom.php' ) ).'</code></pre>';
 		else
@@ -373,7 +373,7 @@ class Debug extends gNetwork\Module
 
 	public static function bpCustomSummary()
 	{
-		if ( file_exists( WP_PLUGIN_DIR.'/bp-custom.php' ) )
+		if ( Core\File::exists( 'bp-custom.php', WP_PLUGIN_DIR ) )
 			echo '<pre data-prism="yes" class="language-php line-numbers" dir="ltr"><code class="language-php">'
 				.Core\HTML::escapeTextarea( Core\File::getContents( WP_PLUGIN_DIR.'/bp-custom.php' ) ).'</code></pre>';
 		else
@@ -705,13 +705,19 @@ class Debug extends gNetwork\Module
 		echo '<div class="-wrap card -floated -currents" dir="ltr">';
 		Core\HTML::h2( _x( 'System Versions', 'Modules: Debug', 'gnetwork' ) );
 
-		/* translators: `%s`: db version */
-		Core\HTML::desc( sprintf( _x( 'Current Database version: %s', 'Modules: Debug', 'gnetwork' ), Core\HTML::tag( 'code', $GLOBALS['wpdb']->db_version() ) ) );
+		Core\HTML::desc( sprintf(
+			/* translators: `%s`: database version */
+			_x( 'Current Database version: %s', 'Modules: Debug', 'gnetwork' ),
+			Core\HTML::code( $GLOBALS['wpdb']->db_version() )
+		) );
 
 		echo '<hr />';
 
-		/* translators: `%s`: PHP version */
-		Core\HTML::desc( sprintf( _x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ), Core\HTML::tag( 'code', PHP_VERSION ) ) );
+		Core\HTML::desc( sprintf(
+			/* translators: `%s`: PHP version */
+			_x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ),
+			Core\HTML::code( PHP_VERSION )
+		) );
 
 		echo Core\HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',
@@ -759,12 +765,18 @@ class Debug extends gNetwork\Module
 	public static function functionExists( $func )
 	{
 		if ( function_exists( $func ) )
-			/* translators: %s: function placeholder */
-			Core\HTML::desc( sprintf( _x( '%s available!', 'Modules: Debug', 'gnetwork' ), Core\HTML::code( $func ) ), TRUE, '-available -color-success' );
+			/* translators: `%s`: function placeholder */
+			Core\HTML::desc( sprintf(
+				_x( '%s available!', 'Modules: Debug', 'gnetwork' ),
+				Core\HTML::code( $func )
+			), TRUE, '-available -color-success' );
 
 		else
-			/* translators: %s: function placeholder */
-			Core\HTML::desc( sprintf( _x( '%s not available!', 'Modules: Debug', 'gnetwork' ), Core\HTML::code( $func ) ), TRUE, '-not-available -color-danger' );
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: function placeholder */
+				_x( '%s not available!', 'Modules: Debug', 'gnetwork' ),
+				Core\HTML::code( $func )
+			), TRUE, '-not-available -color-danger' );
 	}
 
 	public static function getPHPExtensions()
@@ -941,29 +953,43 @@ class Debug extends gNetwork\Module
 
 	public function dashboard_pointers( $items )
 	{
-		$logs = [
-			/* translators: %s: log file size */
-			'errorlogs'    => [ GNETWORK_DEBUG_LOG, _x( '%s in Error Logs', 'Modules: Debug', 'gnetwork' ) ],
-			/* translators: %s: log file size */
-			'analoglogs'   => [ GNETWORK_ANALOG_LOG, _x( '%s in System Logs', 'Modules: Debug', 'gnetwork' ) ],
-			/* translators: %s: log file size */
-			'failedlogs'   => [ GNETWORK_FAILED_LOG, _x( '%s in Failed Logs', 'Modules: Debug', 'gnetwork' ) ],
-			/* translators: %s: log file size */
-			'notfoundlogs' => [ GNETWORK_NOTFOUND_LOG, _x( '%s in Not-Found Logs', 'Modules: Debug', 'gnetwork' ) ],
-			/* translators: %s: log file size */
-			'searchlogs'   => [ GNETWORK_SEARCH_LOG, _x( '%s in Search Logs', 'Modules: Debug', 'gnetwork' ) ],
+		$quota = 2 * MB_IN_BYTES;  // TODO: customize this
+		$logs  = [
+			'errorlogs' => [
+				GNETWORK_DEBUG_LOG,
+				/* translators: `%s`: log file size */
+				_x( '%s in Error Logs', 'Modules: Debug', 'gnetwork' ),
+			],
+			'analoglogs' => [
+				GNETWORK_ANALOG_LOG,
+				/* translators: `%s`: log file size */
+				_x( '%s in System Logs', 'Modules: Debug', 'gnetwork' ),
+			],
+			'failedlogs' => [
+				GNETWORK_FAILED_LOG,
+				/* translators: `%s`: log file size */
+				_x( '%s in Failed Logs', 'Modules: Debug', 'gnetwork' ),
+			],
+			'notfoundlogs' => [
+				GNETWORK_NOTFOUND_LOG,
+				/* translators: `%s`: log file size */
+				_x( '%s in Not-Found Logs', 'Modules: Debug', 'gnetwork' ),
+			],
+			'searchlogs'   => [
+				GNETWORK_SEARCH_LOG,
+				/* translators: `%s`: log file size */
+				_x( '%s in Search Logs', 'Modules: Debug', 'gnetwork' ),
+			],
 		];
 
 		if ( defined( 'WC_LOG_DIR' ) )
 			$logs['wc-logs'] = [
 				WC_LOG_DIR,
-				/* translators: %s: log file size */
+				/* translators: `%s`: log file size */
 				_x( '%s in WooCommerce Logs', 'Modules: Debug', 'gnetwork' ),
 				add_query_arg( [ 'page' => 'wc-settings' ], admin_url( 'admin.php' ) ),
-				TRUE, // is it folder?
+				TRUE, // Is it folder?
 			];
-
-		$quota = 2 * MB_IN_BYTES; // TODO: customize this
 
 		foreach ( $logs as $sub => $log ) {
 

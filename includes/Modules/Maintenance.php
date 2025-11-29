@@ -110,7 +110,7 @@ class Maintenance extends gNetwork\Module
 				Settings::submitButton( 'store_maintenance_php', sprintf(
 					/* translators: `%s`: `maintenance.php` placeholder */
 					_x( 'Store as %s', 'Modules: Maintenance', 'gnetwork' ),
-					'maintenance.php'
+					Core\HTML::code( 'maintenance.php' )
 				), 'small', [
 					'title' => _x( 'Tries to store available layout as WordPress core maintenance template.', 'Modules: Maintenance', 'gnetwork' ),
 				] );
@@ -123,7 +123,11 @@ class Maintenance extends gNetwork\Module
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: maintenance page path */
 				_x( 'Current Layout: %s', 'Modules: Maintenance: Settings', 'gnetwork' ),
-				Core\HTML::tag( 'code', Core\HTML::link( Core\File::normalize( $layout ), Core\URL::fromPath( $layout ), TRUE ) )
+				Core\HTML::code( Core\HTML::link(
+					Core\File::normalize( $layout ),
+					Core\URL::fromPath( $layout ),
+					TRUE
+				) )
 			) );
 
 		} else {

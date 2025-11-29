@@ -113,12 +113,12 @@ class Search extends gNetwork\Module
 						'-' => sprintf(
 							/* translators: `%s`: prefix char */
 							_x( '%s Hyphen &ndash; Default WordPress character to exclude terms.', 'Modules: Search: Settings', 'gnetwork' ),
-							Core\HTML::tag( 'code', '-' )
+							Core\HTML::code( '-' )
 						),
 						'!' => sprintf(
 							/* translators: `%s`: prefix char */
 							_x( '%s Exclamation Mark &ndash; Using exclamation as exclude prfix.', 'Modules: Search: Settings', 'gnetwork' ),
-							Core\HTML::tag( 'code', '!' )
+							Core\HTML::code( '!' )
 						),
 						'0' => _x( 'Disable Exclusion &ndash; Ignores exclude prefixes all together.', 'Modules: Search: Settings', 'gnetwork' ),
 					],
@@ -145,7 +145,11 @@ class Search extends gNetwork\Module
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: search page path */
 			_x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork' ),
-			Core\HTML::tag( 'code', Core\HTML::link( Core\URL::relative( $page ), $page, TRUE ) )
+			Core\HTML::code( Core\HTML::link(
+				Core\URL::relative( $page ),
+				$page,
+				TRUE
+			) )
 		) );
 	}
 

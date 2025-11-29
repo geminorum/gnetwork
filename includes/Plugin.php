@@ -28,9 +28,9 @@ class Plugin extends WordPress\Plugin
 			'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE, // autoresize textarea and more...
 			'GNETWORK_REDIRECT_404_URL'      => home_url( '/not-found' ),
 
-			'GNETWORK_CACHE_DIR' => WP_CONTENT_DIR.'/cache', // FALSE to disable
-			'GNETWORK_CACHE_URL' => WP_CONTENT_URL.'/cache',
-			'GNETWORK_CACHE_TTL' => 60 * 60 * 12, // 12 hours
+			'GNETWORK_CACHE_DIR' => sprintf( '%s/cache', WP_CONTENT_DIR ),   // FALSE to disable
+			'GNETWORK_CACHE_URL' => sprintf( '%s/cache', WP_CONTENT_URL ),
+			'GNETWORK_CACHE_TTL' => 60 * 60 * 12,                            // 12 hours
 
 			'GNETWORK_NETWORK_NAVIGATION'    => 'network_navigation', // menu on the main site for network navigation
 			'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // menu on the main site for adminbar navigation

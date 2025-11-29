@@ -284,7 +284,7 @@ class Settings extends Core\Base
 	{
 		$logo = gNetwork()->option( 'network_sitelogo', 'branding' );
 
-		if ( ! $logo && file_exists( WP_CONTENT_DIR.'/'.$filename ) )
+		if ( ! $logo && Core\File::exists( $filename, WP_CONTENT_DIR ) )
 			$logo = WP_CONTENT_URL.'/'.$filename;
 
 		if ( ! $logo )
@@ -344,7 +344,7 @@ class Settings extends Core\Base
 				'tooltip'     => $title,
 				'tooltip-pos' => Core\HTML::rtl() ? 'left' : 'right',
 			],
-		], Core\HTML::tag( 'code', $constant ).' : '.Core\HTML::tag( 'code', constant( $constant ) ) );
+		], Core\HTML::code( $constant ).' : '.Core\HTML::code( constant( $constant ) ) );
 	}
 
 	public static function fieldAfterLink( $link = '', $class = '' )
@@ -655,7 +655,7 @@ class Settings extends Core\Base
 			$value = constant( $args['constant'] );
 
 			$args['disabled'] = TRUE;
-			$args['after'] = Core\HTML::tag( 'code', $args['constant'] );
+			$args['after'] = Core\HTML::code( $args['constant'] );
 		}
 
 		if ( is_null( $args['cap'] ) ) {

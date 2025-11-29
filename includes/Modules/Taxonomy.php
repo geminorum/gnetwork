@@ -1064,7 +1064,7 @@ JS;
 	{
 		echo $this->wrap_open( '-tab-extras-terms-stats card -toolbox-card' );
 			Core\HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
-			Core\HTML::desc( Core\HTML::tag( 'code', wp_count_terms( $taxonomy ) ) );
+			Core\HTML::desc( Core\HTML::code( wp_count_terms( $taxonomy ) ) );
 		echo '</div>';
 	}
 

@@ -19,8 +19,8 @@ class Legal extends gNetwork\Module
 			return;
 
 		if ( $this->options['tos_display'] ) {
-			$this->action( 'before_signup_header' ); // multisite signup
-			$this->action( 'bp_init' ); // buddypress
+			$this->action( 'before_signup_header' );  // Multi-site Sign-up
+			$this->action( 'bp_init' );               // Buddy-Press
 		}
 	}
 
@@ -100,18 +100,25 @@ class Legal extends gNetwork\Module
 	// @SEE: https://wordpress.org/plugins/ads-txt/
 	public function settings_sidebox( $sub, $uri )
 	{
-		if ( file_exists( ABSPATH.'ads.txt' ) ) {
+		if ( Core\File::exists( 'ads.txt' ) ) {
 
 			echo Core\HTML::tag( 'a', [
 				'href'   => home_url( '/ads.txt' ),
 				'class'  => 'button button-secondary button-small',
 				'target' => '_blank',
-			], _x( 'View Ads.txt', 'Modules: Mail', 'gnetwork' ) );
+			], sprintf(
+				/* translators: `%s`: file name for `ads.txt` */
+				_x( 'View ads.txt', 'Modules: Mail', 'gnetwork' ),
+				Core\HTML::code( 'ads.txt' )
+			) );
 
 		} else {
 
-			/* translators: %s: file name for `Ads.txt` */
-			Settings::submitButton( 'insert_default_adstxt', sprintf( _x( 'Insert Default %s', 'Modules: Legal', 'gnetwork' ), 'Ads.txt' ), 'small' );
+			Settings::submitButton( 'insert_default_adstxt', sprintf(
+				/* translators: `%s`: file name for `ads.txt` */
+				_x( 'Insert Default %s', 'Modules: Legal', 'gnetwork' ),
+				Core\HTML::code( 'ads.txt' )
+			), 'small' );
 		}
 	}
 

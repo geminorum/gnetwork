@@ -32,7 +32,7 @@ class Embed extends gNetwork\Module
 		if ( ! $this->options['oembed_discover'] ) {
 			$this->filter_false( 'embed_oembed_discover' );
 
-			// it's only applies to un-trusted and we've disabled them!
+			// Only applies to the untrusted and we've disabled them!
 			remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 			remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
 		}
@@ -184,8 +184,11 @@ class Embed extends gNetwork\Module
 	{
 		Settings::fieldSection(
 			_x( 'Instagram', 'Modules: Embed: Settings', 'gnetwork' ),
-			/* translators: %s: min pixels placeholder */
-			sprintf( _x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', 'gnetwork' ), Core\HTML::tag( 'code', Core\Number::localize( 320 ) ) )
+			sprintf(
+				/* translators: `%s`: minimum pixels placeholder */
+				_x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', 'gnetwork' ),
+				Core\HTML::code( Core\Number::localize( 320 ) )
+			)
 		);
 	}
 
@@ -212,14 +215,24 @@ class Embed extends gNetwork\Module
 			wp_embed_register_handler( 'giphy', '~https?://(?|media\.giphy\.com/media/([^ /]+)/giphy\.gif|i\.giphy\.com/([^ /]+)\.gif|giphy\.com/gifs/(?:.*-)?([^ /]+))~i', [ $this, 'handle_giphy' ] );
 	}
 
-	// fixes oEmbed auto-embedding of single-line URLs
-	// WP's normal autoembed assumes that there's no <p>'s yet because it runs
-	// before wpautop. but, when running Markdown, we have <p>'s already there,
-	// including around our single-line URLs
-	// @SOURCE: https://wordpress.org/plugins/markdown-on-save-improved/
+	/**
+	 * Fixes `oEmbed` auto-embedding of single-line URLs.
+	 * @source https://wordpress.org/plugins/markdown-on-save-improved/
+	 *
+	 * WordPress's normal auto-embed assumes that there's no `<p>` yet because
+	 * it runs before `wpautop()`. But, when running Markdown, we have `<p>`
+	 * already there including around our single-line URLs.
+	 *
+	 * @param string $content
+	 * @return string
+	 */
 	public function the_content( $content )
 	{
-		return preg_replace_callback( '|^\s*<p>(https?://[^\s"]+)</p>\s*$|im', [ $GLOBALS['wp_embed'], 'autoembed_callback' ], $content );
+		return $content ? preg_replace_callback(
+			'|^\s*<p>(https?://[^\s"]+)</p>\s*$|im',
+			[ $GLOBALS['wp_embed'], 'autoembed_callback' ],
+			$content
+		) : $content;
 	}
 
 	public function embed_oembed_html( $html, $url, $attr, $post_ID )

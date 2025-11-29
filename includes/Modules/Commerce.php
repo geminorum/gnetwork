@@ -215,7 +215,7 @@ class Commerce extends gNetwork\Module
 					if ( isset( $column['args']['statuses'][$status] ) )
 						return $column['args']['statuses'][$status];
 
-					return Core\HTML::tag( 'code', $status );
+					return Core\HTML::code( $status );
 				},
 			],
 			'stock' => [

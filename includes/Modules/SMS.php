@@ -206,16 +206,16 @@ class SMS extends gNetwork\Module
 		if ( is_array( $target ) ) {
 
 			foreach ( $target as $item )
-				$html.= Core\HTML::tag( 'code', Core\HTML::tel( $item ) ).$suffix;
+				$html.= Core\HTML::code( Core\HTML::tel( $item ) ).$suffix;
 
 		} else if ( Core\Text::has( $target, ',' ) ) {
 
 			foreach ( explode( ',', $target ) as $item )
-				$html.= Core\HTML::tag( 'code', Core\HTML::tel( $item ) ).$suffix;
+				$html.= Core\HTML::code( Core\HTML::tel( $item ) ).$suffix;
 
 		} else if ( $target ) {
 
-			$html.= Core\HTML::tag( 'code', Core\HTML::tel( $target ) ).$suffix;
+			$html.= Core\HTML::code( Core\HTML::tel( $target ) ).$suffix;
 		}
 
 		return $html;

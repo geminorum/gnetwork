@@ -463,7 +463,7 @@ class Profile extends gNetwork\Module
 
 		if ( isset( $profileuser->register_ip )
 			&& $profileuser->register_ip )
-				$register_ip = Core\HTML::tag( 'code', gnetwork_ip_lookup( $profileuser->register_ip ) );
+				$register_ip = Core\HTML::code( gnetwork_ip_lookup( $profileuser->register_ip ) );
 		else
 			$register_ip = gNetwork()->na();
 

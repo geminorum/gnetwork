@@ -243,7 +243,7 @@ class Blog extends gNetwork\Module
 				'description' => sprintf(
 					/* translators: `%s`: constant placeholder */
 					_x( 'Time in seconds that WordPress will save the currently editing posts. default is %s seconds.', 'Modules: Blog: Settings', 'gnetwork' ),
-					Core\HTML::tag( 'code', AUTOSAVE_INTERVAL )
+					Core\HTML::code( AUTOSAVE_INTERVAL )
 				),
 				'min_attr'    => '20',
 				'default'     => '120',
@@ -313,7 +313,7 @@ class Blog extends gNetwork\Module
 			'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf(
 				/* translators: `%s`: content width placeholder */
 				_x( 'Current is %s', 'Modules: Blog: Settings', 'gnetwork' ),
-				Core\HTML::tag( 'code', $GLOBALS['content_width'] )
+				Core\HTML::code( $GLOBALS['content_width'] )
 			) ) : FALSE,
 		];
 

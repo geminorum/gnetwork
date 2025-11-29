@@ -452,7 +452,7 @@ class Branding extends gNetwork\Module
 		if ( ! is_null( $logo ) )
 			$html = Core\HTML::img( $logo, '-logo-img', $brand_name );
 
-		else if ( file_exists( WP_CONTENT_DIR.'/'.GNETWORK_LOGO ) )
+		else if ( Core\File::exists( GNETWORK_LOGO, WP_CONTENT_DIR ) )
 			$html = Core\HTML::img( WP_CONTENT_URL.'/'.GNETWORK_LOGO, '-logo-img', $brand_name );
 
 		else if ( $fallback )

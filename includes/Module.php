@@ -1105,7 +1105,7 @@ class Module extends WordPress\Module
 				return FALSE;
 
 		$screen = get_current_screen();
-		$hook   = self::sanitize_hook( $name );
+		$hook   = Core\Text::sanitizeHook( $name );
 		$id     = $this->classs( $name );
 		$title  = $this->filters( 'dashboard_widget_title', $title, $name, $option_key );
 		$args   = array_merge( [
@@ -1249,7 +1249,7 @@ class Module extends WordPress\Module
 		// if ( ! defined( 'GNETWORK_DISABLE_BLOCK_STYLES' ) || ! GNETWORK_DISABLE_BLOCK_STYLES )
 		// 	$args['style'] = Scripts::registerBlockStyle( $name );
 
-		$callback = self::sanitize_hook( 'block_'.$name.'_render_callback' );
+		$callback = Core\Text::sanitizeHook( 'block_'.$name.'_render_callback' );
 
 		if ( method_exists( $this, $callback ) )
 			$args['render_callback'] = [ $this, $callback ];

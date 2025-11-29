@@ -667,12 +667,18 @@ class Utilities extends Core\Base
 
 			} else {
 
-				/* translators: `%s`: log folder path */
-				Core\HTML::desc( sprintf( _x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ), Core\HTML::tag( 'code', $constant ) ) );
+				Core\HTML::desc( sprintf(
+					/* translators: `%s`: log folder path */
+					_x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ),
+					Core\HTML::code( $constant )
+				) );
 
-				if ( ! file_exists( $constant.'/.htaccess' ) )
-					/* translators: `%s`: `.htaccess` */
-					Core\HTML::desc( sprintf( _x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ), '<code>.htaccess</code>' ) );
+				if ( ! Core\File::exists( '.htaccess', $constant ) )
+					Core\HTML::desc( sprintf(
+						/* translators: `%s`: `.htaccess` */
+						_x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ),
+						Core\HTML::code( '.htaccess' )
+					) );
 			}
 
 		} else {

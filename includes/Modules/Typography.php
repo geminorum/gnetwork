@@ -270,10 +270,10 @@ class Typography extends gNetwork\Module
 				// 'class'    => '-ltr',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					// TODO: must warn for customized slugs
-					// TODO: title attr for more info
-					return Core\HTML::tag( 'code', urldecode( $row->post_name ) )
-						.'<br />'.Core\HTML::tag( 'code', urldecode( Core\Text::formatSlug( $row->post_title ) ) );
-						// .'<br />'.Core\HTML::tag( 'code', urldecode( sanitize_title( Number::translate( $row->post_title ) ) ) );
+					// TODO: title attribute for more info
+					return Core\HTML::code( urldecode( $row->post_name ) )
+						.'<br />'.Core\HTML::code( urldecode( Core\Text::formatSlug( $row->post_title ) ) );
+						// .'<br />'.Core\HTML::code( urldecode( sanitize_title( Number::translate( $row->post_title ) ) ) );
 				},
 			],
 			'title' => [

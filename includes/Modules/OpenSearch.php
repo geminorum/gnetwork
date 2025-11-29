@@ -142,9 +142,13 @@ class OpenSearch extends gNetwork\Module
 			$manifest = self::getManifestURL();
 
 			Core\HTML::desc( sprintf(
-				/* translators: `%s`: manifest url */
+				/* translators: `%s`: manifest link */
 				_x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-				Core\HTML::tag( 'code', Core\HTML::link( Core\URL::relative( $manifest ), $manifest ) )
+				Core\HTML::code( Core\HTML::link(
+					Core\URL::relative( $manifest ),
+					$manifest,
+					TRUE
+				 ) )
 			) );
 
 		} else {
@@ -335,7 +339,7 @@ class OpenSearch extends gNetwork\Module
 		] )."\n";
 
 		// TODO: use the one from branding module
-		if ( file_exists( ABSPATH.'favicon.ico' ) )
+		if ( Core\File::exists( 'favicon.ico' ) )
 			$xml.= "\t".Core\HTML::tag( 'Image', [
 				'type'   => 'image/x-icon',
 				'width'  => '16',
@@ -343,7 +347,7 @@ class OpenSearch extends gNetwork\Module
 			], get_bloginfo( 'url' ).'/favicon.ico' )."\n";
 
 		// TODO: use the one from branding module
-		if ( file_exists( ABSPATH.'favicon.png' ) )
+		if ( Core\File::exists( 'favicon.png' ) )
 			$xml.= "\t".Core\HTML::tag( 'Image', [
 				'type'   => 'image/png',
 				'width'  => '64',
