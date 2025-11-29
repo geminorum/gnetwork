@@ -740,21 +740,21 @@ class Utilities extends Core\Base
 		if ( ! GNETWORK_CACHE_DIR )
 			return FALSE;
 
-		if ( is_null( $base ) )
-			$base = self::BASE;
+		$base = $base ?? self::BASE;
+		$path = GNETWORK_CACHE_DIR.( $base ? '/'.$base.'/' : '/' ).$sub;
+		$path = Core\File::untrail( Core\File::normalize( $path ) );
 
-		$path = Core\File::normalize( GNETWORK_CACHE_DIR.( $base ? '/'.$base.'/' : '/' ).$sub );
-
-		if ( file_exists( $path ) )
-			return Core\URL::untrail( $path );
+		if ( @file_exists( $path ) )
+			return $path;
 
 		if ( ! wp_mkdir_p( $path ) )
 			return FALSE;
 
 		// FIXME: check if the folder is writable
 		Core\File::putIndexHTML( $path, GNETWORK_DIR.'index.html' );
+		Core\File::putDoNotBackup( $path );
 
-		return Core\URL::untrail( $path );
+		return $path;
 	}
 
 	public static function getCacheURL( $sub, $base = NULL )
@@ -762,8 +762,7 @@ class Utilities extends Core\Base
 		if ( ! GNETWORK_CACHE_DIR ) // correct, we check for path constant
 			return FALSE;
 
-		if ( is_null( $base ) )
-			$base = self::BASE;
+		$base = $base ?? self::BASE;
 
 		return Core\URL::untrail( GNETWORK_CACHE_URL.( $base ? '/'.$base.'/' : '/' ).$sub );
 	}
@@ -779,27 +778,29 @@ class Utilities extends Core\Base
 			case 'phone'  : $prepared = Core\DataCode::prepDataPhone( $data ); break;
 			case 'sms'    : $prepared = Core\DataCode::prepDataSMS( is_array( $data ) ? $data : [ 'mobile' => $data ] ); break;
 			case 'contact': $prepared = Core\DataCode::prepDataContact( is_array( $data ) ? $data : [ 'name' => $data ] ); break;
-			default       : $prepared = trim( $data ); break;
+			default       : $prepared = Core\Text::trim( $data ); break;
 		}
 
 		if ( ! $cache )
-			return Core\Third::getGoogleQRCode( $prepared, [ 'tag' => $tag, 'size' => $size ] );
+			return Core\DataCode::getQRCode( $prepared, [ 'tag' => $tag, 'size' => $size ] );
 
-		$file = sprintf( '%s-%s.png', md5( maybe_serialize( $prepared ) ), $size );
-		$path = self::getCacheDIR( $sub, $base ).'/'.$file;
-		$url  = self::getCacheURL( $sub, $base ).'/'.$file;
+		$file = sprintf( '%s-%s.svg', md5( maybe_serialize( $prepared ) ), $size );
+		$url  = Core\URL::trail( self::getCacheURL( $sub, $base ) ).$file;
+		$path = self::getCacheDIR( $sub, $base );
 
-		if ( file_exists( $path.'/'.$file ) )
-			return $url;
+		if ( ! Core\File::exists( $file, $path ) ) {
 
-		if ( ! Core\DataCode::cacheQRCode( $prepared, $path, $size ) )
-			return $tag ? '' : FALSE;
+			if ( ! Core\DataCode::cacheQRCode( Core\File::join( $path, $file ), $prepared, [ 'size' => $size ] ) )
+				return $tag ? '' : FALSE;
+		}
 
 		return $tag ? Core\HTML::tag( 'img', [
-			'src'    => $url,
-			'width'  => $size,
-			'height' => $size,
-			'alt'    => '', // strip_tags( $data ),
+			'src'      => $url,
+			'width'    => $size,
+			'height'   => $size,
+			'alt'      => '',
+			'decoding' => 'async',
+			'loading'  => 'lazy',
 		] ) : $url;
 	}
 
