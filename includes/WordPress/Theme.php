@@ -53,6 +53,49 @@ class Theme extends Core\Base
 		return get_query_template( $hierarchy, $templates );
 	}
 
+	// NOTE: the exact logic on `template-loader.php`
+	public static function includeTemplate()
+	{
+		$template  = FALSE;
+		$templates = [
+			'is_embed'             => 'get_embed_template',
+			'is_404'               => 'get_404_template',
+			'is_search'            => 'get_search_template',
+			'is_front_page'        => 'get_front_page_template',
+			'is_home'              => 'get_home_template',
+			'is_privacy_policy'    => 'get_privacy_policy_template',
+			'is_post_type_archive' => 'get_post_type_archive_template',
+			'is_tax'               => 'get_taxonomy_template',
+			'is_attachment'        => 'get_attachment_template',
+			'is_single'            => 'get_single_template',
+			'is_page'              => 'get_page_template',
+			'is_singular'          => 'get_singular_template',
+			'is_category'          => 'get_category_template',
+			'is_tag'               => 'get_tag_template',
+			'is_author'            => 'get_author_template',
+			'is_date'              => 'get_date_template',
+			'is_archive'           => 'get_archive_template',
+		];
+
+		// Loop through each of the template conditionals,
+		// and find the appropriate template file.
+		foreach ( $templates as $condition => $callback ) {
+
+			if ( call_user_func( $condition ) )
+				$template = call_user_func( $callback );
+
+			if ( $template ) {
+
+				if ( 'is_attachment' === $condition )
+					remove_filter( 'the_content', 'prepend_attachment' );
+
+				break;
+			}
+		}
+
+		return $template ?: get_index_template();
+	}
+
 	public static function restPost( $data, $setup = FALSE, $network = FALSE )
 	{
 		$dummy = [

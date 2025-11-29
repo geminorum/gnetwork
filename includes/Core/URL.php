@@ -123,16 +123,28 @@ class URL extends Base
 		return $url;
 	}
 
-	// will remove trailing forward and backslashes if it exists already before adding
-	// a trailing forward slash. This prevents double slashing a string or path.
-	// @SOURCE: `trailingslashit()`
+	/**
+	 * Appends a trailing slash.
+	 * @source `trailingslashit()`
+	 *
+	 * Will remove trailing forward and backslashes if it exists already before
+	 * adding a trailing forward slash. This prevents double slashing a string or URL.
+	 *
+	 * @param string $path
+	 * @return string
+	 */
 	public static function trail( $path )
 	{
 		return $path ? ( self::untrail( $path ).'/' ) : $path;
 	}
 
-	// removes trailing forward slashes and backslashes if they exist.
-	// @SOURCE: `untrailingslashit()`
+	/**
+	 * Removes trailing forward slashes and backslashes if they exist.
+	 * @source `untrailingslashit()`
+	 *
+	 * @param string $path
+	 * @return string
+	 */
 	public static function untrail( $path )
 	{
 		return $path ? rtrim( $path, '/\\' ) : $path;
@@ -167,6 +179,15 @@ class URL extends Base
 			File::normalize( $base ),
 			self::trail( get_option( 'siteurl' ) ),
 			File::normalize( $path )
+		);
+	}
+
+	public static function toPath( $url, $base = ABSPATH )
+	{
+		return str_ireplace(
+			self::trail( get_bloginfo( 'url' ) ),
+			File::normalize( $base ),
+			$url
 		);
 	}
 

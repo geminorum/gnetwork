@@ -20,23 +20,13 @@ class Module extends Core\Base
 		return $this->hook();
 	}
 
-	protected static function sanitize_hook( $hook )
-	{
-		return Core\Text::sanitizeHook( $hook );
-	}
-
-	protected static function sanitize_base( $base )
-	{
-		return Core\Text::sanitizeBase( $base );
-	}
-
 	protected function dotted()
 	{
 		$suffix = '';
 
 		foreach ( func_get_args() as $arg )
 			if ( $arg )
-				$suffix.= '.'.strtolower( self::sanitize_base( $arg ) );
+				$suffix.= '.'.strtolower( Core\Text::sanitizeBase( $arg ) );
 
 		return $this->key.$suffix;
 	}
@@ -47,7 +37,7 @@ class Module extends Core\Base
 
 		foreach ( func_get_args() as $arg )
 			if ( $arg )
-				$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
+				$suffix.= '_'.strtolower( Core\Text::sanitizeHook( $arg ) );
 
 		return $this->base.'_'.$this->key.$suffix;
 	}
@@ -59,7 +49,7 @@ class Module extends Core\Base
 
 		foreach ( func_get_args() as $arg )
 			if ( $arg )
-				$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
+				$suffix.= '_'.strtolower( Core\Text::sanitizeHook( $arg ) );
 
 		return $this->base.$suffix;
 	}
@@ -71,7 +61,7 @@ class Module extends Core\Base
 
 		foreach ( func_get_args() as $arg )
 			if ( $arg )
-				$suffix.= '_'.strtolower( self::sanitize_hook( $arg ) );
+				$suffix.= '_'.strtolower( Core\Text::sanitizeHook( $arg ) );
 
 		return $this->key.$suffix;
 	}
@@ -82,9 +72,9 @@ class Module extends Core\Base
 
 		foreach ( func_get_args() as $arg )
 			if ( $arg )
-				$suffix.= '-'.strtolower( self::sanitize_base( $arg ) );
+				$suffix.= '-'.strtolower( Core\Text::sanitizeBase( $arg ) );
 
-		return $this->base.'-'.self::sanitize_base( $this->key ).$suffix;
+		return $this->base.'-'.Core\Text::sanitizeBase( $this->key ).$suffix;
 	}
 
 	// NOTE: same as `classs()` without the `$key`
@@ -94,7 +84,7 @@ class Module extends Core\Base
 
 		foreach ( func_get_args() as $arg )
 			if ( $arg )
-				$suffix.= '-'.strtolower( self::sanitize_base( $arg ) );
+				$suffix.= '-'.strtolower( Core\Text::sanitizeBase( $arg ) );
 
 		return $this->base.$suffix;
 	}
@@ -106,9 +96,9 @@ class Module extends Core\Base
 
 		foreach ( func_get_args() as $arg )
 			if ( $arg )
-				$suffix.= '-'.strtolower( self::sanitize_base( $arg ) );
+				$suffix.= '-'.strtolower( Core\Text::sanitizeBase( $arg ) );
 
-		return self::sanitize_base( $this->key ).$suffix;
+		return Core\Text::sanitizeBase( $this->key ).$suffix;
 	}
 
 	protected function hash()
@@ -140,7 +130,7 @@ class Module extends Core\Base
 	{
 		$hooks = (array) $hooks;
 
-		if ( $method = self::sanitize_hook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
+		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
 			foreach ( $hooks as $hook )
 				add_action( ( $base ? $base.'_'.$hook : $hook ), [ $this, $method ], $priority, $args );
 	}
@@ -149,7 +139,7 @@ class Module extends Core\Base
 	{
 		$hooks = (array) $hooks;
 
-		if ( $method = self::sanitize_hook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
+		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) )
 			foreach ( $hooks as $hook )
 				add_filter( ( $base ? $base.'_'.$hook : $hook ), [ $this, $method ], $priority, $args );
 	}
@@ -168,7 +158,7 @@ class Module extends Core\Base
 	 */
 	protected function action_module( $module, $hook, $args = 1, $priority = 10, $suffix = '' )
 	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
+		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
 			add_action( $this->hook_base( $module, $hook ), [ $this, $method ], $priority, $args );
 	}
 
@@ -186,7 +176,7 @@ class Module extends Core\Base
 	 */
 	protected function filter_module( $module, $hook, $args = 1, $priority = 10, $suffix = '' )
 	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
+		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
 			add_filter( $this->hook_base( $module, $hook ), [ $this, $method ], $priority, $args );
 	}
 
@@ -202,7 +192,7 @@ class Module extends Core\Base
 	 */
 	protected function action_self( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
 			add_action( $this->hook_base( $this->key, $hook ), [ $this, $method ], $priority, $args );
 	}
 
@@ -218,7 +208,7 @@ class Module extends Core\Base
 	 */
 	protected function filter_self( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
 			add_filter( $this->hook_base( $this->key, $hook ), [ $this, $method ], $priority, $args );
 	}
 
@@ -237,7 +227,7 @@ class Module extends Core\Base
 	 */
 	protected function filter_once( $hook, $args = 1, $priority = 10, $suffix = FALSE )
 	{
-		if ( $method = self::sanitize_hook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
 			add_filter( $hook, function () use ( $method ) {
 				static $ran = FALSE;
 

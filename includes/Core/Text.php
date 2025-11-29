@@ -332,6 +332,7 @@ class Text extends Base
 	/**
 	 * Removes empty paragraph tags, and remove broken paragraph tags
 	 * from around block level elements.
+	 * @source https://gist.github.com/wpscholar/8969bb6e1cedb9be92140cc2efa9febb
 	 * @source https://github.com/ninnypants/remove-empty-p
 	 *
 	 * @param string $text
@@ -339,6 +340,15 @@ class Text extends Base
 	 */
 	public static function noEmptyP( $text )
 	{
+		if ( ! $text )
+			return $text;
+
+		$text = strtr( $text, [
+			'<p>['    => '[',
+			']</p>'   => ']',
+			']<br />' => ']',
+		] );
+
 		$text = preg_replace( [
 			'#<p>\s*<(div|aside|section|article|header|footer)#',
 			'#</(div|aside|section|article|header|footer)>\s*</p>#',
@@ -803,17 +813,34 @@ class Text extends Base
 		return self::trim( $buffer );
 	}
 
-	// @REF: http://davidwalsh.name/word-wrap-mootools-php
-	// @REF: https://css-tricks.com/preventing-widows-in-post-titles/
-	public static function wordWrap( $text, $min = 2 )
+	/**
+	 * Prevents widow words in given title string via `NBSP`.
+	 * @source http://davidwalsh.name/word-wrap-mootools-php
+	 * @ref https://css-tricks.com/preventing-widows-in-post-titles/
+	 *
+	 * A widow is a single word or short line that appears at the end of
+	 * a paragraph but gets pushed to the top of the next page or column.
+	 * An orphan is a single word or short line of text at the beginning
+	 * of a page or column, separated from the rest of its paragraph.
+	 * @source https://www.adobe.com/creativecloud/design/discover/typography/widows-and-orphans.html
+	 * @see https://en.wikipedia.org/wiki/Widows_and_orphans
+	 *
+	 * @param string $text
+	 * @param int $minimum
+	 * @return string
+	 */
+	public static function wordWrap( $text, $minimum = 2 )
 	{
+		if ( ! $text )
+			return $text;
+
 		$return = $text;
 
 		if ( strlen( trim( $text ) ) ) {
 
 			$parts = explode( ' ', self::trim( $text ) );
 
-			if ( count( $parts ) >= $min ) {
+			if ( count( $parts ) >= $minimum ) {
 				$parts[count( $parts ) - 2].= '&nbsp;'.$parts[count( $parts ) - 1];
 				array_pop( $parts );
 				$return = implode( ' ', $parts );
@@ -823,9 +850,23 @@ class Text extends Base
 		return $return;
 	}
 
-	// @SOURCE: http://bavotasan.com/2012/trim-characters-using-php/
+	/**
+	 * Trims a string of words to a specified number of characters, gracefully
+	 * stopping at white spaces. Also strips HTML tags, to prevent breaking
+	 * in the middle of a tag.
+	 * @author c.bavota
+	 * @source http://bavotasan.com/2012/trim-characters-using-php/
+	 *
+	 * @param string $text: The string of words to be trimmed.
+	 * @param int $length: Maximum number of characters; defaults to 45.
+	 * @param string $append: String to append to end, when trimmed; defaults to ellipsis.
+	 * @return string: String of words trimmed at specified character length.
+	 */
 	public static function trimChars( $text, $length = 45, $append = '&hellip;' )
 	{
+		if ( ! $text )
+			return $text;
+
 		$length = (int) $length;
 		$text   = self::stripTags( $text );
 
@@ -845,32 +886,47 @@ class Text extends Base
 		return $text;
 	}
 
-	// @REF: https://gist.github.com/wpscholar/20f6b8fcf4326c868ae731e410c38b53
+	/**
+	 * Truncates a string to a certain character length
+	 * and make sure to only break at words.
+	 * @source https://gist.github.com/wpscholar/20f6b8fcf4326c868ae731e410c38b53
+	 *
+	 * @param string $text
+	 * @param int $chars
+	 * @param string $ellipsis
+	 * @return string
+	 */
 	public static function truncate( $text, $chars = 50, $ellipsis = '&hellip;' )
 	{
-		// if shorter than x characters, skip
+		if ( ! $text )
+			return $text;
+
+		// Bail if shorter than given character count.
 		if ( strlen( $text ) <= $chars )
 			return $text;
 
-		$splitted  = str_split( $text, $chars );  // fetch first x number of characters
+		$splitted  = str_split( $text, $chars );  // Fetch first x number of characters
 		$truncated = array_shift( $splitted );
-		$before    = explode( ' ', $text );       // get array of words before truncation
-		$after     = explode( ' ', $truncated );  // get array of words after truncation
-		$key       = Arraay::keyLast( $after );   // get index of last item in array of truncated words
+		$before    = explode( ' ', $text );       // Get array of words before truncation
+		$after     = explode( ' ', $truncated );  // Get array of words after truncation
+		$key       = Arraay::keyLast( $after );   // Get index of last item in array of truncated words
 
-		// if the last word in the array of truncated words has been cut off, drop it from the array
+		// If the last word in the array of truncated words has been cut off, drop it from the array
 		if ( $after[$key] !== $before[$key] )
 			array_pop( $after );
 
-		$new = implode( ' ', $after );     // convert the array of words back into a string
-		$new = rtrim( $new, ',?;:-"\'' );  // remove any trailing punctuaction
+		$new = implode( ' ', $after );     // Convert the array of words back into a string
+		$new = rtrim( $new, ',?;:-"\'' );  // Remove any trailing punctuation
 
-		return $new.$ellipsis; // add ellipsis before returning
+		return $new.$ellipsis; // Add ellipsis before returning
 	}
 
 	// http://stackoverflow.com/a/3161830
 	public static function truncateString( $text, $length = 15, $dots = '&hellip;' )
 	{
+		if ( ! $text )
+			return $text;
+
 		return ( strlen( $text ) > $length )
 			? substr( $text, 0, $length - strlen( $dots ) ).$dots
 			: $text;
@@ -878,7 +934,10 @@ class Text extends Base
 
 	public static function firstSentence( $text )
 	{
-		// looks for three punctuation characters: . (period), ! (exclamation), or ? (question mark), followed by a space
+		if ( ! $text )
+			return $text;
+
+		// Looks for three punctuation characters: . (period), ! (exclamation), or ? (question mark), followed by a space
 		$parts = preg_split( '/(\.|!|\?)\s/', strip_tags( $text ), 2, PREG_SPLIT_DELIM_CAPTURE );
 
 		// [0] is the first sentence and [1] is the punctuation character at the end
@@ -891,13 +950,16 @@ class Text extends Base
 	// @REF: https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a
 	public static function titleCase( $title )
 	{
-		// remove HTML, storing it for later
+		if ( ! $title )
+			return $title;
+
+		// Removes HTML, storing it for later.
 		//          HTML elements to ignore    | tags  | entities
 		$pattern = '/<(code|var)[^>]*>.*?<\/\1>|<[^>]+>|&\S+;/';
 		preg_match_all( $pattern, $title, $matches, PREG_OFFSET_CAPTURE );
 		$title = preg_replace( $pattern, '', $title );
 
-		// find each word (including punctuation attached)
+		// Finds each word including punctuation attached.
 		preg_match_all( '/[\w\p{L}&`\'‘’"“\.@:\/\{\(\[<>_]+\-? */u', $title, $m1, PREG_OFFSET_CAPTURE );
 
 		foreach ( $m1[0] as &$m2 ) {
@@ -905,11 +967,11 @@ class Text extends Base
 			// shorthand these- "match" and "index"
 			list( $m, $i ) = $m2;
 
-			// correct offsets for multi-byte characters (`PREG_OFFSET_CAPTURE` returns *byte*-offset)
+			// Correct offsets for multi-byte characters (`PREG_OFFSET_CAPTURE` returns *byte*-offset)
 			// we fix this by recounting the text before the offset using multi-byte aware `strlen`
 			$i = mb_strlen( substr( $title, 0, $i ), 'UTF-8' );
 
-			// find words that should always be lowercase…
+			// Find words that should always be lowercase…
 			// (never on the first word, and never if preceded by a colon)
 			$m = $i > 0 && mb_substr( $title, max( 0, $i - 2 ), 1, 'UTF-8' ) !== ':' && preg_match(
 				'/^(a(nd?|s|t)?|b(ut|y)|en|for|i[fn]|o[fnr]|t(he|o)|vs?\.?|via)[ \-]/i', $m
@@ -918,7 +980,7 @@ class Text extends Base
 
 			// else: brackets and other wrappers
 			: (	preg_match( '/[\'"_{(\[‘“]/u', mb_substr( $title, max( 0, $i - 1 ), 3, 'UTF-8' ) )
-			?	//convert first letter within wrapper to uppercase
+			?	// Convert first letter within wrapper to uppercase
 				mb_substr( $m, 0, 1, 'UTF-8' ).
 				mb_strtoupper( mb_substr( $m, 1, 1, 'UTF-8' ), 'UTF-8' ).
 				mb_substr( $m, 2, mb_strlen( $m, 'UTF-8' ) - 2, 'UTF-8' )
@@ -927,15 +989,14 @@ class Text extends Base
 			: (	preg_match( '/[\])}]/', mb_substr( $title, max( 0, $i - 1 ), 3, 'UTF-8' ) ) ||
 				preg_match( '/[A-Z]+|&|\w+[._]\w+/u', mb_substr( $m, 1, mb_strlen( $m, 'UTF-8' ) - 1, 'UTF-8' ) )
 			?	$m
-				// if all else fails, then no more fringe-cases; uppercase the word
+				// If all else fails, then no more fringe-cases; uppercase the word
 			:	mb_strtoupper( mb_substr( $m, 0, 1, 'UTF-8' ), 'UTF-8' ).
 				mb_substr( $m, 1, mb_strlen( $m, 'UTF-8' ), 'UTF-8' )
-			));
+			) );
 
-			// resplice the title with the change (`substr_replace` is not multi-byte aware)
+			// Replaces the title with the change (`substr_replace` is not multi-byte aware)
 			$title = mb_substr( $title, 0, $i, 'UTF-8' ).$m.
-					 mb_substr( $title, $i + mb_strlen( $m, 'UTF-8' ), mb_strlen( $title, 'UTF-8' ), 'UTF-8' )
-			;
+					 mb_substr( $title, $i + mb_strlen( $m, 'UTF-8' ), mb_strlen( $title, 'UTF-8' ), 'UTF-8' );
 		}
 
 		// restore the HTML
@@ -946,7 +1007,7 @@ class Text extends Base
 	}
 
 	/**
-	 * Strips punctuation characters from UTF-8 text.
+	 * Strips punctuation characters from `UTF-8` text.
 	 *
 	 * Characters stripped from the text include characters in the following
 	 * Unicode categories:
@@ -964,18 +1025,20 @@ class Text extends Base
 	 * - Other punctuation
 	 *
 	 * Exceptions are made for punctuation characters that occur within URLs
-	 * (such as [ ] : ; @ & ? and others), within numbers (such as `.,%#'`),
+	 * (such as `[ ] : ; @ & ?` and others), within numbers (such as `.,%#'`),
 	 * and within words (such as - and ').
 	 *
-	 * Parameters: text: the UTF-8 text to strip
-	 *
-	 * Return values: the stripped UTF-8 text.
-	 *
-	 * See also: http://nadeausoftware.com/articles/2007/9/php_tip_how_strip_punctuation_characters_web_page
 	 * @author David R. Nadeau, NadeauSoftware.com
+	 * @see http://nadeausoftware.com/articles/2007/9/php_tip_how_strip_punctuation_characters_web_page
+	 *
+	 * @param string $title: the `UTF-8` text to strip
+	 * @return string the stripped `UTF-8` text.
 	 */
 	public static function stripPunctuation( $text )
 	{
+		if ( ! $text )
+			return $text;
+
 		$urlbrackets    = '\[\]\(\)';
 		$urlspacebefore = ':;\'_\*%@&?!' . $urlbrackets;
 		$urlspaceafter  = '\.,:;\'\-_\*@&\/\\\\\?!#' . $urlbrackets;
@@ -1022,7 +1085,7 @@ class Text extends Base
 	}
 
 	/**
-	 * Checks given string for UTF-8 for Well-Formed
+	 * Checks given string for `UTF-8` for Well-Formed
 	 * @source http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#checking_utf-8_for_well_formedness
 	 * @ref http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
 	 * @see `wp_check_invalid_utf8()`
@@ -1050,6 +1113,9 @@ class Text extends Base
 	// specifically deals with: &, <, >, ", and '
 	public static function utf8SpecialChars( $text, $flags = ENT_COMPAT )
 	{
+		if ( ! $text )
+			return $text;
+
 		$text = (string) $text;
 
 		if ( 0 === strlen( $text ) )
@@ -1062,7 +1128,7 @@ class Text extends Base
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.ord.php#109812
-	// As `ord()` doesn't work with utf-8,
+	// As `ord()` doesn't work with `utf-8`,
 	// and if you do not have access to `mb_*` functions
 	public static function utf8Ord( $text, &$offset )
 	{
@@ -1830,5 +1896,46 @@ class Text extends Base
 			} );
 
 		return $chunks;
+	}
+
+	/**
+	 * Prepares data for use as description on `iCal` markup.
+	 * TODO: properly handling entities like `nbsp`
+	 *
+	 * [Interesting](https://stackoverflow.com/a/12187526/4864081)
+	 * I find that Outlook formats my first line bold if it's followed
+	 * 2 newlines (\n), then by at least 3 lines of text, the first of
+	 * which must have a capital letter. Two minimalist examples:
+	 * - this works: `DESCRIPTION:I am bold\n\nThey\nthey\nthey`
+	 * - this doesn't: `DESCRIPTION:I am not bold\n\nthey\nthey\nthey`
+	 *
+	 * @see https://www.kanzaki.com/docs/ical/text.html
+	 *
+	 * @param string $text
+	 * @return string
+	 */
+	public static function prepDescForICAL( $text )
+	{
+		if ( ! $text )
+			return  '';
+
+		$text = self::normalizeWhitespace( $text, TRUE );
+		$text = self::normalizeZWNJ( $text );
+
+		// https://gist.github.com/kenmoini/d170a057e7da1dd3abe9458b332aeb5a#file-ics-php-L136
+		$text = preg_replace( '/([\,;])/', '\\\$1', $text );
+
+		// https://stackoverflow.com/q/6191503
+		// $search = array('\\', ';', ',', "\r\n", "\n", "\r");
+    	// $replace = array('\\\\', '\;', '\,', '\n', '\n', '\n');
+    	// $text = str_replace($search, $replace, $text);
+
+		// // https://stackoverflow.com/a/6192156
+		// // Note the mixture of single and double quotes for the line break (Double quotes interpret the line breaks whereas single ones don't)
+		// $search = array('/',';',',',"\N","\n");
+		// $replace = array('\/','\;','\,','\n','\n');
+		// $text = str_replace($search,$replace,$text);
+
+		return self::trim( $text );
 	}
 }

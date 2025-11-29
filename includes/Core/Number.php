@@ -612,6 +612,7 @@ class Number extends Base
 
 	/**
 	 * Checks if number is repeated, e.g. `5555555555` given length.
+	 * WTF: JS: `/^(\d)\1{9}$/`
 	 *
 	 * @param int $number
 	 * @param int $length

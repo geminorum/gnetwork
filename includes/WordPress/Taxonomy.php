@@ -1006,8 +1006,8 @@ class Taxonomy extends Core\Base
 
 		$where             = 't.slug = %s';
 		$else_where        = 't.name = %s';
-		$where_fields      = array( $slug );
-		$else_where_fields = array( $term );
+		$where_fields      = [ $slug ];
+		$else_where_fields = [ $term ];
 		$orderby           = 'ORDER BY t.term_id ASC';
 		$limit             = 'LIMIT 1';
 

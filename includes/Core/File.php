@@ -14,12 +14,14 @@ class File extends Base
 	 * @param string $base
 	 * @return bool
 	 */
-	public static function exists( $path, $base = ABSPATH )
+	public static function exists( $path, $base = NULL )
 	{
 		if ( empty( $path ) )
 			return FALSE;
 
-		return @file_exists( $base.$path );
+		$base = is_null( $base ) ? ABSPATH : self::trail( $base ?: '' );
+
+		return @file_exists( sprintf( '%s%s', $base, $path ) );
 	}
 
 	/**
@@ -65,6 +67,33 @@ class File extends Base
 	public static function type( $filename, $mimes = NULL )
 	{
 		return wp_check_filetype( $filename, $mimes ?? wp_get_mime_types() );
+	}
+
+	/**
+	 * Appends a trailing slash.
+	 * @source `trailingslashit()`
+	 *
+	 * Will remove trailing forward and backslashes if it exists already before
+	 * adding a trailing forward slash. This prevents double slashing a string or path.
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	public static function trail( $path )
+	{
+		return $path ? ( self::untrail( $path ).\DIRECTORY_SEPARATOR ) : $path;
+	}
+
+	/**
+	 * Removes trailing forward slashes and backslashes if they exist.
+	 * @source `untrailingslashit()`
+	 *
+	 * @param string $path
+	 * @return string
+	 */
+	public static function untrail( $path )
+	{
+		return $path ? rtrim( $path, '/\\' ) : $path;
 	}
 
 	/**
@@ -239,7 +268,7 @@ class File extends Base
 
 		if ( $dir = opendir( $base ) )
 			while ( FALSE !== ( $file = readdir( $dir ) ) )
-				if ( is_dir( $base.'/'.$file ) && $file != '.' && $file != '..' )
+				if ( is_dir( $base.'/'.$file ) && ! in_array(  $file, [ '.', '..' ], TRUE ) )
 					self::putIndexHTML( $base.'/'. $file, $index );
 
 		closedir( $dir );
@@ -255,7 +284,7 @@ class File extends Base
 	 */
 	public static function putDoNotBackup( $path, $check_folder = TRUE, $force_overwrite = FALSE )
 	{
-		if ( ! $force_overwrite && @file_exists( $path.'/.donotbackup' ) )
+		if ( ! $force_overwrite && self::exists( '.donotbackup', $path ) )
 			return TRUE;
 
 		$content = 'This directory (and its sub-directories) will be excluded from the backup.';
@@ -273,7 +302,7 @@ class File extends Base
 	 */
 	public static function putHTAccessDeny( $path, $check_folder = TRUE, $force_overwrite = FALSE )
 	{
-		if ( ! $force_overwrite && @file_exists( $path.'/.htaccess' ) )
+		if ( ! $force_overwrite && self::exists( '.htaccess', $path ) )
 			return TRUE;
 
 		$content = '<Files ~ ".*\..*">'.PHP_EOL.
@@ -544,7 +573,7 @@ class File extends Base
 		rmdir( $dir );
 	}
 
-	protected static function emptyDir( $path, $put_access_deny = FALSE )
+	public static function emptyDir( $path, $put_access_deny = FALSE )
 	{
 		if ( ! $path )
 			return FALSE;

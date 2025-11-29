@@ -159,4 +159,18 @@ class WooCommerce extends Core\Base
 
 		return $product;
 	}
+
+	public static function getDefaultColumns( $fallback = NULL )
+	{
+		return function_exists( 'wc_get_default_products_per_row' )
+			? wc_get_default_products_per_row()
+			: $fallback ?? '4';
+	}
+
+	public static function getDefaultRows( $fallback = NULL )
+	{
+		return function_exists( 'wc_get_default_product_rows_per_page' )
+			? wc_get_default_product_rows_per_page()
+			: $fallback ?? '4';
+	}
 }

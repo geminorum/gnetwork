@@ -158,17 +158,21 @@ class Site extends Core\Base
 
 	// @SOURCE: `wp-load.php`
 	// OLD: `Core\WordPress::getConfigPHP()`
-	public static function getConfigPHP( $path = ABSPATH )
+	public static function getConfigPHP( $base = NULL, $filename = NULL )
 	{
-		// The config file resides in `ABSPATH`
-		if ( file_exists( $path.'wp-config.php' ) )
-			return $path.'wp-config.php';
+		$base     = $base     ?? ABSPATH;
+		$filename = $filename ?? 'wp-config.php';
 
-		// The config file resides one level above `ABSPATH` but is not part of another install
-		$above = dirname( $path );
+		// The config file resides in `ABSPATH`.
+		if ( Core\File::exists( $filename, $base ) )
+			return $base.$filename;
 
-		if ( @file_exists( $above.'/wp-config.php' ) && ! @file_exists( $above.'/wp-settings.php' ) )
-			return $above.'/wp-config.php';
+		// The config file resides one level above `ABSPATH`
+		// but is not part of another install.
+		$above = dirname( $base );
+
+		if ( Core\File::exists( $filename, $above ) && ! Core\File::exists( 'wp-settings.php', $above ) )
+			return Core\File::join( $above, $filename );
 
 		return FALSE;
 	}
@@ -193,21 +197,23 @@ class Site extends Core\Base
 	// OLD: `Core\WordPress::customFile()`
 	public static function customFile( $filename, $path = FALSE )
 	{
-		$stylesheet = get_stylesheet_directory();
+		$stylesheet = Core\File::trail( get_stylesheet_directory() );
 
-		if ( file_exists( $stylesheet.'/'.$filename ) )
-			return $path ? ( $stylesheet().'/'.$filename )
-				: get_stylesheet_directory_uri().'/'.$filename;
+		if ( Core\File::exists( $filename, $stylesheet ) )
+			return $path ? ( $stylesheet.$filename )
+				: ( Core\URL::trail( get_stylesheet_directory_uri() ).$filename );
 
-		$template = get_template_directory();
+		$template = Core\File::trail( get_template_directory() );
 
-		if ( file_exists( $template.'/'.$filename ) )
-			return $path ? ( $template.'/'.$filename )
-				: get_template_directory_uri().'/'.$filename;
+		if ( Core\File::exists( $filename, $template ) )
+			return $path ? ( $template.$filename )
+				: ( Core\URL::trail( get_template_directory_uri() ).$filename );
 
-		if ( file_exists( WP_CONTENT_DIR.'/'.$filename ) )
-			return $path ? ( WP_CONTENT_DIR.'/'.$filename )
-				: ( WP_CONTENT_URL.'/'.$filename );
+		$contents = Core\File::trail( WP_CONTENT_DIR );
+
+		if ( Core\File::exists( $filename, $contents ) )
+			return $path ? ( $contents.$filename )
+				: ( Core\URL::trail( WP_CONTENT_URL ).$filename );
 
 		return FALSE;
 	}

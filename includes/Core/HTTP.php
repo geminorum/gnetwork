@@ -191,7 +191,7 @@ class HTTP extends Base
 	 * @param string $url
 	 * @param array $atts
 	 * @param bool $assoc
-	 * @return mixed
+	 * @return false|array|object
 	 */
 	public static function getJSON( $url, $atts = [], $assoc = TRUE )
 	{
@@ -203,7 +203,8 @@ class HTTP extends Base
 			'headers' => [ 'Accept' => 'application/json' ],
 		] );
 
-		$response = wp_remote_get( $url, $args );
+		// $response = wp_remote_get( $url, $args );
+		$response = wp_safe_remote_get( $url, $args );
 
 		if ( self::isError( $response ) )
 			return self::logError( $url, $response->get_error_message(), 'GETJSON' );
@@ -231,7 +232,7 @@ class HTTP extends Base
 	 * @param string $url
 	 * @param array $atts
 	 * @param bool $assoc
-	 * @return false|array
+	 * @return false|array|object
 	 */
 	public static function postJSON( $body, $url, $atts = [], $assoc = TRUE )
 	{
@@ -284,9 +285,11 @@ class HTTP extends Base
 
 		$args = self::recursiveParseArgs( $atts, [
 			'timeout' => 15,
+			'headers' => [ 'Accept' => 'text/html' ],
 		] );
 
-		$response = wp_remote_get( $url, $args );
+		// $response = wp_remote_get( $url, $args );
+		$response = wp_safe_remote_get( $url, $args );
 
 		if ( self::isError( $response ) )
 			return self::logError( $url, $response->get_error_message(), 'GETHTML' );
@@ -302,7 +305,40 @@ class HTTP extends Base
 		return $body;
 	}
 
-	public static function getContents( $url )
+	/**
+	 * Retrieves data from the content body of a GET request, given a URL.
+	 * NOTE: without `accept` header
+	 *
+	 * @param string $url
+	 * @param array $atts
+	 * @return false|string
+	 */
+	public static function getContents( $url, $atts = [] )
+	{
+		if ( ! $url )
+			return FALSE;
+
+		$args = self::recursiveParseArgs( $atts, [
+			'timeout' => 15,
+		] );
+
+		$response = wp_safe_remote_get( $url, $args );
+
+		if ( self::isError( $response ) )
+			return self::logError( $url, $response->get_error_message(), 'GETCONTENTS' );
+
+		$status = wp_remote_retrieve_response_code( $response );
+
+		if ( 200 !== $status )
+			return self::logError( $url, sprintf( '%d: %s', $status, self::getStatusDesc( $status, 'UKNOWN STATUS' ) ), 'GETCONTENTS' );
+
+		if ( ! $body = wp_remote_retrieve_body( $response ) )
+			return self::logError( $url, '200: EMPTY BODY', 'GETCONTENTS' );
+
+		return $body;
+	}
+
+	public static function getContents_OLD( $url )
 	{
 		if ( ! extension_loaded( 'curl' ) )
 			return FALSE;
@@ -311,6 +347,11 @@ class HTTP extends Base
 
 		curl_setopt( $handle, CURLOPT_URL, $url );
 		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
+
+		if ( 'development' === wp_get_environment_type() ) {
+			curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
+			curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
+		}
 
 		$contents = curl_exec( $handle );
 
@@ -338,12 +379,15 @@ class HTTP extends Base
 
 	// @REF: https://github.com/10up/restricted-site-access/blob/develop/restricted_site_access.php
 	// @SEE: https://wordpress.org/support/topic/how-to-troubleshoot-client-ip-detection/
+	// CloudFlare: https://www.cloudflare.com/ips/
 	public static function clientIP()
 	{
 		$headers = [
-			'HTTP_CF_CONNECTING_IP', // @REF: https://github.com/10up/restricted-site-access/issues/109
+			'HTTP_CF_CONNECTING_IP' ,  // CloudFlare // @REF: https://github.com/10up/restricted-site-access/issues/109
+			'HTTP_INCAP_CLIENT_IP'  ,  // Incapsula
+			'HTTP_X_SUCURI_CLIENTIP',  // Sucuri
 			'HTTP_CLIENT_IP',
-			'HTTP_X_FORWARDED_FOR',
+			'HTTP_X_FORWARDED_FOR'  ,  // Any Proxy
 			'HTTP_X_FORWARDED',
 			'HTTP_X_CLUSTER_CLIENT_IP',
 			'HTTP_FORWARDED_FOR',
@@ -495,7 +539,7 @@ class HTTP extends Base
 		if ( ! extension_loaded( 'curl' ) )
 			return FALSE;
 
-		$in_out  = curl_init( $url );
+		$in_out = curl_init( $url );
 		$stream = fopen( 'php://temp', 'w+' );
 
 		curl_setopt_array( $in_out, [

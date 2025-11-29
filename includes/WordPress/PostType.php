@@ -717,6 +717,26 @@ class PostType extends Core\Base
 		return apply_filters( 'rest_route_for_post_type_items', $route, $object );
 	}
 
+	public static function hasPosts( $posttypes, $published = TRUE, $extra = [] )
+	{
+		$args = array_merge( [
+			'post_type'   => $posttypes,
+			'post_status' => $published ? 'publish' : Status::acceptable( (array) $posttypes, 'count' ),
+			'orderby'     => 'none',
+			'fields'      => 'ids',
+
+			'no_found_rows'          => TRUE,
+			'suppress_filters'       => TRUE,
+			'update_post_meta_cache' => FALSE,
+			'update_post_term_cache' => FALSE,
+			'lazy_load_term_meta'    => FALSE,
+		], $extra );
+
+		$query = new \WP_Query();
+
+		return (bool) $query->query( $args );
+	}
+
 	/**
 	 * Retrieves post-type count of posts by statuses or given status.
 	 * NOTE: wrapper for `wp_count_posts()` and returns `array()`.

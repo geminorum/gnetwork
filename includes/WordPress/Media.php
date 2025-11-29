@@ -100,7 +100,7 @@ class Media extends Core\Base
 		return $sizes;
 	}
 
-	// core dup with posttype/taxonomy/title
+	// Core duplicate with post-type/taxonomy/title
 	// @REF: `add_image_size()`
 	public static function registerImageSize( $name, $atts = [] )
 	{
@@ -242,8 +242,8 @@ class Media extends Core\Base
 
 		if ( $cleanup ) {
 
-			// schedule a cleanup for one day from now in case of failed
-			// import or missing `wp_import_cleanup()` call
+			// Schedules a cleanup for one day from now in case of failed
+			// import or missing `wp_import_cleanup()` call.
 			wp_schedule_single_event( time() + DAY_IN_SECONDS, 'importer_scheduled_cleanup', [ $id ] );
 		}
 
@@ -264,7 +264,7 @@ class Media extends Core\Base
 	public static function sideloadImageData( $name, $data, $post = 0, $extra = [] )
 	{
 		if ( ! $temp = Core\File::tempName( $name ) )
-			return FALSE; // new WP_Error( 'http_no_file', __( 'Could not create Temporary file.' ) );
+			return FALSE; // `new WP_Error( 'http_no_file', __( 'Could not create Temporary file.' ) );`
 
 		if ( ! file_put_contents( $temp, $data ) )
 			return FALSE;
@@ -288,14 +288,14 @@ class Media extends Core\Base
 		if ( empty( $url ) )
 			return FALSE;
 
-		// filters the list of allowed file extensions when sideloading an image from a URL @since WP 5.6.0
+		// Filters the list of allowed file extensions when sideloading an image from a URL. @since WP 5.6.0
 		$extensions = apply_filters( 'image_sideload_extensions', [ 'jpg', 'jpeg', 'jpe', 'png', 'gif', 'webp', 'avif' ], $url );
 
-		// set variables for storage, fix file filename for query strings
+		// Sets variables for storage, fix file filename for query strings.
 		preg_match( '/[^\?]+\.(' . implode( '|', array_map( 'preg_quote', $extensions ) ) . ')\b/i', $url, $matches );
 
 		if ( ! $matches )
-			return FALSE; // new \WP_Error( 'image_sideload_failed', __( 'Invalid image URL.' ) );
+			return FALSE; // `new \WP_Error( 'image_sideload_failed', __( 'Invalid image URL.' ) );`
 
 		// download file to temp location
 		$file = [ 'tmp_name' => download_url( $url ) ];
@@ -306,16 +306,16 @@ class Media extends Core\Base
 
 		$file['name'] = Core\File::basename( $matches[0] );
 
-		// do the validation and storage stuff
+		// Do the validation and storage stuff.
 		$attachment = self::handleSideload( $file, $post, NULL, $extra );
 
-		// if error storing permanently, unlink
+		// If error storing permanently, unlink.
 		if ( is_wp_error( $attachment ) ) {
 			@unlink( $file['tmp_name'] );
 			return $attachment;
 		}
 
-		// store the original attachment source in meta
+		// Stores the original attachment source in meta.
 		add_post_meta( $attachment, '_source_url', $url );
 
 		return $attachment;
@@ -345,10 +345,10 @@ class Media extends Core\Base
 
 			} else {
 
-				if ( $htaccess && ! file_exists( $folder.'/.htaccess' ) )
+				if ( $htaccess && ! Core\File::exists( '.htaccess', $folder ) )
 					Core\File::putHTAccessDeny( $folder, FALSE );
 
-				if ( $donotbackup && ! file_exists( $folder.'/.donotbackup' ) )
+				if ( $donotbackup && ! Core\File::exists( '.donotbackup', $folder ) )
 					Core\File::putDoNotBackup( $folder, FALSE );
 			}
 

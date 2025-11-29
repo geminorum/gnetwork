@@ -177,7 +177,7 @@ class Base
 		foreach ( func_get_args() as $arg )
 			self::dump( $arg );
 		echo self::stat();
-		die();
+		die ();
 	}
 
 	public static function cheatin( $message = NULL )
@@ -295,13 +295,13 @@ class Base
 		if ( $old ) {
 			foreach ( debug_backtrace() as $trace )
 				printf( "\n%s:%s %s::%s", $trace['file'], $trace['line'], $trace['class'], $trace['function'] );
-			die();
+			die ();
 		}
 
 		// http://stackoverflow.com/a/7039409
 		$e = new \Exception();
 		self::dump( $e->getTraceAsString() );
-		die();
+		die ();
 	}
 
 	// USAGE: Base::callStack( debug_backtrace() );

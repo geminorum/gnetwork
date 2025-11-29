@@ -472,7 +472,7 @@ class Arraay extends Base
 		return $input[$first];
 	}
 
-	// `array_key_first()` for php < 7.3.0
+	// `array_key_first()` for PHP < 7.3.0
 	public static function keyFirst( $input )
 	{
 		if ( function_exists( 'array_key_first' ) )
@@ -484,7 +484,7 @@ class Arraay extends Base
 		return NULL;
 	}
 
-	// `array_key_last()` for php < 7.3.0
+	// `array_key_last()` for PHP < 7.3.0
 	public static function keyLast( $input )
 	{
 		if ( function_exists( 'array_key_last' ) )
@@ -537,7 +537,7 @@ class Arraay extends Base
 		return wp_list_pluck( $input, $field, $index_key );
 	}
 
-	// `array_column()` for php < 5.5
+	// `array_column()` for PHP < 5.5
 	// @SEE: https://github.com/ramsey/array_column/blob/master/src/array_column.php
 	// @REF: http://php.net/manual/en/function.array-column.php#118831
 	// ALT: `wp_list_pluck()`
@@ -1125,23 +1125,52 @@ class Arraay extends Base
 	}
 
 	/**
-	 * Checks whether the $callback returns TRUE for ANY of the array
-	 *  elements.
+	 * Sets a value on a multidimensional array using dot notation.
+	 * @source https://gist.github.com/wpscholar/8dd9471d578c7f74a7709f05d4f9b5fa
+	 *
+	 * @param array $data
+	 * @param string $key
+	 * @param mixed $value
+	 * @return mixed
+	 */
+	public static function setValue( $data, $key, $value )
+	{
+		$indexes    = explode( '.', $key );
+		$last_index = $indexes[count( $indexes ) - 1];
+		$index      = array_shift( $indexes );
+
+		if ( $index === $last_index ) {
+
+			$data[$index] = $value;
+
+		} else {
+
+			if ( ! array_key_exists( $index, $data ) )
+				$data[$index] = [];
+
+			$data[$index] = self::setValue( $data[$index], join( '.', $indexes ), $value );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Checks whether the callback returns `TRUE` for ANY of the array elements.
 	 *
 	 * @source https://github.com/PHP-Polyfills/array-find
 	 * @REF: https://php.watch/versions/8.4/array_find-array_find_key-array_any-array_all
-	 * NOTE: Polyfill for below PHP 8.4
+	 * NOTE: Polyfill for below @since PHP 8.4
 	 *
 	 * @param array $array The array that should be searched.
 	 * @param callable $callback The callback function to call to check
 	 *  each element. The first parameter contains the value ($value), the
 	 *  second parameter contains the corresponding key ($key). If this
-	 *  function returns TRUE (or a truthy value), TRUE is returned
-	 *  immediately and the $callback will not be called for further
+	 *  function returns `TRUE` (or a truthy value), `TRUE` is returned
+	 *  immediately and the callback will not be called for further
 	 *  elements.
 	 *
-	 * @return bool TRUE if there is at least one element for which
-	 *  $callback returns TRUE. FALSE otherwise.
+	 * @return bool `TRUE` if there is at least one element for which
+	 *  the callback returns `TRUE`. `FALSE` otherwise.
 	 */
 	public static function array_any( array $array, callable $callback ): bool
 	{
@@ -1156,8 +1185,7 @@ class Arraay extends Base
 	}
 
 	/**
-	 * Checks whether the $callback returns TRUE for ALL the array
-	 *  elements.
+	 * Checks whether the callback returns `TRUE` for ALL the array elements.
 	 *
 	 * @source https://github.com/PHP-Polyfills/array-find
 	 * @REF: https://php.watch/versions/8.4/array_find-array_find_key-array_any-array_all
@@ -1165,13 +1193,13 @@ class Arraay extends Base
 	 *
 	 * @param array $array The array that should be searched.
 	 * @param callable $callback The callback function to call to check
-	 *  each element. The first parameter contains the value ($value), the
+	 *  each element. The first parameter contains the value, the
 	 *  second parameter contains the corresponding key. If this function
-	 *  returns FALSE (or any falsy value), FALSE is returned immediately
-	 *  and the $callback will not be called for further elements.
+	 *  returns `FALSE` (or any falsy value), `FALSE` is returned immediately
+	 *  and the callback will not be called for further elements.
 	 *
-	 * @return bool TRUE, if $callback returns TRUE for all elements.
-	 *  FALSE otherwise.
+	 * @return bool `TRUE`, if the callback returns `TRUE` for all elements,
+	 *  `FALSE` otherwise.
 	 */
 	public static function array_all( array $array, callable $callback ): bool
 	{

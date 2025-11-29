@@ -5,99 +5,128 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Image extends Base
 {
 
-	// @SOURCE: https://wordpress.org/plugins/image-rotation-fixer/
-	public static function rotation($source)
+	/**
+	 * Gets the size of an image given the location path or URL.
+	 * NOTE: wrapper for `wp_getimagesize()` @since WP 5.7.0
+	 *
+	 * @param string $filename
+	 * @param array $image_info
+	 * @return array|false
+	 */
+	public static function size( $filename, &$image_info = NULL )
 	{
-		$source      = str_replace(get_bloginfo('url'), ABSPATH, $source);
-		$sourceFile  = explode('/', $source);
-		$filename    = $sourceFile[5];
-		$destination = $source;
+		if ( function_exists( 'wp_getimagesize' ) )
+			return wp_getimagesize( $filename, $image_info );
 
-		// @since WP 5.7.0
-		if (function_exists('wp_getimagesize'))
-			$size = wp_getimagesize($source);
+		return getimagesize( $filename, $image_info );
+	}
 
-		else
-			$size = getimagesize($source);
+	/**
+	 * Fixes the rotation of JPEG images using EXIF extension.
+	 * Adopted from: Image Rotation Fixer 1.0 By `Mert Yazıcıoğlu`
+	 * @source https://github.com/merty/image-rotation-fixer
+	 *
+	 * @param string $filepath
+	 * @return bool
+	 */
+	public static function rotationJPEG( $filepath )
+	{
+		if ( empty( $filepath ) )
+			return FALSE;
+
+		if ( ! function_exists( 'exif_read_data' ) )
+			return FALSE;
+
+		if ( ! $size = self::size( $filepath ) )
+			return FALSE;
 
 		$width  = $size[0];
 		$height = $size[1];
 
-		$sourceImage      = imagecreatefromjpeg($source);
-		$destinationImage = imagecreatetruecolor($width, $height);
+		$exif   = exif_read_data( $filepath );
+		$source = imagecreatefromjpeg( $filepath );
+		$dest   = imagecreatetruecolor( $width, $height );
 
-		imagecopyresampled($destinationImage, $sourceImage, 0, 0, 0, 0, $width, $height, $width, $height);
+		imagecopyresampled(
+			$dest,
+			$source,
+			0,
+			0,
+			0,
+			0,
+			$width,
+			$height,
+			$width,
+			$height
+		);
 
-		$exif = exif_read_data($source);
-
-		$ort = $exif['Orientation'];
-
-		switch ($ort) {
+		switch ( $exif['Orientation'] ) {
 
 			case 2:
-				self::flip($dimg);
 
+				self::_flipJPEG( $dimg );
 				break;
+
 			case 3:
 
-				$destinationImage = imagerotate($destinationImage, 180, -1);
-
+				$dest = imagerotate( $dest, 180, -1 );
 				break;
+
 			case 4:
 
-				self::flip($dimg);
-
+				self::_flipJPEG( $dimg );
 				break;
+
 			case 5:
 
-				self::flip($destinationImage);
-				$destinationImage = imagerotate($destinationImage, -90, -1);
-
+				self::_flipJPEG( $dest );
+				$dest = imagerotate( $dest, -90, -1 );
 				break;
+
 			case 6:
 
-				$destinationImage = imagerotate($destinationImage, -90, -1);
-
+				$dest = imagerotate( $dest, -90, -1 );
 				break;
+
 			case 7:
 
-				self::flip($destinationImage);
-				$destinationImage = imagerotate($destinationImage, -90, -1);
-
+				self::_flipJPEG( $dest );
+				$dest = imagerotate( $dest, -90, -1 );
 				break;
+
 			case 8:
 
-				$destinationImage = imagerotate($destinationImage, 90, -1);
+				$dest = imagerotate( $dest, 90, -1 );
 		}
 
-		return imagejpeg($destinationImage, $destination, 100);
+		return imagejpeg( $dest, $filepath, 100 );
 	}
 
-	public static function flip(&$image)
+	private static function _flipJPEG( &$image )
 	{
-		$x = $y = 0;
+		$x      = $y     = 0;
 		$height = $width = NULL;
 
-		if ($width < 1)
-			$width  = imagesx($image);
+		if ( $width < 1 )
+			$width  = imagesx( $image );
 
-		if ($height < 1)
-			$height = imagesy($image);
+		if ( $height < 1 )
+			$height = imagesy( $image );
 
-		if (function_exists('imageistruecolor') && imageistruecolor($image))
-			$tmp = imagecreatetruecolor(1, $height);
+		if ( function_exists( 'imageistruecolor' ) && imageistruecolor( $image ) )
+			$tmp = imagecreatetruecolor( 1, $height );
 		else
-			$tmp = imagecreate(1, $height);
+			$tmp = imagecreate( 1, $height );
 
 		$x2 = $x + $width - 1;
 
-		for ($i = (int) floor(($width - 1) / 2); $i >= 0; $i--) {
-			imagecopy($tmp, $image, 0, 0, $x2 - $i, $y, 1, $height);
-			imagecopy($image, $image, $x2 - $i, $y, $x + $i, $y, 1, $height);
-			imagecopy($image, $tmp, $x + $i,  $y, 0, 0, 1, $height);
+		for ( $i = (int) floor( ( $width - 1 ) / 2); $i >= 0; $i-- ) {
+			imagecopy( $tmp, $image, 0, 0, $x2 - $i, $y, 1, $height );
+			imagecopy( $image, $image, $x2 - $i, $y, $x + $i, $y, 1, $height );
+			imagecopy( $image, $tmp, $x + $i,  $y, 0, 0, 1, $height );
 		}
 
-		imagedestroy($tmp);
+		imagedestroy( $tmp );
 
 		return TRUE;
 	}

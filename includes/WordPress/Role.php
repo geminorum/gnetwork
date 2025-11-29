@@ -46,7 +46,7 @@ class Role extends Core\Base
 	// OLD: `WordPress\User::getRoles()`: `WordPress\Role::get( 2, [], NULL )`
 	public static function get( $mod = 0, $args = [], $user = FALSE, $filtered = TRUE )
 	{
-		$roles = $filtered ? get_editable_roles() : wp_roles()->roles;
+		$roles = $filtered && is_admin() ? get_editable_roles() : wp_roles()->roles;
 		$user  = User::user( $user ?? get_current_user_id() );
 
 		switch ( $mod ) {

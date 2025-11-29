@@ -1399,7 +1399,7 @@ class HTML extends Base
 
 	// TODO: migrate to `wp_get_admin_notice()` @since WP 6.4.0
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
-	// CLASSES: notice-error, notice-warning, notice-success, notice-info, is-dismissible, fade, inline
+	// CLASSES: `notice-error`, `notice-warning`, `notice-success`, `notice-info`, `is-dismissible`, `fade`, `inline`
 	public static function notice( $notice, $class = 'notice-success fade', $dismissible = TRUE )
 	{
 		return sprintf( '<div class="notice %s%s -notice">%s</div>', $class, ( $dismissible ? ' is-dismissible' : '' ), Text::autoP( $notice ) );
@@ -1613,5 +1613,112 @@ class HTML extends Base
 			.'" class="'.self::prepClass( '-input-for-copy', $class, $code ? 'code' : '' )
 			.'" onclick="this.focus();this.select()" '
 			.( $readonly ? 'readonly' : '' ).' />';
+	}
+
+	public static function removeAll( $html )
+	{
+		while ( preg_match( '/<[^>]*>/', $html ) )
+			$html = preg_replace( '/<[^>]*>.*?<\/[^>]*>|<[^>]*\/>|<[^>]*>/s', '', $html );
+
+		return Text::trim( $html );
+	}
+
+	/**
+	 * Cuts the HTML string given max length preserving the formatting.
+	 * @source https://gist.github.com/yanknudtskov/13f42e8efdb8bb650db4d3230dc853dd
+	 *
+	 * @param string $html
+	 * @param int $max_length
+	 * @return string
+	 */
+	public static function cut( $html, $max_length )
+	{
+		if ( empty( $html ) )
+			return $html;
+
+		$tags     = [];
+		$result   = $tag = '';
+		$stripped = $i   = 0;
+
+		$is_open = $is_close = $grab_open = $in_single_quotes = $in_double_quotes = FALSE;
+
+		$html   = (string) $html;
+		$forced = strip_tags( $html );
+
+		while ( $i < strlen( $html ) && $stripped < strlen( $forced ) && $stripped < $max_length ) {
+
+			$symbol = $html[$i];
+			$result.= $symbol;
+
+			switch ( $symbol ) {
+
+				case '<':
+
+					$grab_open = $is_open = TRUE;
+
+					break;
+
+				case '"':
+
+					$in_double_quotes = ! $in_double_quotes;
+
+					break;
+
+				case "'":
+
+					$in_single_quotes = ! $in_single_quotes;
+
+					break;
+
+				case '/':
+
+					if ( $is_open && ! $in_double_quotes && ! $in_single_quotes ) {
+						$is_close = TRUE;
+						$is_open  = $grab_open = FALSE;
+					}
+
+					break;
+
+				case ' ':
+
+					if ( $is_open )
+						$grab_open = FALSE;
+					else
+						$stripped++;
+
+					break;
+
+				case '>':
+
+					if ( $is_open ) {
+
+						$is_open = $grab_open = FALSE;
+						array_push( $tags, $tag );
+						$tag = '';
+
+					} else if ( $is_close ) {
+						$is_close = FALSE;
+						array_pop( $tags );
+						$tag = '';
+					}
+
+					break;
+
+				default:
+
+					if ( $grab_open || $is_close )
+						$tag.= $symbol;
+
+					if ( ! $is_open && ! $is_close )
+						$stripped++;
+			}
+
+			$i++;
+		}
+
+		while ( $tags )
+			$result.= '</'.array_pop($tags).'>';
+
+		return $result;
 	}
 }
