@@ -66,4 +66,13 @@ $spacer: 1rem !default;
       text-align: center;
     }
   }
+
+  table.wp-list-table {
+    .inline-edit-row {
+      label span.input-text-wrap,
+      .timestamp-wrap {
+        margin-left: 0 !important;
+      }
+    }
+  }
 }

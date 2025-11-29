@@ -8,6 +8,9 @@
 @use "sass:color";
 
 ////////////////////////////////////////////////////////////////////////////////
+$spacer: 1rem !default;
+
+////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 table.wp-list-table, // WordPress Core
 table.base-table-list { // Plugin Core
@@ -116,8 +119,42 @@ table.wp-list-table { // WordPress Core
       }
     }
   }
-}
 
+  .inline-edit-row {
+    h4 {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    fieldset {
+      padding-right: 0 !important;
+
+      label {
+        textarea {
+          width: 100%;
+        }
+      }
+      span.title {
+        font-style: normal !important;
+        margin: 0 !important;
+      }
+
+      span.inline-edit-categories-label {
+        line-height: 1.5 !important;
+      }
+
+      label span.title,
+      &.inline-edit-date legend {
+        width: $spacer * 8; // core default is `6em`
+      }
+
+      label span.input-text-wrap,
+      .timestamp-wrap {
+        margin-left: $spacer * 8; // core default is `6em`
+      }
+    }
+  }
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 div.base-table-wrap {
@@ -393,16 +430,6 @@ table.base-table-list {
 table.base-table-double {
   tr td {
     width: 50%;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// @SEE: Uptime module
-table.base-table-uptime {
-  width: 100%;
-
-  > tbody > tr > td {
-    padding: 5px 2px;
   }
 }
 

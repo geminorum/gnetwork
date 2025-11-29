@@ -40,47 +40,32 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// .form-field {
-//   input[type="text"],
-//   input[type="password"],
-//   input[type="email"],
-//   input[type="number"],
-//   input[type="search"],
-//   input[type="tel"],
-//   input[type="url"],
-//   // p,
-//   // select,
-//   textarea {
-//     width: 99.5%;
-//     max-width: unset;
-//   }
-// }
-
-.form-wrap {
-  .form-field {
-    input[type="text"],
-    input[type="password"],
-    input[type="email"],
-    input[type="number"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="url"],
-    textarea {
-      box-sizing: border-box;
-      width: 100%;
-      max-width: unset;
-    }
+.form-table .form-field,
+.form-wrap .form-field {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="url"],
+  textarea {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: unset;
   }
 }
 
-// .form-table {
-//   .form-field {
-
-//   }
-// }
-
 ////////////////////////////////////////////////////////////////////////////////
 .wp-tab-panel {
+  ul {
+    margin: ($spacer * .75) 0 ($spacer * .5);
+
+    li:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
   .inline-edit-row & {
     margin: ($spacer * .25) 0;
 

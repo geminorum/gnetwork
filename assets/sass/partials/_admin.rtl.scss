@@ -4,6 +4,9 @@
 /// gNetwork Partials: Admin: RTL
 
 ////////////////////////////////////////////////////////////////////////////////
+$spacer: 1rem !default;
+
+////////////////////////////////////////////////////////////////////////////////
 body.debug-bar-maximized #querylist,
 body.options-permalink-php .form-table .sptp-fieldset, // Simple Post Type Permalinks
 .fixed.users-network td.column-email,
@@ -294,48 +297,34 @@ span.description {
 // }
 
 .media-frame {
-  .attachment-details > h3,
-  .attachment-display-settings > h3,
-  .media-types.media-types-required-info {
-    display: none;
-  }
-
-  // .media-frame-content .media-toolbar-primary {
-  //   width: 44%; // default is 33%
-  // }
-
   select.attachment-filters {
-    width: auto;
+    // NOTE: added more width to fill the hidden date select
+    width: 90% !important;
+    max-width: calc(90% - 12px);
   }
 
-  .attachment-info {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-  }
-
-  .attachment-display-settings,
-  .compat-item {
-    float: none;
-  }
-
-  .embed-url {
-    input {
-      padding-right: 40px;
-      padding-left: 14px;
+  .attachment-details,
+  .attachment-display-settings {
+    > h2 {
+      margin-top: $spacer * .5;
+      margin-bottom: $spacer * .25;
     }
 
-    .spinner {
-      right: 26px;
-      left: auto;
+    span.setting {
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      &[data-setting="url"] input,
+      input.link-to-custom {
+        direction: ltr;
+      }
     }
   }
 
-  .setting {
-    &[data-setting="url"] input,
-    input.link-to-custom {
-      direction: ltr;
-    }
+  span.required-field-message,
+  #alt-text-description {
+    font-size: smaller;
   }
 }
 

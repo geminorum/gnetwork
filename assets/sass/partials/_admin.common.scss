@@ -3,6 +3,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: Common
 
+////////////////////////////////////////////////////////////////////////////////
+$spacer: 1rem !default;
 
 ////////////////////////////////////////////////////////////////////////////////
 // .gnetwork-admin-wrap {
@@ -143,22 +145,6 @@ body.hide-admin-menu {
 }
 
 .inline-edit-row {
-  h4 {
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  fieldset {
-    span.title {
-      font-style: normal !important;
-      margin: 0 !important;
-    }
-
-    span.inline-edit-categories-label {
-      line-height: 1.5 !important;
-    }
-  }
-
   // there's no better selector
   #post_parent,
   select[name="page_template"] {
