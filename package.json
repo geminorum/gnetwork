@@ -3,7 +3,7 @@
   "productName": "gNetwork",
   "version": "3.18.0",
   "description": "WordPress Network Helper",
-  "license": "GPL-3+",
+  "license": "GPL-2.0-or-later",
   "homepage": "https://geminorum.ir/wordpress/gnetwork/",
   "author": {
     "name": "Nasser Rafie",
