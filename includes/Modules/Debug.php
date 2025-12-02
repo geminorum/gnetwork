@@ -562,29 +562,30 @@ class Debug extends gNetwork\Module
 
 	public static function summaryUpload()
 	{
-		$max_upload_size = wp_max_upload_size();
+		$info      = [];
+		$undefined = '{{UNDEFINED}}';
+		$template  = '%s = %s';
+		$multisite = is_multisite();
+		$maxsize   = wp_max_upload_size();
 
-		$info = [
-			'wp_max_upload_size()'     => Core\File::formatSize( $max_upload_size ).' = '.$max_upload_size,
-			'option: max_file_size'    => get_option( 'max_file_size' ),
-			'ini: upload_max_filesize' => ini_get( 'upload_max_filesize' ).' = '.wp_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) ),
-			'ini: post_max_size'       => ini_get( 'post_max_size' ).' = '.wp_convert_hr_to_bytes( ini_get( 'post_max_size' ) ),
-			'ini: max_input_vars'      => ini_get( 'max_input_vars' ),
-			'ini: realpath_cache_size' => ini_get( 'realpath_cache_size' ).' = '.wp_convert_hr_to_bytes( ini_get( 'realpath_cache_size' ) ),
-			'ms_files_rewriting'       => get_option( 'ms_files_rewriting' ),
-			'option: upload_path'      => get_option( 'upload_path' ),
-			'option: upload_url_path'  => get_option( 'upload_url_path' ),
-		];
+		if ( $multisite )
+			$info['network-option: ms_files_rewriting'] = get_site_option( 'ms_files_rewriting', $undefined );
 
-		$upload = wp_upload_dir();
-		unset( $upload['error'], $upload['subdir'] );
+		$info['site-option: upload_path']     = get_option( 'upload_path', $undefined );
+		$info['site-option: upload_url_path'] = get_option( 'upload_url_path', $undefined );
+		$info['site-option: max_file_size']   = get_option( 'max_file_size', $undefined );
 
-		foreach ( $upload as $key => $val )
-			$info['wp_upload: '.$key] = $val;
+		$info['wp_max_upload_size()']     = sprintf( $template, Core\File::formatSize( $maxsize ), $maxsize );
+		$info['php-ini: upload_max_filesize'] = sprintf( $template, ini_get( 'upload_max_filesize' ), wp_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) ) );
+		$info['php-ini: post_max_size']       = sprintf( $template, ini_get( 'post_max_size' ), wp_convert_hr_to_bytes( ini_get( 'post_max_size' ) ) );
+		$info['php-ini: realpath_cache_size'] = sprintf( $template, ini_get( 'realpath_cache_size' ), wp_convert_hr_to_bytes( ini_get( 'realpath_cache_size' ) ) );
+		$info['php-ini: max_input_vars']      = ini_get( 'max_input_vars' );
+
+		foreach ( Core\Arraay::stripByKeys( wp_upload_dir(), [ 'error', 'subdir' ] ) as $key => $val )
+			$info['wp_upload: '.$key] = Core\HTML::sanitizeDisplay( $val );
 
 		echo '<div class="-wrap card -floated" dir="ltr">';
-		Core\HTML::h2( _x( 'File & Upload', 'Modules: Debug', 'gnetwork' ) );
-
+			Core\HTML::h2( _x( 'File & Upload', 'Modules: Debug', 'gnetwork' ) );
 			echo Core\HTML::tableCode( $info );
 		echo '</div>';
 	}
