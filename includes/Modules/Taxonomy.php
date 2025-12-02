@@ -108,9 +108,7 @@ class Taxonomy extends gNetwork\Module
 		if ( 'edit-tags' == $screen->base
 			|| 'term' == $screen->base ) {
 
-			add_filter( 'admin_body_class', static function ( $classes ) {
-				return $classes.' gnetowrk-taxonomy';
-			} );
+			$this->filter_append_string( 'admin_body_class', $this->classs() );
 
 			if ( $this->options['management_tools'] )
 				$this->management_tools( $screen );
@@ -306,7 +304,7 @@ JS;
 		echo '</div>'; // `.div.nav-tab-base`
 	}
 
-	// TODO: search for similar name on *posttypes*
+	// TODO: search for similar name on *post-types*
 	public function callback_term_tab_content_search( $taxonomy, $tab, $object, $term )
 	{
 		$this->actions( 'term_tab_search_content_before', $taxonomy, $object, $term );
@@ -429,7 +427,7 @@ JS;
 
 			$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_empties' );
 
-			if ( ! $object->hierarchical ) // allows category types to be onesies!
+			if ( ! $object->hierarchical ) // Allows category types to be onesies!
 				$this->action_self( 'tab_maintenance_content', 2, 12, 'delete_onesies' );
 		}
 
@@ -677,7 +675,7 @@ JS;
 			if ( ! current_user_can( 'delete_term', $term_id ) )
 				continue;
 
-			// Manually re-count: skip if the term has relationships
+			// Manually re-count to skip if the term has relationships.
 			if ( WordPress\Taxonomy::countTermObjects( $term_id, $taxonomy ) )
 				continue;
 
@@ -762,13 +760,13 @@ JS;
 
 				if ( ! WordPress\Strings::isEmpty( $term->description ) ) {
 
-					// Skip if the term description is not an empty string
+					// Skip if the term description is not an empty string.
 					$delete = FALSE;
 
 				} else {
 
-					// NOTE: we can not rely on `$term->count` data from the term query
-					// Skip if the term has relationships
+					// Skip if the term has relationships.
+					// NOTE: we can not rely on `$term->count` data from the term query.
 					if ( WordPress\Taxonomy::countTermObjects( $term->term_id, $term->taxonomy ) )
 						$delete = FALSE;
 				}
@@ -869,7 +867,9 @@ JS;
 					'type'      => 'file',
 					'field'     => 'import_terms_file',
 					'name_attr' => $this->classs( 'import' ),
-					'values'    => [ '.csv' ],
+					'values'    => [
+						'.csv',
+					],
 				] );
 
 				$size = Core\File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
@@ -943,7 +943,7 @@ JS;
 						Core\HTML::desc( sprintf(
 							/* translators: `%s`: default term name */
 							_x( 'The default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork' ),
-							'<i>'.$term->name.'</i>'
+							Core\HTML::tag( 'i', $term->name )
 						) );
 				}
 
@@ -1120,7 +1120,7 @@ JS;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// Originally adapted from : Term Management Tools by scribu v1.1.4
+/// Originally adapted from : Term Management Tools by `scribu` version 1.1.4
 // @REF: https://github.com/scribu/wp-term-management-tools
 // @REF: https://wordpress.org/plugins/term-management-tools/
 
@@ -1169,11 +1169,11 @@ JS;
 			$intro = _x( 'These are extra actions available for this term:', 'Modules: Taxonomy: Help Tab Content', 'gnetwork' );
 		}
 
-		$this->action( 'edited_term', 3, 12, 'actions' ); // fires on edit-tags.php
+		$this->action( 'edited_term', 3, 12, 'actions' ); // NOTE: fires on `edit-tags.php`
 		$this->action( 'admin_notices' );
 		$this->action( 'admin_footer' );
 
-		// TODO: add help tab for supported posttypes
+		// TODO: add help tab for supported post-types
 
 		$screen->add_help_tab( [
 			'id'      => $this->classs( 'help-bulk-actions' ),
