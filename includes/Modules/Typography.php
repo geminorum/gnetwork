@@ -254,8 +254,16 @@ class Typography extends gNetwork\Module
 		$pagination['before'][] = self::filterTablelistSearch();
 
 		return Core\HTML::tableList( [
-			'_cb'  => 'ID',
-			'ID'   => _x( 'ID', 'Modules: Typography: Column Title', 'gnetwork' ),
+			'_cb' => 'ID',
+			'ID'  => _x( 'ID', 'Modules: Typography: Column Title', 'gnetwork' ),
+
+			'date' => [
+				'title'    => _x( 'Date', 'Modules: Typography: Column Title', 'gnetwork' ),
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+					return Utilities::humanTimeDiffRound( strtotime( $row->post_date ) );
+				},
+			],
+
 			'type' => [
 				'title'    => _x( 'Type', 'Modules: Typography: Column Title', 'gnetwork' ),
 				'args'     => [ 'post_types' => WordPress\PostType::get( 2 ) ],
