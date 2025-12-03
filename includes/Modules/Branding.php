@@ -18,10 +18,17 @@ class Branding extends gNetwork\Module
 		if ( $this->options['siteicon_fallback'] && is_multisite() )
 			$this->filter( 'get_site_icon_url', 3 );
 
-		if ( $this->options['webapp_manifest'] && ! is_admin() && is_main_site() ) {
-			$this->action( 'parse_request', 1, 1 );
-			// $this->filter( 'pre_handle_404', 2 );
-			$this->filter( 'redirect_canonical', 2 );
+		if ( $this->options['webapp_manifest'] ) {
+
+			if ( ! is_admin() && is_main_site() ) {
+				$this->action( 'parse_request', 1, 1 );
+				// $this->filter( 'pre_handle_404', 2 );
+				$this->filter( 'redirect_canonical', 2 );
+			}
+
+		} else {
+
+			 $this->filter( 'web_app_manifest' ); // PWA-WP filter
 		}
 
 		if ( $this->options['network_siteicon'] )
@@ -380,6 +387,28 @@ class Branding extends gNetwork\Module
 		echo wp_json_encode( $data );
 
 		exit;
+	}
+
+	// @REF: https://github.com/GoogleChromeLabs/pwa-wp/wiki/Web-App-Manifest
+	// TODO: add icons
+	public function web_app_manifest( $manifest )
+	{
+		if ( $this->options['webapp_longname'] )
+			$manifest['name'] = $this->options['webapp_longname'];
+
+		if ( $this->options['webapp_shortname'] )
+			$manifest['short_name'] = $this->options['webapp_shortname'];
+
+		if ( $this->options['webapp_description'] )
+			$manifest['description'] = $this->options['webapp_description'];
+
+		if ( $this->options['webapp_color'] )
+			$manifest['background_color'] = $this->options['webapp_color'];
+
+		if ( $this->options['theme_color'] )
+			$manifest['theme_color'] = $this->options['theme_color'];
+
+		return $manifest;
 	}
 
 	// @SOURCE: https://github.com/kraftbj/default-site-icon
