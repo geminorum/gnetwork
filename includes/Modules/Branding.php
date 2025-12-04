@@ -31,6 +31,9 @@ class Branding extends gNetwork\Module
 			 $this->filter( 'web_app_manifest' ); // PWA-WP filter
 		}
 
+		if ( $this->options['sitelogo_fallback'] && $this->options['network_sitelogo'] )
+			$this->filter( 'get_custom_logo', 2, 8 );
+
 		if ( $this->options['network_siteicon'] )
 			$this->action( 'do_faviconico', 0, 8 );
 
@@ -56,6 +59,7 @@ class Branding extends gNetwork\Module
 			'network_sitelogo'   => '',
 			'network_siteicon'   => '',
 			'theme_color'        => '',
+			'sitelogo_fallback'  => '0',
 			'siteicon_fallback'  => '0',
 			'webapp_manifest'    => '1',
 			'webapp_shortname'   => '',
@@ -202,6 +206,12 @@ class Branding extends gNetwork\Module
 		];
 
 		if ( is_multisite() ) {
+		$settings['_misc'][] = [
+			'field'       => 'sitelogo_fallback',
+			'title'       => _x( 'Network Site Logo', 'Modules: Branding: Settings', 'gnetwork' ),
+			'description' => _x( 'Falls back into custom site logo on the network.', 'Modules: Branding: Settings', 'gnetwork' ),
+		];
+
 
 			// no use when no multisite!
 			$settings['_misc'][] = [
@@ -409,6 +419,52 @@ class Branding extends gNetwork\Module
 			$manifest['theme_color'] = $this->options['theme_color'];
 
 		return $manifest;
+	}
+
+	/**
+	 * Filters the custom logo output.
+	 *
+	 * @param string $html
+	 * @param int $blog_id
+	 * @return string
+	 */
+	public function get_custom_logo( $html, $blog_id )
+	{
+		self::_log( $html );
+
+		if ( $html )
+			return $html; // already has custom logo!
+
+		$unlink = (bool) get_theme_support( 'custom-logo', 'unlink-homepage-logo' );
+		$style  = '';
+
+		if ( $width = get_theme_support( 'custom-logo', 'width' ) )
+			$style.= sprintf( 'width:%spx;', $width );
+		else
+			$style.= 'width:100%;';
+
+		if ( $height = get_theme_support( 'custom-logo', 'height' ) )
+			$style.= sprintf( 'height:%spx;', $height );
+		else
+			$style.= 'height:auto;';
+
+		$image = Core\HTML::tag( 'img', [
+			'src'   => $this->options['network_sitelogo'],
+			'alt'   => $this->options['brand_name'] ?: get_bloginfo( 'name', 'display' ),
+			'style' => $style,
+			'class' => [ 'custom-logo' ],
+		] );
+
+		if ( $unlink && is_front_page() && ! is_paged() )
+			return sprintf( '<span class="custom-logo-link">%1$s</span>', $image );
+
+		$aria_current = ! is_paged() && ( is_front_page() || is_home() && ( (int) get_option( 'page_for_posts' ) !== get_queried_object_id() ) ) ? ' aria-current="page"' : '';
+
+		return vsprintf( '<a href="%1$s" class="custom-logo-link" rel="home"%2$s>%3$s</a>', [
+			esc_url( home_url( '/' ) ),
+			$aria_current,
+			$image
+		] );
 	}
 
 	// @SOURCE: https://github.com/kraftbj/default-site-icon
