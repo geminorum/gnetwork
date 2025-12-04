@@ -503,6 +503,48 @@ class Login extends gNetwork\Module
 
 		else
 			Utilities::customStyleSheet( 'login.css' );
+
+		if ( 'logindefault' !== $this->options['login_class'] )
+			return;
+
+		if ( has_custom_logo() ) {
+
+			$image   = wp_get_attachment_image_src( get_theme_mod( 'custom_logo' ), 'full' );
+			$default = 320; // NOTE: default width for `div#login`
+
+			$style = \vsprintf( '.login h1 a {
+				background-image: url(%1$s) !important;
+				background-size: contain !important;
+				width: %2$spx !important;
+				height: %3$spx !important;
+				max-width: %4$spx !important;
+				max-height: %5$spx !important;
+			}', [
+				esc_url( $image[0] ),
+				absint( $image[1] ),
+				absint( $image[2] ),
+				( $default / 2 ) + 40,
+				$default / 2,
+			] );
+
+			printf( "<style type='text/css'>\n%s\n</style>\n", $style );
+
+		} else if ( $sitelogo = gNetwork()->option( 'network_sitelogo', 'branding' ) ) {
+
+			$default = 320; // NOTE: default width for `div#login`
+
+			$style = vsprintf( '.login h1 a {
+				background-image: url(%1$s) !important;
+				width: %2$spx !important;
+				height: %3$spx !important;
+			}', [
+				esc_url( $sitelogo ),
+				$default / 2,
+				$default / 2,
+			] );
+
+			printf( "<style type='text/css'>\n%s\n</style>\n", $style );
+		}
 	}
 
 	public function login_title( $login_title, $title )
