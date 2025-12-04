@@ -184,7 +184,15 @@ class Login extends gNetwork\Module
 					'field'       => 'login_styles',
 					'type'        => 'textarea-code-editor',
 					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', 'gnetwork' ),
+					'description' => [
+						_x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', 'gnetwork' ),
+						Settings::fieldDescPlaceholders( [
+							'theme_color',
+							'webapp_color',
+							'network_sitelogo',
+							'network_siteicon',
+						] ),
+					],
 					'values'      => [ 'mode' => 'css' ],
 				],
 			],
@@ -497,9 +505,15 @@ class Login extends gNetwork\Module
 			printf( "<style>\n%s\n</style>\n", $variables );
 		}
 
-		// TODO: support placeholders: `Core\Text::replaceTokens()`
 		if ( $this->options['login_styles'] )
-			printf( "<style>\n%s\n</style>\n", $this->options['login_styles'] );
+			printf( "<style type='text/css'>\n%s\n</style>\n",
+				Core\Text::replaceTokens( $this->options['login_styles'], [
+					'theme_color'      => gNetwork()->option( 'theme_color', 'branding' ),
+					'webapp_color'     => gNetwork()->option( 'webapp_color', 'branding' ),
+					'network_sitelogo' => gNetwork()->option( 'network_sitelogo', 'branding' ),
+					'network_siteicon' => gNetwork()->option( 'network_siteicon', 'branding' ),
+				] )
+			);
 
 		else
 			Utilities::customStyleSheet( 'login.css' );
