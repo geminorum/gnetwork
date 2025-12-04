@@ -10,8 +10,10 @@ use geminorum\gNetwork\WordPress;
 
 class Branding extends gNetwork\Module
 {
+	protected $key  = 'branding';
+	protected $ajax = TRUE;
 
-	protected $key = 'branding';
+	const MANIFEST_FILE = 'manifest.json';
 
 	protected function setup_actions()
 	{
@@ -75,7 +77,8 @@ class Branding extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$settings = [];
+		$settings  = [];
+		$multisite = is_multisite();
 
 		$name = get_bloginfo( 'name', 'display' );
 
@@ -103,9 +106,9 @@ class Branding extends gNetwork\Module
 			'placeholder' => gNetwork()->email(),
 		];
 
-		if ( is_multisite() ) {
+		if ( $multisite ) {
 
-			// will use blog setting if no multisite
+			// will use blog setting if no multi-site
 			$settings['_general'][] = [
 				'field'       => 'theme_color',
 				'type'        => 'color',
@@ -172,7 +175,12 @@ class Branding extends gNetwork\Module
 				'title'       => _x( 'Custom Styles', 'Modules: Branding: Settings', 'gnetwork' ),
 				'description' => [
 					_x( 'Additional CSS styles to use alongside the Adminbar.', 'Modules: Branding: Settings', 'gnetwork' ),
-					Settings::fieldDescPlaceholders( [ 'theme_color', 'webapp_color', 'network_sitelogo', 'network_siteicon' ] ),
+					Settings::fieldDescPlaceholders( [
+						'theme_color',
+						'webapp_color',
+						'network_sitelogo',
+						'network_siteicon',
+					] ),
 				],
 				'values' => [ 'mode' => 'css' ],
 			],
@@ -205,15 +213,15 @@ class Branding extends gNetwork\Module
 			'description' => _x( 'Tries to linkify brand name on the content. Must enable &ldquo;General Typography&rdquo; setting on each site.', 'Modules: Branding: Settings', 'gnetwork' ),
 		];
 
-		if ( is_multisite() ) {
 		$settings['_misc'][] = [
 			'field'       => 'sitelogo_fallback',
 			'title'       => _x( 'Network Site Logo', 'Modules: Branding: Settings', 'gnetwork' ),
 			'description' => _x( 'Falls back into custom site logo on the network.', 'Modules: Branding: Settings', 'gnetwork' ),
 		];
 
+		if ( $multisite ) {
 
-			// no use when no multisite!
+			// no use when no multi-site!
 			$settings['_misc'][] = [
 				'field'       => 'siteicon_fallback',
 				'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', 'gnetwork' ),
@@ -228,9 +236,11 @@ class Branding extends gNetwork\Module
 	{
 		Settings::fieldSection(
 			_x( 'Web App', 'Modules: Branding: Settings', 'gnetwork' ),
-			/* translators: %s: link url */
-			sprintf( _x( 'Web app manifests provide the ability to save a site bookmark to a device\'s home screen. <a href="%s">Read More</a>', 'Modules: Branding: Settings', 'gnetwork' ),
-				'https://developer.mozilla.org/en-US/docs/Web/Manifest' )
+			sprintf(
+				/* translators: `%s`: link URL */
+				_x( 'Web app manifests provide the ability to save a site bookmark to a device\'s home screen. <a href="%s">Read More</a>', 'Modules: Branding: Settings', 'gnetwork' ),
+				'https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest'
+			)
 		);
 	}
 
@@ -274,35 +284,37 @@ class Branding extends gNetwork\Module
 
 	public function do_link_tag()
 	{
-		// opensignal will include the tag
+		// `onesignal` will include the tag
 		if ( ! defined( 'ONESIGNAL_PLUGIN_URL' ) )
 			echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
 	}
 
 	public function parse_request( $request )
 	{
-		if ( 'manifest.json' == $request->request )
-			$this->render_manifest();
+		if ( static::MANIFEST_FILE === $request->request )
+			$this->_render_manifest();
 	}
 
-	// DISABLED: not working on every permalink setup
+	// DISABLED: not working on every permanent-link setup
 	public function pre_handle_404( $preempt, $wp_query )
 	{
 		if ( $preempt )
 			return $preempt;
 
-		// 'pagename' is for most permalink types, name is for when
-		// the %postname% is used as a top-level field
-		if ( 'manifest-json' === $wp_query->get( 'pagename' )
-			|| 'manifest-json' === $wp_query->get( 'name' ) )
-				$this->render_manifest();
+		$slug = Core\Text::sanitizeBase( static::MANIFEST_FILE );
+
+		// `pagename` is for most permanent-link types,
+		// `name` is for when the `%postname%` is used as a top-level field
+		if ( $slug === $wp_query->get( 'pagename' )
+			|| $slug === $wp_query->get( 'name' ) )
+				$this->_render_manifest();
 
 		return $preempt;
 	}
 
 	public function redirect_canonical( $redirect_url, $requested_url )
 	{
-		if ( 'manifest.json' == substr( $requested_url, -7 ) )
+		if ( static::MANIFEST_FILE === substr( $requested_url, -7 ) )
 			return FALSE;
 
 		return $redirect_url;
@@ -310,8 +322,14 @@ class Branding extends gNetwork\Module
 
 	public function url_manifest( $escape = TRUE )
 	{
-		$url = get_bloginfo( 'url', 'display' ).'/manifest.json';
-		return $escape ? esc_url( $url ) : $url;
+		$url = sprintf( '%s/%s',
+			Core\URL::untrail( get_bloginfo( 'url', 'display' ) ),
+			static::MANIFEST_FILE
+		);
+
+		return $escape
+			? esc_url( $url )
+			: $url;
 	}
 
 	// @REF: https://web.dev/maskable-icon/
@@ -322,18 +340,18 @@ class Branding extends gNetwork\Module
 	/***
 	 * @source https://github.com/GoogleChromeLabs/pwa-wp/wiki/Web-App-Manifest
 	 *
-	 * name: the site title from get_option('blogname')
-	 * short_name: copied from site title if not greater than 12 characters
-	 * description: the site tagline from get_option('blogdescription')
-	 * lang: the site language from get_bloginfo( 'language' )
-	 * dir: the site language direction from is_rtl()
-	 * start_url: the home URL from get_home_url()
-	 * theme_color: a theme's custom background via get_background_color()
-	 * background_color: also populated with theme's custom background
-	 * display: minimal-ui is used as the default.
-	 * icons: the site icon via get_site_icon_url()
+	 * `name`: the site title from `get_option( 'blogname' )`.
+	 * `short_name`: copied from site title if not greater than 12 characters.
+	 * `description`: the site tagline from `get_option( 'blogdescription' )`.
+	 * `lang`: the site language from `get_bloginfo( 'language' )`.
+	 * `dir`: the site language direction from `is_rtl()`.
+	 * `start_url`: the home URL from `get_home_url()`.
+	 * `theme_color`: a theme's custom background via `get_background_color()`.
+	 * `background_color`: also populated with theme's custom background.
+	 * `display`: `minimal-ui` is used as the default.
+	 * `icons`: the site icon via `get_site_icon_url()`.
 	*/
-	private function render_manifest()
+	private function _render_manifest()
 	{
 		$data = [
 			'start_url'  => get_bloginfo( 'url' ),
@@ -363,7 +381,7 @@ class Branding extends gNetwork\Module
 			$data['lang'] = $iso;
 
 		// $sizes = [ 48, 96, 192 ]; // Google
-		$sizes = [ 32, 192, 180, 270, 512 ]; // WordPress
+		$sizes = [ 32, 192, 180, 270, 512 ];  // WordPress
 
 		if ( $this->options['network_siteicon'] ) {
 
@@ -372,7 +390,7 @@ class Branding extends gNetwork\Module
 					'src'     => $this->options['network_siteicon'],
 					'type'    => 'image/svg+xml',
 					'sizes'   => sprintf( '%sx%s', $size, $size ),
-					'purpose' => 'any',
+					'purpose' => 'any maskable',
 				];
 
 		} else if ( $icon = get_option( 'site_icon' ) ) {
@@ -430,39 +448,31 @@ class Branding extends gNetwork\Module
 	 */
 	public function get_custom_logo( $html, $blog_id )
 	{
-		self::_log( $html );
-
 		if ( $html )
 			return $html; // already has custom logo!
 
-		$unlink = (bool) get_theme_support( 'custom-logo', 'unlink-homepage-logo' );
-		$style  = '';
-
-		if ( $width = get_theme_support( 'custom-logo', 'width' ) )
-			$style.= sprintf( 'width:%spx;', $width );
-		else
-			$style.= 'width:100%;';
-
-		if ( $height = get_theme_support( 'custom-logo', 'height' ) )
-			$style.= sprintf( 'height:%spx;', $height );
-		else
-			$style.= 'height:auto;';
+		$unlink = get_theme_support( 'custom-logo', 'unlink-homepage-logo' );
+		$width  = get_theme_support( 'custom-logo', 'width' );
+		$height = get_theme_support( 'custom-logo', 'height' );
 
 		$image = Core\HTML::tag( 'img', [
 			'src'   => $this->options['network_sitelogo'],
-			'alt'   => $this->options['brand_name'] ?: get_bloginfo( 'name', 'display' ),
-			'style' => $style,
+			'alt'   => $unlink ? FALSE : ( $this->options['brand_name'] ?: get_bloginfo( 'name', 'display' ) ),
 			'class' => [ 'custom-logo' ],
+			'style' => vsprintf( 'width:%1$s%2$s;height:%3$s%4$s;', [
+				$width  ? $width  : '100',
+				$width  ? 'px'    : '%',
+				$height ? $height : 'auto',
+				$height ? 'px'    : '',
+			] ),
 		] );
 
 		if ( $unlink && is_front_page() && ! is_paged() )
 			return sprintf( '<span class="custom-logo-link">%1$s</span>', $image );
 
-		$aria_current = ! is_paged() && ( is_front_page() || is_home() && ( (int) get_option( 'page_for_posts' ) !== get_queried_object_id() ) ) ? ' aria-current="page"' : '';
-
 		return vsprintf( '<a href="%1$s" class="custom-logo-link" rel="home"%2$s>%3$s</a>', [
 			esc_url( home_url( '/' ) ),
-			$aria_current,
+			! is_paged() && ( is_front_page() || is_home() && ( (int) get_option( 'page_for_posts' ) !== get_queried_object_id() ) ) ? ' aria-current="page"' : '',
 			$image
 		] );
 	}
@@ -486,7 +496,7 @@ class Branding extends gNetwork\Module
 
 	public function do_adminbar_styles()
 	{
-		printf( "<style>\n%s\n</style>\n",
+		printf( "<style type='text/css'>\n%s\n</style>\n",
 			Core\Text::replaceTokens( $this->options['adminbar_styles'], [
 				'theme_color'      => $this->options['theme_color'],
 				'webapp_color'     => $this->options['webapp_color'],
