@@ -51,6 +51,114 @@ class Mimes extends gNetwork\Module
 		];
 	}
 
+	public function setup_screen( $screen )
+	{
+		if ( 'upload' == $screen->base ) {
+
+			$this->filter( 'media_row_actions', 3, 85 );
+			gNetwork\Scripts::enqueueScript( 'admin.'.$this->key );
+		}
+	}
+
+	public function media_row_actions( $actions, $post, $detached )
+	{
+		$url  = wp_get_attachment_url( $post->ID );
+		$link = Core\HTML::tag( 'a', [
+			'target' => '_blank',
+			'class'  => 'media-url-click media-url-attachment',
+			'href'   => $url,
+			'data'   => [
+				'id'     => $post->ID,
+				'action' => 'get_url',
+			],
+		], $this->_get_media_type_label( $post->ID ) );
+
+		$link.= '<div class="media-url-box hidden"><input type="text" class="widefat media-url-field" value="'.esc_url( $url ).'" readonly></div>';
+
+		$actions['media-url'] = $link;
+
+		return $actions;
+	}
+
+	private function _get_media_type_label( $post_id, $mimetype = NULL )
+	{
+		$mimetype = $mimetype ?? get_post_mime_type( $post_id );
+
+		switch ( $mimetype ) {
+
+			case 'image/jpeg':
+			case 'image/png':
+			case 'image/gif':
+			case 'image/webp':
+			case 'image/avif':
+			case 'image/svg+xml':
+
+				$label = _x( 'View Image URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				break;
+
+			case 'video/mpeg':
+			case 'video/mp4':
+			case 'video/webm':
+			case 'video/ogg':
+			case 'video/quicktime':
+
+				$label = _x( 'View Video URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				break;
+
+			case 'text/csv':
+			case 'text/xml':
+
+				$label = _x( 'View Data File URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				break;
+
+			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+			case 'application/vnd.ms-excel':
+
+				$label = _x( 'View Spreadsheet URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				break;
+
+			case 'application/pdf':
+			case 'application/rtf':
+			case 'application/msword':
+			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+
+				$label = _x( 'View Document URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				break;
+
+			case 'text/html':
+
+				$label = _x( 'View HTML file URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				break;
+
+			default:
+
+				$label = _x( 'View Item URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+
+				if ( $mimetype && Core\Text::has( $mimetype, '/' ) ) {
+
+					$type = reset( explode( '/', $mimetype ) );
+
+					if ( in_array( $type, [ 'image' ] ) )
+						$label = _x( 'View Image URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+
+					else if ( in_array( $type, [ 'video' ] ) )
+						$label = _x( 'View Video URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+
+					else if ( in_array( $type, [ 'application' ] ) )
+						$label = _x( 'View Application URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+
+					else if ( in_array( $type, [ 'text' ] ) )
+						$label = _x( 'View Text URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				}
+		}
+
+		return $this->filters( 'mime_type_label',
+			$label,
+			$mimetype,
+			$post_id
+		);
+	}
+
 	public static function allowedMimeTypes()
 	{
 		Core\HTML::tableSide( get_allowed_mime_types() );

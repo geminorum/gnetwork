@@ -950,8 +950,6 @@ class Media extends gNetwork\Module
 
 	public function media_row_actions( $actions, $post, $detached )
 	{
-		$url = wp_get_attachment_url( $post->ID );
-
 		if ( WordPress\User::cuc( $this->options['tools_accesscap'] )
 			&& wp_attachment_is( 'image', $post->ID ) ) {
 
@@ -967,20 +965,6 @@ class Media extends gNetwork\Module
 				],
 			], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork' ) );
 		}
-
-		$link = Core\HTML::tag( 'a', [
-			'target' => '_blank',
-			'class'  => 'media-url-click media-url-attachment',
-			'href'   => $url,
-			'data'   => [
-				'id'     => $post->ID,
-				'action' => 'get_url',
-			],
-		], $this->get_media_type_label( $post->ID ) );
-
-		$link.= '<div class="media-url-box"><input type="text" class="widefat media-url-field" value="'.esc_url( $url ).'" readonly></div>';
-
-		$actions['media-url'] = $link;
 
 		return $actions;
 	}
@@ -1068,66 +1052,6 @@ class Media extends gNetwork\Module
 		}
 
 		Ajax::errorWhat();
-	}
-
-	// TODO: Move to `Mimes` Module
-	private function get_media_type_label( $post_id, $mime_type = NULL )
-	{
-		if ( is_null( $mime_type ) )
-			$mime_type = get_post_mime_type( $post_id );
-
-		switch ( $mime_type ) {
-
-			case 'image/jpeg':
-			case 'image/png':
-			case 'image/gif':
-			case 'image/webp':
-			case 'image/avif':
-			case 'image/svg+xml':
-
-				$label = _x( 'View Image URL', 'Modules: Media: Row Action', 'gnetwork' );
-				break;
-
-			case 'video/mpeg':
-			case 'video/mp4':
-			case 'video/webm':
-			case 'video/ogg':
-			case 'video/quicktime':
-
-				$label = _x( 'View Video URL', 'Modules: Media: Row Action', 'gnetwork' );
-				break;
-
-			case 'text/csv':
-			case 'text/xml':
-
-				$label = _x( 'View Data File URL', 'Modules: Media: Row Action', 'gnetwork' );
-				break;
-
-			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-			case 'application/vnd.ms-excel':
-
-				$label = _x( 'View Spreadsheet URL', 'Modules: Media: Row Action', 'gnetwork' );
-				break;
-
-			case 'application/pdf':
-			case 'application/rtf':
-			case 'application/msword':
-			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-
-				$label = _x( 'View Document URL', 'Modules: Media: Row Action', 'gnetwork' );
-				break;
-
-			case 'text/html':
-
-				$label = _x( 'View HTML file URL', 'Modules: Media: Row Action', 'gnetwork' );
-				break;
-
-			default:
-
-				$label = _x( 'View Item URL', 'Modules: Media: Row Action', 'gnetwork' );
-		}
-
-		return $this->filters( 'mime_type_label', $label, $mime_type, $post_id );
 	}
 
 	// TODO: make this optional via settings
