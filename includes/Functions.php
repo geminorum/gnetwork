@@ -92,8 +92,8 @@ endif;
 if ( ! function_exists( 'gnetwork_register_imagesize' ) ) :
 	function gnetwork_register_imagesize( $name, $atts = [] ) {
 
-		if ( class_exists( '\geminorum\gNetwork\Modules\Media' ) )
-			return \geminorum\gNetwork\Modules\Media::registerImageSize( $name, $atts );
+		if ( class_exists( '\geminorum\gNetwork\WordPress\Media' ) )
+			return \geminorum\gNetwork\WordPress\Media::registerImageSize( $name, $atts );
 	}
 endif;
 

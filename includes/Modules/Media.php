@@ -129,7 +129,7 @@ class Media extends gNetwork\Module
 
 			$this->filter( 'media_row_actions', 3, 50 );
 
-			Scripts::enqueueScript( 'admin.media' );
+			gNetwork\Scripts::enqueueScript( 'admin.'.$this->key );
 
 		} else if ( 'post' == $screen->base ) {
 
@@ -427,29 +427,26 @@ class Media extends gNetwork\Module
 				'class'    => '-media-in-content -has-list -has-list-ltr',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 
-					// TODO: look for images on `post_excerpt`
-					// @SEE: `wp_extract_urls()`
-					preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $row->post_content, $matches );
-
-					if ( empty( $matches[1] ) )
+					if ( ! $extracted = Core\Text::extractImageURLs( $row->post_content ) )
 						return Utilities::htmlEmpty();
 
-					$list     = [];
-					$externals = Core\URL::checkExternals( $matches[1] );
-
-					$external = sprintf( '<small><code class="-external-resource" title="%s">%s</code></small>',
+					$list      = [];
+					$externals = Core\URL::checkExternals( $extracted );
+					$message   = sprintf(
+						'<small><code class="-external-resource" title="%s">%s</code></small>',
 						_x( 'External Resource', 'Modules: Media: Title Attr', 'gnetwork' ),
-						_x( 'Ex', 'Modules: Media: External Resource', 'gnetwork' ) );
+						_x( 'Ex', 'Modules: Media: External Resource', 'gnetwork' )
+					);
 
-					if ( FALSE === ( $checked = Core\HTTP::checkURLs( $matches[1] ) ) )
-						$checked = array_fill_keys( $matches[1], NULL );
+					if ( FALSE === ( $checked = Core\HTTP::checkURLs( $extracted ) ) )
+						$checked = array_fill_keys( $extracted, NULL );
 
 					foreach ( $checked as $src => $code ) {
 
 						$link = Core\HTTP::htmlStatus( $code );
 
 						if ( isset( $externals[$src] ) && $externals[$src] )
-							$link.= $external;
+							$link.= $message;
 
 						$list[] = $link.' '.Core\HTML::tag( 'a', [
 							'href'   => $src,
@@ -470,6 +467,7 @@ class Media extends gNetwork\Module
 		] );
 	}
 
+	// TODO: move-up: maybe: `WordPress\Media::getAttachments()`
 	public function get_attachment_urls( $parent_id, $mime_type = 'image', $wpupload = NULL )
 	{
 		if ( is_null( $wpupload ) )
@@ -672,31 +670,11 @@ class Media extends gNetwork\Module
 		return $sizes;
 	}
 
-	// core dup with posttype/taxonomy/title
-	// @REF: `add_image_size()`
+	// NOTE: DEPRECATED: use `WordPress\Media::registerImageSize()`
 	public static function registerImageSize( $name, $atts = [] )
 	{
-		global $_wp_additional_image_sizes;
-
-		$args = self::atts( [
-			'n' => __( 'Untitled' ),
-			'w' => 0,
-			'h' => 0,
-			'c' => 0,
-			'p' => [ 'post' ], // posttype: TRUE: all/array: posttypes/FALSE: none
-			't' => FALSE, // taxonomy: TRUE: all/array: taxes/FALSE: none
-			'f' => empty( $atts['s'] ) ? FALSE : $atts['s'], // featured
-		], $atts );
-
-		$_wp_additional_image_sizes[$name] = [
-			'width'     => absint( $args['w'] ),
-			'height'    => absint( $args['h'] ),
-			'crop'      => $args['c'],
-			'post_type' => $args['p'],
-			'taxonomy'  => $args['t'],
-			'title'     => $args['n'],
-			'thumbnail' => $args['f'],
-		];
+		self::_dep( 'WordPress\Media::registerImageSize()' );
+		return WordPress\Media::registerImageSize( $name, $atts );
 	}
 
 	public function delete_attachment( $attachment_id )
