@@ -199,20 +199,28 @@ class Strings extends Core\Base
 	// @SOURCE: P2
 	public static function excerptedTitle( $content, $word_count )
 	{
-		$content = strip_tags( $content );
-		$words   = preg_split( '/([\s_;?!\/\(\)\[\]{}<>\r\n\t"]|\.$|(?<=\D)[:,.\-]|[:,.\-](?=\D))/', $content, $word_count + 1, PREG_SPLIT_NO_EMPTY );
+		$content = Core\Text::stripTags( $content );
+		$words   = preg_split(
+			'/([\s_;?!\/\(\)\[\]{}<>\r\n\t"]|\.$|(?<=\D)[:,.\-]|[:,.\-](?=\D))/',
+			$content,
+			$word_count + 1,
+			PREG_SPLIT_NO_EMPTY
+		);
 
 		if ( count( $words ) > $word_count ) {
-			array_pop( $words ); // remove remainder of words
+
+			// remove remainder of words
+			array_pop( $words );
+
 			$content = implode( ' ', $words );
 			$content.= '…';
+
 		} else {
+
 			$content = implode( ' ', $words );
 		}
 
-		$content = trim( strip_tags( $content ) );
-
-		return $content;
+		return Core\Text::stripTags( $content );
 	}
 
 	/**

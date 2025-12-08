@@ -7,6 +7,14 @@ use geminorum\gNetwork\Core;
 class User extends Core\Base
 {
 
+	public static function colorScheme( $user = NULL, $fallback = 'fresh' )
+	{
+		if ( ! $user && ! is_user_logged_in() )
+			return $fallback;
+
+		return get_user_meta( $user ?? get_current_user_id(), 'admin_color', TRUE ) ?: $fallback;
+	}
+
 	// OLD: `WordPress::getUsers()`
 	public static function get( $all_fields = FALSE, $network = FALSE, $extra = [], $rekey = 'ID' )
 	{

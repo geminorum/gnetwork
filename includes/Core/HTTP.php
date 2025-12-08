@@ -379,7 +379,7 @@ class HTTP extends Base
 
 	// @REF: https://github.com/10up/restricted-site-access/blob/develop/restricted_site_access.php
 	// @SEE: https://wordpress.org/support/topic/how-to-troubleshoot-client-ip-detection/
-	// CloudFlare: https://www.cloudflare.com/ips/
+	// `CloudFlare`: https://www.cloudflare.com/ips/
 	public static function clientIP()
 	{
 		$headers = [

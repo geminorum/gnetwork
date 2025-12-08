@@ -308,6 +308,16 @@ class Module extends Core\Base
 		}, $priority, 1 );
 	}
 
+	// USAGE: `$this->filter_append_string( 'admin_body_class', [ 'foo', 'bar' ] );`
+	protected function filter_append_string( $hook, $items, $priority = 10 )
+	{
+		add_filter( $hook, static function ( $first ) use ( $items ) {
+			foreach ( (array) $items as $value )
+				$first = sprintf( '%s %s', trim( $first ?: '' ), trim( $value ?: '' ) );
+			return $first;
+		}, $priority, 1 );
+	}
+
 	// USAGE: `$this->filter_set( 'shortcode_atts_gallery', [ 'columns' => 4 ] );`
 	protected function filter_set( $hook, $items, $priority = 10 )
 	{
@@ -485,11 +495,17 @@ class Module extends Core\Base
 		return (int) self::req( $key, $per_page );
 	}
 
-	// NOTE: `add_screen_option()` only accept 2 methods: `per_page` and `layout_columns`
-	protected function add_sub_screen_option( $sub = NULL, $context = 'tools', $option = 'per_page', $default = NULL, $label = NULL )
+	// NOTE: `add_screen_option()` only accept 2 options: `per_page` and `layout_columns`
+	protected function add_sub_screen_option( $sub = NULL, $context = 'tools', $option = TRUE, $default = NULL, $label = NULL )
 	{
-		if ( is_null( $sub ) )
-			$sub = $this->key;
+		if ( FALSE === $option )
+			return;
+
+		if ( TRUE === $option )
+			$option = 'per_page';
+
+		$sub    = $sub    ?? $this->key;
+		$option = $option ?? 'per_page';
 
 		$args = [
 			'option' => $this->hook_base( $sub, $option, $context ),

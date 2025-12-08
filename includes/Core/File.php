@@ -58,7 +58,7 @@ class File extends Base
 
 	/**
 	 * Retrieves the filetype from the filename.
-	 * NOTE: wrapper for `wp_check_filetype()` with check for all mime-types.
+	 * NOTE: wrapper for `wp_check_filetype()` with check for *all* mime-types.
 	 *
 	 * @param string $filename
 	 * @param array $mimes
@@ -876,12 +876,13 @@ class File extends Base
 	 *
 	 * @see https://konstantin.blog/2021/php-benchmark-include-vs-file_get_contents/
 	 *
-	 * @param string $path
+	 * @param string $filepath
 	 * @param mixed $fallback
 	 * @return mixed
 	 */
-	public static function requireData( $path, $fallback = FALSE )
+	public static function requireData( $filepath, $fallback = FALSE )
 	{
+		$path = self::normalize( $filepath );
 		return self::readable( $path )
 			? require( $path )
 			: $fallback;

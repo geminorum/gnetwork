@@ -15,7 +15,7 @@ class Hook extends Core\Base
 		global $wp_filter;
 
 		if ( ! isset( $wp_filter[$hook] ) )
-			return FALSE;
+			return self::dump( $hook.': none' );
 
 		if ( ! $verbose )
 			return $wp_filter[$hook];

@@ -366,9 +366,10 @@ class Media extends Core\Base
 		return $sub ? $base.'/'.$sub : $base;
 	}
 
-	// NOTE: DEPRECATED: USE: `Attachment::list()`
+	// NOTE: DEPRECATED: USE: `WordPress\Attachment::list()`
 	public static function getAttachments( $post_id, $mime_type = 'image' )
 	{
+		self::_dev_dep( 'WordPress\Attachment::list()' );
 		return Attachment::list( $post_id, $mime_type );
 	}
 
@@ -462,7 +463,7 @@ class Media extends Core\Base
 	}
 
 	// @REF: https://pippinsplugins.com/retrieve-attachment-id-from-image-url/
-	// NOTE: doesn't really work if the guid gets out of sync
+	// NOTE: doesn't really work if the `guid` gets out of sync
 	// or if the URL you have is for a cropped image.
 	public static function getAttachmentByURL( $url )
 	{
@@ -519,7 +520,7 @@ class Media extends Core\Base
 			return $fallback;
 
 		if ( $alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', TRUE ) )
-			return $raw ? $alt : trim( strip_tags( $alt ) );
+			return $raw ? $alt : Core\Text::stripTags( $alt );
 
 		return $fallback;
 	}
@@ -543,8 +544,14 @@ class Media extends Core\Base
 		return $size ?: $fallback;
 	}
 
-	// WTF: rename to `getAttachmentSrc`
+	// NOTE: DEPRECATED: use `WordPress\Media::getAttachmentSrc()`
 	public static function htmlAttachmentSrc( $attachment_id, $size = NULL, $fallback = '' )
+	{
+		self::_dev_dep( 'WordPress\Media::getAttachmentSrc()' );
+		return self::getAttachmentSrc( $attachment_id, $size, $fallback );
+	}
+
+	public static function getAttachmentSrc( $attachment_id, $size = NULL, $fallback = '' )
 	{
 		$img = NULL;
 		$src = $fallback;
@@ -566,7 +573,7 @@ class Media extends Core\Base
 		if ( empty( $attachment_id ) )
 			return '';
 
-		if ( ! $src = self::htmlAttachmentSrc( $attachment_id, $size, FALSE ) )
+		if ( ! $src = self::getAttachmentSrc( $attachment_id, $size, FALSE ) )
 			return '';
 
 		if ( empty( $data['attachment'] ) )

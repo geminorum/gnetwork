@@ -165,14 +165,14 @@ class Text extends Base
 		return preg_replace( '/[^0-9۰-۹۰-۹]/miu', '', $text );
 	}
 
-	public static function sanitizeHook( $hook )
+	public static function sanitizeHook( $text )
 	{
-		return self::trim( str_ireplace( [ '-', '.', '/', '\\' ], '_', $hook ) );
+		return self::trim( str_ireplace( [ '-', '.', '/', '\\' ], '_', $text ) );
 	}
 
-	public static function sanitizeBase( $hook )
+	public static function sanitizeBase( $text )
 	{
-		return self::trim( str_ireplace( [ '_', '.' ], '-', $hook ) );
+		return self::trim( str_ireplace( [ '_', '.' ], '-', $text ) );
 	}
 
 	public static function formatSlug( $text )
@@ -297,10 +297,10 @@ class Text extends Base
 		if ( 0 === strlen( $text ) )
 			return '';
 
-		// standardize newline characters to "\n"
+		// Standardize newline characters to "\n"
 		$text = str_replace( [ "\r\n", "\r" ], "\n", $text );
 
-		// remove more than two contiguous line breaks
+		// Remove more than two contiguous line breaks
 		$text = preg_replace( "/\n\n+/", "\n\n", $text );
 
 		$paraphs = preg_split( "/[\n]{2,}/", $text );
@@ -310,7 +310,7 @@ class Text extends Base
 
 		$text = implode( '', $paraphs );
 
-		// remove a P of entirely whitespace
+		// Remove a P of entirely whitespace
 		$text = preg_replace( '|<p>\s*</p>|', '', $text );
 
 		return self::trim( $text );
@@ -373,6 +373,8 @@ class Text extends Base
 	 * - `<p><a><img class="ALIGNMENT" /></a></p>': `<figure class="EXTRA-CLASS ALIGNMENT"><a><img/></a></figure>`
 	 * - `<p><a><img class="ALIGNMENT" /></a>TEXT</p>`: `<figure class="EXTRA-CLASS ALIGNMENT"><a><img/></a></figure><p>TEXT</p>`
 	 *
+	 * @see https://micahjon.com/2016/removing-wrapping-p-paragraph-tags-around-images-wordpress/
+	 *
 	 * @param string $text
 	 * @param string $tag
 	 * @param string $class
@@ -384,13 +386,12 @@ class Text extends Base
 			// @source https://css-tricks.com/?p=15293
 			return preg_replace( '/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?\s*<\/p>/iU', '\1\2\3', $text );
 
-
 		return preg_replace_callback(
 			'/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(<\/a>)?(.*)\s*<\/p>/i',
 			static function ( $matches ) use ( $tag, $class ) {
 				list( $image, $align ) = self::replaceImageP_extractAlignment( $matches[2] );
 
-				$class = trim( $class.' '.$align );
+				$class = HTML::prepClass( $class, $align );
 
 				return vsprintf( '<%1$s%6$s>%4$s%3$s%5$s</%2$s>%7$s', [
 					$tag,                                      // wrap tag opening
@@ -402,7 +403,8 @@ class Text extends Base
 					empty( $matches[4] ) ? '' : sprintf( '<p>%s</p>', $matches[4] ),
 				] );
 			},
-		$text );
+			$text
+		);
 	}
 
 	public static function replaceImageP_extractAlignment( $text )
@@ -412,17 +414,56 @@ class Text extends Base
 
 		foreach ( [
 			'alignnone',
+			'alignwide',
 			'aligncenter',
 			'alignleft',
 			'alignright',
 		] as $align )
 			if ( FALSE !== stripos( $matches[1], $align ) )
 				return [
-					str_ireplace( $align, '', $text ),
+					str_ireplace( [ ' '.$align, $align.' ', $align ], '', $text ),
 					$align
 				];
 
 		return [ $text, '' ];
+	}
+
+	/**
+	 * Extracts image URLs from given text.
+	 *
+	 * @param string $text
+	 * @param bool $unique
+	 * @return array
+	 */
+	public static function extractImageURLs( $text, $unique = TRUE )
+	{
+		if ( empty( $text ) )
+			return [];
+
+		if ( ! preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $text, $matches ) )
+			return [];
+
+		if ( empty( $matches[1] ) )
+			return [];
+
+		return $unique ? array_unique( $matches[1] ) : $matches[1];
+	}
+
+	/**
+	 * Adds a default CSS class to images without one.
+	 * @source https://macarthur.me/posts/writing-a-regular-expression-to-target-images-without-a-class/
+	 *
+	 * @param string $text
+	 * @param string $class
+	 * @return string
+	 */
+	public static function addImageClass( $text, $class = 'img-fluid' )
+	{
+		return $text ? preg_replace(
+			'/<img((.(?!class=))*)\/?>/i',
+			sprintf( '<img class="%s"$1>', HTML::prepClass( $class ) ),
+  			$text
+		) : $text;
 	}
 
 	/**
@@ -588,19 +629,23 @@ class Text extends Base
 	}
 
 	// NOTE: DEPRECATED
-	// @REF: http://stackoverflow.com/a/3226746
 	public static function normalizeWhitespaceUTF8( $text, $check = FALSE )
 	{
 		if ( $check && ! self::seemsUTF8( $text ) )
 			return self::normalizeWhitespace( $text );
 
-		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $text );
+		return self::singleWhitespaceUTF8( $text );
 	}
 
-	// @REF: http://stackoverflow.com/a/3226746
 	public static function singleWhitespaceUTF8( $text )
 	{
-		return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $text );
+		// @source http://stackoverflow.com/a/3226746
+		// return preg_replace( '/[\p{Z}\s]{2,}/u', ' ', $text );
+
+		// Replaces each sequence of spaces, tabs, and/or line breaks
+		// with the first character in that sequence.
+		// @source https://stackoverflow.com/a/3278112
+		return preg_replace( '/([\p{Z}\s])[\p{Z}\s]+/u', '$1', $text );
 	}
 
 	/**
@@ -1927,8 +1972,8 @@ class Text extends Base
 
 		// https://stackoverflow.com/q/6191503
 		// $search = array('\\', ';', ',', "\r\n", "\n", "\r");
-    	// $replace = array('\\\\', '\;', '\,', '\n', '\n', '\n');
-    	// $text = str_replace($search, $replace, $text);
+		// $replace = array('\\\\', '\;', '\,', '\n', '\n', '\n');
+		// $text = str_replace($search, $replace, $text);
 
 		// // https://stackoverflow.com/a/6192156
 		// // Note the mixture of single and double quotes for the line break (Double quotes interpret the line breaks whereas single ones don't)
