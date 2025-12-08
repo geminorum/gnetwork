@@ -29,6 +29,10 @@ class Typography extends gNetwork\Module
 
 		$this->filter( 'the_content', 1, 1, 'early' );
 
+		if ( $this->options['remove_empty_p']
+			|| $this->options['remove_double_spaces'] )
+				$this->filter( 'the_content', 1, 20 );
+
 		if ( $this->options['title_titlecase']
 			|| $this->options['title_wordwrap'] )
 				$this->filter( 'the_title', 2 );
@@ -58,18 +62,20 @@ class Typography extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'tools_accesscap'     => 'edit_others_posts',
-			'register_blocktypes' => '0',
-			'register_shortcodes' => '0',
-			'editor_buttons'      => '0',
-			'title_sanitize'      => '1',
-			'title_titlecase'     => '0',
-			'title_wordwrap'      => '0',
-			'widget_wordwrap'     => '0',
-			'general_typography'  => '0',
-			'arabic_typography'   => '0',
-			'persian_typography'  => '0',
-			'linkify_content'     => '0',
+			'tools_accesscap'      => 'edit_others_posts',
+			'register_blocktypes'  => '0',
+			'register_shortcodes'  => '0',
+			'editor_buttons'       => '0',
+			'title_sanitize'       => '1',
+			'title_titlecase'      => '0',
+			'title_wordwrap'       => '0',
+			'widget_wordwrap'      => '0',
+			'general_typography'   => '0',
+			'arabic_typography'    => '0',
+			'persian_typography'   => '0',
+			'linkify_content'      => '0',
+			'remove_empty_p'       => '1',                   // FIXME: add UI
+			'remove_double_spaces' => '0',                   // FIXME: add UI
 		];
 	}
 
@@ -126,6 +132,17 @@ class Typography extends gNetwork\Module
 					'field'       => 'widget_wordwrap',
 					'title'       => _x( 'Word Wrapper for Widget Titles', 'Modules: Typography: Settings', 'gnetwork' ),
 					'description' => _x( 'Prevents widow words in the end of widget titles.', 'Modules: Typography: Settings', 'gnetwork' ),
+				],
+				[
+					'field'       => 'remove_empty_p',
+					'title'       => _x( 'Empty Paragraphs', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to remove empty paragraph tags on the content.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'default'     => '1',
+				],
+				[
+					'field'       => 'remove_double_spaces',
+					'title'       => _x( 'Double Spaces', 'Modules: Typography: Settings', 'gnetwork' ),
+					'description' => _x( 'Tries to replace consecutive spaces with single one on the content.', 'Modules: Typography: Settings', 'gnetwork' ),
 				],
 				'register_blocktypes',
 				'register_shortcodes',
@@ -520,6 +537,17 @@ class Typography extends gNetwork\Module
 		$content );
 
 		$content = str_ireplace( ' [ref', '[ref', $content );
+
+		return $content;
+	}
+
+	public function the_content( $content )
+	{
+		if ( $this->options['remove_empty_p'] )
+			$content = Core\Text::noEmptyP( $content );
+
+		if ( $this->options['remove_double_spaces'] )
+			$content = Core\Text::singleWhitespaceUTF8( $content );
 
 		return $content;
 	}
