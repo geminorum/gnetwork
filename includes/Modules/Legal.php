@@ -108,7 +108,7 @@ class Legal extends gNetwork\Module
 				'target' => '_blank',
 			], sprintf(
 				/* translators: `%s`: file name for `ads.txt` */
-				_x( 'View ads.txt', 'Modules: Mail', 'gnetwork' ),
+				_x( 'View %s', 'Modules: Mail', 'gnetwork' ),
 				Core\HTML::code( 'ads.txt' )
 			) );
 

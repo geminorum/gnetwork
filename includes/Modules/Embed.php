@@ -21,7 +21,7 @@ class Embed extends gNetwork\Module
 		if ( ! $this->options['load_defaults'] )
 			$this->filter_false( 'load_default_embeds' );
 
-		if ( ! $this->options['autoembed_urls'] ) {
+		if ( ! $this->options['autoembed_urls'] && ! empty( $GLOBALS['wp_embed'] ) ) {
 			remove_filter( 'the_content', [ $GLOBALS['wp_embed'], 'autoembed' ], 8 );
 			remove_filter( 'widget_text_content', [ $GLOBALS['wp_embed'], 'autoembed' ], 8 );
 		}

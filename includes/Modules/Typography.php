@@ -336,7 +336,7 @@ class Typography extends gNetwork\Module
 		] );
 	}
 
-	// TODO: wordwrap headings in content / lookout for link in titles!
+	// TODO: `wordwrap` headings in content / lookout for link in titles!
 	// TODO: ؟! -> ?!
 	// @SEE: `wp_replace_in_html_tags()`
 	public function general_typography( $content )
@@ -344,6 +344,7 @@ class Typography extends gNetwork\Module
 		$content = str_ireplace( [
 			'<p>***</p>',
 			'<p><strong>***</strong></p>',
+			'<p style="text-align: center;">***</p>',
 			'<p style="text-align:center">***</p>',
 			'<p style="text-align:center"><strong>***</strong></p>',
 		], $this->shortcode_three_asterisks(), $content );
@@ -425,17 +426,25 @@ class Typography extends gNetwork\Module
 		if ( gNetwork()->option( 'linkify_hashtags', 'search' )
 			&& ! self::const( 'GNETWORK_DISABLE_LINKIFY_CONTENT' ) ) {
 
-			$content = Core\Text::replaceSymbols( '#', $content, static function ( $matched, $string ) {
-				return Core\HTML::tag( 'a', [
-					'href'  => WordPress\URL::search( $matched ),
-					'class' => [ '-link', '-hashtag' ]
-				], str_replace( '_', ' ', $matched ) );
-			} );
+			$content = Core\Text::replaceSymbols( '#', $content,
+				static function ( $matched, $string ) {
+					return Core\HTML::tag( 'a', [
+						'href'  => WordPress\URL::search( $matched ),
+						'class' => [ '-link', '-hashtag' ]
+					], str_replace( '_', ' ', $matched ) );
+				} );
 
 			// telegram hash-tag links!
-			$content = preg_replace_callback( '/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu', static function ( $matched ) {
-				return Core\HTML::link( '#'.str_replace( '_', ' ', $matched[2] ), WordPress\URL::search( '#'.$matched[2] ) );
-			}, $content );
+			$content = preg_replace_callback(
+				'/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu',
+				static function ( $matched ) {
+					return Core\HTML::link(
+						sprintf( '#%s', str_replace( '_', ' ', $matched[2] ) ),
+						WordPress\URL::search( '#'.$matched[2] )
+					);
+				},
+				$content
+			);
 		}
 
 		if ( gNetwork()->option( 'content_replace', 'branding' ) ) {
@@ -443,9 +452,10 @@ class Typography extends gNetwork\Module
 			$brand_name = gNetwork()->brand( 'name' );
 			$brand_url  = gNetwork()->brand( 'url' );
 
-			$content = Core\Text::replaceWords( [ $brand_name ], $content, static function ( $matched ) use ( $brand_url ) {
-				return '<em>'.Core\HTML::link( $matched, $brand_url ).'</em>';
-			} );
+			$content = Core\Text::replaceWords( [ $brand_name ], $content,
+				static function ( $matched ) use ( $brand_url ) {
+					return '<em>'.Core\HTML::link( $matched, $brand_url ).'</em>';
+				} );
 		}
 
 		return $content;
@@ -531,10 +541,10 @@ class Typography extends gNetwork\Module
 
 	public function the_content_early( $content )
 	{
-		$content = str_ireplace(
-			'<p style="text-align: center;">***</p>',
-			$this->shortcode_three_asterisks(),
-		$content );
+		// $content = str_ireplace(
+		// 	'<p style="text-align: center;">***</p>',
+		// 	$this->shortcode_three_asterisks(),
+		// $content );
 
 		$content = str_ireplace( ' [ref', '[ref', $content );
 

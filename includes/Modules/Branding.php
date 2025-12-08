@@ -20,7 +20,7 @@ class Branding extends gNetwork\Module
 		if ( $this->options['siteicon_fallback'] && is_multisite() )
 			$this->filter( 'get_site_icon_url', 3 );
 
-		if ( $this->options['webapp_manifest'] ) {
+		if ( ! self::const( 'PWA_VERSION' ) && $this->options['webapp_manifest'] ) {
 
 			if ( ! is_admin() && is_main_site() ) {
 				$this->action( 'parse_request', 1, 1 );
@@ -336,6 +336,7 @@ class Branding extends gNetwork\Module
 	// @REF: https://w3c.github.io/manifest/
 	// @SEE: https://developer.mozilla.org/en-US/docs/Web/Manifest
 	// @SEE: https://web.dev/articles/add-manifest
+	// @SEE: https://developer.chrome.com/docs/lighthouse/pwa/installable-manifest
 	// ---
 	/***
 	 * @source https://github.com/GoogleChromeLabs/pwa-wp/wiki/Web-App-Manifest
@@ -355,9 +356,11 @@ class Branding extends gNetwork\Module
 	{
 		$data = [
 			'start_url'  => get_bloginfo( 'url' ),
-			'display'    => 'minimal-ui', // FIXME: add radio select
+			'display'    => 'minimal-ui',                         // FIXME: add radio select: `fullscreen`, `standalone`, or `browser`
 			'short_name' => $this->options['webapp_shortname'],
 			'name'       => $this->options['webapp_longname'],
+			'lang'       => get_bloginfo( 'language' ),
+			'dir'        => is_rtl() ? 'rtl' : 'ltr',
 		];
 
 		if ( $this->options['theme_color'] )
@@ -372,14 +375,6 @@ class Branding extends gNetwork\Module
 		if ( $this->options['webapp_description'] )
 			$data['description'] = $this->options['webapp_description'];
 
-		if ( is_rtl() )
-			$data['dir'] = 'rtl';
-
-		$iso = Core\L10n::getISO639();
-
-		if ( 'en' != $iso )
-			$data['lang'] = $iso;
-
 		// $sizes = [ 48, 96, 192 ]; // Google
 		$sizes = [ 32, 192, 180, 270, 512 ];  // WordPress
 
@@ -390,6 +385,10 @@ class Branding extends gNetwork\Module
 					'src'     => $this->options['network_siteicon'],
 					'type'    => 'image/svg+xml',
 					'sizes'   => sprintf( '%sx%s', $size, $size ),
+
+					// We recommend designing any icons like your site's favicons, with transparent regions and no extra padding.
+					// @REF: https://web.dev/articles/maskable-icon
+					// @SEE: https://github.com/GoogleChromeLabs/pwa-wp/issues/304
 					'purpose' => 'any maskable',
 				];
 

@@ -52,7 +52,7 @@ class Themes extends gNetwork\Module
 			$this->action( 'amp_post_template_css' );
 
 			if ( $this->options['content_actions'] )
-				$this->filter( 'the_content', 1, 999 );
+				$this->filter( 'the_content', 1, 999, 'actions' );
 
 			$this->filter( 'body_class', 2, 5 );
 			$this->filter( 'post_class', 3, 5 );
@@ -691,7 +691,7 @@ class Themes extends gNetwork\Module
 		return ( $theme == $template || $theme == $stylesheet );
 	}
 
-	public function the_content( $content )
+	public function the_content_actions( $content )
 	{
 		if ( defined( 'GNETWORK_DISABLE_CONTENT_ACTIONS' )
 			&& GNETWORK_DISABLE_CONTENT_ACTIONS )

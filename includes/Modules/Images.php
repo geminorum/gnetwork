@@ -66,22 +66,12 @@ class Images extends gNetwork\Module
 				[
 					'field'       => 'skip_exifmeta',
 					'title'       => _x( 'Strip EXIF', 'Modules: Images: Settings', 'gnetwork' ),
-					'description' => _x( 'Skips storing unused EXIF metadata for image attachments.', 'Modules: Images: Settings', 'gnetwork' ),
-					'default'     => '1',
-				],
-				[
-					'field'       => 'edit_thumb_sep',
-					'title'       => _x( 'Edit Thumbnails Separately', 'Modules: Images: Settings', 'gnetwork' ),
-					'description' => _x( 'Shows the settings in the Image Editor that allow selecting to edit only the thumbnail of an image.', 'Modules: Images: Settings', 'gnetwork' ),
-				],
-				[
-					'field'       => 'bigsize_threshold',
-					'type'        => 'text',
-					'title'       => _x( 'Size Threshold', 'Modules: Images: Settings', 'gnetwork' ),
-					'description' => _x( 'Filters the “BIG image” threshold value in pixels. `0` for disabling the scaling.', 'Modules: Images: Settings', 'gnetwork' ),
-					'after'       => Settings::fieldAfterIcon( 'https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/' ),
-					'field_class' => [ 'small-text', 'code' ],
-					'placeholder' => '2560',
+					'description' => sprintf(
+						/* translators: `%s`: `EXIF` placeholder */
+						_x( 'Skips storing unused %s metadata for image attachments.', 'Modules: Images: Settings', 'gnetwork' ),
+						Core\HTML::code( 'EXIF' )
+					),
+					'default' => '1',
 				],
 			],
 			'_content' => [
@@ -91,7 +81,7 @@ class Images extends gNetwork\Module
 					'title'       => _x( 'Default CSS Class', 'Modules: Images: Settings', 'gnetwork' ),
 					'description' => sprintf(
 						/* translators: `%s`: `CSS` placeholder */
-						_x( 'Sets the default %s class for images without one.', 'Modules: Images: Settings', 'gnetwork' ),
+						_x( 'Sets the default %s class for images without the attribute.', 'Modules: Images: Settings', 'gnetwork' ),
 						Core\HTML::code( 'CSS' )
 					),
 					'field_class' => [ 'regular-text', 'code' ],
@@ -106,12 +96,12 @@ class Images extends gNetwork\Module
 					'values'      => [
 						'ignore_all'          => _x( 'Ignores the paragraps and leave them as are!', 'Modules: Images: Settings', 'gnetwork' ),
 						'replace_with_figure' => sprintf(
-							/* translators: `%s`: `figure` placeholder */
+							/* translators: `%s`: html tag placeholder */
 							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork' ),
 							Core\HTML::code( 'figure' )
 						),
 						'replace_with_div' => sprintf(
-							/* translators: `%s`: `div` placeholder */
+							/* translators: `%s`: html tag placeholder */
 							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork' ),
 							Core\HTML::code( 'div' )
 						),
@@ -119,12 +109,36 @@ class Images extends gNetwork\Module
 					],
 				],
 			],
-			'_quality' => [
+			'_editor' => [
+				[
+					'field'       => 'edit_thumb_sep',
+					'title'       => _x( 'Edit Thumbnails Separately', 'Modules: Images: Settings', 'gnetwork' ),
+					'description' => _x( 'Shows the settings in the Image Editor that allow selecting to edit only the thumbnail of an image.', 'Modules: Images: Settings', 'gnetwork' ),
+				],
+			],
+			'_size_and_quality' => [
+				[
+					'field'       => 'bigsize_threshold',
+					'type'        => 'text',
+					'title'       => _x( 'Size Threshold', 'Modules: Images: Settings', 'gnetwork' ),
+					'description' => sprintf(
+						/* translators: `%s`: zero placeholder */
+						_x( 'Filters the “BIG image” threshold value in pixels. %s for disabling the scaling.', 'Modules: Images: Settings', 'gnetwork' ),
+						Core\HTML::code( '0' )
+					),
+					'after'       => Settings::fieldAfterIcon( 'https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/' ),
+					'field_class' => [ 'small-text', 'code' ],
+					'placeholder' => '2560',
+				],
 				[
 					'field'       => 'quality_jpeg',
 					'type'        => 'number',
 					'title'       => _x( 'JPEG Quality', 'Modules: Images: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets the compression quality setting used for JPEG images.', 'Modules: Images: Settings', 'gnetwork' ),
+					'description' => sprintf(
+						/* translators: `%s`: image type placeholder */
+						_x( 'Sets the compression quality setting used for %s images.', 'Modules: Images: Settings', 'gnetwork' ),
+						Core\HTML::code( 'JPEG' )
+					),
 					'placeholder' => 90,
 					'default'     => 60,
 					'min_attr'    => 1,
@@ -134,7 +148,11 @@ class Images extends gNetwork\Module
 					'field'       => 'quality_webp',
 					'type'        => 'number',
 					'title'       => _x( 'WebP Quality', 'Modules: Images: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets the compression quality setting used for WebP images.', 'Modules: Images: Settings', 'gnetwork' ),
+					'description' => sprintf(
+						/* translators: `%s`: image type placeholder */
+						_x( 'Sets the compression quality setting used for %s images.', 'Modules: Images: Settings', 'gnetwork' ),
+						Core\HTML::code( 'WebP' )
+					),
 					'placeholder' => 90,
 					'default'     => 75,
 					'min_attr'    => 1,
@@ -146,9 +164,13 @@ class Images extends gNetwork\Module
 					'field'       => 'output_format',
 					'type'        => 'checkboxes',
 					'title'       => _x( 'Output Format', 'Modules: Images: Settings', 'gnetwork' ),
-					'description' => _x( 'Sets WebP as default format for selected image sub-sizes.', 'Modules: Images: Settings', 'gnetwork' ),
-					// 'after'       => Settings::fieldAfterIcon( 'https://caniuse.com/webp' ),
-					'values'      => [
+					'description' => sprintf(
+						/* translators: `%s`: `WebP` placeholder */
+						_x( 'Sets %s as default format for selected image sub-sizes.', 'Modules: Images: Settings', 'gnetwork' ),
+						Core\HTML::code( 'WebP' )
+					),
+					// 'after'  => Settings::fieldAfterIcon( 'https://caniuse.com/webp' ), // `checkboxes` type does not support `after` styles yet!
+					'values' => [
 						'jpeg'   => 'JPEG',
 						'gif'    => 'GIF',
 						'png'    => 'PNG',

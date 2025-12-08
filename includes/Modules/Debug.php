@@ -766,8 +766,8 @@ class Debug extends gNetwork\Module
 	public static function functionExists( $func )
 	{
 		if ( function_exists( $func ) )
-			/* translators: `%s`: function placeholder */
 			Core\HTML::desc( sprintf(
+				/* translators: `%s`: function placeholder */
 				_x( '%s available!', 'Modules: Debug', 'gnetwork' ),
 				Core\HTML::code( $func )
 			), TRUE, '-available -color-success' );

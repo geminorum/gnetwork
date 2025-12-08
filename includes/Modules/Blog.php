@@ -737,7 +737,7 @@ class Blog extends gNetwork\Module
 		if ( gNetwork()->option( 'opensearch', 'opensearch' ) )
 			gNetwork()->opensearch->do_link_tag();
 
-		if ( $mainsite && gNetwork()->option( 'webapp_manifest', 'branding' ) )
+		if ( $mainsite && ! self::const( 'PWA_VERSION' ) && gNetwork()->option( 'webapp_manifest', 'branding' ) )
 			gNetwork()->branding->do_link_tag();
 
 		if ( $this->options['page_copyright'] )
