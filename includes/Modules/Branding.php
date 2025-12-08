@@ -39,6 +39,13 @@ class Branding extends gNetwork\Module
 		if ( $this->options['network_siteicon'] )
 			$this->action( 'do_faviconico', 0, 8 );
 
+		if ( $this->options['colors_fallback'] ) {
+			$this->filter( 'accent_color', 1, 8, 'fallback_colors', 'theme_mod' );
+			$this->filter( 'adminscreen_colors', 1, 8, 'fallback_colors', 'geditorial' );
+			$this->filter( 'colors_extra', 1, 8, 'fallback_colors', 'gtheme' );
+			$this->filter( 'colors_custom_palette', 3, 22, 'fallback_colors', 'gtheme' );
+		}
+
 		$this->action( 'network_credits' );
 		$this->filter( 'gtheme_copyright', 2 );
 
@@ -61,6 +68,7 @@ class Branding extends gNetwork\Module
 			'network_sitelogo'   => '',
 			'network_siteicon'   => '',
 			'theme_color'        => '',
+			'colors_fallback'    => '0',
 			'sitelogo_fallback'  => '0',
 			'siteicon_fallback'  => '0',
 			'webapp_manifest'    => '1',
@@ -211,6 +219,12 @@ class Branding extends gNetwork\Module
 			'field'       => 'content_replace',
 			'title'       => _x( 'Content Replace', 'Modules: Branding: Settings', 'gnetwork' ),
 			'description' => _x( 'Tries to linkify brand name on the content. Must enable &ldquo;General Typography&rdquo; setting on each site.', 'Modules: Branding: Settings', 'gnetwork' ),
+		];
+
+		$settings['_misc'][] = [
+			'field'       => 'colors_fallback',
+			'title'       => _x( 'Network Colors', 'Modules: Branding: Settings', 'gnetwork' ),
+			'description' => _x( 'Falls back into custom site colors on the network.', 'Modules: Branding: Settings', 'gnetwork' ),
 		];
 
 		$settings['_misc'][] = [
@@ -474,6 +488,56 @@ class Branding extends gNetwork\Module
 			! is_paged() && ( is_front_page() || is_home() && ( (int) get_option( 'page_for_posts' ) !== get_queried_object_id() ) ) ? ' aria-current="page"' : '',
 			$image
 		] );
+	}
+
+	// @hook: `theme_mod_accent_color`
+	public function accent_color_fallback_colors( $value )
+	{
+		return $value ?: $this->options['theme_color'];
+	}
+
+	// @hook: `geditorial_adminscreen_colors`
+	public function adminscreen_colors_fallback_colors( $colors )
+	{
+		if ( $this->options['theme_color'] )
+			$colors[] = "\t".sprintf( '--%s-custom-color: %s;', 'brand-color', $this->options['theme_color'] );
+
+		if ( $this->options['webapp_color'] )
+			$colors[] = "\t".sprintf( '--%s-custom-color: %s;', 'brand-background', $this->options['webapp_color'] );
+
+		return $colors;
+	}
+
+	// @hook: `gtheme_colors_extra`
+	public function colors_extra_fallback_colors( $colors )
+	{
+		if ( $this->options['theme_color'] )
+			$colors['brand-color'] = $this->options['theme_color'];
+
+		if ( $this->options['webapp_color'] )
+			$colors['brand-background'] = $this->options['webapp_color'];
+
+		return $colors;
+	}
+
+	// @hook: `gtheme_colors_custom_palette`
+	public function colors_custom_palette_fallback_colors( $palette, $defaults, $accent )
+	{
+		if ( $this->options['theme_color'] && $accent !== $this->options['theme_color'] )
+			$palette[] = [
+	 			'name'  => esc_html_x( 'Brand Color', 'Modules: Branding: Editor Pallete', 'gnetwork' ),
+	 			'slug'  => 'brand-color',
+	 			'color' => $this->options['theme_color'],
+	 		];
+
+		if ( $this->options['webapp_color'] )
+			$palette[] = [
+	 			'name'  => esc_html_x( 'Brand Background', 'Modules: Branding: Editor Pallete', 'gnetwork' ),
+	 			'slug'  => 'brand-background',
+	 			'color' => $this->options['webapp_color'],
+	 		];
+
+		return $palette;
 	}
 
 	// @SOURCE: https://github.com/kraftbj/default-site-icon
