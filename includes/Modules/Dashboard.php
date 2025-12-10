@@ -231,26 +231,40 @@ class Dashboard extends gNetwork\Module
 
 			if ( $num_comm->approved || $num_comm->moderated ) {
 
-				/* translators: %s: comments count */
-				$text = sprintf( _nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', 'gnetwork' ), Core\Number::format( $num_comm->approved ) );
+				$text = sprintf(
+					/* translators: `%s`: comments count */
+					_nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', 'gnetwork' ),
+					Core\Number::format( $num_comm->approved )
+				);
 
 				$html.= '<li class="comment-count"><a href="edit-comments.php">'.$text.'</a></li>';
 
 				$moderated_comments_count_i18n = Core\Number::format( $num_comm->moderated );
 
-				/* translators: %s: awaiting comments count */
-				$text = sprintf( _nx( '%s Awaiting Comment', '%s Awaiting Comments', $num_comm->moderated, 'Modules: Dashboard: Right Now', 'gnetwork' ), $moderated_comments_count_i18n );
+				$text = sprintf(
+					/* translators: `%s`: awaiting comments count */
+					_nx( '%s Awaiting Comment', '%s Awaiting Comments', $num_comm->moderated, 'Modules: Dashboard: Right Now', 'gnetwork' ),
+					$moderated_comments_count_i18n
+				);
 
-				/* translators: %s: number of comments in moderation */
-				$aria_label = sprintf( _nx( '%s comment in moderation', '%s comments in moderation', $num_comm->moderated, 'comments' ), $moderated_comments_count_i18n );
+				$aria_label = sprintf(
+					/* translators: `%s`: number of comments in moderation */
+					_nx( '%s comment in moderation', '%s comments in moderation', $num_comm->moderated, 'comments' ),
+					$moderated_comments_count_i18n
+				);
 
 				$html.= '<li class="comment-mod-count'.( $num_comm->moderated ? '' : ' hidden' ).'">';
 				$html.= '<a href="edit-comments.php?comment_status=moderated" aria-label="'.esc_attr__( $aria_label ).'">'.$text.'</a></li>';
 			}
 
 			if ( $num_comm->spam > 0 ) {
-				/* translators: %s: spam comments count */
-				$spam = sprintf( _nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', 'gnetwork' ), Core\Number::format( $num_comm->spam ) );
+
+				$spam = sprintf(
+					/* translators: `%s`: spam comments count */
+					_nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', 'gnetwork' ),
+					Core\Number::format( $num_comm->spam )
+				);
+
 				$html.= '<li class="comment-spam-count"><a href="edit-comments.php?comment_status=spam">'.$spam.'</a></li>';
 			}
 		}
@@ -333,14 +347,14 @@ class Dashboard extends gNetwork\Module
 					Core\HTML::escape( Core\Text::truncateString( $user->user_email, 32 ) ),
 					Core\HTML::escape( Utilities::dateFormat( $registered, 'monthday' ) ),
 					sprintf(
-						/* translators: %1$s: human time diff, %2$s: registred date */
+						/* translators: `%1$s`: human time diff, `%2$s`: registered date */
 						_x( '%1$s ago &mdash; %2$s', 'Modules: Dashboard: Signups', 'gnetwork' ),
 						human_time_diff( $registered, $time ),
 						Utilities::dateFormat( $registered )
 					),
 					get_edit_user_link( $user->ID ),
-					'mailto:'.Core\HTML::escape( $user->user_email ),
 					$user->user_login,
+					esc_url( sprintf( 'mailto:%s', $user->user_email ) ),
 					( $register_ip ? gnetwork_ip_lookup( $register_ip ) : gNetwork()->na( FALSE ) )
 				] );
 
@@ -355,28 +369,40 @@ class Dashboard extends gNetwork\Module
 
 				echo '<tr><td>';
 
-					/* translators: %s: human time diff */
-					printf( _x( 'Last User Registered %s ago', 'Modules: Dashboard: Signups', 'gnetwork' ), human_time_diff( $last, $time ) );
+					printf(
+						/* translators: `%s`: human time diff */
+						_x( 'Last User Registered %s ago', 'Modules: Dashboard: Signups', 'gnetwork' ),
+						human_time_diff( $last, $time )
+					);
 
 				echo '</td><td>';
 
 					if ( $spam_users = gNetwork()->user->get_spam_count() )
-						/* translators: %s: spam users count */
-						echo Utilities::getCounted( $spam_users, _nx( 'With %s Spam User', 'With %s Spam Users', $spam_users, 'Modules: Dashboard: Signups', 'gnetwork' ) );
+						echo Utilities::getCounted( $spam_users,
+							/* translators: `%s`: spam users count */
+							_nx( 'With %s Spam User', 'With %s Spam Users', $spam_users, 'Modules: Dashboard: Signups', 'gnetwork' )
+						);
+
 					else
 						_ex( 'With No Spam User', 'Modules: Dashboard: Signups', 'gnetwork' );
 
 				echo '</td></tr><tr><td>';
 
 					$super_admins = count( get_super_admins() );
-					/* translators: %s: admin users count */
-					echo Utilities::getCounted( $super_admins, _nx( 'And %s Super Admin', 'And %s Super Admins', $super_admins, 'Modules: Dashboard: Signups', 'gnetwork' ) );
+
+					echo Utilities::getCounted( $super_admins,
+						/* translators: `%s`: admin users count */
+						_nx( 'And %s Super Admin', 'And %s Super Admins', $super_admins, 'Modules: Dashboard: Signups', 'gnetwork' )
+					);
 
 				echo '</td><td>';
 
 					$user_count = get_user_count();
-					/* translators: %s: total user count */
-					echo Utilities::getCounted( $user_count, _nx( 'Total of %s User', 'Total of %s Users', $user_count, 'Modules: Dashboard: Signups', 'gnetwork' ) );
+
+					echo Utilities::getCounted( $user_count,
+						/* translators: `%s`: total user count */
+						_nx( 'Total of %s User', 'Total of %s Users', $user_count, 'Modules: Dashboard: Signups', 'gnetwork' )
+					);
 
 				echo '</td></tr>';
 
@@ -472,14 +498,14 @@ class Dashboard extends gNetwork\Module
 
 		$items[] = Core\HTML::tag( 'a', [
 			'href'  => network_admin_url( 'update-core.php' ),
-			'title' => sprintf( __( 'Update to %s' ), $preferred->current ? $preferred->current : __( 'Latest' ) ),
+			'title' => sprintf( __( 'Update to %s' ), $preferred->current ?: __( 'Latest' ) ),
 			'class' => '-update',
 		], _x( 'Update WordPress', 'Modules: Dashboard: Update Core', 'gnetwork' ) );
 
 		return $items;
 	}
 
-	// checks if search engines are asked not to index this site
+	// Checks if search engines are asked not to index this site
 	public function dashboard_pointers_public( $items )
 	{
 		if ( '0' != get_option( 'blog_public' ) )
@@ -516,10 +542,17 @@ class Dashboard extends gNetwork\Module
 
 		$items[] = Core\HTML::tag( 'a', [
 			'href'  => admin_url( 'upload.php' ),
-			'title' => sprintf( Core\HTML::wrapLTR( '%s MB/%s MB' ), Core\Number::format( round( $used, 2 ), 2 ), Core\Number::format( $quota ) ),
 			'class' => $classes,
-		/* translators: %s: space used percent */
-		], sprintf( _x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ), Core\Number::localize( $percent.'%' ) ) );
+			'title' => sprintf(
+				Core\HTML::wrapLTR( '%s MB/%s MB' ),
+				Core\Number::format( round( $used, 2 ), 2 ),
+				Core\Number::format( $quota )
+			),
+		], sprintf(
+			/* translators: `%s`: space used percent */
+			_x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ),
+			Core\Number::localize( $percent.'%' )
+		) );
 
 		return $items;
 	}

@@ -514,6 +514,7 @@ class Admin extends gNetwork\Module
 
 		else if ( WordPress\IsIt::iFrame() )
 			Utilities::linkStyleSheet( 'admin.iframe' );
+
 		else
 			Utilities::linkStyleSheet( 'admin.all' );
 

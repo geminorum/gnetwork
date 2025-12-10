@@ -141,6 +141,9 @@ class Mimes extends gNetwork\Module
 					if ( in_array( $type, [ 'image' ] ) )
 						$label = _x( 'View Image URL', 'Modules: Mimes: Row Action', 'gnetwork' );
 
+					else if ( in_array( $type, [ 'audio' ] ) )
+						$label = _x( 'View Audio URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+
 					else if ( in_array( $type, [ 'video' ] ) )
 						$label = _x( 'View Video URL', 'Modules: Mimes: Row Action', 'gnetwork' );
 
