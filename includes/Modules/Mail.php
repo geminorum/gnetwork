@@ -472,6 +472,9 @@ class Mail extends gNetwork\Module
 		if ( is_array( $recipient ) )
 			$recipient = array_shift( $recipient );
 
+		if ( ! empty( $contents['headers'] ) && ! is_array( $contents['headers'] ) )
+			$contents['headers'] = Core\Text::splitLines( $contents['headers'] );
+
 		$filename = Core\File::escFilename( sprintf( '%s-%s', current_time( 'Ymd-His' ), $recipient ) ).'.json';
 		$logged   = wp_json_encode( $contents, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT );
 
@@ -662,7 +665,7 @@ class Mail extends gNetwork\Module
 						$html.= '<hr />';
 
 						if ( ! is_array( $row['headers'] ) )
-							$row['headers'] = explode( "\n", $row['headers']  );
+							$row['headers'] = Core\Text::splitLines( $row['headers'] );
 
 						foreach ( array_filter( $row['headers'] ) as $header )
 							$html.= '<code class="-header">'.Core\HTML::escapeTextarea( $header ).'</code><br />';
