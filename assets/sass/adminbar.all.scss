@@ -4,27 +4,46 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/adminbar.all";
-@import "partials/debug.adminbar";
+@import "partials/adminbar.rtl";
+@import "partials/debugbar.adminbar";
 
-// except wp-admin/gtheme
-html:not(.wp-toolbar):not(.html-admin-bar) {
-  margin-top: 32px;
-}
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+#wpadminbar {
+  li#wp-admin-bar-wp-logo {
+    > .ab-item .ab-icon::before {
+      content: "\f319" / '';
+      top: 3px;
+    }
+  }
 
-* html body {
-  // margin-top: 32px !important;
+  #wp-admin-bar-my-sites a.ab-item::before {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .gnetwork-adminbar-network-title {
+    .ab-item {
+      font-weight: 600;
+    }
+  }
 }
 
 @media screen and (max-width: 782px) {
-  html:not(.wp-toolbar):not(.html-admin-bar) {
-    margin-top: 46px;
-  }
-
-  * html body {
-    // margin-top: 46px !important;
-  }
-
   #wpadminbar {
+    li#wp-admin-bar-wp-logo {
+      display: block; // on small screen core hides this
+
+      > .ab-item .ab-icon {
+        width: 46px; // same as height;
+
+        &::before {
+          top: -2px;
+          left: 0 #{"/*!rtl:2px;*/"};
+        }
+      }
+    }
+
     li#wp-admin-bar-gtheme-flush {
       display: block !important;
       position: static;

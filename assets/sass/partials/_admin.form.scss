@@ -20,6 +20,16 @@
     }
   }
 
+  &.-warning {
+    display: block;
+    color: $brand-warning;
+
+    &:hover {
+      color: color.adjust($brand-warning, $lightness: -20%);
+    }
+  }
+
+  &.-danger,
   &.-denied {
     display: block;
     color: $brand-danger;

@@ -98,6 +98,27 @@ table.base-table-list { // Plugin Core
 
 ////////////////////////////////////////////////////////////////////////////////
 table.wp-list-table { // WordPress Core
+
+  thead {
+    position: sticky;
+    background-color: inherit; // #fff;
+    z-index: 999;
+    top: 0;
+
+    body.admin-bar & {
+      top: 32px;
+    }
+  }
+
+  &.media {
+    img[src$=".svg"].attachment-post-thumbnail,
+    td.media-icon img[src$=".svg"], // NOTE: appearenly DEPRECATED within WordPress core.
+    td.column-title .image-icon img[src$=".svg"] {
+      width: 100% !important;
+      height: auto !important;
+    }
+  }
+
   .inline-edit-col {
 
     .input-text-wrap {

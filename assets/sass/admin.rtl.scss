@@ -14,6 +14,8 @@ $font-family-head: $font-family-bold;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/admin.rtl";
+@import "partials/adminmenu.rtl";
+@import "partials/customize.rtl";
 @import "partials/blockeditor.rtl";
 @import "partials/contextual-help.rtl";
 ////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +32,7 @@ $font-family-head: $font-family-bold;
 @import "partials/sensei-lms.admin.rtl";
 @import "partials/tablepress.admin.rtl";
 @import "partials/simple-history.admin.rtl";
-@import "partials/wpmn.admin.rtl";
+// @import "partials/wpmn.admin.rtl"; // NOTE: on WPMNv3 all issues resolved
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/fa_IR.admin.all";
 
@@ -38,10 +40,10 @@ $font-family-head: $font-family-bold;
 ////////////////////////////////////////////////////////////////////////////////
 body,
 // #wpadminbar *,
-button,
-input,
-select,
-textarea {
+button:not(.dashicons),
+option:not(.code),
+input:not(.code),
+textarea:not(.code) {
   font-family: $font-family-regular !important;
 }
 
@@ -65,4 +67,13 @@ h6 {
 .tablenav .tablenav-pages .tablenav-pages-navspan {
   // @include theme-fonts-core-code;
   font-family: Consolas, Monaco, monospace !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+@media screen and (max-width: 782px) {
+  .wp-picker-container .wp-color-result-text {
+    font-size: smaller;
+    padding: 1px 14px 2px;
+  }
 }

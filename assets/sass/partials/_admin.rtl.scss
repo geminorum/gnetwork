@@ -195,13 +195,6 @@ span.description {
   padding: 0 0 0 5px;
 }
 
-// .form-table.permalink-structure #permalink_structure {
-//   float: right;
-//   margin: -4px 1px 0 0;
-//   padding: 3px 5px 2px 1px;
-//   border-left: none;
-// }
-
 #post-lock-dialog .post-locked-message,
 #post-lock-dialog .post-taken-over {
   margin: 20px;
@@ -297,10 +290,18 @@ span.description {
 // }
 
 .media-frame {
-  select.attachment-filters {
-    // NOTE: added more width to fill the hidden date select
-    width: 90% !important;
-    max-width: calc(90% - 12px);
+
+  body.thrift-mode .media-modal-content & {
+    select.attachment-filters {
+      width: 90%; // NOTE: added more width to fill the hidden date select
+      max-width: calc(90% - 12px);
+    }
+  }
+
+  &.mode-grid {
+    .wp-filter .search-form input[type="search"] {
+      width: 230px;
+    }
   }
 
   .attachment-details,

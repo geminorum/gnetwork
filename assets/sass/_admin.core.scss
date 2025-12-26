@@ -68,6 +68,12 @@ $spacer: 1rem !default;
   }
 
   table.wp-list-table {
+    thead {
+      body.admin-bar & {
+        top: 0; // admin-bar is not sticky on mobile
+      }
+    }
+
     .inline-edit-row {
       label span.input-text-wrap,
       .timestamp-wrap {

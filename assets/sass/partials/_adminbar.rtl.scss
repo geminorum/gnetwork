@@ -1,0 +1,46 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: AdminBar: RTL
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/*rtl:begin:ignore*/
+
+#wpadminbar {
+  body.rtl & {
+    * {
+      // @include theme-fonts-core-native;
+      font-family: $font-family-base; // TODO: must use css vars
+    }
+
+    > #wp-toolbar > #wp-admin-bar-root-default .ab-icon,
+    .ab-icon,
+    .ab-item::before {
+      @include theme-fonts-core-dashicons;
+    }
+
+    .menupop .menupop > .ab-item {
+      .wp-admin-bar-arrow::before {
+        content: "\f141" / '';
+      }
+    }
+
+    // .menupop .menupop > .ab-item::before {
+    //   right: unset;
+    //   left: 2px;
+    // }
+
+    // .ab-top-secondary .menupop .menupop > .ab-item::before {
+    //   left: unset;
+    //   right: 2px;
+    // }
+
+    // #wp-admin-bar-airplane-mode-toggle .ab-icon {
+    //   margin-left: 0 !important;
+    //   margin-top: 1px;
+    // }
+  }
+}
+
+/*rtl:end:ignore*/
