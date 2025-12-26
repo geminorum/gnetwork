@@ -11,31 +11,38 @@ class Zip extends Base
 	 *
 	 * @REF: http://php.net/manual/en/class.ziparchive.php#110719
 	 *
-	 * @param string $sourcePath Path of directory to be zip.
-	 * @param string $outZipPath Path of output zip file.
+	 * @param string $source Path of directory to be zip.
+	 * @param string $target Path of output zip file.
+	 * @return bool
 	*/
-	public static function zipDir( $sourcePath, $outZipPath )
+	public static function zipDir( $source, $target )
 	{
-		$pathinfo   = pathinfo( $sourcePath );
-		$parentPath = $pathinfo['dirname'];
-		$dirName    = $pathinfo['basename'];
+		if ( ! class_exists( 'ZipArchive' ) || ! extension_loaded( 'fileinfo' ) )
+			return FALSE;
+
+		$pathinfo = pathinfo( $source );
+		$parent   = $pathinfo['dirname'];
+		$dirName  = $pathinfo['basename'];
 
 		$z = new \ZipArchive();
 
-		$z->open( $outZipPath, \ZIPARCHIVE::CREATE );
+		$z->open( $target, \ZIPARCHIVE::CREATE );
 		$z->addEmptyDir( $dirName );
 
-		self::folderToZip( $sourcePath, $z, strlen( "$parentPath/" ) );
+		self::folderToZip( $source, $z, strlen( "$parent/" ) );
 
 		$z->close();
+
+		return TRUE;
 	}
 
 	/**
-	 * Add files and sub-directories in a folder to zip file.
+	 * Add files and subdirectories in a folder to zip file.
 	 *
 	 * @param string $folder
 	 * @param ZipArchive $zipFile
 	 * @param int $exclusiveLength Number of text to be exclusive from the filepath.
+	 * @return void
 	*/
 	private static function folderToZip( $folder, &$zipFile, $exclusiveLength )
 	{

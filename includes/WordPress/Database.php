@@ -377,6 +377,8 @@ class Database extends Core\Base
 	// @REF: `_update_generic_term_count()`
 	// @REF: `_update_post_term_count()`
 	// @SEE: `update_post_term_count_statuses` filter
+	// @SEE: `update_term_count` action
+	// @ticket https://core.trac.wordpress.org/ticket/63904
 	public static function updateCountCallback( $terms, $taxonomy )
 	{
 		global $wpdb;

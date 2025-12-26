@@ -34,6 +34,17 @@ class IsIt extends Core\Base
 	}
 
 	/**
+	 * Determines whether the current request is for the customize preview screen.
+	 * NOTE: wrapper for `is_customize_preview()` @since WP 4.0.0
+	 *
+	 * @return bool
+	 */
+	public static function customize()
+	{
+		return is_customize_preview();
+	}
+
+	/**
 	 * Determines whether the current request is for the login screen.
 	 * NOTE: `is_login()` @since WP 6.1.0
 	 * @see https://core.trac.wordpress.org/ticket/19898

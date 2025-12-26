@@ -13,8 +13,7 @@ class Screen extends Core\Base
 			|| IsIt::cli()
 			|| IsIt::cron()
 			|| IsIt::xmlRPC()
-			|| IsIt::rest()
-			|| IsIt::iFrame() )
+			|| IsIt::rest() )
 				return FALSE;
 
 		if ( $check_admin && ! is_admin() )

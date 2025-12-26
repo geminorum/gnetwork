@@ -37,13 +37,18 @@ class Image extends Base
 		if ( ! function_exists( 'exif_read_data' ) )
 			return FALSE;
 
+		if ( ! $exif = exif_read_data( $filepath ) )
+			return FALSE;
+
+		if ( empty( $exif['Orientation'] ) )
+			return FALSE;
+
 		if ( ! $size = self::size( $filepath ) )
 			return FALSE;
 
 		$width  = $size[0];
 		$height = $size[1];
 
-		$exif   = exif_read_data( $filepath );
 		$source = imagecreatefromjpeg( $filepath );
 		$dest   = imagecreatetruecolor( $width, $height );
 

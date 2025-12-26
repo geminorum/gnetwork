@@ -148,14 +148,16 @@ class Text extends Base
 	 * Splits string by new-line characters.
 	 *
 	 * @param string $text
+	 * @param bool $normalize
 	 * @return array
 	 */
-	public static function splitLines( $text )
+	public static function splitLines( $text, $normalize = TRUE )
 	{
 		if ( empty( $text ) )
 			return [];
 
-		$text = self::normalizeWhitespace( $text, TRUE );
+		if ( $normalize )
+			$text = self::normalizeWhitespace( $text, TRUE );
 
 		return array_filter( array_map( [ __CLASS__, 'trim' ], preg_split( "/\r\n|\n|\r/", $text ) ) );
 	}
@@ -175,6 +177,7 @@ class Text extends Base
 		return self::trim( str_ireplace( [ '_', '.' ], '-', $text ) );
 	}
 
+	// @SEE: `sanitize_title_with_dashes()`
 	public static function formatSlug( $text )
 	{
 		$text = (string) $text;
@@ -1369,19 +1372,25 @@ class Text extends Base
 		if ( $skip_links )
 			$pattern = '<a[^>]*>.*?<\/a\s*>(*SKIP)(*FAIL)|'.$pattern;
 
-		return preg_replace_callback( '/'.$pattern.'/miu',
+		return preg_replace_callback(
+			'/'.$pattern.'/miu',
 			static function ( $matched ) use ( $callback ) {
 				return $matched[1].call_user_func( $callback, $matched[2] ).$matched[3];
-			}, $text );
+			},
+			$text
+		);
 	}
 
 	// USAGE: `Text::replaceSymbols( [ '#', '$' ], $text, static function ( $matched, $text ) { return "<strong>{$matched}</strong>"; });`
 	public static function replaceSymbols( $symbols, $text, $callback, $skip_links = TRUE )
 	{
-		return preg_replace_callback( self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ),
+		return preg_replace_callback(
+			self::replaceSymbolsPattern( implode( ',', (array) $symbols ), $skip_links ),
 			static function ( $matches ) use ( $callback ) {
 				return call_user_func( $callback, $matches[0], $matches[1] );
-			}, $text );
+			},
+			$text
+		);
 	}
 
 	// @REF: https://stackoverflow.com/a/381001/
@@ -1404,9 +1413,13 @@ class Text extends Base
 	// @REF: https://stackoverflow.com/a/42551826
 	public static function linkifyHashtags( $text, $callback )
 	{
-		return preg_replace_callback( "/(?:^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,})(?:\b|\r)/gmu", static function ( $matches ) use ( $callback ) {
-			return call_user_func( $callback, $matches[0], $matches[1] );
-		}, $text );
+		return preg_replace_callback(
+			"/(?:^|\B)#(?![0-9_]+\b)([a-zA-Z0-9_]{1,})(?:\b|\r)/gmu",
+			static function ( $matches ) use ( $callback ) {
+				return call_user_func( $callback, $matches[0], $matches[1] );
+			},
+			$text
+		);
 	}
 
 	public static function replaceOnce( $search, $replace, $text )
@@ -1792,6 +1805,8 @@ class Text extends Base
 	 * Converts a string encoded in `ISO-8859-1` to `UTF-8`.
 	 * NOTE: wrapper for deprecated `utf8_encode()`
 	 * @source https://www.php.net/manual/en/function.utf8-encode.php
+	 * @SEE https://wiki.php.net/rfc/remove_utf8_decode_and_utf8_encode#alternatives_to_removed_functionality
+	 * @SEE https://core.trac.wordpress.org/ticket/55603
 	 *
 	 * Please note that `utf8_encode` only converts a string encoded in
 	 * `ISO-8859-1` to `UTF-8`. A more appropriate name for it would
@@ -1806,9 +1821,6 @@ class Text extends Base
 	 */
 	public static function encodeUTF8( $text )
 	{
-		if ( function_exists( 'utf8_encode' ) )
-			return utf8_encode( $text );
-
 		if ( function_exists( 'mb_convert_encoding' ) )
 			return mb_convert_encoding( $text, 'UTF-8', 'ISO-8859-1' );
 
@@ -1817,6 +1829,9 @@ class Text extends Base
 
 		if ( function_exists( 'iconv' ) )
 			return iconv( 'ISO-8859-1', 'UTF-8', $text );
+
+		if ( function_exists( 'utf8_encode' ) )
+			return utf8_encode( $text );
 	}
 
 	/**

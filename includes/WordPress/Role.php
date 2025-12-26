@@ -117,7 +117,7 @@ class Role extends Core\Base
 		if ( empty( $roles ) )
 			return FALSE;
 
-		// NOTE: `filtred` may cause infinite loop
+		// NOTE: `filtered` may cause infinite loop
 		$currents = self::get( 2, [], $user, FALSE );
 
 		if ( empty( $currents ) )

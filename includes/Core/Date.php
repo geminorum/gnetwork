@@ -81,7 +81,7 @@ class Date extends Base
 			else
 				$datetime = date_create(
 					$datetime_string ?? 'now',
-					$timezone ?? new \DateTimeZone( self::currentTimeZone() )
+					new \DateTimeZone( $timezone_string ?? self::currentTimeZone() )
 				);
 
 			return $datetime ? $datetime->format( $format ?? 'm/d/Y' ) : FALSE;
@@ -127,6 +127,12 @@ class Date extends Base
 		return $datetime->setTimezone( $timezone );
 	}
 
+	/**
+	 * Retrieves the timezone of the site as a string.
+	 * NOTE: returns PHP timezone name or a `±HH:MM` offset.
+	 *
+	 * @return string
+	 */
 	public static function currentTimeZone()
 	{
 		if ( function_exists( 'wp_timezone_string' ) )
@@ -164,21 +170,52 @@ class Date extends Base
 		return is_numeric( $string ) && (int) $string == $string;
 	}
 
-	// PHP >= 5.3
-	// @REF: https://wpartisan.me/tutorials/php-validate-check-dates
-	public static function check( $datetime_string, $format, $timezone_string )
+	/**
+	 * Checks if a string is a valid datetime.
+	 * @source https://wpartisan.me/tutorials/php-validate-check-dates
+	 *
+	 * @param string $datetime_string
+	 * @param string $format
+	 * @param string $timezone_string
+	 * @return bool
+	 */
+	public static function check( $datetime_string, $format = 'Y-m-d', $timezone_string = NULL )
 	{
-		$date = \DateTime::createFromFormat( $format, $datetime_string, new \DateTimeZone( $timezone_string ) );
+		if ( self::empty( $datetime_string ) )
+			return FALSE;
 
-		return $date
+		$datetime = \DateTime::createFromFormat(
+			$format,
+			$datetime_string,
+			new \DateTimeZone( $timezone_string ?? self::currentTimeZone() )
+		);
+
+		return $datetime
 			&& \DateTime::getLastErrors()['warning_count'] == 0
 			&& \DateTime::getLastErrors()['error_count'] == 0;
 	}
 
-	public static function isInFormat( $datetime_string, $format = 'Y-m-d' )
+	/**
+	 * Validates a string as a date in the format.
+	 *
+	 * @param string $datetime_string
+	 * @param string $format
+	 * @param string $timezone_string
+	 * @return bool
+	 */
+	public static function isInFormat( $datetime_string, $format = 'Y-m-d', $timezone_string = NULL )
 	{
-		$datetime = \DateTime::createFromFormat( $format, $datetime_string );
-		return $datetime && $datetime->format( $format ) === $datetime_string;
+		if ( self::empty( $datetime_string ) )
+			return FALSE;
+
+		$datetime = \DateTime::createFromFormat(
+			$format,
+			$datetime_string,
+			new \DateTimeZone( $timezone_string ?? self::currentTimeZone() )
+		);
+
+		return $datetime
+			&& $datetime->format( $format ) === $datetime_string;
 	}
 
 	// @REF: https://stackoverflow.com/a/19680778
@@ -210,7 +247,6 @@ class Date extends Base
 
 		if ( $preference <> 'none' ) {
 			$datetime->format( 'm' );
-			// $datetime->modify( $preference.' of this month' )->format( $format );
 			$datetime->modify( $preference.' of this month' );
 		}
 
@@ -808,7 +844,7 @@ class Date extends Base
 	}
 
 	/**
-	 * Retrieves today's mid-night local time in time-stamp.
+	 * Retrieves today's midnight local time in time-stamp.
 	 *
 	 * @example `wp_schedule_event( Date::midnight() + 5 * MINUTES_IN_SECONDS, 'daily', $callback );`
 	 * @source https://www.plumislandmedia.net/programming/php/midnight-local-time-in-wordpress-friendly-php/
@@ -874,6 +910,52 @@ class Date extends Base
 		}
 
 		return $workdays;
+	}
+
+	/**
+	 * Compares the formatted values of the two dates.
+	 * @source https://github.com/morilog/jalali/pull/199/files
+	 *
+	 * @param object|string $from
+	 * @param object|string $to
+	 * @param string $format
+	 * @param string $timezone_string
+	 * @return bool
+	 */
+	public static function isSameAs( $from, $to = NULL, $format = NULL, $timezone_string = NULL )
+	{
+		if ( is_null( $from ) && is_null( $to ) )
+			return TRUE;
+
+		$datetime_from = is_a( $from, 'DateTimeInterface' )
+			? $from
+			: date_create(
+				$from ?? 'now',
+				new \DateTimeZone( $timezone_string ?? self::currentTimeZone() )
+			);
+
+		$datetime_to = is_a( $to, 'DateTimeInterface' )
+			? $to
+			: date_create(
+				$to ?? 'now',
+				new \DateTimeZone( $timezone_string ?? self::currentTimeZone() )
+			);
+
+		$format = $format ?? 'Y-m-d';
+
+		return $datetime_from->format( $format ) === $datetime_to->format( $format );
+	}
+
+	/**
+	 * Compares the date/month values of the two dates.
+	 *
+	 * @param object|string $from
+	 * @param object|string $to
+	 * @return bool
+	 */
+	public function isBirthday( $from, $to = NULL )
+	{
+		return self::isSameAs( $from, $to, 'md' );
 	}
 
 	/**

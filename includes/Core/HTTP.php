@@ -12,7 +12,7 @@ class HTTP extends Base
 	 */
 	public static function isPOST()
 	{
-		return (bool) ( 'POST' === strtoupper( $_SERVER['REQUEST_METHOD'] ) );
+		return 'POST' === strtoupper( $_SERVER['REQUEST_METHOD'] );
 	}
 
 	/**
@@ -22,7 +22,7 @@ class HTTP extends Base
 	 */
 	public static function isGET()
 	{
-		return (bool) ( 'GET' === strtoupper( $_SERVER['REQUEST_METHOD'] ) );
+		return 'GET' === strtoupper( $_SERVER['REQUEST_METHOD'] );
 	}
 
 	public static function htmlStatus( $code, $title = NULL, $template = NULL )
@@ -628,63 +628,62 @@ class HTTP extends Base
 
 	// @SEE: https://stackoverflow.com/a/12628971
 	// @REF: https://stackoverflow.com/a/12629254
-	public static function getStatus( $url, $verify_ssl = TRUE )
+	public static function getStatus( $url )
 	{
 		if ( self::empty( $url ) || ! extension_loaded( 'curl' ) )
 			return FALSE;
 
-		$ch = curl_init( $url );
+		$handle = curl_init( $url );
 
-		curl_setopt( $ch, CURLOPT_HEADER, TRUE ); // we want headers
-		curl_setopt( $ch, CURLOPT_NOBODY, TRUE ); // we don't need body
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
-		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
+		curl_setopt( $handle, CURLOPT_HEADER, TRUE );  // we want headers
+		curl_setopt( $handle, CURLOPT_NOBODY, TRUE );  // we don't need body
+		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $handle, CURLOPT_TIMEOUT, 10 );
 
-		if ( ! $verify_ssl ) {
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, FALSE );
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+		if ( 'development' === wp_get_environment_type() ) {
+			curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
+			curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
 		}
 
-		$output = curl_exec( $ch );
-		$status = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+		$output = curl_exec( $handle );
+		$status = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
 
 		// `curl_close()` has no effect as of PHP 8.0.0
 		if ( PHP_VERSION_ID < 80000 )
-			curl_close( $ch );
+			curl_close( $handle );
 
 		return $status;
 	}
 
 	/**
-	 * Finds where the URL will redirected using cURL.
+	 * Finds where the URL will redirected using curl.
 	 * @source https://www.geeksforgeeks.org/php/how-to-find-where-the-url-will-redirected-using-curl/
 	 *
 	 * @param string $url
-	 * @param bool $verify_ssl
 	 * @return false|string
 	 */
-	public static function getRedirect( $url, $verify_ssl = TRUE )
+	public static function getRedirect( $url )
 	{
 		if ( self::empty( $url ) || ! extension_loaded( 'curl' ) )
 			return FALSE;
 
-		$ch = curl_init();
+		$handle = curl_init();
 
-		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, TRUE ); // Return follow location true
+		curl_setopt( $handle, CURLOPT_URL, $url );
+		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $handle, CURLOPT_FOLLOWLOCATION, TRUE );  // Return follow location true
 
-		if ( ! $verify_ssl ) {
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, FALSE );
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+		if ( 'development' === wp_get_environment_type() ) {
+			curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
+			curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
 		}
 
-		$output   = curl_exec( $ch );
-		$redirect = curl_getinfo( $ch, CURLINFO_EFFECTIVE_URL );
+		$output   = curl_exec( $handle );
+		$redirect = curl_getinfo( $handle, CURLINFO_EFFECTIVE_URL );
 
 		// `curl_close()` has no effect as of PHP 8.0.0
 		if ( PHP_VERSION_ID < 80000 )
-			curl_close( $ch );
+			curl_close( $handle );
 
 		return ( $url === $redirect ) ? FALSE : $redirect;
 	}
@@ -694,10 +693,9 @@ class HTTP extends Base
 	 * @source https://stackoverflow.com/a/2602624
 	 *
 	 * @param string $url
-	 * @param bool $verify_ssl
 	 * @return int|bool
 	 */
-	public static function getSize( $url, $verify_ssl = TRUE )
+	public static function getSize( $url )
 	{
 		if ( empty( $url ) )
 			return FALSE;
@@ -705,28 +703,28 @@ class HTTP extends Base
 		if ( ! extension_loaded( 'curl' ) )
 			return self::getSizeFromHeaders( $url );
 
-		$ch = curl_init( $url );
+		$handle = curl_init( $url );
 
-		curl_setopt( $ch, CURLOPT_NOBODY, TRUE );
-		curl_setopt( $ch, CURLOPT_HEADER, TRUE );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, TRUE );
-		curl_setopt( $ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT'] );
+		curl_setopt( $handle, CURLOPT_NOBODY, TRUE );
+		curl_setopt( $handle, CURLOPT_HEADER, TRUE );
+		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
+		curl_setopt( $handle, CURLOPT_FOLLOWLOCATION, TRUE );
+		curl_setopt( $handle, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT'] );
 
-		if ( ! $verify_ssl ) {
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, FALSE );
-			curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+		if ( 'development' === wp_get_environment_type() ) {
+			curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
+			curl_setopt( $handle, CURLOPT_SSL_VERIFYPEER, FALSE );
 		}
 
-		$result = -1; // assume failure
-		$output = curl_exec( $ch );
+		$result = -1;                    // assume failure
+		$output = curl_exec( $handle );
 
-		$status = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
-		$length = curl_getinfo( $ch, CURLINFO_CONTENT_LENGTH_DOWNLOAD );
+		$status = curl_getinfo( $handle, CURLINFO_HTTP_CODE );
+		$length = curl_getinfo( $handle, CURLINFO_CONTENT_LENGTH_DOWNLOAD );
 
 		// `curl_close()` has no effect as of PHP 8.0.0
 		if ( PHP_VERSION_ID < 80000 )
-			curl_close( $ch );
+			curl_close( $handle );
 
 		// http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 		if ( $status == 200 || ( $status > 300 && $status <= 308 ) )

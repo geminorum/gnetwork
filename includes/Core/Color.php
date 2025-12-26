@@ -268,7 +268,7 @@ class Color extends Base
 		return sscanf( $hex, "#%02x%02x%02x" ); // @REF: https://stackoverflow.com/a/15202130
 	}
 
-	// EXAMPLE: `rgb2hex(array( 255, 255, 255 ))`
+	// EXAMPLE: `rgb2hex( [ 255, 255, 255 ] )`
 	// @REF: https://bavotasan.com/2011/convert-hex-color-to-rgb-using-php/
 	public static function rgb2hex( $rgb )
 	{

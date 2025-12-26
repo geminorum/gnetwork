@@ -223,11 +223,11 @@ class Post extends Core\Base
 		if ( ! $post = self::get( $post ) )
 			return $fallback;
 
-		/*  Filters whether to preempt generating a short-link for the given post. */
-		$filtred = apply_filters( 'pre_get_shortlink', FALSE, $post->ID, 'post', TRUE );
+		// Filters whether to preempt generating a short-link for the given post.
+		$filtered = apply_filters( 'pre_get_shortlink', FALSE, $post->ID, 'post', TRUE );
 
-		if ( FALSE !== $filtred )
-			return $extra ? add_query_arg( $extra, $filtred ) : $filtred;
+		if ( FALSE !== $filtered )
+			return $extra ? add_query_arg( $extra, $filtered ) : $filtered;
 
 		return add_query_arg( array_merge( [ 'p' => $post->ID ], $extra ), get_bloginfo( 'url' ) );
 	}

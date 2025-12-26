@@ -252,9 +252,11 @@ class Arraay extends Base
 	// @SEE: https://ryanwinchester.ca/posts/php-array-map-with-keys
 	public static function mapKeys( $callback, $array )
 	{
-		return array_reduce( $array, static function ( $key, $value ) use ( $array, $callback ) {
-			return [ call_user_func( $callback, $key, $value ) => $value ];
-		} );
+		return array_reduce( $array,
+			static function ( $key, $value ) use ( $array, $callback ) {
+				return [ call_user_func( $callback, $key, $value ) => $value ];
+			}
+		);
 	}
 
 	// array map for keys, php > 5.6
@@ -494,6 +496,39 @@ class Arraay extends Base
 			return NULL;
 
 		return array_keys( $input )[count( $input ) - 1];
+	}
+
+	/**
+	 * Returns the first element of an array.
+	 * Polyfill for `array_first()` function added in PHP 8.5.0
+	 *
+	 * @param array $input
+	 * @return mixed|null
+	 */
+	public static function valueFirst( $input )
+	{
+		if ( empty( $input ) )
+			return NULL;
+
+		foreach ( $input as $value )
+			return $value;
+
+		return NULL;
+	}
+
+	/**
+	 * Returns the last element of an array.
+	 * Polyfill for `array_last()` function added in PHP 8.5.0
+	 *
+	 * @param array $input
+	 * @return mixed|null
+	 */
+	public static function valueLast( $input )
+	{
+		if ( empty( $input ) )
+			return NULL;
+
+		return $input[self::keyLast( $input )];
 	}
 
 	/**
@@ -966,11 +1001,13 @@ class Arraay extends Base
 	{
 		$grouped = [];
 
-		array_walk( $array, static function ( $value, $key ) use ( &$grouped ) {
-			if ( ! isset( $grouped[$value] ) || ! is_array( $grouped[$value] ) )
-				$grouped[$value] = [];
-			$grouped[$value][] = $key;
-		} );
+		array_walk( $array,
+			static function ( $value, $key ) use ( &$grouped ) {
+				if ( ! isset( $grouped[$value] ) || ! is_array( $grouped[$value] ) )
+					$grouped[$value] = [];
+				$grouped[$value][] = $key;
+			}
+		);
 
 		return $grouped;
 	}

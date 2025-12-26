@@ -179,6 +179,7 @@ class URL extends Base
 			File::normalize( $base ),
 			self::trail( get_option( 'siteurl' ) ),
 			File::normalize( $path )
+			// File::normalize( File::join( $base, $path ) )
 		);
 	}
 

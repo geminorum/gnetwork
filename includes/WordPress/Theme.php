@@ -233,7 +233,7 @@ class Theme extends Core\Base
 	}
 
 	// @SOURCE: `bp_theme_compat_reset_post()`
-	public static function resetQuery( $args = [], $content_callback = FALSE, $title_callback = FALSE )
+	public static function resetQuery( $args = [], $extras = [], $content_callback = FALSE, $title_callback = FALSE )
 	{
 		global $wp_query, $post;
 
@@ -352,6 +352,9 @@ class Theme extends Core\Base
 		// If we are resetting a post, we are in theme compat.
 		self::compatActive( TRUE );
 
+		if ( FALSE !== $extras )
+			self::resetQueryExtras( $extras );
+
 		if ( $content_callback && is_callable( $content_callback ) )
 			Hook::filterOnce( 'the_content', $content_callback, 12, 1 );
 
@@ -365,6 +368,51 @@ class Theme extends Core\Base
 			static function ( $edit_link = '', $post_id = 0 ) {
 				return 0 === $post_id ? FALSE : $edit_link;
 			}, 10, 2 );
+	}
+
+	public static function resetQueryExtras( $atts = [] )
+	{
+		$args = self::atts( [
+			'disable_robots'    => FALSE,
+			'disable_cache'     => FALSE,
+			'cache_constant'    => FALSE,
+			'content_filters'   => TRUE,
+			'content_actions'   => TRUE,
+			'adjacent_postlink' => TRUE,
+			'extra_feedlink'    => TRUE,
+			'navigation_crumbs' => TRUE,
+		], $atts );
+
+		if ( $args['disable_robots'] )
+			add_filter( 'wp_robots', 'wp_robots_no_robots' );
+
+		if ( $args['disable_cache'] )
+			nocache_headers();
+
+		if ( $args['cache_constant'] )
+			Site::doNotCache(); // NOTE: disables the partial caching too!
+
+		if ( $args['content_filters'] ) {
+			remove_filter( 'the_content', 'wpautop' );
+			remove_filter( 'the_content', 'wptexturize' );
+		}
+
+		if ( $args['content_actions'] ) {
+			self::define( 'GTHEME_DISABLE_CONTENT_ACTIONS', TRUE );
+			self::define( 'GNETWORK_DISABLE_CONTENT_ACTIONS', TRUE );
+			self::define( 'GEDITORIAL_DISABLE_CONTENT_ACTIONS', TRUE );
+		}
+
+		if ( $args['adjacent_postlink'] ) {
+			add_filter( 'previous_post_link', '__return_empty_string' );
+			add_filter( 'next_post_link', '__return_empty_string' );
+		}
+
+		if ( $args['extra_feedlink'] )
+			add_filter( 'feed_links_extra_show_tax_feed', '__return_false' );
+
+		if ( $args['navigation_crumbs'] )
+			add_filter( 'gtheme_navigation_crumb_archive', '__return_false' );
 	}
 
 	public static function set404()

@@ -124,6 +124,47 @@ class File extends Base
 	}
 
 	/**
+	 * Returns canonicalized absolute pathname.
+	 *
+	 * It replaces (consecutive) occurrences of `/` and `\\` with
+	 * whatever is in DIRECTORY_SEPARATOR, and processes `/.` and `/..` fine.
+	 * Paths returned contain no (back)slash at position `0` (beginning of the string) or
+	 * position `-1` (ending).
+	 *
+	 * NOTE: Alternative to `realpath()` with support of `.`/`..`
+	 * NOTE: `realpath()` does not work on files that do not exist.
+	 *
+	 * @source https://www.php.net/manual/en/function.realpath.php#84012
+	 *
+	 * @param string $path
+	 * @param string $separator
+	 * @return string
+	 */
+	public static function absolutePath( $path, $separator = NULL )
+	{
+		$separator = $separator ?? DIRECTORY_SEPARATOR;
+
+		$path      = preg_replace( '/[\/\]+/', '/', $path );
+		$path      = str_replace( [ '/', '\\' ], $separator, $path );
+		$parts     = array_filter( explode( $separator, $path ), 'strlen' );
+		$absolutes = [];
+
+		foreach ( $parts as $part ) {
+
+			if ( '.' === $part )
+				continue;
+
+			if ( '..' === $part )
+				array_pop( $absolutes );
+
+			else
+				$absolutes[] = $part;
+		}
+
+		return implode( $separator, $absolutes );
+	}
+
+	/**
 	 * Returns trailing name component of path.
 	 * I18N friendly version of `basename()`
 	 * if the filename ends in suffix this will also be cut off
@@ -157,37 +198,75 @@ class File extends Base
 		return self::basename( $path, empty( $type['ext'] ) ? '' : ('.'. $type['ext'] ) );
 	}
 
-	// @SOURCE: `wp_tempnam()`
-	public static function tempName( $name = '', $dir = '' )
+	/**
+	 * Returns a filename of a temporary unique file.
+	 * NOTE: doesn’t delete the file/can’t use extensions.
+	 * @source `wp_tempnam()` without length checks
+	 *
+	 * Please note that the calling function must delete or move the file.
+	 * The filename is based off the passed parameter or defaults to the current
+	 * Unix-timestamp, while the directory can either be passed as well,
+	 * or by leaving it blank, default to a writable temporary directory.
+	 *
+	 * @param string $name
+	 * @param string $directory
+	 * @return string
+	 */
+	public static function tempName( $name = '', $directory = '' )
 	{
-		if ( empty( $dir ) )
-			$dir = get_temp_dir();
+		$directory = $directory ?: get_temp_dir();
 
 		if ( empty( $name ) || in_array( $name, [ '.', '/', '\\' ], TRUE ) )
 			$name = uniqid();
 
-		// use the basename of the given file without the extension
+		// Use the base-name of the given file without the extension
 		// as the name for the temporary directory
 		$temp = preg_replace( '|\.[^.]*$|', '', basename( $name ) );
 
 		// If the folder is false, use its parent directory name instead.
 		if ( ! $temp )
-			return self::tempName( dirname( $name ), $dir );
+			return self::tempName( dirname( $name ), $directory );
 
 		// Suffix some random data to avoid filename conflicts.
 		$temp.= '-'.wp_generate_password( 6, FALSE );
 		$temp.= '.tmp';
-		$temp = $dir.wp_unique_filename( $dir, $temp );
+		$temp = $directory.wp_unique_filename( $directory, $temp );
 
 		$fp = @fopen( $temp, 'x' );
 
-		if ( ! $fp && self::writable( $dir ) && file_exists( $temp ) )
-			return self::tempName( $name, $dir );
+		if ( ! $fp && self::writable( $directory ) && file_exists( $temp ) )
+			return self::tempName( $name, $directory );
 
 		if ( $fp )
 			fclose( $fp );
 
 		return $temp;
+	}
+
+	/**
+	 * Create temporary file in system temporary directory.
+	 *
+	 * @author [Nabil Kadimi](https://kadimi.com)
+	 * @source https://developer.wordpress.org/reference/functions/wp_tempnam/#comment-3082
+	 *
+	 * @param string $name
+	 * @param string $content
+	 * @return string
+	 */
+	public static function sysTempName( $name, $content )
+	{
+		$sep = DIRECTORY_SEPARATOR;
+
+		$file = $sep.trim( sys_get_temp_dir(), $sep ).$sep.ltrim( $name, $sep );
+
+		@file_put_contents( $file, $content );
+
+		register_shutdown_function(
+			static function () use ( $file ) {
+				@unlink( $file );
+			} );
+
+		return $file;
 	}
 
 	/**
@@ -560,17 +639,59 @@ class File extends Base
 		return $count;
 	}
 
-	// FIXME: TEST THIS
-	// @SOURCE: http://stackoverflow.com/a/11267139
-	public static function removeDir( $dir )
+	/**
+	 * Removes directory and it's contents.
+	 * @source https://www.php.net/manual/en/function.rmdir.php#117354
+	 *
+	 * @param string $target
+	 * @return bool
+	 */
+	public static function removeDir( $target )
 	{
-		foreach ( glob( "{$dir}/*" ) as $file )
-			if ( is_dir( $file ) )
-				self::removeDir( $file );
-			else
-				unlink( $file );
+		if ( empty( $target ) )
+			return FALSE;
 
-		rmdir( $dir );
+		if ( ! $directory = @opendir( $target ) )
+			return FALSE;
+
+    	while ( FALSE !== ( $item = readdir( $directory ) ) ) {
+
+			if ( in_array( $item, [ '.', '..' ] ) )
+				continue;
+
+			$path = self::join( $target, $item );
+
+			if ( is_dir( $path ) )
+				self::removeDir( $path );
+
+			else
+				@unlink( $path );
+        }
+
+	    closedir( $directory );
+
+    	return rmdir( $target );
+	}
+
+	/**
+	 * Deletes all files in a directory matching a pattern.
+	 * @source https://www.php.net/manual/en/function.unlink.php#109971
+	 *
+	 * @param string $path
+	 * @param string $pattern
+	 * @return bool
+	 */
+	public static function emptyDirPattern( $path, $pattern )
+	{
+		if ( empty( $path ) )
+			return FALSE;
+
+		array_map(
+			'unlink',
+			glob( sprintf( '%s%s%s', $path, \DIRECTORY_SEPARATOR, $pattern ) )
+		);
+
+		return TRUE;
 	}
 
 	public static function emptyDir( $path, $put_access_deny = FALSE )
@@ -844,9 +965,6 @@ class File extends Base
 		if ( ! is_file( $path ) )
 			return FALSE;
 
-		if ( is_null( $name ) )
-			$name = basename( $path );
-
 		// @ini_set( 'zlib.output_compression', 'Off' );
 		// @ini_set( 'zlib.output_handler', '' );
 		// @ini_set( 'output_buffering', 'Off' );
@@ -859,7 +977,7 @@ class File extends Base
 		header( 'Cache-Control: private', FALSE );
 		header( 'Content-Type: '.$mime );
 		header( 'Content-Length: '.self::size( $path ) );
-		header( 'Content-Disposition: attachment; filename="'.$name.'"' );
+		header( 'Content-Disposition: attachment; filename="'.( $name ?? basename( $path ) ).'"' );
 		header( 'Content-Transfer-Encoding: binary' );
 		header( 'Connection: close' );
 
