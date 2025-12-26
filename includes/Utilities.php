@@ -673,12 +673,21 @@ class Utilities extends Core\Base
 					Core\HTML::code( $constant )
 				) );
 
-				if ( ! Core\File::exists( '.htaccess', $constant ) )
+				if ( ! Core\File::exists( '.htaccess', $constant ) ) {
 					Core\HTML::desc( sprintf(
 						/* translators: `%s`: `.htaccess` */
 						_x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ),
 						Core\HTML::code( '.htaccess' )
 					) );
+
+					echo '<p class="submit -wrap-buttons">';
+						Settings::submitButton(
+							'secure_log_folder',
+							_x( 'Secure Log Folder', 'Utilities', 'gnetwork' ),
+							'small'
+						);
+					echo '</p>';
+				}
 			}
 
 		} else {

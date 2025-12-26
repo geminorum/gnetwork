@@ -61,8 +61,10 @@ class SMS extends gNetwork\Module
 
 	protected function settings_actions( $sub = NULL )
 	{
-		if ( GNETWORK_SMS_LOG_DIR
-			&& isset( $_POST['create_log_folder'] ) ) {
+		if ( ! GNETWORK_SMS_LOG_DIR )
+			return;
+
+		if ( isset( $_POST['create_log_folder'] ) ) {
 
 			$this->check_referer( $sub, 'settings' );
 
@@ -70,6 +72,14 @@ class SMS extends gNetwork\Module
 				Core\File::putDoNotBackup( GNETWORK_SMS_LOG_DIR, FALSE );
 
 			WordPress\Redirect::doReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );
+
+		} else if ( isset( $_POST['secure_log_folder'] ) ) {
+
+			$this->check_referer( $sub, 'settings' );
+
+			$secured = Core\File::putHTAccessDeny( GNETWORK_SMS_LOG_DIR, TRUE, TRUE );
+
+			WordPress\Redirect::doReferer( ( FALSE === $secured ? 'wrong' : 'maked' ) );
 		}
 	}
 
