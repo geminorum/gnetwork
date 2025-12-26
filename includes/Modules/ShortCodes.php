@@ -1158,7 +1158,7 @@ class ShortCodes extends gNetwork\Module
 		$args = shortcode_atts( [
 			'for'     => FALSE, // override
 			'url'     => FALSE, // override
-			/* translators: %s: search criteria */
+			/* translators: `%s`: search criteria */
 			'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 			'context' => NULL,
 			'wrap'    => TRUE,
@@ -1287,12 +1287,12 @@ class ShortCodes extends gNetwork\Module
 			'id'       => FALSE,
 			'url'      => FALSE,
 			'title'    => NULL,  // NULL to fallback to attachment title
-			'width'    => FALSE, // default is full width
+			'width'    => FALSE, // default is the full width
 			'height'   => FALSE, // '960px',
-			'view'     => FALSE, // 'FitV',  //'FitH',
-			/* translators: %s: download url */
+			'view'     => FALSE, // 'FitV', // 'FitH',
+			/* translators: `%s`: download URL */
 			'fallback' => _x( 'It appears you don\'t have Adobe Reader or PDF support in this web browser. <a href="%s">Click here to download the PDF</a>.', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
-			/* translators: %s: download url */
+			/* translators: `%s`: download URL */
 			'feedlink' => _x( '<a href="%s">Click here to download the PDF</a>.', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 			'context'  => NULL,
 			'wrap'     => TRUE,
@@ -1468,7 +1468,7 @@ class ShortCodes extends gNetwork\Module
 		$args = shortcode_atts( [
 			'duration' => '',
 			'location' => '',
-			/* translators: %s: redirect url */
+			/* translators: `%s`: redirect URL */
 			'message'  => _x( 'Please wait while you are redirected. Or <a href="%s">click here</a> if you do not want to wait.', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
 			'context'  => NULL,
 			'wrap'     => TRUE,

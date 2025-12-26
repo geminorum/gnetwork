@@ -475,7 +475,7 @@ class Media extends gNetwork\Module
 
 		$list = [];
 
-		foreach ( WordPress\Media::getAttachments( $parent_id, $mime_type ) as $attachment ) {
+		foreach ( WordPress\Attachment::list( $parent_id, $mime_type ) as $attachment ) {
 
 			if ( ! $file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) )
 				continue;
@@ -787,7 +787,7 @@ class Media extends gNetwork\Module
 	{
 		$count = 0;
 
-		foreach ( WordPress\Media::getAttachments( $post_id ) as $attachment )
+		foreach ( WordPress\Attachment::list( $post_id ) as $attachment )
 			if ( $this->clean_attachment( $attachment->ID, TRUE, $force ) )
 				$count++;
 
@@ -803,7 +803,7 @@ class Media extends gNetwork\Module
 
 		$clean = $moved = [];
 
-		foreach ( WordPress\Media::getAttachments( $post->ID ) as $attachment ) {
+		foreach ( WordPress\Attachment::list( $post->ID ) as $attachment ) {
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
 				if ( ! str_replace( Core\File::basename( $attached_file ), '', $attached_file ) ) {
 					$clean[$attachment->ID] = $attached_file;

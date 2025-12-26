@@ -187,7 +187,7 @@ class Blog extends gNetwork\Module
 			'field'       => 'admin_chosen',
 			'title'       => _x( 'Admin Chosen', 'Modules: Blog: Settings', 'gnetwork' ),
 			'description' => _x( 'Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-friendly.', 'Modules: Blog: Settings', 'gnetwork' ),
-			'after'       => Settings::fieldAfterIcon( 'https://harvesthq.github.io/chosen/' ),
+			'after'       => Settings::fieldAfterIcon( 'https://jjj.github.io/chosen/' ),
 		];
 
 		$settings['_economics'][] = [

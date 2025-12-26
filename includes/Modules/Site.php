@@ -203,8 +203,8 @@ class Site extends gNetwork\Module
 				_x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', 'gnetwork' ),
 				Core\HTML::code( '%s' )
 			),
+			'field_class' => [ 'regular-text', 'url-text' ],
 			'placeholder' => 'https://redirect.li/ip/?ip=%s',
-			'dir'         => 'ltr',
 			'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], Core\HTTP::IP() ) ) : '',
 		];
 
@@ -217,8 +217,8 @@ class Site extends gNetwork\Module
 				_x( 'URL template to to use for looking up Country Code. Will replace %s with the code.', 'Modules: Site: Settings', 'gnetwork' ),
 				Core\HTML::code( '%s' )
 			),
+			'field_class' => [ 'regular-text', 'url-text' ],
 			'placeholder' => 'https://countrycode.org/%s',
-			'dir'         => 'ltr',
 			'after'       => $this->options['lookup_country_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_country_service'], GCORE_DEFAULT_COUNTRY_CODE ) ) : '',
 		];
 

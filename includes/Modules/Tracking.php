@@ -61,7 +61,7 @@ class Tracking extends gNetwork\Module
 					'title'       => _x( 'Primary Domain Name', 'Modules: Tracking: Settings', 'gnetwork' ),
 					'description' => _x( 'Determines current network primary domain name.', 'Modules: Tracking: Settings', 'gnetwork' ),
 					'default'     => str_ireplace( [ 'http://', 'https://' ], '', home_url() ),
-					'dir'         => 'ltr',
+					'field_class' => [ 'regular-text', 'code-text' ],
 					'placeholder' => 'example.com',
 				],
 				[
@@ -69,7 +69,7 @@ class Tracking extends gNetwork\Module
 					'type'        => 'text',
 					'title'       => _x( 'GA Account', 'Modules: Tracking: Settings', 'gnetwork' ),
 					'description' => _x( 'Determines current network Google Analytics account ID.', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'dir'         => 'ltr',
+					'field_class' => [ 'medium-text', 'code-text' ],
 					'placeholder' => 'UA-XXXXXXXX-X',
 					'constant'    => 'GNETWORK_TRACKING_GA_ACCOUNT',
 				],
@@ -79,7 +79,7 @@ class Tracking extends gNetwork\Module
 					'title'       => _x( 'GA Beacon', 'Modules: Tracking: Settings', 'gnetwork' ),
 					'description' => _x( 'Determines current network Google Analytics Beacon account ID.', 'Modules: Tracking: Settings', 'gnetwork' ),
 					'after'       => Settings::fieldAfterIcon( 'https://github.com/igrigorik/ga-beacon' ),
-					'dir'         => 'ltr',
+					'field_class' => [ 'medium-text', 'code-text' ],
 					'placeholder' => 'UA-XXXXXXXX-X',
 				],
 				[
@@ -99,7 +99,7 @@ class Tracking extends gNetwork\Module
 					'type'        => 'text',
 					'title'       => _x( 'Twitter Account', 'Modules: Tracking: Settings', 'gnetwork' ),
 					'description' => _x( 'Determines current network site twitter account.', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'dir'         => 'ltr',
+					'field_class' => [ 'medium-text', 'code-text' ],
 					'placeholder' => 'username'
 				],
 				'register_shortcodes',

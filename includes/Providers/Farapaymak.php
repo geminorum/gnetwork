@@ -52,12 +52,12 @@ class Farapaymak extends gNetwork\Provider
 				'type'        => 'text',
 				'title'       => _x( 'From Number', 'Provider: Farapaymak', 'gnetwork' ),
 				'description' => _x( 'Specifies the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Farapaymak', 'gnetwork' ),
-				'field_class' => [ 'regular-text', 'code' ],
+				'field_class' => [ 'regular-text', 'code-text' ],
 			],
 			'admin_numbers' => [
 				'type'        => 'text',
 				'title'       => _x( 'Admin Numbers', 'Provider: Farapaymak', 'gnetwork' ),
-				'field_class' => [ 'regular-text', 'code' ],
+				'field_class' => [ 'regular-text', 'code-text' ],
 			],
 		];
 	}

@@ -5,7 +5,10 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Scripts extends Core\Base
 {
 
-	const BASE = 'gnetwork';
+	const BASE    = 'gnetwork';
+	const PATH    = GNETWORK_DIR;
+	const URL     = GNETWORK_URL;
+	const VERSION = GNETWORK_VERSION;
 
 	public static function inlineScript( $asset, $script, $dep = [ 'jquery' ] )
 	{
@@ -169,14 +172,14 @@ class Scripts extends Core\Base
 
 					if ( ! array_key_exists( 'title', $item ) )
 						$item['title'] = sprintf(
-							/* translators: %s: playback speed rate */
+							/* translators: `%s`: playback speed rate */
 							_x( 'Playback Speed %s&times;', 'Scripts: Playback Speed Title', 'gnetwork' ),
 							Core\Number::localize( $item['rate'] )
 						);
 
 					if ( ! array_key_exists( 'label', $item ) )
 						$item['label'] = sprintf(
-							/* translators: %s: playback speed rate */
+							/* translators: `%s`: playback speed rate */
 							_x( '%s&times;', 'Scripts: Playback Speed Label', 'gnetwork' ),
 							// Core\Number::localize( $item['rate'] )
 							$item['rate']

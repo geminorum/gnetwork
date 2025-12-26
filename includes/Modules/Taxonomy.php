@@ -929,8 +929,7 @@ JS;
 					'name'         => $this->classs( 'do-delete-confirm' ),
 					'placeholder'  => $taxonomy,
 					'autocomplete' => 'off',
-					'class'        => [ 'regular-text', 'code' ],
-					'dir'          => 'ltr',
+					'class'        => [ 'regular-text', 'code-text' ],
 				] );
 
 				Core\HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );

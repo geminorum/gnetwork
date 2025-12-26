@@ -45,21 +45,18 @@ class Kavenegar extends gNetwork\Provider
 				'title'       => _x( 'API Key', 'Provider: Kavenegar', 'gnetwork' ),
 				'description' => _x( 'Key for communication between this site and Kavenegar.', 'Provider: Kavenegar', 'gnetwork' ),
 				'constant'    => 'KAVENEGAR_API_KEY',
-				'field_class' => [ 'regular-text', 'code' ],
-				'dir'         => 'ltr',
+				'field_class' => [ 'regular-text', 'code-text' ],
 			],
 			'from_number' => [
 				'type'        => 'text',
 				'title'       => _x( 'From Number', 'Provider: Kavenegar', 'gnetwork' ),
 				'description' => _x( 'Specifies the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Kavenegar', 'gnetwork' ),
-				'field_class' => [ 'regular-text', 'code' ],
-				'dir'         => 'ltr',
+				'field_class' => [ 'regular-text', 'code-text' ],
 			],
 			'admin_numbers' => [
-				'type'  => 'text',
-				'title' => _x( 'Admin Numbers', 'Provider: Kavenegar', 'gnetwork' ),
-				'field_class' => [ 'regular-text', 'code' ],
-				'dir'         => 'ltr',
+				'type'        => 'text',
+				'title'       => _x( 'Admin Numbers', 'Provider: Kavenegar', 'gnetwork' ),
+				'field_class' => [ 'regular-text', 'code-text' ],
 			],
 		];
 	}
@@ -111,10 +108,19 @@ class Kavenegar extends gNetwork\Provider
 	public function providerStatus()
 	{
 		if ( $balance = $this->providerBalance() )
-			/* translators: %s: rial */
-			return [ 'working', sprintf( _x( '%s Rials for SMS', 'Provider: Kavenegar', 'gnetwork' ), Number::format( $balance ) ) ];
+			return [
+				'working',
+				sprintf(
+					/* translators: `%s`: rial */
+					_x( '%s Rials for SMS', 'Provider: Kavenegar', 'gnetwork' ),
+					Number::format( $balance )
+				),
+			];
 
-		return [ 'warning -must-charge', _x( 'Charge SMS Credits!', 'Provider: Kavenegar', 'gnetwork' ) ];
+		return [
+			'warning -must-charge',
+			_x( 'Charge SMS Credits!', 'Provider: Kavenegar', 'gnetwork' ),
+		];
 	}
 
 	public function providerBalance()

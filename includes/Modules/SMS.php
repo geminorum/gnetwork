@@ -68,7 +68,7 @@ class SMS extends gNetwork\Module
 
 			$this->check_referer( $sub, 'settings' );
 
-			if ( $created = Core\File::putHTAccessDeny( GNETWORK_SMS_LOG_DIR, TRUE ) )
+			if ( $created = Core\File::putHTAccessDeny( GNETWORK_SMS_LOG_DIR, TRUE, TRUE ) )
 				Core\File::putDoNotBackup( GNETWORK_SMS_LOG_DIR, FALSE );
 
 			WordPress\Redirect::doReferer( ( FALSE === $created ? 'wrong' : 'maked' ) );

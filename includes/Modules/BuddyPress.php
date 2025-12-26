@@ -324,9 +324,11 @@ class BuddyPress extends gNetwork\Module
 		if ( empty( $fields ) )
 			return;
 
-		/* translators: %s: filed name list */
-		$message = sprintf( _x( 'Please complete your profile: %s', 'Modules: BuddyPress', 'gnetwork' ),
-			Utilities::joinItems( Core\Arraay::column( $fields, 'name' ) ) );
+		$message = sprintf(
+			/* translators: `%s`: filed name list */
+			_x( 'Please complete your profile: %s', 'Modules: BuddyPress', 'gnetwork' ),
+			Utilities::joinItems( Core\Arraay::column( $fields, 'name' ) )
+		);
 
 		bp_core_add_message( $message, 'warning' );
 	}

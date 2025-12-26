@@ -659,10 +659,14 @@ class Utilities extends Core\Base
 
 			if ( ! is_dir( $constant ) || ! Core\File::writable( $constant ) ) {
 
-				Core\HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
+				Core\HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ), TRUE, '-danger' );
 
 				echo '<p class="submit -wrap-buttons">';
-					Settings::submitButton( 'create_log_folder', _x( 'Create Log Folder', 'Utilities', 'gnetwork' ), 'small' );
+					Settings::submitButton(
+						'create_log_folder',
+						_x( 'Create Log Folder', 'Utilities', 'gnetwork' ),
+						'small'
+					);
 				echo '</p>';
 
 			} else {
@@ -670,7 +674,7 @@ class Utilities extends Core\Base
 				Core\HTML::desc( sprintf(
 					/* translators: `%s`: log folder path */
 					_x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ),
-					Core\HTML::code( $constant )
+					'<br />'.Core\HTML::code( $constant )
 				) );
 
 				if ( ! Core\File::exists( '.htaccess', $constant ) ) {
@@ -678,7 +682,7 @@ class Utilities extends Core\Base
 						/* translators: `%s`: `.htaccess` */
 						_x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ),
 						Core\HTML::code( '.htaccess' )
-					) );
+					), TRUE, '-danger' );
 
 					echo '<p class="submit -wrap-buttons">';
 						Settings::submitButton(

@@ -359,15 +359,15 @@ class Comments extends gNetwork\Module
 		$comments = wp_count_comments( $post_id );
 
 		$map = [
-			/* translators: %s: comment count */
+			/* translators: `%s`: comment count */
 			'moderated'      => _x( 'Comments in moderation: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
-			/* translators: %s: comment count */
+			/* translators: `%s`: comment count */
 			'approved'       => _x( 'Comments approved: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
-			/* translators: %s: comment count */
+			/* translators: `%s`: comment count */
 			'spam'           => _x( 'Comments in Spam: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
-			/* translators: %s: comment count */
+			/* translators: `%s`: comment count */
 			'trash'          => _x( 'Comments in Trash: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
-			/* translators: %s: comment count */
+			/* translators: `%s`: comment count */
 			'total_comments' => _x( 'Total Comments: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
 		];
 
@@ -396,8 +396,11 @@ class Comments extends gNetwork\Module
 		if ( substr_count( strtolower( $comment ), 'http://' ) > $this->links_limit ) {
 
 			if ( 'reject' == $this->links_limit_action )
-				/* translators: %s: comment links count */
-				wp_die( sprintf( _x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', 'Modules: Comments', 'gnetwork' ), $this->links_limit ) );
+				wp_die( sprintf(
+					/* translators: `%s`: comment links count */
+					_x( 'Comment has <strong>over %s links</strong>. Please reduce number of those.', 'Modules: Comments', 'gnetwork' ),
+					$this->links_limit
+				) );
 
 			else
 				$this->filter( 'pre_comment_approved', 0, 10, 'spam' );

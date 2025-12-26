@@ -2,7 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\Core\HTML;
+use geminorum\gNetwork\Core;
+use geminorum\gNetwork\WordPress;
 
 class OutputterCurrentObject extends \QM_Output_Html
 {
@@ -29,20 +30,23 @@ class OutputterCurrentObject extends \QM_Output_Html
 		// $this->before_non_tabular_output();
 		$this->before_tabular_output();
 
-		/* translators: %s: object type */
-		HTML::tableSide( $data['object'], TRUE, HTML::tag( 'h2', sprintf( _x( 'Current Object: %s', 'Modules: Debug: QM Output', 'gnetwork' ), '<strong>'.HTML::sanitizeDisplay( $data['type'] ).'</strong>' ) ) );
+		Core\HTML::tableSide( $data['object'], TRUE, Core\HTML::tag( 'h2', sprintf(
+			/* translators: `%s`: object type */
+			_x( 'Current Object: %s', 'Modules: Debug: QM Output', 'gnetwork' ),
+			Core\HTML::tag( 'strong', Core\HTML::sanitizeDisplay( $data['type'] ) )
+		) ) );
 
 		if ( ! empty( $data['meta'] ) )
-			HTML::tableSide( $data['meta'], TRUE, HTML::tag( 'h2', _x( 'Current Object Meta', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
+			Core\HTML::tableSide( $data['meta'], TRUE, Core\HTML::tag( 'h2', _x( 'Current Object Meta', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
 
 		if ( ! empty( $data['supports'] ) )
-			HTML::tableSide( $data['supports'], TRUE, HTML::tag( 'h2', _x( 'Current Object Supports', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
+			Core\HTML::tableSide( $data['supports'], TRUE, Core\HTML::tag( 'h2', _x( 'Current Object Supports', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
 
 		if ( ! empty( $data['taxonomies'] ) )
-			HTML::tableSide( $data['taxonomies'], TRUE, HTML::tag( 'h2', _x( 'Current Object Taxonomies', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
+			Core\HTML::tableSide( $data['taxonomies'], TRUE, Core\HTML::tag( 'h2', _x( 'Current Object Taxonomies', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
 
 		if ( ! empty( $data['comments'] ) )
-			HTML::tableSide( $data['comments'], TRUE, HTML::tag( 'h2', _x( 'Current Object Comments', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
+			Core\HTML::tableSide( $data['comments'], TRUE, Core\HTML::tag( 'h2', _x( 'Current Object Comments', 'Modules: Debug: QM Output', 'gnetwork' ) ) );
 
 		// $this->after_non_tabular_output();
 		$this->after_tabular_output();

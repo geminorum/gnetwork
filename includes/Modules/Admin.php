@@ -509,7 +509,8 @@ class Admin extends gNetwork\Module
 
 	public function admin_print_styles()
 	{
-		if ( WordPress\IsIt::customize())
+		// NOTE: must check before IFRAME
+		if ( WordPress\IsIt::customize() )
 			Utilities::linkStyleSheet( 'admin.customize' );
 
 		else if ( WordPress\IsIt::iFrame() )

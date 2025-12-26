@@ -103,8 +103,11 @@ class Feed extends gNetwork\Module
 
 	public function disabled_feed_callback()
 	{
-		/* translators: %s: homepage url */
-		wp_die( sprintf( _x( 'There are no feeds available, please visit the <a href="%s">homepage</a>!', 'Modules: Feed: Disabled Message', 'gnetwork' ), esc_url( home_url( '/' ) ) ) );
+		wp_die( sprintf(
+			/* translators: `%s`: homepage URL */
+			_x( 'There are no feeds available, please visit the <a href="%s">homepage</a>!', 'Modules: Feed: Disabled Message', 'gnetwork' ),
+			esc_url( home_url( '/' ) )
+		) );
 	}
 
 	public function posts_where( $where, $query )

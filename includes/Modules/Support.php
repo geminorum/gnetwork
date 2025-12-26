@@ -138,7 +138,7 @@ class Support extends gNetwork\Module
 				'type'        => 'select',
 				'name_attr'   => 'report_topic',
 				'field'       => 'topic',
-				'values'      => Core\Arraay::sameKey( explode( "\n", $this->options['report_topics'] ) ),
+				'values'      => Core\Arraay::sameKey( Core\Text::splitLines( $this->options['report_topics'] ) ),
 				'description' => _x( 'Pick one that suits your issue.', 'Modules: Support', 'gnetwork' ),
 				'cap'         => TRUE,
 				'wrap'        => TRUE,

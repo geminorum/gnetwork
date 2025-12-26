@@ -118,25 +118,25 @@ class Settings extends Core\Base
 			'nochange'  => self::error( _x( 'No item changed!', 'Settings: Message', 'gnetwork' ) ),
 			'noadded'   => self::error( _x( 'No item added!', 'Settings: Message', 'gnetwork' ) ),
 			'noaccess'  => self::error( _x( 'You do not have the access!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'converted' => self::counted( _x( '%s items(s) converted!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'imported'  => self::counted( _x( '%s items(s) imported!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'created'   => self::counted( _x( '%s items(s) created!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'deleted'   => self::counted( _x( '%s items(s) deleted!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'cleaned'   => self::counted( _x( '%s items(s) cleaned!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'changed'   => self::counted( _x( '%s items(s) changed!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'emptied'   => self::counted( _x( '%s items(s) emptied!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'closed'    => self::counted( _x( '%s items(s) closed!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'ordered'   => self::counted( _x( '%s items(s) re-ordered!', 'Settings: Message', 'gnetwork' ) ),
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			'synced'    => self::counted( _x( '%s items(s) synced!', 'Settings: Message', 'gnetwork' ) ),
 			'huh'       => Core\HTML::error( self::huh( self::req( 'huh', NULL ) ) ),
 		];
@@ -147,9 +147,11 @@ class Settings extends Core\Base
 		$extra = [];
 
 		if ( isset( $_REQUEST['count'] ) && ! is_array( $_REQUEST['count'] ) )
-			/* translators: %s: count */
-			$extra[] = sprintf( _x( '%s Counted!', 'Settings: Message', 'gnetwork' ),
-				Core\Number::format( $_REQUEST['count'] ) );
+			$extra[] = sprintf(
+				/* translators: `%s`: count */
+				_x( '%s Counted!', 'Settings: Message', 'gnetwork' ),
+				Core\Number::format( $_REQUEST['count'] )
+			);
 
 		return count( $extra ) ? ' ('.implode( WordPress\Strings::separator(), $extra ).')' : '';
 	}
@@ -177,7 +179,7 @@ class Settings extends Core\Base
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
 	{
 		if ( is_null( $message ) )
-			/* translators: %s: count */
+			/* translators: `%s`: count */
 			$message = _x( '%s Counted!', 'Settings', 'gnetwork' );
 
 		if ( is_null( $count ) )
@@ -194,8 +196,11 @@ class Settings extends Core\Base
 	public static function huh( $message = NULL )
 	{
 		if ( $message )
-			/* translators: %s: message */
-			return sprintf( _x( 'huh? %s', 'Settings: Message', 'gnetwork' ), $message );
+			return sprintf(
+				/* translators: `%s`: message */
+				_x( 'huh? %s', 'Settings: Message', 'gnetwork' ),
+				$message
+			);
 
 		return _x( 'huh?', 'Settings: Message', 'gnetwork' );
 	}
@@ -463,8 +468,11 @@ class Settings extends Core\Base
 	public static function showOptionNone( $text = NULL )
 	{
 		if ( $text )
-			/* translators: %s: options */
-			return sprintf( _x( '&ndash; Select %s &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' ), $text );
+			return sprintf(
+				/* translators: `%s`: options */
+				_x( '&ndash; Select %s &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' ),
+				$text
+			);
 
 		return _x( '&ndash; Select &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' );
 	}
@@ -472,8 +480,11 @@ class Settings extends Core\Base
 	public static function showOptionAll( $text = NULL )
 	{
 		if ( $text )
-			/* translators: %s: options */
-			return sprintf( _x( '&ndash; All %s &ndash;', 'Settings: Dropdown Select Option All', 'gnetwork' ), $text );
+			return sprintf(
+				/* translators: `%s`: options */
+				_x( '&ndash; All %s &ndash;', 'Settings: Dropdown Select Option All', 'gnetwork' ),
+				$text
+			);
 
 		return _x( '&ndash; All &ndash;', 'Settings: Dropdown Select Option All', 'gnetwork' );
 	}
@@ -566,35 +577,35 @@ class Settings extends Core\Base
 			'field'        => FALSE,
 			'values'       => [],
 			'exclude'      => '',
-			'none_title'   => NULL, // select option none title
-			'none_value'   => NULL, // select option none value
-			'filter'       => FALSE, // will use via sanitize
-			'callback'     => FALSE, // callable for `callback` type
+			'none_title'   => NULL,                                          // select option none title
+			'none_value'   => NULL,                                          // select option none value
+			'filter'       => FALSE,                                         // will use via sanitize
+			'callback'     => FALSE,                                         // callable for `callback` type
 			'dir'          => FALSE,
 			'disabled'     => FALSE,
 			'readonly'     => FALSE,
 			'default'      => '',
-			'defaults'     => [], // default value to ignore && override the saved
+			'defaults'     => [],                                            // default value to ignore && override the saved
 			'description'  => isset( $atts['desc'] ) ? $atts['desc'] : '',
-			'before'       => '', // html to print before field
-			'after'        => '', // html to print after field
-			'field_class'  => '', // formally just class!
-			'class'        => '', // now used on wrapper
+			'before'       => '',                                            // HTML to print before field
+			'after'        => '',                                            // HTML to print after field
+			'field_class'  => '',                                            // formally just class!
+			'class'        => '',                                            // now used on wrapper
 			'option_group' => 'general',
 			'option_base'  => static::BASE,
-			'options'      => [], // saved options
-			'id_name_cb'   => FALSE, // id/name generator callback
-			'id_attr'      => FALSE, // override
-			'name_attr'    => FALSE, // override
-			'step_attr'    => '1', // for number type // FALSE to disable
-			'min_attr'     => '0', // for number type // FALSE to disable
-			'max_attr'     => FALSE, // for number type // FALSE to disable
-			'rows_attr'    => '5', // for textarea type
-			'cols_attr'    => '45', // for textarea type
+			'options'      => [],                                            // saved options
+			'id_name_cb'   => FALSE,                                         // id/name generator callback
+			'id_attr'      => FALSE,                                         // override
+			'name_attr'    => FALSE,                                         // override
+			'step_attr'    => '1',                                           // for number type // FALSE to disable
+			'min_attr'     => '0',                                           // for number type // FALSE to disable
+			'max_attr'     => FALSE,                                         // for number type // FALSE to disable
+			'rows_attr'    => '5',                                           // for textarea type
+			'cols_attr'    => '45',                                          // for textarea type
 			'placeholder'  => FALSE,
-			'constant'     => FALSE, // override value if constant defined & disabling
-			'data'         => [], // data attr
-			'extra'        => [], // extra args to pass to deeper generator
+			'constant'     => FALSE,                                         // override value if constant defined & disabling
+			'data'         => [],                                            // data attr
+			'extra'        => [],                                            // extra args to pass to deeper generator
 			'wrap'         => FALSE,
 			'cap'          => NULL,
 
@@ -604,7 +615,7 @@ class Settings extends Core\Base
 			'string_empty'    => _x( 'No options!', 'Settings', 'gnetwork' ),
 			'string_noaccess' => _x( 'You do not have access to change this option.', 'Settings', 'gnetwork' ),
 
-			'template_value' => '%s', // used on display value output
+			'template_value' => '%s',   // used on display value output
 		], $atts );
 
 		if ( TRUE === $args['wrap'] )
@@ -700,7 +711,8 @@ class Settings extends Core\Base
 
 				$args['description'] = FALSE;
 
-			break;
+				break;
+
 			case 'enabled':
 
 				$html = Core\HTML::tag( 'option', [
@@ -727,7 +739,8 @@ class Settings extends Core\Base
 				if ( $args['readonly'] )
 					Core\HTML::inputHidden( $name, $value );
 
-			break;
+				break;
+
 			case 'disabled':
 
 				$html = Core\HTML::tag( 'option', [
@@ -754,7 +767,8 @@ class Settings extends Core\Base
 				if ( $args['readonly'] )
 					Core\HTML::inputHidden( $name, $value );
 
-			break;
+				break;
+
 			case 'text':
 
 				if ( ! $args['field_class'] )
@@ -805,7 +819,8 @@ class Settings extends Core\Base
 					] );
 				}
 
-			break;
+				break;
+
 			case 'number':
 
 				if ( ! $args['field_class'] )
@@ -830,7 +845,8 @@ class Settings extends Core\Base
 					'data'        => $args['data'],
 				] );
 
-			break;
+				break;
+
 			case 'url':
 
 				if ( ! $args['field_class'] )
@@ -852,7 +868,8 @@ class Settings extends Core\Base
 					'data'        => $args['data'],
 				] );
 
-			break;
+				break;
+
 			case 'color':
 
 				if ( ! $args['field_class'] )
@@ -878,7 +895,8 @@ class Settings extends Core\Base
 				// @SEE: `Scripts::enqueueColorPicker()`
 				$scripts[] = sprintf( '$("#%s").wpColorPicker();', $id );
 
-			break;
+				break;
+
 			case 'email':
 
 				if ( ! $args['field_class'] )
@@ -900,7 +918,8 @@ class Settings extends Core\Base
 					'data'        => $args['data'],
 				] );
 
-			break;
+				break;
+
 			case 'checkbox':
 
 				$html = Core\HTML::tag( 'input', [
@@ -920,7 +939,8 @@ class Settings extends Core\Base
 
 				$args['description'] = FALSE;
 
-			break;
+				break;
+
 			case 'checkboxes':
 			case 'checkboxes-values':
 
@@ -976,7 +996,8 @@ class Settings extends Core\Base
 					Core\HTML::desc( $args['string_empty'], TRUE, '-empty' );
 				}
 
-			break;
+				break;
+
 			case 'checkbox-panel':
 
 				if ( count( $args['values'] ) ) {
@@ -1030,7 +1051,8 @@ class Settings extends Core\Base
 					Core\HTML::desc( $args['string_empty'], TRUE, '-empty' );
 				}
 
-			break;
+				break;
+
 			case 'radio':
 
 				if ( count( $args['values'] ) ) {
@@ -1075,7 +1097,8 @@ class Settings extends Core\Base
 					}
 				}
 
-			break;
+				break;
+
 			case 'select':
 
 				if ( FALSE !== $args['values'] ) {
@@ -1120,7 +1143,8 @@ class Settings extends Core\Base
 						Core\HTML::inputHidden( $name, $value );
 				}
 
-			break;
+				break;
+
 			case 'textarea':
 			case 'textarea-quicktags':
 			case 'textarea-quicktags-tokens':
@@ -1208,7 +1232,8 @@ class Settings extends Core\Base
 					'data'        => $args['data'],
 				], esc_textarea( $value ) );
 
-			break;
+				break;
+
 			case 'page':
 
 				if ( ! $args['values'] )
@@ -1258,7 +1283,8 @@ class Settings extends Core\Base
 					$args['description'] = FALSE;
 				}
 
-			break;
+				break;
+
 			case 'role':
 
 				if ( ! $args['values'] )
@@ -1302,7 +1328,8 @@ class Settings extends Core\Base
 				if ( $args['readonly'] )
 					Core\HTML::inputHidden( $name, $value );
 
-			break;
+				break;
+
 			case 'cap':
 
 				if ( ! $args['values'] )
@@ -1341,7 +1368,8 @@ class Settings extends Core\Base
 					$args['description'] = FALSE;
 				}
 
-			break;
+				break;
+
 			case 'user':
 
 				if ( ! $args['values'] )
@@ -1385,7 +1413,8 @@ class Settings extends Core\Base
 				if ( $args['readonly'] )
 					Core\HTML::inputHidden( $name, $value );
 
-			break;
+				break;
+
 			case 'priority':
 
 				if ( ! $args['values'] )
@@ -1420,7 +1449,8 @@ class Settings extends Core\Base
 				if ( $args['readonly'] )
 					Core\HTML::inputHidden( $name, $value );
 
-			break;
+				break;
+
 			case 'button':
 
 				self::submitButton(
@@ -1430,7 +1460,8 @@ class Settings extends Core\Base
 					$args['values']
 				);
 
-			break;
+				break;
+
 			case 'file':
 
 				echo Core\HTML::tag( 'input', [
@@ -1444,7 +1475,8 @@ class Settings extends Core\Base
 					'accept'   => empty( $args['values'] ) ? FALSE : implode( ',', $args['values'] ),
 				] );
 
-			break;
+				break;
+
 			case 'posttypes':
 
 				if ( ! $args['values'] )
@@ -1474,7 +1506,8 @@ class Settings extends Core\Base
 					Core\HTML::label( $html, $id.'-'.$value_name );
 				}
 
-			break;
+				break;
+
 			case 'taxonomies':
 
 				if ( ! $args['values'] )
@@ -1507,7 +1540,8 @@ class Settings extends Core\Base
 
 				echo '</ul></div>';
 
-			break;
+				break;
+
 			case 'callback':
 
 				if ( is_callable( $args['callback'] ) ) {
@@ -1520,14 +1554,16 @@ class Settings extends Core\Base
 					echo 'Error: Setting is not callable!';
 				}
 
-			break;
+				break;
+
 			case 'noaccess':
 
 				echo Core\HTML::tag( 'span', [
 					'class' => '-type-noaccess',
 				], $args['string_noaccess'] );
 
-			break;
+				break;
+
 			case 'custom':
 
 				if ( ! is_array( $args['values'] ) )
@@ -1535,12 +1571,14 @@ class Settings extends Core\Base
 				else
 					echo $value;
 
-			break;
+				break;
+
 			case 'debug':
 
 				self::dump( $args['options'] );
 
-			break;
+				break;
+
 			default:
 
 				echo 'Error: setting type not defind!';

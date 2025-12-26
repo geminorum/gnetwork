@@ -383,8 +383,11 @@ class User extends gNetwork\Module
 		foreach ( $this->get_menus() as $priority => $group )
 			foreach ( $group as $sub => $args )
 				add_submenu_page( $this->base,
-					/* translators: %s: menu title */
-					sprintf( _x( 'gNetwork Extras: %s', 'Modules: User: Page Menu', 'gnetwork' ), $args['title'] ),
+					sprintf(
+						/* translators: `%s`: menu title */
+						_x( 'gNetwork Extras: %s', 'Modules: User: Page Menu', 'gnetwork' ),
+						$args['title']
+					),
 					$args['title'],
 					$args['cap'],
 					$this->base.'&sub='.$sub,
@@ -475,9 +478,8 @@ class User extends gNetwork\Module
 
 	protected function settings_overview( $uri )
 	{
-		// TODO
-		// add setting option for page
-		// display page content as over view
+		// TODO: add setting option for page
+		// TODO: display page content as overview
 	}
 
 	public function wp_is_large_network( $is, $using, $count )
@@ -529,7 +531,7 @@ class User extends gNetwork\Module
 				/* translators: `%1$s`: role user number, `%2$s`: role name */
 				_x( '%1$s are %2$s', 'Modules: User', 'gnetwork' ),
 				Core\Number::format( $count ),
-				( array_key_exists( $role, $roles ) ? $roles[$role] : Core\HTML::code( $role ) )
+				array_key_exists( $role, $roles ) ? $roles[$role] : Core\HTML::code( $role )
 			);
 
 		return Core\HTML::tag( 'p', $html.'.' );
@@ -761,7 +763,7 @@ class User extends gNetwork\Module
 
 			$view.= Utilities::getCounted(
 				$spams,
-				/* translators: %s: spam users count */
+				/* translators: `%s`: spam users count */
 				_nx( 'Marked as Spam <span class="count">(%s)</span>', 'Marked as Spams <span class="count">(%s)</span>', $spams, 'Modules: User', 'gnetwork' )
 			).'</a>';
 
@@ -844,8 +846,12 @@ class User extends gNetwork\Module
 
 				echo '<li class="-row -displayname">';
 					echo $this->get_column_icon( FALSE, 'nametag', _x( 'Custom Name', 'Modules: User', 'gnetwork' ) );
-					/* translators: %1$s: blog name, %2$s: custom display name */
-					printf( _x( 'In %1$s as: %2$s', 'Modules: User: Custom Name', 'gnetwork' ), $blogname, $custom );
+					printf(
+						/* translators: `%1$s`: blog name, `%2$s`: custom display name */
+						_x( 'In %1$s as: %2$s', 'Modules: User: Custom Name', 'gnetwork' ),
+						$blogname,
+						$custom
+					);
 				echo '</li>';
 			}
 		}

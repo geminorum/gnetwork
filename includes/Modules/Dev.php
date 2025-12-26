@@ -28,7 +28,7 @@ class Dev extends gNetwork\Module
 		// $this->filter_false( 'wp_is_php_version_acceptable', 1, 9999 ); // to help with translation
 		// $this->filter_true( 'jetpack_development_mode' );
 		// $this->filter_true( 'jetpack_offline_mode' ); // https://jetpack.com/support/offline-mode/
-		$this->filter_true( 'wp_is_application_passwords_available' );
+		// $this->filter_true( 'wp_is_application_passwords_available' );
 
 		$this->action( 'pre_get_posts', 1, 99 );
 		$this->action( 'shutdown', 1, 99 );

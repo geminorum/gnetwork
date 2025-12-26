@@ -80,11 +80,11 @@ class Images extends gNetwork\Module
 					'type'        => 'text',
 					'title'       => _x( 'Default CSS Class', 'Modules: Images: Settings', 'gnetwork' ),
 					'description' => sprintf(
-						/* translators: `%s`: `CSS` placeholder */
+						/* translators: `%s`: CSS placeholder */
 						_x( 'Sets the default %s class for images without the attribute.', 'Modules: Images: Settings', 'gnetwork' ),
 						Core\HTML::code( 'CSS' )
 					),
-					'field_class' => [ 'regular-text', 'code' ],
+					'field_class' => [ 'regular-text', 'code-text' ],
 					'placeholder' => 'img-fluid',
 				],
 				[
@@ -96,12 +96,12 @@ class Images extends gNetwork\Module
 					'values'      => [
 						'ignore_all'          => _x( 'Ignores the paragraps and leave them as are!', 'Modules: Images: Settings', 'gnetwork' ),
 						'replace_with_figure' => sprintf(
-							/* translators: `%s`: html tag placeholder */
+							/* translators: `%s`: HTML tag placeholder */
 							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork' ),
 							Core\HTML::code( 'figure' )
 						),
 						'replace_with_div' => sprintf(
-							/* translators: `%s`: html tag placeholder */
+							/* translators: `%s`: HTML tag placeholder */
 							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork' ),
 							Core\HTML::code( 'div' )
 						),
@@ -127,7 +127,7 @@ class Images extends gNetwork\Module
 						Core\HTML::code( '0' )
 					),
 					'after'       => Settings::fieldAfterIcon( 'https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/' ),
-					'field_class' => [ 'small-text', 'code' ],
+					'field_class' => [ 'small-text', 'code-text' ],
 					'placeholder' => '2560',
 				],
 				[
@@ -170,6 +170,7 @@ class Images extends gNetwork\Module
 						Core\HTML::code( 'WebP' )
 					),
 					// 'after'  => Settings::fieldAfterIcon( 'https://caniuse.com/webp' ), // `checkboxes` type does not support `after` styles yet!
+					'dir'    => 'ltr',
 					'values' => [
 						'jpeg'   => 'JPEG',
 						'gif'    => 'GIF',

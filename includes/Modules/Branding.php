@@ -127,16 +127,18 @@ class Branding extends gNetwork\Module
 
 		$settings['_general'][] = [
 			'field'       => 'network_sitelogo',
-			'type'        => 'url',
+			'type'        => 'text', // `url` will not work on relative URLs
 			'title'       => _x( 'SVG Network Logo', 'Modules: Branding: Settings', 'gnetwork' ),
 			'description' => _x( 'Displays as network wide site logo. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'field_class' => [ 'regular-text', 'url-text' ],
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'network_siteicon',
-			'type'        => 'url',
+			'type'        => 'text', // `url` will not work on relative URLs
 			'title'       => _x( 'SVG Network Icon', 'Modules: Branding: Settings', 'gnetwork' ),
 			'description' => _x( 'Displays as network wide site icon. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'field_class' => [ 'regular-text', 'url-text' ],
 		];
 
 		$settings['_webapp'] = [

@@ -721,17 +721,20 @@ class Themes extends gNetwork\Module
 		return vsprintf( ' <a href="%1$s" aria-label="%3$s" class="%4$s">%2$s</a>', [
 			esc_url( apply_filters( 'the_permalink', get_permalink(), NULL ) ),
 			_x( 'Read more&nbsp;<span class="excerpt-link-hellip">&hellip;</span>', 'Modules: Themes', 'gnetwork' ),
-			/* translators: %s: post title */
-			sprintf( _x( 'Continue reading &ldquo;%s&rdquo; &hellip;', 'Modules: Themes', 'gnetwork' ), get_the_title() ),
+			sprintf(
+				/* translators: `%s`: post title */
+				_x( 'Continue reading &ldquo;%s&rdquo; &hellip;', 'Modules: Themes', 'gnetwork' ),
+				get_the_title()
+			),
 			'excerpt-link',
 		] );
 	}
 
 	public static function getByLine( $before = '<span class="byline">', $after = '</span>' )
 	{
-		/* translators: %s: author name */
+		/* translators: `%s`: author name */
 		$text   = _x( 'by %s', 'Modules: Themes', 'gnetwork' );
-		/* translators: %s: author name */
+		/* translators: `%s`: author name */
 		$title  = _x( 'View all posts by %s', 'Modules: Themes', 'gnetwork' );
 		$format = '<span class="author vcard"><a class="url fn n" href="%3$s" title="%2$s" rel="author">%1$s</a></span>';
 		$author = get_the_author();
@@ -850,7 +853,7 @@ class Themes extends gNetwork\Module
 		echo '</div>';
 	}
 
-	// force storefront defaults to woocomerce settings on customizer
+	// NOTE: force storefront defaults to WooCommerce settings on Customizer
 	public function storefront_recent_products_args( $args )
 	{
 		$limit = function_exists( 'wc_get_default_products_per_row' )

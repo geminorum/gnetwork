@@ -256,8 +256,11 @@ class Debug extends gNetwork\Module
 			if ( $logs = Core\File::getLastLines( $file, self::limit( 100 ) ) ) {
 
 				$length = self::req( 'length', FALSE );
-				/* translators: %s: logs count */
-				$title = sprintf( _x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', 'gnetwork' ), Core\Number::format( count( $logs ) ) );
+				$title  = sprintf(
+					/* translators: `%s`: logs count */
+					_x( 'The Last %s Logs, in reverse order', 'Modules: Debug: Log Box', 'gnetwork' ),
+					Core\Number::format( count( $logs ) )
+				);
 
 				Settings::headerTitle( $title );
 				echo '<div class="log-box"><ol>';
@@ -279,7 +282,7 @@ class Debug extends gNetwork\Module
 				echo '</ol></div>';
 
 				Core\HTML::desc( sprintf(
-					/* translators: %s: file size */
+					/* translators: `%s`: file size */
 					_x( 'File Size: %s', 'Modules: Debug: Log Box', 'gnetwork' ),
 					Core\HTML::wrapLTR( $file_size )
 				), TRUE, 'log-box-footer' );
@@ -680,7 +683,7 @@ class Debug extends gNetwork\Module
 
 		else
 			Core\HTML::desc( sprintf(
-				/* translators: %s: function placeholder */
+				/* translators: `%s`: function placeholder */
 				_x( '%s has been disabled.', 'Modules: Debug', 'gnetwork' ),
 				'<code>phpinfo()</code>'
 			), TRUE, '-empty -phpinfo' );
@@ -708,26 +711,24 @@ class Debug extends gNetwork\Module
 
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: database version */
-			_x( 'Current Database version: %s', 'Modules: Debug', 'gnetwork' ),
+			_x( 'Database: %s', 'Modules: Debug', 'gnetwork' ),
 			Core\HTML::code( $GLOBALS['wpdb']->db_version() )
 		) );
 
-		echo '<hr />';
-
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: PHP version */
-			_x( 'Current PHP version: %s', 'Modules: Debug', 'gnetwork' ),
+			_x( 'PHP: %s', 'Modules: Debug', 'gnetwork' ),
 			Core\HTML::code( PHP_VERSION )
 		) );
 
 		echo Core\HTML::listCode( self::getPHPExtensions(),
 			'<code title="%2$s">%1$s</code>',
-			'<span class="description -color-success">'._x( 'Loaded Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
+			'<span class="description -color-success">'._x( 'Loaded PHP Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
 		);
 
 		echo Core\HTML::listCode( self::getPHPMissingExtensions(),
 			'<code title="%2$s">%1$s</code>',
-			'<span class="description -color-danger">'._x( 'Missing Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
+			'<span class="description -color-danger">'._x( 'Missing PHP Extensions', 'Modules: Debug', 'gnetwork' ).':</span>'
 		);
 
 		// TODO: https://php.watch/versions/8.1/gd-webp-lossless
@@ -892,7 +893,7 @@ class Debug extends gNetwork\Module
 				if ( ! GNETWORK_DEBUG_LOG )
 					return $result;
 
-				if ( FALSE === ( $status = Core\HTTP::getStatus( Core\URL::fromPath( GNETWORK_DEBUG_LOG ), FALSE ) ) )
+				if ( FALSE === ( $status = Core\HTTP::getStatus( Core\URL::fromPath( GNETWORK_DEBUG_LOG ) ) ) )
 					return $result;
 
 				if ( 200 == $status ) {
