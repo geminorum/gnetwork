@@ -599,7 +599,7 @@ class Mail extends gNetwork\Module
 			echo '<hr />';
 
 			Core\HTML::desc( _x('The SMTP debugging output:', 'Modules: Mail', 'gnetwork' ) );
-			echo Core\HTML::wrap( $smtp_debug, '-smtp-debug' );
+			echo Core\HTML::wrap( $smtp_debug, '-debug-wrap' );
 
 			echo '<hr />';
 

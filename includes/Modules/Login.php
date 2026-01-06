@@ -488,7 +488,7 @@ class Login extends gNetwork\Module
 			echo '</div></div></div></div>';
 
 		if ( $this->options['login_remember'] )
-			echo '<script type="text/javascript">try{document.getElementById("rememberme").checked=true;}catch(e){};</script>';
+			echo '<script>try{document.getElementById("rememberme").checked=true;}catch(e){};</script>';
 	}
 
 	public function login_head()
@@ -506,7 +506,7 @@ class Login extends gNetwork\Module
 		}
 
 		if ( $this->options['login_styles'] )
-			printf( "<style type='text/css'>\n%s\n</style>\n",
+			printf( "<style>\n%s\n</style>\n",
 				Core\Text::replaceTokens( $this->options['login_styles'], [
 					'theme_color'      => gNetwork()->option( 'theme_color', 'branding' ),
 					'webapp_color'     => gNetwork()->option( 'webapp_color', 'branding' ),
@@ -541,7 +541,7 @@ class Login extends gNetwork\Module
 				$default / 2,
 			] );
 
-			printf( "<style type='text/css'>\n%s\n</style>\n", $style );
+			printf( "<style>\n%s\n</style>\n", $style );
 
 		} else if ( $sitelogo = gNetwork()->option( 'network_sitelogo', 'branding' ) ) {
 
@@ -557,7 +557,7 @@ class Login extends gNetwork\Module
 				$default / 2,
 			] );
 
-			printf( "<style type='text/css'>\n%s\n</style>\n", $style );
+			printf( "<style>\n%s\n</style>\n", $style );
 		}
 	}
 

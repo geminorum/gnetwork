@@ -290,7 +290,7 @@ class Blog extends gNetwork\Module
 			'field'       => 'disable_globalstyles',
 			'type'        => 'disabled',
 			'title'       => _x( 'Global Styles', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes all admin pointer tooltips.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes all global style additions.', 'Modules: Blog: Settings', 'gnetwork' ),
 			'after'       => Settings::fieldAfterIcon( 'https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/#presets' ),
 			'default'     => '1',
 		];
@@ -622,10 +622,7 @@ class Blog extends gNetwork\Module
 
 	public static function whiteListed( $request_uri = NULL )
 	{
-		if ( is_null( $request_uri ) )
-			$request_uri = $_SERVER['REQUEST_URI'];
-
-		return Core\Arraay::strposArray( [
+		return Core\Text::has( $request_uri ?? $_SERVER['REQUEST_URI'], [
 			'wp-admin',
 			'wp-activate.php',
 			'wp-comments-post.php',
@@ -636,7 +633,7 @@ class Blog extends gNetwork\Module
 			'wp-signup.php',
 			'wp-trackback.php',
 			'xmlrpc.php',
-		], $request_uri );
+		] );
 	}
 
 	public function login_redirect( $redirect_to, $requested_redirect_to, $user )

@@ -8,7 +8,7 @@
 <?php if ( ! empty( $head_title ) ) echo '<title>'.$head_title.'</title>'; ?>
 <?php if ( ! empty( $head_callback ) && is_callable( $head_callback ) ) call_user_func( $head_callback ); ?>
 
-<style type="text/css">
+<style>
 :root {
   font-size: calc(1vw + 1vh + .5vmin);
 }

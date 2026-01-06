@@ -81,11 +81,7 @@ class Provider extends Core\Base
 		add_filter( $this->base.'_'.$this->type.'_default_options', [ $this, 'append_default_options' ], 8, 1 );
 		add_filter( $this->base.'_'.$this->type.'_settings_section', [ $this, 'append_settings_section' ], 8, 2 );
 
-		$enabled = isset( $options[$this->key.'_enabled'] )
-			? $options[$this->key.'_enabled']
-			: FALSE;
-
-		if ( ! $enabled )
+		if ( ! ( $options[$this->key.'_enabled'] ?? FALSE ) )
 			throw new Core\Exception( 'Not Enabled!' );
 
 		$this->enabled = TRUE;
@@ -137,7 +133,7 @@ class Provider extends Core\Base
 		$options[$this->key.'_enabled'] = '0';
 
 		foreach ( $this->default_settings() as $field => $args )
-			$options[$this->key.'_'.$field] = isset( $args['default'] ) ? $args['default'] : '';
+			$options[$this->key.'_'.$field] = $args['default'] ?? '';
 
 		return $options;
 	}

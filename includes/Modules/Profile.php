@@ -142,16 +142,18 @@ class Profile extends gNetwork\Module
 
 		$settings['_signup'][] = [
 			'field'       => 'redirect_signup_url',
-			'type'        => 'url',
+			'type'        => 'text', // `url` will not work on relative URLs
 			'title'       => _x( 'Custom Location', 'Modules: Profile: Settings', 'gnetwork' ),
 			'description' => _x( 'Full URL to the custom sign-up page.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'field_class' => [ 'regular-text', 'url-text' ],
 		];
 
 		$settings['_signup'][] = [
 			'field'       => 'redirect_signup_after',
-			'type'        => 'url',
+			'type'        => 'text', // `url` will not work on relative URLs
 			'title'       => _x( 'Location After', 'Modules: Profile: Settings', 'gnetwork' ),
 			'description' => _x( 'Redirects into this URL after a successful registraion.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'field_class' => [ 'regular-text', 'url-text' ],
 		];
 
 		$settings['_signup'][] = [

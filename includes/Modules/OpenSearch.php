@@ -245,7 +245,7 @@ class OpenSearch extends gNetwork\Module
 			}else{alert('"._x( 'Your browser does not support the AddSearchProvider method!', 'Modules: OpenSearch', 'gnetwork' )."');
 			};return false;}";
 
-		echo '<script type="text/javascript">'.$script.'</script>';
+		echo '<script>'.$script.'</script>';
 
 		echo $before.Core\HTML::tag( 'a', [
 			'href'    => $link,

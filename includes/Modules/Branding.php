@@ -561,7 +561,7 @@ class Branding extends gNetwork\Module
 
 	public function do_adminbar_styles()
 	{
-		printf( "<style type='text/css'>\n%s\n</style>\n",
+		printf( "<style>\n%s\n</style>\n",
 			Core\Text::replaceTokens( $this->options['adminbar_styles'], [
 				'theme_color'      => $this->options['theme_color'],
 				'webapp_color'     => $this->options['webapp_color'],

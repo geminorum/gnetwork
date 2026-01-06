@@ -178,19 +178,19 @@ class Settings extends Core\Base
 
 	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
 	{
-		if ( is_null( $message ) )
-			/* translators: `%s`: count */
-			$message = _x( '%s Counted!', 'Settings', 'gnetwork' );
-
-		if ( is_null( $count ) )
-			$count = isset( $_REQUEST['count'] ) ? $_REQUEST['count'] : 0;
-
-		return Core\HTML::notice( sprintf( $message, Core\Number::format( $count ) ), $class.' fade' );
+		return Core\HTML::notice(
+			sprintf(
+				/* translators: `%s`: count */
+				$message ?? _x( '%s Counted!', 'Settings', 'gnetwork' ),
+				Core\Number::format( $count ?? ( $_REQUEST['count'] ?? 0 ) )
+			),
+			$class.' fade'
+		);
 	}
 
 	public static function cheatin( $message = NULL )
 	{
-		echo Core\HTML::error( is_null( $message ) ? _x( 'Cheatin&#8217; uh?', 'Settings: Message', 'gnetwork' ) : $message );
+		echo Core\HTML::error( $message ?? _x( 'Cheatin&#8217; uh?', 'Settings: Message', 'gnetwork' ) );
 	}
 
 	public static function huh( $message = NULL )
@@ -586,7 +586,7 @@ class Settings extends Core\Base
 			'readonly'     => FALSE,
 			'default'      => '',
 			'defaults'     => [],                                            // default value to ignore && override the saved
-			'description'  => isset( $atts['desc'] ) ? $atts['desc'] : '',
+			'description'  => $atts['desc'] ?? '',
 			'before'       => '',                                            // HTML to print before field
 			'after'        => '',                                            // HTML to print after field
 			'field_class'  => '',                                            // formally just class!
@@ -789,7 +789,7 @@ class Settings extends Core\Base
 							'type'        => 'text',
 							'id'          => $id.'-'.$value_name,
 							'name'        => $name.'['.$value_name.']',
-							'value'       => isset( $value[$value_name] ) ? $value[$value_name] : '',
+							'value'       => $value[$value_name] ?? '',
 							'class'       => Core\HTML::attrClass( $args['field_class'], '-type-text' ),
 							'placeholder' => $args['placeholder'],
 							'disabled'    => Core\HTML::attrBoolean( $args['disabled'], $value_name ),

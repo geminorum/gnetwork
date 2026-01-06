@@ -322,17 +322,19 @@ class Module extends WordPress\Module
 
 		if ( empty( $GLOBALS[$site] ) )
 			$GLOBALS[$site] = function_exists( 'get_blog_option' )
-				? get_blog_option( $site_id, $this->hook_base( 'blog' ), [] ) // NOTE: only available on multisite
+				? get_blog_option( $site_id, $this->hook_base( 'blog' ), [] ) // NOTE: only available on multi-site
 				: get_option( $this->hook_base( 'blog' ), [] ); // TODO: migrate to `_site` key
 
 		if ( empty( $GLOBALS[$network] ) )
 			$GLOBALS[$network] = get_network_option( $network_id, $this->hook_base( 'site' ), [] ); // TODO: migrate to `_network` key
 
 		if ( $this->is_network() )
-			$options = isset( $GLOBALS[$network][$this->key] ) ? $GLOBALS[$network][$this->key] : [];
+			// $options = isset( $GLOBALS[$network][$this->key] ) ? $GLOBALS[$network][$this->key] : [];
+			$options = $GLOBALS[$network][$this->key] ?? [];
 
 		else
-			$options = isset( $GLOBALS[$site][$this->key] ) ? $GLOBALS[$site][$this->key] : [];
+			// $options = isset( $GLOBALS[$site][$this->key] ) ? $GLOBALS[$site][$this->key] : [];
+			$options = $GLOBALS[$site][$this->key] ?? [];
 
 		return $sanitize ? $this->settings_sanitize( $options, $this->default_options() ) : $options;
 	}
@@ -361,7 +363,7 @@ class Module extends WordPress\Module
 		return empty( $this->options[$name] ) ? $fallback : $this->options[$name];
 	}
 
-	// check if it's '0' then $disabled
+	// Checks if it's '0' then $disabled
 	// otherwise returns $default
 	// use only for strings
 	public function default_option( $name, $default = FALSE, $disabled = '' )

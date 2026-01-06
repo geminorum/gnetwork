@@ -316,7 +316,7 @@ class Tracking extends gNetwork\Module
 		$handle = Core\Third::getHandle( $twitter );
 
 		$html = Core\HTML::tag( 'a',[
-			'href'  => 'https://twitter.com/intent/user?screen_name='.substr( $handle, 1 ),
+			'href'  => 'https://x.com/intent/user?screen_name='.substr( $handle, 1 ),
 			'title' => _x( 'Follow Us', 'Modules: Tracking', 'gnetwork' ),
 			'rel'   => 'follow',
 		], Core\HTML::wrapLTR( $handle ) );
