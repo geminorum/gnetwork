@@ -366,9 +366,13 @@ class File extends Base
 		if ( ! $force_overwrite && self::exists( '.donotbackup', $path ) )
 			return TRUE;
 
-		$content = 'This directory (and its sub-directories) will be excluded from the backup.';
-
-		return self::putContents( '.donotbackup', $content, $path, FALSE, $check_folder );
+		return self::putContents(
+			'.donotbackup',
+			'This directory (and its sub-directories) will be excluded from the backup.',
+			$path,
+			FALSE,
+			$check_folder
+		);
 	}
 
 	/**
@@ -384,21 +388,13 @@ class File extends Base
 		if ( ! $force_overwrite && self::exists( '.htaccess', $path ) )
 			return TRUE;
 
-		$content = '<Files ~ ".*\..*">'.PHP_EOL.
-				'<IfModule mod_access.c>'.PHP_EOL.
-					'Deny from all'.PHP_EOL.
-				'</IfModule>'.PHP_EOL.
-				'<IfModule !mod_access_compat>'.PHP_EOL.
-					'<IfModule mod_authz_host.c>'.PHP_EOL.
-						'Deny from all'.PHP_EOL.
-					'</IfModule>'.PHP_EOL.
-				'</IfModule>'.PHP_EOL.
-				'<IfModule mod_access_compat>'.PHP_EOL.
-					'Deny from all'.PHP_EOL.
-				'</IfModule>'.PHP_EOL.
-			'</Files>';
-
-		return self::putContents( '.htaccess', $content, $path, FALSE, $check_folder );
+		return self::putContents(
+			'.htaccess',
+			self::htaccessProtect(),
+			$path,
+			FALSE,
+			$check_folder
+		);
 	}
 
 	/**
@@ -1117,4 +1113,64 @@ class File extends Base
 
 		return TRUE;
     }
+
+	// @REF: https://htaccessbook.com/access-control-apache-2-4/
+	// @SEE: https://httpd.apache.org/docs/current/howto/access.html
+	public static function htaccessProtect()
+	{
+		return <<<HTACCESS
+<Files ~ ".*\..*">
+	<IfModule mod_version.c>
+		<IfVersion < 2.4>
+			Order Deny,Allow
+			Deny from All
+		</IfVersion>
+		<IfVersion >= 2.4>
+			Require all denied
+		</IfVersion>
+	</IfModule>
+
+	<IfModule !mod_version.c>
+		<IfModule !mod_authz_core.c>
+			Order Deny,Allow
+			Deny from All
+		</IfModule>
+		<IfModule mod_authz_core.c>
+			Require all denied
+		</IfModule>
+	</IfModule>
+</Files>
+HTACCESS;
+	}
+
+	public static function htaccessProtectLogs()
+	{
+		return <<<HTACCESS
+# BEGIN PROTECT DIR
+Options -Indexes
+
+<FilesMatch "\.htaccess|debug\.log|error_log">
+	<IfModule mod_version.c>
+		<IfVersion < 2.4>
+			Order Deny,Allow
+			Deny from All
+		</IfVersion>
+		<IfVersion >= 2.4>
+			Require all denied
+		</IfVersion>
+	</IfModule>
+
+	<IfModule !mod_version.c>
+		<IfModule !mod_authz_core.c>
+			Order Deny,Allow
+			Deny from All
+		</IfModule>
+		<IfModule mod_authz_core.c>
+			Require all denied
+		</IfModule>
+	</IfModule>
+</FilesMatch>
+# END PROTECT DIR
+HTACCESS;
+	}
 }

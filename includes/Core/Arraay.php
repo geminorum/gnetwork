@@ -266,6 +266,7 @@ class Arraay extends Base
 		return array_merge( ...array_map( $callback, array_keys( $array ), $array ) );
 	}
 
+	// NOTE: DEPRECATED: use `Core\Text::has()`
 	public static function strposArray( $needles, $haystack )
 	{
 		foreach ( (array) $needles as $key => $needle )
@@ -561,7 +562,7 @@ class Arraay extends Base
 	 *
 	 * @param array $input
 	 * @param int|string $field
-	 * @param int|string|null $index_key
+	 * @param int|string $index_key
 	 * @return array
 	 */
 	public static function pluck( $input, $field, $index_key = NULL )

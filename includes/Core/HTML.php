@@ -401,7 +401,7 @@ class HTML extends Base
 				$sanitized = TRUE;
 			}
 
-			if ( in_array( $key, [ 'selected', 'checked', 'readonly', 'disabled', 'default', 'required', 'multiple' ], TRUE ) )
+			if ( in_array( $key, [ 'selected', 'checked', 'readonly', 'disabled', 'default', 'required', 'multiple', 'async' ], TRUE ) )
 				$att = $att ? $key : FALSE;
 
 			else if ( in_array( $key, [ 'autocomplete' ], TRUE ) )
@@ -750,7 +750,7 @@ class HTML extends Base
 		$html = self::tag( 'link', [
 			'rel'   => 'stylesheet',
 			'href'  => $url,
-			'type'  => 'text/css',
+			// 'type'  => 'text/css', // @REF: https://core.trac.wordpress.org/ticket/64428
 			'media' => $media,
 		] )."\n";
 
@@ -1371,9 +1371,9 @@ class HTML extends Base
 		if ( ! $code )
 			return '';
 
-		$script = '<script type="text/javascript">'."\n".'/* <![CDATA[ */';
+		$script = '<script>'."\n";
 		$script.= "\n".$code."\n";
-		$script.= '/* ]]> */'."\n".'</script>'."\n";
+		$script.= '</script>'."\n";
 
 		if ( ! $verbose )
 			return $script;
@@ -1387,9 +1387,9 @@ class HTML extends Base
 		if ( ! $code )
 			return '';
 
-		$script = '<script type="text/javascript">'."\n".'/* <![CDATA[ */'."\n";
+		$script = '<script>'."\n";
 		$script.= 'jQuery(function($){'."\n".$code.'});'."\n";
-		$script.= '/* ]]> */'."\n".'</script>'."\n";
+		$script.= '</script>'."\n";
 
 		if ( ! $verbose )
 			return $script;

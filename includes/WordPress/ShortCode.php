@@ -31,7 +31,7 @@ class ShortCode extends Core\Base
 	 * @global array $shortcode_tags
 	 * @param string $shortcode The short-code tag name.
 	 * @param array $atts The attributes (optional).
-	 * @param array The short-code content (null by default).
+	 * @param array The short-code content (NULL by default).
 	 *
 	 * @return string|bool False on failure, the result of the short-code on success.
 	 */

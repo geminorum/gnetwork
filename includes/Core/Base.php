@@ -81,8 +81,8 @@ class Base
 	public static function req( $key, $default = '', $subkey = FALSE )
 	{
 		return $subkey
-			? ( isset( $_REQUEST[$key][$subkey] ) ? $_REQUEST[$key][$subkey] : $default )
-			: ( isset( $_REQUEST[$key] ) ? $_REQUEST[$key] : $default );
+			? ( $_REQUEST[$key][$subkey] ?? $default )
+			: ( $_REQUEST[$key] ?? $default );
 	}
 
 	public static function do( $values, $key = 'action', $default = FALSE )

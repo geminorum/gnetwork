@@ -117,7 +117,7 @@ class L10n extends Base
 	 * @REF: `bp_core_register_common_scripts()`
 	 * @REF: https://make.wordpress.org/polyglots/handbook/translating/packaging-localized-wordpress/working-with-the-translation-repository/#repository-file-structure
 	 *
-	 * @param string|null $locale
+	 * @param string $locale
 	 * @return string
 	 */
 	public static function getISO639( $locale = NULL )

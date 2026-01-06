@@ -135,4 +135,105 @@ class Image extends Base
 
 		return TRUE;
 	}
+
+	public static function imageWatermark( $image_path, $watermark_path, $new_image_path = '', $margin_right = 0, $margin_bottom = 10 )
+	{
+		if ( FALSE === ( $image = imagecreatefromjpeg( $image_path ) ) )
+			$image = @imagecreatefrompng( $image_path );
+
+		if ( FALSE === $image )
+			return FALSE;
+
+		if ( FALSE === ( $wmark = @imagecreatefrompng( $watermark_path ) ) )
+			$wmark = @imagecreatefromjpeg( $image_path );
+
+		if ( FALSE === $wmark )
+			return FALSE;
+
+		// $sx = imagesx($wmark);
+		// $sy = imagesy($wmark);
+
+		imagecopy(
+			$image,
+			$wmark,
+			//imagesx($image) - $sx - $margin_right,
+			//imagesy($image) - $sy - $margin_bottom,
+			$margin_right,
+			$margin_bottom,
+			0,
+			0,
+			imagesx( $wmark ),
+			imagesy( $wmark )
+		);
+
+		if ( ! empty( $new_image_path ) )
+			$created = imagejpeg( $image, $new_image_path );
+
+		else
+			$created = imagejpeg( $image, $image_path );
+
+		imagedestroy( $image );
+
+		return $created;
+	}
+
+	public static function textWatermark( $image_path, $wm_text, $fontcolor = NULL, $fontsize = NULL, $xposition = NULL, $yposition = NULL )
+	{
+		if ( FALSE === ( $image = imagecreatefromjpeg( $image_path ) ) )
+			$image = @imagecreatefrompng( $image_path );
+
+		if ( FALSE === $image )
+			return FALSE;
+
+		$fontcolor = $fontcolor ?? [ 255, 255, 255 ];
+
+		if ( ! is_array( $fontcolor ) )
+			$fontcolor = Color::hex2rgb( $fontcolor );
+
+		// $_fontcolor = imagecolorallocate( $image, 255, 255, 255 );
+
+		imagestring(
+			$image,
+			$fontsize ?? 5,
+			$xposition ?? 10,
+			$yposition ?? 10,
+			$wm_text,
+			imagecolorallocate( $image, ...$fontcolor )
+		);
+
+		$created = imagejpeg( $image, $image_path );
+
+		imagedestroy( $image );
+
+		return $created;
+	}
+
+	public static function remoteSize( $url )
+	{
+		$ch = curl_init();
+
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
+
+		$data = curl_exec( $ch );
+
+		$http_status = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+		$curl_errno  = curl_errno( $ch );
+
+		// `curl_close()` has no effect as of PHP 8.0.0
+		if ( PHP_VERSION_ID < 80000 )
+			curl_close( $ch );
+
+		if ( $http_status != 200 ) {
+			echo 'http status[' . $http_status . '] errno [' . $curl_errno . ']';
+			return [0,0];
+		}
+
+		$image = imagecreatefromstring( $data );
+		$dims = [ imagesx( $image ), imagesy( $image ) ];
+		imagedestroy($image);
+
+		return $dims;
+	}
 }

@@ -17,9 +17,10 @@ class Third extends Base
 
 		switch ( $service ) {
 
+			case 'x':
 			case 'twitter':
 
-				$base = 'https://twitter.com/intent/user?screen_name=';
+				$base = 'https://x.com/intent/user?screen_name=';
 				$url  = self::getHandle( $string, TRUE, $base, $prefix );
 				break;
 

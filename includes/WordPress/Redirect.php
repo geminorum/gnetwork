@@ -33,7 +33,7 @@ class Redirect extends Core\Base
 	// OLD: `Core\WordPress::redirectJS()`
 	public static function doJS( $location = NULL, $timeout = 3000 )
 	{
-		?><script type="text/javascript">
+		?><script>
 function nextpage() {
 	location.href = "<?php echo ( $location ?? self::getReferer() ); ?>";
 }
