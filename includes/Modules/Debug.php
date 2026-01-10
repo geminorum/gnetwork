@@ -556,10 +556,19 @@ class Debug extends gNetwork\Module
 			if ( isset( $_SERVER[$key] ) )
 				$summary[$key] = Core\HTML::escape( $_SERVER[$key] );
 
+		$summary['curl.cainfo']    = ini_get( 'curl.cainfo' );
+		$summary['openssl.cafile'] = ini_get( 'openssl.cafile' );
+
 		echo '<div class="-wrap card -floated" dir="ltr">';
 		Core\HTML::h2( _x( 'SSL', 'Modules: Debug', 'gnetwork' ) );
 
 			echo Core\HTML::tableCode( $summary );
+
+			if ( function_exists( 'openssl_get_cert_locations' ) ) {
+				Core\HTML::h2( _x( 'Cert Locations', 'Modules: Debug', 'gnetwork' ) );
+				echo Core\HTML::tableCode( openssl_get_cert_locations() );
+			}
+
 		echo '</div>';
 	}
 
