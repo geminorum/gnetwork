@@ -736,6 +736,20 @@ class Debug extends gNetwork\Module
 		echo '<div class="-wrap card -floated -currents" dir="ltr">';
 		Core\HTML::h2( _x( 'System Versions', 'Modules: Debug', 'gnetwork' ) );
 
+		if ( function_exists( 'apache_get_version' ) )
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: server info */
+				_x( 'Server: %s', 'Modules: Debug', 'gnetwork' ),
+				Core\HTML::code( apache_get_version() )
+			) );
+
+		else if ( ! empty( $_SERVER["SERVER_SOFTWARE"] ) )
+			Core\HTML::desc( sprintf(
+				/* translators: `%s`: server info */
+				_x( 'Server: %s', 'Modules: Debug', 'gnetwork' ),
+				Core\HTML::code( $_SERVER["SERVER_SOFTWARE"] )
+			) );
+
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: database version */
 			_x( 'Database: %s', 'Modules: Debug', 'gnetwork' ),
