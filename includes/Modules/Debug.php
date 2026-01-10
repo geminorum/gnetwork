@@ -305,6 +305,23 @@ class Debug extends gNetwork\Module
 		return $this->http_calls;
 	}
 
+	// @SEE: https://make.wordpress.org/core/2020/08/27/wordpress-environment-types/
+	// @SEE: https://make.wordpress.org/core/2023/07/14/configuring-development-mode-in-6-3/
+	public static function summaryEnvironment()
+	{
+		$summary = [
+			'wp_get_environment_type()' => function_exists( 'wp_get_environment_type' ) ? wp_get_environment_type() : 'UNAVAILABLE',
+			'wp_get_development_mode()' => function_exists( 'wp_get_development_mode' ) ? wp_get_development_mode() : 'UNAVAILABLE',
+			'WP_STAGE'                  => self::const( 'WP_STAGE', 'UNDEFINED' )
+		];
+
+		echo '<div class="-wrap card -floated" dir="ltr">';
+		Core\HTML::h2( _x( 'Environment', 'Modules: Debug', 'gnetwork' ) );
+
+			echo Core\HTML::tableCode( $summary );
+		echo '</div>';
+	}
+
 	public static function summaryWordPress()
 	{
 		$versions = [
@@ -695,6 +712,7 @@ class Debug extends gNetwork\Module
 
 			self::systemVersions();
 			self::summaryWordPress();
+			self::summaryEnvironment();
 			self::summaryIPs();
 			self::summarySSL();
 			self::summaryDiskSpace();
