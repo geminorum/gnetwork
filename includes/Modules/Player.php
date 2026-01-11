@@ -121,6 +121,7 @@ class Player extends gNetwork\Module
 			'playbackspeed' => FALSE,
 			'download'      => FALSE,
 			'filename'      => NULL,           // @REF: http://davidwalsh.name/download-attribute
+			'filesize'      => NULL,
 			'context'       => NULL,
 			'class'         => '-print-hide',
 			'wrap'          => TRUE,
@@ -138,15 +139,26 @@ class Player extends gNetwork\Module
 
 			if ( $args['download'] && $src = self::getAudioSource( $atts ) ) {
 
-				$args['filename'] = $args['filename'] ?? Core\File::prepName( Core\File::basename( $src ), NULL, FALSE );
+				$basename         = Core\File::basename( $src );
+				$args['filename'] = $args['filename'] ?? Core\File::prepName( $basename, NULL, FALSE );
+				$args['filesize'] = $args['filesize'] ?? Core\HTTP::getSize( $src );
 
 				$button = TRUE === $args['download'] || '1' == $args['download']
 					? _x( 'Download', 'Modules: Player: Defaults', 'gnetwork' )
 					: $args['download'];
 
-				$html.= '<div class="-download"><a href="'.$src.'"'
+				$html.= '<div class="-download bg-subtle p-1 d-flex">';
+				$html.= '<a class="btn btn-outline-secondary btn-sm" href="'.$src.'"'
 					.( $args['filename'] ? ' download="'.$args['filename'].'"' : '' )
-					.'>'.$button.'</a></div>';
+					.'>'.$button.'</a>';
+
+				if ( $args['filesize'] )
+					$html.= ' <strong dir="ltr" class="-filesize px-2 m1s-auto align-content-center text-secondary" title="'.sprintf( '%d bytes', $args['filesize'] ).'">'.Core\File::formatSize( $args['filesize'] ).'</strong>';
+
+				if ( $args['filename'] )
+					$html.= ' <code dir="ltr" class="-basename px-2 ms-auto align-content-center text-dark">'.$basename.'</code>';
+
+				$html.= '</div>';
 			}
 
 			if ( $args['playbackspeed'] )
