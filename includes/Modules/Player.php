@@ -120,7 +120,7 @@ class Player extends gNetwork\Module
 		$args = shortcode_atts( [
 			'playbackspeed' => FALSE,
 			'download'      => FALSE,
-			'filename'      => FALSE,           // @REF: http://davidwalsh.name/download-attribute
+			'filename'      => NULL,           // @REF: http://davidwalsh.name/download-attribute
 			'context'       => NULL,
 			'class'         => '-print-hide',
 			'wrap'          => TRUE,
@@ -137,6 +137,8 @@ class Player extends gNetwork\Module
 		if ( $html = wp_audio_shortcode( $atts, $content ) ) {
 
 			if ( $args['download'] && $src = self::getAudioSource( $atts ) ) {
+
+				$args['filename'] = $args['filename'] ?? Core\File::prepName( Core\File::basename( $src ), NULL, FALSE );
 
 				$button = TRUE === $args['download'] || '1' == $args['download']
 					? _x( 'Download', 'Modules: Player: Defaults', 'gnetwork' )
