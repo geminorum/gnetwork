@@ -197,13 +197,13 @@ class URL extends Base
 		return $path ? ( self::trail( get_option( 'home' ) ).$path ) : self::untrail( get_option( 'home' ) );
 	}
 
-	// check whether the given URL belongs to this site
+	// Checks whether the given URL belongs to this site.
 	public static function isLocal( $url, $domain = NULL )
 	{
 		return self::parse( $url, PHP_URL_HOST ) === self::parse( ( is_null( $domain ) ? home_url() : $domain ), PHP_URL_HOST );
 	}
 
-	// check whether the given URL is relative or not
+	// Checks whether the given URL is relative or not.
 	public static function isRelative( $url )
 	{
 		$parsed = self::parse( $url );

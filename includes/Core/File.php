@@ -166,8 +166,8 @@ class File extends Base
 
 	/**
 	 * Returns trailing name component of path.
-	 * I18N friendly version of `basename()`
-	 * if the filename ends in suffix this will also be cut off
+	 * If the filename ends in suffix this will also be cut off.
+	 * NOTE: I18N friendly version of `basename()`
 	 * @source `wp_basename()`
 	 *
 	 * @param string $path

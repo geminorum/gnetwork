@@ -370,7 +370,7 @@ class Strings extends Core\Base
 			$data = Core\Number::translate( $data );
 
 			if ( class_exists( 'geminorum\\gEditorial\\Misc\\NumbersInPersian' ) )
-				$data = geminorum\gEditorial\Misc\NumbersInPersian::textOrdinalToNumbers( $data, 100 );
+				$data = \geminorum\gEditorial\Misc\NumbersInPersian::textOrdinalToNumbers( $data, 100 );
 
 			$prefixes = [
 				'پلاک'   => 'پ',

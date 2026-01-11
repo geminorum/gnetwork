@@ -383,7 +383,7 @@ class HTTP extends Base
 	public static function clientIP()
 	{
 		$headers = [
-			'HTTP_CF_CONNECTING_IP' ,  // CloudFlare // @REF: https://github.com/10up/restricted-site-access/issues/109
+			'HTTP_CF_CONNECTING_IP' ,  // Cloudflare // @REF: https://github.com/10up/restricted-site-access/issues/109
 			'HTTP_INCAP_CLIENT_IP'  ,  // Incapsula
 			'HTTP_X_SUCURI_CLIENTIP',  // Sucuri
 			'HTTP_CLIENT_IP',
@@ -521,10 +521,10 @@ class HTTP extends Base
 	 * Abstracts the idiocy of the CURL API for something simpler. Assumes we are
 	 * downloading data (so a GET request) and we need no special request headers.
 	 * Returns an `IO` stream which will be the data requested. The headers of the
-	 * response will be stored in the $headers param reference.
+	 * response will be stored in the $headers parameter reference.
 	 *
 	 * If the request fails for some reason FALSE is returned with the `$err_msg`
-	 * param containing more info.
+	 * parameter containing more info.
 	 *
 	 * @source https://gist.github.com/eric1234/37fd102798d99d94b0dcebde6bb29ef3
 	 * @see `wp_remote_get()`
@@ -689,13 +689,14 @@ class HTTP extends Base
 	}
 
 	/**
-	 * Returns the size of a file without downloading.
+	 * Retrieves the size of a file without downloading.
 	 * @source https://stackoverflow.com/a/2602624
 	 *
 	 * @param string $url
-	 * @return int|bool
+	 * @param int $status
+	 * @return false|int
 	 */
-	public static function getSize( $url )
+	public static function getSize( $url, &$status = NULL )
 	{
 		if ( empty( $url ) )
 			return FALSE;
@@ -733,7 +734,13 @@ class HTTP extends Base
 		return $result;
 	}
 
-	// @REF: https://stackoverflow.com/a/43520299
+	/**
+	 * Retrieves the size of a file using headers.
+	 * @source https://stackoverflow.com/a/43520299
+	 *
+	 * @param string $url
+	 * @return false|int
+	 */
 	public static function getSizeFromHeaders( $url )
 	{
 		if ( empty( $url ) )

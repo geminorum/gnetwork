@@ -8,8 +8,7 @@ class Post extends Core\Base
 {
 	/**
 	 * Retrieves post data given a post ID or post object.
-	 *
-	 * simplified `get_post()`
+	 * NOTE: simplified version of `get_post()`
 	 * @old `PostType::getPost()`
 	 *
 	 * @param int|object $post

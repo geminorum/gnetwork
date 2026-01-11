@@ -665,11 +665,16 @@ class Text extends Base
 	}
 
 	// NOTE: see `Text::removeFromstart()`
-	public static function stripPrefix( $text, $prefix )
+	public static function stripPrefix( $text, $prefixes )
 	{
-		return 0 === strpos( $text, $prefix )
-			? substr( $text, strlen( $prefix ) ).''
-			: $text;
+		if ( empty( $text ) || empty( $prefixes ) )
+			return $text;
+
+		foreach ( (array) $prefixes as $prefix )
+			if ( 0 === strpos( $text, $prefix ) )
+				$text = substr( $text, strlen( $prefix ) ).'';
+
+		return $text;
 	}
 
 	/**
