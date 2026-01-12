@@ -23,7 +23,11 @@ class Search extends gNetwork\Module
 
 		$this->action( 'template_redirect', 0, 1 );
 
-		if ( 'include_meta' == $this->options['search_context'] ) {
+		if ( self::const( 'GEDITORIAL_VERSION' ) ) {
+
+ 			// NOTE: Conflicts with gEditorial Services
+
+		} else if ( 'include_meta' == $this->options['search_context'] ) {
 
 			$this->filter( 'posts_search', 2, 99, 'include_meta' );
 			$this->filter( 'posts_join', 2, 99, 'include_meta' );
@@ -85,11 +89,13 @@ class Search extends gNetwork\Module
 					],
 				],
 				[
-					'field'   => 'search_context',
-					'type'    => 'radio',
-					'title'   => _x( 'Search Context', 'Modules: Search: Settings', 'gnetwork' ),
-					'default' => 'default',
-					'values'  => [
+					'field'       => 'search_context',
+					'type'        => 'radio',
+					'title'       => _x( 'Search Context', 'Modules: Search: Settings', 'gnetwork' ),
+					'disabled'    => self::const( 'GEDITORIAL_VERSION' ),
+					'description' => self::const( 'GEDITORIAL_VERSION' ) ? _x( '<b>Disabled</b> in favor of gEditorial Services.', 'Modules: Search: Settings', 'gnetwork' ) : FALSE,
+					'default'     => 'default',
+					'values'      => [
 						'default'       => _x( 'WordPress Default &ndash; Does not alter core search.', 'Modules: Search: Settings', 'gnetwork' ),
 						'titles_only'   => _x( 'Titles Only &ndash; Limits search to post titles only.', 'Modules: Search: Settings', 'gnetwork' ),
 						'include_meta'  => _x( 'Include Metadata &ndash; Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
