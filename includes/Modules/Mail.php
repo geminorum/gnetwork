@@ -201,19 +201,6 @@ class Mail extends gNetwork\Module
 				</tbody></table><br />
 				For more information see <a href="http://www.wpbeginner.com/plugins/how-to-send-email-in-wordpress-using-the-gmail-smtp-server/" target="_blank" rel="noreferrer">here</a>.</p>',
 			],
-			[
-				'id'      => $this->classs( 'help-pepipost' ),
-				'title'   => _x( 'Pepipost SMTP', 'Modules: Mail: Help Tab Title', 'gnetwork' ),
-				'content' => '<p><table><tbody>
-				<tr><td style="width:150px">SMTP Host</td><td><code>smtp.pepipost.com</code></td></tr>
-				<tr><td>SMTP Port</td><td><code>25</code> / <code>587</code> / <code>2525</code></td></tr>
-				<tr><td>Encryption</td><td>TLS</td></tr>
-				<tr><td>Username</td><td><em>your.pepipost.username</em></td></tr>
-				<tr><td>Password</td><td><em>your smtp password</em></td></tr>
-				</tbody></table><br />
-				Get your API key from <a href="https://app.pepipost.com" target="_blank" rel="noreferrer">here</a>.<br />
-				For more information see <a href="https://docs.pepipost.com/documentation/smtp-integration/" target="_blank" rel="noreferrer">here</a>.</p>',
-			],
 		];
 	}
 
@@ -221,19 +208,17 @@ class Mail extends gNetwork\Module
 	{
 		echo $this->wrap_open_buttons();
 
-		echo Core\HTML::tag( 'a', [
-			'class' => 'button button-secondary button-small',
-			'href'  => $this->get_menu_url( 'testmail', NULL, 'tools' ),
-		], _x( 'Test Mail', 'Modules: Mail', 'gnetwork' ) );
+		echo Core\HTML::button(
+			_x( 'Test Mail', 'Modules: Mail', 'gnetwork' ),
+			$this->get_menu_url( 'testmail', NULL, 'tools' )
+		);
 
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {
 
-			echo '&nbsp;';
-
-			echo Core\HTML::tag( 'a', [
-				'class' => 'button button-secondary button-small',
-				'href'  => $this->get_menu_url( 'emaillogs', NULL, 'tools' ),
-			], _x( 'Email Logs', 'Modules: Mail', 'gnetwork' ) );
+			echo Core\HTML::button(
+				_x( 'Email Logs', 'Modules: Mail', 'gnetwork' ),
+				$this->get_menu_url( 'emaillogs', NULL, 'tools' )
+			);
 		}
 
 		echo '</p>';

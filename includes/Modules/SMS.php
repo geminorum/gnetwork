@@ -43,15 +43,16 @@ class SMS extends gNetwork\Module
 
 			echo $this->wrap_open_buttons();
 
-			echo Core\HTML::tag( 'a', [
-				'class' => 'button button-secondary button-small',
-				'href'  => $this->get_menu_url( NULL, NULL, 'tools' ),
-			], _x( 'SMS Logs', 'Modules: SMS', 'gnetwork' ) );
+			echo Core\HTML::button(
+ 				_x( 'SMS Logs', 'Modules: SMS', 'gnetwork' ),
+ 				$this->get_menu_url( NULL, NULL, 'tools' )
+			);
 
-			echo '&nbsp;';
-
-			echo Settings::fieldAfterIcon( WordPress\URL::adminPOST( 'network-sms-receive' ),
-				_x( 'SMS receive callback URL', 'Modules: SMS', 'gnetwork' ), 'external' );
+			echo Settings::fieldAfterIcon(
+				WordPress\URL::adminPOST( 'network-sms-receive' ),
+				_x( 'SMS receive callback URL', 'Modules: SMS', 'gnetwork' ),
+				'external'
+			);
 
 			echo '</p>';
 		}

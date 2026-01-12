@@ -220,7 +220,7 @@ class Search extends gNetwork\Module
 		// preg_match_all( '/".*?("|$)|((?<=[\\s",+])|^)[^\\s",+]+/', $searched, $matches );
 		preg_match_all( '/(".*?)("|$)|((?<=[\s",+])|^)[^\s",+]+/', $searched, $matches );
 
-		return array_filter( array_map( function ( $value ) {
+		return array_filter( array_map( static function ( $value ) {
 			return trim( $value, "\"\'\n\r " );
 		}, $matches[0] ) );
 	}

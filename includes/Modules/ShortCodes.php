@@ -818,7 +818,7 @@ class ShortCodes extends gNetwork\Module
 
 		$html = '';
 
-		$classes = Core\HTML::attrClass( 'button', $args['class'] );
+		$classes = Core\HTML::attrClass( '-button', 'button', $args['class'] );
 
 		if ( $args['genericon'] )
 			$html.= Core\HTML::getDashicon( $args['genericon'] );

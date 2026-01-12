@@ -68,7 +68,7 @@ class User extends gNetwork\Module
 
 		$this->action( 'deleted_user' );
 
-		// cron hook / executes only on the mainsite
+		// cron hook / executes only on the main-site
 		$this->action( 'update_network_counts' );
 	}
 
@@ -86,8 +86,8 @@ class User extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'site_user_id'      => '0', // GNETWORK_SITE_USER_ID
-			'site_user_role'    => 'editor', // GNETWORK_SITE_USER_ROLE
+			'site_user_id'      => '0',                                                         // `GNETWORK_SITE_USER_ID`
+			'site_user_role'    => 'editor',                                                    // `GNETWORK_SITE_USER_ROLE`
 			'enhanced_search'   => '0',
 			'search_values'     => [],
 			'search_metas'      => [],
@@ -219,20 +219,25 @@ class User extends gNetwork\Module
 
 			// for multi-network only!
 
-			Settings::submitButton( 'default_role_for_users', _x( 'Default Role for All Users', 'Modules: User', 'gnetwork' ), 'small', [
-				'title' => _x( 'Adds all registered users on the main site with default role.', 'Modules: User', 'gnetwork' ),
-			] );
+			Settings::submitButton(
+				'default_role_for_users',
+				_x( 'Default Role for All Users', 'Modules: User', 'gnetwork' ),
+				'small',
+				[
+					'title' => _x( 'Adds all registered users on the main site with default role.', 'Modules: User', 'gnetwork' ),
+				]
+			);
 
 			$emtpy = FALSE;
 		}
 
 		if ( $this->options['network_roles'] ) {
 
-			echo Core\HTML::tag( 'a', [
-				'class' => 'button button-secondary button-small',
-				'href'  => $this->get_menu_url( 'roles', NULL, 'tools' ),
-				'title' => _x( 'View and set network roles here.', 'Modules: User', 'gnetwork' ),
-			], _x( 'Network Roles', 'Modules: Menu Name', 'gnetwork' ) );
+			echo Core\HTML::button(
+				_x( 'Network Roles', 'Modules: Menu Name', 'gnetwork' ),
+				$this->get_menu_url( 'roles', NULL, 'tools' ),
+				_x( 'View and set network roles here.', 'Modules: User', 'gnetwork' ),
+			);
 
 			$emtpy = FALSE;
 		}
@@ -764,7 +769,10 @@ class User extends gNetwork\Module
 			$view.= Utilities::getCounted(
 				$spams,
 				/* translators: `%s`: spam users count */
-				_nx( 'Marked as Spam <span class="count">(%s)</span>', 'Marked as Spams <span class="count">(%s)</span>', $spams, 'Modules: User', 'gnetwork' )
+				_nx(
+					'Marked as Spam <span class="count">(%s)</span>',
+					'Marked as Spams <span class="count">(%s)</span>',
+					$spams, 'Modules: User', 'gnetwork' )
 			).'</a>';
 
 		else
@@ -776,7 +784,7 @@ class User extends gNetwork\Module
 	public function users_list_table_query_args( $args )
 	{
 		if ( isset( $_GET['spam'] ) )
-			$this->action( 'pre_user_query' );
+			$this->action( 'pre_user_query', 1, 10, 'query_spam' );
 
 		// default sorting
 		if ( empty( $args['orderby'] ) ) {
@@ -790,7 +798,7 @@ class User extends gNetwork\Module
 		return $args;
 	}
 
-	public function pre_user_query( &$user_query )
+	public function pre_user_query_query_spam( &$user_query )
 	{
 		global $wpdb;
 

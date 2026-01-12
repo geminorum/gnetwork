@@ -77,11 +77,11 @@ class Rewrite extends gNetwork\Module
 
 		echo $this->wrap_open_buttons();
 
-		echo Core\HTML::tag( 'a', [
-			'class' => 'button button-secondary button-small',
-			'href'  => $this->get_menu_url( NULL, NULL, 'tools' ),
-			'title' => _x( 'View and set network roles here.', 'Modules: Rewrite', 'gnetwork' ),
-		], _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork' ) );
+			echo Core\HTML::button(
+				_x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork' ),
+				$this->get_menu_url( NULL, NULL, 'tools' ),
+				_x( 'View and set network roles here.', 'Modules: Rewrite', 'gnetwork' )
+			);
 
 		echo '</p>';
 	}

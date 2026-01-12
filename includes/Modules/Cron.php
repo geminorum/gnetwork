@@ -417,7 +417,7 @@ class Cron extends gNetwork\Module
 
 		echo Core\HTML::tag( 'button', [
 			'id'    => $this->classs( 'force-check' ),
-			'class' => [ 'button', 'button-small' ],
+			'class' => [ '-button', 'button', 'button-small' ],
 			'data'  => [
 				'error' => _x( 'There was a problem getting the status of WP Cron.', 'Modules: CRON', 'gnetwork' ),
 				'nonce' => wp_create_nonce( $this->classs( 'status-check' ) ),
@@ -426,16 +426,15 @@ class Cron extends gNetwork\Module
 
 		if ( $link && WordPress\User::cuc( 'manage_options' ) ) {
 
-			echo '&nbsp;&nbsp;'.Core\HTML::tag( 'a', [
-				'href'  => $this->get_menu_url( 'cron', 'admin', 'tools' ),
-				'class' => [ 'button', 'button-small' ],
-			], _x( 'View Scheduled Tasks', 'Modules: CRON', 'gnetwork' ) );
+			echo Core\HTML::button(
+				_x( 'View Scheduled Tasks', 'Modules: CRON', 'gnetwork' ),
+				$this->get_menu_url( 'cron', 'admin', 'tools' )
+			);
 
-			echo '&nbsp;&nbsp;'.Core\HTML::tag( 'a', [
-				'href'   => $this->get_cron_url(),
-				'class'  => [ 'button', 'button-small' ],
-				'target' => '_blank',
-			], _x( 'Trigger Manually', 'Modules: CRON', 'gnetwork' ) );
+			echo Core\HTML::button(
+				_x( 'Trigger Manually', 'Modules: CRON', 'gnetwork' ),
+				$this->get_cron_url()
+			);
 		}
 
 		echo '</p></div>';

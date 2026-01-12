@@ -1082,49 +1082,37 @@ class Debug extends gNetwork\Module
 
 		Core\HTML::h2( _x( 'Extras', 'Modules: Debug', 'gnetwork' ) );
 
-		echo '<p class="gnetwork-admin-wrap debug-update-core">';
+		echo $this->wrap_open_buttons();
 
 			if ( GNETWORK_DEBUG_LOG )
-				echo Core\HTML::tag( 'a', [
-					'class' => 'button button-secondary button-small',
-					'href'  => $this->get_menu_url( 'errorlogs', 'network', 'tools' ),
-				], _x( 'Check Error Logs', 'Modules: Debug', 'gnetwork' ) );
-
-			if ( GNETWORK_DEBUG_LOG && GNETWORK_ANALOG_LOG )
-				echo '&nbsp;&nbsp;';
+				echo Core\HTML::button(
+					_x( 'Check Error Logs', 'Modules: Debug', 'gnetwork' ),
+					$this->get_menu_url( 'errorlogs', 'network', 'tools' )
+				);
 
 			if ( GNETWORK_ANALOG_LOG )
-				echo Core\HTML::tag( 'a', [
-					'class' => 'button button-secondary button-small',
-					'href'  => $this->get_menu_url( 'analoglogs', 'network', 'tools' ),
-				], _x( 'Check System Logs', 'Modules: Debug', 'gnetwork' ) );
-
-			if ( GNETWORK_ANALOG_LOG && GNETWORK_FAILED_LOG )
-				echo '&nbsp;&nbsp;';
+				echo Core\HTML::button(
+					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork' ),
+					$this->get_menu_url( 'analoglogs', 'network', 'tools' )
+				);
 
 			if ( GNETWORK_FAILED_LOG )
-				echo Core\HTML::tag( 'a', [
-					'class' => 'button button-secondary button-small',
-					'href'  => $this->get_menu_url( 'failedlogs', 'network', 'tools' ),
-				], _x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork' ) );
-
-			if ( GNETWORK_FAILED_LOG && GNETWORK_NOTFOUND_LOG )
-				echo '&nbsp;&nbsp;';
+				echo Core\HTML::button(
+					_x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork' ),
+					$this->get_menu_url( 'failedlogs', 'network', 'tools' )
+				);
 
 			if ( GNETWORK_NOTFOUND_LOG )
-				echo Core\HTML::tag( 'a', [
-					'class' => 'button button-secondary button-small',
-					'href'  => $this->get_menu_url( 'notfoundlogs', 'network', 'tools' ),
-				], _x( 'Check Not-Found Logs', 'Modules: Debug', 'gnetwork' ) );
-
-			if ( GNETWORK_NOTFOUND_LOG && GNETWORK_SEARCH_LOG )
-				echo '&nbsp;&nbsp;';
+				echo Core\HTML::button(
+					_x( 'Check Not-Found Logs', 'Modules: Debug', 'gnetwork' ),
+					$this->get_menu_url( 'notfoundlogs', 'network', 'tools' )
+				);
 
 			if ( GNETWORK_SEARCH_LOG )
-				echo Core\HTML::tag( 'a', [
-					'class' => 'button button-secondary button-small',
-					'href'  => $this->get_menu_url( 'searchlogs', 'network', 'tools' ),
-				], _x( 'Check Search Logs', 'Modules: Debug', 'gnetwork' ) );
+				echo Core\HTML::button(
+					_x( 'Check Search Logs', 'Modules: Debug', 'gnetwork' ),
+					$this->get_menu_url( 'searchlogs', 'network', 'tools' )
+				);
 
 		echo '</p>';
 	}

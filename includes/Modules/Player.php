@@ -68,7 +68,7 @@ class Player extends gNetwork\Module
 			return $content;
 
 		$title = sprintf( $args['title'], $args['to'] );
-		$html  = $content ? trim( $content ) : $title;
+		$html  = $content ? Core\Text::trim( $content ) : $title;
 		$html  = '<a href="#" class="audio-go-to-time" title="'.HTML::escape( $title ).'" data-time="'.$args['to'].'" data-instance="'.$args['instance'].'">'.$html.'</a>';
 
 		Scripts::enqueueScript( 'front.audio-go' );
@@ -147,7 +147,7 @@ class Player extends gNetwork\Module
 					? _x( 'Download', 'Modules: Player: Defaults', 'gnetwork' )
 					: $args['download'];
 
-				$html.= '<div class="-download bg-subtle p-1 d-flex">';
+				$html.= '<div class="-download bg-light p-1 d-flex">';
 				$html.= '<a class="btn btn-outline-secondary btn-sm" href="'.$src.'"'
 					.( $args['filename'] ? ' download="'.$args['filename'].'"' : '' )
 					.'>'.$button.'</a>';

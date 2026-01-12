@@ -100,17 +100,15 @@ class Legal extends gNetwork\Module
 	// @SEE: https://wordpress.org/plugins/ads-txt/
 	public function settings_sidebox( $sub, $uri )
 	{
+		echo $this->wrap_open_buttons();
+
 		if ( Core\File::exists( 'ads.txt' ) ) {
 
-			echo Core\HTML::tag( 'a', [
-				'href'   => home_url( '/ads.txt' ),
-				'class'  => 'button button-secondary button-small',
-				'target' => '_blank',
-			], sprintf(
+			echo Core\HTML::button( sprintf(
 				/* translators: `%s`: file name for `ads.txt` */
 				_x( 'View %s', 'Modules: Mail', 'gnetwork' ),
 				Core\HTML::code( 'ads.txt' )
-			) );
+			), home_url( '/ads.txt' ) );
 
 		} else {
 
@@ -120,6 +118,8 @@ class Legal extends gNetwork\Module
 				Core\HTML::code( 'ads.txt' )
 			), 'small' );
 		}
+
+		echo '</p>';
 	}
 
 	protected function settings_actions( $sub = NULL )
