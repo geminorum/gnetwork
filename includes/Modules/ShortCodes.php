@@ -1146,11 +1146,64 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'sms', $args, FALSE );
 	}
 
-	// WORKING DRAFT
-	// FIXME: add def atts / wrap
 	public function shortcode_qrcode( $atts = [], $content = NULL, $tag = '' )
 	{
-		return $content ? Core\Third::getGoogleQRCode( trim( $content ), $atts ) : $content;
+		$args = shortcode_atts( [
+			'size'    => NULL,
+			'data'    => NULL,
+			'type'    => NULL,
+			'url'     => FALSE,
+			'email'   => FALSE,
+			'phone'   => FALSE,
+			'sms'     => FALSE,
+			'contact' => FALSE,
+			'context' => NULL,
+			'wrap'    => TRUE,
+			'before'  => '',
+			'after'   => '',
+		], $atts, $tag );
+
+		if ( FALSE === $args['context'] )
+			return NULL;
+
+		$type = $args['type'] ?? 'text';
+		$data = $args['data'] ?? Core\Text::trim( $content );
+
+		$supported = [
+			'url'     => [ '\geminorum\gNetwork\Core\URL',    'sanitize' ],
+			'email'   => [ '\geminorum\gNetwork\Core\Email',  'sanitize' ],
+			'phone'   => [ '\geminorum\gNetwork\Core\Phone',  'sanitize' ],
+			'sms'     => [ '\geminorum\gNetwork\Core\Mobile', 'sanitize' ],
+			'contact' => [ '\geminorum\gNetwork\Core\Text',   'trim'     ],
+		];
+
+		foreach ( $supported as $datatype => $sanitizer ) {
+			if ( ! empty( $args[$datatype] ) ) {
+				$type = $datatype;
+				$data = is_array( $args[$datatype] )
+					? $args[$datatype]
+					: call_user_func_array( $sanitizer, [ $args[$datatype] ] );
+			}
+		}
+
+		if ( ! $data )
+			return $content;
+
+		$markup = Utilities::getQRCode(
+			$data,
+			$type,
+			$args['size'] ?? 300,
+			TRUE
+		);
+
+		if ( ! $markup )
+			return $content;
+
+		return self::shortcodeWrap(
+			$markup,
+			'qrcode',
+			$args
+		);
 	}
 
 	public function shortcode_search( $atts = [], $content = NULL, $tag = '' )
