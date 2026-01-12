@@ -707,7 +707,15 @@ class Mail extends gNetwork\Module
 					if ( ! empty( $row['message'] ) ) {
 
 						if ( self::hasHeader( $row, 'Content-Type: text/html' ) )
-							$content.= '<div'.$direction.'>'.$row['message'].'</div>';
+							// $content.= '<div'.$direction.'>'.$row['message'].'</div>';
+							// NOTE: using iframe with `srcdoc` to avoid inline-style spillage!
+							// NOTE: `field-wrap.-iframe` will mess up the height
+							$content.= Core\HTML::tag( 'iframe', [
+								'srcdoc' => $row['message'],
+								'dir'    => $row['rtl'] ? 'rtl' : 'ltr',
+								'style'  => 'width:100%',
+							], NULL );
+
 						else
 							$content.= '<div'.$direction.'>'.wpautop( make_clickable( nl2br( $row['message'] ) ) ).'</div>';
 					}
