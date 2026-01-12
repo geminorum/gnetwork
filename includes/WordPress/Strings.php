@@ -68,6 +68,19 @@ class Strings extends Core\Base
 
 		if ( is_null( $empties ) )
 			$empties = [
+				'{}', '{{}}',
+				'[]', '[[]]',
+				'<>', '<<>>',
+				'()', '(())',
+				'«»', '««»»',
+				'“”', '““””',
+				':',
+				';',
+				',',
+				'|',
+				'&',
+				'،',
+				'؛',
 				"'", "''", "'''", "''''", "'''''", "''''''",
 				'"', '""', '"""', '""""', '"""""', '""""""',
 				'0', '00', '000', '0000', '00000', '000000','0000000','00000000','000000000','0000000000','00000000000','000000000000',
@@ -79,7 +92,7 @@ class Strings extends Core\Base
 				'-', '--', '---', '----', '-----', '------',
 				'–', '––', '–––', '––––', '–––––', '––––––',
 				'—', '——', '———', '————', '—————', '——————',
-				'0000/00/00', '0000-00-00', '00/00/00', '00-00-00',
+				'0000/00/00', '0000-00-00', '0000\\00\\00', '00/00/00', '00-00-00', '00\\00\\00',
 				'<p></p>',
 				'<body><p></p></body>',
 				'<body></body>',
@@ -100,13 +113,11 @@ class Strings extends Core\Base
 
 	public static function filterEmpty( $strings, $empties = NULL )
 	{
-		return array_filter( $strings, static function ( $value ) use ( $empties ) {
-
-			if ( self::isEmpty( $value, $empties ) )
-				return FALSE;
-
-			return ! empty( $value );
-		} );
+		return array_filter( $strings,
+			static function ( $value ) use ( $empties ) {
+				return ! self::isEmpty( $value, $empties );
+			}
+		);
 	}
 
 	public static function trimChars( $text, $length = 45, $append = '&nbsp;&hellip;' )
@@ -349,7 +360,7 @@ class Strings extends Core\Base
 		$text = apply_filters( 'html_format_i18n', $text );
 		$text = apply_filters( 'gnetwork_typography', $text );
 
-		return $autop ? wpautop( $text ) : $text;
+		return $autop ? wpautop( $text ) : Core\Text::trim( $text );
 	}
 
 	// TODO: move to `Misc\PersianAddress`

@@ -63,7 +63,7 @@ class Zip extends Base
 
 				} else if ( is_dir( $filePath ) ) {
 
-					// add sub-directory
+					// add subdirectory
 					$zipFile->addEmptyDir( $localPath );
 
 					self::folderToZip( $filePath, $zipFile, $exclusiveLength );

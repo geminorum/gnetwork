@@ -650,7 +650,7 @@ class File extends Base
 		if ( ! $directory = @opendir( $target ) )
 			return FALSE;
 
-    	while ( FALSE !== ( $item = readdir( $directory ) ) ) {
+		while ( FALSE !== ( $item = readdir( $directory ) ) ) {
 
 			if ( in_array( $item, [ '.', '..' ] ) )
 				continue;
@@ -662,11 +662,11 @@ class File extends Base
 
 			else
 				@unlink( $path );
-        }
+		}
 
-	    closedir( $directory );
+		closedir( $directory );
 
-    	return rmdir( $target );
+		return rmdir( $target );
 	}
 
 	/**
@@ -1112,7 +1112,7 @@ class File extends Base
 		}
 
 		return TRUE;
-    }
+	}
 
 	// @REF: https://htaccessbook.com/access-control-apache-2-4/
 	// @SEE: https://httpd.apache.org/docs/current/howto/access.html

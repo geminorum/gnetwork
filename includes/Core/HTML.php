@@ -153,17 +153,17 @@ class HTML extends Base
 			return '';
 
 		$classes = [
-			'btn',
-			'btn-default', // DEPRECATED
-			'btn-outline-secondary', // BS5
-			// 'btn-xs',
-			'btn-sm',
-			'button',
-			'-button',
+			'btn'                   ,   // BS5
+			'btn-default'           ,   // BS: DEPRECATED
+			'btn-outline-secondary' ,   // BS5
+			'btn-sm'                ,   // BS5
+			'button'                ,   // WP Core: Admin
+			'button-small'          ,   // WP Core: Admin
+			'-button'               ,   // OURS!
 		];
 
 		if ( $icon )
-			$classes[] = '-button-icon';
+			$classes[] = '-button-icon'; // OURS!
 
 		return self::tag( ( $link ? 'a' : 'span' ), [
 			'id'     => $id ?: FALSE,

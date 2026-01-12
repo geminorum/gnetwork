@@ -231,25 +231,25 @@ class Validation extends Base
 
 	// https://github.com/persian-tools/php-persian-tools/blob/master/src/Traits/VerifyCardNumber.php
 	public static function isCardNumber( $input )
-    {
+	{
 		if ( self::empty( $input ) )
 			return FALSE;
 
 		if ( 16 !== strlen( $input )
 			|| 0 === intval( substr( $input, 1, 11 ) )
 			|| 0 === intval( substr( $input, 10 ) ) )
-                return FALSE;
+				return FALSE;
 
-        $sum = 0;
+		$sum = 0;
 
-        for ( $i = 0; $i < 16; $i++ ) {
-            $even  = $i % 2 == 0 ? 2 : 1;
-            $sub   = intval( $input[$i] ) * $even;
-            $sum  += $sub > 9 ? $sub - 9 : $sub;
-        }
+		for ( $i = 0; $i < 16; $i++ ) {
+			$even  = $i % 2 == 0 ? 2 : 1;
+			$sub   = intval( $input[$i] ) * $even;
+			$sum  += $sub > 9 ? $sub - 9 : $sub;
+		}
 
-        return $sum % 10 == 0;
-    }
+		return $sum % 10 == 0;
+	}
 
 	// @REF: https://www.webhostingtalk.ir/showthread.php?t=202847
 	// @SEE: http://www.aliarash.com/article/creditcart/credit-debit-cart.htm

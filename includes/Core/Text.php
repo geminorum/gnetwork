@@ -50,6 +50,36 @@ class Text extends Base
 		return $text;
 	}
 
+	public static function trimQuotes( $text, $list = NULL )
+	{
+		if ( ! $text = self::trim( $text ) )
+			return '';
+
+		$list = $list ?? [
+			"\s",
+			"'", "\"",
+			"*",
+			"<", ">",
+			"{", "}",
+			"[", "]",
+			"(", ")",
+			"«", "»",
+			":", ";",
+		];
+
+		$text = preg_replace(
+			// @REF: https://www.php.net/manual/en/ref.mbstring.php#113569
+			'/^['.implode( '', $list ).']*(?U)(.*)['.implode( '', $list ).']*$/u',
+			'\\1',
+			(string) $text
+		);
+
+		if ( 0 === strlen( $text ) )
+			return '';
+
+		return self::trim( $text );
+	}
+
 	/**
 	 * right trim of a string
 	 * @source https://stackoverflow.com/a/32739088
@@ -1084,8 +1114,8 @@ class Text extends Base
 	 * @author David R. Nadeau, NadeauSoftware.com
 	 * @see http://nadeausoftware.com/articles/2007/9/php_tip_how_strip_punctuation_characters_web_page
 	 *
-	 * @param string $title: the `UTF-8` text to strip
-	 * @return string the stripped `UTF-8` text.
+	 * @param string $title
+	 * @return string
 	 */
 	public static function stripPunctuation( $text )
 	{
@@ -1093,9 +1123,9 @@ class Text extends Base
 			return $text;
 
 		$urlbrackets    = '\[\]\(\)';
-		$urlspacebefore = ':;\'_\*%@&?!' . $urlbrackets;
-		$urlspaceafter  = '\.,:;\'\-_\*@&\/\\\\\?!#' . $urlbrackets;
-		$urlall         = '\.,:;\'\-_\*%@&\/\\\\\?!#' . $urlbrackets;
+		$urlspacebefore = ':;\'_\*%@&?!'.$urlbrackets;
+		$urlspaceafter  = '\.,:;\'\-_\*@&\/\\\\\?!#'.$urlbrackets;
+		$urlall         = '\.,:;\'\-_\*%@&\/\\\\\?!#'.$urlbrackets;
 
 		$specialquotes = '\'"\*<>';
 

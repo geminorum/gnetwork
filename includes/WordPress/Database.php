@@ -507,7 +507,15 @@ class Database extends Core\Base
 		if ( ! $metakey )
 			return FALSE;
 
-		return $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", $metakey ) );
+		// return $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s", $metakey ) );
+
+		$value = self::array2SQL( (array) $metakey );
+
+		return $wpdb->get_var( "
+			SELECT COUNT(*)
+			FROM {$wpdb->postmeta}
+			WHERE meta_key IN ({$value})
+		" );
 	}
 
 	public static function changePostMetaKey( $from, $to )
