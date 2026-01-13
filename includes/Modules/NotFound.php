@@ -47,6 +47,7 @@ class NotFound extends gNetwork\Module
 	{
 		return [
 			'check_slugs'      => '1',
+			'link_to_archives' => '1',
 			'page_404'         => '0',
 			'disable_guessing' => '0',
 			'strict_guessing'  => '0',
@@ -61,6 +62,13 @@ class NotFound extends gNetwork\Module
 			'field'       => 'check_slugs',
 			'title'       => _x( 'Check Slugs', 'Modules: NotFound: Settings', 'gnetwork' ),
 			'description' => _x( 'Tries to redirect unknown posttype to it&#8217;s archive.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'default'     => '1',
+		];
+
+		$settings['_front'][] = [
+			'field'       => 'link_to_archives',
+			'title'       => _x( 'Link to Archives', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'description' => _x( 'Displays a link button to unknown posttype or taxonomy archives.', 'Modules: NotFound: Settings', 'gnetwork' ),
 			'default'     => '1',
 		];
 
@@ -120,6 +128,9 @@ class NotFound extends gNetwork\Module
 		if ( $this->options['check_slugs'] )
 			$this->_do_check_object_slugs();
 
+		if ( $this->options['link_to_archives'] )
+			$this->action( 'content_notfound', 0, 99, 'link_to_archives', 'gtheme' );
+
 		if ( $this->options['page_404'] && is_page( $this->options['page_404'] ) )
 			return;
 
@@ -170,6 +181,47 @@ class NotFound extends gNetwork\Module
 				return;
 
 			WordPress\Redirect::doWP( $link, 303 );
+		}
+	}
+
+	public function content_notfound_link_to_archives()
+	{
+		if ( $posttype = get_query_var( 'post_type' ) ) {
+
+			if ( ! $object = WordPress\PostType::object( $posttype ) )
+				return;
+
+			if ( $link = WordPress\PostType::link( $object ) )
+				echo Core\HTML::wrap( Core\HTML::tag( 'a', [
+					'href'  => $link,
+					'class' => Core\HTML::buttonClass( FALSE, [
+						'btn-outline-primary',
+						'btn-lg',
+						'btn-block',
+					]),
+				], $object->labels->archives ), 'd-grid gap-2 my-3' );
+
+		} else if ( $taxonomy = get_query_var( 'taxonomy' ) ) {
+
+			if ( ! $object = WordPress\Taxonomy::object( $taxonomy ) )
+				return;
+
+			if ( $link = WordPress\Taxonomy::link( $object ) )
+				echo Core\HTML::wrap( Core\HTML::tag( 'a', [
+					'href'  => $link,
+					'class' => Core\HTML::buttonClass( FALSE, [
+						'btn-outline-primary',
+						'btn-lg',
+						'btn-block',
+					]),
+				], sprintf(
+					/* translators: `%1$s`: camel case / plural taxonomy, `%2$s`: camel case / singular taxonomy, `%3$s`: lower case / plural taxonomy, `%4$s`: lower case / singular taxonomy */
+					_x( 'View %1$s Archives', 'Module: NotFound', 'gnetwork' ),
+					$object->labels->name,
+					$object->labels->singular_name,
+					Core\Text::strToLower( $object->labels->name ),
+					Core\Text::strToLower( $object->labels->singular_name ),
+				) ), 'd-grid gap-2 my-3' );
 		}
 	}
 
