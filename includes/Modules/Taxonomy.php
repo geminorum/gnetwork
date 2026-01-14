@@ -1404,7 +1404,14 @@ JS;
 			if ( self::isError( $term ) )
 				continue;
 
-			$slug = $this->filters( 'term_rewrite_slug', $term->name, $term, $taxonomy );
+			// CAUTION: this filter is also used in another action
+			$slug = $this->filters( 'term_rewrite_slug',
+				Core\Text::containsUTF8( $term->name )
+					? Core\Text::formatSlug( $term->name )
+					: $term->name,
+				$term,
+				$taxonomy
+			);
 
 			wp_update_term( $term_id, $taxonomy, [ 'slug' => $slug ] );
 		}
@@ -1477,8 +1484,16 @@ JS;
 				'description' => apply_filters( 'html_format_i18n', $term->description ),
 			];
 
+			// slug is derived from name
 			if ( $term->slug == sanitize_title( $term->name ) )
-				$args['slug'] = $args['name'];
+				// CAUTION: this filter is also used in another action
+				$args['slug'] = $this->filters( 'term_rewrite_slug',
+					Core\Text::containsUTF8( $args['name'] )
+						? Core\Text::formatSlug( $args['name'] )
+						: $args['name'],
+					$term,
+					$taxonomy
+				);
 
 			wp_update_term( $term_id, $taxonomy, $args );
 		}
