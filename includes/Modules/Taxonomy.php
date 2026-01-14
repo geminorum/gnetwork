@@ -45,7 +45,7 @@ class Taxonomy extends gNetwork\Module
 		return [
 			'management_tools'   => '1',
 			'taxonomy_tabs'      => '1',
-			'term_tabs'          => '0',
+			'term_tabs'          => '1',
 			'slug_actions'       => '0',
 			'description_column' => '1',
 			'search_fields'      => '1',
@@ -72,6 +72,7 @@ class Taxonomy extends gNetwork\Module
 					'field'       => 'term_tabs',
 					'title'       => _x( 'Term Tabs', 'Modules: Taxonomy: Settings', 'gnetwork' ),
 					'description' => _x( 'Extends term default user interface with extra features.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'default'     => '1',
 				],
 				[
 					'field'       => 'slug_actions',
