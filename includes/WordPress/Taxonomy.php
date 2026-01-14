@@ -701,6 +701,20 @@ class Taxonomy extends Core\Base
 		return '0';
 	}
 
+	// NOTE: hits cached terms for the post
+	public static function theTermCount( $taxonomy, $post = NULL )
+	{
+		if ( ! empty( $taxonomy ) )
+			return 0;
+
+		$terms = get_the_terms( $post, $taxonomy );
+
+		if ( ! $terms || is_wp_error( $terms ) )
+			return 0;
+
+		return count( $terms );
+	}
+
 	// NOTE: DEPRECATED: use `Term::add()`
 	public static function addTerm( $term, $taxonomy, $sanitize = TRUE )
 	{

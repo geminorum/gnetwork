@@ -226,9 +226,13 @@ class Theme extends Core\Base
 	}
 
 	// @SOURCE: `bp_set_theme_compat_active()`
-	public static function compatActive( $set = TRUE )
+	public static function compatActive( $set = NULL )
 	{
 		global $gEditorialWPThemeCompatActive;
+
+		if ( is_null( $set ) )
+			return $gEditorialWPThemeCompatActive;
+
 		return $gEditorialWPThemeCompatActive = $set;
 	}
 

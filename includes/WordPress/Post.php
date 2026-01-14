@@ -654,7 +654,7 @@ class Post extends Core\Base
 		$trimmed = substr( $regexp, 1, $end - 1 );  // the part between the boundaries
 
 		// MY-SQL regexp is always case insensitive, so in case of no `/i` flag, MY-SQL might report too many rows, these are then filtered by PHP,
-		// Flags `m` and `s` are for multi-line matching. `meta_keys` are never multiline, do, we can ignore those.
+		// Flags `m` and `s` are for multiline matching. `meta_keys` are never multiline, do, we can ignore those.
 		// Flag `x` modified the way whitespace is handled, single `meta_keys` cannot have whitespace, we ignore those too.
 		// Flag `e` (eval) makes no sense whatsoever in this context, do we ignore that as well.
 		$options = FALSE !== strpos( $options, 'i' ) ? 'i' : '';

@@ -226,6 +226,10 @@ class Text extends Base
 		$text = preg_replace( "/(\x{200C})/u", ' ', $text );
 
 		$text = str_ireplace( [
+			" ی ", // orphaned after zwnj conversion
+		], ' ', $text );
+
+		$text = str_ireplace( [
 			"\xD8\x8C", // `،` // Arabic Comma
 			"\xD8\x9B", // `؛` // Arabic Semicolon
 			"\xD9\x94", // `ٔ`  // Arabic Hamza Above
@@ -236,6 +240,7 @@ class Text extends Base
 			"\xC2\xBB",     // `»`
 			"\xE2\x80\xA6", // `…` // Horizontal Ellipsis
 
+			"@",
 			"?",
 			"؟",
 			"!",
@@ -247,6 +252,8 @@ class Text extends Base
 			"|",
 			",",
 			".",
+			"/",
+			"\\",
 		], '', $text );
 
 		// $text = self::stripPunctuation( $text );
@@ -705,6 +712,22 @@ class Text extends Base
 				$text = substr( $text, strlen( $prefix ) ).'';
 
 		return $text;
+	}
+
+	public static function extractSuffix( $text )
+	{
+		if ( ! $text = self::trim( $text ) )
+			return [ '', '' ];
+
+		$pattern = '/ [(\[{](.+)[)\]}]$/';
+
+		if ( ! preg_match( $pattern, $text, $matches ) )
+			return [ $text, '' ];
+
+		return [
+			self::trim( str_ireplace( $matches[0], '', $text ) ),
+			self::trim( $matches[1] ),
+		];
 	}
 
 	/**
@@ -1455,6 +1478,17 @@ class Text extends Base
 			},
 			$text
 		);
+	}
+
+	public static function stripHashtags( $text )
+	{
+		if ( ! $text = self::trim( $text ) )
+			return $text;
+
+		return preg_replace_callback( "/^#(.*)$/mu",
+			static function ( $matches ) {
+				return str_replace( '_', ' ', $matches[1] );
+			}, $text );
 	}
 
 	public static function replaceOnce( $search, $replace, $text )

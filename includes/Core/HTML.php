@@ -147,29 +147,35 @@ class HTML extends Base
 		echo $wrap ? self::tag( $wrap, $html ) : $html;
 	}
 
+	public static function buttonClass( $small = TRUE, $extra = [] )
+	{
+		$classes = array_merge( [
+			'btn'                   ,   // BS5
+			'btn-default'           ,   // BS: DEPRECATED
+			'btn-outline-secondary' ,   // BS5
+			'button'                ,   // WP Core: Admin
+			'-button'               ,   // OURS!
+		], (array) $extra );
+
+		if ( ! $small )
+			return $classes;
+
+		$classes[] = 'btn-sm';        // BS5
+		$classes[] = 'button-small';  // WP Core: Admin
+
+		return $classes;
+	}
+
 	public static function button( $html, $link = '#', $title = FALSE, $icon = FALSE, $data = [], $id = FALSE )
 	{
 		if ( ! $html )
 			return '';
 
-		$classes = [
-			'btn'                   ,   // BS5
-			'btn-default'           ,   // BS: DEPRECATED
-			'btn-outline-secondary' ,   // BS5
-			'btn-sm'                ,   // BS5
-			'button'                ,   // WP Core: Admin
-			'button-small'          ,   // WP Core: Admin
-			'-button'               ,   // OURS!
-		];
-
-		if ( $icon )
-			$classes[] = '-button-icon'; // OURS!
-
 		return self::tag( ( $link ? 'a' : 'span' ), [
 			'id'     => $id ?: FALSE,
 			'href'   => $link ?: FALSE,
 			'title'  => $title,
-			'class'  => $classes,
+			'class'  => self::buttonClass( TRUE, $icon ? '-button-icon' : [] ),
 			'data'   => $data,
 			// 'target' => '_blank',
 		], $html );
@@ -452,35 +458,47 @@ class HTML extends Base
 	}
 
 	// @ref: `esc_html()`, `esc_attr()`
-	public static function escape( $text )
+	public static function escape( $data )
 	{
-		return Text::utf8Compliant( $text )
-			? Text::utf8SpecialChars( $text, ENT_QUOTES )
+		if ( is_null( $data ) )
+			return '';
+
+		return Text::utf8Compliant( $data )
+			? Text::utf8SpecialChars( $data, ENT_QUOTES )
 			: '';
 	}
 
 	// NOTE: DEPRECATED
-	public static function escapeAttr( $text )
+	public static function escapeAttr( $data )
 	{
-		return self::escape( $text );
+		return self::escape( $data );
 	}
 
-	public static function escapeURL( $url )
+	public static function escapeURL( $data )
 	{
-		return esc_url( $url );
+		if ( is_null( $data ) )
+			return '';
+
+		return esc_url( $data );
 	}
 
-	public static function escapeTextarea( $html )
+	public static function escapeTextarea( $data )
 	{
-		return Text::utf8SpecialChars( $html, ENT_QUOTES );
+		if ( is_null( $data ) )
+			return '';
+
+		return Text::utf8SpecialChars( $data, ENT_QUOTES );
 	}
 
-	// like WP core but without filter and fallback
+	// NOTE: like WP core but without filter and fallback
 	// @source `sanitize_html_class()`
-	public static function sanitizeClass( $class )
+	public static function sanitizeClass( $data )
 	{
+		if ( is_null( $data ) )
+			return '';
+
 		// strip out any % encoded octets
-		$sanitized = preg_replace( '/%[a-fA-F0-9][a-fA-F0-9]/', '', $class );
+		$sanitized = preg_replace( '/%[a-fA-F0-9][a-fA-F0-9]/', '', $data );
 
 		// limit to A-Z,a-z,0-9,_,-
 		$sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '', $sanitized );
@@ -488,11 +506,14 @@ class HTML extends Base
 		return $sanitized;
 	}
 
-	// Like WP core but without filter
-	// ANCESTOR: `tag_escape()`
-	public static function sanitizeTag( $tag )
+	// NOTE: like WP core but without filter
+	// @source: `tag_escape()`
+	public static function sanitizeTag( $data )
 	{
-		return preg_replace( '/[^a-zA-Z0-9_:]/', '', $tag );
+		if ( is_null( $data ) )
+			return '';
+
+		return preg_replace( '/[^a-zA-Z0-9_:]/', '', $data );
 	}
 
 	// @REF: https://www.billerickson.net/code/phone-number-url/
@@ -500,25 +521,40 @@ class HTML extends Base
 	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#telephone-numbers
 
 	// OLD: `sanitizePhoneNumberURL()`
-	public static function prepURLforTel( $number )
+	public static function prepURLforTel( $data )
 	{
-		// FIXME: must check for `tel:` prefix
-		return self::escapeURL( 'tel:'.str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $number ) );
+		if ( is_null( $data ) )
+			return '';
+
+		return self::escapeURL( sprintf(
+			Text::starts( $data, 'tel:' ) ? '%s' : 'tel:%s',
+			str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $data )
+		) );
 	}
 
 	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#smsmmsfacetime
 	// OLD: `sanitizeSMSNumberURL()`
-	public static function prepURLforSMS( $number )
+	public static function prepURLforSMS( $data )
 	{
-		// FIXME: must check for `sms:` prefix
-		return self::escapeURL( 'sms:'.str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $number ) );
+		if ( is_null( $data ) )
+			return '';
+
+		return self::escapeURL( sprintf(
+			Text::starts( $data, 'sms:' ) ? '%s' : 'sms:%s',
+			str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $data )
+		) );
 	}
 
 	// OLD: `sanitizeGeoURL()`
-	public static function prepURLforGeo( $number )
+	public static function prepURLforGeo( $data )
 	{
-		// FIXME: must check for `geo:` prefix
-		return self::escapeURL( 'geo:'.str_replace( [ '(', ')', '-', ' ' ], '', $number ) );
+		if ( is_null( $data ) )
+			return '';
+
+		return self::escapeURL( sprintf(
+			Text::starts( $data, 'geo:' ) ? '%s' : 'geo:%s',
+			str_replace( [ '(', ')', '-', ' ' ], '', $data )
+		) );
 	}
 
 	// NOTE: DEPRECATED
@@ -1438,6 +1474,99 @@ class HTML extends Base
 			'title'     => $title,
 			'class'     => self::attrClass( 'dashicons', $icon, $class ),
 		], NULL );
+	}
+
+	public static function radioSelect( $list, $atts = [] )
+	{
+		$html = '';
+
+		if ( FALSE === $list ) // allows hiding
+			return $html;
+
+		$args = self::atts( [
+			'id'          => FALSE,
+			'name'        => '',
+			'title'       => FALSE,
+			'none_title'  => NULL,
+			'none_value'  => 0,
+			'value_title' => TRUE,    // Displays value as the title of the option.
+			'class'       => FALSE,
+			'style'       => FALSE,
+			'selected'    => 0,
+			'disabled'    => FALSE,
+			'dir'         => FALSE,
+			'prop'        => FALSE,
+			'value'       => FALSE,
+			'wrap'        => 'div',
+			'exclude'     => [],
+			'data'        => [],
+		], $atts );
+
+		if ( empty( $args['id'] ) )
+			$args['id'] = $args['name'];
+
+		if ( ! is_null( $args['none_title'] ) ) {
+
+			$id = implode( '-', [ $args['id'], $args['none_value'] ] );
+
+			$html.= '<'.$args['wrap'].'><label for"'.self::escapeAttr( $id ).'">';
+			$html.= self::tag( 'input', [
+				'type'     => 'radio',
+				'id'       => $id,
+				'name'     => $args['name'],
+				'value'    => $args['none_value'],
+				'checked'  => in_array( $args['none_value'], (array) $args['selected'] ),
+				'disabled' => self::attrBoolean( $args['disabled'], $args['none_value'] ),
+				'title'    => $args['title'],
+				'style'    => $args['style'],
+				'class'    => $args['class'],
+				'data'     => $args['data'],
+				'dir'      => $args['dir'],
+			] );
+
+			$html.= '&nbsp;'.$args['none_title'];
+			$html.= '</label></'.$args['wrap'].'>';
+		}
+
+		foreach ( $list as $offset => $value ) {
+
+			if ( $args['value'] )
+				$key = is_object( $value ) ? $value->{$args['value']} : $value[$args['value']];
+
+			else
+				$key = $offset;
+
+			if ( in_array( $key, (array) $args['exclude'] ) )
+				continue;
+
+			if ( $args['prop'] )
+				$title = is_object( $value ) ? $value->{$args['prop']} : $value[$args['prop']];
+
+			else
+				$title = $value;
+
+			$id = implode( '-', [ $args['id'], $key ] );
+
+			$html.= '<'.$args['wrap'].'><label for"'.self::escapeAttr( $id ).'">';
+			$html.= self::tag( 'input', [
+				'type'     => 'radio',
+				'id'       => $id,
+				'name'     => $args['name'],
+				'value'    => $key,
+				'checked'  => in_array( $key, (array) $args['selected'] ),
+				'disabled' => self::attrBoolean( $args['disabled'], $key ),
+				'title'    => $args['title'],
+				'style'    => $args['style'],
+				'class'    => $args['class'],
+				'data'     => $args['data'],
+				'dir'      => $args['dir'],
+			] );
+
+			$html.= '&nbsp;'.$title;
+			$html.= '</label></'.$args['wrap'].'>';
+		}
+
+		return $html;
 	}
 
 	// TODO: support `optgroup`: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/optgroup

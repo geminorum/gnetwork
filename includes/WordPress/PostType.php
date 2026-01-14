@@ -462,7 +462,7 @@ class PostType extends Core\Base
 
 			'meta_query' => [ [
 				'key'     => $metakey,
-				'compare' => 'EXISTS'
+				'compare' => 'EXISTS',
 			] ],
 
 			'no_found_rows'          => TRUE,
@@ -548,7 +548,7 @@ class PostType extends Core\Base
 		if ( $has_thumbnail )
 			$args['meta_query'] = [ [
 				'key'     => '_thumbnail_id',
-				'compare' => 'EXISTS'
+				'compare' => 'EXISTS',
 			] ];
 
 		$query = new \WP_Query();

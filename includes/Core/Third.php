@@ -143,7 +143,7 @@ class Third extends Base
 	 * @param string $base prefix if the URL
 	 * @return string handle or the URL
 	 */
-	public static function getTwitter( $string, $url = FALSE, $base = 'https://twitter.com/' )
+	public static function getTwitter( $string, $url = FALSE, $base = 'https://x.com/' )
 	{
 		self::_dep( 'Third::getHandle()' );
 

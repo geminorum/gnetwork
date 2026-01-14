@@ -13,7 +13,7 @@ class Redirect extends Core\Base
 			'_wp_http_referer',
 			'message',
 			'action',
-			'paged',
+			// 'paged',
 			'count',
 		] ) ) );
 	}
@@ -25,7 +25,7 @@ class Redirect extends Core\Base
 			'_wp_http_referer',
 			'message',
 			'action',
-			'paged',
+			// 'paged',
 			'count',
 		], wp_get_referer() );
 	}

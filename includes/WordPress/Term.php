@@ -583,6 +583,28 @@ class Term extends Core\Base
 	}
 
 	/**
+	 * Returns default term information to use when populating the “New Term” form.
+	 * @source `get_default_post_to_edit()`
+	 *
+	 * @param string $taxonomy
+	 * @return object
+	 */
+	public static function defaultToEdit( $taxonomy )
+	{
+		$term              = new \stdClass();
+		$term->taxonomy    = $taxonomy;
+		$term->term_id     = 0;
+		$term->count       = 0;
+		$term              = new \WP_Term( $term );
+		$term->parent      = (int)    esc_html( self::unslash( self::req( 'parent' ) ) );
+		$term->name        = (string) esc_html( self::unslash( self::req( 'name'   ) ) );
+		$term->slug        = (string) esc_html( self::unslash( self::req( 'slug'   ) ) );
+		$term->description = (string) esc_html( self::unslash( self::req( 'desc'   ) ) );
+
+		return $term;
+	}
+
+	/**
 	 * Performs term count update immediately.
 	 *
 	 * @param int|string $term_or_id

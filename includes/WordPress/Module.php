@@ -508,7 +508,7 @@ class Module extends Core\Base
 		$option = $option ?? 'per_page';
 
 		$args = [
-			'option' => $this->hook_base( $sub, $option, $context ),
+			'option' => $this->hook_base( $sub, $context, $option ), // NOTE: must always ends with `per_page`!
 			'label'  => $label,
 		];
 
