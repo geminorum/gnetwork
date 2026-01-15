@@ -20,18 +20,15 @@ class Branding extends gNetwork\Module
 		if ( $this->options['siteicon_fallback'] && is_multisite() )
 			$this->filter( 'get_site_icon_url', 3 );
 
-		if ( ! self::const( 'PWA_VERSION' ) && $this->options['webapp_manifest'] ) {
+		if ( ! is_admin() ) {
 
-			if ( ! is_admin() && is_main_site() ) {
-				$this->action( 'parse_request', 1, 1 );
-				// $this->filter( 'pre_handle_404', 2 );
-				$this->filter( 'redirect_canonical', 2 );
-			}
-
-		} else {
-
-			 $this->filter( 'web_app_manifest' ); // PWA-WP filter
+			$this->action( 'parse_request', 1, 1 );
+			// $this->filter( 'pre_handle_404', 2 );
+			$this->filter( 'redirect_canonical', 2 );
 		}
+
+		if ( ! $this->webapp_manifest_enabled() )
+			$this->filter( 'web_app_manifest' ); // PWA-WP filter
 
 		if ( $this->options['sitelogo_fallback'] && $this->options['network_sitelogo'] )
 			$this->filter( 'get_custom_logo', 2, 8 );
@@ -300,13 +297,21 @@ class Branding extends gNetwork\Module
 
 	public function do_link_tag()
 	{
+		if ( ! $this->webapp_manifest_enabled() )
+			return;
+
 		// `onesignal` will include the tag
-		if ( ! defined( 'ONESIGNAL_PLUGIN_URL' ) )
-			echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
+		if ( self::const( 'ONESIGNAL_PLUGIN_URL' ) )
+			return;
+
+		echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
 	}
 
 	public function parse_request( $request )
 	{
+		if ( ! $this->webapp_manifest_enabled() )
+			return;
+
 		if ( static::MANIFEST_FILE === $request->request )
 			$this->_render_manifest();
 	}
@@ -315,6 +320,9 @@ class Branding extends gNetwork\Module
 	public function pre_handle_404( $preempt, $wp_query )
 	{
 		if ( $preempt )
+			return $preempt;
+
+		if ( ! $this->webapp_manifest_enabled() )
 			return $preempt;
 
 		$slug = Core\Text::sanitizeBase( static::MANIFEST_FILE );
@@ -330,6 +338,9 @@ class Branding extends gNetwork\Module
 
 	public function redirect_canonical( $redirect_url, $requested_url )
 	{
+		if ( ! $this->webapp_manifest_enabled() )
+			return $redirect_url;
+
 		if ( static::MANIFEST_FILE === substr( $requested_url, -7 ) )
 			return FALSE;
 
@@ -601,6 +612,18 @@ class Branding extends gNetwork\Module
 
 		else
 			echo self::getLogo( FALSE, FALSE );
+	}
+
+	public function webapp_manifest_enabled()
+	{
+		if ( self::const( 'PWA_VERSION' ) )
+			return FALSE;
+
+		// WTF?!
+		if ( ! is_main_site() )
+			return FALSE;
+
+		return (bool) $this->options['webapp_manifest'];
 	}
 
 	// FIXME: get from site logo / not used yet

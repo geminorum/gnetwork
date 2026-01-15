@@ -726,7 +726,6 @@ class Blog extends gNetwork\Module
 
 	public function wp_head()
 	{
-		$mainsite = is_main_site();
 		$singular = is_singular();
 
 		Core\Third::htmlThemeColor( $this->options['theme_color'] ?: gNetwork()->option( 'theme_color', 'branding' ) );
@@ -734,7 +733,7 @@ class Blog extends gNetwork\Module
 		if ( gNetwork()->option( 'opensearch', 'opensearch' ) )
 			gNetwork()->opensearch->do_link_tag();
 
-		if ( $mainsite && ! self::const( 'PWA_VERSION' ) && gNetwork()->option( 'webapp_manifest', 'branding' ) )
+		if ( gNetwork()->option( 'webapp_manifest', 'branding' ) )
 			gNetwork()->branding->do_link_tag();
 
 		if ( $this->options['page_copyright'] )
