@@ -449,6 +449,7 @@ class Mail extends gNetwork\Module
 			'site'      => WordPress\Site::name(),
 			'locale'    => get_locale(),
 			'user'      => get_current_user_id(),
+			'blog'      => get_current_blog_id(),
 		], Core\Arraay::filterArray( $atts ) );
 
 		if ( is_rtl() )
@@ -647,6 +648,8 @@ class Mail extends gNetwork\Module
 					if ( ! empty( $row['site'] ) )
 						$html.= '<code title="'._x( 'Site', 'Modules: Mail: Email Logs Table', 'gnetwork' )
 							.'">'.$row['site'].'</code>';
+
+					// TODO: display `locale`/`blog` data here!
 
 					if ( ! empty( $row['smtp'] ) )
 						$html.= ' &#5397; <code title="'._x( 'SMTP', 'Modules: Mail: Email Logs Table', 'gnetwork' )
