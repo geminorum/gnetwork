@@ -14,6 +14,10 @@ class Branding extends gNetwork\Module
 	protected $ajax = TRUE;
 
 	const MANIFEST_FILE = 'manifest.json';
+	const ICONFILE_URLS = [
+		'apple-touch-icon.png',
+		'apple-touch-icon-precomposed.png',
+	];
 
 	protected function setup_actions()
 	{
@@ -309,6 +313,11 @@ class Branding extends gNetwork\Module
 
 	public function parse_request( $request )
 	{
+		if ( $this->options['network_siteicon'] )
+			foreach ( static::ICONFILE_URLS as $iconfile )
+				if ( $iconfile === $request->request )
+					WordPress\Redirect::doWP( $this->options['network_siteicon'] );
+
 		if ( ! $this->webapp_manifest_enabled() )
 			return;
 
