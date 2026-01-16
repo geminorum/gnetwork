@@ -58,8 +58,8 @@ class ShortCodes extends gNetwork\Module
 		} else {
 
 			$this->filter( [
+				// no need for editorial
 				'gnetwork_prep_contact',
-				'geditorial_prep_contact',
 				'gtheme_prep_contact',
 			], 3, 12 );
 
@@ -1541,12 +1541,12 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'redirect', $args );
 	}
 
-	// EXAMPLE: [bloginfo key='name']
+	// @EXAMPLE: `[bloginfo key='name']`
 	public function shortcode_bloginfo( $atts = [], $content = NULL, $tag = '' )
 	{
 		$args = shortcode_atts( [
-			'key'     => '', // SEE: https://codex.wordpress.org/Template_Tags/bloginfo
-			'class'   => '', // OR: 'key-%s'
+			'key'     => '',      // @SEE: https://codex.wordpress.org/Template_Tags/bloginfo
+			'class'   => '',      // OR: `key-%s`
 			'context' => NULL,
 			'wrap'    => FALSE,
 		], $atts, $tag );
@@ -1566,9 +1566,9 @@ class ShortCodes extends gNetwork\Module
 		return $info;
 	}
 
-	// must suffix post id from current post
-	// must cache md5 of ref content for comparison
-	// maybe run the shortcode manually before core on post_content
+	// TODO: suffix post id from current post
+	// TODO: cache MD5 of ref content for comparison
+	// MAYBE: run the short-code manually before core on post_content
 	public function shortcode_ref( $atts = [], $content = NULL, $tag = '' )
 	{
 		if ( is_null( $content ) || ! is_singular() )
@@ -1730,7 +1730,7 @@ class ShortCodes extends gNetwork\Module
 		return Utilities::getLayout( 'amp.reference' );
 	}
 
-	// appends ref to table of contents on gEditorial Headings
+	// Appends ref to table of contents on gEditorial Headings
 	public function headings_toc( $toc )
 	{
 		if ( empty( $toc ) || count( $toc ) < 2 )

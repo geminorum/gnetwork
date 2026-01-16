@@ -23,10 +23,10 @@ class Commerce extends gNetwork\Module
 		$this->action( 'init' );
 		$this->action( 'admin_bar_menu', 1, 35 );
 
-		$this->filter( 'exclude_from_sitemap_by_post_ids', 1, 12, FALSE, 'wpseo' ); // @REF: https://github.com/Yoast/wpseo-woocommerce/pull/260
-		$this->filter_false( 'woocommerce_allow_marketplace_suggestions' ); // @REF: https://wp.me/pBMYe-n1W
-		$this->filter_false( 'woocommerce_background_image_regeneration' ); // @REF: https://github.com/woocommerce/woocommerce/wiki/Thumbnail-Image-Regeneration-in-3.3
-		$this->filter_true( 'woocommerce_prevent_automatic_wizard_redirect' ); // @REF: https://stackoverflow.com/a/65476167
+		$this->filter      ( 'exclude_from_sitemap_by_post_ids', 1, 12, FALSE, 'wpseo' );  // @REF: https://github.com/Yoast/wpseo-woocommerce/pull/260
+		$this->filter_false( 'woocommerce_allow_marketplace_suggestions' );                // @REF: https://wp.me/pBMYe-n1W
+		$this->filter_false( 'woocommerce_background_image_regeneration' );                // @REF: https://github.com/woocommerce/woocommerce/wiki/Thumbnail-Image-Regeneration-in-3.3
+		$this->filter_true ( 'woocommerce_prevent_automatic_wizard_redirect' );            // @REF: https://stackoverflow.com/a/65476167
 
 		$this->filter_true( 'pre_transient_pws_notice_all' ); // `persian-woocommerce-shipping` notices!
 

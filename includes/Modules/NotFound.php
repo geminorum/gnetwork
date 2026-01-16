@@ -61,7 +61,7 @@ class NotFound extends gNetwork\Module
 		$settings['_front'][] = [
 			'field'       => 'check_slugs',
 			'title'       => _x( 'Check Slugs', 'Modules: NotFound: Settings', 'gnetwork' ),
-			'description' => _x( 'Tries to redirect unknown posttype to it&#8217;s archive.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'description' => _x( 'Tries to redirect unknown posttype or taxonomy to it&#8217;s archives.', 'Modules: NotFound: Settings', 'gnetwork' ),
 			'default'     => '1',
 		];
 

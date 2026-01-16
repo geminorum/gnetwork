@@ -325,7 +325,7 @@ class Branding extends gNetwork\Module
 			$this->_render_manifest();
 	}
 
-	// DISABLED: not working on every permanent-link setup
+	// DISABLED: WTF: not working on every permanent-link setup!
 	public function pre_handle_404( $preempt, $wp_query )
 	{
 		if ( $preempt )
