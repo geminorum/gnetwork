@@ -222,7 +222,10 @@ class AdminBar extends gNetwork\Module
 			'title'  => self::getIcon( 'admin-generic' ),
 			'parent' => 'top-secondary',
 			'href'   => $admin_url,
-			'meta'   => [ 'title' => sprintf( 'gNetwork v%s', GNETWORK_VERSION ) ],
+			'meta'   => [
+				'title' => sprintf( 'gNetwork v%s', GNETWORK_VERSION ),
+				'class' => $this->class_for_adminbar_node( '-info', TRUE ),
+			],
 		] );
 
 		$wp_admin_bar->add_node( [
@@ -445,6 +448,7 @@ class AdminBar extends gNetwork\Module
 			'meta'  => [
 				'html'  => '<input class="shortlink-input" type="text" readonly="readonly" value="'.Core\HTML::escape( $short ).'" />',
 				'title' => _x( 'Shortlink', 'Modules: AdminBar: Nodes', 'gnetwork' ),
+				'class' => $this->class_for_adminbar_node( '-shortlink', TRUE ),
 			],
 		] );
 	}
@@ -682,7 +686,10 @@ class AdminBar extends gNetwork\Module
 				'id'    => $node,
 				'title' => self::getIcon( 'networking' ).'<span class="screen-reader-text">'.$network->site_name.'</span>',
 				'href'  => WordPress\URL::networkSite( $network ),
-				'meta'  => [ 'class' => $this->classs( 'network-node' ) ],
+				'meta'  => [
+					// 'title' => $network->site_name, // NOTE: no need since pause on link will reveal the menu
+					'class' => $this->class_for_adminbar_node( '-network', TRUE ),
+				],
 			] );
 
 			$wp_admin_bar->add_group( [
@@ -695,7 +702,9 @@ class AdminBar extends gNetwork\Module
 				'id'     => 'network-info-'.$network->id,
 				'title'  => '<div class="blavatar -site"></div>'.$network->site_name,
 				'href'   => $this->get_menu_url( 'overview', 'network', 'tools', [], 'admin', $network ),
-				'meta'   => [ 'class' => $this->classs( 'network-title' ) ],
+				'meta'   => [
+					'class' => $this->classs( 'network-title' ),
+				],
 			] );
 
 			$wp_admin_bar->add_node( [
@@ -896,12 +905,22 @@ class AdminBar extends gNetwork\Module
 		self::addLoginRegister( $wp_admin_bar );
 	}
 
-	public static function addMainLogo( $wp_admin_bar, $id = 'wp-logo', $title = '<span class="ab-icon"></span>' )
+	public static function addMainLogo( $wp_admin_bar, $id = 'wp-logo', $title = NULL )
 	{
+		$brand = gNetwork()->brand( 'name' );
+		$url   = gNetwork()->brand( 'url' );
+
 		$wp_admin_bar->add_node( [
 			'id'    => $id,
-			'title' => $title.'<span class="screen-reader-text">'.gNetwork()->brand( 'name' ).'</span>',
-			'href'  => gNetwork()->brand( 'url' ),
+			'href'  => $url ?: '#',
+			'title' => sprintf( '%s<span class="screen-reader-text">%s</span>',
+				$title ?? '<span class="ab-icon"></span>',
+				$brand
+			),
+			'meta'  => [
+				'title' => $brand, // NOTE: no need since pause on link will reveal the menu
+				'class' => implode( '-', [ 'gnetwork', 'adminbar', 'node', 'brand' ] ),
+			],
 		] );
 	}
 
@@ -945,6 +964,9 @@ class AdminBar extends gNetwork\Module
 				'id'     => $parent,
 				'title'  => self::getIcon( 'menu' ),
 				'href'   => FALSE,
+				'meta'   => [
+					'class' => $this->class_for_adminbar_node( '-extramenu', TRUE ),
+				],
 			] );
 
 			foreach ( $menu as $item_id => $item ) {
@@ -982,7 +1004,7 @@ class AdminBar extends gNetwork\Module
 				] );
 	}
 
-	public static function getIcon( $icon, $style = 'margin:2px 1px 0 1px;' )
+	public static function getIcon( $icon, $style = FALSE )
 	{
 		return Core\HTML::tag( 'span', [
 			'class' => [

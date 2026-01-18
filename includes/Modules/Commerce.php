@@ -312,7 +312,10 @@ class Commerce extends gNetwork\Module
 			'id'    => $parent,
 			'title' => AdminBar::getIcon( 'store' ),
 			'href'  => admin_url( 'edit.php?post_type=product' ),
-			'meta'  => [ 'title' => __( 'WooCommerce', 'woocommerce' ) ],
+			'meta'  => [
+				'title' => __( 'WooCommerce', 'woocommerce' ),
+				'class' => $this->class_for_adminbar_node( '-woocommerce', TRUE ),
+			],
 		] );
 
 		if ( current_user_can( 'edit_others_shop_orders' ) )
