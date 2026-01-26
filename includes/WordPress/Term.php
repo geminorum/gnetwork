@@ -163,7 +163,7 @@ class Term extends Core\Base
 			return $suffix;
 
 		if ( is_null( $separator ) )
-			$separator = Core\HTML::rtl() ? ' &rsaquo; ' : ' &lsaquo; ';
+			$separator = Core\L10n::rtl() ? ' &rsaquo; ' : ' &lsaquo; ';
 
 		$current = $term->term_id;
 		$parents = [];
@@ -325,6 +325,7 @@ class Term extends Core\Base
 		if ( ! $term = self::get( $term ) )
 			return $fallback;
 
+		// NOTE: `get_term_link()` does not handle well if taxonomy no longer exists!
 		if ( ! $url = get_term_link( $term, $term->taxonomy ) )
 			return $fallback;
 
@@ -583,7 +584,7 @@ class Term extends Core\Base
 	}
 
 	/**
-	 * Returns default term information to use when populating the “New Term” form.
+	 * Returns default term information to use when populating the `New Term` form.
 	 * @source `get_default_post_to_edit()`
 	 *
 	 * @param string $taxonomy

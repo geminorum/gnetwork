@@ -592,8 +592,8 @@ class Media extends Core\Base
 			'href'   => wp_get_attachment_url( $attachment_id ),
 			'title'  => get_the_title( $attachment_id ),
 			'data'    => $data,
-			'class'  => 'thickbox',
 			'target' => '_blank',
+			'class'  => [ '-attachment', 'thickbox' ],
 		], $image ) : $image;
 	}
 

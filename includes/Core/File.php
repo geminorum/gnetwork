@@ -636,7 +636,7 @@ class File extends Base
 	}
 
 	/**
-	 * Removes directory and it's contents.
+	 * Removes a directory and it's contents.
 	 * @source https://www.php.net/manual/en/function.rmdir.php#117354
 	 *
 	 * @param string $target

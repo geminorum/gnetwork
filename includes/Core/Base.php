@@ -4,6 +4,33 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Base
 {
+	// NOTE: pseudo magic method!
+	public function setVars( $args )
+	{
+		$keys    = array_keys( get_object_vars( $this ) );
+		$updated = [];
+
+		foreach ( $keys as $key ) {
+			if ( isset( $args[$key] ) ) {
+				$this->{$key} = $args[$key];
+				$updated[] = $key;
+			}
+		}
+
+		return $updated;
+	}
+
+	// NOTE: pseudo magic method!
+	public function setVar( $key, $value )
+	{
+		return $this->{$key} = $value;
+	}
+
+	// NOTE: pseudo magic method!
+	public function getVar( $key, $default = NULL )
+	{
+		return isset( $this->{$key} ) ? $this->{$key} : $default;
+	}
 
 	public static function define( $name, $value )
 	{
@@ -217,7 +244,7 @@ class Base
 	}
 
 	// INTERNAL: used on anything deprecated
-	// TODO: new syntax on php 8.4: `#[\Deprecated(message)]`
+	// TODO: new syntax on PHP 8.4: `#[\Deprecated(message)]`
 	protected static function _dep( $note = '', $prefix = 'DEP: ', $offset = 1 )
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
@@ -304,7 +331,7 @@ class Base
 		die ();
 	}
 
-	// USAGE: Base::callStack( debug_backtrace() );
+	// USAGE: `Base::callStack( debug_backtrace() );`
 	// @REF: http://stackoverflow.com/a/8497530
 	public static function callStack( $stacktrace )
 	{
@@ -329,7 +356,7 @@ class Base
 		);
 	}
 
-	// WP core function without number_format_i18n
+	// NOTE: WP core function without `number_format_i18n()`
 	public static function timerStop( $verbose = FALSE, $precision = 3 )
 	{
 		global $timestart;
@@ -544,7 +571,7 @@ class Base
 		$y = $t;
 	}
 
-	// ANCESTOR: is_wp_error()
+	// ANCESTOR: `is_wp_error()`
 	public static function isError( $thing )
 	{
 		return ( ( $thing instanceof \WP_Error ) || ( $thing instanceof Error ) );
@@ -553,8 +580,12 @@ class Base
 	// NOTE: USAGE: `self::triggerError( __FUNCTION__, 'This is the Message' );`
 	public static function triggerError( $function_name, $message, $error_level = NULL )
 	{
-		return function_exists( 'wp_trigger_error' )
-			? wp_trigger_error( $function_name, $message, $error_level ?? E_USER_NOTICE )
-			: trigger_error( $message, $error_level ?? E_USER_NOTICE );
+		if ( function_exists( 'wp_trigger_error' ) )
+			wp_trigger_error( $function_name, $message, $error_level ?? E_USER_NOTICE );
+
+		else
+			trigger_error( $message, $error_level ?? E_USER_NOTICE );
+
+		return FALSE; // to help the caller!
 	}
 }

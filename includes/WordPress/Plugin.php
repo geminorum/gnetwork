@@ -114,4 +114,9 @@ class Plugin extends Core\Base
 	{
 		load_plugin_textdomain( $this->base, FALSE, sprintf( '%s/languages', $this->base ) );
 	}
+
+	public function get_dir()  { return $this->__dir;  }
+	public function get_url()  { return $this->__url;  }
+	public function get_file() { return $this->__file; }
+	public function get_ver()  { return $this->__ver;  }
 }

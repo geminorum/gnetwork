@@ -20,6 +20,7 @@ class Module extends Core\Base
 		return $this->hook();
 	}
 
+	// NOTE: only has key prefix: `key.arg-with-prefix`
 	protected function dotted()
 	{
 		$suffix = '';
@@ -29,6 +30,18 @@ class Module extends Core\Base
 				$suffix.= '.'.strtolower( Core\Text::sanitizeBase( $arg ) );
 
 		return $this->key.$suffix;
+	}
+
+	// NOTE: only has base prefix: `base-arg1-arg2`
+	protected function dashed()
+	{
+		$suffix = '';
+
+		foreach ( func_get_args() as $arg )
+			if ( $arg )
+				$suffix.= '-'.strtolower( Core\Text::sanitizeBase( $arg ) );
+
+		return $this->base.$suffix;
 	}
 
 	protected function hook()
@@ -487,7 +500,7 @@ class Module extends Core\Base
 		if ( is_null( $sub ) )
 			$sub = $this->key;
 
-		$per_page = (int) get_user_option( $this->hook_base( $sub, $option, $context ) );
+		$per_page = (int) get_user_option( $this->hook_base( $sub, $context, $option ) );
 
 		if ( empty( $per_page ) || $per_page < 1 )
 			$per_page = $default;
@@ -636,6 +649,16 @@ class Module extends Core\Base
 			$extra
 		).'"'.( $id ? ' id="'.$id.'"' : '' )
 		.( $hide ? ' style="display:none"' : '' ).'>';
+	}
+
+	// OLD: `get_adminbar_node_class()`
+	protected function class_for_adminbar_node( $extra = [], $icononly = FALSE )
+	{
+		return Core\HTML::prepClass(
+			$this->classs_base( 'adminbar', 'node', $icononly ? 'icononly' : '' ),
+			sprintf( '-%s', $this->key ),
+			$extra
+		);
 	}
 
 	// `self::dump( ini_get( 'memory_limit' ) );`

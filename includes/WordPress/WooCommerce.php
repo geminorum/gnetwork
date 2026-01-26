@@ -50,6 +50,31 @@ class WooCommerce extends Core\Base
 	}
 
 	/**
+	 * Checks if a given feature is currently enabled.
+	 *
+	 * @param string $feature_id
+	 * @return bool
+	 */
+	public static function featureEnabled( $feature_id )
+	{
+		if ( ! class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) )
+			return FALSE;
+
+		// return \Automattic\WooCommerce\Utilities\FeaturesUtil::get_features();
+		return \Automattic\WooCommerce\Utilities\FeaturesUtil::feature_is_enabled( $feature_id );
+	}
+
+	public static function skuEnabled()
+	{
+		return function_exists( 'wc_product_sku_enabled' ) && wc_product_sku_enabled();
+	}
+
+	public static function manageStock()
+	{
+		return 'yes' === get_option( 'woocommerce_manage_stock' );
+	}
+
+	/**
 	 * Returns true if on a page which uses WooCommerce.
 	 *
 	 * @ref https://developer.woocommerce.com/docs/theming/theme-development/conditional-tags

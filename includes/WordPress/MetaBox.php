@@ -27,8 +27,8 @@ class MetaBox extends Core\Base
 			return '';
 
 		$html = ' <span class="postbox-title-action" data-tooltip="'.Core\Text::wordWrap( $text ).'"';
-		$html.= ' data-tooltip-pos="'.( Core\HTML::rtl() ? 'down-left' : 'down-right' ).'"';
-		$html.= ' data-tooltip-length="xlarge">'.Core\HTML::getDashicon( $icon ?? 'info' ).'</span>';
+		$html.= ' data-tooltip-pos="'.( Core\L10n::rtl() ? 'down-left' : 'down-right' ).'"';
+		$html.= ' data-tooltip-length="medium">'.Core\HTML::getDashicon( $icon ?? 'info' ).'</span>';
 
 		return $html;
 	}

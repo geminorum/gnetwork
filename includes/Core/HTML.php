@@ -93,9 +93,27 @@ class HTML extends Base
 		if ( $html ) echo self::tag( 'h4', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
-	public static function code( $string, $class = FALSE )
+	public static function inline( $tag, $string, $class = FALSE, $click_to_copy = FALSE )
 	{
-		return ( empty( $string ) && '0' !== $string ) ? '' : self::tag( 'code', [ 'class' => $class ], $string );
+		return ( empty( $string ) && '0' !== $string ) ? '' : self::tag( $tag, [
+			'class' => self::attrClass( $class, $click_to_copy ? 'do-clicktoclip' : '' ),
+			'data'  => $click_to_copy ? [ 'clipboard-text' => TRUE === $click_to_copy ? $string : $click_to_copy ] : FALSE,
+		], $string );
+	}
+
+	public static function code( $string, $class = FALSE, $click_to_copy = FALSE )
+	{
+		return self::inline( 'code', $string, $class, $click_to_copy );
+	}
+
+	public static function span( $string, $class = FALSE, $click_to_copy = FALSE )
+	{
+		return self::inline( 'span', $string, $class, $click_to_copy );
+	}
+
+	public static function mark( $string, $class = FALSE, $click_to_copy = FALSE )
+	{
+		return self::inline( 'mark', $string, $class, $click_to_copy );
 	}
 
 	public static function small( $string, $class = FALSE, $space = FALSE )
@@ -213,8 +231,8 @@ class HTML extends Base
 			return '';
 
 		return $block
-			? '<div'.( $id ? ' id="'.$id.'" ' : ' ' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</div>'
-			: '<span'.( $id ? ' id="'.$id.'" ' : ' ' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</span>';
+			? '<div'.( $id ? ' id="'.$id.'" ' : '' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</div>'
+			: '<span'.( $id ? ' id="'.$id.'" ' : '' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</span>';
 	}
 
 	public static function wrapLTR( $content )

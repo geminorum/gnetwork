@@ -269,15 +269,9 @@ class Taxonomy extends Core\Base
 	 */
 	public static function edit( $taxonomy, $extra = [], $fallback = FALSE )
 	{
-		if ( ! $object = self::object( $taxonomy ) )
-			return $fallback;
-
-		if ( ! self::can( $object, 'manage_terms' ) )
-			return $fallback;
-
-		return add_query_arg( array_merge( [
-			'taxonomy' => $object->name,
-		], $extra ), admin_url( 'edit-tags.php' ) );
+		return self::can( $taxonomy, 'manage_terms' )
+			? URL::editTaxonomy( $taxonomy, $extra )
+			: $fallback;
 	}
 
 	public static function getDefaultTermID( $taxonomy, $fallback = FALSE )

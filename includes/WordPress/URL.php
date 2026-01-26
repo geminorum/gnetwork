@@ -91,6 +91,17 @@ class URL extends Core\Base
 		return add_query_arg( array_merge( [ 'action' => $action ], $extra ), admin_url( 'admin-post.php' ) );
 	}
 
+	public static function searchAdminTerm( $criteria, $taxonomy, $extra = [] )
+	{
+		if ( ! Taxonomy::can( $taxonomy, 'manage_terms' ) )
+			return FALSE;
+
+		return add_query_arg( array_merge( [
+			'taxonomy' => $taxonomy,
+			's'        => $criteria,
+		], $extra ), admin_url( 'edit-tags.php' ) );
+	}
+
 	// OLD: `Core\WordPress::getAdminSearchLink()`
 	public static function searchAdmin( $criteria = FALSE, $posttype = NULL, $extra = [] )
 	{
@@ -115,6 +126,31 @@ class URL extends Core\Base
 		return get_search_link( $query );
 	}
 
+	// NOTE: does not any checks!
+	// @SEE: `WordPress\PostType::edit()`
+	public static function editPostType( $posttype = 'post', $extra = [] )
+	{
+		if ( $posttype instanceof \WP_Post_Type )
+			$posttype = $posttype->name;
+
+		$args = 'post' === $posttype ? [] : [
+			'post_type' => $posttype,
+		];
+
+		return add_query_arg( array_merge( $args, $extra ), admin_url( 'edit.php' ) );
+	}
+
+	// NOTE: does not any checks!
+	// @SEE: `WordPress\Taxonomy::edit()`
+	public static function editTaxonomy( $taxonomy = 'category', $extra = [] )
+	{
+		if ( $taxonomy instanceof \WP_Taxonomy )
+			$taxonomy = $taxonomy->name;
+
+		$args = [ 'taxonomy' => $taxonomy ];
+
+		return add_query_arg( array_merge( $args, $extra ), admin_url( 'edit-tags.php' ) );
+	}
 
 	// @REF: `network_admin_url()`
 	// like core's but with custom network

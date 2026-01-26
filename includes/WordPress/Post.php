@@ -557,7 +557,7 @@ class Post extends Core\Base
 			return $suffix;
 
 		if ( is_null( $separator ) )
-			$separator = Core\HTML::rtl() ? ' &rsaquo; ' : ' &lsaquo; ';
+			$separator = Core\L10n::rtl() ? ' &rsaquo; ' : ' &lsaquo; ';
 
 		$current = $post->ID;
 		$parents = [];

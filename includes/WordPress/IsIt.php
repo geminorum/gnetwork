@@ -264,14 +264,14 @@ class IsIt extends Core\Base
 	/**
 	 * Test if the current browser runs on a mobile device (smart phone, tablet, etc.).
 	 *
-	 * NOTE: Whilst caching issues are mentioned in more information for
-	 * this function it cannot be re-stated enough that any page caching,
+	 * Whilst caching issues are mentioned in more information for
+	 * this function it cannot be restated enough that any page caching,
 	 * which does not split itself into mobile and non-mobile buckets,
 	 * will break this function. If your page caching is global and a
 	 * desktop device triggers a refresh, the return of this function
 	 * will always be FALSE until the next refresh. Likewise if a mobile
 	 * device triggers the refresh, the return will always be TRUE.
-	 * IF you expect the result of this function to change on a per user
+	 * IF you expect the result of this function to change on a peruser
 	 * basis, ensure that you have considered how caching will affect your code.
 	 * @source https://developer.wordpress.org/reference/functions/wp_is_mobile/
 	 *

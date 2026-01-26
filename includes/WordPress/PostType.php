@@ -266,15 +266,9 @@ class PostType extends Core\Base
 	 */
 	public static function edit( $posttype, $extra = [], $fallback = FALSE )
 	{
-		if ( ! $object = self::object( $posttype ) )
-			return $fallback;
-
-		if ( ! self::can( $posttype, 'read' ) )
-			return $fallback;
-
-		return add_query_arg( array_merge( [
-			'post_type' => $object->name,
-		], $extra ), admin_url( 'edit.php' ) );
+		return self::can( $posttype, 'read' )
+			? URL::editPostType( $posttype, $extra )
+			: $fallback;
 	}
 
 	// OLD: `Core\WordPress::getPostNewLink()`

@@ -394,6 +394,7 @@ class Arraay extends Base
 
 	/**
 	 * Insert an array into another array before/after a certain key.
+	 * NOTE: if not found will prepend/append accordingly.
 	 * @source https://gist.github.com/scribu/588429
 	 *
 	 * @param array $array
@@ -407,10 +408,10 @@ class Arraay extends Base
 	{
 		$key_pos = array_search( $key, array_keys( $array ) );
 
-		if ( 'after' == $position )
-			++$key_pos;
-
 		if ( FALSE !== $key_pos ) {
+
+			if ( 'after' === $position )
+				++$key_pos;
 
 			$result = array_slice( $array, 0, $key_pos );
 			$result = array_merge( $result, $pairs );
@@ -418,7 +419,9 @@ class Arraay extends Base
 
 		} else if ( $anyways ) {
 
-			$result = 'after' == $position ? array_merge( $array, $pairs ) : array_merge( $pairs, $array );
+			$result = 'after' === $position
+				? array_merge( $array, $pairs )
+				: array_merge( $pairs, $array );
 
 		} else {
 
