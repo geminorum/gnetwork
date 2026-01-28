@@ -194,7 +194,7 @@ class Themes extends gNetwork\Module
 
 			echo '<input name="'.$name.'-present" type="hidden" value="1" />';
 
-			echo '<label for="'.$name.'" class="selectit">';
+			echo '<label for="'.$name.'">';
 			echo '<input name="'.$name.'" type="checkbox" id="'.$name.'" ';
 			checked( get_post_meta( $post->ID, '_hidden_title', TRUE ) );
 			echo ' /> '._x( 'Hide Title on Front-end', 'Modules: Themes', 'gnetwork' );
@@ -587,6 +587,7 @@ class Themes extends gNetwork\Module
 			add_filter( 'woocommerce_subcategory_count_html', '__return_null' );
 			// only adds `font-family: "Comic Sans MS", sans-serif;`
 			// add_filter( 'storefront_make_me_cute', '__return_true' );
+			// add_filter( 'storefront_customizer_more', '__return_false' );
 
 		} else if ( $this->isTheme( 'twentyeleven' ) ) {
 

@@ -38,7 +38,7 @@ class AdminBar extends gNetwork\Module
 
 			$this->setup_adminbar();
 
-			$this->filter( 'shortcode_atts_wpcf7', 4 );
+			// $this->filter( 'shortcode_atts_wpcf7', 4 );
 
 		} else {
 
@@ -54,8 +54,8 @@ class AdminBar extends gNetwork\Module
 		$this->filter_false( 'wp_admin_bar_show_site_icons' ); // @REF: https://core.trac.wordpress.org/ticket/54447
 	}
 
-	// overrided to avoid `get_blogs_of_user()`
-	// overrided to avoid core styles
+	// Overrides to avoid `get_blogs_of_user()`
+	// Overrides to avoid core styles
 	public function initialize()
 	{
 		$user = new \stdClass();
@@ -79,7 +79,7 @@ class AdminBar extends gNetwork\Module
 		wp_enqueue_script( 'admin-bar' );
 		wp_enqueue_style( 'admin-bar' );
 
-		// fires after WP_Admin_Bar is initialized.
+		// Fires after `WP_Admin_Bar` is initialized.
 		do_action( 'admin_bar_init' );
 
 		return $user;
@@ -144,7 +144,7 @@ class AdminBar extends gNetwork\Module
 		return $this->show_adminbar = is_admin_bar_showing();
 	}
 
-	// fires early before the Widgets administration screen loads, after scripts are enqueued.
+	// NOTE: Fires early before the Widgets administration screen loads, after scripts are enqueued.
 	public function sidebar_admin_setup()
 	{
 		if ( $this->is_request_action( 'resetsidebars' ) ) {
@@ -177,7 +177,7 @@ class AdminBar extends gNetwork\Module
 		return $properties;
 	}
 
-	// FIXME: not working anymore, shortcodes are too late for `admin_bar_menu` hook @since WP v5.4.0
+	// FIXME: not working anymore, short-codes are too late for `admin_bar_menu` hook @since WP v5.4.0
 	public function shortcode_atts_wpcf7( $out, $pairs, $atts, $shortcode )
 	{
 		if ( ! empty( $atts['id'] ) && current_user_can( 'wpcf7_edit_contact_form' ) ) {
@@ -194,6 +194,7 @@ class AdminBar extends gNetwork\Module
 			gNetwork()->adminbar->remove_nodes[] = $node;
 	}
 
+	// NOTE: do not use this for adding nodes!
 	public function wp_before_admin_bar_render()
 	{
 		global $wp_admin_bar;
@@ -378,12 +379,12 @@ class AdminBar extends gNetwork\Module
 
 		if ( class_exists( __NAMESPACE__.'\\Cron' ) ) {
 
-			// cron module is admin only
-			if ( is_admin() && $status = gNetwork()->cron->get_status() )
+			// NOTE: `Cron` module is admin only
+			if ( is_admin() && ( $status = gNetwork()->cron->get_status() ) )
 				$wp_admin_bar->add_node( [
 					'parent' => $group_id,
 					'id'     => static::BASE.'-cron-status',
-					'title'  => strip_tags( $status ),
+					'title'  => Core\Text::stripTags( $status ),
 					'href'   => $this->get_menu_url( 'cron', 'admin', 'tools' ),
 				] );
 		}
@@ -391,7 +392,7 @@ class AdminBar extends gNetwork\Module
 		$wp_admin_bar->add_node( [
 			'parent' => $group_id,
 			'id'     => static::BASE.'-info-pagenow',
-			'title'  => 'PageNow: '.( empty( $pagenow ) ? 'EMPTY' : $pagenow ),
+			'title'  => sprintf( 'PageNow: %s', $pagenow ?: 'EMPTY' ),
 			'href'   => GNETWORK_ANALOG_LOG ? $this->get_menu_url( 'analoglogs', 'network', 'tools' ) : FALSE,
 			'meta'   => [ 'title' => _x( 'Check System Logs', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 		] );
@@ -411,7 +412,7 @@ class AdminBar extends gNetwork\Module
 			return;
 
 		$form = '<form action="'.esc_url( GNETWORK_SEARCH_URL ).'" method="get" id="adminbarsearch">';
-		$form.= '<input class="adminbar-input" name="'.GNETWORK_SEARCH_QUERYID.'" id="adminbar-search" type="text" value="" maxlength="150" />';
+		$form.= '<input class="adminbar-input" name="'.GNETWORK_SEARCH_QUERYID.'" id="adminbar-search" type="text" value="" maxlength="150" autocomplete="off" />';
 		$form.= '<label for="adminbar-search" class="screen-reader-text">'._x( 'Search', 'Modules: AdminBar: Nodes', 'gnetwork' ).'</label>';
 		$form.= '<input type="submit" class="adminbar-button" value="'._x( 'Search', 'Modules: AdminBar: Nodes', 'gnetwork' ).'"/>';
 		$form.= '</form>';
@@ -614,7 +615,7 @@ class AdminBar extends gNetwork\Module
 				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
-			// extra links for super admins only (no cap checks)
+			// Extra links for super admins only (no cap checks)
 			if ( $super_admin ) {
 
 				$wp_admin_bar->add_node( [
@@ -671,7 +672,7 @@ class AdminBar extends gNetwork\Module
 		if ( ! $networks = user_has_networks() )
 			return $this->wp_admin_bar_my_sites_menu( $wp_admin_bar );
 
-		// assumed the list from `user_has_networks()` have privileges!
+		// NOTE: Assumed the list from `user_has_networks()` have privileges!
 		$super_admin = WordPress\User::isSuperAdmin();
 
 		foreach ( $networks as $network_id ) {
@@ -825,7 +826,7 @@ class AdminBar extends gNetwork\Module
 				'href'      => $blog->siteurl.'/wp-admin/',
 			] );
 
-			// extra links for super admins only (no cap checks)
+			// Extra links for super admins only (no cap checks)
 			if ( $super_admin ) {
 
 				$wp_admin_bar->add_node( [
@@ -875,7 +876,7 @@ class AdminBar extends gNetwork\Module
 
 	public function wp_admin_bar_wp_menu( $wp_admin_bar )
 	{
-		// custom menu by filter, it's better 'cause there are no default wp menu.
+		// Custom menu by filter, it's better because there are no default WP menu.
 		if ( $custom = apply_filters( static::BASE.'_adminbar_custom', NULL ) )
 			return call_user_func_array( $custom, [ &$wp_admin_bar ] );
 

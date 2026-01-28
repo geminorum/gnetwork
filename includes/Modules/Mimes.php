@@ -136,21 +136,21 @@ class Mimes extends gNetwork\Module
 
 				if ( $mimetype && Core\Text::has( $mimetype, '/' ) ) {
 
-					$type = reset( explode( '/', $mimetype ) );
+					$parts = explode( '/', $mimetype );
 
-					if ( in_array( $type, [ 'image' ] ) )
+					if ( in_array( $parts[0], [ 'image' ], TRUE ) )
 						$label = _x( 'View Image URL', 'Modules: Mimes: Row Action', 'gnetwork' );
 
-					else if ( in_array( $type, [ 'audio' ] ) )
+					else if ( in_array( $parts[0], [ 'audio' ], TRUE ) )
 						$label = _x( 'View Audio URL', 'Modules: Mimes: Row Action', 'gnetwork' );
 
-					else if ( in_array( $type, [ 'video' ] ) )
+					else if ( in_array( $parts[0], [ 'video' ], TRUE ) )
 						$label = _x( 'View Video URL', 'Modules: Mimes: Row Action', 'gnetwork' );
 
-					else if ( in_array( $type, [ 'application' ] ) )
+					else if ( in_array( $parts[0], [ 'application' ], TRUE ) )
 						$label = _x( 'View Application URL', 'Modules: Mimes: Row Action', 'gnetwork' );
 
-					else if ( in_array( $type, [ 'text' ] ) )
+					else if ( in_array( $parts[0], [ 'text' ], TRUE ) )
 						$label = _x( 'View Text URL', 'Modules: Mimes: Row Action', 'gnetwork' );
 				}
 		}

@@ -20,16 +20,16 @@ class Comments extends gNetwork\Module
 	{
 		if ( $this->options['disable_notifications'] ) {
 
-			// filter the list of email addresses to receive a comment notification
+			// Filters the list of email addresses to receive a comment notification.
 			$this->filter_empty_array( 'comment_notification_recipients', 12 );
 
-			// filters whether to notify comment authors of their comments on their own posts
+			// Filters whether to notify comment authors of their comments on their own posts.
 			$this->filter_false( 'comment_notification_notify_author', 12 );
 
-			// filter whether to send the site moderator email notifications, overriding the site setting
+			// Filters whether to send the site moderator email notifications, overriding the site setting.
 			$this->filter_false( 'notify_moderator', 12 );
 
-			// whether to send the post author new comment notification emails, overriding the site setting
+			// Filters whether to send the post author new comment notification emails, overriding the site setting.
 			$this->filter_false( 'notify_post_author', 12 );
 		}
 

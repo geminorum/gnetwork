@@ -253,9 +253,9 @@ JS;
 		if ( $this->hooked( 'term_tab_maintenance_content' ) )
 			$tabs['maintenance'] = [ 'title' => _x( 'Maintenance', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
-		$tabs['metadata'] = [ 'title' => _x( 'Meta-data', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
 		$tabs['posts']    = [ 'title' => _x( 'Posts', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
-		$tabs['search'] = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+		$tabs['search']   = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+		$tabs['metadata'] = [ 'title' => _x( 'Meta-data', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
 
 		if ( $this->hooked( 'term_tab_tools_content' ) )
 			$tabs['tools'] = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
@@ -1926,7 +1926,7 @@ JS;
 	private function get_export_term_meta( $taxonomy )
 	{
 		return $this->filters( 'export_term_meta', [
-			// 'example' => _x( 'Example', 'Modules: Taxonomy: Term Meta', 'gnetwork' ),
+			// `'example' => _x( 'Example', 'Modules: Taxonomy: Term Meta', 'gnetwork' ),`
 		], $taxonomy );
 	}
 
@@ -2066,7 +2066,7 @@ JS;
 				'<a href="%s" aria-label="%s">%s</a>',
 				WordPress\Term::shortlink( $term ),
 				esc_attr( sprintf(
-					/* translators: `%s`: Taxonomy term name. */
+					/* translators: `%s`: taxonomy term name. */
 					_x( 'Copy Shortlink for &#8220;%s&#8221;', 'Modules: Taxonomy: Action', 'gnetwork' ),
 					$term->name
 				) ),

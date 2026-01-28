@@ -1094,7 +1094,7 @@ class Module extends WordPress\Module
 
 		$html = ' <span class="postbox-title-action" data-tooltip="'.Core\Text::wordWrap( $info ).'"';
 		$html.= ' data-tooltip-pos="'.( Core\HTML::rtl() ? 'down-left' : 'down-right' ).'"';
-		$html.= ' data-tooltip-length="xlarge">'.Core\HTML::getDashicon( 'info' ).'</span>';
+		$html.= ' data-tooltip-length="medium">'.Core\HTML::getDashicon( 'info' ).'</span>';
 
 		return $html;
 	}
@@ -1386,5 +1386,23 @@ class Module extends WordPress\Module
 			return $check_cb ? (bool) count( self::req( '_cb', [] ) ) : TRUE;
 
 		return FALSE;
+	}
+
+	/**
+	 * Retrieves the default CSS class for module with extra additions.
+	 * @OLD: `get_adminbar_node_class()`
+	 * @OLD: `class_for_adminbar_node()`
+	 *
+	 * @param string|array $extra
+	 * @param bool $icon_only
+	 * @return string
+	 */
+	protected function adminbar__get_css_class( $extra = [], $icon_only = FALSE )
+	{
+		return Core\HTML::prepClass(
+			$this->classs_base( 'adminbar', 'node', $icon_only ? 'icononly' : '' ),
+			sprintf( '-%s', $this->key ),
+			$extra
+		);
 	}
 }

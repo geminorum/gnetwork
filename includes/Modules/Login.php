@@ -177,7 +177,7 @@ class Login extends gNetwork\Module
 						'sidelogo'    => _x( 'Side Logo', 'Modules: Login: Login Theme', 'gnetwork' ),
 						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Theme', 'gnetwork' ),
 						'splitscreen' => _x( 'Split Screen', 'Modules: Login: Login Theme', 'gnetwork' ),
-						// TODO: https://codepen.io/geminorum/pen/KwKgmZj
+						// TODO: Bale Login: https://codepen.io/geminorum/pen/KwKgmZj
 					] ),
 				],
 				[

@@ -445,7 +445,7 @@ class Mail extends gNetwork\Module
 	private function do_log_mail( $atts, $failed = FALSE )
 	{
 		$contents = array_merge( [
-			'timestamp' => current_time( 'mysql' ),
+			'timestamp' => current_time( 'mysql' ), // `2026-01-17 09:12:55` // TODO: must include timezone
 			'site'      => WordPress\Site::name(),
 			'locale'    => get_locale(),
 			'user'      => get_current_user_id(),
