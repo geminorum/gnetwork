@@ -14,7 +14,8 @@ class Mimes extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		$this->filter( 'upload_mimes' );
+		$this->filter( 'mime_types', 1, 99 );
+		$this->filter( 'upload_mimes', 2 );
 		$this->filter( 'site_option_upload_filetypes' );
 		$this->filter( 'wp_check_filetype_and_ext', 5, 12 );
 
@@ -196,59 +197,85 @@ class Mimes extends gNetwork\Module
 	 *
 	 * @var array[]
 	 */
-	static $mimes = [
-		'bib'     => [ 'application/x-bibtex', 'text/plain' ],                                         // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
-		'bibtex'  => [ 'application/x-bibtex', 'text/plain' ],
-		'csv'     => [ 'text/csv', 'text/plain', 'application/csv', 'text/comma-separated-values' ],
-		'epub'    => [ 'application/epub+zip', 'application/octet-stream' ],
-		'geojson' => [ 'application/json', 'text/json' ],
-		'gpx'     => [ 'application/gpx+xml', 'text/xml', 'application/octet-stream' ],                // @specs: https://www.topografix.com/GPX/1/1/
-		'heic'    => [ 'image/heic', 'image/heif' ],                                                   // NOTE: In PHP 8.5, it returns `image/heif`. Before that, it returns `image/heic`.
-		'json'    => [ 'application/json', 'text/json' ],
-		'kml'     => [ 'application/vnd.google-earth.kml+xml', 'application/xml', 'text/xml' ],        // https://en.wikipedia.org/wiki/Keyhole_Markup_Language
-		'kmz'     => [ 'application/vnd.google-earth.kmz', 'application/zip', 'application/x-zip' ],   // @REF: https://stackoverflow.com/a/24662632
-		'md'      => [ 'text/markdown', 'text/plain' ],
-		'mht'     => [ 'multipart/related', 'message/rfc822' ],
-		'mhtml'   => [ 'multipart/related', 'message/rfc822' ],
-		'mobi'    => [ 'application/x-mobipocket-ebook', 'application/octet-stream' ],
-		'msg'     => [ 'application/vnd.ms-outlook' ],
-		'psd'     => [ 'image/vnd.adobe.photoshop' ],
-		'svg'     => [ 'image/svg+xml' ],
-		'svgz'    => [ 'image/svg+xml', 'application/x-gzip' ],
-		'txt'     => [ 'text/plain' ],
-		'xls'     => [ 'application/vnd.ms-excel', 'application/vnd.ms-office', 'application/xml' ],   // @REF: https://core.trac.wordpress.org/ticket/39550#comment:156
-		'xlsx'    => [ 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ],
+	public static $mimes = [
+		'bib|bibtex'  => [ 'application/x-bibtex', 'text/plain' ],                                         // @REF: http://fileformats.archiveteam.org/wiki/BibTeX
+		'csv'         => [ 'text/csv', 'text/plain', 'application/csv', 'text/comma-separated-values' ],
+		'epub'        => [ 'application/epub+zip', 'application/octet-stream' ],
+		'geojson'     => [ 'application/json', 'text/json' ],
+		'gpx'         => [ 'application/gpx+xml', 'text/xml', 'application/octet-stream' ],                // @specs: https://www.topografix.com/GPX/1/1/
+		'heic'        => [ 'image/heic', 'image/heif' ],                                                   // NOTE: In PHP 8.5, it returns `image/heif`. Before that, it returns `image/heic`.
+		'json'        => [ 'application/json', 'text/json' ],
+		'kml'         => [ 'application/vnd.google-earth.kml+xml', 'application/xml', 'text/xml' ],        // https://en.wikipedia.org/wiki/Keyhole_Markup_Language
+		'kmz'         => [ 'application/vnd.google-earth.kmz', 'application/zip', 'application/x-zip' ],   // @REF: https://stackoverflow.com/a/24662632
+		'md|markdown' => [ 'text/markdown', 'text/plain' ],
+		'mht|mhtml'   => [ 'multipart/related', 'message/rfc822' ],
+		'mobi'        => [ 'application/x-mobipocket-ebook', 'application/octet-stream' ],
+		'msg'         => [ 'application/vnd.ms-outlook' ],
+		'psd'         => [ 'image/vnd.adobe.photoshop' ],
+		'svg'         => [ 'image/svg+xml' ],
+		'svgz'        => [ 'image/svg+xml', 'application/x-gzip' ],
+		'txt|text'    => [ 'text/plain' ],
+		'xls'         => [ 'application/vnd.ms-excel', 'application/vnd.ms-office', 'application/xml' ],   // @REF: https://core.trac.wordpress.org/ticket/39550#comment:156
+		'xlsx'        => [ 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ],
 	];
 
 	/**
-	 * Adds additional filetypes to the allowed upload filetypes.
-	 * @hook: `upload_mimes`
+	 * Filters the list of mime-types and file extensions.
+	 * NOTE: adds additional mime-types to the allowed upload file-types.
 	 *
-	 * @param string[] $mimes Array of allowed mime types keyed by the file extension.
+	 * This filter should be used to add, not remove, mime-types.
+	 * To remove mime-types, use the `upload_mimes` filter.
+	 *
+	 * @param string[] $mimes
 	 * @return array
 	 */
-	public function upload_mimes( $mimes )
+	public function mime_types( $mimes )
 	{
 		// Reduce the array to only the first mime-type
 		// and merge the additional with the existing mimes.
-		return array_merge( $mimes, array_combine(
+		return array_merge( array_combine(
 			array_keys( static::$mimes ),
 			array_column( static::$mimes, 0 )
-		) );
+		), $mimes );
+	}
+
+	/**
+	 * Filters the list of allowed mime-types and file extensions.
+	 * NOTE: removes mime-types from the allowed upload file-types.
+	 *
+	 * @param string[] $mimes
+	 * @param mixed $user
+	 * @return array
+	 */
+	public function upload_mimes( $mimes, $user )
+	{
+		$unfiltered = FALSE;
+
+		if ( function_exists( 'current_user_can' ) )
+			$unfiltered = $user
+				? user_can( $user, 'unfiltered_html' )
+				: current_user_can( 'unfiltered_html' );
+
+		if ( $unfiltered )
+			return $mimes;
+
+		// unset( $mimes['md|markdown'] );
+		unset( $mimes['mht|mhtml'] );
+
+		return $mimes;
 	}
 
 	/**
 	 * Adds additional filetypes to the allowed upload file-types.
-	 * @hook: `site_option_upload_filetypes`
 	 *
-	 * @param string $option_value Space separated list of allowed filetypes (extensions).
+	 * @param string $option_value Space separated list of allowed file-types (extensions).
 	 * @return string
 	 */
 	public function site_option_upload_filetypes( $option_value )
 	{
 		return implode( ' ', Core\Arraay::prepString(
 			explode( ' ', $option_value ?: '' ),
-			array_keys( static::$mimes )
+			Core\Arraay::splitValues( array_keys( static::$mimes ), '|' )
 		) );
 	}
 
@@ -276,10 +303,17 @@ class Mimes extends gNetwork\Module
 		$file_ext = pathinfo( $filename, PATHINFO_EXTENSION );
 
 		foreach ( static::$mimes as $ext => $mime ) {
-			if ( $ext === $file_ext && in_array( $real_mime, static::$mimes[$ext], TRUE ) ) {
-				$data['ext']  = $ext;
-				$data['type'] = reset( static::$mimes[$ext] );
-			}
+
+			if ( ! in_array( $file_ext, explode( '|', $ext ), TRUE ) )
+				continue;
+
+			if ( ! in_array( $real_mime, (array) $mime, TRUE ) )
+				continue;
+
+			$data['ext']  = $ext;
+			$data['type'] = reset( $mime );
+
+			break;
 		}
 
 		return $data;
