@@ -7,6 +7,7 @@
 $spacer: 1rem !default;
 
 ////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 .-wrap.-toolbox-column {
   > .-title {
     text-align: center;
@@ -34,20 +35,21 @@ $spacer: 1rem !default;
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
 .-wrap.-toolbox-card {
   .-base.nav-tab-base & {
     max-width: 100%;
   }
 
-  h3.title {
+  > h3.title {
     margin: $spacer 0;
   }
 
-  h4.title {
+  > h4.title {
     margin: .75rem 0 .5rem;
   }
 
-  .title {
+  > .title {
     + .description {
       margin-top: -($spacer * .5);
     }
@@ -99,15 +101,51 @@ $spacer: 1rem !default;
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////
+.-wrap.-tablelist-card {
+  padding-top: $spacer;
+
+  > .title {
+    margin-top: 0 !important;
+    margin-bottom: $spacer * .75 !important;
+
+    + .description {
+      margin-top: $spacer * -.125;
+    }
+  }
+
+  > .base-table-wrap {
+    border-top: 1px solid #c3c4c7;
+
+    // NOTE: better to use negative margin than changing padding of the wrapper
+    margin-left: -2em;
+    margin-right: -2em;
+    margin-bottom: -1em;
+
+    table {
+      border: none;
+    }
+  }
+
+  th.-column.-results-rowtype {
+    width: 175px;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 .-wrap.-toolbox-links {
   ul {
     display: flex;
-    // list-style: none;
+    flex-wrap: wrap;
     padding: 0;
-    margin: $spacer 0 0;
+    margin: $spacer 0 ($spacer * .75);
 
-    li + li {
-      margin-left: $spacer * .25;
+    li {
+      margin-right: $spacer * .25;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
     }
   }
 }

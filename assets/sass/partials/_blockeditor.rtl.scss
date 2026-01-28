@@ -4,8 +4,4 @@
 /// gNetwork Partials: BlockEditor: RTL
 
 ////////////////////////////////////////////////////////////////////////////////
-.block-editor-block-breadcrumb {
-  li:not(:last-child)::after {
-    content: "\2190"; // flipped arrow
-  }
-}
+// .block-editor-block-breadcrumb {}

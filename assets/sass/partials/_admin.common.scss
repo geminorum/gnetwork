@@ -17,11 +17,11 @@ $spacer: 1rem !default;
 // .gnetwork-admin-wrap-column {}
 // .gnetwork-admin-wrap-widget {}
 
-textarea {
-  // width: 100%;
-  resize: vertical;
-  transition: height 0.2s ease 0s;
-}
+// textarea {
+//   // width: 100%;
+//   resize: vertical;
+//   transition: height 0.2s ease 0s;
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -113,33 +113,6 @@ body.hide-admin-menu {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 /// WP LIST TABLE --------------------------------------------------------------
-
-.widefat {
-  td {
-    ul.cat-checklist {
-      height: auto !important;
-      max-height: 12em !important;
-      overflow-x: hidden;
-
-      label {
-        line-height: 1.5 !important;
-      }
-    }
-  }
-}
-
-.tablenav {
-  div.actions {
-    &:empty {
-      display: none;
-    }
-
-    select {
-      max-width: 7.75rem;
-    }
-  }
-}
-
 #gnetwork-reset-filters {
   margin: 0 8px 0 0;
 }
@@ -152,38 +125,38 @@ body.hide-admin-menu {
   }
 }
 
-body.colored {
-  .status-draft {
-    background: #fce3f2 !important;
-  }
+// body.colored {
+//   .status-draft {
+//     background: #fce3f2 !important;
+//   }
 
-  .status-pending {
-    background: #87c5d6 !important;
-  }
+//   .status-pending {
+//     background: #87c5d6 !important;
+//   }
 
-  .status-publish {
-    // no background keep wp alternating colors
-  }
+//   .status-publish {
+//     // no background keep wp alternating colors
+//   }
 
-  .status-future {
-    background: #c6ebf5 !important;
-  }
+//   .status-future {
+//     background: #c6ebf5 !important;
+//   }
 
-  .status-private {
-    background: #f2d46f;
-  }
-}
+//   .status-private {
+//     background: #f2d46f;
+//   }
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 /// WORDPRESS EDIT TAGS --------------------------------------------------------
 
-body.edit-tags-php {
-  .form-wrap.edit-term-notes {
-    display: none;
-  }
-}
+// body.edit-tags-php {
+//   .form-wrap.edit-term-notes {
+//     display: none;
+//   }
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -276,6 +249,7 @@ ul.categorychecklist {
   select#post_author_override {
     box-sizing: border-box;
     width: 100%;
+    margin-bottom: $spacer * .25;
   }
 
   // attachment page

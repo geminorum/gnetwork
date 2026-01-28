@@ -70,6 +70,16 @@ input#user_login {
   font-family: $font-family-head;
 }
 
+[data-tooltip]::after,
+.block-editor-warning,
+.block-editor-warning .block-editor-warning__message,
+.block-editor-block-list__layout .block-editor-block-list__block [contenteditable],
+.block-editor-block-list__layout .block-editor-block-list__block[contenteditable],
+.editor-error-boundary,
+.components-notice {
+  font-family: $font-family-base;
+}
+
 .drag-drop-inside p.drag-drop-info,
 .wrap .subtitle,
 #dashboard-widgets h4,
@@ -181,6 +191,17 @@ input[type="checkbox"]:checked::before {
 .form-table th,
 .form-wrap label {
   font-size: 12px;
+}
+
+.form-table {
+  p label input[type="radio"] {
+    // margin-top: 0;
+
+    // &:checked::before {
+    //   width: $spacer * .6;
+    //   height: $spacer * .6;
+    // }
+  }
 }
 
 .form-wrap p,
@@ -322,10 +343,20 @@ span.description {
       }
     }
   }
+}
 
+body.post-type-attachment,
+.media-frame {
   span.required-field-message,
   #alt-text-description {
     font-size: smaller;
+  }
+}
+
+body.post-type-attachment {
+  span.required-field-message,
+  #alt-text-description {
+    margin-top: $spacer * -.5;
   }
 }
 
@@ -403,6 +434,10 @@ input[type="email"].ui-autocomplete-loading {
   background-position: 99% center !important;
 }
 
+.bulk-selection .menu-item-handle .menu-item-checkbox {
+  vertical-align: -webkit-baseline-middle;
+}
+
 // only on user new page
 body.user-new-php {
   .ui-menu .ui-menu-item {
@@ -415,4 +450,10 @@ body.user-new-php {
 .add-shortcode-list
 .shortcode-list-item {
   float: right;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+[data-tooltip]::after {
+  padding: ($spacer * .5) ($spacer * .75);
+  line-height: 1.5;
 }

@@ -46,7 +46,7 @@
 // body.woocommerce-page {
 body.woocommerce-admin-page {
   .select2-container {
-    z-index: inherit; // messed up by `woocommerce-checkout-manager`
+    // z-index: inherit; // messed up by `woocommerce-checkout-manager`
   }
 
   .button.wc-reload::after {
@@ -57,17 +57,134 @@ body.woocommerce-admin-page {
     display: none !important;
   }
 
-  th.manage-column.column-name {
-    width: auto;
+  &.post-type-product {
+    table.wp-list-table {
+      th.column-name {
+        width: auto;
+      }
+
+      th.column-cogs_value,
+      th.column-price {
+        width: 120px; // default is `10ch`
+      }
+
+      th.column-sku,
+      th.column-global_unique_id {
+        width: 20ch; // default for gtin is `20ch`
+      }
+
+      th.column-date {
+        width: 145px; // default is `14%`
+      }
+
+      th.column-featured,
+      th.column-product_type {
+        width: 20px; // its an icon column
+      }
+
+      th.column-taxonomy-product_brand,
+      th.column-taxonomy-column-product_tag,
+      th.column-taxonomy-column-product_cat {
+        max-width: 145px;
+      }
+
+    // th.column-taxonomy-shelf {
+    //   width: 60px;
+    // }
+
+      td.column-sku,
+      td.column-global_unique_id {
+        text-align: left;
+      }
+    }
   }
 
-  th.manage-column.column-price {
-    width: 120px;
+  // NOTE: support HPOS/non-HPOS
+  &.post-type-shop_order,
+  &.woocommerce_page_wc-orders {
+
+    .wp-list-table {
+
+      thead td.check-column {
+        // padding: 6px 0 25px;
+        // set back from `.widefat thead td.check-column`
+        padding-top: 11px !important;
+        padding-bottom: 0 !important;
+        input {
+          margin-top: -2px;
+        }
+      }
+
+      th input,
+      thead td input,
+      tfoot td input {
+        margin: 0;
+      }
+
+      th.column-billing_address,
+      th.column-shipping_address {
+        line-height: inherit;
+      }
+
+      th.column-order_total {
+        max-width: $spacer * 4;
+
+        a span {
+          float: right; // only the column header
+        }
+      }
+
+      th.column-order_date {
+        width: 8ch; // default is `10ch`
+      }
+
+      th.column-wc_actions {
+        text-align: right;
+      }
+
+      th.column-origin {
+        // width: 4%;
+        // max-width: $spacer * 3;
+        padding-left: 1em; // must be in `em`
+      }
+    }
   }
 
-  th.manage-column.column-taxonomy-shelf {
-    width: 60px;
-  }
+  // NOTE: working but better to chenge the travesty in translation file!
+  // th.column-global_unique_id {
+
+  //   // same as `span.wc-featured, span.wc-image`
+  //   span:not([class]) {
+  //     display: block;
+  //     text-indent: -9999px;
+  //     position: relative;
+  //     height: 1em;
+  //     width: 1em;
+  //     margin: 0 auto;
+
+  //     cursor: help;
+
+  //     &::before {
+  //       /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+  //       font-family: Dashicons;
+  //       speak: never;
+  //       font-weight: 400;
+  //       font-variant: normal;
+  //       text-transform: none;
+  //       line-height: 1;
+  //       -webkit-font-smoothing: antialiased;
+  //       margin: 0;
+  //       text-indent: 0;
+  //       position: absolute;
+  //       top: 0;
+  //       left: 0;
+  //       width: 100%;
+  //       height: 100%;
+  //       text-align: center;
+  //       content: "\f157";
+  //     }
+  //   }
+  // }
 
   .order_data_column_container {
     .order_data_column h3 {
@@ -120,5 +237,12 @@ body.woocommerce-admin-page {
 body.woocommerce_page_wc-settings {
   .nav-tab-wrapper a {
     font-family: $font-family-regular !important;
+  }
+
+  #checkout_endpoint_options-description + table,
+  #account_endpoint_options-description + table {
+    input[type="text"] {
+      direction: ltr;
+    }
   }
 }

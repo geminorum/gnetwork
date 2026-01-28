@@ -56,7 +56,7 @@
 
       &.-active {
         a {
-          line-height: 18px;
+          // line-height: 18px;
           z-index: 50 !important;
           border: 1px solid #ccc;
           border-right-color: #f1f1f1;
@@ -68,9 +68,17 @@
       }
     }
 
-    // span.-nav-link-title {} // TODO: must hide on small screen if next to an icon!
+    // TODO: must hide on small screen if next to an icon!
+    span.-nav-link-title {
+      white-space: nowrap;
+    }
+
     span.-nav-link-icon {
       margin-left: -5px;
+
+      svg {
+        vertical-align: middle;
+      }
     }
   }
 

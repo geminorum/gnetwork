@@ -24,7 +24,7 @@ ul.-rows {
     }
 
     &:last-child {
-      margin-bottom: 0;
+      margin-bottom: 0 !important;
     }
   }
 
@@ -38,12 +38,17 @@ ul.-rows {
       padding: ($spacer * .15) ($spacer * .25);
 
       &:last-of-type {
-        margin-bottom: ($spacer * .25);
+        margin-bottom: ($spacer * .25) !important;
       }
 
       &:hover {
         background-color: $gray-lighter;
       }
+    }
+
+    code {
+      display: inline-block;
+      padding: 0 5px;
     }
   }
 }

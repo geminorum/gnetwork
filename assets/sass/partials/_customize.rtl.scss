@@ -13,6 +13,14 @@ $spacer: 1rem !default;
       padding-bottom: $spacer * .25;
     }
   }
+
+  .customize-control-notifications-container li.notice {
+    // line-height: $spacer * 1.25;
+  }
+
+  .description {
+    line-height: $spacer * 1.25;
+  }
 }
 
 #customize-controls .customize-pane-child .customize-section-title h3,

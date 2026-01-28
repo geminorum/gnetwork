@@ -7,27 +7,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 .wrap { // wp core class
 
-  body.wp-admin.edit-php & {
-    .wp-heading-inline { // wp core class
-      + .page-title-action {
-        margin-right: 0; // needed only on edit-posts, not edit-tags!
-      }
-    }
-  }
+  // body.wp-admin.edit-php & {
+  //   .wp-heading-inline { // wp core class
+  //     + .page-title-action {
+  //       margin-right: 0; // needed only on edit-posts, not edit-tags!
+  //     }
+  //   }
+  // }
 
   // WooCommerce
-  h2.wc-shipping-zones-heading > span {
-    margin-right: 5px;
-  }
+  // h2.wc-shipping-zones-heading > span {
+  //   margin-right: 5px;
+  // }
 
   .page-title-action { // wp core class
-    &:active {
-      margin-left: unset;
-    }
+    // &:active {
+    //   margin-left: unset;
+    // }
 
-    margin-left: 0;
-    margin-right: $spacer * .25;
+    // margin-left: 0;
+    // margin-right: $spacer * .25;
 
+    // NOTE: better not to have space between icon and text
     .dashicons {
       vertical-align: middle;
       position: unset;
@@ -35,7 +36,8 @@
 
       width: 22px !important;
       height: 18px;
-      margin: 0 2px 0 -2px;
+      // margin: 0 2px 0 -2px;
+      margin: 0 5px 0 -2px;
       // vertical-align: text-top;
 
       &::before {
@@ -63,10 +65,12 @@
       fill: $gray-light;
     }
 
-    // &.-has-icon {}
+    &.-has-icon {
+      padding-left: 7.5px;
+    }
 
     &.-only-icon {
-      padding: 0 ($spacer * .5);
+      padding: 0 7.5px; // ($spacer * .5);
 
       .dashicons,
       .-iconsvg {

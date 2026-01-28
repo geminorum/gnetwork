@@ -99,14 +99,25 @@ table.base-table-list { // Plugin Core
 ////////////////////////////////////////////////////////////////////////////////
 table.wp-list-table { // WordPress Core
 
-  thead {
+  > thead {
     position: sticky;
     background-color: inherit; // #fff;
-    z-index: 999;
+    z-index: 1; // 999;
     top: 0;
 
     body.admin-bar & {
       top: 32px;
+    }
+
+    body.woocommerce-admin-page & {
+      top: calc( 32px + 60px ); // plus wc layout header
+    }
+
+    th.sortable {
+      span.sorting-indicators {
+        margin-left: $spacer * .25;
+        margin-top: -1px;
+      }
     }
   }
 
@@ -116,6 +127,25 @@ table.wp-list-table { // WordPress Core
     td.column-title .image-icon img[src$=".svg"] {
       width: 100% !important;
       height: auto !important;
+    }
+  }
+
+  &.widefat th input,
+  &.updates-table td input,
+  &.widefat thead td input,
+  &.widefat tfoot td input {
+    // margin: 0 8px 0 0;
+  }
+
+  .inline-edit-wrapper {
+    ul.cat-checklist {
+      height: auto !important;
+      max-height: 12em !important;
+      overflow-x: hidden;
+
+      label {
+        line-height: 1.5 !important;
+      }
     }
   }
 
@@ -148,13 +178,16 @@ table.wp-list-table { // WordPress Core
     }
 
     fieldset {
-      padding-right: 0 !important;
+      &:not([class]) { // @REF: https://stackoverflow.com/a/36355674
+        padding-right: 0 !important;
+      }
 
       label {
         textarea {
           width: 100%;
         }
       }
+
       span.title {
         font-style: normal !important;
         margin: 0 !important;
@@ -173,6 +206,26 @@ table.wp-list-table { // WordPress Core
       .timestamp-wrap {
         margin-left: $spacer * 8; // core default is `6em`
       }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+div.tablenav { // WordPress Core
+  div.actions {
+    padding-right: $spacer * .25;
+
+    &:empty {
+      display: none;
+    }
+
+    select {
+      max-width: $spacer * 7.75;
+    }
+
+    input#doaction,
+    input#doaction2 {
+      margin-right: 0;
     }
   }
 }
@@ -401,6 +454,7 @@ table.base-table-list {
     width: 50px;
   }
 
+  th.-column.-has-count,
   .-column-stock,
   .-column-count {
     width: 48px;
@@ -455,7 +509,6 @@ table.base-table-double {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-table.base-table-raw,
 table.base-table-code {
   // > caption {}
 
@@ -475,6 +528,26 @@ table.base-table-code {
 
     select {
       margin: 0 1px;
+    }
+  }
+}
+
+table.base-table-raw {
+  > tbody > tr > td {
+    padding: 5px 2px;
+
+    &.-var {
+      padding-top: 8px;
+    }
+
+    &.-val {
+      padding: 0 2px;
+
+      code {
+        padding-top: 2px;
+        display: inline-block;
+        word-break: break-all;
+      }
     }
   }
 }

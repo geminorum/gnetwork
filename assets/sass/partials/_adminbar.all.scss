@@ -9,23 +9,35 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 #wpadminbar {
-  .shortlink-input {
-    color: #000;
-    font-weight: 400;
-    width: 260px;
-    padding: 4px 6px;
-    box-shadow: none;
-    border: none;
-
-    /*rtl:ignore*/
-    direction: ltr;
+  .gnetwork-adminbar-node {
+    &.-ltr {
+      /*rtl:begin:ignore*/
+      direction: ltr;
+      text-align: left;
+      /*rtl:end:ignore*/
+    }
   }
 
+  // node contains icon only
+  .gnetwork-adminbar-node-icononly {
+    .ab-icon { // may or not with `.dashicons`
+      padding: 0 !important;
+      margin: 6px -1px 6px 0 !important;
+    }
+
+    &.-notext {
+      > .ab-item { // icon is by core css and text is empty
+        padding-right: 0;
+      }
+    }
+  }
+
+  // for top level only
   .quicklinks > ul > li > a {
-    padding: 0 7px 0 5px;
+    padding: 0 7px 0 7px;
   }
 
-  .quicklinks li .blavatar {
+  .quicklinks li div.blavatar {
     &::before {
       content: "\f319" !important; // globe
     }
@@ -44,20 +56,6 @@
 
     &.-update::before {
       content: "\f325" !important;
-    }
-  }
-
-  #wp-admin-bar-gnetwork-cron-status {
-    max-width: 210px; // default min-width;
-
-    border-bottom: 1px solid color.adjust(#464b50, $lightness: 10%);
-    padding-bottom: 6px; // ul padding
-
-    a.ab-item {
-      height: auto;
-      white-space: normal;
-      line-height: 1.6;
-      font-size: smaller;
     }
   }
 }

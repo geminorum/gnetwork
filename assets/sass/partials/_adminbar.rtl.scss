@@ -3,10 +3,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// gNetwork Partials: AdminBar: RTL
 
+// NOTE: `/*rtl:begin:ignore*/` not working!
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/*rtl:begin:ignore*/
-
 #wpadminbar {
   body.rtl & {
     * {
@@ -14,33 +13,29 @@
       font-family: $font-family-base; // TODO: must use css vars
     }
 
-    > #wp-toolbar > #wp-admin-bar-root-default .ab-icon,
-    .ab-icon,
-    .ab-item::before {
-      @include theme-fonts-core-dashicons;
+    span.dashicons,
+    .ab-item::before,
+    .ab-icon {
+      /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+      font-family: dashicons !important; // must force this!
     }
 
     .menupop .menupop > .ab-item {
       .wp-admin-bar-arrow::before {
+        /*rtl:ignore*/
+        left: 8px;
         content: "\f141" / '';
       }
     }
 
-    // .menupop .menupop > .ab-item::before {
-    //   right: unset;
-    //   left: 2px;
-    // }
-
-    // .ab-top-secondary .menupop .menupop > .ab-item::before {
-    //   left: unset;
-    //   right: 2px;
-    // }
-
-    // #wp-admin-bar-airplane-mode-toggle .ab-icon {
-    //   margin-left: 0 !important;
-    //   margin-top: 1px;
-    // }
+    .ab-top-secondary {
+      .menupop .menupop > .ab-item {
+        .wp-admin-bar-arrow::before {
+          /*rtl:ignore*/
+          right: 8px;
+          content: "\f139" / '';
+        }
+      }
+    }
   }
 }
-
-/*rtl:end:ignore*/

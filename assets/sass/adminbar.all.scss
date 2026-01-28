@@ -4,8 +4,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @import "partials/adminbar.all";
+@import "partials/adminbar.misc";
 @import "partials/adminbar.rtl";
-@import "partials/debugbar.adminbar";
+@import "partials/buddypress.adminbar";
+@import "partials/airplane-mode.adminbar";
+// @import "partials/debugbar.adminbar"; // DISABLED: MUST DEPRECATE
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -14,17 +17,6 @@
     > .ab-item .ab-icon::before {
       content: "\f319" / '';
       top: 3px;
-    }
-  }
-
-  #wp-admin-bar-my-sites a.ab-item::before {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .gnetwork-adminbar-network-title {
-    .ab-item {
-      font-weight: 600;
     }
   }
 }
@@ -44,9 +36,19 @@
       }
     }
 
-    li#wp-admin-bar-gtheme-flush {
+    li#wp-admin-bar-gnetwork-flush {
       display: block !important;
       position: static;
+    }
+
+    .gnetwork-adminbar-node-icononly {
+      .ab-icon {
+        margin: 2px 0 -2px !important;
+      }
+    }
+
+    .quicklinks > ul > li > a {
+      padding: 0 !important;
     }
   }
 }

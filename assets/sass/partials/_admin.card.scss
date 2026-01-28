@@ -4,8 +4,23 @@
 /// gNetwork Partials: Admin Card
 
 ////////////////////////////////////////////////////////////////////////////////
+@use "sass:math"; // @REF: https://sass-lang.com/d/slash-div
+@use "sass:color";
+
+$spacer: 1rem !default;
+
+////////////////////////////////////////////////////////////////////////////////
 .-wrap.card {
-  > .-title {}
+  > .title,
+  > .-title {
+    small.sub {
+      font-weight: 400;
+      display: inline-block;
+      color: $gray;
+      margin-left: $spacer * .5;
+      float: right;
+    }
+  }
 
   > .-overtitle {
     margin-bottom: 0;
@@ -15,6 +30,13 @@
     margin-top: 0;
   }
 
-  > ul {}
+  // > ul {}
+
+  &.-floated {
+    float: left;
+    margin: 0 ($spacer * .5) ($spacer * .5) 0;
+    max-width: 460px;
+    min-width: math.div(460px, 2);
+  }
 }
 ////////////////////////////////////////////////////////////////////////////////

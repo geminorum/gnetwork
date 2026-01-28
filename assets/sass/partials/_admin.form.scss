@@ -41,12 +41,18 @@
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+.-type-select + span.-description,
 .-button + span.-description {
   margin-left: $spacer * .5;
 }
 
-.form-table select + .-button {
-  margin-left: $spacer * .25;
+.form-table {
+  select + .-button,
+  .-type-select + .-button,
+  .-type-select + .-type-select,
+  .-button + .-button {
+    margin-left: $spacer * .25;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,6 +74,13 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 .wp-tab-panel {
+  // height of a single row
+  min-height: 36px; // default is `42px`
+
+  &.-panel-expanded {
+    max-height: unset;
+  }
+
   ul {
     margin: ($spacer * .75) 0 ($spacer * .5);
 
@@ -185,6 +198,10 @@
   // input.email-text,
   // input.ip-text,
   // input.url-text {}
+
+  &.-iframe {
+    @include theme-responsive-iframe;
+  }
 
   .wp-color-result {
     height: 21px;

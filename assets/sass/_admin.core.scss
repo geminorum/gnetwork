@@ -18,6 +18,7 @@ $spacer: 1rem !default;
 @import "partials/admin.tabs";
 @import "partials/admin.form";
 @import "partials/admin.buttons";
+@import "partials/admin.progress";
 @import "partials/admin.switches";
 @import "partials/admin.metabox";
 @import "partials/admin.card";
@@ -57,8 +58,12 @@ $spacer: 1rem !default;
   .-wrap.-toolbox-links ul {
     display: block;
 
-    li + li {
-      margin: 0 0 .5rem;
+    li {
+      margin: 0 0 ($spacer * .5);
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
 
     .button {
