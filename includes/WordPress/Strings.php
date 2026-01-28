@@ -193,7 +193,7 @@ class Strings extends Core\Base
 		return self::getJoined( $items, $before, $after, $empty, $separator ?? '|' );
 	}
 
-	public static function getCounted( $count, $template = '%s' )
+	public static function getCounted( $count, $template = '%s', $title = FALSE )
 	{
 		if ( TRUE === $template )
 			$template = ' <span class="-count-wrap">(%s)</span>';
@@ -204,7 +204,18 @@ class Strings extends Core\Base
 		else if ( empty( $template ) )
 			return '';
 
-		return sprintf( $template, '<span class="-count" data-count="'.$count.'">'.Core\Number::format( $count ).'</span>' );
+		$values = [
+			'-count',
+			$count,
+			Core\Number::format( $count ),
+			Core\HTML::escapeAttr( $title ?: '' ),
+		];
+
+		$html = $title
+			? vsprintf( '<span class="%1$s" data-count="%2$s" title="%4$s">%3$s</span>', $values )
+			: vsprintf( '<span class="%1$s" data-count="%2$s">%3$s</span>', $values );
+
+		return sprintf( $template, $html );
 	}
 
 	// @SOURCE: P2

@@ -209,6 +209,38 @@ class Post extends Core\Base
 	}
 
 	/**
+	 * Generates HTML link for given post.
+	 *
+	 * @param null|int|string|object $post
+	 * @param null|false|string $title
+	 * @param bool|string $fallback
+	 * @return false|string
+	 */
+	public static function htmlLink( $post, $title = NULL, $fallback = FALSE )
+	{
+		if ( ! $post = self::get( $post ) )
+			return $fallback;
+
+		if ( ! $url = self::link( $post, FALSE ) )
+			return $fallback;
+
+		if ( FALSE === $title )
+			return $url;
+
+		if ( is_null( $title ) )
+			$title = self::title( $post );
+
+		return Core\HTML::tag( 'a', [
+			'href'  => $url,
+			'class' => [ '-post', '-post-link' ],
+			'data'  => [
+				'post_id'  => $post->ID,
+				'posttype' => $post->post_type,
+			],
+		], $title );
+	}
+
+	/**
 	 * Retrieves post short-link given a post ID or post object.
 	 * OLD: `Core\WordPress::getPostShortLink()`
 	 *
@@ -232,20 +264,52 @@ class Post extends Core\Base
 	}
 
 	/**
-	 * Retrieves post media-link given a post ID or post object.
+	 * Retrieves Media Administration Screen URL for given post.
+	 * NOTE: `upload.php` needs `upload_files` capability!
 	 * @OLD: `Core\WordPress::getPostAttachmentsLink()`
+	 * @OLD: `WordPress\Post::mediaLink()`
 	 *
 	 * @param int|object $post
 	 * @param array $extra
 	 * @param mixed $fallback
-	 * @return string
+	 * @return false|string
 	 */
-	public static function mediaLink( $post, $extra = [], $fallback = FALSE )
+	public static function mediaURL( $post, $extra = [], $fallback = FALSE )
 	{
+		if ( ! current_user_can( 'upload_files' ) )
+			return $fallback;
+
 		if ( ! $post = self::get( $post ) )
 			return $fallback;
 
 		return add_query_arg( array_merge( [ 'post_parent' => $post->ID ], $extra ), admin_url( 'upload.php' ) );
+	}
+
+	/**
+	 * Retrieves Add New Media Administration Screen URL for given post.
+	 * NOTE: `media-new.php` needs `upload_files` capability!
+	 *
+	 * @param int|object $post
+	 * @param array $extra
+	 * @param mixed $fallback
+	 * @return false|string
+	 */
+	public static function mediaUploadURL( $post, $extra = [], $fallback = FALSE )
+	{
+		if ( ! current_user_can( 'upload_files' ) )
+			return $fallback;
+
+		if ( ! $post = self::get( $post ) )
+			return $fallback;
+
+		return add_query_arg( array_merge( [ 'post_id' => $post->ID ], $extra ), admin_url( 'media-new.php' ) );
+	}
+
+	public static function mediaLink( $post, $extra = [], $fallback = FALSE )
+	{
+		self::_dep( 'WordPress\Post::mediaURL()' );
+
+		return self::mediaURL( $post, $extra = [], $fallback = FALSE );
 	}
 
 	public static function endpointURL( $endpoint, $post, $data = NULL, $extra = [], $fallback = FALSE )

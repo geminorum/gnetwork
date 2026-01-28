@@ -651,16 +651,6 @@ class Module extends Core\Base
 		.( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
-	// OLD: `get_adminbar_node_class()`
-	protected function class_for_adminbar_node( $extra = [], $icononly = FALSE )
-	{
-		return Core\HTML::prepClass(
-			$this->classs_base( 'adminbar', 'node', $icononly ? 'icononly' : '' ),
-			sprintf( '-%s', $this->key ),
-			$extra
-		);
-	}
-
 	// `self::dump( ini_get( 'memory_limit' ) );`
 	protected function raise_memory_limit( $count = 1, $per = 60, $context = NULL )
 	{

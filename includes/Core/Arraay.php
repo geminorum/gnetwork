@@ -41,6 +41,18 @@ class Arraay extends Base
 		return $callback ? array_filter( $input, $callback ) : array_filter( $input );
 	}
 
+	public static function splitValues( $input, $splitter = '|' )
+	{
+		if ( empty( $input ) )
+			return [];
+
+		$splitted = array_map( function ( $value ) use ( $splitter ) {
+			return explode( $splitter, $value );
+		}, $input );
+
+		return array_merge_recursive( ...$splitted );
+	}
+
 	/**
 	 * Adds a prefix to each item value of an array.
 	 * @source https://stackoverflow.com/a/28115783
@@ -612,7 +624,7 @@ class Arraay extends Base
 
 	// `array_is_list()` for PHP < 8.1
 	// @REF: https://www.php.net/manual/en/function.array-is-list.php#126574
-	// an array is considered a list if its keys consist of consecutive numbers from 0 to count $array
+	// an array is considered a list if its keys consist of consecutive numbers from `0` to `count( $array )`
 	public static function isList_ALT( $array )
 	{
 		return $array === [] || ( array_keys( $array ) === range( 0, count( $array ) - 1 ) );
@@ -621,7 +633,7 @@ class Arraay extends Base
 	/**
 	 * Poly-fill for `array_is_list()` function added in PHP 8.1.
 	 * Determines if the given array is a list.
-	 * An array is considered a list if its keys consist of consecutive numbers from 0 to count( $array ) - 1.
+	 * An array is considered a list if its keys consist of consecutive numbers from `0` to `count( $array ) - 1`.
 	 * @see https://github.com/symfony/polyfill-php81/tree/main
 	 * @see https://php.watch/versions/8.1/array_is_list
 	 *
@@ -665,7 +677,7 @@ class Arraay extends Base
 
 	/**
 	 * Determines if any value from first exists in second.
-	 * equvielnt to `return (bool) count( array_intersect( $first, $second ) );`
+	 * NOTE: equivalent to `return (bool) count( array_intersect( $first, $second ) );`
 	 * @source https://stackoverflow.com/a/46609738
 	 *
 	 * @param array $first
@@ -830,7 +842,7 @@ class Arraay extends Base
 		return $slice;
 	}
 
-	// splits a list into sets, grouped by the result of running each value through $callback
+	// Splits a list into sets, grouped by the result of running each value through `$callback`.
 	// @SOURCE: `scb_list_group_by()`
 	public static function groupBy( $list, $callback )
 	{
@@ -1087,7 +1099,7 @@ class Arraay extends Base
 	/**
 	 * Divides an array into a desired number of split lists.
 	 *
-	 * useful procedure for "chunking" up objects or text items into
+	 * Useful procedure for "chunking" up objects or text items into
 	 * columns, or partitioning any type of data resource.
 	 *
 	 * NOTE: `array_chunk()`: fixed number of sub-items
@@ -1096,9 +1108,9 @@ class Arraay extends Base
 	 * @source https://www.php.net/manual/en/function.array-chunk.php#75022
 	 * @source https://stackoverflow.com/a/15723262
 	 *
-	 * @param  array $array
-	 * @param  int   $columns
-	 * @return array $partition
+	 * @param array $array
+	 * @param int $columns
+	 * @return array
 	 */
 	public static function partition( $array, $columns )
 	{

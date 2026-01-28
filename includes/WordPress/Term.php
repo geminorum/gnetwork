@@ -313,7 +313,7 @@ class Term extends Core\Base
 	}
 
 	/**
-	 * Generates HTML link for given term
+	 * Generates HTML link for given term.
 	 *
 	 * @param null|int|string|object $term
 	 * @param null|false|string $title

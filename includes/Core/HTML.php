@@ -824,13 +824,19 @@ class HTML extends Base
 		foreach ( $subs as $slug => $page ) {
 
 			if ( is_array( $page ) ) {
+
 				$title = empty( $page['title'] ) ? $slug : sprintf( '<span class="-nav-link-title">%s</span>', $page['title'] );
-				$icon  = empty( $page['icon'] ) ? '' : sprintf( '<span class="-nav-link-icon">%s</span> ', $page['icon'] );
-				$args  = empty( $page['args'] ) ? [ 'sub' => $slug ] : $page['args'];
+				$icon  = empty( $page['icon'] )  ? ''    : sprintf( '<span class="-nav-link-icon" title="%s">%s</span> ', self::escapeAttr( $page['title'] ?? $slug ), $page['icon'] );
+
+				$args = empty( $page['args'] ) ? [ 'sub' => $slug ] : $page['args'];
+				$hint = empty( $page['hint'] ) ? ( empty( $page['title'] ) ? $slug : $page['title'] ) : $page['hint'];
+
 			} else {
+
 				$title = sprintf( '<span class="-nav-link-title">%s</span>', $page );
 				$icon  = '';
 				$args  = [ 'sub' => $slug ];
+				$hint  = FALSE;
 			}
 
 			$url   = add_query_arg( $args, $uri );
@@ -842,9 +848,9 @@ class HTML extends Base
 			];
 
 			if ( $item )
-				$html.= self::tag( $item, [ 'class' => $class ], self::link( $icon.$title, $url ) );
+				$html.= self::tag( $item, [ 'class' => $class, 'title' => $hint ], self::link( $icon.$title, $url ) );
 			else
-				$html.= self::tag( 'a', [ 'class' => $class, 'href' => $url ], $icon.$title );
+				$html.= self::tag( 'a', [ 'class' => $class, 'title' => $hint, 'href' => $url ], $icon.$title );
 		}
 
 		if ( $wrap )
@@ -1451,6 +1457,7 @@ class HTML extends Base
 		echo $script;
 	}
 
+	// TODO: Move to `WordPress\Screen`
 	// TODO: migrate to `wp_get_admin_notice()` @since WP 6.4.0
 	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
 	// CLASSES: `notice-error`, `notice-warning`, `notice-success`, `notice-info`, `is-dismissible`, `fade`, `inline`
