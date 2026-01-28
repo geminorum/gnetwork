@@ -89,8 +89,9 @@ class AdminBar extends gNetwork\Module
 	{
 		// user related, aligned right
 		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_menu', 0 );
-		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_search_menu' ], 4 );
-		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 7 );
+		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_search_menu' ], -9999 );
+		add_action( 'admin_bar_menu', 'wp_admin_bar_recovery_mode_menu', 9992 );
+		add_action( 'admin_bar_menu', 'wp_admin_bar_my_account_item', 9991 );
 
 		// site related
 		add_action( 'admin_bar_menu', 'wp_admin_bar_sidebar_toggle', 0 );
@@ -100,20 +101,26 @@ class AdminBar extends gNetwork\Module
 			add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_extra_menu' ], 10 );
 
 		add_action( 'admin_bar_menu', 'wp_admin_bar_site_menu', 30 );
-		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_posttypes' ], 32 );
+		add_action( 'admin_bar_menu', 'wp_admin_bar_edit_site_menu', 40 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_customize_menu', 40 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 50 );
 
 		// content related
 		if ( ! is_network_admin() && ! is_user_admin() ) {
+
+			if ( ! is_admin() )
+				add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_posttypes' ], 32 );
+
 			add_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );
 			add_action( 'admin_bar_menu', 'wp_admin_bar_new_content_menu', 70 );
 		}
 
 		add_action( 'admin_bar_menu', 'wp_admin_bar_edit_menu', 80 );
-		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_shortlink_menu' ], 90 );
-
+		add_action( 'admin_bar_menu', [ $this, 'wp_admin_bar_shortlink_menu' ], 90 ); // TODO: rewrite the callback like `wp_admin_bar_search_menu`
 		add_action( 'admin_bar_menu', 'wp_admin_bar_add_secondary_groups', 200 );
+
+		add_action( 'admin_bar_menu', [ $this, 'add_extra_nodes_publishers' ], -9999 );
+		add_action( 'admin_bar_menu', [ $this, 'add_extra_nodes_superadmin' ], 99 );
 
 		if ( ! is_multisite() )
 			return;
@@ -199,17 +206,34 @@ class AdminBar extends gNetwork\Module
 	{
 		global $wp_admin_bar;
 
-		if ( WordPress\User::isSuperAdmin() )
-			$this->add_nodes( $wp_admin_bar );
-
 		foreach ( $this->remove_nodes as $node )
 			$wp_admin_bar->remove_node( $node );
 	}
 
-	// super admins only
-	private function add_nodes( &$wp_admin_bar )
+	// NOTE: `flushsubmenu` is for super admins only and hides on mobile!
+	public function add_extra_nodes_publishers( &$wp_admin_bar )
+	{
+		if ( ! current_user_can( 'publish_posts' ) )
+			return;
+
+		$wp_admin_bar->add_node( [
+			'parent' => 'top-secondary',
+			'id'     => static::BASE.'-flush',
+			'title'  => self::getIcon( 'backup' ),
+			'href'   => add_query_arg( 'flush', '', Core\URL::current() ),
+			'meta'   => [
+				'title' => _x( 'Flush Cache for This Page', 'Modules: AdminBar: Nodes', 'gnetwork' ),
+				'class' => $this->adminbar__get_css_class( '-flush', TRUE ),
+			],
+		] );
+	}
+
+	public function add_extra_nodes_superadmin( $wp_admin_bar )
 	{
 		global $pagenow;
+
+		if ( ! WordPress\User::isSuperAdmin() )
+			return;
 
 		$current_url = Core\URL::current();
 		// $network_url = Network::menuURL();
@@ -225,7 +249,7 @@ class AdminBar extends gNetwork\Module
 			'href'   => $admin_url,
 			'meta'   => [
 				'title' => sprintf( 'gNetwork v%s', GNETWORK_VERSION ),
-				'class' => $this->class_for_adminbar_node( '-info', TRUE ),
+				'class' => $this->adminbar__get_css_class( '-info', TRUE ),
 			],
 		] );
 
@@ -239,7 +263,7 @@ class AdminBar extends gNetwork\Module
 
 		$wp_admin_bar->add_node( [
 			'parent' => $parent_id,
-			'id'     => static::BASE.'-flush',
+			'id'     => static::BASE.'-flushsubmenu',
 			'title'  => _x( 'Flush Cached', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 			'href'   => add_query_arg( 'flush', '', $current_url ),
 			'meta'   => [ 'title' => _x( 'Flush cached data for the current page', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
@@ -386,6 +410,9 @@ class AdminBar extends gNetwork\Module
 					'id'     => static::BASE.'-cron-status',
 					'title'  => Core\Text::stripTags( $status ),
 					'href'   => $this->get_menu_url( 'cron', 'admin', 'tools' ),
+					'meta' => [
+						'class' => $this->adminbar__get_css_class(),
+					],
 				] );
 		}
 
@@ -394,7 +421,12 @@ class AdminBar extends gNetwork\Module
 			'id'     => static::BASE.'-info-pagenow',
 			'title'  => sprintf( 'PageNow: %s', $pagenow ?: 'EMPTY' ),
 			'href'   => GNETWORK_ANALOG_LOG ? $this->get_menu_url( 'analoglogs', 'network', 'tools' ) : FALSE,
-			'meta'   => [ 'title' => _x( 'Check System Logs', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
+			'meta'   => [
+				'title' => _x( 'Check System Logs', 'Modules: AdminBar: Nodes', 'gnetwork' ),
+				'class' => $this->adminbar__get_css_class( '-ltr' ),
+				'dir'   => 'ltr',
+				'lang'  => 'en',
+			],
 		] );
 
 		$wp_admin_bar->add_node( [
@@ -402,7 +434,12 @@ class AdminBar extends gNetwork\Module
 			'id'     => static::BASE.'-info-queries',
 			'title'  => self::stat( '%dq | %.3fs | %.2fMB' ),
 			'href'   => GNETWORK_DEBUG_LOG ? $this->get_menu_url( 'errorlogs', 'network', 'tools' ) : FALSE,
-			'meta'   => [ 'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
+			'meta'   => [
+				'title' => _x( 'Queries | Timer Stop | Memory Usage', 'Modules: AdminBar: Nodes', 'gnetwork' ),
+				'class' => $this->adminbar__get_css_class( '-ltr' ),
+				'dir'   => 'ltr',
+				'lang'  => 'en',
+			],
 		] );
 	}
 
@@ -449,7 +486,7 @@ class AdminBar extends gNetwork\Module
 			'meta'  => [
 				'html'  => '<input class="shortlink-input" type="text" readonly="readonly" value="'.Core\HTML::escape( $short ).'" />',
 				'title' => _x( 'Shortlink', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-				'class' => $this->class_for_adminbar_node( '-shortlink', TRUE ),
+				'class' => $this->adminbar__get_css_class( '-shortlink', TRUE ),
 			],
 		] );
 	}
@@ -487,7 +524,10 @@ class AdminBar extends gNetwork\Module
 			'id'    => 'my-sites',
 			'title' => '', // more minimal!
 			'href'  => $my_sites,
-			'meta'  => [ 'title' => _x( 'My Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
+			'meta'  => [
+				'title' => _x( 'My Sites', 'Modules: AdminBar: Nodes', 'gnetwork' ),
+				'class' => $this->adminbar__get_css_class( '-notext', TRUE ),
+			],
 		] );
 
 		$wp_admin_bar->add_group( [
@@ -689,7 +729,7 @@ class AdminBar extends gNetwork\Module
 				'href'  => WordPress\URL::networkSite( $network ),
 				'meta'  => [
 					// 'title' => $network->site_name, // NOTE: no need since pause on link will reveal the menu
-					'class' => $this->class_for_adminbar_node( '-network', TRUE ),
+					'class' => $this->adminbar__get_css_class( '-network', TRUE ),
 				],
 			] );
 
@@ -966,7 +1006,7 @@ class AdminBar extends gNetwork\Module
 				'title'  => self::getIcon( 'menu' ),
 				'href'   => FALSE,
 				'meta'   => [
-					'class' => $this->class_for_adminbar_node( '-extramenu', TRUE ),
+					'class' => $this->adminbar__get_css_class( '-extramenu', TRUE ),
 				],
 			] );
 
@@ -991,18 +1031,29 @@ class AdminBar extends gNetwork\Module
 		}
 	}
 
+	// NOTE: does not exists in core!
 	public function wp_admin_bar_posttypes( $wp_admin_bar )
 	{
-		$posttypes = (array) get_post_types( [ 'show_in_admin_bar' => TRUE ], 'objects' );
+		$posttypes = get_post_types( [ 'show_in_admin_bar' => TRUE ], 'objects' );
+		$excludes  = [
+			'attachment',
+		];
 
-		foreach ( $posttypes as $posttype )
-			if ( current_user_can( $posttype->cap->edit_posts ) )
-				$wp_admin_bar->add_node( [
-					'parent' => 'site-name',
-					'id'     => sprintf( 'all-%s', $posttype->rest_base ?: $posttype->name ),
-					'title'  => $posttype->labels->menu_name,
-					'href'   => 'post' == $posttype->name ? admin_url( 'edit.php' ) : admin_url( 'edit.php?post_type='.$posttype->name ),
-				] );
+		foreach ( (array) $posttypes as $posttype ) {
+
+			if ( in_array( $posttype->name, $excludes, TRUE ) )
+				continue;
+
+			if ( ! current_user_can( $posttype->cap->edit_posts ) )
+				continue;
+
+			$wp_admin_bar->add_node( [
+				'parent' => 'site-name',
+				'id'     => sprintf( 'all-%s', $posttype->rest_base ?: $posttype->name ),
+				'title'  => $posttype->labels->menu_name,
+				'href'   => WordPress\URL::editPostType( $posttype->name ),
+			] );
+		}
 	}
 
 	public static function getIcon( $icon, $style = FALSE )
