@@ -310,45 +310,45 @@ JS;
 	{
 		$this->actions( 'term_tab_search_content_before', $taxonomy, $object, $term );
 
-		echo $this->wrap_open( '-tab-search-names card -toolbox-card' );
+		echo $this->wrap_open( '-tab-search-names card -toolbox-card -tablelist-card' );
 
-			Core\HTML::h4( _x( 'Similar Names', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4(
+				_x( 'Similar Names', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ).
+				// NOTE: better not to have period!
+				Core\HTML::small( _x( 'These are terms with similar name to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'sub', TRUE ),
+				'title'
+			);
 
-			$terms = get_terms( [
-				'exclude'    => $term->term_id,
-				'name__like' => $term->name,
-				'hide_empty' => FALSE,
-			] );
-
-			// FIXME: table-list with edit/view links
-			// TODO: show taxonomy name
-			if ( ! empty( $terms ) )
-				Core\HTML::tableSide( Core\Arraay::pluck( $terms, 'name', 'term_id' ) );
-
-			else
-				Core\HTML::desc( _x( 'There are no terms available with similar name.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+			self::renderSimilarTermTableList( get_terms( [
+				'exclude'                => $term->term_id,
+				'name__like'             => $term->name,
+				'orderby'                => 'none',
+				'hide_empty'             => FALSE,
+				'update_term_meta_cache' => FALSE,
+				'suppress_filter'        => TRUE,
+			] ), _x( 'There are no terms available with similar name.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
 
 		echo '</div>';
 
-		echo $this->wrap_open( '-tab-search-descriptions card -toolbox-card' );
+		echo $this->wrap_open( '-tab-search-descriptions card -toolbox-card -tablelist-card' );
 
-			Core\HTML::h4( _x( 'Similar Descriptions', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4(
+				_x( 'Similar Descriptions', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ).
+				// NOTE: better not to have period!
+				Core\HTML::small( _x( 'These are terms with similar description to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'sub', TRUE ),
+				'title'
+			);
 
 			if ( ! empty( $term->description ) ) {
 
-				$terms = get_terms( [
-					'exclude'           => $term->term_id,
-					'description__like' => $term->description,
-					'hide_empty'        => FALSE,
-				] );
-
-				// FIXME: table-list with edit/view links
-				// TODO: show taxonomy name
-				if ( ! empty( $terms ) )
-					Core\HTML::tableSide( Core\Arraay::pluck( $terms, 'name', 'term_id' ) );
-
-				else
-					Core\HTML::desc( _x( 'There are no terms available with similar description.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				self::renderSimilarTermTableList( get_terms( [
+					'exclude'                => $term->term_id,
+					'description__like'      => $term->description,
+					'orderby'                => 'none',
+					'hide_empty'             => FALSE,
+					'update_term_meta_cache' => FALSE,
+					'suppress_filter'        => TRUE,
+				] ), _x( 'There are no terms available with similar description.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
 
 			} else {
 
@@ -378,20 +378,35 @@ JS;
 	{
 		$this->actions( 'term_tab_posts_content_before', $taxonomy, $object, $term );
 
-		$posts = get_posts( [
-			'post_type' => $object->object_type, // self::req( 'post_type', 'any' ),
-			'tax_query' => [
-				[
+		echo $this->wrap_open( '-tab-connected-posts card -toolbox-card -tablelist-card' );
+
+			Core\HTML::h4(
+				_x( 'Connected Posts', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ).
+				// NOTE: better not to have period!
+				Core\HTML::small( _x( 'These are posts connected to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'sub', TRUE ),
+				'title'
+			);
+
+			self::renderConnectedTermTableList( get_posts( [
+				'post_type'   => $object->object_type,   // self::req( 'post_type', 'any' ),
+				'post_status' => 'any',
+				'numberposts' => -1,
+				'orderby'     => 'date',
+				'order'       => 'desc',
+				'tax_query'   => [ [
 					'taxonomy' => $taxonomy,
 					'field'    => 'term_id',
 					'terms'    => $term->term_id,
-				]
-			],
-		] );
+				] ],
+				'no_found_rows'          => TRUE,
+				'suppress_filters'       => TRUE,
+				'update_post_meta_cache' => FALSE,
+				'update_post_term_cache' => FALSE,
+				'lazy_load_term_meta'    => FALSE,
 
-		// FIXME: table-list with edit/view links
-		// TODO: show post-type name
-		Core\HTML::tableSide( Core\Arraay::pluck( $posts, 'post_title', 'ID' ) );
+			] ), _x( 'There are no connected posts available.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+
+		echo '</div>';
 
 		$this->actions( 'term_tab_posts_content', $taxonomy, $object, $term );
 	}
@@ -2074,5 +2089,84 @@ JS;
 			);
 
 		return $actions;
+	}
+
+	public function renderConnectedTermTableList( $posts, $empty = NULL, $description = TRUE )
+	{
+		if ( empty( $posts ) )
+			return Core\HTML::desc( $empty ?? gNetwork()->na( FALSE ), TRUE, '-empty' );
+
+		$columns = [
+			'ID' => _x( 'ID', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+			'posttype' => [
+				'title'    => _x( 'Post-Type', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+				'class'    => '-results-rowtype',
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+					return post_type_exists( $row->post_type )
+						? Core\HTML::link(
+							WordPress\PostType::object( $row->post_type )->labels->singular_name,
+							WordPress\URL::editPostType( $row->post_type ),
+							TRUE
+						)
+						: Core\HTML::code( $row->post_type );
+				}
+			],
+			'title'    => [
+				'title'    => _x( 'Post', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) use ( $description ) {
+
+					$html = post_type_exists( $row->post_type )
+						? ( WordPress\Post::htmlLink( $row ) ?: WordPress\Post::title( $row ) )
+						: $row->post_title; // NOTE: better to be raw title
+
+					if ( $description && $row->post_excerpt )
+						$html.= Core\HTML::wrap( wpautop( $row->post_excerpt ), '-excerpt' );
+
+					return $html;
+				},
+			],
+		];
+
+		Core\HTML::tableList( $columns, $posts );
+	}
+
+	// NOTE: may the taxonomy no longer registered
+	public function renderSimilarTermTableList( $terms, $empty = NULL, $description = TRUE )
+	{
+		if ( empty( $terms ) )
+			return Core\HTML::desc( $empty ?? gNetwork()->na( FALSE ), TRUE, '-empty' );
+
+		$columns = [
+			'term_id' => _x( 'ID', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+			'taxonomy' => [
+				'title'    => _x( 'Taxonomy', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+				'class'    => '-results-rowtype',
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+					return taxonomy_exists( $row->taxonomy )
+						? Core\HTML::link(
+							WordPress\Taxonomy::object( $row->taxonomy )->labels->singular_name,
+							WordPress\URL::editTaxonomy( $row->taxonomy ),
+							TRUE
+						)
+						: Core\HTML::code( $row->taxonomy );
+				}
+			],
+			'name'    => [
+				'title'    => _x( 'Term', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) use ( $description ) {
+
+					$html = taxonomy_exists( $row->taxonomy )
+						? ( WordPress\Term::htmlLink( $row, $row->name ) ?: WordPress\Term::title( $row ) )
+						: $row->name; // NOTE: better to be raw title
+
+					if ( $description && $row->description )
+						$html.= Core\HTML::wrap( wpautop( $row->description ), '-description' );
+
+					return $html;
+				},
+			],
+		];
+
+		Core\HTML::tableList( $columns, $terms );
 	}
 }
