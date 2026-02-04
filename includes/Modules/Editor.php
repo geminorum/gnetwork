@@ -30,7 +30,7 @@ class Editor extends gNetwork\Module
 		$this->filter( 'wp_link_query_args' );
 		$this->filter( 'wp_link_query', 2, 12 );
 
-		$this->filter( 'mce_css' );
+		$this->filter( 'mce_css', 1, 999 );
 		$this->action( 'wp_enqueue_editor' );
 		$this->action( 'enqueue_block_assets' ); // or `enqueue_block_editor_assets`
 	}
@@ -56,12 +56,13 @@ class Editor extends gNetwork\Module
 		}
 	}
 
+	// will load inside editor iframe
 	public function mce_css( $css )
 	{
 		if ( ! empty( $css ) )
 			$css.= ',';
 
-		return $css.GNETWORK_URL.'assets/css/editor.mce.css';
+		return $css.GNETWORK_URL.'assets/css/editor.mce'.( is_rtl() ? '-rtl' : '' ).'.css';
 	}
 
 	public function wp_enqueue_editor()
