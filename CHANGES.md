@@ -1,4 +1,4 @@
-### 3.18.0
+## [3.18.0]
 * main/utilities: handle front-matter on markdown
 * misc/qm/current-object: support for woo-commerce orders
 * module/authors: better cap checks
@@ -17,7 +17,7 @@
 * module/typography: disable content filters on system-pages
 * module/user: check for count if only numbers on username
 
-### 3.17.4
+## [3.17.4]
 * module/blog: disable privacy tools
 * module/cleanup: more obsoletes
 * module/login: math on woo-commerce lost password form
@@ -26,14 +26,14 @@
 * module/typography: ordinal title on numeral section titles
 * module/typography: short-code filters for `bismillah`
 
-### 3.17.3
+## [3.17.3]
 * module/cleanup: term cleanups
 * module/debug: disable php sessions
 * module/mail: :new: disposable checks
 * module/profile: user identity number
 * module/taxonomy: console tab with taxonomy object dump
 
-### 3.17.2
+## [3.17.2]
 * main/plugin: enforce auto load options
 * module/admin: disable all help tabs by constant
 * module/blog: filters for wp export
@@ -51,14 +51,14 @@
 * module/taxonomy: support for same slug conversion
 * module/themes: disable core patterns
 
-### 3.17.1
+## [3.17.1]
 * module/login: hide reset password
 * module/player: :new: module
 * module/player: support playback speeds
 * module/taxonomy: default terms filter bound to taxonomy
 * module/user: advanced username checks
 
-### 3.17.0
+## [3.17.0]
 * asset/packages: vazirmatn ui fonts
 * main/module: switch site lap
 * main/scripts: register block asset
@@ -73,12 +73,12 @@
 * module/taxonomy: drop support for description editor
 * module/taxonomy: jquery deprecated method
 
-### 3.16.2
+## [3.16.2]
 * module/taxonomy: query similar terms by name/desc on term tabs
 * module/typography: title sanitize enabled by default
 * module/update: better check for zip mime-type
 
-### 3.16.1
+## [3.16.1]
 * main/module: :warning: check for multisite function
 * main/module: auto hook for plugin loaded action
 * module/cleanup: clean agents only for comment type
@@ -95,7 +95,7 @@
 * module/taxonomy: taxonomy tabs enabled by default
 * module/typography: constant for disable linkify content
 
-### 3.16.0
+## [3.16.0]
 * main/module: cache options by site id
 * main/scripts: :up: autosize v6.0.1
 * main/scripts: :up: prism.js v1.29.0
@@ -137,7 +137,7 @@
 * module/user: display mobile info on admin
 * module/user: enhanced search on admin
 
-### 3.15.1
+## [3.15.1]
 * main/module: rename helpers for request action
 * main/module: render tools html after
 * module/authors: authors manage tags
@@ -166,7 +166,7 @@
 * module/user: large user count filtering
 * module/user: total user count report on activity box end
 
-### 3.15.0
+## [3.15.0]
 * main/plugin: avoid escaping on the constant
 * main/settings: better handling min/max/step on number inputs
 * main/settings: template for value arg on fields
@@ -214,7 +214,7 @@
 * module/user: :new: application password based on roles
 * module/user: missing filter on authentication
 
-### 3.14.0
+## [3.14.0]
 * assets/js: :up: PDFObject v2.2.5
 * assets/js: :up: prismjs 1.23.0
 * module/adminbar: :warning: custom adminbar callback
@@ -236,7 +236,7 @@
 * module/theme: :up: jquery versions
 * module/update: disable update tests on non main sites
 
-### 3.13.1
+## [3.13.1]
 * main/logger: missing level for sites
 * main/logger: public actions to use for other plugins
 * module/authors: disable sitemap for users
@@ -246,7 +246,7 @@
 * module/taxonomy: handling messages in taxonomy tabs ui
 * module/taxonomy: prefix secondary input names
 
-### 3.13.0
+## [3.13.0]
 * main/module: internal nonce field/check methods
 * main/module: tablelist action conditional
 * main/utilities: limit on get seperated
@@ -284,7 +284,7 @@
 * module/user: disable application passwords
 * module/user: multisite-aware settings
 
-### 3.12.0
+## [3.12.0]
 * main/module: custom postbox classes
 * main/module: dashboard widget api refreshed
 * main/module: get posts for tablelist as api
@@ -342,10 +342,10 @@
 * module/update: disable major updates by default
 * module/user: :new: authenticate by mobile number
 
-### 3.11.3
+## [3.11.3]
 * module/update: :warning: correct class for empty transients
 
-### 3.11.2
+## [3.11.2]
 * assets/js: :up: prismjs 1.21.0
 * main/logger: support for upcomming bot module
 * main/module: loading providers revised
@@ -360,7 +360,7 @@
 * module/update: avoid notice on empty pre-transients
 * module/update: cache invalid responses for one hour
 
-### 3.11.1
+## [3.11.1]
 * main/module: better handling provider status
 * main/module: default provider helper
 * main/module: min cap for tools
@@ -405,7 +405,7 @@
 * module/update: check for force check on query
 * module/update: remove token via query args
 
-### 3.11.0
+## [3.11.0]
 * main/logger: failed for network
 * main/module: add dashboard widget api
 * main/module: another pass at api for blocktypes
@@ -461,7 +461,7 @@
 * module/typography: :new: asterisks blocktype
 * module/typography: more tweaks for arabic
 
-### 3.10.0
+## [3.10.0]
 * main/module: beta features constant
 * main/module: column icon helper
 * main/module: reorder register ment/tool args
@@ -526,7 +526,7 @@
 * :arrow_down: jquery 3.3.1
 * :up: min php 5.6.20
 
-### 3.9.3
+## [3.9.3]
 * module/blacklist: log blacklisted
 * module/blacklist: log cron events
 * module/cron: failed status on failed logs
@@ -534,18 +534,18 @@
 * module/themes: :up: jquery 3.4.0
 * module/themes: late stylesheet for twentyeleven/twentytwelve
 
-### 3.9.2
+## [3.9.2]
 * module/blacklist: :new: schedule updates from remote content
 * module/cron: always register weekly schedules
 * module/site: :warning: register cron action only on main site
 
-### 3.9.1
+## [3.9.1]
 * main/settings: better check for network/site users
 * module/cron: :new: missing actions on dashboard pointers
 * module/restricted: correct check for site members
 * module/site: :warning: resync cron only on the main site
 
-### 3.9.0
+## [3.9.0]
 * main/module: settings button only with settings options
 * main/settings: passing default cap for dashboard widget
 * main/settings: status options helper
@@ -598,7 +598,7 @@
 * module/update: cleanup after core update
 * module/user: purge spam count after user delete
 
-### 3.8.2
+## [3.8.2]
 * main/module: hooking admin post actions
 * main/module: more control over hooking ajax
 * main/provider: conditional settings
@@ -620,10 +620,10 @@
 * module/tracking: :warning: fixed empty override
 * module/typography: arabic within html tags
 
-### 3.8.1
+## [3.8.1]
 * module/admin: prior 5 check for block editor
 
-### 3.8.0
+## [3.8.0]
 * main/module: auto setup providers
 * main/module: field as key on settings prep
 * main/module: multi-network in menu urls
@@ -693,7 +693,7 @@
 * module/user: using internal api for network sites
 * provider/kavenegar: provider status
 
-### 3.7.9
+## [3.7.9]
 * main/module: default method for tools subs
 * main/module: extra args on getting menu url
 * main/module: multiple subs on settings/tools
@@ -723,12 +723,12 @@
 * module/update: using correct method for refresh packages
 * module/user: roles sub moved into tools
 
-### 3.7.8
+## [3.7.8]
 * module/taxonomy: filter for term rewrite slug
 * module/typography: :warning: disabling sanitize title filter
 * module/update: check for empty response on assets
 
-### 3.7.7
+## [3.7.7]
 * main/module: prep pre-custom setting fields
 * main/module: safer assign options into globals
 * main/utilities: constant for redirect 404 url
@@ -748,7 +748,7 @@
 * module/update: cleanup response data before transient
 * assets/js: :up: PDFObject 2.1.1
 
-### 3.7.6
+## [3.7.6]
 * main/module: auto hook current screen actions
 * main/settings: disabled field type
 * module/admin: initial support for dark mode
@@ -774,7 +774,7 @@
 * module/themes: jquery latest from cdn
 * module/typography: hide section titles on non single
 
-### 3.7.5
+## [3.7.5]
 * assets/js: :up: chosen 1.8.7
 * assets/js: :up: prismjs 1.15.0
 * assets/js: focus tab based on location hash
@@ -798,7 +798,7 @@
 * module/mail: check for log constant before filters
 * module/mail: log failed emails
 
-### 3.7.4
+## [3.7.4]
 * main/plugin: using bbp hook for bbpress module
 * main/module: moving away from `*_site_option` for clarity, [see](https://core.trac.wordpress.org/ticket/28290)
 * main/utilities: better iso639 locale
@@ -827,7 +827,7 @@
 * module/widgets: :new: widget for site icon
 * misc/buddypress-me: hook to bp setup componnet
 
-### 3.7.3
+## [3.7.3]
 * main/module: tools page for admin/network
 * main/module: better handling buttons
 * main/module: help tab/sidebar tweaks
@@ -849,7 +849,7 @@
 * module/themes: content actions disabled by default
 * module/themes: :warning: fixed not removing core scripts
 
-### 3.7.2
+## [3.7.2]
 * main/main: using psr-4 autoload
 * main/plugin: moved constants
 * main/plugin: delay pluggables to plugins loaded
@@ -862,7 +862,7 @@
 * module/shortcodes: drop google groups subscription shortcode
 * module/themes: enhancements disabled by default
 
-### 3.7.1
+## [3.7.1]
 * module/admin: hide network-active plugins
 * module/blog: disable xml-rpc headers
 * module/branding: support theme color
@@ -888,7 +888,7 @@
 * module/tracking: initial support for amp
 * module/themes: initial support for amp
 
-### 3.7.0
+## [3.7.0]
 * main/logger: check for server address
 * main/module: default method for cron events
 * module/authors: check for edit user cap on sidebox info
@@ -913,7 +913,7 @@
 * module/user: spam count/timestamps on admin listtable (from gMember)
 * module/user: setting ui for site user id/role
 
-### 3.6.7
+## [3.6.7]
 * main/main: incorrect install notice for non multisite
 * main/main: check for min php
 * main/module: internal api for using core strings as default
@@ -947,7 +947,7 @@
 * module/user: :new: global user navigation menu
 * module/user: :new: admins to edit users of their sites
 
-### 3.6.6
+## [3.6.6]
 * main/plugin: postpone loading language till plugins loaded
 * main/module: settings sidebox review
 * main/module: internal api for custom setting
@@ -979,7 +979,7 @@
 * module/user: :new: simple csv export
 * module/user: current contact mehods as help tab
 
-### 3.6.5
+## [3.6.5]
 * main/module: diff only options as help tab
 * main/module: extra attrs for shortcode wrap
 * module/adminbar: strip tags from cron status message
@@ -1003,7 +1003,7 @@
 * module/site: new large user count hook
 * module/shortcodes: ref overhaul
 
-### 3.6.4
+## [3.6.4]
 * main/module: default callback for settings
 * main/module: exclude activate page from wpinstalling
 * main/utilities: support separate rtl styles
@@ -1028,7 +1028,7 @@
 * module/typography: skip on empty titles
 * module/user: respect constant for signup/activate styles
 
-### 3.6.3
+## [3.6.3]
 * main/ajax: :new: main class
 * main/module: help tab to list module shortcodes
 * main/module: using internal helper for help tab keys
@@ -1067,7 +1067,7 @@
 * module/typography: epigraph/reverse for blockquotes
 * module/widget: removing shortcode widget
 
-### 3.6.2
+## [3.6.2]
 * main/module: ajax action hook helper
 * main/settings: support for links via submit button generator
 * main/setting: new email field type
@@ -1082,7 +1082,7 @@
 * module/themes: :new: support for omega theme
 * module/themes: :new: support for p2-breath theme and o2 plugin
 
-### 3.6.1
+## [3.6.1]
 * main/module: :warning: cap check for phpinfo tab
 * main/functions: fallback for gmeta
 * module/adminbar: :new: wpcf7 reset messages node
@@ -1107,7 +1107,7 @@
 * module/themes: test with hueman v3.3.14
 * module/themes: test with semicolon v0.9.1
 
-### 3.6.0
+## [3.6.0]
 * assets/js: :up: autosize 3.0.21
 * main/constants: new cache ttl `GNETWORK_CACHE_TTL`
 * main/plugin: better file loader
@@ -1133,7 +1133,7 @@
 * module/taxonomy: later hook for other plugins actions
 * module/tracking: tab before additional lines
 
-### 3.5.5
+## [3.5.5]
 * main/plugin: seperate loop for modules
 * main/modulecore: class on shortcode wrapper
 * module/admin: customized style for inside editor iframe
@@ -1155,7 +1155,7 @@
 * module/themes: user locale as body class
 * module/themes: support [Tribes](https://www.competethemes.com/tribes/) theme
 
-### 3.5.4
+## [3.5.4]
 * plugin/uninstall: option deletion for site & blog
 * main/constants: prevent extra redirect by trailing slash
 * main/modulecore: check if sub action exists
@@ -1174,7 +1174,7 @@
 * module/themes: filtering scandir exclusions
 * module/user: facebook url as pre configured contact method
 
-### 3.5.3
+## [3.5.3]
 * main/plugin: not available string helper
 * main/modulecore: skip saving default settings
 * main/modulecore: settings hook helper
@@ -1244,7 +1244,7 @@
 * module/user: :new: tos as user dashboard widget
 * module/user: :new: tos on network signup page
 
-### 3.5.2
+## [3.5.2]
 * assets/js: :up: [jacklmoore/autosize](http://jacklmoore.com/autosize) v3.0.20
 * main/modulecore: checking if must register ui hooks
 * main/modulecore: better hook/hash/hash with salt helpers
@@ -1279,10 +1279,10 @@
 * module/site: non admin site hooks moved here
 * module/shortcodes: last edited with simpler calls
 
-### 3.5.1
+## [3.5.1]
 * module/adminbar: :warning: fix fatal
 
-### 3.5.0
+## [3.5.0]
 * assets/js: passing tinymce object into mce plugins
 * core/number: internal format handling
 * main/modulecore: internal api for calling hooks
@@ -1338,7 +1338,7 @@
 * misc/buddypress me: cover slug
 * misc/buddypress me: better handling profile slug
 
-### 3.4.0
+## [3.4.0]
 * admin notice upon no autoload file
 * assets/js: :up: autosize v3.0.17
 * core/date: :new: core class
@@ -1395,7 +1395,7 @@
 * module/users: :new: `[logged-in]`, `[not-logged-in]` shortcodes
 * utilities: :new: update notice api
 
-### 3.3.2
+## [3.3.2]
 * html: skip strtolower on sanitizing tags
 * html: escape textarea helper
 * Arraay: correct check for needle in the haystack!
@@ -1420,13 +1420,13 @@
 * shortcodes: closing shortcode on empty ref
 * taxonomy: preserve search in redirect
 
-### 3.3.1
+## [3.3.1]
 * restricted: fixed fatal: omitted class name changes
 * bp me: fixed fatal: omitted class name changes
 * shortcodes: fixed notice for global post object in `[in-term]`
 * typography: new `[pad]`
 
-### 3.3.0
+## [3.3.0]
 * all: new folder structure
 * all: refactoring localization strings
 * modulecore: callback type for setting fields
@@ -1435,7 +1435,7 @@
 * taxonomy: quick edit glitch fixed
 * widgets: selective disable of sidebar/dashboard widgets, inspired by [WP Widget Disable](https://wordpress.org/plugins/wp-widget-disable/)
 
-### 3.2.0
+## [3.2.0]
 * media: skip cleaning custom attachments
 * shortcodes: sanitizing phone numbers, [see](http://www.billerickson.net/code/phone-number-url/)
 * cleanup: purge old slugs
@@ -1443,7 +1443,7 @@
 * locale: Persian twentyfifteen updated
 * themes: fixed setup theme on admin
 
-### 3.1.0
+## [3.1.0]
 * blog: redirect status code
 * blog: option to disable/remove wp api, [see](http://wordpress.stackexchange.com/a/212472)
 * themes: new content actions
@@ -1459,20 +1459,20 @@
 * typography: title case post titles, [see](https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a)
 * typography: option to disable editor buttons
 
-### 3.0.0
+## [3.0.0]
 * moved to [Semantic Versioning](http://semver.org/)
 * moved to namespace structure
 * comments: frontend autogrow, adopted from [Comment Autogrow](https://wordpress.org/plugins/comment-autogrow/) by [scribu](http://scribu.net/)
 * comments: new comment type as `archived`, also hides and excluded from comments count
 * themes: `GNETWORK_DISABLE_THEMES` constant
 
-### 0.2.33
+## [0.2.33]
 * media: media objects now cleans the attachments
 * media: clean attachments on media row & bulk actions
 * typography: do shortcode inside ltr shortcode
 * login: pre login page body classes
 
-### 0.2.32
+## [0.2.32]
 * network: default email helper
 * taxonomy: unnecessary escape on redirection
 * shortcodes: new `[in-term]`
@@ -1484,14 +1484,14 @@
 * cleanup: checking script debug before disabling jquery migrate
 * login: custom style setting
 
-### 0.2.31
+## [0.2.31]
 * debug: network settings tab for `phpinfo()`
 * captcha: [recaptcha](https://www.google.com/recaptcha/) for comment forms
 * shortcodes: new `[sms]`
 * admin: [jacklmoore.com/autosize](http://jacklmoore.com/autosize) updated to v3.0.15
 * media: draft for clean attachments
 
-### 0.2.30
+## [0.2.30]
 * modulecore: check for user admin
 * shortcodes: new `[search]`
 * shortcodes: keyboard shortcut for `[ref]`, `[email]`, `[search]`
@@ -1500,7 +1500,7 @@
 * code: [gist-embed](https://github.com/blairvanderhoof/gist-embed) updated to v2.4
 * debug: simpler logs
 
-### 0.2.29
+## [0.2.29]
 * all: using exception for module constructors
 * taxonomy: term management tools updated
 * shortcodes: `[qrcode]` using [Google Chart Tools](https://developers.google.com/chart/infographics/docs/qr_codes)
@@ -1508,7 +1508,7 @@
 * cleanup: `GNETWORK_DISABLE_EMOJIS` for overriding, default is true
 * debug: display error logs
 
-### 0.2.28
+## [0.2.28]
 * refactoring main classes
 * basecore: table helper from gEditorial
 * constants: default `FS_CHMOD_DIR` / `FS_CHMOD_FILE`
@@ -1529,22 +1529,22 @@
 * mail: sort and delete email logs
 * bbq: updated to [20151107](https://wordpress.org/plugins/block-bad-queries/changelog/)
 
-### 0.2.27
+## [0.2.27]
 * locale: custom blog admin language
 * utilizing composer
 
-### 0.2.26
+## [0.2.26]
 * shortcodes: reflist global style reset
 * shortcodes: wrap option
 * login: custom title/url for login logo
 * login: adoption of [BruteProtect](http://bruteprotect.com/) math fallback
 
-### 0.2.25
+## [0.2.25]
 * locale: custom network admin language
 * cron: unscheduling events
 * network: github readme as overview
 
-### 0.2.24
+## [0.2.24]
 * all: `503`/`403` template helpers
 * modulecore: notice updated/error helpers
 * modulecore: options/buttons/scripts are now public
@@ -1558,7 +1558,7 @@
 * blog: copyright page meta tag
 * opensearch: another attempt to make suggestion work!
 
-### 0.2.23
+## [0.2.23]
 * locale: adminbar menus to quickly change current language
 * locale: no actions/filters if no `GNETWORK_WPLANG`/`GNETWORK_WPLANG_ADMIN`
 * utilities: cleanup current url helper
@@ -1580,17 +1580,17 @@
 * dev: screen variables helper
 * including [Kint](https://github.com/raveren/kint/) debugging library
 
-### 0.2.22
+## [0.2.22]
 * restricted: fixed fatal using old method
 * themes: fixed fatal cannot access self
 * modulecore: single checkbox desc as title
 * debug: supporting user & term meta in debugbar
 
-### 0.2.21
+## [0.2.21]
 * cron: new module, initially just a list of scheduled tasks
 * all: helper for site user id calls
 
-### 0.2.20
+## [0.2.20]
 * themes: excerpt link for hueman
 * debug: upload path and server info
 * locale: new tab and better listing loaded mo files
@@ -1600,13 +1600,13 @@
 * mail: new tab & table for last 25 logged in json
 * mail: table on test mail debug
 
-### 0.2.19
+## [0.2.19]
 * notify: `wp_new_user_notification()` changes again!
 * all: safe json encoding with `wp_json_encode()`
 * modulecore: check if module must load on frontend
 * modulecore: drop check for old options
 
-### 0.2.18
+## [0.2.18]
 * modulecore: log only if `WP_DEBUG_LOG`
 * modulecore: `is_network()` to override network behavior
 * modulecore: `register_menu()` for conditional menus
@@ -1620,7 +1620,7 @@
 * blog: custom page template on frontpage
 * utilities: check user cap before flush
 
-### 0.2.17
+## [0.2.17]
 * search: include authors removed
 * locale: custom override actually working!
 * locale: check on ajax calls
@@ -1631,7 +1631,7 @@
 * tracking: option to send userid data to analytics
 * tracking: new initial `[google-plus-badge]`
 
-### 0.2.16
+## [0.2.16]
 * admin: internal api for tinymce plugins
 * typography: editor button for asterisks
 * shortcodes: `[person]` moved here from gpeople module
@@ -1641,17 +1641,17 @@
 * gpeople: module removed
 * debug: include the wp error object on the log
 
-### 0.2.15
+## [0.2.15]
 * cleanup: new `GNETWORK_DISABLE_JQUERY_MIGRATE` constant
 * new module: site
 * login: always checked moved to site module and disabled by default
 * widgets: shortcode widget working!
 
-### 0.2.14
+## [0.2.14]
 * utilities: support new headings structure in WP4.3,  [see](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/)
 * themes: new theme support for [Revera](http://www.fabthemes.com/revera/)
 
-### 0.2.13
+## [0.2.13]
 * debug: more details of http api debug log
 * debug: log test cookie errors
 * modulecore: internal log api
@@ -1659,13 +1659,13 @@
 * shortcodes: new `[audio-go]` ([source](http://bavotasan.com/2015/working-with-wordpress-and-mediaelement-js/))
 * themes: new theme support for [Ari](http://www.elmastudio.de/wordpress-themes/ari/)
 
-### 0.2.12
+## [0.2.12]
 * modulecore: settings method as internal api
 * modulecore: esc_url messing with referer
 * blog: option key renamed to `general`
 * cleanup: bump jquery core version
 
-### 0.2.11
+## [0.2.11]
 * code: `[github-repo]` moved and fixed
 * comments: set default status for comment and ping on pages, [see](https://make.wordpress.org/core/2015/07/06/comments-are-now-turned-off-on-pages-by-default/).
 * bbq: updated to [20150624](https://perishablepress.com/block-bad-queries/)
@@ -1677,7 +1677,7 @@
 * modulecore: escape referrer url
 * mail: log all outgoing emails
 
-### 0.2.10
+## [0.2.10]
 * notify: fixed blogname method call
 * notify: fixed per blog settings
 * locale: `GNETWORK_WPLANG_ADMIN` to override admin language
@@ -1685,14 +1685,14 @@
 * comments: blog comments report on settings
 * modulecore: settings sidebox styling
 
-### 0.2.9
+## [0.2.9]
 * typography: correct slug for `[wiki]`
 * typography: hex entity number for asterisks in `[three-asterisks]`
 * network: add user to blog upon creation
 * modulecore: add options to autoload
 * themes: locale as body class
 
-### 0.2.8
+## [0.2.8]
 * modulecore: centralizing all options that results in fewer db queries
 * code: new gist embed shortcode: `[github-gist]` using [gist-embed](https://github.com/blairvanderhoof/gist-embed)
 * code: `[github-readme]` now grabs wiki pages and any markdown on the repo as well
@@ -1705,19 +1705,19 @@
 * redirect: module deprecated
 * cleanup: removed [BruteProtect](http://bruteprotect.com/) annoying style and empty menu!
 
-### 0.2.7
+## [0.2.7]
 * media: attachment sizes by post type. must set `GNETWORK_MEDIA_OBJECT_SIZES`
 * media: loging seperations in dev mode
 * media: minified version of admin.media.js
 * adminbar: adding textdomain to all strings
 
-### 0.2.6
+## [0.2.6]
 * users: change author select now restricted to blog users
 * widgets: latest tweets widget removed
 * adminbar: query info on admin too
 * buddypress: fix fatal: no this in context
 
-### 0.2.5
+## [0.2.5]
 * language file updated
 * opensearch: excluding tag injection on core rss export
 * adminbar: new action to hook into plugin menu
@@ -1729,7 +1729,7 @@
 * shortcode: ref link with ltr control character
 * themes: fix fatal: cannot access self:: when no class scope is active
 
-### 0.2.4
+## [0.2.4]
 * users: new module init
 * users: default post author moved from editor
 * users: default post author admin settings
@@ -1745,21 +1745,21 @@
 * adminbar: rtl refinements
 * taxonomy: new filters to extend bulk actions
 
-### 0.2.3
+## [0.2.3]
 * cleanup: disable emojis in WP 4.2
 * shortcodes: siblings now excludes current post
 * admin/overview: plugin paths
 * buddypress: required fields check moved from buddypress.me
 
-### 0.2.2
+## [0.2.2]
 * languages: main pot & translation updated
 * taxonomy: hiding the description of descriptions
 * themes: now we can disable all front styles
 * debug: refactoring debugbar panel
 
-### 0.2.1
+## [0.2.1]
 * languages: include mo files
 * themes: css font include moved above
 
-### 0.2.0
+## [0.2.0]
 * github publish

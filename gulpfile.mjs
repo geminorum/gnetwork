@@ -137,7 +137,8 @@ task('i18n:core:make', function (cb) {
 task('i18n:core:php', function (cb) {
   i18nCommand('make-php ' +
     conf.i18n.core.dist + ' ' +
-    '--skip-plugins --skip-themes --skip-packages' +
+    '--skip-plugins --skip-themes --skip-packages ' +
+    // '--pretty-print' +
     (debug ? ' --debug' : ''),
   cb);
 });
@@ -368,7 +369,7 @@ task('github:package', function (done) {
     return done();
   }
 
-  const changes = parseChangelog(fs.readFileSync(conf.root.changelog, { encoding: 'utf-8' }), { title: false });
+  // const changes = parseChangelog(fs.readFileSync(conf.root.changelog, { encoding: 'utf-8' }), { title: false });
 
   // @REF: https://cli.github.com/manual/gh_release_create
   githubCommand('release create ' +
@@ -377,7 +378,9 @@ task('github:package', function (done) {
     '--draft' + ' ' +
     '--latest' + ' ' + // default: automatic based on date and version
     '--title "' + pkg.version + '" ' +
-    '--notes "' + normalizeEOL(changes.versions[0].rawNote.toString()) + '"' +
+    // '--notes "' + normalizeEOL(changes.versions[0].rawNote.toString()) + '" ' +
+    '--notes-from-tag ' +
+    '--fail-on-no-commits ' + // Create a release only if there are new commits available since the last release
     '',
   done);
 });

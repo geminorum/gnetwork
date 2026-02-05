@@ -103,6 +103,7 @@
     "dev": {
       "preset": [
         "default", {
+          "svgo": false,
           "zindex": false,
           "normalizeWhitespace": false,
           "discardComments": false
@@ -112,6 +113,7 @@
     "build": {
       "preset": [
         "default", {
+          "svgo": false,
           "zindex": false,
           "discardComments": {
             "removeAll": true

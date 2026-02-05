@@ -13,12 +13,13 @@ Author URI: https://geminorum.ir/
 Network: true
 Text Domain: gnetwork
 Domain Path: /languages
+RepoGitHub: geminorum/gnetwork
 GitHub Plugin URI: https://github.com/geminorum/gnetwork
 Release Asset: true
-Tested up to: 6.5
-Requires WP: 5.7.0
-Requires at least: 5.7.0
+Requires WP: 5.9.0
+Requires at least: 5.9.0
 Requires PHP: 7.4
+Tested up to: 6.9
 */
 
 define( 'GNETWORK_VERSION', '3.18.0' );
