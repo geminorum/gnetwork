@@ -357,7 +357,7 @@ class Embed extends gNetwork\Module
 					'data'            => [ 'source' => $link ],
 				], NULL );
 
-				$date = Utilities::dateFormat( $item->get_date( 'U' ) );
+				$date = gNetwork\Datetime::dateFormat( $item->get_date( 'U' ) );
 
 				$desc = @html_entity_decode( $item->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) );
 				$desc = wp_trim_words( $desc, apply_filters( 'excerpt_length', 55 ), apply_filters( 'excerpt_more', ' &hellip;' ) );

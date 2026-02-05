@@ -277,7 +277,7 @@ class Typography extends gNetwork\Module
 			'date' => [
 				'title'    => _x( 'Date', 'Modules: Typography: Column Title', 'gnetwork' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
-					return Utilities::humanTimeDiffRound( strtotime( $row->post_date ) );
+					return gNetwork\Datetime::humanTimeDiffRound( $row->post_date );
 				},
 			],
 

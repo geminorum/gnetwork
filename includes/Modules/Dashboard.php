@@ -338,19 +338,19 @@ class Dashboard extends gNetwork\Module
 
 			foreach ( $query->results as $user ) {
 
-				$registered  = strtotime( get_date_from_gmt( $user->user_registered ) );
+				$registered  = Core\Date::timestamp( $user->user_registered );
 				$register_ip = get_user_meta( $user->ID, 'register_ip', TRUE );
 
 				vprintf( $template, [
 					( $alt ? ' class="alternate"' : '' ),
 					Core\HTML::escape( $user->display_name ),
 					Core\HTML::escape( Core\Text::truncateString( $user->user_email, 32 ) ),
-					Core\HTML::escape( Utilities::dateFormat( $registered, 'monthday' ) ),
+					Core\HTML::escape( gNetwork\Datetime::dateFormat( $registered, 'monthday' ) ),
 					sprintf(
 						/* translators: `%1$s`: human time diff, `%2$s`: registered date */
 						_x( '%1$s ago &mdash; %2$s', 'Modules: Dashboard: Signups', 'gnetwork' ),
 						human_time_diff( $registered, $time ),
-						Utilities::dateFormat( $registered )
+						gNetwork\Datetime::dateFormat( $registered )
 					),
 					get_edit_user_link( $user->ID ),
 					$user->user_login,
@@ -463,7 +463,7 @@ class Dashboard extends gNetwork\Module
 			foreach ( $query->results as $user ) {
 
 				if ( $meta = get_user_meta( $user->ID, 'lastlogin', TRUE ) )
-					$lastlogin = strtotime( get_date_from_gmt( $meta ) );
+					$lastlogin = Core\Date::timestamp( $meta );
 				else
 					continue;
 
@@ -473,7 +473,7 @@ class Dashboard extends gNetwork\Module
 					Core\HTML::escape( human_time_diff( $lastlogin, $time ) ),
 					get_edit_user_link( $user->ID ),
 					$user->user_login,
-					Core\HTML::escape( Utilities::dateFormat( $lastlogin, 'timedate' ) ),
+					Core\HTML::escape( gNetwork\Datetime::dateFormat( $lastlogin, 'timedate' ) ),
 				] );
 
 				$alt = ! $alt;

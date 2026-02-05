@@ -380,7 +380,7 @@ class Provider extends Core\Base
 
 	public static function dateFormat( $timestamp = NULL )
 	{
-		return Utilities::dateFormat( $timestamp, 'datetime' );
+		return Datetime::dateFormat( $timestamp, 'datetime' );
 	}
 
 	// FIXME: DRAFT

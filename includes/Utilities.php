@@ -40,9 +40,10 @@ class Utilities extends Core\Base
 	{
 		$pattern = '/\[([^\]]+)\]/';
 
-		return preg_replace_callback( $pattern, static function ( $matches ) {
-			return '<b><span title="'.Core\HTML::escape( self::humanTimeAgo( strtotime( $matches[1] ) ) ).'">['.$matches[1].']</span></b>';
-		}, $string, $limit );
+		return preg_replace_callback( $pattern,
+			static function ( $matches ) {
+				return '<b><span title="'.Core\HTML::escape( Datetime::humanTimeAgo( $matches[1] ) ).'">['.$matches[1].']</span></b>';
+			}, $string, $limit );
 	}
 
 	public static function highlightIP( $string, $limit = -1 )
@@ -55,171 +56,19 @@ class Utilities extends Core\Base
 		}, $string, $limit );
 	}
 
-	public static function htmlHumanTime( $timestamp, $flip = FALSE )
-	{
-		if ( ! $timestamp )
-			return $timestamp;
-
-		if ( ! Core\Date::isTimestamp( $timestamp ) )
-			$timestamp = strtotime( $timestamp );
-
-		$now = current_time( 'timestamp', FALSE );
-
-		if ( $flip )
-			return '<span class="-date-diff" title="'
-					.Core\HTML::escape( self::dateFormat( $timestamp, 'fulltime' ) ).'">'
-					.self::humanTimeDiff( $timestamp, $now )
-				.'</span>';
-
-		return '<span class="-time" title="'
-			.Core\HTML::escape( self::humanTimeAgo( $timestamp, $now ) ).'">'
-			.self::humanTimeDiffRound( $timestamp, NULL, self::dateFormats( 'default' ), $now )
-		.'</span>';
-	}
-
-	public static function humanTimeAgo( $from, $to = '' )
-	{
-		return sprintf(
-			/* translators: `%s`: time string */
-			_x( '%s ago', 'Utilities: Human Time Ago', 'gnetwork' ),
-			human_time_diff( $from, $to )
-		);
-	}
-
-	public static function humanTimeDiffRound( $local, $round = NULL, $format = NULL, $now = NULL )
-	{
-		if ( is_null( $now ) )
-			$now = current_time( 'timestamp', FALSE );
-
-		if ( FALSE === $round )
-			return self::humanTimeAgo( $local, $now );
-
-		if ( is_null( $round ) )
-			$round = Core\Date::DAY_IN_SECONDS;
-
-		$diff = $now - $local;
-
-		if ( $diff > 0 && $diff < $round )
-			return self::humanTimeAgo( $local, $now );
-
-		if ( is_null( $format ) )
-			$format = self::dateFormats( 'default' );
-
-		return Core\Date::get( $format, $local );
-	}
-
-	public static function humanTimeDiff( $timestamp, $now = '' )
-	{
-		static $strings = NULL;
-
-		if ( is_null( $strings ) )
-			$strings = [
-				'now'    => _x( 'Now', 'Utilities: Human Time Diff', 'gnetwork' ),
-				/* translators: `%s`: time string */
-				'_s_ago' => _x( '%s ago', 'Utilities: Human Time Diff', 'gnetwork' ),
-				/* translators: `%s`: time string */
-				'in__s'  => _x( 'in %s', 'Utilities: Human Time Diff', 'gnetwork' ),
-
-				/* translators: `%s`: number of minutes */
-				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: `%s`: number of hours */
-				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: `%s`: number of days */
-				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: `%s`: number of weeks */
-				'noop_weeks'   => _nx_noop( '%s week', '%s weeks', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: `%s`: number of months */
-				'noop_months'  => _nx_noop( '%s month', '%s months', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-				/* translators: `%s`: number of years */
-				'noop_years'   => _nx_noop( '%s year', '%s years', 'Utilities: Human Time Diff: Noop', 'gnetwork' ),
-			];
-
-		if ( empty( $now ) )
-			$now = current_time( 'timestamp', FALSE );
-
-		return Core\Date::humanTimeDiff( $timestamp, $now, $strings );
-	}
-
-	public static function htmlFromSeconds( $seconds, $round = FALSE )
-	{
-		static $strings = NULL;
-
-		if ( is_null( $strings ) )
-			$strings = [
-				'sep' => WordPress\Strings::separator(),
-
-				/* translators: `%s`: number of seconds */
-				'noop_seconds' => _nx_noop( '%s second', '%s seconds', 'Utilities: From Seconds: Noop', 'gnetwork' ),
-				/* translators: `%s`: number of minutes */
-				'noop_minutes' => _nx_noop( '%s min', '%s mins', 'Utilities: From Seconds: Noop', 'gnetwork' ),
-				/* translators: `%s`: number of hours */
-				'noop_hours'   => _nx_noop( '%s hour', '%s hours', 'Utilities: From Seconds: Noop', 'gnetwork' ),
-				/* translators: `%s`: number of days */
-				'noop_days'    => _nx_noop( '%s day', '%s days', 'Utilities: From Seconds: Noop', 'gnetwork' ),
-			];
-
-		return Core\Date::htmlFromSeconds( $seconds, $round, $strings );
-	}
-
-	// not used yet!
-	public static function moment( $timestamp, $now = '' )
-	{
-		static $strings = NULL;
-
-		if ( is_null( $strings ) )
-			$strings = [
-				'now'            => _x( 'Now', 'Utilities: Date: Moment', 'gnetwork' ),
-				'just_now'       => _x( 'Just now', 'Utilities: Date: Moment', 'gnetwork' ),
-				'one_minute_ago' => _x( 'One minute ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: `%s`: number of minutes */
-				'_s_minutes_ago' => _x( '%s minutes ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				'one_hour_ago'   => _x( 'One hour ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: `%s`: number of hours */
-				'_s_hours_ago'   => _x( '%s hours ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				'yesterday'      => _x( 'Yesterday', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: `%s`: number of days */
-				'_s_days_ago'    => _x( '%s days ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: `%s`: number of weeks */
-				'_s_weeks_ago'   => _x( '%s weeks ago', 'Utilities: Date: Moment', 'gnetwork' ),
-				'last_month'     => _x( 'Last month', 'Utilities: Date: Moment', 'gnetwork' ),
-				'last_year'      => _x( 'Last year', 'Utilities: Date: Moment', 'gnetwork' ),
-				'in_a_minute'    => _x( 'in a minute', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: `%s`: number of minutes */
-				'in__s_minutes'  => _x( 'in %s minutes', 'Utilities: Date: Moment', 'gnetwork' ),
-				'in_an_hour'     => _x( 'in an hour', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: `%s`: number of hours */
-				'in__s_hours'    => _x( 'in %s hours', 'Utilities: Date: Moment', 'gnetwork' ),
-				'tomorrow'       => _x( 'Tomorrow', 'Utilities: Date: Moment', 'gnetwork' ),
-				'next_week'      => _x( 'next week', 'Utilities: Date: Moment', 'gnetwork' ),
-				/* translators: `%s`: number of weeks */
-				'in__s_weeks'    => _x( 'in %s weeks', 'Utilities: Date: Moment', 'gnetwork' ),
-				'next_month'     => _x( 'next month', 'Utilities: Date: Moment', 'gnetwork' ),
-				'format_l'       => _x( 'l', 'Utilities: Date: Moment', 'gnetwork' ),
-				'format_f_y'     => _x( 'F Y', 'Utilities: Date: Moment', 'gnetwork' ),
-			];
-
-		if ( empty( $now ) )
-			$now = current_time( 'timestamp', FALSE );
-
-		return Core\Date::moment( $timestamp, $now, $strings );
-	}
-
 	public static function getDateEditRow( $timestamp, $class = FALSE )
 	{
-		if ( empty( $timestamp ) )
+		if ( ! $timestamp = Core\Date::timestamp( $timestamp ) )
 			return self::htmlEmpty();
 
-		if ( ! Core\Date::isTimestamp( $timestamp ) )
-			$timestamp = strtotime( $timestamp );
-
-		$formats = self::dateFormats( FALSE );
+		$formats = Datetime::dateFormats( FALSE );
 
 		$html = '<span class="-date-date" title="'.Core\HTML::escape( Core\Date::get( $formats['timeonly'], $timestamp ) );
 		$html.= '" data-time="'.date( 'c', $timestamp ).'">'.Core\Date::get( $formats['default'], $timestamp ).'</span>';
 
 		$html.= '&nbsp;(<span class="-date-diff" title="';
 		$html.= Core\HTML::escape( Core\Date::get( $formats['fulltime'], $timestamp ) ).'">';
-		$html.= self::humanTimeDiff( $timestamp ).'</span>)';
+		$html.= Datetime::humanTimeDiff( $timestamp ).'</span>)';
 
 		return $class ? '<span class="'.Core\HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
 	}
@@ -229,11 +78,11 @@ class Utilities extends Core\Base
 		if ( empty( $post->post_modified ) )
 			return self::htmlEmpty();
 
-		$timestamp = strtotime( $post->post_modified );
-		$formats   = self::dateFormats( FALSE );
+		$timestamp = Core\Date::timestamp( $post->post_modified );
+		$formats   = Datetime::dateFormats( FALSE );
 
 		$html = '<span class="-date-modified" title="'.Core\HTML::escape( Core\Date::get( $formats['default'], $timestamp ) );
-		$html.='" data-time="'.date( 'c', $timestamp ).'">'.self::humanTimeDiff( $timestamp ).'</span>';
+		$html.='" data-time="'.date( 'c', $timestamp ).'">'.Datetime::humanTimeDiff( $timestamp ).'</span>';
 
 		$edit_last = get_post_meta( $post->ID, '_edit_last', TRUE );
 
@@ -241,48 +90,6 @@ class Utilities extends Core\Base
 			$html.= '&nbsp;(<span class="-edit-last">'.WordPress\PostType::authorEditMarkup( $post->post_type, $edit_last ).'</span>)';
 
 		return $class ? '<span class="'.Core\HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
-	}
-
-	public static function htmlCurrent( $format = NULL, $class = FALSE, $title = FALSE )
-	{
-		return Core\Date::htmlCurrent( ( is_null( $format ) ? self::dateFormats( 'datetime' ) : $format ), $class, $title );
-	}
-
-	public static function dateFormat( $timestamp, $context = 'default' )
-	{
-		if ( ! Core\Date::isTimestamp( $timestamp ) )
-			$timestamp = strtotime( $timestamp );
-
-		return Core\Date::get( self::dateFormats( $context ), $timestamp );
-	}
-
-	// @SEE: http://www.phpformatdate.com/
-	public static function dateFormats( $context = 'default' )
-	{
-		static $formats;
-
-		if ( empty( $formats ) )
-			$formats = apply_filters( static::BASE.'_custom_date_formats', [
-				'age'      => _x( 'm/d/Y', 'Date Format: `age`', 'gnetwork' ),
-				'dateonly' => _x( 'l, F j, Y', 'Date Format: `dateonly`', 'gnetwork' ),
-				'datetime' => _x( 'M j, Y @ G:i', 'Date Format: `datetime`', 'gnetwork' ),
-				'default'  => _x( 'm/d/Y', 'Date Format: `default`', 'gnetwork' ),
-				'fulltime' => _x( 'l, M j, Y @ H:i', 'Date Format: `fulltime`', 'gnetwork' ),
-				'monthday' => _x( 'n/j', 'Date Format: `monthday`', 'gnetwork' ),
-				'print'    => _x( 'j/n/Y', 'Date Format: `print`', 'gnetwork' ),
-				'timeampm' => _x( 'g:i a', 'Date Format: `timeampm`', 'gnetwork' ),
-				'timedate' => _x( 'H:i - F j, Y', 'Date Format: `timedate`', 'gnetwork' ),
-				'timeonly' => _x( 'H:i', 'Date Format: `timeonly`', 'gnetwork' ),
-
-				'wordpress' => get_option( 'date_format' ),
-			] );
-
-		if ( FALSE === $context )
-			return $formats;
-
-		return empty( $formats[$context] )
-			? $formats['default']
-			: $formats[$context];
 	}
 
 	public static function getPostTitle( $post, $fallback = NULL )

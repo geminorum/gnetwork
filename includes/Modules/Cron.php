@@ -267,7 +267,7 @@ class Cron extends gNetwork\Module
 			$message = sprintf(
 				/* translators: `%s`: current time */
 				_x( 'WP-Cron is working as of %s', 'Modules: CRON', 'gnetwork' ),
-				Utilities::htmlCurrent()
+				gNetwork\Datetime::htmlCurrent()
 			);
 
 			update_option( $this->hook( 'status' ), '<span class="-status -success">'.$message.'</span>', TRUE );
@@ -291,7 +291,7 @@ class Cron extends gNetwork\Module
 				/* translators: `%1$s`: constant placeholder, `%2$s`: current time */
 				_x( 'The %1$s constant is set to true as of %2$s. WP-Cron is disabled and will not run automatically.', 'Modules: CRON', 'gnetwork' ),
 				Core\HTML::code( 'DISABLE_WP_CRON' ),
-				Utilities::htmlCurrent()
+				gNetwork\Datetime::htmlCurrent()
 			) );
 
 		if ( defined( 'ALTERNATE_WP_CRON' ) && ALTERNATE_WP_CRON )
@@ -299,7 +299,7 @@ class Cron extends gNetwork\Module
 				/* translators: `%1$s`: constant placeholder, `%2$s`: current time */
 				_x( 'The %1$s constant is set to true as of %2$s. We cannot determine the status of the WP-Cron system.', 'Modules: CRON', 'gnetwork' ),
 				Core\HTML::code( 'ALTERNATE_WP_CRON' ),
-				Utilities::htmlCurrent()
+				gNetwork\Datetime::htmlCurrent()
 			) );
 
 		$args = [

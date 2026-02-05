@@ -97,8 +97,8 @@ class Uptime extends gNetwork\Module
 
 			foreach ( $monitor['logs'] as $log )
 				echo '<tr><td>'.$this->get_uptimerobot_type( $log['type'] )
-					.'</td><td>'.Utilities::htmlHumanTime( $log['datetime'], TRUE )
-					.'</td><td>'.Utilities::htmlFromSeconds( $log['duration'], 2 )
+					.'</td><td>'.gNetwork\Datetime::htmlHumanTime( $log['datetime'], TRUE )
+					.'</td><td>'.gNetwork\Datetime::htmlFromSeconds( $log['duration'], 2 )
 					.'</td><td style="direction:ltr;">'.( $log['reason']['code'] < 600 ? Core\HTTP::htmlStatus( $log['reason']['code'] ) : '' ).$log['reason']['detail']
 					.'</td></tr>';
 
@@ -111,8 +111,13 @@ class Uptime extends gNetwork\Module
 				/* translators: `%s`: average response time */
 				echo Utilities::getCounted( $monitor['average_response_time'], _x( 'Response Time: %s', 'Modules: Uptime', 'gnetwork' ) );
 			echo '</td></tr><tr><td>';
-				/* translators: `%s`: interval */
-				printf( _x( 'Interval: %s', 'Modules: Uptime', 'gnetwork' ), Utilities::htmlFromSeconds( $monitor['interval'], 2 ) );
+
+				printf(
+					/* translators: `%s`: interval */
+					_x( 'Interval: %s', 'Modules: Uptime', 'gnetwork' ),
+					gNetwork\Datetime::htmlFromSeconds( $monitor['interval'], 2 )
+				);
+
 			echo '</td><td>';
 				/* translators: `%s`: response time */
 				echo Utilities::getCounted( $monitor['response_times'][0]['value'], _x( 'Last Response Time: %s', 'Modules: Uptime', 'gnetwork' ) );

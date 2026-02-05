@@ -147,7 +147,7 @@ class SMS extends gNetwork\Module
 					$html.= self::parseLogTarget( $target );
 
 					if ( ! empty( $row['timestamp'] ) )
-						$html.= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
+						$html.= '&ndash; '.gNetwork\Datetime::htmlHumanTime( $row['timestamp'] );
 
 					$html.= '<hr />';
 

@@ -636,7 +636,7 @@ class Mail extends gNetwork\Module
 					}
 
 					if ( ! empty( $row['timestamp'] ) )
-						$html.= '&ndash; '.Utilities::htmlHumanTime( $row['timestamp'] );
+						$html.= '&ndash; '.gNetwork\Datetime::htmlHumanTime( $row['timestamp'] );
 
 					if ( $html )
 						$html.= '<hr />';

@@ -897,29 +897,29 @@ class User extends gNetwork\Module
 		$lastlogin   = get_user_meta( $user->ID, 'lastlogin', TRUE );
 		$register_ip = get_user_meta( $user->ID, 'register_ip', TRUE );
 
-		$registered = strtotime( get_date_from_gmt( $user->user_registered ) );
-		$lastlogged = $lastlogin ? strtotime( get_date_from_gmt( $lastlogin ) ) : NULL;
+		$registered = Core\Date::timestamp( $user->user_registered );
+		$lastlogged = $lastlogin ? Core\Date::timestamp( $lastlogin ): NULL;
 
 		$html.= '<table><tbody>';
 
 		$html.= '<tr><td>'._x( 'Registered', 'Modules: User', 'gnetwork' ).'</td><td><code title="'
-			.Utilities::dateFormat( $registered, 'timeampm' ).'">'
-			.Utilities::dateFormat( $registered ).'</code></td></tr>';
+			.gNetwork\Datetime::dateFormat( $registered, 'timeampm' ).'">'
+			.gNetwork\Datetime::dateFormat( $registered ).'</code></td></tr>';
 
 		$html.= '<tr><td>'._x( 'Last Login', 'Modules: User', 'gnetwork' ).'</td><td>'
-			.( $lastlogin ? '<code title="'.Utilities::dateFormat( $lastlogged, 'timeampm' ).'">'
-				.Utilities::dateFormat( $lastlogged ).'</code>'
+			.( $lastlogin ? '<code title="'.gNetwork\Datetime::dateFormat( $lastlogged, 'timeampm' ).'">'
+				.gNetwork\Datetime::dateFormat( $lastlogged ).'</code>'
 			: gNetwork()->na() ).'</td></tr>';
 
 		if ( function_exists( 'bp_get_user_last_activity' ) ) {
 
 			if ( $lastactivity = bp_get_user_last_activity( $user->ID ) )
-				$lastactive = strtotime( get_date_from_gmt( $lastactivity ) );
+				$lastactive = Core\Date::timestamp( $lastactivity );
 
 			$html.= '<tr><td>'._x( 'Last Activity', 'Modules: User', 'gnetwork' ).'</td><td>'
 				.( $lastactivity
 					? '<code title="'.bp_core_time_since( $lastactivity ).'">'
-						.Utilities::dateFormat( $lastactive )
+						.gNetwork\Datetime::dateFormat( $lastactive )
 					: '<code>'.gNetwork()->na( FALSE ) )
 				.'</code></td></tr>';
 		}

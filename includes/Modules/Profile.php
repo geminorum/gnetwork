@@ -472,10 +472,10 @@ class Profile extends gNetwork\Module
 		echo '<tr class="register_ip"><th>'._x( 'Registration IP', 'Modules: Profile', 'gnetwork' )
 			.'</th><td>'.$register_ip.'</td></tr>';
 
-		$register_date = strtotime( get_date_from_gmt( $profileuser->user_registered ) );
-		$register_on   = Utilities::dateFormat( $register_date, 'datetime' )
+		$register_date = Core\Date::timestamp( $profileuser->user_registered );
+		$register_on   = gNetwork\Datetime::dateFormat( $register_date, 'datetime' )
 			.' <small><small><span class="description">('
-			.Utilities::humanTimeAgo( $register_date, $current_time )
+			.gNetwork\Datetime::humanTimeAgo( $register_date, $current_time )
 			.')</span></small></small>';
 
 		echo '<tr class="register_date"><th>'
@@ -485,10 +485,10 @@ class Profile extends gNetwork\Module
 		if ( $store_lastlogin || current_user_can( 'edit_users' ) ) {
 
 			if ( isset( $profileuser->lastlogin ) && '' != $profileuser->lastlogin ) {
-				$lastlogin_date = strtotime( get_date_from_gmt( $profileuser->lastlogin ) );
-				$lastlogin = Utilities::dateFormat( $lastlogin_date, 'datetime' )
+				$lastlogin_date = Core\Date::timestamp( $profileuser->lastlogin );
+				$lastlogin = gNetwork\Datetime::dateFormat( $lastlogin_date, 'datetime' )
 					.' <small><small><span class="description">('
-					.Utilities::humanTimeAgo( $lastlogin_date, $current_time )
+					.gNetwork\Datetime::humanTimeAgo( $lastlogin_date, $current_time )
 					.')</span></small></small>';
 			} else {
 				$lastlogin = gNetwork()->na();
