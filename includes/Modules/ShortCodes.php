@@ -132,8 +132,8 @@ class ShortCodes extends gNetwork\Module
 			'reflist-m'   => 'shortcode_reflist_manual',
 			'qrcode'      => 'shortcode_qrcode',
 			'search'      => 'shortcode_search',
-			'last-edited' => 'shortcode_last_edited',
-			'lastupdate'  => 'shortcode_last_edited',
+			// 'last-edited' => 'shortcode_last_edited', // DEPRECATED: use Editorial `Modified` Module
+			// 'lastupdate'  => 'shortcode_last_edited', // DEPRECATED: use Editorial `Modified` Module
 			'redirect'    => 'shortcode_redirect',
 			'menu'        => 'shortcode_menu',
 			'post-title'  => 'shortcode_post_title',
@@ -557,50 +557,16 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'all-terms', $args );
 	}
 
-	// FIXME: move to `gEditorial` Modified
-	/**
-	 * [last-edited format="l, F j, Y"] : 'Friday, January 11, 2012'
-	 * [last-edited format="G:i a (T)"] : '7:02 pm (EST)'
-	 * [last-edited format="l, F j, Y \a\t G:i A"] : 'Friday, January 11, 2012 at 7:02 PM'
-	 * [last-edited before="Last update:"] : 'Last update: Jan-11-2012'
-	 * [last-edited format="l, F j, Y" before="<span>This page hasn't been modified since" after="!</span>"] : '<span>This page hasn't been modified since Friday, January 11, 2012!</span>'
-	 */
+	// NOTE: DEPRECATED: not registered here and it's for BACK-COMPATIBILITY
 	public function shortcode_last_edited( $atts = [], $content = NULL, $tag = '' )
 	{
-		$args = shortcode_atts( [
-			'id'       => get_queried_object_id(),
-			'format'   => Utilities::dateFormats( 'dateonly' ),
-			'title'    => 'timeago',
-			'round'    => FALSE,
-			'link'     => FALSE,
-			'context'  => NULL,
-			'wrap'     => TRUE,
-			'before'   => '',
-			'after'    => '',
-		], $atts, $tag );
-
-		if ( FALSE === $args['context'] )
-			return NULL;
-
-		if ( ! $post = get_post( $args['id'] ) )
+		if ( ! function_exists( 'gEditorial' ) )
 			return $content;
 
-		$gmt   = strtotime( $post->post_modified_gmt );
-		$local = strtotime( $post->post_modified );
+		if ( ! gEditorial()->enabled( 'modified' ) )
+			return $content;
 
-		if ( 'timeago' == $args['title'] )
-			$title = Scripts::enqueueTimeAgo()
-				? FALSE
-				: Utilities::humanTimeDiffRound( $local, $args['round'] );
-		else
-			$title = $args['title'];
-
-		$html = Core\Date::htmlDateTime( $local, $gmt, $args['format'], $title );
-
-		if ( $args['link'] )
-			$html = Core\HTML::link( $html, $args['link'] );
-
-		return self::shortcodeWrap( $html, 'last-edited', $args, FALSE );
+		return gEditorial()->module( 'modified' )->post_modified_shortcode( $atts, $content, $tag );
 	}
 
 	public function shortcode_menu( $atts = [], $content = NULL, $tag = '' )
