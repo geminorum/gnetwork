@@ -209,6 +209,19 @@ class Plugin extends WordPress\Plugin
 		add_filter( 'mce_external_languages',[ $this, 'mce_external_languages' ] );
 	}
 
+	// NOTE: `custom path` once set by `load_plugin_textdomain()`
+	// NOTE: assumes the plugin directory is the same as the `textdomain`
+	protected function textdomains()
+	{
+		parent::textdomains();
+
+		if ( ! is_admin() )
+			return;
+
+		$locale = apply_filters( 'plugin_locale', Core\L10n::locale(), $this->base );
+		load_textdomain( $this->base.'-admin', $this->__dir."languages/admin-{$locale}.mo", $locale );
+	}
+
 	public function bp_include()
 	{
 		if ( is_readable( GNETWORK_DIR.'includes/Modules/BuddyPress.php' ) ) {
