@@ -805,6 +805,9 @@ class Blog extends gNetwork\Module
 
 	public function wp_print_scripts()
 	{
+		if ( WordPress\IsIt::amp() )
+			return;
+
 		echo "<script>if(document.location.protocol!='https:'){document.location=document.URL.replace(/^http:/i,'https:');}</script>";
 	}
 
