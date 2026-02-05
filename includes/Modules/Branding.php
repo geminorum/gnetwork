@@ -56,7 +56,7 @@ class Branding extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Branding', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Branding', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -94,24 +94,24 @@ class Branding extends gNetwork\Module
 		$settings['_general'][] = [
 			'field'       => 'brand_name',
 			'type'        => 'text',
-			'title'       => _x( 'Brand Name', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Will be used as default brand name. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'title'       => _x( 'Brand Name', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Will be used as default brand name. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			'placeholder' => GNETWORK_NAME,
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'brand_url',
 			'type'        => 'url',
-			'title'       => _x( 'Brand URL', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Will be used as default brand URL. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'title'       => _x( 'Brand URL', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Will be used as default brand URL. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			'placeholder' => GNETWORK_BASE,
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'brand_email',
 			'type'        => 'email',
-			'title'       => _x( 'Brand E-mail', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Will be used as default brand e-mail. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'title'       => _x( 'Brand E-mail', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Will be used as default brand e-mail. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			'placeholder' => gNetwork()->email(),
 		];
 
@@ -121,61 +121,61 @@ class Branding extends gNetwork\Module
 			$settings['_general'][] = [
 				'field'       => 'theme_color',
 				'type'        => 'color',
-				'title'       => _x( 'Theme Color', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'Defines color of the mobile browser address bar. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Theme Color', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Defines color of the mobile browser address bar. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			];
 		}
 
 		$settings['_general'][] = [
 			'field'       => 'network_sitelogo',
 			'type'        => 'text', // `url` will not work on relative URLs
-			'title'       => _x( 'SVG Network Logo', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Displays as network wide site logo. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'title'       => _x( 'SVG Network Logo', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Displays as network wide site logo. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			'field_class' => [ 'regular-text', 'url-text' ],
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'network_siteicon',
 			'type'        => 'text', // `url` will not work on relative URLs
-			'title'       => _x( 'SVG Network Icon', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Displays as network wide site icon. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'title'       => _x( 'SVG Network Icon', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Displays as network wide site icon. Leave empty to disable.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			'field_class' => [ 'regular-text', 'url-text' ],
 		];
 
 		$settings['_webapp'] = [
 			[
 				'field'       => 'webapp_manifest',
-				'title'       => _x( 'Manifest', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'Provides the ability to save a site bookmark to a device\'s home screen.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Manifest', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Provides the ability to save a site bookmark to a device\'s home screen.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 				'after'       => Settings::fieldAfterIcon( $this->url_manifest( FALSE ), NULL, 'external' ),
 				'default'     => '1',
 			],
 			[
 				'field'       => 'webapp_shortname',
 				'type'        => 'text',
-				'title'       => _x( 'Short Name', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'A short name for use as the text on the users home screen.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Short Name', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'A short name for use as the text on the users home screen.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 				'default'     => $name,
 				'field_class' => 'medium-text',
 			],
 			[
 				'field'       => 'webapp_longname',
 				'type'        => 'text',
-				'title'       => _x( 'Name', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'A name for use in the Web App Install banner.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Name', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'A name for use in the Web App Install banner.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			],
 			[
 				'field'       => 'webapp_description',
 				'type'        => 'text',
-				'title'       => _x( 'Description', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'A description for use in the Web App Manifest.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Description', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'A description for use in the Web App Manifest.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 				'field_class' => 'large-text',
 			],
 			[
 				'field'       => 'webapp_color',
 				'type'        => 'color',
-				'title'       => _x( 'Background Color', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'Defines the expected &ldquo;background color&rdquo; for the website. Leave empty to use theme color.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Background Color', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Defines the expected &ldquo;background color&rdquo; for the website. Leave empty to use theme color.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			],
 		];
 
@@ -183,9 +183,9 @@ class Branding extends gNetwork\Module
 			[
 				'field'       => 'adminbar_styles',
 				'type'        => 'textarea-code-editor',
-				'title'       => _x( 'Custom Styles', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Custom Styles', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 				'description' => [
-					_x( 'Additional CSS styles to use alongside the Adminbar.', 'Modules: Branding: Settings', 'gnetwork' ),
+					_x( 'Additional CSS styles to use alongside the Adminbar.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 					Settings::fieldDescPlaceholders( [
 						'theme_color',
 						'webapp_color',
@@ -201,39 +201,39 @@ class Branding extends gNetwork\Module
 			[
 				'field'       => 'text_copyright',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Copyright Notice', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'Displays as copyright notice on the footer on the front-end. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Copyright Notice', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Displays as copyright notice on the footer on the front-end. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			],
 			[
 				'field'       => 'text_powered',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Powered Notice', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'Displays as powered notice on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Powered Notice', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Displays as powered notice on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			],
 			[
 				'field'       => 'text_slogan',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Site Slogan', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'Displays as site slogan on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Site Slogan', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Displays as site slogan on the footer of on the admin. Leave empty to use default.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			],
 		];
 
 		$settings['_misc'][] = [
 			'field'       => 'content_replace',
-			'title'       => _x( 'Content Replace', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Tries to linkify brand name on the content. Must enable &ldquo;General Typography&rdquo; setting on each site.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'title'       => _x( 'Content Replace', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Tries to linkify brand name on the content. Must enable &ldquo;General Typography&rdquo; setting on each site.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_misc'][] = [
 			'field'       => 'colors_fallback',
-			'title'       => _x( 'Network Colors', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Falls back into custom site colors on the network.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'title'       => _x( 'Network Colors', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Falls back into custom site colors on the network.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_misc'][] = [
 			'field'       => 'sitelogo_fallback',
-			'title'       => _x( 'Network Site Logo', 'Modules: Branding: Settings', 'gnetwork' ),
-			'description' => _x( 'Falls back into custom site logo on the network.', 'Modules: Branding: Settings', 'gnetwork' ),
+			'title'       => _x( 'Network Site Logo', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Falls back into custom site logo on the network.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 		];
 
 		if ( $multisite ) {
@@ -241,8 +241,8 @@ class Branding extends gNetwork\Module
 			// no use when no multi-site!
 			$settings['_misc'][] = [
 				'field'       => 'siteicon_fallback',
-				'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', 'gnetwork' ),
-				'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', 'gnetwork' ),
+				'title'       => _x( 'Network Site Icon', 'Modules: Branding: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Falls back into main site icon on the network.', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			];
 		}
 
@@ -252,10 +252,10 @@ class Branding extends gNetwork\Module
 	public function settings_section_webapp()
 	{
 		Settings::fieldSection(
-			_x( 'Web App', 'Modules: Branding: Settings', 'gnetwork' ),
+			_x( 'Web App', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			sprintf(
 				/* translators: `%s`: link URL */
-				_x( 'Web app manifests provide the ability to save a site bookmark to a device\'s home screen. <a href="%s">Read More</a>', 'Modules: Branding: Settings', 'gnetwork' ),
+				_x( 'Web app manifests provide the ability to save a site bookmark to a device\'s home screen. <a href="%s">Read More</a>', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 				'https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest'
 			)
 		);
@@ -264,7 +264,7 @@ class Branding extends gNetwork\Module
 	public function settings_section_texts()
 	{
 		Settings::fieldSection(
-			_x( 'Notices', 'Modules: Branding: Settings', 'gnetwork' )
+			_x( 'Notices', 'Modules: Branding: Settings', 'gnetwork-admin' )
 		);
 	}
 
@@ -279,23 +279,23 @@ class Branding extends gNetwork\Module
 		if ( $this->options['network_sitelogo'] ) {
 
 			echo Core\HTML::img( $this->options['network_sitelogo'] );
-			Core\HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', 'gnetwork-admin' ) );
 
 		} else if ( $logo = get_custom_logo() ) {
 
 			echo $logo;
-			Core\HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Main Site Logo', 'Modules: Branding', 'gnetwork-admin' ) );
 		}
 
 		if ( $this->options['network_siteicon'] ) {
 
 			echo Core\HTML::img( $this->options['network_siteicon'] );
-			Core\HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', 'gnetwork-admin' ) );
 
 		} else if ( $icon = get_site_icon_url( 64 ) ) {
 
 			echo Core\HTML::img( $icon );
-			Core\HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Main Site Icon', 'Modules: Branding', 'gnetwork-admin' ) );
 		}
 	}
 

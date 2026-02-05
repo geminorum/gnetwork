@@ -18,7 +18,7 @@ class Support extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Support', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Support', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	protected function setup_ajax( $request )
@@ -47,30 +47,30 @@ class Support extends gNetwork\Module
 				[
 					'field'       => 'provider_name',
 					'type'        => 'text',
-					'title'       => _x( 'Provider Name', 'Modules: Support: Settings', 'gnetwork' ),
-					'description' => _x( 'Will be used as support provider name. Leave empty to use the brand name.', 'Modules: Support: Settings', 'gnetwork' ),
+					'title'       => _x( 'Provider Name', 'Modules: Support: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Will be used as support provider name. Leave empty to use the brand name.', 'Modules: Support: Settings', 'gnetwork-admin' ),
 					'placeholder' => gNetwork()->brand( 'name' ),
 				],
 				[
 					'field'       => 'provider_email',
 					'type'        => 'email',
-					'title'       => _x( 'Provider Email', 'Modules: Support: Settings', 'gnetwork' ),
-					'description' => _x( 'Will be used as support provider email. Leave empty to use the brand email.', 'Modules: Support: Settings', 'gnetwork' ),
+					'title'       => _x( 'Provider Email', 'Modules: Support: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Will be used as support provider email. Leave empty to use the brand email.', 'Modules: Support: Settings', 'gnetwork-admin' ),
 					'placeholder' => gNetwork()->brand( 'email' ),
 				],
 				[
 					'field'       => 'subject_template',
 					'type'        => 'text',
-					'title'       => _x( 'Subject Template', 'Modules: Support: Settings', 'gnetwork' ),
-					'description' => _x( 'Customize the subject of the report.', 'Modules: Support: Settings', 'gnetwork' ),
+					'title'       => _x( 'Subject Template', 'Modules: Support: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Customize the subject of the report.', 'Modules: Support: Settings', 'gnetwork-admin' ),
 					'placeholder' => $this->default_subject_template(),
 					'field_class' => 'large-text',
 				],
 				[
 					'field'       => 'message_template',
 					'type'        => 'textarea-quicktags-tokens',
-					'title'       => _x( 'Message Template', 'Modules: Support: Settings', 'gnetwork' ),
-					'description' => _x( 'Customize the content of the report.', 'Modules: Support: Settings', 'gnetwork' ),
+					'title'       => _x( 'Message Template', 'Modules: Support: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Customize the content of the report.', 'Modules: Support: Settings', 'gnetwork-admin' ),
 					'placeholder' => $this->default_message_template(),
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
 					'values'      => [ 'subject', 'content', 'topic', 'site', 'domain', 'url', 'display_name', 'email', 'useragent' ],
@@ -78,8 +78,8 @@ class Support extends gNetwork\Module
 				[
 					'field'       => 'report_topics',
 					'type'        => 'textarea',
-					'title'       => _x( 'Report Topics', 'Modules: Support: Settings', 'gnetwork' ),
-					'description' => _x( 'Line-seperated list of topics of the report.', 'Modules: Support: Settings', 'gnetwork' ),
+					'title'       => _x( 'Report Topics', 'Modules: Support: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Line-seperated list of topics of the report.', 'Modules: Support: Settings', 'gnetwork-admin' ),
 				],
 			],
 			'_dashboard' => [
@@ -92,7 +92,7 @@ class Support extends gNetwork\Module
 
 	public function setup_dashboard()
 	{
-		if ( $this->add_dashboard_widget( 'report', _x( 'Technical Support', 'Modules: Support: Widget Title', 'gnetwork' ), 'info' ) )
+		if ( $this->add_dashboard_widget( 'report', _x( 'Technical Support', 'Modules: Support: Widget Title', 'gnetwork-admin' ), 'info' ) )
 			Scripts::enqueueScript( 'admin.support.report' );
 	}
 
@@ -100,12 +100,12 @@ class Support extends gNetwork\Module
 	{
 		$html = sprintf(
 			/* translators: `%s`: support provider name */
-			_x( 'Please use this form to report encountered bugs, issues and other support requests directly to %s.', 'Modules: Support', 'gnetwork' ),
+			_x( 'Please use this form to report encountered bugs, issues and other support requests directly to %s.', 'Modules: Support', 'gnetwork-admin' ),
 			$this->get_option_fallback( 'provider_name', gNetwork()->brand( 'name' ) )
 		);
 
-		$html.= ' '._x( 'Note that a response e-mail will be sent to the address associated with your profile.', 'Modules: Support', 'gnetwork' );
-		$html.= ' '._x( 'In order to change that please visit your profile page.', 'Modules: Support', 'gnetwork' );
+		$html.= ' '._x( 'Note that a response e-mail will be sent to the address associated with your profile.', 'Modules: Support', 'gnetwork-admin' );
+		$html.= ' '._x( 'In order to change that please visit your profile page.', 'Modules: Support', 'gnetwork-admin' );
 
 		return $html;
 	}
@@ -127,8 +127,8 @@ class Support extends gNetwork\Module
 			'name_attr'   => 'report_subject',
 			'field'       => 'subject',
 			'field_class' => 'large-text',
-			'placeholder' => _x( 'Subject', 'Modules: Support', 'gnetwork' ),
-			'description' => _x( 'Give your issue a short subject.', 'Modules: Support', 'gnetwork' ),
+			'placeholder' => _x( 'Subject', 'Modules: Support', 'gnetwork-admin' ),
+			'description' => _x( 'Give your issue a short subject.', 'Modules: Support', 'gnetwork-admin' ),
 			'cap'         => TRUE,
 			'wrap'        => TRUE,
 		] );
@@ -139,7 +139,7 @@ class Support extends gNetwork\Module
 				'name_attr'   => 'report_topic',
 				'field'       => 'topic',
 				'values'      => Core\Arraay::sameKey( Core\Text::splitLines( $this->options['report_topics'] ) ),
-				'description' => _x( 'Pick one that suits your issue.', 'Modules: Support', 'gnetwork' ),
+				'description' => _x( 'Pick one that suits your issue.', 'Modules: Support', 'gnetwork-admin' ),
 				'cap'         => TRUE,
 				'wrap'        => TRUE,
 			] );
@@ -150,15 +150,15 @@ class Support extends gNetwork\Module
 			'rows_attr'   => '3',
 			'field'       => 'content',
 			'field_class' => [ 'large-text', 'textarea-autosize' ],
-			'placeholder' => _x( 'Description', 'Modules: Support', 'gnetwork' ),
-			'description' => _x( 'Please describe your issue as detailed as possible.', 'Modules: Support', 'gnetwork' ),
+			'placeholder' => _x( 'Description', 'Modules: Support', 'gnetwork-admin' ),
+			'description' => _x( 'Please describe your issue as detailed as possible.', 'Modules: Support', 'gnetwork-admin' ),
 			'cap'         => TRUE,
 			'wrap'        => TRUE,
 		] );
 
 		echo $this->wrap_open_buttons();
 
-			Settings::submitButton( 'support_send_report', _x( 'Send Report', 'Modules: Support', 'gnetwork' ), TRUE );
+			Settings::submitButton( 'support_send_report', _x( 'Send Report', 'Modules: Support', 'gnetwork-admin' ), TRUE );
 			echo Ajax::spinner();
 
 		echo '</p>';
@@ -180,7 +180,7 @@ class Support extends gNetwork\Module
 				$done = $this->do_submit_report( Core\Arraay::parseSerialized( $post['form'] ) );
 
 				if ( TRUE === $done )
-					Ajax::successMessage( _x( 'Your report has been sent.', 'Modules: Support: Ajax', 'gnetwork' ) );
+					Ajax::successMessage( _x( 'Your report has been sent.', 'Modules: Support: Ajax', 'gnetwork-admin' ) );
 
 				Ajax::errorMessage( $done );
 

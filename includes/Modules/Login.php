@@ -60,7 +60,7 @@ class Login extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Login', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Login', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -89,62 +89,62 @@ class Login extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'login_math',
-					'title'       => _x( 'Login Math', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Login Math', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Puts a math problem after the login form.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'login_language',
-					'title'       => _x( 'Login Language', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays Language dropdown after login form.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Login Language', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays Language dropdown after login form.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'login_log',
-					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Logs user log-in/log-out events in the log system.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Log Logins', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Logs user log-in/log-out events in the log system.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'store_lastlogin',
-					'title'       => _x( 'Last Logins', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Stores last login timestamp for each user.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Last Logins', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Stores last login timestamp for each user.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'disable_reset',
 					'type'        => 'disabled',
-					'title'       => _x( 'Password Reset', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Disables the password reset request option on login pages.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Password Reset', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Disables the password reset request option on login pages.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'reset_message',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Reset Message', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays instead of the password reset link on login pages. Leave empty to disable.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Reset Message', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays instead of the password reset link on login pages. Leave empty to disable.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 			],
 			'_redirects' => [
 				[
 					'field'       => 'redirect_login',
 					'type'        => 'url',
-					'title'       => _x( 'Log-in After', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Full URL to redirect after successful log-in. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Log-in After', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Full URL to redirect after successful log-in. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'redirect_logout',
 					'type'        => 'url',
-					'title'       => _x( 'Log-out After', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Full URL to redirect after compelete log-out. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Log-out After', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Full URL to redirect after compelete log-out. Leave empty to fall-back on site settings.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 			],
 			'_hidden' => [
 				[
 					'field' => 'login_hide',
-					'title' => _x( 'Hidden Login Page', 'Modules: Login: Settings', 'gnetwork' ),
+					'title' => _x( 'Hidden Login Page', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'login_slug',
 					'type'        => 'text',
-					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Hidden Login Slug', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Custom slug for the hidden login page.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => 'login',
 				],
@@ -152,40 +152,40 @@ class Login extends gNetwork\Module
 			'_styling' => [
 				[
 					'field'       => 'login_remember',
-					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Always checked “Remember Me” checkbox.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Login Remember', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Always checked “Remember Me” checkbox.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 					'values'      => [
-						_x( 'Not Checked', 'Modules: Login', 'gnetwork' ),
-						_x( 'Checked', 'Modules: Login', 'gnetwork' ),
+						_x( 'Not Checked', 'Modules: Login', 'gnetwork-admin' ),
+						_x( 'Checked', 'Modules: Login', 'gnetwork-admin' ),
 					],
 				],
 				[
 					'field'       => 'login_credits',
-					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays credits badge on the bottom of default login page.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Credits Badge', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays credits badge on the bottom of default login page.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'login_class',
 					'type'        => 'select',
-					'title'       => _x( 'CSS Theme', 'Modules: Login: Settings', 'gnetwork' ),
-					'description' => _x( 'Select styles from pre-configured login themes.', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'CSS Theme', 'Modules: Login: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Select styles from pre-configured login themes.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( self::getLoginStyleLink() ),
 					'none_title'  => Settings::showOptionNone(),
 					'none_value'  => 'logindefault',
 					'values'      => $this->filters( 'login_class', [
-						'darkstories' => _x( 'Dark Stories', 'Modules: Login: Login Theme', 'gnetwork' ),
-						'sidelogo'    => _x( 'Side Logo', 'Modules: Login: Login Theme', 'gnetwork' ),
-						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Theme', 'gnetwork' ),
-						'splitscreen' => _x( 'Split Screen', 'Modules: Login: Login Theme', 'gnetwork' ),
+						'darkstories' => _x( 'Dark Stories', 'Modules: Login: Login Theme', 'gnetwork-admin' ),
+						'sidelogo'    => _x( 'Side Logo', 'Modules: Login: Login Theme', 'gnetwork-admin' ),
+						'webogram'    => _x( 'Webogram', 'Modules: Login: Login Theme', 'gnetwork-admin' ),
+						'splitscreen' => _x( 'Split Screen', 'Modules: Login: Login Theme', 'gnetwork-admin' ),
 						// TODO: Bale Login: https://codepen.io/geminorum/pen/KwKgmZj
 					] ),
 				],
 				[
 					'field'       => 'login_styles',
 					'type'        => 'textarea-code-editor',
-					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', 'gnetwork' ),
+					'title'       => _x( 'Extra CSS', 'Modules: Login: Settings', 'gnetwork-admin' ),
 					'description' => [
-						_x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', 'gnetwork' ),
+						_x( 'Additional CSS styles to use on default login page.', 'Modules: Login: Settings', 'gnetwork-admin' ),
 						Settings::fieldDescPlaceholders( [
 							'theme_color',
 							'webapp_color',
@@ -204,8 +204,8 @@ class Login extends gNetwork\Module
 	public function settings_section_hidden()
 	{
 		Settings::fieldSection(
-			_x( 'Hidden', 'Modules: Login: Settings', 'gnetwork' ),
-			_x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', 'gnetwork' )
+			_x( 'Hidden', 'Modules: Login: Settings', 'gnetwork-admin' ),
+			_x( 'Protects logins by changing the URL and preventing access to admin while not logged-in.', 'Modules: Login: Settings', 'gnetwork-admin' )
 		);
 	}
 

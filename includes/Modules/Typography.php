@@ -55,8 +55,8 @@ class Typography extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Typography', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Titles', 'Modules: Menu Name', 'gnetwork' ), 'titles' );
+		$this->register_menu( _x( 'Typography', 'Modules: Menu Name', 'gnetwork-admin' ) );
+		$this->register_tool( _x( 'Titles', 'Modules: Menu Name', 'gnetwork-admin' ), 'titles' );
 	}
 
 	public function default_options()
@@ -86,63 +86,63 @@ class Typography extends gNetwork\Module
 				[
 					'field'       => 'tools_accesscap',
 					'type'        => 'cap',
-					'title'       => _x( 'Tools Access', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Selected and above can access the typography tools.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Tools Access', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Selected and above can access the typography tools.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 					'default'     => 'edit_others_posts',
 				],
 				[
 					'field'       => 'linkify_content',
-					'title'       => _x( 'Linkify Content', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to linkify hash-tags on post contents.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Linkify Content', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tries to linkify hash-tags on post contents.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'persian_typography',
-					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Applies Persian typography on post contents.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Persian Typography', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Applies Persian typography on post contents.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'arabic_typography',
-					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Applies Arabic typography on post contents.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Arabic Typography', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Applies Arabic typography on post contents.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'general_typography',
-					'title'       => _x( 'General Typography', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Applies general typography on post contents.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'General Typography', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Applies general typography on post contents.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'title_sanitize',
-					'title'       => _x( 'Extra Title Sanitization', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to additional sanitization checks on slugs from titles.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Extra Title Sanitization', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tries to additional sanitization checks on slugs from titles.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'title_titlecase',
-					'title'       => _x( 'Titles in Title Case', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to make post titles properly-cased.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Titles in Title Case', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tries to make post titles properly-cased.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( 'https://gist.github.com/geminorum/fe2a9ba25db5cf2e5ad6718423d00f8a' ),
 				],
 				[
 					'field'       => 'title_wordwrap',
-					'title'       => _x( 'Word Wrapper for Post Titles', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Prevents widow words in the end of post titles.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Word Wrapper for Post Titles', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Prevents widow words in the end of post titles.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( 'https://davidwalsh.name/word-wrap-mootools-php' ),
 				],
 				[
 					'field'       => 'widget_wordwrap',
-					'title'       => _x( 'Word Wrapper for Widget Titles', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Prevents widow words in the end of widget titles.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Word Wrapper for Widget Titles', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Prevents widow words in the end of widget titles.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'remove_empty_p',
-					'title'       => _x( 'Empty Paragraphs', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to remove empty paragraph tags on the content.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Empty Paragraphs', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tries to remove empty paragraph tags on the content.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'remove_double_spaces',
-					'title'       => _x( 'Double Spaces', 'Modules: Typography: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to replace consecutive spaces with single one on the content.', 'Modules: Typography: Settings', 'gnetwork' ),
+					'title'       => _x( 'Double Spaces', 'Modules: Typography: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tries to replace consecutive spaces with single one on the content.', 'Modules: Typography: Settings', 'gnetwork-admin' ),
 				],
 				'register_blocktypes',
 				'register_shortcodes',
@@ -158,9 +158,9 @@ class Typography extends gNetwork\Module
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		$this->register_button( 'format_i18n', _x( 'Format I18n', 'Modules: Typography', 'gnetwork' ) );
-		$this->register_button( 'downcode_slugs', _x( 'DownCode Slugs', 'Modules: Typography', 'gnetwork' ) );
-		$this->register_button( 'rewrite_slugs', _x( 'Rewrite Slugs', 'Modules: Typography', 'gnetwork' ) );
+		$this->register_button( 'format_i18n', _x( 'Format I18n', 'Modules: Typography', 'gnetwork-admin' ) );
+		$this->register_button( 'downcode_slugs', _x( 'DownCode Slugs', 'Modules: Typography', 'gnetwork-admin' ) );
+		$this->register_button( 'rewrite_slugs', _x( 'Rewrite Slugs', 'Modules: Typography', 'gnetwork-admin' ) );
 	}
 
 	protected function tools_actions( $sub = NULL )
@@ -272,17 +272,17 @@ class Typography extends gNetwork\Module
 
 		return Core\HTML::tableList( [
 			'_cb' => 'ID',
-			'ID'  => _x( 'ID', 'Modules: Typography: Column Title', 'gnetwork' ),
+			'ID'  => _x( 'ID', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
 
 			'date' => [
-				'title'    => _x( 'Date', 'Modules: Typography: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Date', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return gNetwork\Datetime::humanTimeDiffRound( $row->post_date );
 				},
 			],
 
 			'type' => [
-				'title'    => _x( 'Type', 'Modules: Typography: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Type', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
 				'args'     => [ 'post_types' => WordPress\PostType::get( 2 ) ],
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
@@ -291,7 +291,7 @@ class Typography extends gNetwork\Module
 				},
 			],
 			'slug' => [
-				'title'    => _x( 'Slug', 'Modules: Typography: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Slug', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
 				// 'class'    => '-ltr',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					// TODO: must warn for customized slugs
@@ -302,7 +302,7 @@ class Typography extends gNetwork\Module
 				},
 			],
 			'title' => [
-				'title'    => _x( 'Title', 'Modules: Typography: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Title', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::getPostTitle( $row );
 				},
@@ -315,14 +315,14 @@ class Typography extends gNetwork\Module
 							'class'  => '-link -row-link -row-link-edit',
 							'data'   => [ 'id' => $row->ID, 'row' => 'edit' ],
 							'target' => '_blank',
-						], _x( 'Edit', 'Modules: Typography: Row Action', 'gnetwork' ) );
+						], _x( 'Edit', 'Modules: Typography: Row Action', 'gnetwork-admin' ) );
 
 					$list['view'] = Core\HTML::tag( 'a', [
 						'href'   => WordPress\Post::shortlink( $row ),
 						'class'  => '-link -row-link -row-link-view',
 						'data'   => [ 'id' => $row->ID, 'row' => 'view' ],
 						'target' => '_blank',
-					], _x( 'View', 'Modules: Typography: Row Action', 'gnetwork' ) );
+					], _x( 'View', 'Modules: Typography: Row Action', 'gnetwork-admin' ) );
 
 					return $list;
 				},
@@ -330,8 +330,8 @@ class Typography extends gNetwork\Module
 		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Titles and Slugs', 'Modules: Typography', 'gnetwork' ) ),
-			'empty'      => Core\HTML::warning( _x( 'No Posts!', 'Modules: Typography', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Titles and Slugs', 'Modules: Typography', 'gnetwork-admin' ) ),
+			'empty'      => Core\HTML::warning( _x( 'No Posts!', 'Modules: Typography', 'gnetwork-admin' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -506,16 +506,16 @@ class Typography extends gNetwork\Module
 	public function tinymce_strings( $strings )
 	{
 		$new = [
-			'gnetworkasterisks-title' => _x( 'Asterisks', 'TinyMCE Strings: Asterisks', 'gnetwork' ),
+			'gnetworkasterisks-title' => _x( 'Asterisks', 'TinyMCE Strings: Asterisks', 'gnetwork-admin' ),
 
-			'gnetworkquote-title'    => _x( 'Quote This', 'TinyMCE Strings: Quote', 'gnetwork' ),
-			'gnetworkquote-attr'     => _x( 'Quote This', 'TinyMCE Strings: Quote', 'gnetwork' ),
-			'gnetworkquote-text'     => _x( 'Quote Text', 'TinyMCE Strings: Quote', 'gnetwork' ),
-			'gnetworkquote-cite'     => _x( 'Cite Text', 'TinyMCE Strings: Quote', 'gnetwork' ),
-			'gnetworkquote-url'      => _x( 'Cite URL', 'TinyMCE Strings: Quote', 'gnetwork' ),
-			'gnetworkquote-align'    => _x( 'Quote Align', 'TinyMCE Strings: Quote', 'gnetwork' ),
-			'gnetworkquote-epigraph' => _x( 'Epigraph', 'TinyMCE Strings: Quote', 'gnetwork' ),
-			'gnetworkquote-rev'      => _x( 'Reverse', 'TinyMCE Strings: Quote', 'gnetwork' ),
+			'gnetworkquote-title'    => _x( 'Quote This', 'TinyMCE Strings: Quote', 'gnetwork-admin' ),
+			'gnetworkquote-attr'     => _x( 'Quote This', 'TinyMCE Strings: Quote', 'gnetwork-admin' ),
+			'gnetworkquote-text'     => _x( 'Quote Text', 'TinyMCE Strings: Quote', 'gnetwork-admin' ),
+			'gnetworkquote-cite'     => _x( 'Cite Text', 'TinyMCE Strings: Quote', 'gnetwork-admin' ),
+			'gnetworkquote-url'      => _x( 'Cite URL', 'TinyMCE Strings: Quote', 'gnetwork-admin' ),
+			'gnetworkquote-align'    => _x( 'Quote Align', 'TinyMCE Strings: Quote', 'gnetwork-admin' ),
+			'gnetworkquote-epigraph' => _x( 'Epigraph', 'TinyMCE Strings: Quote', 'gnetwork-admin' ),
+			'gnetworkquote-rev'      => _x( 'Reverse', 'TinyMCE Strings: Quote', 'gnetwork-admin' ),
 		];
 
 		return array_merge( $strings, $new );

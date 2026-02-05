@@ -10,10 +10,10 @@ class CodeLegend extends \WP_Widget
 	public function __construct()
 	{
 		parent::__construct( 'gnetwork-legend-widget',
-			_x( 'gNetwork Code: Legend', 'Widget: Title', 'gnetwork' ),
+			_x( 'gNetwork Code: Legend', 'Widget: Title', 'gnetwork-admin' ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -legend-widget',
-				'description' => _x( 'Simple Changelog Legend', 'Widget: Description', 'gnetwork' ),
+				'description' => _x( 'Simple Changelog Legend', 'Widget: Description', 'gnetwork-admin' ),
 
 				'show_instance_in_rest' => TRUE,
 			]

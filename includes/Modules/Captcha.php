@@ -40,7 +40,7 @@ class Captcha extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Captcha', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Captcha', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function init()
@@ -90,37 +90,37 @@ class Captcha extends gNetwork\Module
 				[
 					'field'       => 'public_key',
 					'type'        => 'text',
-					'title'       => _x( 'Site Key', 'Modules: Captcha: Settings', 'gnetwork' ),
-					'description' => _x( 'The key in the HTML code your site serves to users.', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'title'       => _x( 'Site Key', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'The key in the HTML code your site serves to users.', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 				[
 					'field'       => 'private_key',
 					'type'        => 'text',
-					'title'       => _x( 'Secret Key', 'Modules: Captcha: Settings', 'gnetwork' ),
-					'description' => _x( 'The key for communication between your site and Google reCAPTCHA.', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'title'       => _x( 'Secret Key', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'The key for communication between your site and Google reCAPTCHA.', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 				[
 					'field'       => 'login_captcha',
-					'title'       => _x( 'Login Captcha', 'Modules: Captcha: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays captcha field on login and lost password form.', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'title'       => _x( 'Login Captcha', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays captcha field on login and lost password form.', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'register_captcha',
-					'title'       => _x( 'Register Captcha', 'Modules: Captcha: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays captcha field on register form.', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'title'       => _x( 'Register Captcha', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays captcha field on register form.', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'bp_captcha',
-					'title'       => _x( 'BuddyPress Captcha', 'Modules: Captcha: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays captcha field on BuddyPress forms.', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'title'       => _x( 'BuddyPress Captcha', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays captcha field on BuddyPress forms.', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
 					'disabled'    => ! function_exists( 'buddypress' ),
 				],
 				[
 					'field'       => 'logged_in',
-					'title'       => _x( 'Logged In', 'Modules: Captcha: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays captcha field also for logged-in users.', 'Modules: Captcha: Settings', 'gnetwork' ),
+					'title'       => _x( 'Logged In', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays captcha field also for logged-in users.', 'Modules: Captcha: Settings', 'gnetwork-admin' ),
 				],
 			],
 		];
@@ -131,7 +131,7 @@ class Captcha extends gNetwork\Module
 		return [
 			[
 				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help Tab Title', 'gnetwork' ),
+				'title'   => _x( 'Google reCAPTCHA', 'Modules: Captcha: Help Tab Title', 'gnetwork-admin' ),
 				'content' => '<p>reCAPTCHA is a free service that protects your website from spam and abuse.</p><p>Register and get the keys from <a href="https://www.google.com/recaptcha/admin" target="_blank" rel="noreferrer"><i>here</i></a>.</p>',
 			],
 		];

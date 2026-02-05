@@ -27,7 +27,7 @@ class Rest extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Rest', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Rest', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -45,13 +45,13 @@ class Rest extends gNetwork\Module
 				[
 					'field'       => 'disable_rest_api',
 					'type'        => 'disabled',
-					'title'       => _x( 'Rest API', 'Modules: Rest: Settings', 'gnetwork' ),
-					'description' => _x( 'Whether REST API services are enabled on this site.', 'Modules: Rest: Settings', 'gnetwork' ),
+					'title'       => _x( 'Rest API', 'Modules: Rest: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Whether REST API services are enabled on this site.', 'Modules: Rest: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'allow_cors_requests',
-					'title'       => _x( 'Allow All CORS Requests', 'Modules: Rest: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds headers to allow cross-origin requests to the REST API.', 'Modules: Rest: Settings', 'gnetwork' ),
+					'title'       => _x( 'Allow All CORS Requests', 'Modules: Rest: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Adds headers to allow cross-origin requests to the REST API.', 'Modules: Rest: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( 'https://gist.github.com/wpscholar/59f5708cba291a314375b2dedd104e1e' ),
 				],
 			],

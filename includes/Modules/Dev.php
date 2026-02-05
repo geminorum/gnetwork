@@ -34,13 +34,13 @@ class Dev extends gNetwork\Module
 		$this->action( 'shutdown', 1, 99 );
 
 		// $this->filter( 'embed_oembed_html', 4, 1 );
-		$this->filter( 'pre_get_avatar', 3, 99 );
+		// $this->filter( 'pre_get_avatar', 3, 99 );
 		// remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10 );
 	}
 
 	public function setup_menu( $context )
 	{
-		$this->register_tool( _x( 'Dev Tools', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'Dev Tools', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function render_tools( $uri, $sub = 'general' )

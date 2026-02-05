@@ -57,7 +57,7 @@ class Search extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Search', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Search', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -80,64 +80,64 @@ class Search extends gNetwork\Module
 				[
 					'field'       => 'search_columns',
 					'type'        => 'checkboxes-values',
-					'title'       => _x( 'Search Columns', 'Modules: Search: Settings', 'gnetwork' ),
-					'description' => _x( 'Controls which fields are searched in a search query. Select none for default.', 'Modules: Search: Settings', 'gnetwork' ),
+					'title'       => _x( 'Search Columns', 'Modules: Search: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Controls which fields are searched in a search query. Select none for default.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 					'values'      => [
-						'post_title'   => _x( 'Post Title', 'Modules: Search: Settings', 'gnetwork' ),
-						'post_excerpt' => _x( 'Post Excerpt', 'Modules: Search: Settings', 'gnetwork' ),
-						'post_content' => _x( 'Post Content', 'Modules: Search: Settings', 'gnetwork' ),
+						'post_title'   => _x( 'Post Title', 'Modules: Search: Settings', 'gnetwork-admin' ),
+						'post_excerpt' => _x( 'Post Excerpt', 'Modules: Search: Settings', 'gnetwork-admin' ),
+						'post_content' => _x( 'Post Content', 'Modules: Search: Settings', 'gnetwork-admin' ),
 					],
 				],
 				[
 					'field'       => 'search_context',
 					'type'        => 'radio',
-					'title'       => _x( 'Search Context', 'Modules: Search: Settings', 'gnetwork' ),
+					'title'       => _x( 'Search Context', 'Modules: Search: Settings', 'gnetwork-admin' ),
 					'disabled'    => self::const( 'GEDITORIAL_VERSION' ),
-					'description' => self::const( 'GEDITORIAL_VERSION' ) ? _x( '<b>Disabled</b> in favor of gEditorial Services.', 'Modules: Search: Settings', 'gnetwork' ) : FALSE,
+					'description' => self::const( 'GEDITORIAL_VERSION' ) ? _x( '<b>Disabled</b> in favor of gEditorial Services.', 'Modules: Search: Settings', 'gnetwork-admin' ) : FALSE,
 					'default'     => 'default',
 					'values'      => [
-						'default'       => _x( 'WordPress Default &ndash; Does not alter core search.', 'Modules: Search: Settings', 'gnetwork' ),
-						'titles_only'   => _x( 'Titles Only &ndash; Limits search to post titles only.', 'Modules: Search: Settings', 'gnetwork' ),
-						'include_meta'  => _x( 'Include Metadata &ndash; Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork' ),
-						'include_terms' => _x( 'Include Terms &ndash; Expands search results into terms of selected taxonomies.', 'Modules: Search: Settings', 'gnetwork' ),
+						'default'       => _x( 'WordPress Default &ndash; Does not alter core search.', 'Modules: Search: Settings', 'gnetwork-admin' ),
+						'titles_only'   => _x( 'Titles Only &ndash; Limits search to post titles only.', 'Modules: Search: Settings', 'gnetwork-admin' ),
+						'include_meta'  => _x( 'Include Metadata &ndash; Expands search results into post metadata.', 'Modules: Search: Settings', 'gnetwork-admin' ),
+						'include_terms' => _x( 'Include Terms &ndash; Expands search results into terms of selected taxonomies.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 					],
 				],
 				[
 					'field'       => 'include_taxonomies',
 					'type'        => 'taxonomies',
-					'title'       => _x( 'Included Taxonomies', 'Modules: Search: Settings', 'gnetwork' ),
-					'description' => _x( 'Terms from selected taxonomies will be included on search context.', 'Modules: Search: Settings', 'gnetwork' ),
+					'title'       => _x( 'Included Taxonomies', 'Modules: Search: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Terms from selected taxonomies will be included on search context.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 					'extra'       => [ 'public' => TRUE ],
 				],
 				[
 					'field'       => 'exclusion_prefix',
 					'type'        => 'radio',
-					'title'       => _x( 'Exclusion Prefix', 'Modules: Search: Settings', 'gnetwork' ),
-					'description' => _x( 'Filters the prefix that indicates that a search term should be excluded from results.', 'Modules: Search: Settings', 'gnetwork' ),
+					'title'       => _x( 'Exclusion Prefix', 'Modules: Search: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Filters the prefix that indicates that a search term should be excluded from results.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 					'default'     => '-',
 					'values'      => [
 						'-' => sprintf(
 							/* translators: `%s`: prefix char */
-							_x( '%s Hyphen &ndash; Default WordPress character to exclude terms.', 'Modules: Search: Settings', 'gnetwork' ),
+							_x( '%s Hyphen &ndash; Default WordPress character to exclude terms.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 							Core\HTML::code( '-' )
 						),
 						'!' => sprintf(
 							/* translators: `%s`: prefix char */
-							_x( '%s Exclamation Mark &ndash; Using exclamation as exclude prfix.', 'Modules: Search: Settings', 'gnetwork' ),
+							_x( '%s Exclamation Mark &ndash; Using exclamation as exclude prfix.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 							Core\HTML::code( '!' )
 						),
-						'0' => _x( 'Disable Exclusion &ndash; Ignores exclude prefixes all together.', 'Modules: Search: Settings', 'gnetwork' ),
+						'0' => _x( 'Disable Exclusion &ndash; Ignores exclude prefixes all together.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 					],
 				],
 				[
 					'field'       => 'redirect_single',
-					'title'       => _x( 'Redirect Single Result', 'Modules: Search: Settings', 'gnetwork' ),
-					'description' => _x( 'Redirects to the post if search results only returns single post.', 'Modules: Search: Settings', 'gnetwork' ),
+					'title'       => _x( 'Redirect Single Result', 'Modules: Search: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Redirects to the post if search results only returns single post.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'linkify_hashtags',
-					'title'       => _x( 'Linkify Hash-tags', 'Modules: Search: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to linkify hash-tags on the content. Must enable &ldquo;Linkify Content&rdquo; setting on Typography Module.', 'Modules: Search: Settings', 'gnetwork' ),
+					'title'       => _x( 'Linkify Hash-tags', 'Modules: Search: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tries to linkify hash-tags on the content. Must enable &ldquo;Linkify Content&rdquo; setting on Typography Module.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 				],
 				'register_shortcodes',
 			],
@@ -150,7 +150,7 @@ class Search extends gNetwork\Module
 
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: search page path */
-			_x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork' ),
+			_x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork-admin' ),
 			Core\HTML::code( Core\HTML::link(
 				Core\URL::relative( $page ),
 				$page,
@@ -395,10 +395,10 @@ class Search extends gNetwork\Module
 	{
 		$html = '<form role="search" method="get" class="search-form" action="'.esc_url( GNETWORK_SEARCH_URL ).'">';
 			// TODO: do action: `search_form_before`
-			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', 'gnetwork' ).'</span>';
-			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', 'gnetwork' );
+			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', 'gnetwork-admin' ).'</span>';
+			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', 'gnetwork-admin' );
 			$html.= '" value="'.get_search_query().'" name="'.GNETWORK_SEARCH_QUERYID.'" />';
-			$html.= '</label><input type="submit" class="search-submit" value="'.esc_attr_x( 'Search', 'Modules: Search: Form: Submit Button', 'gnetwork' ).'" />';
+			$html.= '</label><input type="submit" class="search-submit" value="'.esc_attr_x( 'Search', 'Modules: Search: Form: Submit Button', 'gnetwork-admin' ).'" />';
 			// TODO: do action: `search_form_after`
 		$html.= '</form>';
 

@@ -32,7 +32,7 @@ class Maintenance extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Maintenance', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Maintenance', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -54,36 +54,36 @@ class Maintenance extends gNetwork\Module
 				[
 					'field'       => 'access_site',
 					'type'        => 'cap',
-					'title'       => _x( 'Site Maintenance', 'Modules: Maintenance: Settings', 'gnetwork' ),
-					'description' => _x( 'Only this role and above can access to the site.', 'Modules: Maintenance: Settings', 'gnetwork' ),
+					'title'       => _x( 'Site Maintenance', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Only this role and above can access to the site.', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
 					'default'     => 'none',
 				],
 				[
 					'field'       => 'access_admin',
 					'type'        => 'cap',
-					'title'       => _x( 'Admin Maintenance', 'Modules: Maintenance: Settings', 'gnetwork' ),
-					'description' => _x( 'Only this role and above can access to the site\'s admin pages.', 'Modules: Maintenance: Settings', 'gnetwork' ),
+					'title'       => _x( 'Admin Maintenance', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Only this role and above can access to the site\'s admin pages.', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
 					'default'     => 'none',
 				],
 				[
 					'field'       => 'admin_notice',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Admin Notice', 'Modules: Maintenance: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays as admin notice while site is on maintenance mode.', 'Modules: Maintenance: Settings', 'gnetwork' ),
-					'default'     => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance', 'gnetwork' ),
+					'title'       => _x( 'Admin Notice', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays as admin notice while site is on maintenance mode.', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
+					'default'     => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'login_message',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Login Message', 'Modules: Maintenance: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays as login message while site is on maintenance mode.', 'Modules: Maintenance: Settings', 'gnetwork' ),
-					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Modules: Maintenance', 'gnetwork' ),
+					'title'       => _x( 'Login Message', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays as login message while site is on maintenance mode.', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
+					'default'     => _x( 'The site is unavailable for scheduled maintenance.', 'Modules: Maintenance', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'status_code',
 					'type'        => 'select',
-					'title'       => _x( 'Status Code', 'Modules: Maintenance: Settings', 'gnetwork' ),
-					'description' => _x( 'Defines HTTP status header code while the site is in maintenance mode.', 'Modules: Maintenance: Settings', 'gnetwork' ),
+					'title'       => _x( 'Status Code', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Defines HTTP status header code while the site is in maintenance mode.', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ),
 					'dir'         => 'ltr',
 					'default'     => '503',
@@ -92,8 +92,8 @@ class Maintenance extends gNetwork\Module
 				[
 					'field'       => 'retry_after',
 					'type'        => 'select',
-					'title'       => _x( 'Retry After', 'Modules: Maintenance: Settings', 'gnetwork' ),
-					'description' => _x( 'Defines HTTP status header retry after.', 'Modules: Maintenance: Settings', 'gnetwork' ),
+					'title'       => _x( 'Retry After', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Defines HTTP status header retry after.', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
 					'default'     => '10',
 					'values'      => Settings::minutesOptions(),
 				],
@@ -109,10 +109,10 @@ class Maintenance extends gNetwork\Module
 
 				Settings::submitButton( 'store_maintenance_php', sprintf(
 					/* translators: `%s`: `maintenance.php` placeholder */
-					_x( 'Store as %s', 'Modules: Maintenance', 'gnetwork' ),
+					_x( 'Store as %s', 'Modules: Maintenance', 'gnetwork-admin' ),
 					Core\HTML::code( 'maintenance.php' )
 				), 'small', [
-					'title' => _x( 'Tries to store available layout as WordPress core maintenance template.', 'Modules: Maintenance', 'gnetwork' ),
+					'title' => _x( 'Tries to store available layout as WordPress core maintenance template.', 'Modules: Maintenance', 'gnetwork-admin' ),
 				] );
 
 			echo '</p>';
@@ -122,7 +122,7 @@ class Maintenance extends gNetwork\Module
 
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: maintenance page path */
-				_x( 'Current Layout: %s', 'Modules: Maintenance: Settings', 'gnetwork' ),
+				_x( 'Current Layout: %s', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
 				Core\HTML::code( Core\HTML::link(
 					Core\File::normalize( $layout ),
 					Core\URL::fromPath( $layout ),
@@ -132,7 +132,7 @@ class Maintenance extends gNetwork\Module
 
 		} else {
 
-			Core\HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Maintenance: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'There are no layouts available. We will use an internal instead.', 'Modules: Maintenance: Settings', 'gnetwork-admin' ) );
 		}
 	}
 
@@ -210,9 +210,9 @@ class Maintenance extends gNetwork\Module
 
 		$items[] = Core\HTML::tag( $can ? 'a' : 'span', [
 			'href'  => $can ? $this->get_menu_url( 'maintenance' ) : FALSE,
-			'title' => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance', 'gnetwork' ),
+			'title' => _x( 'The Maintenance Mode is active.', 'Modules: Maintenance', 'gnetwork-admin' ),
 			'class' => '-maintenance',
-		], _x( 'In Maintenance!', 'Modules: Maintenance', 'gnetwork' ) );
+		], _x( 'In Maintenance!', 'Modules: Maintenance', 'gnetwork-admin' ) );
 
 		return $items;
 	}

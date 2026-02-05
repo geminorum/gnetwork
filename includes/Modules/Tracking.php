@@ -27,7 +27,7 @@ class Tracking extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Tracking', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Tracking', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -51,15 +51,15 @@ class Tracking extends gNetwork\Module
 				[
 					'field'       => 'ignore_user',
 					'type'        => 'cap',
-					'title'       => _x( 'Ignore Users', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'description' => _x( 'Selected and above will be ignored from tracking.', 'Modules: Tracking: Settings', 'gnetwork' ),
+					'title'       => _x( 'Ignore Users', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Selected and above will be ignored from tracking.', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
 					'default'     => 'edit_others_posts',
 				],
 				[
 					'field'       => 'primary_domain',
 					'type'        => 'text',
-					'title'       => _x( 'Primary Domain Name', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'description' => _x( 'Determines current network primary domain name.', 'Modules: Tracking: Settings', 'gnetwork' ),
+					'title'       => _x( 'Primary Domain Name', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Determines current network primary domain name.', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
 					'default'     => str_ireplace( [ 'http://', 'https://' ], '', home_url() ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 					'placeholder' => 'example.com',
@@ -67,8 +67,8 @@ class Tracking extends gNetwork\Module
 				[
 					'field'       => 'ga_account',
 					'type'        => 'text',
-					'title'       => _x( 'GA Account', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'description' => _x( 'Determines current network Google Analytics account ID.', 'Modules: Tracking: Settings', 'gnetwork' ),
+					'title'       => _x( 'GA Account', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Determines current network Google Analytics account ID.', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'medium-text', 'code-text' ],
 					'placeholder' => 'UA-XXXXXXXX-X',
 					'constant'    => 'GNETWORK_TRACKING_GA_ACCOUNT',
@@ -76,29 +76,29 @@ class Tracking extends gNetwork\Module
 				[
 					'field'       => 'ga_beacon',
 					'type'        => 'text',
-					'title'       => _x( 'GA Beacon', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'description' => _x( 'Determines current network Google Analytics Beacon account ID.', 'Modules: Tracking: Settings', 'gnetwork' ),
+					'title'       => _x( 'GA Beacon', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Determines current network Google Analytics Beacon account ID.', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( 'https://github.com/igrigorik/ga-beacon' ),
 					'field_class' => [ 'medium-text', 'code-text' ],
 					'placeholder' => 'UA-XXXXXXXX-X',
 				],
 				[
 					'field'       => 'ga_userid',
-					'title'       => _x( 'GA Track UserID', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'description' => _x( 'Tracks registered users on Google Analytics.', 'Modules: Tracking: Settings', 'gnetwork' ),
+					'title'       => _x( 'GA Track UserID', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tracks registered users on Google Analytics.', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 					'after'       => Settings::fieldAfterIcon( 'https://support.google.com/analytics/topic/6009743' ),
 				],
 				[
 					'field'       => 'ga_outbound',
-					'title'       => _x( 'GA Track Outbounds', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'description' => _x( 'Tracks outbound links on Google Analytics.', 'Modules: Tracking: Settings', 'gnetwork' ),
+					'title'       => _x( 'GA Track Outbounds', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tracks outbound links on Google Analytics.', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'twitter_site',
 					'type'        => 'text',
-					'title'       => _x( 'Twitter Account', 'Modules: Tracking: Settings', 'gnetwork' ),
-					'description' => _x( 'Determines current network site twitter account.', 'Modules: Tracking: Settings', 'gnetwork' ),
+					'title'       => _x( 'Twitter Account', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Determines current network site twitter account.', 'Modules: Tracking: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'medium-text', 'code-text' ],
 					'placeholder' => 'username'
 				],

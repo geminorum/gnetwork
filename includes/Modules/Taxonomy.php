@@ -37,7 +37,7 @@ class Taxonomy extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Taxonomy', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Taxonomy', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -58,37 +58,37 @@ class Taxonomy extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'management_tools',
-					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', 'gnetwork' ),
-					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'title'       => _x( 'Management Tools', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Allows you to merge terms, set term parents in bulk, and swap term taxonomies.', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'taxonomy_tabs',
-					'title'       => _x( 'Taxonomy Tabs', 'Modules: Taxonomy: Settings', 'gnetwork' ),
-					'description' => _x( 'Extends taxonomy default user interface with extra features.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'title'       => _x( 'Taxonomy Tabs', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Extends taxonomy default user interface with extra features.', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'term_tabs',
-					'title'       => _x( 'Term Tabs', 'Modules: Taxonomy: Settings', 'gnetwork' ),
-					'description' => _x( 'Extends term default user interface with extra features.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'title'       => _x( 'Term Tabs', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Extends term default user interface with extra features.', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'slug_actions',
-					'title'       => _x( 'Slug Actions', 'Modules: Taxonomy: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds slug specific actions on the taxonomy management tools.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'title'       => _x( 'Slug Actions', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Adds slug specific actions on the taxonomy management tools.', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'description_column',
-					'title'       => _x( 'Description Column', 'Modules: Taxonomy: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds description column to term list table and quick edit.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'title'       => _x( 'Description Column', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Adds description column to term list table and quick edit.', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'search_fields',
-					'title'       => _x( 'Search Fields', 'Modules: Taxonomy: Settings', 'gnetwork' ),
-					'description' => _x( 'Looks for criteria in term descriptions and slugs as well as term names.', 'Modules: Taxonomy: Settings', 'gnetwork' ),
+					'title'       => _x( 'Search Fields', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Looks for criteria in term descriptions and slugs as well as term names.', 'Modules: Taxonomy: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 			],
@@ -147,7 +147,7 @@ class Taxonomy extends gNetwork\Module
 		foreach ( $columns as $key => $value ) {
 
 			if ( 'description' == $key )
-				$new['gnetwork_description'] = _x( 'Description', 'Modules: Taxonomy: Column', 'gnetwork' );
+				$new['gnetwork_description'] = _x( 'Description', 'Modules: Taxonomy: Column', 'gnetwork-admin' );
 
 			else
 				$new[$key] = $value;
@@ -178,7 +178,7 @@ class Taxonomy extends gNetwork\Module
 
 		echo '<fieldset><div class="inline-edit-col"><label>';
 		echo '<span class="title">';
-			_ex( 'Description', 'Modules: Taxonomy: Quick Edit Label', 'gnetwork' );
+			_ex( 'Description', 'Modules: Taxonomy: Quick Edit Label', 'gnetwork-admin' );
 		echo '</span><span class="input-text-wrap">';
 			echo '<textarea id="inline-desc" name="gnetwork-description" rows="6" class="ptitle"></textarea>';
 		echo '</span></label></div></fieldset>';
@@ -251,17 +251,17 @@ JS;
 		$tabs = [];
 
 		if ( $this->hooked( 'term_tab_maintenance_content' ) )
-			$tabs['maintenance'] = [ 'title' => _x( 'Maintenance', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+			$tabs['maintenance'] = [ 'title' => _x( 'Maintenance', 'Modules: Taxonomy: Term Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
 
-		$tabs['posts']    = [ 'title' => _x( 'Posts', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
-		$tabs['search']   = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
-		$tabs['metadata'] = [ 'title' => _x( 'Meta-data', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+		$tabs['posts']    = [ 'title' => _x( 'Posts', 'Modules: Taxonomy: Term Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
+		$tabs['search']   = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Term Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
+		$tabs['metadata'] = [ 'title' => _x( 'Meta-data', 'Modules: Taxonomy: Term Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
 
 		if ( $this->hooked( 'term_tab_tools_content' ) )
-			$tabs['tools'] = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+			$tabs['tools'] = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Term Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
 
 		if ( $this->hooked( 'term_tab_extra_content' ) )
-			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Term Tab Title', 'gnetwork' ), 'callback' => NULL ];
+			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Term Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
 
 		return $this->filters( 'term_tabs', $tabs, $taxonomy, $term );
 	}
@@ -313,9 +313,9 @@ JS;
 		echo $this->wrap_open( '-tab-search-names card -toolbox-card -tablelist-card' );
 
 			Core\HTML::h4(
-				_x( 'Similar Names', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ).
+				_x( 'Similar Names', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ).
 				// NOTE: better not to have period!
-				Core\HTML::small( _x( 'These are terms with similar name to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'sub', TRUE ),
+				Core\HTML::small( _x( 'These are terms with similar name to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'sub', TRUE ),
 				'title'
 			);
 
@@ -326,16 +326,16 @@ JS;
 				'hide_empty'             => FALSE,
 				'update_term_meta_cache' => FALSE,
 				'suppress_filter'        => TRUE,
-			] ), _x( 'There are no terms available with similar name.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+			] ), _x( 'There are no terms available with similar name.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ) );
 
 		echo '</div>';
 
 		echo $this->wrap_open( '-tab-search-descriptions card -toolbox-card -tablelist-card' );
 
 			Core\HTML::h4(
-				_x( 'Similar Descriptions', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ).
+				_x( 'Similar Descriptions', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ).
 				// NOTE: better not to have period!
-				Core\HTML::small( _x( 'These are terms with similar description to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'sub', TRUE ),
+				Core\HTML::small( _x( 'These are terms with similar description to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'sub', TRUE ),
 				'title'
 			);
 
@@ -348,11 +348,11 @@ JS;
 					'hide_empty'             => FALSE,
 					'update_term_meta_cache' => FALSE,
 					'suppress_filter'        => TRUE,
-				] ), _x( 'There are no terms available with similar description.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+				] ), _x( 'There are no terms available with similar description.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ) );
 
 			} else {
 
-				Core\HTML::desc( _x( 'There is no description available.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There is no description available.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -381,9 +381,9 @@ JS;
 		echo $this->wrap_open( '-tab-connected-posts card -toolbox-card -tablelist-card' );
 
 			Core\HTML::h4(
-				_x( 'Connected Posts', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ).
+				_x( 'Connected Posts', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ).
 				// NOTE: better not to have period!
-				Core\HTML::small( _x( 'These are posts connected to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'sub', TRUE ),
+				Core\HTML::small( _x( 'These are posts connected to the current term', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'sub', TRUE ),
 				'title'
 			);
 
@@ -404,7 +404,7 @@ JS;
 				'update_post_term_cache' => FALSE,
 				'lazy_load_term_meta'    => FALSE,
 
-			] ), _x( 'There are no connected posts available.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+			] ), _x( 'There are no connected posts available.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ) );
 
 		echo '</div>';
 
@@ -458,18 +458,18 @@ JS;
 	{
 		$tabs = [];
 
-		// $tabs['search'] = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), , 'callback' => NULL ]; // FIXME
+		// $tabs['search'] = [ 'title' => _x( 'Search', 'Modules: Taxonomy: Tab Title', 'gnetwork-admin' ), , 'callback' => NULL ]; // FIXME
 
 		if ( $this->hooked( 'tab_maintenance_content' ) )
-			$tabs['maintenance'] = [ 'title' => _x( 'Maintenance', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+			$tabs['maintenance'] = [ 'title' => _x( 'Maintenance', 'Modules: Taxonomy: Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
 
-		$tabs['tools'] = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+		$tabs['tools'] = [ 'title' => _x( 'Tools', 'Modules: Taxonomy: Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
 
 		if ( $this->hooked( 'tab_extra_content' ) )
-			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+			$tabs['extras'] = [ 'title' => _x( 'Extras', 'Modules: Taxonomy: Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
 
 		if ( WordPress\User::isSuperAdmin() || WordPress\IsIt::dev() )
-			$tabs['console'] = [ 'title' => _x( 'Console', 'Modules: Taxonomy: Tab Title', 'gnetwork' ), 'callback' => NULL ];
+			$tabs['console'] = [ 'title' => _x( 'Console', 'Modules: Taxonomy: Tab Title', 'gnetwork-admin' ), 'callback' => NULL ];
 
 		return $this->filters( 'tabs', $tabs, $taxonomy );
 	}
@@ -836,7 +836,7 @@ JS;
 			return FALSE;
 
 		echo $this->wrap_open( '-tab-tools-defaults card -toolbox-card' );
-			Core\HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
 
 			$hook  = sprintf( 'default_terms_%s', $taxonomy );
 			$terms = $this->filters( 'default_terms', [], $taxonomy );
@@ -855,17 +855,17 @@ JS;
 						'prop'     => 'name',
 					] );
 
-					Core\HTML::desc( _x( 'Select to install pre-configured terms for this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+					Core\HTML::desc( _x( 'Select to install pre-configured terms for this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ) );
 
 					echo $this->wrap_open_buttons( '-toolbox-buttons' );
-						Settings::submitButton( $this->classs( 'do-default-terms' ), _x( 'Install Defaults', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
+						Settings::submitButton( $this->classs( 'do-default-terms' ), _x( 'Install Defaults', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork-admin' ), 'small button-primary' );
 					echo '</p>';
 
 				$this->render_form_end( NULL, 'defaults', 'install', 'tabs' );
 
 			} else {
 
-				Core\HTML::desc( _x( 'There are no pre-defined terms available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There are no pre-defined terms available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -874,7 +874,7 @@ JS;
 	private function _tab_content_tools_import( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-tools-import card -toolbox-card' );
-			Core\HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
 
 			$this->render_form_start( NULL, 'import', 'download', 'tabs', FALSE );
 				$this->nonce_field( 'do-import-terms' );
@@ -892,12 +892,12 @@ JS;
 
 				Core\HTML::desc( sprintf(
 					/* translators: `%s`: maximum file size */
-					_x( 'Upload a list of terms in CSV. Maximum size: <b>%s</b>', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ),
+					_x( 'Upload a list of terms in CSV. Maximum size: <b>%s</b>', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ),
 					Core\HTML::wrapLTR( $size )
 				) );
 
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
-					Settings::submitButton( $this->classs( 'do-import-terms' ), _x( 'Import from CSV', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
+					Settings::submitButton( $this->classs( 'do-import-terms' ), _x( 'Import from CSV', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork-admin' ), 'small button-primary' );
 				echo '</p>';
 
 			$this->render_form_end( NULL, 'import', 'download', 'tabs' );
@@ -907,7 +907,7 @@ JS;
 	private function _tab_content_tools_export( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-tools-export card -toolbox-card' );
-			Core\HTML::h4( _x( 'Export Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Export Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
 
 			$this->render_form_start( NULL, 'export', 'download', 'tabs', FALSE );
 				$this->nonce_field( 'do-export-terms' );
@@ -919,10 +919,10 @@ JS;
 					'values'   => TRUE,
 				] );
 
-				Core\HTML::desc( _x( 'Select fields to include on the the exported CSV file.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+				Core\HTML::desc( _x( 'Select fields to include on the the exported CSV file.', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ) );
 
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
-					Settings::submitButton( $this->classs( 'do-export-terms' ), _x( 'Export in CSV', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-primary' );
+					Settings::submitButton( $this->classs( 'do-export-terms' ), _x( 'Export in CSV', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork-admin' ), 'small button-primary' );
 				echo '</p>';
 
 			$this->render_form_end( NULL, 'export', 'download', 'tabs' );
@@ -935,7 +935,7 @@ JS;
 			return FALSE;
 
 		echo $this->wrap_open( '-tab-tools-delete card -toolbox-card' );
-			Core\HTML::h4( _x( 'Delete Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Delete Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
 
 			$this->render_form_start( NULL, 'delete', 'bulk', 'tabs', FALSE );
 				$this->nonce_field( 'do-delete-terms' );
@@ -948,7 +948,7 @@ JS;
 					'class'        => [ 'regular-text', 'code-text' ],
 				] );
 
-				Core\HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ) );
+				Core\HTML::desc( _x( 'Confirm deletion of all terms by entering the taxonomy name.', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ) );
 
 				if ( $default = WordPress\Taxonomy::getDefaultTermID( $taxonomy ) ) {
 
@@ -957,13 +957,13 @@ JS;
 					if ( $term && ! self::isError( $term ) )
 						Core\HTML::desc( sprintf(
 							/* translators: `%s`: default term name */
-							_x( 'The default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork' ),
+							_x( 'The default term for this taxonomy is &ldquo;%s&rdquo; and will <b>not</b> be deleted.', 'Modules: Taxonomy: Info', 'gnetwork-admin' ),
 							Core\HTML::tag( 'i', $term->name )
 						) );
 				}
 
 				echo $this->wrap_open_buttons( '-toolbox-buttons' );
-					Settings::submitButton( $this->classs( 'do-delete-terms' ), _x( 'Delete All Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
+					Settings::submitButton( $this->classs( 'do-delete-terms' ), _x( 'Delete All Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork-admin' ), 'small button-danger', TRUE );
 				echo '</p>';
 
 			$this->render_form_end( NULL, 'delete', 'bulk', 'tabs' );
@@ -985,7 +985,7 @@ JS;
 			return FALSE;
 
 		echo $this->wrap_open( '-tab-tools-delete-empties card -toolbox-card' );
-			Core\HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
 
 			if ( $empties = $this->_get_empty_terms( $object ) ) {
 
@@ -996,24 +996,24 @@ JS;
 
 					Core\HTML::desc( Utilities::getCounted( $count,
 						/* translators: `%s`: number of empty terms */
-						_nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' )
+						_nx( 'Confirm deletion of %s empty term.', 'Confirm deletion of %s empty terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' )
 					) );
 
 					if ( $object->hierarchical )
-						Core\HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+						Core\HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ) );
 
 					else
-						Core\HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+						Core\HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ) );
 
 					echo $this->wrap_open_buttons( '-toolbox-buttons' );
-						Settings::submitButton( $this->classs( 'do-delete-empties' ), _x( 'Delete Empty Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
+						Settings::submitButton( $this->classs( 'do-delete-empties' ), _x( 'Delete Empty Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork-admin' ), 'small button-danger', TRUE );
 					echo '</p>';
 
 				$this->render_form_end( NULL, 'delete', 'empties', 'tabs' );
 
 			} else {
 
-				Core\HTML::desc( _x( 'There are no empty terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There are no empty terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -1025,7 +1025,7 @@ JS;
 			return FALSE;
 
 		echo $this->wrap_open( '-tab-tools-delete-onesies card -toolbox-card' );
-			Core\HTML::h4( _x( 'Delete Onesies', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Delete Onesies', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
 
 			if ( $onesies = $this->_get_onesie_terms( $object ) ) {
 
@@ -1036,24 +1036,24 @@ JS;
 
 					Core\HTML::desc( Utilities::getCounted( $count,
 						/* translators: `%s`: number of one-count terms */
-						_nx( 'Confirm deletion of %s one-count term.', 'Confirm deletion of %s one-count terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork' )
+						_nx( 'Confirm deletion of %s one-count term.', 'Confirm deletion of %s one-count terms.', $count, 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' )
 					) );
 
 					if ( $object->hierarchical )
-						Core\HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+						Core\HTML::desc( _x( 'The terms that have children or description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ) );
 
 					else
-						Core\HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork' ) );
+						Core\HTML::desc( _x( 'The terms that have description and the taxonomy default term are not counted.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ) );
 
 					echo $this->wrap_open_buttons( '-toolbox-buttons' );
-						Settings::submitButton( $this->classs( 'do-delete-onesies' ), _x( 'Delete One-Count Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork' ), 'small button-danger', TRUE );
+						Settings::submitButton( $this->classs( 'do-delete-onesies' ), _x( 'Delete One-Count Terms', 'Modules: Taxonomy: Tab Tools: Button', 'gnetwork-admin' ), 'small button-danger', TRUE );
 					echo '</p>';
 
 				$this->render_form_end( NULL, 'delete', 'onesies', 'tabs' );
 
 			} else {
 
-				Core\HTML::desc( _x( 'There are no one-count terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There are no one-count terms in this taxonomy.', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), TRUE, '-empty' );
 			}
 
 		echo '</div>';
@@ -1067,7 +1067,7 @@ JS;
 	public function tab_extra_content_i18n_reports( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-i18n-reports card -toolbox-card' );
-			Core\HTML::h4( _x( 'i18n Reports', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'i18n Reports', 'Modules: Taxonomy: Tab Extra', 'gnetwork-admin' ), 'title' );
 
 			Core\HTML::desc( gNetwork()->na() ); // FIXME
 
@@ -1078,7 +1078,7 @@ JS;
 	public function tab_extra_content_terms_stats( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-terms-stats card -toolbox-card' );
-			Core\HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork-admin' ), 'title' );
 			Core\HTML::desc( Core\HTML::code( wp_count_terms( $taxonomy ) ) );
 		echo '</div>';
 	}
@@ -1089,10 +1089,10 @@ JS;
 	public function tab_extra_content_default_term( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-extras-default-term card -toolbox-card' );
-			Core\HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork-admin' ), 'title' );
 
 			if ( ! $this->render_info_default_term( $taxonomy ) )
-				Core\HTML::desc( _x( 'There is no default term available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'There is no default term available for this taxonomy.', 'Modules: Taxonomy: Message', 'gnetwork-admin' ), TRUE, '-empty' );
 
 		echo '</div>';
 	}
@@ -1112,7 +1112,7 @@ JS;
 
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: default term name */
-			_x( 'The default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork' ),
+			_x( 'The default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork-admin' ),
 			'<i>'.$term->name.'</i>'
 		) );
 
@@ -1127,7 +1127,7 @@ JS;
 	public function tab_console_content_taxonomy_object( $taxonomy, $object )
 	{
 		echo $this->wrap_open( '-tab-console-taxonomy-object card -toolbox-card' );
-			Core\HTML::h4( _x( 'Taxonomy Object', 'Modules: Taxonomy: Tab Extra', 'gnetwork' ), 'title' );
+			Core\HTML::h4( _x( 'Taxonomy Object', 'Modules: Taxonomy: Tab Extra', 'gnetwork-admin' ), 'title' );
 			gNetwork\Misc\DumpDebug::render( $object );
 		echo '</div>';
 	}
@@ -1174,14 +1174,14 @@ JS;
 
 			add_filter( 'handle_bulk_actions-'.$screen->id, [ $this, 'handle_bulk_actions' ], 10, 3 );
 
-			$intro = _x( 'These are extra bulk actions available for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', 'gnetwork' );
+			$intro = _x( 'These are extra bulk actions available for this taxonomy:', 'Modules: Taxonomy: Help Tab Content', 'gnetwork-admin' );
 
 		} else {
 
 			add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_default' ], 9, 2 );
 			add_action( $screen->taxonomy.'_edit_form_fields', [ $this, 'edit_form_fields_actions' ], 99, 2 );
 
-			$intro = _x( 'These are extra actions available for this term:', 'Modules: Taxonomy: Help Tab Content', 'gnetwork' );
+			$intro = _x( 'These are extra actions available for this term:', 'Modules: Taxonomy: Help Tab Content', 'gnetwork-admin' );
 		}
 
 		$this->action( 'edited_term', 3, 12, 'actions' ); // NOTE: fires on `edit-tags.php`
@@ -1192,7 +1192,7 @@ JS;
 
 		$screen->add_help_tab( [
 			'id'      => $this->classs( 'help-bulk-actions' ),
-			'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', 'gnetwork' ),
+			'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', 'gnetwork-admin' ),
 			'content' => '<p>'.$intro.'</p>'.Core\HTML::renderList( $actions ),
 		] );
 
@@ -1214,32 +1214,32 @@ JS;
 		$hierarchical = WordPress\Taxonomy::hierarchical( $taxonomy );
 		$actions      = [];
 
-		$actions['set_default']   = _x( 'Set Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['unset_default'] = _x( 'Unset Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['set_default']   = _x( 'Set Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['unset_default'] = _x( 'Unset Default', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
 
 		if ( $hierarchical )
-			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+			$actions['set_parent'] = _x( 'Set Parent', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
 
-		$actions['merge']          = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['split']          = _x( 'Split', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['change_tax']     = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['clone_tax']      = _x( 'Clone to Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['format_i18n']    = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['format_ordinal'] = _x( 'Format Ordinal', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['assign_parents'] = _x( 'Assign Parents', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['empty_posts']    = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['empty_desc']     = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-		$actions['update_count']   = _x( 'Update Count', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['merge']          = _x( 'Merge', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['split']          = _x( 'Split', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['change_tax']     = _x( 'Change Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['clone_tax']      = _x( 'Clone to Taxonomy', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['format_i18n']    = _x( 'Format i18n', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['format_ordinal'] = _x( 'Format Ordinal', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['assign_parents'] = _x( 'Assign Parents', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['empty_posts']    = _x( 'Empty Posts', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['empty_desc']     = _x( 'Empty Description', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+		$actions['update_count']   = _x( 'Update Count', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
 
 		if ( $this->options['slug_actions'] ) {
-			$actions['rewrite_slug']  = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
-			$actions['downcode_slug'] = _x( 'Transliterate Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+			$actions['rewrite_slug']  = _x( 'Rewrite Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
+			$actions['downcode_slug'] = _x( 'Transliterate Slug', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
 		}
 
-		$actions['delete_empty'] = _x( 'Delete Empty', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+		$actions['delete_empty'] = _x( 'Delete Empty', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
 
 		if ( $hierarchical )
-			$actions['delete_onesie'] = _x( 'Delete Onesie', 'Modules: Taxonomy: Bulk Action', 'gnetwork' );
+			$actions['delete_onesie'] = _x( 'Delete Onesie', 'Modules: Taxonomy: Bulk Action', 'gnetwork-admin' );
 
 		$filtered[$taxonomy] = $this->filters( 'bulk_actions', $actions, $taxonomy );
 
@@ -1260,12 +1260,12 @@ JS;
 
 		echo '<tr class="form-field term-info-wrap">';
 			echo '<th scope="row" valign="top">';
-				_ex( 'Caution', 'Modules: Taxonomy', 'gnetwork' );
+				_ex( 'Caution', 'Modules: Taxonomy', 'gnetwork-admin' );
 			echo '</th><td>';
 
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: taxonomy label */
-				_x( 'This is the default term for &ldquo;%s&rdquo; taxonomy.', 'Modules: Taxonomy: Info', 'gnetwork' ),
+				_x( 'This is the default term for &ldquo;%s&rdquo; taxonomy.', 'Modules: Taxonomy: Info', 'gnetwork-admin' ),
 				'<strong>'.$object->label.'</strong>'
 			) );
 
@@ -1276,11 +1276,11 @@ JS;
 	{
 		echo '<tr class="form-field term-actions-wrap actions">';
 			echo '<th scope="row" valign="top"><label for="extra-action-selector">';
-				_ex( 'Extra Actions', 'Modules: Taxonomy', 'gnetwork' );
+				_ex( 'Extra Actions', 'Modules: Taxonomy', 'gnetwork-admin' );
 			echo '</label></th><td>';
 
 			echo '<select name="'.$this->classs( 'action' ).'" id="extra-action-selector">';
-				echo '<option value="-1">'._x( '&ndash; Select Action &ndash;', 'Modules: Taxonomy', 'gnetwork' )."</option>\n";
+				echo '<option value="-1">'._x( '&ndash; Select Action &ndash;', 'Modules: Taxonomy', 'gnetwork-admin' )."</option>\n";
 			echo "</select>\n";
 
 		echo '</td></tr>';
@@ -1369,12 +1369,12 @@ JS;
 
 			case 'gnetwork-taxonomy-updated':
 
-				echo Core\HTML::success( _x( 'Terms updated.', 'Settings: Message', 'gnetwork' ) );
+				echo Core\HTML::success( _x( 'Terms updated.', 'Settings: Message', 'gnetwork-admin' ) );
 
 			break;
 			case 'gnetwork-taxonomy-error':
 
-				echo Core\HTML::error( _x( 'Terms not updated.', 'Settings: Message', 'gnetwork' ) );
+				echo Core\HTML::error( _x( 'Terms not updated.', 'Settings: Message', 'gnetwork-admin' ) );
 		}
 	}
 
@@ -1863,17 +1863,17 @@ JS;
 	private function secondary_input_merge( $taxonomy )
 	{
 		/* translators: `%s`: merge/split into input */
-		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
+		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork-admin' ),
 			'<input name="'.$this->classs( 'bulk-merge' ).'" type="text" placeholder="'
-			._x( 'Name, Slug or ID', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
+			._x( 'Name, Slug or ID', 'Modules: Taxonomy', 'gnetwork-admin' ).'" />' );
 	}
 
 	private function secondary_input_split( $taxonomy )
 	{
 		/* translators: `%s`: merge/split into input */
-		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork' ),
+		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork-admin' ),
 			'<input name="'.$this->classs( 'bulk-split' ).'" type="text" placeholder="'
-			._x( 'Delimiter', 'Modules: Taxonomy', 'gnetwork' ).'" />' );
+			._x( 'Delimiter', 'Modules: Taxonomy', 'gnetwork-admin' ).'" />' );
 	}
 
 	private function secondary_input_change_tax( $taxonomy )
@@ -1928,20 +1928,20 @@ JS;
 	private function get_export_term_fields( $taxonomy )
 	{
 		return $this->filters( 'export_term_fields', [
-			'name'        => _x( 'Name', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
-			'slug'        => _x( 'Slug', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
-			'description' => _x( 'Description', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
-			'parent'      => _x( 'Parent', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
-			'parent_name' => _x( 'Parent Name', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
-			'parent_slug' => _x( 'Parent Slug', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
-			'count'       => _x( 'Count', 'Modules: Taxonomy: Term Field', 'gnetwork' ),
+			'name'        => _x( 'Name', 'Modules: Taxonomy: Term Field', 'gnetwork-admin' ),
+			'slug'        => _x( 'Slug', 'Modules: Taxonomy: Term Field', 'gnetwork-admin' ),
+			'description' => _x( 'Description', 'Modules: Taxonomy: Term Field', 'gnetwork-admin' ),
+			'parent'      => _x( 'Parent', 'Modules: Taxonomy: Term Field', 'gnetwork-admin' ),
+			'parent_name' => _x( 'Parent Name', 'Modules: Taxonomy: Term Field', 'gnetwork-admin' ),
+			'parent_slug' => _x( 'Parent Slug', 'Modules: Taxonomy: Term Field', 'gnetwork-admin' ),
+			'count'       => _x( 'Count', 'Modules: Taxonomy: Term Field', 'gnetwork-admin' ),
 		], $taxonomy );
 	}
 
 	private function get_export_term_meta( $taxonomy )
 	{
 		return $this->filters( 'export_term_meta', [
-			// `'example' => _x( 'Example', 'Modules: Taxonomy: Term Meta', 'gnetwork' ),`
+			// `'example' => _x( 'Example', 'Modules: Taxonomy: Term Meta', 'gnetwork-admin' ),`
 		], $taxonomy );
 	}
 
@@ -2081,11 +2081,11 @@ JS;
 				'<a href="%s" aria-label="%s">%s</a>',
 				WordPress\Term::shortlink( $term ),
 				esc_attr( sprintf(
-					/* translators: `%s`: taxonomy term name. */
-					_x( 'Copy Shortlink for &#8220;%s&#8221;', 'Modules: Taxonomy: Action', 'gnetwork' ),
+					/* translators: `%s`: taxonomy term name */
+					_x( 'Copy Shortlink for &#8220;%s&#8221;', 'Modules: Taxonomy: Action', 'gnetwork-admin' ),
 					$term->name
 				) ),
-				_x( 'Shortlink', 'Modules: Taxonomy: Action', 'gnetwork' )
+				_x( 'Shortlink', 'Modules: Taxonomy: Action', 'gnetwork-admin' )
 			);
 
 		return $actions;
@@ -2097,9 +2097,9 @@ JS;
 			return Core\HTML::desc( $empty ?? gNetwork()->na( FALSE ), TRUE, '-empty' );
 
 		$columns = [
-			'ID' => _x( 'ID', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+			'ID' => _x( 'ID', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 			'posttype' => [
-				'title'    => _x( 'Post-Type', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Post-Type', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 				'class'    => '-results-rowtype',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return post_type_exists( $row->post_type )
@@ -2112,7 +2112,7 @@ JS;
 				}
 			],
 			'title'    => [
-				'title'    => _x( 'Post', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Post', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) use ( $description ) {
 
 					$html = post_type_exists( $row->post_type )
@@ -2137,9 +2137,9 @@ JS;
 			return Core\HTML::desc( $empty ?? gNetwork()->na( FALSE ), TRUE, '-empty' );
 
 		$columns = [
-			'term_id' => _x( 'ID', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+			'term_id' => _x( 'ID', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 			'taxonomy' => [
-				'title'    => _x( 'Taxonomy', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Taxonomy', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 				'class'    => '-results-rowtype',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return taxonomy_exists( $row->taxonomy )
@@ -2152,7 +2152,7 @@ JS;
 				}
 			],
 			'name'    => [
-				'title'    => _x( 'Term', 'Modules: Taxonomy: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Term', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) use ( $description ) {
 
 					$html = taxonomy_exists( $row->taxonomy )

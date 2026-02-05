@@ -27,7 +27,7 @@ class Feed extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Feed', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Feed', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -46,22 +46,22 @@ class Feed extends gNetwork\Module
 				[
 					'field'       => 'disable_feeds',
 					'type'        => 'disabled',
-					'title'       => _x( 'WordPress Feeds', 'Modules: Feed: Settings', 'gnetwork' ),
-					'description' => _x( 'Select to disable Wordpress core feeds.', 'Modules: Feed: Settings', 'gnetwork' ),
+					'title'       => _x( 'WordPress Feeds', 'Modules: Feed: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Select to disable Wordpress core feeds.', 'Modules: Feed: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'delay_feeds',
 					'type'        => 'select',
-					'title'       => _x( 'Delay Feeds', 'Modules: Feed: Settings', 'gnetwork' ),
-					'description' => _x( 'Delays appearing published posts on the site feeds.', 'Modules: Feed: Settings', 'gnetwork' ),
-					'none_title'  => _x( 'No Delay', 'Modules: Blog: Settings', 'gnetwork' ),
+					'title'       => _x( 'Delay Feeds', 'Modules: Feed: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Delays appearing published posts on the site feeds.', 'Modules: Feed: Settings', 'gnetwork-admin' ),
+					'none_title'  => _x( 'No Delay', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 					'values'      => Settings::minutesOptions(),
 					'default'     => '10',
 				],
 				[
 					'field'       => 'json_feed',
-					'title'       => _x( 'JSON Feed', 'Modules: Feed: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds JSON as new type of feed that anyone can subscribe to.', 'Modules: Feed: Settings', 'gnetwork' ),
+					'title'       => _x( 'JSON Feed', 'Modules: Feed: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Adds JSON as new type of feed that anyone can subscribe to.', 'Modules: Feed: Settings', 'gnetwork-admin' ),
 					'after'       => $this->options['json_feed'] ? Settings::fieldAfterLink( get_feed_link( 'json' ) ) : '',
 				],
 			],

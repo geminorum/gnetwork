@@ -26,7 +26,7 @@ class Legal extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Legal', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Legal', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -47,41 +47,41 @@ class Legal extends gNetwork\Module
 			'_tos' => [
 				[
 					'field' => 'tos_display',
-					'title' => _x( 'Display ToS', 'Modules: Legal: Settings', 'gnetwork' ),
+					'title' => _x( 'Display ToS', 'Modules: Legal: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'tos_title',
 					'type'        => 'text',
-					'title'       => _x( 'ToS Title', 'Modules: Legal: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays as section title, usually &#8220;Terms of Service&#8221;.', 'Modules: Legal: Settings', 'gnetwork' ),
+					'title'       => _x( 'ToS Title', 'Modules: Legal: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays as section title, usually &#8220;Terms of Service&#8221;.', 'Modules: Legal: Settings', 'gnetwork-admin' ),
 					'default'     => _x( 'Terms of Service', 'Modules: Legal: Settings', 'gnetwork' ),
 				],
 				[
 					'field'       => 'tos_link',
 					'type'        => 'url',
-					'title'       => _x( 'ToS URL', 'Modules: Legal: Settings', 'gnetwork' ),
-					'description' => _x( 'Links section title to to the page with detailed information about the agreement.', 'Modules: Legal: Settings', 'gnetwork' ),
+					'title'       => _x( 'ToS URL', 'Modules: Legal: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Links section title to to the page with detailed information about the agreement.', 'Modules: Legal: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'tos_text',
 					'type'        => 'textarea',
-					'title'       => _x( 'ToS Text', 'Modules: Legal: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays as full text of the agreement.', 'Modules: Legal: Settings', 'gnetwork' ),
+					'title'       => _x( 'ToS Text', 'Modules: Legal: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays as full text of the agreement.', 'Modules: Legal: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
 				],
 				[
 					'field'       => 'tos_label',
 					'type'        => 'text',
-					'title'       => _x( 'ToS Label', 'Modules: Legal: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays as label next to the mandatory checkbox, below the full text.', 'Modules: Legal: Settings', 'gnetwork' ),
-					'default'     => _x( 'By checking the Terms of Service box you have read and agree to all the policies set forth in this site\'s terms of service.', 'Modules: Legal: Settings', 'gnetwork' ),
+					'title'       => _x( 'ToS Label', 'Modules: Legal: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays as label next to the mandatory checkbox, below the full text.', 'Modules: Legal: Settings', 'gnetwork-admin' ),
+					'default'     => _x( 'By checking the Terms of Service box you have read and agree to all the policies set forth in this site\'s terms of service.', 'Modules: Legal: Settings', 'gnetwork-admin' ),
 					'field_class' => 'large-text',
 				],
 				[
 					'field'       => 'tos_must',
 					'type'        => 'text',
-					'title'       => _x( 'ToS Must', 'Modules: Legal: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays as error message upon the user not checking the box.', 'Modules: Legal: Settings', 'gnetwork' ),
+					'title'       => _x( 'ToS Must', 'Modules: Legal: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays as error message upon the user not checking the box.', 'Modules: Legal: Settings', 'gnetwork-admin' ),
 					'default'     => _x( 'You have to accept our terms of service. Otherwise we cannot register you on our site.', 'Modules: Legal: Settings', 'gnetwork' ),
 					'field_class' => 'large-text',
 				],
@@ -92,8 +92,8 @@ class Legal extends gNetwork\Module
 	public function settings_section_tos()
 	{
 		Settings::fieldSection(
-			_x( 'Terms of Service', 'Modules: Legal: Settings', 'gnetwork' ),
-			_x( 'Details about terms of service section on registration pages.', 'Modules: Legal: Settings', 'gnetwork' )
+			_x( 'Terms of Service', 'Modules: Legal: Settings', 'gnetwork-admin' ),
+			_x( 'Details about terms of service section on registration pages.', 'Modules: Legal: Settings', 'gnetwork-admin' )
 		);
 	}
 
@@ -106,7 +106,7 @@ class Legal extends gNetwork\Module
 
 			echo Core\HTML::button( sprintf(
 				/* translators: `%s`: file name for `ads.txt` */
-				_x( 'View %s', 'Modules: Mail', 'gnetwork' ),
+				_x( 'View %s', 'Modules: Mail', 'gnetwork-admin' ),
 				Core\HTML::code( 'ads.txt' )
 			), home_url( '/ads.txt' ) );
 
@@ -114,7 +114,7 @@ class Legal extends gNetwork\Module
 
 			Settings::submitButton( 'insert_default_adstxt', sprintf(
 				/* translators: `%s`: file name for `ads.txt` */
-				_x( 'Insert Default %s', 'Modules: Legal', 'gnetwork' ),
+				_x( 'Insert Default %s', 'Modules: Legal', 'gnetwork-admin' ),
 				Core\HTML::code( 'ads.txt' )
 			), 'small' );
 		}

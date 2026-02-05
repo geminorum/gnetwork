@@ -14,7 +14,7 @@ class Farapaymak extends gNetwork\Provider
 
 	public function providerName()
 	{
-		return _x( 'Farapaymak', 'Provider: Farapaymak', 'gnetwork' );
+		return _x( 'Farapaymak', 'Provider: Farapaymak', 'gnetwork-admin' );
 	}
 
 	protected function setup_actions()
@@ -36,27 +36,27 @@ class Farapaymak extends gNetwork\Provider
 		return [
 			'wsdl' => [
 				'type'        => 'text',
-				'title'       => _x( 'Service WSDL', 'Provider: Farapaymak', 'gnetwork' ),
+				'title'       => _x( 'Service WSDL', 'Provider: Farapaymak', 'gnetwork-admin' ),
 				'default'     => 'http://87.107.121.54/post/Send.asmx?wsdl',
 				'field_class' => 'large-text',
 			],
 			'username' => [
 				'type'  => 'text',
-				'title' => _x( 'Service Username', 'Provider: Farapaymak', 'gnetwork' ),
+				'title' => _x( 'Service Username', 'Provider: Farapaymak', 'gnetwork-admin' ),
 			],
 			'password' => [
 				'type'  => 'text',
-				'title' => _x( 'Service Password', 'Provider: Farapaymak', 'gnetwork' ),
+				'title' => _x( 'Service Password', 'Provider: Farapaymak', 'gnetwork-admin' ),
 			],
 			'from_number' => [
 				'type'        => 'text',
-				'title'       => _x( 'From Number', 'Provider: Farapaymak', 'gnetwork' ),
-				'description' => _x( 'Specifies the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Farapaymak', 'gnetwork' ),
+				'title'       => _x( 'From Number', 'Provider: Farapaymak', 'gnetwork-admin' ),
+				'description' => _x( 'Specifies the phone number that messages should be sent from. If you leave this blank, the default number will be used.', 'Provider: Farapaymak', 'gnetwork-admin' ),
 				'field_class' => [ 'regular-text', 'code-text' ],
 			],
 			'admin_numbers' => [
 				'type'        => 'text',
-				'title'       => _x( 'Admin Numbers', 'Provider: Farapaymak', 'gnetwork' ),
+				'title'       => _x( 'Admin Numbers', 'Provider: Farapaymak', 'gnetwork-admin' ),
 				'field_class' => [ 'regular-text', 'code-text' ],
 			],
 		];
@@ -65,8 +65,8 @@ class Farapaymak extends gNetwork\Provider
 	public function settings_section()
 	{
 		Settings::fieldSection(
-			_x( 'Farapaymak', 'Provider: Farapaymak: Settings', 'gnetwork' ),
-			_x( 'Farapaymak is a Persian SMS Provider.', 'Provider: Farapaymak: Settings', 'gnetwork' )
+			_x( 'Farapaymak', 'Provider: Farapaymak: Settings', 'gnetwork-admin' ),
+			_x( 'Farapaymak is a Persian SMS Provider.', 'Provider: Farapaymak: Settings', 'gnetwork-admin' )
 		);
 	}
 

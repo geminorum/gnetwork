@@ -20,7 +20,7 @@ class Optimize extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Optimize', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Optimize', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -39,24 +39,24 @@ class Optimize extends gNetwork\Module
 			'_jquery' => [
 				[
 					'field'       => 'jquery_enhanced',
-					'title'       => _x( 'jQuery Enhancements', 'Modules: Optimize: Settings', 'gnetwork' ),
-					'description' => _x( 'Enhances use of jQuery by WordPress on front-end and administration.', 'Modules: Optimize: Settings', 'gnetwork' ),
+					'title'       => _x( 'jQuery Enhancements', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Enhances use of jQuery by WordPress on front-end and administration.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'jquery_cdn',
-					'title'       => _x( 'jQuery from CDN', 'Modules: Optimize: Settings', 'gnetwork' ),
-					'description' => _x( 'Replace WordPress jQuery with CDN.', 'Modules: Optimize: Settings', 'gnetwork' ),
+					'title'       => _x( 'jQuery from CDN', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Replace WordPress jQuery with CDN.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( 'https://releases.jquery.com' ),
 				],
 				[
 					'field'       => 'jquery_latest',
-					'title'       => _x( 'jQuery Latest', 'Modules: Optimize: Settings', 'gnetwork' ),
-					'description' => _x( 'Replace WordPress jQuery with the latest version.', 'Modules: Optimize: Settings', 'gnetwork' ),
+					'title'       => _x( 'jQuery Latest', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Replace WordPress jQuery with the latest version.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'jquery_bottom',
-					'title'       => _x( 'jQuery on Bottom', 'Modules: Optimize: Settings', 'gnetwork' ),
-					'description' => _x( 'Prints jQuery in footer on front-end.', 'Modules: Optimize: Settings', 'gnetwork' ),
+					'title'       => _x( 'jQuery on Bottom', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Prints jQuery in footer on front-end.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
 				],
 			],
 		];
@@ -208,10 +208,10 @@ class Optimize extends gNetwork\Module
 		$versions = self::getjQueryVersions();
 
 		return Core\HTML::tableCode( [
-			_x( 'Latest jQuery Stable', 'Modules: Optimize: jQuery', 'gnetwork' )     => $versions['core'][1],
-			_x( 'Latest jQuery Migrate', 'Modules: Optimize: jQuery', 'gnetwork' )    => $versions['migrate'][1],
-			_x( 'WordPress jQuery Stable', 'Modules: Optimize: jQuery', 'gnetwork' )  => $versions['core'][0],
-			_x( 'WordPress jQuery Migrate', 'Modules: Optimize: jQuery', 'gnetwork' ) => $versions['migrate'][0],
+			_x( 'Latest jQuery Stable', 'Modules: Optimize: jQuery', 'gnetwork-admin' )     => $versions['core'][1],
+			_x( 'Latest jQuery Migrate', 'Modules: Optimize: jQuery', 'gnetwork-admin' )    => $versions['migrate'][1],
+			_x( 'WordPress jQuery Stable', 'Modules: Optimize: jQuery', 'gnetwork-admin' )  => $versions['core'][0],
+			_x( 'WordPress jQuery Migrate', 'Modules: Optimize: jQuery', 'gnetwork-admin' ) => $versions['migrate'][0],
 		], FALSE, $caption );
 	}
 }

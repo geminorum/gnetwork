@@ -42,7 +42,7 @@ class Images extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Images', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Images', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -65,10 +65,10 @@ class Images extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'skip_exifmeta',
-					'title'       => _x( 'Strip EXIF', 'Modules: Images: Settings', 'gnetwork' ),
+					'title'       => _x( 'Strip EXIF', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: `EXIF` placeholder */
-						_x( 'Skips storing unused %s metadata for image attachments.', 'Modules: Images: Settings', 'gnetwork' ),
+						_x( 'Skips storing unused %s metadata for image attachments.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( 'EXIF' )
 					),
 					'default' => '1',
@@ -78,10 +78,10 @@ class Images extends gNetwork\Module
 				[
 					'field'       => 'default_css_class',
 					'type'        => 'text',
-					'title'       => _x( 'Default CSS Class', 'Modules: Images: Settings', 'gnetwork' ),
+					'title'       => _x( 'Default CSS Class', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: CSS placeholder */
-						_x( 'Sets the default %s class for images without the attribute.', 'Modules: Images: Settings', 'gnetwork' ),
+						_x( 'Sets the default %s class for images without the attribute.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( 'CSS' )
 					),
 					'field_class' => [ 'regular-text', 'code-text' ],
@@ -90,40 +90,40 @@ class Images extends gNetwork\Module
 				[
 					'field'       => 'content_paragraps',
 					'type'        => 'radio',
-					'title'       => _x( 'Content Paragraps', 'Modules: Images: Settings', 'gnetwork' ),
-					'description' => _x( 'Handles images within paragraph tags on the content.', 'Modules: Images: Settings', 'gnetwork' ),
+					'title'       => _x( 'Content Paragraps', 'Modules: Images: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Handles images within paragraph tags on the content.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					'default'     => 'replace_with_figure',
 					'values'      => [
-						'ignore_all'          => _x( 'Ignores the paragraps and leave them as are!', 'Modules: Images: Settings', 'gnetwork' ),
+						'ignore_all'          => _x( 'Ignores the paragraps and leave them as are!', 'Modules: Images: Settings', 'gnetwork-admin' ),
 						'replace_with_figure' => sprintf(
 							/* translators: `%s`: HTML tag placeholder */
-							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork' ),
+							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 							Core\HTML::code( 'figure' )
 						),
 						'replace_with_div' => sprintf(
 							/* translators: `%s`: HTML tag placeholder */
-							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork' ),
+							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 							Core\HTML::code( 'div' )
 						),
-						'remove_surrounding' => _x( 'Removes the surrounding paragraps and keep the images.', 'Modules: Images: Settings', 'gnetwork' ),
+						'remove_surrounding' => _x( 'Removes the surrounding paragraps and keep the images.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					],
 				],
 			],
 			'_editor' => [
 				[
 					'field'       => 'edit_thumb_sep',
-					'title'       => _x( 'Edit Thumbnails Separately', 'Modules: Images: Settings', 'gnetwork' ),
-					'description' => _x( 'Shows the settings in the Image Editor that allow selecting to edit only the thumbnail of an image.', 'Modules: Images: Settings', 'gnetwork' ),
+					'title'       => _x( 'Edit Thumbnails Separately', 'Modules: Images: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Shows the settings in the Image Editor that allow selecting to edit only the thumbnail of an image.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 				],
 			],
 			'_size_and_quality' => [
 				[
 					'field'       => 'bigsize_threshold',
 					'type'        => 'text',
-					'title'       => _x( 'Size Threshold', 'Modules: Images: Settings', 'gnetwork' ),
+					'title'       => _x( 'Size Threshold', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: zero placeholder */
-						_x( 'Filters the “BIG image” threshold value in pixels. %s for disabling the scaling.', 'Modules: Images: Settings', 'gnetwork' ),
+						_x( 'Filters the “BIG image” threshold value in pixels. %s for disabling the scaling.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( '0' )
 					),
 					'after'       => Settings::fieldAfterIcon( 'https://make.wordpress.org/core/2019/10/09/introducing-handling-of-big-images-in-wordpress-5-3/' ),
@@ -133,10 +133,10 @@ class Images extends gNetwork\Module
 				[
 					'field'       => 'quality_jpeg',
 					'type'        => 'number',
-					'title'       => _x( 'JPEG Quality', 'Modules: Images: Settings', 'gnetwork' ),
+					'title'       => _x( 'JPEG Quality', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: image type placeholder */
-						_x( 'Sets the compression quality setting used for %s images.', 'Modules: Images: Settings', 'gnetwork' ),
+						_x( 'Sets the compression quality setting used for %s images.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( 'JPEG' )
 					),
 					'placeholder' => 90,
@@ -147,10 +147,10 @@ class Images extends gNetwork\Module
 				[
 					'field'       => 'quality_webp',
 					'type'        => 'number',
-					'title'       => _x( 'WebP Quality', 'Modules: Images: Settings', 'gnetwork' ),
+					'title'       => _x( 'WebP Quality', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: image type placeholder */
-						_x( 'Sets the compression quality setting used for %s images.', 'Modules: Images: Settings', 'gnetwork' ),
+						_x( 'Sets the compression quality setting used for %s images.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( 'WebP' )
 					),
 					'placeholder' => 90,
@@ -163,10 +163,10 @@ class Images extends gNetwork\Module
 				[
 					'field'       => 'output_format',
 					'type'        => 'checkboxes',
-					'title'       => _x( 'Output Format', 'Modules: Images: Settings', 'gnetwork' ),
+					'title'       => _x( 'Output Format', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: `WebP` placeholder */
-						_x( 'Sets %s as default format for selected image sub-sizes.', 'Modules: Images: Settings', 'gnetwork' ),
+						_x( 'Sets %s as default format for selected image sub-sizes.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( 'WebP' )
 					),
 					// 'after'  => Settings::fieldAfterIcon( 'https://caniuse.com/webp' ), // `checkboxes` type does not support `after` styles yet!

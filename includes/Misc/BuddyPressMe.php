@@ -15,7 +15,7 @@ class BuddyPressMe extends \BP_Component
 
 	public function __construct()
 	{
-		parent::start( 'me', _x( 'gNetwork Me', 'BuddyPress Me: Component Name', 'gnetwork' ) );
+		parent::start( 'me', _x( 'gNetwork Me', 'BuddyPress Me: Component Name', 'gnetwork-admin' ) );
 
 		buddypress()->active_components[$this->id] = '1';
 
@@ -146,21 +146,21 @@ class BuddyPressMe extends \BP_Component
 	{
 		if ( bp_is_active( 'settings' ) )
 			$items[] = [
-				'name' => _x( 'Profile Settings', 'BuddyPress Me: Navigation Item', 'gnetwork' ),
+				'name' => _x( 'Profile Settings', 'BuddyPress Me: Navigation Item', 'gnetwork-admin' ),
 				'slug' => 'settings',
 				'link' => $this->url( 'settings' ),
 			];
 
 		if ( buddypress()->avatar->show_avatars )
 			$items[] = [
-				'name' => _x( 'Change Avatar', 'BuddyPress Me: Navigation Item', 'gnetwork' ),
+				'name' => _x( 'Change Avatar', 'BuddyPress Me: Navigation Item', 'gnetwork-admin' ),
 				'slug' => 'avatar',
 				'link' => $this->url( 'avatar' ),
 			];
 
 		if ( bp_displayed_user_use_cover_image_header() )
 			$items[] = [
-				'name' => _x( 'Change Cover', 'BuddyPress Me: Navigation Item', 'gnetwork' ),
+				'name' => _x( 'Change Cover', 'BuddyPress Me: Navigation Item', 'gnetwork-admin' ),
 				'slug' => 'cover',
 				'link' => $this->url( 'cover' ),
 			];

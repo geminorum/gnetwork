@@ -32,16 +32,16 @@ class Plugin extends WordPress\Plugin
 			'GNETWORK_CACHE_URL' => sprintf( '%s/cache', WP_CONTENT_URL ),
 			'GNETWORK_CACHE_TTL' => 60 * 60 * 12,                            // 12 hours
 
-			'GNETWORK_NETWORK_NAVIGATION'    => 'network_navigation', // menu on the main site for network navigation
-			'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar', // menu on the main site for adminbar navigation
-			'GNETWORK_NETWORK_USERMENU'      => 'network_usermenu', // menu on the main site for user navigation
-			'GNETWORK_NETWORK_EXTRAMENU'     => 'network_extramenu', // menu on the main site for extra navigation
-			'GNETWORK_NETWORK_EXTRAMENU_CAP' => 'read', // extra_menu capability
+			'GNETWORK_NETWORK_NAVIGATION'    => 'network_navigation',   // The menu on the main site for network navigation
+			'GNETWORK_NETWORK_ADMINBAR'      => 'network_adminbar',     // The menu on the main site for admin-bar navigation
+			'GNETWORK_NETWORK_USERMENU'      => 'network_usermenu',     // The menu on the main site for user navigation
+			'GNETWORK_NETWORK_EXTRAMENU'     => 'network_extramenu',    // The menu on the main site for extra navigation
+			'GNETWORK_NETWORK_EXTRAMENU_CAP' => 'read',                 // `extra_menu` capability
 
-			'GNETWORK_LARGE_NETWORK_IS' => 500, // set to large network value. default wp is 10000 / FALSE to disable the filter
-			'GNETWORK_SITE_USER_ID'     => FALSE, // set to default site user id / FALSE to disable // DEPRECATED
-			'GNETWORK_SITE_USER_ROLE'   => 'editor', // default role for site user in new blog // DEPRECATED
-			'GNETWORK_BODY_CLASS'       => FALSE, // network html body class / FALSE to disable
+			'GNETWORK_LARGE_NETWORK_IS' => 500,        // Sets the large network value. Default for WordPress is `10000` / `FALSE` to disable the filter
+			'GNETWORK_SITE_USER_ID'     => FALSE,      // Sets the default site user id / `FALSE` to disable // NOTE: DEPRECATED
+			'GNETWORK_SITE_USER_ROLE'   => 'editor',   // The default role for site user in new blog // NOTE: DEPRECATED
+			'GNETWORK_BODY_CLASS'       => FALSE,      // The network HTML body class / `FALSE` to disable
 
 			'GNETWORK_DISABLE_SSL'             => FALSE,
 			'GNETWORK_DISABLE_BBQ'             => FALSE,
@@ -51,36 +51,41 @@ class Plugin extends WordPress\Plugin
 
 			'GNETWORK_BETA_FEATURES' => FALSE,
 
-			'GNETWORK_DEBUG_LOG'    => WP_DEBUG_LOG && TRUE !== WP_DEBUG_LOG ? WP_DEBUG_LOG : WP_CONTENT_DIR.'/debug.log', // FALSE to disable / @REF: https://core.trac.wordpress.org/ticket/18391
-			'GNETWORK_ANALOG_LOG'   => WP_CONTENT_DIR.'/analog.log', // FALSE to disable
-			'GNETWORK_FAILED_LOG'   => WP_CONTENT_DIR.'/failed.log', // FALSE to disable
-			'GNETWORK_SEARCH_LOG'   => WP_CONTENT_DIR.'/search.log', // FALSE to disable
-			'GNETWORK_NOTFOUND_LOG' => WP_CONTENT_DIR.'/notfound.log', // FALSE to disable
-			'GNETWORK_MAIL_LOG_DIR' => WP_CONTENT_DIR.'/emaillogs', // FALSE to disable
-			'GNETWORK_SMS_LOG_DIR'  => WP_CONTENT_DIR.'/smslogs', // FALSE to disable
+			// @REF: https://core.trac.wordpress.org/ticket/18391
+			'GNETWORK_DEBUG_LOG'    => WP_DEBUG_LOG && TRUE !== WP_DEBUG_LOG ? WP_DEBUG_LOG : WP_CONTENT_DIR.'/debug.log', // `FALSE` to disable
+			'GNETWORK_ANALOG_LOG'   => WP_CONTENT_DIR.'/analog.log',     // `FALSE` to disable
+			'GNETWORK_FAILED_LOG'   => WP_CONTENT_DIR.'/failed.log',     // `FALSE` to disable
+			'GNETWORK_SEARCH_LOG'   => WP_CONTENT_DIR.'/search.log',     // `FALSE` to disable
+			'GNETWORK_NOTFOUND_LOG' => WP_CONTENT_DIR.'/notfound.log',   // `FALSE` to disable
+			'GNETWORK_MAIL_LOG_DIR' => WP_CONTENT_DIR.'/emaillogs',      // `FALSE` to disable
+			'GNETWORK_SMS_LOG_DIR'  => WP_CONTENT_DIR.'/smslogs',        // `FALSE` to disable
 
 			'GNETWORK_DL_REMOTE' => FALSE,
 			'GNETWORK_DL_DIR'    => ABSPATH.'repo',
 			'GNETWORK_DL_URL'    => network_home_url( 'repo' ),
 
-			// 'GNETWORK_DISABLE_LINKIFY_CONTENT'   => TRUE,  // cannot set this early!
-			// 'GNETWORK_DISABLE_LOCALE_OVERRIDES'  => TRUE,  // cannot set this early!
-			// 'GNETWORK_DISABLE_CONTENT_ACTIONS'   => TRUE,  // cannot set this early!
-			// 'GNETWORK_DISABLE_JQUERY_MIGRATE'    => TRUE,  // cannot set this early!
-			// 'GNETWORK_DISABLE_FRONT_STYLES'      => FALSE, // cannot set this early!
-			// 'GNETWORK_DISABLE_BLOCK_STYLES'      => FALSE, // cannot set this early!
-			// 'GNETWORK_DISABLE_BUDDYPRESS_STYLES' => FALSE, // cannot set this early!
-			// 'GNETWORK_DISABLE_BBPRESS_STYLES'    => FALSE, // cannot set this early!
-			// 'GNETWORK_DISABLE_REFLIST_JS'        => FALSE, // do not include reflist shortcode js // cannot set this early!
-			// 'GNETWORK_DISABLE_REFLIST_INSERT'    => FALSE, // do not include reflist shortcode after content  // cannot set this early!
+			// 'GNETWORK_DISABLE_LINKIFY_CONTENT'  => TRUE,   // NOTE: cannot set this early!
+			// 'GNETWORK_DISABLE_LOCALE_OVERRIDES' => TRUE,   // NOTE: cannot set this early!
+			// 'GNETWORK_DISABLE_CONTENT_ACTIONS'  => TRUE,   // NOTE: cannot set this early!
+			// 'GNETWORK_DISABLE_JQUERY_MIGRATE'   => TRUE,   // NOTE: cannot set this early!
 
-			'GNETWORK_AJAX_ENDPOINT' => admin_url( 'admin-ajax.php' ), // if using .htaccess to rewrite
+			// 'GNETWORK_DISABLE_FRONT_STYLES'      => FALSE,   // NOTE: cannot set this early!
+			// 'GNETWORK_DISABLE_BLOCK_STYLES'      => FALSE,   // NOTE: cannot set this early!
+			// 'GNETWORK_DISABLE_BUDDYPRESS_STYLES' => FALSE,   // NOTE: cannot set this early!
+			// 'GNETWORK_DISABLE_BBPRESS_STYLES'    => FALSE,   // NOTE: cannot set this early!
 
-			'GNETWORK_MEDIA_THUMBS_SEPARATION' => FALSE, // if you want to seperate generated files from originals!!
+			// 'GNETWORK_DISABLE_REFLIST_JS'     => FALSE,   // do not include `reflist` short-code JS // NOTE: cannot set this early!
+			// 'GNETWORK_DISABLE_REFLIST_INSERT' => FALSE,   // do not include `reflist` short-code after content // NOTE: cannot set this early!
+
+			'GNETWORK_MOBILE_EMAIL_TEMPLATE' => '%s@smsdomain.xyz', // FIXME: use main site domain
+
+			'GNETWORK_AJAX_ENDPOINT' => admin_url( 'admin-ajax.php' ), // if using `.htaccess` to rewrite
+
+			'GNETWORK_MEDIA_THUMBS_SEPARATION' => FALSE,                      // If you want to separate generated files from originals!
 			'GNETWORK_MEDIA_THUMBS_DIR'        => WP_CONTENT_DIR.'/thumbs',
 			'GNETWORK_MEDIA_THUMBS_URL'        => WP_CONTENT_URL.'/thumbs',
-			'GNETWORK_MEDIA_THUMBS_CHECK'      => TRUE, // check default wp dir before thumbs / make it disable for newly created sites
-			'GNETWORK_MEDIA_OBJECT_SIZES'      => FALSE, // disable all image sizes and enable for each posttypes
+			'GNETWORK_MEDIA_THUMBS_CHECK'      => TRUE,                       // Checks default WordPress directory before thumbs / make it disable for newly created sites
+			'GNETWORK_MEDIA_OBJECT_SIZES'      => FALSE,                      // Disables all image sizes and enable for each post-type.
 
 			'GNETWORK_USER_IDENTITY_NUMBER'    => 'identity_number', // FALSE to disable
 			'GNETWORK_COMMERCE_MOBILE_METAKEY' => 'mobile',

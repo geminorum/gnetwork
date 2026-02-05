@@ -46,7 +46,7 @@ class Site extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Global', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Global', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -78,29 +78,29 @@ class Site extends gNetwork\Module
 
 		$settings['_general'][] = [
 			'field'       => 'ssl_support',
-			'title'       => _x( 'SSL', 'Modules: Site: Settings', 'gnetwork' ),
-			'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'SSL', 'Modules: Site: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'resync_sitemeta',
-			'title'       => _x( 'Sync Metadata', 'Modules: Site: Settings', 'gnetwork' ),
-			'description' => _x( 'Re-syncs the site meta network-wide automatically.', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Sync Metadata', 'Modules: Site: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Re-syncs the site meta network-wide automatically.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'redirect_notfound',
 			'type'        => 'url',
-			'title'       => _x( 'Site Not Found', 'Modules: Site: Settings', 'gnetwork' ),
-			'description' => _x( 'Redirects to when the network can be determined but a site cannot.', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Site Not Found', 'Modules: Site: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Redirects to when the network can be determined but a site cannot.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Locale' ) ) {
 			$settings['_locale'][] = [
 				'field'       => 'admin_locale',
 				'type'        => 'select',
-				'title'       => _x( 'Network Locale', 'Modules: Site: Settings', 'gnetwork' ),
-				'description' => _x( 'Overrides network admin language, despite of the main site locale.', 'Modules: Site: Settings', 'gnetwork' ),
+				'title'       => _x( 'Network Locale', 'Modules: Site: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Overrides network admin language, despite of the main site locale.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 				'default'     => 'en_US',
 				'values'      => Core\Arraay::sameKey( Locale::available() ),
 			];
@@ -109,16 +109,16 @@ class Site extends gNetwork\Module
 		$settings['_general'][] = [
 			'field'       => 'body_class',
 			'type'        => 'text',
-			'title'       => _x( 'Body Class', 'Modules: Site: Settings', 'gnetwork' ),
-			'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Body Class', 'Modules: Site: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 			'field_class' => [ 'regular-text', 'code-text' ],
 		];
 
 		$settings['_locale'][] = [
 			'field'       => 'base_country',
 			'type'        => 'text',
-			'title'       => _x( 'Base Country', 'Modules: Site: Settings', 'gnetwork' ),
-			'description' => _x( 'Defines the base country for this network.', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Base Country', 'Modules: Site: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Defines the base country for this network.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 			'placeholder' => 'IR',
 			'field_class' => [ 'small-text', 'code-text' ],
 		];
@@ -126,8 +126,8 @@ class Site extends gNetwork\Module
 		$settings['_locale'][] = [
 			'field'       => 'base_province',
 			'type'        => 'text',
-			'title'       => _x( 'Base Province', 'Modules: Site: Settings', 'gnetwork' ),
-			'description' => _x( 'Defines the base province for this network.', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Base Province', 'Modules: Site: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Defines the base province for this network.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 			'placeholder' => 'TEH',
 			'field_class' => [ 'small-text', 'code-text' ],
 		];
@@ -135,8 +135,8 @@ class Site extends gNetwork\Module
 		$settings['_locale'][] = [
 			'field'       => 'base_country_phone',
 			'type'        => 'text',
-			'title'       => _x( 'Base Country Phone Prefix', 'Modules: Site: Settings', 'gnetwork' ),
-			'description' => _x( 'Defines the base country phone prefix for this network.', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Base Country Phone Prefix', 'Modules: Site: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Defines the base country phone prefix for this network.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 			'placeholder' => '98',
 			'field_class' => [ 'small-text', 'code-text' ],
 			'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_country_calling_codes' ),
@@ -145,8 +145,8 @@ class Site extends gNetwork\Module
 		$settings['_locale'][] = [
 			'field'       => 'base_province_phone',
 			'type'        => 'text',
-			'title'       => _x( 'Base Province Phone Prefix', 'Modules: Site: Settings', 'gnetwork' ),
-			'description' => _x( 'Defines the base province phone prefix for this network.', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Base Province Phone Prefix', 'Modules: Site: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Defines the base province phone prefix for this network.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 			'placeholder' => '21',
 			'field_class' => [ 'small-text', 'code-text' ],
 		];
@@ -155,10 +155,10 @@ class Site extends gNetwork\Module
 			[
 				'field'       => 'access_denied',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Access Denied', 'Modules: Site: Settings', 'gnetwork' ),
+				'title'       => _x( 'Access Denied', 'Modules: Site: Settings', 'gnetwork-admin' ),
 				'description' => sprintf(
 					/* translators: `%s`: zero placeholder */
-					_x( 'Displays when access to an admin page is denied. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ),
+					_x( 'Displays when access to an admin page is denied. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 					Core\HTML::code( '0' )
 				),
 				'placeholder' => __( 'Sorry, you are not allowed to access this page.' ),
@@ -166,10 +166,10 @@ class Site extends gNetwork\Module
 			[
 				'field'       => 'denied_message',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Denied Message', 'Modules: Site: Settings', 'gnetwork' ),
+				'title'       => _x( 'Denied Message', 'Modules: Site: Settings', 'gnetwork-admin' ),
 				'description' => sprintf(
 					/* translators: `%1$s`: zero placeholder, `%2$s`: `%1$s` placeholder */
-					_x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or %1$s to disable. %2$s: Blog Name', 'Modules: Site: Settings', 'gnetwork' ),
+					_x( 'Displays this message when a user tries to view a site\'s dashboard they do not have access to. Leave empty to use default or %1$s to disable. %2$s: Blog Name', 'Modules: Site: Settings', 'gnetwork-admin' ),
 					Core\HTML::code( '0' ),
 					Core\HTML::code( '%1$s' )
 				),
@@ -178,18 +178,18 @@ class Site extends gNetwork\Module
 			[
 				'field'       => 'denied_extra',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Extra Message', 'Modules: Site: Settings', 'gnetwork' ),
+				'title'       => _x( 'Extra Message', 'Modules: Site: Settings', 'gnetwork-admin' ),
 				'description' => sprintf(
 					/* translators: `%s`: zero placeholder */
-					_x( 'Displays this message before the list of sites. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork' ),
+					_x( 'Displays this message before the list of sites. Leave empty to use default or %s to disable.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 					Core\HTML::code( '0' )
 				),
 				'placeholder' => __( 'If you reached this screen by accident and meant to visit one of your own sites, here are some shortcuts to help you find your way.' ),
 			],
 			[
 				'field'       => 'list_sites',
-				'title'       => _x( 'List of Sites', 'Modules: Site: Settings', 'gnetwork' ),
-				'description' => _x( 'Displays the current user list of sites after access denied message.', 'Modules: Site: Settings', 'gnetwork' ),
+				'title'       => _x( 'List of Sites', 'Modules: Site: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Displays the current user list of sites after access denied message.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 				'default'     => '1',
 			],
 		];
@@ -197,10 +197,10 @@ class Site extends gNetwork\Module
 		$settings['_misc'][] = [
 			'field'       => 'lookup_ip_service',
 			'type'        => 'text',
-			'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Lookup IP URL', 'Modules: Site: Settings', 'gnetwork-admin' ),
 			'description' => sprintf(
 				/* translators: `%s`: `%s` placeholder */
-				_x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', 'gnetwork' ),
+				_x( 'URL template to to use for looking up IP adresses. Will replace %s with the IP.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 				Core\HTML::code( '%s' )
 			),
 			'field_class' => [ 'regular-text', 'url-text' ],
@@ -211,10 +211,10 @@ class Site extends gNetwork\Module
 		$settings['_misc'][] = [
 			'field'       => 'lookup_country_service',
 			'type'        => 'text',
-			'title'       => _x( 'Lookup Country URL', 'Modules: Site: Settings', 'gnetwork' ),
+			'title'       => _x( 'Lookup Country URL', 'Modules: Site: Settings', 'gnetwork-admin' ),
 			'description' => sprintf(
 				/* translators: `%s`: `%s` placeholder */
-				_x( 'URL template to to use for looking up Country Code. Will replace %s with the code.', 'Modules: Site: Settings', 'gnetwork' ),
+				_x( 'URL template to to use for looking up Country Code. Will replace %s with the code.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 				Core\HTML::code( '%s' )
 			),
 			'field_class' => [ 'regular-text', 'url-text' ],
@@ -227,7 +227,7 @@ class Site extends gNetwork\Module
 
 	public function settings_section_denied()
 	{
-		Settings::fieldSection( _x( 'Dashboard Access', 'Modules: Site: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Dashboard Access', 'Modules: Site: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_sidebox( $sub, $uri )
@@ -239,7 +239,7 @@ class Site extends gNetwork\Module
 			if ( GNETWORK_DISABLE_SSL ) {
 				Core\HTML::desc( sprintf(
 					/* translators: `%s`: constant name */
-					_x( 'The %s is set. The site will not redirect to HTTPS automatically.', 'Modules: Site: Settings', 'gnetwork' ),
+					_x( 'The %s is set. The site will not redirect to HTTPS automatically.', 'Modules: Site: Settings', 'gnetwork-admin' ),
 					Core\HTML::code( 'GNETWORK_DISABLE_SSL' )
 				) );
 				echo '<hr />';
@@ -252,10 +252,10 @@ class Site extends gNetwork\Module
 			echo ' <code>'.$url.'</code> ';
 
 			if ( $ssl )
-				Settings::submitButton( 'disable_site_ssl', _x( 'Disable SSL', 'Modules: Site', 'gnetwork' ), 'small' );
+				Settings::submitButton( 'disable_site_ssl', _x( 'Disable SSL', 'Modules: Site', 'gnetwork-admin' ), 'small' );
 
 			else
-				Settings::submitButton( 'enable_site_ssl', _x( 'Enable SSL', 'Modules: Site', 'gnetwork' ), 'small' );
+				Settings::submitButton( 'enable_site_ssl', _x( 'Enable SSL', 'Modules: Site', 'gnetwork-admin' ), 'small' );
 
 			echo '</p>';
 
@@ -265,7 +265,7 @@ class Site extends gNetwork\Module
 		} else {
 
 			if ( ! $sitemeta )
-				Core\HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'SSL support disabled.', 'Modules: Site', 'gnetwork-admin' ), TRUE, '-empty' );
 		}
 
 		if ( $sitemeta ) {
@@ -274,17 +274,17 @@ class Site extends gNetwork\Module
 
 				echo $this->wrap_open_buttons();
 
-				Settings::submitButton( 'resync_sitemeta', _x( 'Re-sync Sites Meta', 'Modules: Site', 'gnetwork' ), 'small' );
+				Settings::submitButton( 'resync_sitemeta', _x( 'Re-sync Sites Meta', 'Modules: Site', 'gnetwork-admin' ), 'small' );
 
 				echo '&nbsp;';
 
-				Settings::submitButton( 'delete_sitemeta', _x( 'Delete Sites Meta', 'Modules: Site', 'gnetwork' ), 'small button-danger' );
+				Settings::submitButton( 'delete_sitemeta', _x( 'Delete Sites Meta', 'Modules: Site', 'gnetwork-admin' ), 'small button-danger' );
 
 				echo '</p>';
 
 			} else {
 
-				Core\HTML::desc( _x( 'Sync Metadata disabled.', 'Modules: Site', 'gnetwork' ), TRUE, '-empty' );
+				Core\HTML::desc( _x( 'Sync Metadata disabled.', 'Modules: Site', 'gnetwork-admin' ), TRUE, '-empty' );
 			}
 		}
 	}
@@ -389,7 +389,7 @@ class Site extends gNetwork\Module
 		$html = '';
 
 		if ( is_null( $title ) )
-			$html.= '<h3>'._x( 'Your Sites', 'Modules: Site: User Sites', 'gnetwork' ).'</h3>';
+			$html.= '<h3>'._x( 'Your Sites', 'Modules: Site: User Sites', 'gnetwork-admin' ).'</h3>';
 
 		else if ( $title )
 			$html.= $title;
@@ -398,9 +398,9 @@ class Site extends gNetwork\Module
 
 		foreach ( $blogs as $blog ) {
 			$html.= '<tr><td>'.$blog->blogname.'</td><td>';
-			$html.= Core\HTML::link( _x( 'Visit Dashboard', 'Modules: Site: User Sites', 'gnetwork' ), get_admin_url( $blog->userblog_id ) );
+			$html.= Core\HTML::link( _x( 'Visit Dashboard', 'Modules: Site: User Sites', 'gnetwork-admin' ), get_admin_url( $blog->userblog_id ) );
 			$html.= ' | ';
-			$html.= Core\HTML::link( _x( 'View Site', 'Modules: Site: User Sites', 'gnetwork' ), $blog->siteurl );
+			$html.= Core\HTML::link( _x( 'View Site', 'Modules: Site: User Sites', 'gnetwork-admin' ), $blog->siteurl );
 			$html.= '</td></tr>';
 		}
 

@@ -26,7 +26,7 @@ class GlotPress extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Translate', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Translate', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -43,9 +43,9 @@ class GlotPress extends gNetwork\Module
 				[
 					'field'       => 'home_title',
 					'type'        => 'text',
-					'title'       => _x( 'Home Title', 'Modules: GlotPress: Settings', 'gnetwork' ),
-					'description' => _x( 'Appears as home title on front-end of GlotPress.', 'Modules: GlotPress: Settings', 'gnetwork' ),
-					'default'     => _x( 'GlotPress', 'Modules: GlotPress: Home Title', 'gnetwork' ),
+					'title'       => _x( 'Home Title', 'Modules: GlotPress: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Appears as home title on front-end of GlotPress.', 'Modules: GlotPress: Settings', 'gnetwork-admin' ),
+					'default'     => _x( 'GlotPress', 'Modules: GlotPress: Home Title', 'gnetwork-admin' ),
 				],
 			],
 		];

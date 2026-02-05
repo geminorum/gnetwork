@@ -60,7 +60,7 @@ class Notify extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Notify', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Notify', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -86,32 +86,32 @@ class Notify extends gNetwork\Module
 				[
 					'field'       => 'disable_new_user_admin',
 					'type'        => 'disabled',
-					'title'       => _x( 'New User Email', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Notifies the blog admin of a newly-registered user.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'New User Email', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Notifies the blog admin of a newly-registered user.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'disable_user_password_change',
 					'type'        => 'disabled',
-					'title'       => _x( 'Password Reset Email', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Notifies the blog admin of a user changed password.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'Password Reset Email', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Notifies the blog admin of a user changed password.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'disable_password_change',
 					'type'        => 'disabled',
-					'title'       => _x( 'User Password Changes', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Notifies the user of his password changed.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'User Password Changes', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Notifies the user of his password changed.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'disable_email_change',
 					'type'        => 'disabled',
-					'title'       => _x( 'User Email Changes', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Notifies the user of his email address changed.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'User Email Changes', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Notifies the user of his email address changed.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'disable_admin_email_change',
 					'type'        => 'disabled',
-					'title'       => _x( 'Admin Email Changes', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Notifies the old site admin of the site admin email address changed.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'Admin Email Changes', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Notifies the old site admin of the site admin email address changed.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 			],
@@ -123,8 +123,8 @@ class Notify extends gNetwork\Module
 				[
 					'field'       => 'disable_new_site_email',
 					'type'        => 'disabled',
-					'title'       => _x( 'New Sites Email', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Notifies the network administrator of a newly-registered site.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'New Sites Email', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Notifies the network administrator of a newly-registered site.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 				],
 			];
 
@@ -132,16 +132,16 @@ class Notify extends gNetwork\Module
 				[
 					'field'       => 'signup_user_subject',
 					'type'        => 'text',
-					'title'       => _x( 'New User Email Subject', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Subject of the notification email of new user signup. Leave empty to use defaults.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'New User Email Subject', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Subject of the notification email of new user signup. Leave empty to use defaults.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 					'placeholder' => _x( '[%1$s] Activate %2$s', 'New user notification email subject' ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Network name, <code>%2$s</code>: User login name' ),
 				],
 				[
 					'field'       => 'signup_user_email',
 					'type'        => 'textarea',
-					'title'       => _x( 'New User Email Message', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Message content of the notification email for new user sign-up. Leave empty to use defaults.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'New User Email Message', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Message content of the notification email for new user sign-up. Leave empty to use defaults.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 					'placeholder' => __( "To activate your user, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login." ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL' ),
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
@@ -149,16 +149,16 @@ class Notify extends gNetwork\Module
 				[
 					'field'       => 'signup_blog_subject',
 					'type'        => 'text',
-					'title'       => _x( 'New Blog Email Subject', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Subject of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'New Blog Email Subject', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Subject of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 					'placeholder' => _x( '[%1$s] Activate %2$s', 'New site notification email subject' ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Network name, <code>%2$s</code>: New site URL' ),
 				],
 				[
 					'field'       => 'signup_blog_email',
 					'type'        => 'textarea',
-					'title'       => _x( 'New Blog Email Message', 'Modules: Notify: Settings', 'gnetwork' ),
-					'description' => _x( 'Message content of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', 'gnetwork' ),
+					'title'       => _x( 'New Blog Email Message', 'Modules: Notify: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Message content of the new blog notification email. Leave empty to use defaults.', 'Modules: Notify: Settings', 'gnetwork-admin' ),
 					'placeholder' => __( "To activate your blog, please click the following link:\n\n%s\n\nAfter you activate, you will receive *another email* with your login.\n\nAfter you activate, you can visit your site here:\n\n%s" ),
 					'after'       => Settings::fieldAfterText( '<code>%1$s</code>: Activate URL, <code>%2$s</code>: New site URL, <code>%3$s</code>: Activation Key' ),
 					'field_class' => [ 'large-text', 'textarea-autosize' ],
@@ -173,12 +173,12 @@ class Notify extends gNetwork\Module
 	{
 		echo $this->wrap_open_buttons();
 
-			Settings::submitButton( 'test_signup_user', _x( 'Test Signup User Email', 'Modules: Notify', 'gnetwork' ), 'small', [
-				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new user account.', 'Modules: Notify', 'gnetwork' ),
+			Settings::submitButton( 'test_signup_user', _x( 'Test Signup User Email', 'Modules: Notify', 'gnetwork-admin' ), 'small', [
+				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new user account.', 'Modules: Notify', 'gnetwork-admin' ),
 			] );
 
-			Settings::submitButton( 'test_signup_blog', _x( 'Test Signup Blog Email', 'Modules: Notify', 'gnetwork' ), 'small', [
-				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new site.', 'Modules: Notify', 'gnetwork' ),
+			Settings::submitButton( 'test_signup_blog', _x( 'Test Signup Blog Email', 'Modules: Notify', 'gnetwork-admin' ), 'small', [
+				'title' => _x( 'Sends a TEST confirmation request email to a user when they sign up for a new site.', 'Modules: Notify', 'gnetwork-admin' ),
 			] );
 
 		echo '</p>';

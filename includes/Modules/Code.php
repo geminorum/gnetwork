@@ -22,7 +22,7 @@ class Code extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Code', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Code', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()

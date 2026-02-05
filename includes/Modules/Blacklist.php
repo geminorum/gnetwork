@@ -29,7 +29,7 @@ class Blacklist extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Blacklist', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Blacklist', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function init()
@@ -53,16 +53,16 @@ class Blacklist extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'check_ip',
-					'title'       => _x( 'Check Addresses', 'Modules: Blacklist: Settings', 'gnetwork' ),
-					'description' => _x( 'Enables checking logged-out visitor\'s IP against your blacklist.', 'Modules: Blacklist: Settings', 'gnetwork' ),
+					'title'       => _x( 'Check Addresses', 'Modules: Blacklist: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Enables checking logged-out visitor\'s IP against your blacklist.', 'Modules: Blacklist: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'blacklisted_ips',
 					'type'        => 'textarea',
-					'title'       => _x( 'IP Addresses', 'Modules: Blacklist: Settings', 'gnetwork' ),
+					'title'       => _x( 'IP Addresses', 'Modules: Blacklist: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: IP range example */
-						_x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: Blacklist: Settings', 'gnetwork' ),
+						_x( "Comma or line-seperated IP Ranges or individual IPs to block.\nex: %s", 'Modules: Blacklist: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( '1.6.0.0-1.7.255.255, 1.2.3/24, 1.2.3.4/255.255.255.0, 1.8.0.0, 1.8.0.1' )
 					),
 					'field_class' => [ 'regular-text', 'code-text', 'textarea-autosize' ],
@@ -73,8 +73,8 @@ class Blacklist extends gNetwork\Module
 				[
 					'field'       => 'blacklisted_notice',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'Blacklisted Message', 'Modules: Blacklist: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays on the dead page for the blacklisted addresses.', 'Modules: Blacklist: Settings', 'gnetwork' ),
+					'title'       => _x( 'Blacklisted Message', 'Modules: Blacklist: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays on the dead page for the blacklisted addresses.', 'Modules: Blacklist: Settings', 'gnetwork-admin' ),
 					'default'     => 'you\'re blacklisted, dude!',
 				],
 			],
@@ -84,11 +84,11 @@ class Blacklist extends gNetwork\Module
 	public function settings_sidebox( $sub, $uri )
 	{
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) )
-			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: Blacklist: Settings', 'gnetwork' ), FALSE );
+			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: Blacklist: Settings', 'gnetwork-admin' ), FALSE );
 		else
 			Core\HTML::desc( sprintf(
 				/* translators: `%1$s`: Final IP, `%2$s`: Remote IP */
-				_x( 'Your IP: <code title="%1$s">%2$s</code>', 'Modules: Blacklist: Settings', 'gnetwork' ),
+				_x( 'Your IP: <code title="%1$s">%2$s</code>', 'Modules: Blacklist: Settings', 'gnetwork-admin' ),
 				Core\HTTP::IP(),
 				$_SERVER['REMOTE_ADDR']
 			) );
@@ -97,7 +97,7 @@ class Blacklist extends gNetwork\Module
 
 			echo '<hr />';
 
-			Core\HTML::desc( _x( 'Your site is scheduled for regularly blacklist updates from the pre-configured remote source.', 'Modules: Blacklist: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Your site is scheduled for regularly blacklist updates from the pre-configured remote source.', 'Modules: Blacklist: Settings', 'gnetwork-admin' ) );
 		}
 	}
 

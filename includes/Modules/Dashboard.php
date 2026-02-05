@@ -58,12 +58,12 @@ class Dashboard extends gNetwork\Module
 			remove_meta_box( 'dashboard_right_now', $screen, 'normal' );
 
 			add_meta_box( $this->classs( 'right-now' ),
-				_x( 'At a Glance', 'Modules: Dashboard: Widget Title', 'gnetwork' ),
+				_x( 'At a Glance', 'Modules: Dashboard: Widget Title', 'gnetwork-admin' ),
 				[ $this, 'render_widget_right_now' ], $screen, 'normal', 'high' );
 		}
 
 		if ( has_filter( $this->hook( 'external_feeds' ) ) )
-			$this->add_dashboard_widget( 'external-feed', _x( 'External Feed', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
+			$this->add_dashboard_widget( 'external-feed', _x( 'External Feed', 'Modules: Dashboard: Widget Title', 'gnetwork-admin' ) );
 
 		$this->action( 'activity_box_end', 0, 4 );
 
@@ -83,7 +83,7 @@ class Dashboard extends gNetwork\Module
 		} else {
 
 			if ( gNetwork()->option( 'login', 'store_lastlogin', TRUE ) && current_user_can( 'list_users' ) )
-				$this->add_dashboard_widget( 'logins', _x( 'Latest Logins', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
+				$this->add_dashboard_widget( 'logins', _x( 'Latest Logins', 'Modules: Dashboard: Widget Title', 'gnetwork-admin' ) );
 		}
 	}
 
@@ -92,16 +92,16 @@ class Dashboard extends gNetwork\Module
 		remove_meta_box( 'dashboard_primary', NULL, 'side' );
 
 		if ( gNetwork()->option( 'dashboard_sites', 'user' ) )
-			$this->add_dashboard_widget( 'user-sites', _x( 'Your Sites', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
+			$this->add_dashboard_widget( 'user-sites', _x( 'Your Sites', 'Modules: Dashboard: Widget Title', 'gnetwork-admin' ) );
 
 		if ( gNetwork()->option( 'tos_display', 'legal' ) )
 			$this->add_dashboard_widget( 'tos', gNetwork()->option( 'tos_title', 'legal',
-				_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', 'gnetwork' )
+				_x( 'Terms of Service', 'Modules: Dashboard: Widget Title', 'gnetwork-admin' )
 			) );
 
 		if ( GNETWORK_NETWORK_USERMENU && gNetwork()->option( 'dashboard_menu', 'user' ) )
 			add_meta_box( $this->classs( 'usermenu' ),
-				_x( 'Your Navigation', 'Modules: Dashboard: Widget Title', 'gnetwork' ),
+				_x( 'Your Navigation', 'Modules: Dashboard: Widget Title', 'gnetwork-admin' ),
 				[ $this, 'render_widget_usermenu' ], NULL, 'normal', 'high' );
 	}
 
@@ -109,10 +109,10 @@ class Dashboard extends gNetwork\Module
 	{
 		remove_meta_box( 'dashboard_primary', NULL, 'side' );
 
-		$this->add_dashboard_widget( 'signups', _x( 'Latest Signups', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
+		$this->add_dashboard_widget( 'signups', _x( 'Latest Signups', 'Modules: Dashboard: Widget Title', 'gnetwork-admin' ) );
 
 		if ( gNetwork()->option( 'login', 'store_lastlogin', TRUE ) )
-			$this->add_dashboard_widget( 'logins', _x( 'Latest Logins', 'Modules: Dashboard: Widget Title', 'gnetwork' ) );
+			$this->add_dashboard_widget( 'logins', _x( 'Latest Logins', 'Modules: Dashboard: Widget Title', 'gnetwork-admin' ) );
 	}
 
 	public function render_widget_external_feed()
@@ -172,7 +172,7 @@ class Dashboard extends gNetwork\Module
 			echo '<div class="gnetwork-admin-wrap-widget -usermenu">'.$html.'</div>';
 
 		else
-			Core\HTML::desc( _x( '&#8220;Not all those who wander are lost!&#8221;', 'Modules: Dashboard: User Menu', 'gnetwork' ), FALSE, '-empty' );
+			Core\HTML::desc( _x( '&#8220;Not all those who wander are lost!&#8221;', 'Modules: Dashboard: User Menu', 'gnetwork-admin' ), FALSE, '-empty' );
 	}
 
 	public function render_widget_user_sites()
@@ -233,7 +233,7 @@ class Dashboard extends gNetwork\Module
 
 				$text = sprintf(
 					/* translators: `%s`: comments count */
-					_nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', 'gnetwork' ),
+					_nx( '%s Comment', '%s Comments', $num_comm->approved, 'Modules: Dashboard: Right Now', 'gnetwork-admin' ),
 					Core\Number::format( $num_comm->approved )
 				);
 
@@ -243,7 +243,7 @@ class Dashboard extends gNetwork\Module
 
 				$text = sprintf(
 					/* translators: `%s`: awaiting comments count */
-					_nx( '%s Awaiting Comment', '%s Awaiting Comments', $num_comm->moderated, 'Modules: Dashboard: Right Now', 'gnetwork' ),
+					_nx( '%s Awaiting Comment', '%s Awaiting Comments', $num_comm->moderated, 'Modules: Dashboard: Right Now', 'gnetwork-admin' ),
 					$moderated_comments_count_i18n
 				);
 
@@ -261,7 +261,7 @@ class Dashboard extends gNetwork\Module
 
 				$spam = sprintf(
 					/* translators: `%s`: spam comments count */
-					_nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', 'gnetwork' ),
+					_nx( '%s Spam Comment', '%s Spam Comments', $num_comm->spam, 'Modules: Dashboard: Right Now', 'gnetwork-admin' ),
 					Core\Number::format( $num_comm->spam )
 				);
 
@@ -272,7 +272,7 @@ class Dashboard extends gNetwork\Module
 		if ( $html )
 			echo '<div class="main"><ul>'.$html.'</ul></div>';
 		else
-		Core\HTML::desc( _x( 'There are no contents available!', 'Modules: Dashboard: Right Now', 'gnetwork' ), FALSE, '-empty' );
+		Core\HTML::desc( _x( 'There are no contents available!', 'Modules: Dashboard: Right Now', 'gnetwork-admin' ), FALSE, '-empty' );
 
 		ob_start();
 		// do_action( 'rightnow_end' ); // old hook
@@ -315,9 +315,9 @@ class Dashboard extends gNetwork\Module
 		} else {
 
 			echo '<table class="widefat -table-signup"><thead><tr>';
-			echo '<th class="-month-day">'._x( 'On', 'Modules: Dashboard: Signups', 'gnetwork' ).'</th>';
-			echo '<th class="-name-email">'._x( 'Name/E-mail', 'Modules: Dashboard: Signups', 'gnetwork' ).'</th>';
-			echo '<th class="-ip-info">'._x( 'IP', 'Modules: Dashboard: Signups', 'gnetwork' ).'</th>';
+			echo '<th class="-month-day">'._x( 'On', 'Modules: Dashboard: Signups', 'gnetwork-admin' ).'</th>';
+			echo '<th class="-name-email">'._x( 'Name/E-mail', 'Modules: Dashboard: Signups', 'gnetwork-admin' ).'</th>';
+			echo '<th class="-ip-info">'._x( 'IP', 'Modules: Dashboard: Signups', 'gnetwork-admin' ).'</th>';
 			echo '</tr></thead>';
 
 			$time = current_time( 'timestamp' );
@@ -348,7 +348,7 @@ class Dashboard extends gNetwork\Module
 					Core\HTML::escape( gNetwork\Datetime::dateFormat( $registered, 'monthday' ) ),
 					sprintf(
 						/* translators: `%1$s`: human time diff, `%2$s`: registered date */
-						_x( '%1$s ago &mdash; %2$s', 'Modules: Dashboard: Signups', 'gnetwork' ),
+						_x( '%1$s ago &mdash; %2$s', 'Modules: Dashboard: Signups', 'gnetwork-admin' ),
 						human_time_diff( $registered, $time ),
 						gNetwork\Datetime::dateFormat( $registered )
 					),
@@ -371,7 +371,7 @@ class Dashboard extends gNetwork\Module
 
 					printf(
 						/* translators: `%s`: human time diff */
-						_x( 'Last User Registered %s ago', 'Modules: Dashboard: Signups', 'gnetwork' ),
+						_x( 'Last User Registered %s ago', 'Modules: Dashboard: Signups', 'gnetwork-admin' ),
 						human_time_diff( $last, $time )
 					);
 
@@ -380,11 +380,11 @@ class Dashboard extends gNetwork\Module
 					if ( $spam_users = gNetwork()->user->get_spam_count() )
 						echo Utilities::getCounted( $spam_users,
 							/* translators: `%s`: spam users count */
-							_nx( 'With %s Spam User', 'With %s Spam Users', $spam_users, 'Modules: Dashboard: Signups', 'gnetwork' )
+							_nx( 'With %s Spam User', 'With %s Spam Users', $spam_users, 'Modules: Dashboard: Signups', 'gnetwork-admin' )
 						);
 
 					else
-						_ex( 'With No Spam User', 'Modules: Dashboard: Signups', 'gnetwork' );
+						_ex( 'With No Spam User', 'Modules: Dashboard: Signups', 'gnetwork-admin' );
 
 				echo '</td></tr><tr><td>';
 
@@ -392,7 +392,7 @@ class Dashboard extends gNetwork\Module
 
 					echo Utilities::getCounted( $super_admins,
 						/* translators: `%s`: admin users count */
-						_nx( 'And %s Super Admin', 'And %s Super Admins', $super_admins, 'Modules: Dashboard: Signups', 'gnetwork' )
+						_nx( 'And %s Super Admin', 'And %s Super Admins', $super_admins, 'Modules: Dashboard: Signups', 'gnetwork-admin' )
 					);
 
 				echo '</td><td>';
@@ -401,7 +401,7 @@ class Dashboard extends gNetwork\Module
 
 					echo Utilities::getCounted( $user_count,
 						/* translators: `%s`: total user count */
-						_nx( 'Total of %s User', 'Total of %s Users', $user_count, 'Modules: Dashboard: Signups', 'gnetwork' )
+						_nx( 'Total of %s User', 'Total of %s Users', $user_count, 'Modules: Dashboard: Signups', 'gnetwork-admin' )
 					);
 
 				echo '</td></tr>';
@@ -445,9 +445,9 @@ class Dashboard extends gNetwork\Module
 		} else {
 
 			echo '<table class="widefat -table-logins"><thead><tr>';
-			echo '<th class="-time-ago">'._x( 'Ago', 'Modules: Dashboard: Logins', 'gnetwork' ).'</th>';
-			echo '<th class="-edit-link">'._x( 'Name', 'Modules: Dashboard: Logins', 'gnetwork' ).'</th>';
-			echo '<th class="-time-full">'._x( 'Timestamp', 'Modules: Dashboard: Logins', 'gnetwork' ).'</th>';
+			echo '<th class="-time-ago">'._x( 'Ago', 'Modules: Dashboard: Logins', 'gnetwork-admin' ).'</th>';
+			echo '<th class="-edit-link">'._x( 'Name', 'Modules: Dashboard: Logins', 'gnetwork-admin' ).'</th>';
+			echo '<th class="-time-full">'._x( 'Timestamp', 'Modules: Dashboard: Logins', 'gnetwork-admin' ).'</th>';
 			echo '</tr></thead>';
 
 			$time = current_time( 'timestamp' );
@@ -500,7 +500,7 @@ class Dashboard extends gNetwork\Module
 			'href'  => network_admin_url( 'update-core.php' ),
 			'title' => sprintf( __( 'Update to %s' ), $preferred->current ?: __( 'Latest' ) ),
 			'class' => '-update',
-		], _x( 'Update WordPress', 'Modules: Dashboard: Update Core', 'gnetwork' ) );
+		], _x( 'Update WordPress', 'Modules: Dashboard: Update Core', 'gnetwork-admin' ) );
 
 		return $items;
 	}
@@ -512,7 +512,7 @@ class Dashboard extends gNetwork\Module
 			return $items;
 
 		$title   = apply_filters( 'privacy_on_link_title', '' );
-		$content = apply_filters( 'privacy_on_link_text', _x( 'Search Engines Discouraged', 'Modules: Dashboard: Blog Public', 'gnetwork' ) );
+		$content = apply_filters( 'privacy_on_link_text', _x( 'Search Engines Discouraged', 'Modules: Dashboard: Blog Public', 'gnetwork-admin' ) );
 
 		if ( $content )
 			$items[] = Core\HTML::tag( 'a', [
@@ -550,7 +550,7 @@ class Dashboard extends gNetwork\Module
 			),
 		], sprintf(
 			/* translators: `%s`: space used percent */
-			_x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork' ),
+			_x( '%s Space Used', 'Modules: Dashboard: Space Quota', 'gnetwork-admin' ),
 			Core\Number::localize( $percent.'%' )
 		) );
 

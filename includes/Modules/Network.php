@@ -32,8 +32,8 @@ class Network extends gNetwork\Module
 		do_action( $this->hook_base( 'setup_menu' ), 'network' );
 
 		add_submenu_page( 'plugins.php',
-			_x( 'Active Plugins', 'Modules: Network: Page Menu', 'gnetwork' ),
-			_x( 'Active Plugins', 'Modules: Network: Page Menu', 'gnetwork' ),
+			_x( 'Active Plugins', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
+			_x( 'Active Plugins', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
 			'manage_network',
 			'plugins.php?plugin_status=active',
 			'',
@@ -41,15 +41,15 @@ class Network extends gNetwork\Module
 		);
 
 		add_submenu_page( 'plugins.php',
-			_x( 'Upload', 'Modules: Network: Page Menu', 'gnetwork' ),
-			_x( 'Upload', 'Modules: Network: Page Menu', 'gnetwork' ),
+			_x( 'Upload', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
+			_x( 'Upload', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
 			'manage_network',
 			'plugin-install.php?tab=upload'
 		);
 
 		$hook = add_menu_page(
-			_x( 'Network Extras', 'Modules: Network: Page Menu', 'gnetwork' ),
-			_x( 'Extras', 'Modules: Network: Page Menu', 'gnetwork' ),
+			_x( 'Network Extras', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
+			_x( 'Extras', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
 			'manage_network_options',
 			$this->base,
 			[ $this, 'settings_page' ],
@@ -58,8 +58,8 @@ class Network extends gNetwork\Module
 		);
 
 		$tools = add_submenu_page( 'index.php',
-			_x( 'Network Tools', 'Modules: Network: Page Menu', 'gnetwork' ),
-			_x( 'Extras', 'Modules: Network: Page Menu', 'gnetwork' ),
+			_x( 'Network Tools', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
+			_x( 'Extras', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
 			'manage_network_options',
 			$this->base.'-tools',
 			[ $this, 'tools_page' ]
@@ -73,7 +73,7 @@ class Network extends gNetwork\Module
 				add_submenu_page( $this->base,
 					sprintf(
 						/* translators: `%s`: menu title */
-						_x( 'gNetwork Extras: %s', 'Modules: Network: Page Menu', 'gnetwork' ),
+						_x( 'gNetwork Extras: %s', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
 						$args['title']
 					),
 					$args['title'],
@@ -83,10 +83,10 @@ class Network extends gNetwork\Module
 				);
 
 		$GLOBALS['submenu'][$this->base][0] = [
-			_x( 'Overview', 'Modules: Menu Name', 'gnetwork' ),
+			_x( 'Overview', 'Modules: Menu Name', 'gnetwork-admin' ),
 			'manage_network_options',
 			$this->base,
-			_x( 'Network Extras', 'Modules: Network: Page Menu', 'gnetwork' ),
+			_x( 'Network Extras', 'Modules: Network: Page Menu', 'gnetwork-admin' ),
 		];
 	}
 
@@ -225,7 +225,7 @@ class Network extends gNetwork\Module
 	protected function tools_overview( $uri )
 	{
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) ) {
-			Settings::headerTitle( _x( 'System Report', 'Modules: Network', 'gnetwork' ) );
+			Settings::headerTitle( _x( 'System Report', 'Modules: Network', 'gnetwork-admin' ) );
 			Debug::displayReport();
 		}
 	}
@@ -251,11 +251,11 @@ class Network extends gNetwork\Module
 
 	public function bulk_actions( $actions )
 	{
-		$new = [ 'resetadminemail' => _x( 'Reset Admin Email', 'Modules: Network: Bulk Action', 'gnetwork' ) ];
+		$new = [ 'resetadminemail' => _x( 'Reset Admin Email', 'Modules: Network: Bulk Action', 'gnetwork-admin' ) ];
 
 		if ( gNetwork()->ssl() ) {
-			$new['enablesitessl']  = _x( 'Enable SSL', 'Modules: Network: Bulk Action', 'gnetwork' );
-			$new['disablesitessl'] = _x( 'Disable SSL', 'Modules: Network: Bulk Action', 'gnetwork' );
+			$new['enablesitessl']  = _x( 'Enable SSL', 'Modules: Network: Bulk Action', 'gnetwork-admin' );
+			$new['disablesitessl'] = _x( 'Disable SSL', 'Modules: Network: Bulk Action', 'gnetwork-admin' );
 		}
 
 		return array_merge( $actions, $new );
@@ -323,7 +323,7 @@ class Network extends gNetwork\Module
 	public function updated_message_resetadminemail( $msg )
 	{
 		/* translators: `%1$s`: number of sites, `%2$s`: admin email */
-		$message = _x( '%1$s site(s) admin email reset to %2$s', 'Modules: Network: Message', 'gnetwork' );
+		$message = _x( '%1$s site(s) admin email reset to %2$s', 'Modules: Network: Message', 'gnetwork-admin' );
 
 		$_SERVER['REQUEST_URI'] = remove_query_arg( 'count', $_SERVER['REQUEST_URI'] );
 
@@ -339,7 +339,7 @@ class Network extends gNetwork\Module
 
 		return Utilities::getCounted( self::req( 'count', 0 ),
 			/* translators: `%s`: enabled sites count */
-			_x( '%s site(s) SSL Enabled', 'Modules: Network: Message', 'gnetwork' )
+			_x( '%s site(s) SSL Enabled', 'Modules: Network: Message', 'gnetwork-admin' )
 		);
 	}
 
@@ -349,17 +349,17 @@ class Network extends gNetwork\Module
 
 		return Utilities::getCounted( self::req( 'count', 0 ),
 			/* translators: `%s`: disabled sites count */
-			_x( '%s site(s) SSL Disabled', 'Modules: Network: Message', 'gnetwork' )
+			_x( '%s site(s) SSL Disabled', 'Modules: Network: Message', 'gnetwork-admin' )
 		);
 	}
 
 	public function wpmu_blogs_columns( $columns )
 	{
 		$columns = Core\Arraay::insert( $columns, [
-			$this->classs( 'ssl' ) => _x( 'SSL', 'Modules: Network: Column', 'gnetwork' ),
+			$this->classs( 'ssl' ) => _x( 'SSL', 'Modules: Network: Column', 'gnetwork-admin' ),
 		], 'blogname', 'before' );
 
-		return array_merge( $columns, [ $this->classs( 'id' ) => _x( 'ID', 'Modules: Network: Column', 'gnetwork' ) ] );
+		return array_merge( $columns, [ $this->classs( 'id' ) => _x( 'ID', 'Modules: Network: Column', 'gnetwork-admin' ) ] );
 	}
 
 	public function manage_sites_custom_column( $column_name, $blog_id )

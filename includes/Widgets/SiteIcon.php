@@ -10,10 +10,10 @@ class SiteIcon extends \WP_Widget
 	public function __construct()
 	{
 		parent::__construct( 'gnetwork-siteicon-widget',
-			_x( 'gNetwork Branding: Site Icon', 'Widget: Title', 'gnetwork' ),
+			_x( 'gNetwork Branding: Site Icon', 'Widget: Title', 'gnetwork-admin' ),
 			[
 				'classname'   => 'gnetwork-wrap-widget -siteicon-widget',
-				'description' => _x( 'Site Icon', 'Widget: Description', 'gnetwork' ),
+				'description' => _x( 'Site Icon', 'Widget: Description', 'gnetwork-admin' ),
 
 				'customize_selective_refresh' => TRUE,
 				'show_instance_in_rest'       => TRUE,
@@ -26,7 +26,7 @@ class SiteIcon extends \WP_Widget
 		if ( is_customize_preview() ) {
 
 			echo '<p><a class="button" href="javascript:wp.customize.control(\'site_icon\').focus()">';
-				_ex( 'Setup or Change Site Icon', 'Modules: Widgets: Site Icon', 'gnetwork' );
+				_ex( 'Setup or Change Site Icon', 'Modules: Widgets: Site Icon', 'gnetwork-admin' );
 			echo '</a></p>';
 
 		} else {

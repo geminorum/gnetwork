@@ -50,10 +50,10 @@ class Navigation extends gNetwork\Module
 	{
 		$list  = [];
 		$menus = [
-			'GNETWORK_NETWORK_NAVIGATION' => _x( 'Network Global Navigation', 'Modules: Navigation: Global Menu', 'gnetwork' ),
-			'GNETWORK_NETWORK_ADMINBAR'   => _x( 'Network Adminbar Navigation', 'Modules: Navigation: Global Menu', 'gnetwork' ),
-			'GNETWORK_NETWORK_USERMENU'   => _x( 'Network User Navigation', 'Modules: Navigation: Global Menu', 'gnetwork' ),
-			'GNETWORK_NETWORK_EXTRAMENU'  => _x( 'Network Extra Navigation', 'Modules: Navigation: Global Menu', 'gnetwork' ),
+			'GNETWORK_NETWORK_NAVIGATION' => _x( 'Network Global Navigation', 'Modules: Navigation: Global Menu', 'gnetwork-admin' ),
+			'GNETWORK_NETWORK_ADMINBAR'   => _x( 'Network Adminbar Navigation', 'Modules: Navigation: Global Menu', 'gnetwork-admin' ),
+			'GNETWORK_NETWORK_USERMENU'   => _x( 'Network User Navigation', 'Modules: Navigation: Global Menu', 'gnetwork-admin' ),
+			'GNETWORK_NETWORK_EXTRAMENU'  => _x( 'Network Extra Navigation', 'Modules: Navigation: Global Menu', 'gnetwork-admin' ),
 		];
 
 		foreach ( $menus as $constant => $desc )
@@ -83,12 +83,12 @@ class Navigation extends gNetwork\Module
 
 		$screen->add_help_tab( [
 			'id'       => $this->classs( 'help-placeholders' ),
-			'title'    => _x( 'Placeholders', 'Modules: Navigation: Help Tab Title', 'gnetwork' ),
+			'title'    => _x( 'Placeholders', 'Modules: Navigation: Help Tab Title', 'gnetwork-admin' ),
 			'callback' => [ $this, 'help_tab_placeholders' ],
 		] );
 
 		add_meta_box( $this->classs(),
-			_x( 'Relative Links', 'Modules: Navigation: Meta Box Title', 'gnetwork' ),
+			_x( 'Relative Links', 'Modules: Navigation: Meta Box Title', 'gnetwork-admin' ),
 			[ $this, 'do_meta_box' ],
 			$screen,
 			'side',
@@ -113,26 +113,26 @@ class Navigation extends gNetwork\Module
 
 		$tabs = [
 			'general' => [
-				'label'       => _x( 'General', 'Modules: Navigation: Tabs', 'gnetwork' ),
-				'description' => _x( '<em>General</em> links are relative to the current user and are visible at any time.', 'Modules: Navigation', 'gnetwork' ),
+				'label'       => _x( 'General', 'Modules: Navigation: Tabs', 'gnetwork-admin' ),
+				'description' => _x( '<em>General</em> links are relative to the current user and are visible at any time.', 'Modules: Navigation', 'gnetwork-admin' ),
 				'pages'       => $this->get_general_pages(),
 			],
 			'loggedin' => [
-				'label'       => _x( 'Logged-In', 'Modules: Navigation: Tabs', 'gnetwork' ),
-				'description' => _x( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', 'Modules: Navigation', 'gnetwork' ),
+				'label'       => _x( 'Logged-In', 'Modules: Navigation: Tabs', 'gnetwork-admin' ),
+				'description' => _x( '<em>Logged-In</em> links are relative to the current user, and are not visible to visitors who are not logged in.', 'Modules: Navigation', 'gnetwork-admin' ),
 				'pages'       => $this->get_loggedin_pages(),
 			],
 			'loggedout' => [
-				'label'       => _x( 'Logged-Out', 'Modules: Navigation: Tabs', 'gnetwork' ),
-				'description' => _x( '<em>Logged-Out</em> links are not visible to users who are logged in.', 'Modules: Navigation', 'gnetwork' ),
+				'label'       => _x( 'Logged-Out', 'Modules: Navigation: Tabs', 'gnetwork-admin' ),
+				'description' => _x( '<em>Logged-Out</em> links are not visible to users who are logged in.', 'Modules: Navigation', 'gnetwork-admin' ),
 				'pages'       => $this->get_loggedout_pages(),
 			],
 		];
 
 		if ( is_multisite() ) {
 			$tabs['sites'] = [
-				'label'       => _x( 'Sites', 'Modules: Navigation: Tabs', 'gnetwork' ),
-				'description' => _x( '<em>Sites</em> on this network within your access.', 'Modules: Navigation', 'gnetwork' ),
+				'label'       => _x( 'Sites', 'Modules: Navigation: Tabs', 'gnetwork-admin' ),
+				'description' => _x( '<em>Sites</em> on this network within your access.', 'Modules: Navigation', 'gnetwork-admin' ),
 				'pages'       => $this->get_sites_pages(),
 			];
 		}
@@ -163,7 +163,7 @@ class Navigation extends gNetwork\Module
 				if ( function_exists( 'wp_nav_menu_disabled_check' ) )
 					wp_nav_menu_disabled_check( $GLOBALS['nav_menu_selected_id'] );
 			echo ' class="button-secondary submit-add-to-menu right" value="';
-				echo esc_attr_x( 'Add to Menu', 'Modules: Navigation', 'gnetwork' );
+				echo esc_attr_x( 'Add to Menu', 'Modules: Navigation', 'gnetwork-admin' );
 			echo '" name="add-custom-menu-item" id="submit-'.$id.'" />';
 		echo '<span class="spinner"></span></span></p>';
 	}
@@ -174,13 +174,13 @@ class Navigation extends gNetwork\Module
 		$default = get_default_feed();
 
 		$items[] = [
-			'name' => _x( 'Default Posts Feed', 'Modules: Navigation', 'gnetwork' ),
+			'name' => _x( 'Default Posts Feed', 'Modules: Navigation', 'gnetwork-admin' ),
 			'slug' => 'posts_feed',
 			'link' => get_feed_link( $default ),
 		];
 
 		$items[] = [
-			'name' => _x( 'Default Comments Feed', 'Modules: Navigation', 'gnetwork' ),
+			'name' => _x( 'Default Comments Feed', 'Modules: Navigation', 'gnetwork-admin' ),
 			'slug' => 'comments_feed',
 			'link' => get_feed_link( 'comments_'.$default ),
 		];
@@ -193,19 +193,19 @@ class Navigation extends gNetwork\Module
 		$items = [];
 
 		$items[] = [
-			'name' => _x( 'Log Out', 'Modules: Navigation', 'gnetwork' ),
+			'name' => _x( 'Log Out', 'Modules: Navigation', 'gnetwork-admin' ),
 			'slug' => 'logout',
 			'link' => $this->get_logout_url(),
 		];
 
 		$items[] = [
-			'name' => _x( 'Edit Profile', 'Modules: Navigation', 'gnetwork' ),
+			'name' => _x( 'Edit Profile', 'Modules: Navigation', 'gnetwork-admin' ),
 			'slug' => 'edit_profile',
 			'link' => $this->get_edit_profile_url(),
 		];
 
 		$items[] = [
-			'name' => _x( 'Public Profile', 'Modules: Navigation', 'gnetwork' ),
+			'name' => _x( 'Public Profile', 'Modules: Navigation', 'gnetwork-admin' ),
 			'slug' => 'public_profile',
 			'link' => $this->get_public_profile_url(),
 		];
@@ -218,14 +218,14 @@ class Navigation extends gNetwork\Module
 		$items = [];
 
 		$items[] = [
-			'name' => _x( 'Log In', 'Modules: Navigation', 'gnetwork' ),
+			'name' => _x( 'Log In', 'Modules: Navigation', 'gnetwork-admin' ),
 			'slug' => 'login',
 			'link' => $this->get_login_url(),
 		];
 
 		if ( $register_url = $this->get_register_url() )
 			$items[] = [
-				'name' => _x( 'Register', 'Modules: Navigation', 'gnetwork' ),
+				'name' => _x( 'Register', 'Modules: Navigation', 'gnetwork-admin' ),
 				'slug' => 'register',
 				'link' => $register_url,
 			];
@@ -470,7 +470,7 @@ class Navigation extends gNetwork\Module
 
 		echo '<fieldset class="description description-wide"><label for="edit-menu-item-children-'.$item_id.'">';
 			echo '<input type="checkbox" id="edit-menu-item-children-'.$item_id.'" value="1" name="menu-item-children['.$item_id.']"'.checked( $item->children, TRUE, FALSE ).' /> ';
-			_ex( 'Include Children as Sub-menu', 'Modules: Navigation', 'gnetwork' );
+			_ex( 'Include Children as Sub-menu', 'Modules: Navigation', 'gnetwork-admin' );
 		echo '</label></fieldset>';
 	}
 

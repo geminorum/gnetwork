@@ -77,7 +77,7 @@ class Comments extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Comments', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Comments', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -102,43 +102,43 @@ class Comments extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'strip_pings',
-					'title'       => _x( 'Hide Pings', 'Modules: Comments: Settings', 'gnetwork' ),
-					'description' => _x( 'Removes trackbacks and pingbacks form comment lists on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
+					'title'       => _x( 'Hide Pings', 'Modules: Comments: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Removes trackbacks and pingbacks form comment lists on the frontend.', 'Modules: Comments: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'disable_notifications',
 					'type'        => 'disabled',
-					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', 'gnetwork' ),
-					'description' => _x( 'Prevents WordPress from sending any comment related notifications.', 'Modules: Comments: Settings', 'gnetwork' ),
+					'title'       => _x( 'Comment Notifications', 'Modules: Comments: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Prevents WordPress from sending any comment related notifications.', 'Modules: Comments: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'admin_fullcomments',
-					'title'       => _x( 'Full Comments', 'Modules: Comments: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays full comment content on admin dashboard widget.', 'Modules: Comments: Settings', 'gnetwork' ),
+					'title'       => _x( 'Full Comments', 'Modules: Comments: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays full comment content on admin dashboard widget.', 'Modules: Comments: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'front_quicktags',
-					'title'       => _x( 'Frontend Quicktags', 'Modules: Comments: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds quick-tags on comment textarea on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
+					'title'       => _x( 'Frontend Quicktags', 'Modules: Comments: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Adds quick-tags on comment textarea on the frontend.', 'Modules: Comments: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'front_autosize',
-					'title'       => _x( 'Frontend Autosize', 'Modules: Comments: Settings', 'gnetwork' ),
-					'description' => _x( 'Makes the comment textarea expand in height automatically on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
+					'title'       => _x( 'Frontend Autosize', 'Modules: Comments: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Makes the comment textarea expand in height automatically on the frontend.', 'Modules: Comments: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'disable_notes',
-					'title'       => _x( 'Form Notes', 'Modules: Comments: Settings', 'gnetwork' ),
-					'description' => _x( 'Removes extra notes after comment form on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
+					'title'       => _x( 'Form Notes', 'Modules: Comments: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Removes extra notes after comment form on the frontend.', 'Modules: Comments: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'linkify_content',
-					'title'       => _x( 'Linkify Content', 'Modules: Comments: Settings', 'gnetwork' ),
-					'description' => _x( 'Tries to linkify hash-tags on the comments.', 'Modules: Comments: Settings', 'gnetwork' ),
+					'title'       => _x( 'Linkify Content', 'Modules: Comments: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Tries to linkify hash-tags on the comments.', 'Modules: Comments: Settings', 'gnetwork-admin' ),
 				],
 			],
 		];
@@ -147,8 +147,8 @@ class Comments extends gNetwork\Module
 			$settings['_captcha'] = [
 				[
 					'field'       => 'captcha',
-					'title'       => _x( 'Captcha', 'Modules: Comments: Settings', 'gnetwork' ),
-					'description' => _x( 'Displays captcha field after comment form on the frontend.', 'Modules: Comments: Settings', 'gnetwork' ),
+					'title'       => _x( 'Captcha', 'Modules: Comments: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Displays captcha field after comment form on the frontend.', 'Modules: Comments: Settings', 'gnetwork-admin' ),
 				],
 			];
 
@@ -360,15 +360,15 @@ class Comments extends gNetwork\Module
 
 		$map = [
 			/* translators: `%s`: comment count */
-			'moderated'      => _x( 'Comments in moderation: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'moderated'      => _x( 'Comments in moderation: %s', 'Modules: Comments: Total Comments Item', 'gnetwork-admin' ),
 			/* translators: `%s`: comment count */
-			'approved'       => _x( 'Comments approved: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'approved'       => _x( 'Comments approved: %s', 'Modules: Comments: Total Comments Item', 'gnetwork-admin' ),
 			/* translators: `%s`: comment count */
-			'spam'           => _x( 'Comments in Spam: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'spam'           => _x( 'Comments in Spam: %s', 'Modules: Comments: Total Comments Item', 'gnetwork-admin' ),
 			/* translators: `%s`: comment count */
-			'trash'          => _x( 'Comments in Trash: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'trash'          => _x( 'Comments in Trash: %s', 'Modules: Comments: Total Comments Item', 'gnetwork-admin' ),
 			/* translators: `%s`: comment count */
-			'total_comments' => _x( 'Total Comments: %s', 'Modules: Comments: Total Comments Item', 'gnetwork' ),
+			'total_comments' => _x( 'Total Comments: %s', 'Modules: Comments: Total Comments Item', 'gnetwork-admin' ),
 		];
 
 		echo '<ul>';

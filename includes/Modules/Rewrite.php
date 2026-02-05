@@ -36,8 +36,8 @@ class Rewrite extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork-admin' ) );
+		$this->register_tool( _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -53,10 +53,10 @@ class Rewrite extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'remove_category_base',
-					'title'       => _x( 'Remove Category Base', 'Modules: Rewrite: Settings', 'gnetwork' ),
+					'title'       => _x( 'Remove Category Base', 'Modules: Rewrite: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: default category slug */
-						_x( 'Removes %s from your category permalinks.', 'Modules: Rewrite: Settings', 'gnetwork' ),
+						_x( 'Removes %s from your category permalinks.', 'Modules: Rewrite: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( '/category' )
 					),
 				],
@@ -73,14 +73,14 @@ class Rewrite extends gNetwork\Module
 	public function settings_sidebox( $sub, $uri )
 	{
 		if ( WordPress\URL::maybeFlushRules() )
-			Core\HTML::desc( _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork' ), TRUE, '-color-danger' );
+			Core\HTML::desc( _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork-admin' ), TRUE, '-color-danger' );
 
 		echo $this->wrap_open_buttons();
 
 			echo Core\HTML::button(
-				_x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork' ),
+				_x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork-admin' ),
 				$this->get_menu_url( NULL, NULL, 'tools' ),
-				_x( 'View and set network roles here.', 'Modules: Rewrite', 'gnetwork' )
+				_x( 'View and set network roles here.', 'Modules: Rewrite', 'gnetwork-admin' )
 			);
 
 		echo '</p>';
@@ -96,7 +96,7 @@ class Rewrite extends gNetwork\Module
 		if ( $search )
 			$title = sprintf(
 				/* translators: `%1$s`: rules count, `%2$s`: search criteria, `%3$s`: search criteria */
-				_x( 'A Listing of All %1$s Rewrite Rules for This Site that Match &ldquo;<a target="_blank" href="%2$s">%3$s</a>&rdquo;', 'Modules: Rewrite', 'gnetwork' ),
+				_x( 'A Listing of All %1$s Rewrite Rules for This Site that Match &ldquo;<a target="_blank" href="%2$s">%3$s</a>&rdquo;', 'Modules: Rewrite', 'gnetwork-admin' ),
 				Core\Number::format( count( $rules ) ),
 				esc_url( $search ),
 				esc_url( $search )
@@ -105,17 +105,17 @@ class Rewrite extends gNetwork\Module
 		else
 			$title = sprintf(
 				/* translators: `%1$s`: rules count */
-				_x( 'A Listing of All %1$s Rewrite Rules for This Site', 'Modules: Rewrite', 'gnetwork' ),
+				_x( 'A Listing of All %1$s Rewrite Rules for This Site', 'Modules: Rewrite', 'gnetwork-admin' ),
 				Core\Number::format( count( $rules ) )
 			);
 
 		return Core\HTML::tableList( [
-			'rule'    => _x( 'Rule', 'Modules: Rewrite', 'gnetwork' ),
-			'rewrite' => _x( 'Rewrite', 'Modules: Rewrite', 'gnetwork' ),
-			'source'  => _x( 'Source', 'Modules: Rewrite', 'gnetwork' ),
+			'rule'    => _x( 'Rule', 'Modules: Rewrite', 'gnetwork-admin' ),
+			'rewrite' => _x( 'Rewrite', 'Modules: Rewrite', 'gnetwork-admin' ),
+			'source'  => _x( 'Source', 'Modules: Rewrite', 'gnetwork-admin' ),
 		], $rules, [
 			'title'     => Core\HTML::tag( 'h3', $title ),
-			'empty'     => _x( 'No rewrite rules were found.', 'Modules: Rewrite', 'gnetwork' ),
+			'empty'     => _x( 'No rewrite rules were found.', 'Modules: Rewrite', 'gnetwork-admin' ),
 			'row_class' => [ $this, 'table_list_row_class' ],
 			'before'    => [ $this, 'table_list_before' ],
 			'extra'     => compact( 'search', 'source', 'sources' ),
@@ -126,7 +126,7 @@ class Rewrite extends gNetwork\Module
 	{
 		$url = $this->get_menu_url( NULL, NULL, 'tools' );
 
-		$html = _x( 'Match URL:', 'Modules: Rewrite', 'gnetwork' );
+		$html = _x( 'Match URL:', 'Modules: Rewrite', 'gnetwork-admin' );
 		$html.= ' '.Core\HTML::tag( 'input', [
 			'type'  => 'text',
 			'name'  => 's',
@@ -140,18 +140,18 @@ class Rewrite extends gNetwork\Module
 		echo '&nbsp;&nbsp;';
 
 		$sources = array_combine( $args['extra']['sources'], $args['extra']['sources'] );
-		$sources['all'] = _x( 'All Sources', 'Modules: Rewrite', 'gnetwork' );
+		$sources['all'] = _x( 'All Sources', 'Modules: Rewrite', 'gnetwork-admin' );
 		echo Core\HTML::dropdown( $sources, [ 'name' => 'source', 'selected' => $args['extra']['source'] ] );
 
 		echo '&nbsp;&nbsp;';
 
-		Settings::submitButton( 'filter', _x( 'Filter', 'Modules: Rewrite', 'gnetwork' ), TRUE );
-		Settings::submitButton( $url, _x( 'Reset', 'Modules: Rewrite', 'gnetwork' ), 'link' );
+		Settings::submitButton( 'filter', _x( 'Filter', 'Modules: Rewrite', 'gnetwork-admin' ), TRUE );
+		Settings::submitButton( $url, _x( 'Reset', 'Modules: Rewrite', 'gnetwork-admin' ), 'link' );
 
 		echo $this->wrap_open_buttons( '-side -s1ide-ltr', FALSE );
 
 		Settings::submitButton( add_query_arg( static::BASE.'_action', 'flushrewrite', $url ),
-			_x( 'Flush Rewrite Rules', 'Modules: Rewrite', 'gnetwork' ), 'link', [], '' );
+			_x( 'Flush Rewrite Rules', 'Modules: Rewrite', 'gnetwork-admin' ), 'link', [], '' );
 
 		echo '</span>';
 	}
@@ -370,9 +370,9 @@ class Rewrite extends gNetwork\Module
 
 		$items[] = Core\HTML::tag( $url ? 'a' : 'span', [
 			'href'  => $url,
-			'title' => _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork' ),
+			'title' => _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork-admin' ),
 			'class' => '-flush-rules',
-		], _x( 'Flush Rewrite Rules', 'Modules: Rewrite', 'gnetwork' ) );
+		], _x( 'Flush Rewrite Rules', 'Modules: Rewrite', 'gnetwork-admin' ) );
 
 		return $items;
 	}

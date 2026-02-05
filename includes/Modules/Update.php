@@ -66,7 +66,7 @@ class Update extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Update', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Update', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -88,29 +88,29 @@ class Update extends gNetwork\Module
 				[
 					'field'       => 'disable_autoupdates',
 					'type'        => 'disabled',
-					'title'       => _x( 'Auto Update Core', 'Modules: Update: Settings', 'gnetwork' ),
-					'description' => _x( 'Disables automatic updates of the WordPress core.', 'Modules: Update: Settings', 'gnetwork' ),
+					'title'       => _x( 'Auto Update Core', 'Modules: Update: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Disables automatic updates of the WordPress core.', 'Modules: Update: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'disable_translations',
 					'type'        => 'disabled',
-					'title'       => _x( 'Auto and Async Translations', 'Modules: Update: Settings', 'gnetwork' ),
-					'description' => _x( 'Disables asynchronous and automatic background translation updates.', 'Modules: Update: Settings', 'gnetwork' ),
+					'title'       => _x( 'Auto and Async Translations', 'Modules: Update: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Disables asynchronous and automatic background translation updates.', 'Modules: Update: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( 'https://make.wordpress.org/core/?p=10922' ),
 				],
 				[
 					'field'       => 'disable_majorupdates',
 					'type'        => 'disabled',
-					'title'       => _x( 'Auto Update Major Core', 'Modules: Update: Settings', 'gnetwork' ),
-					'description' => _x( 'Disables automatic updates of the WordPress core.', 'Modules: Update: Settings', 'gnetwork' ),
+					'title'       => _x( 'Auto Update Major Core', 'Modules: Update: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Disables automatic updates of the WordPress core.', 'Modules: Update: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 			],
 			'_remote' => [
 				[
 					'field'       => 'remote_updates',
-					'title'       => _x( 'Remote Updates', 'Modules: Update: Settings', 'gnetwork' ),
-					'description' => _x( 'Enables to check for updates on Github and Gitlab.', 'Modules: Update: Settings', 'gnetwork' ),
+					'title'       => _x( 'Remote Updates', 'Modules: Update: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Enables to check for updates on Github and Gitlab.', 'Modules: Update: Settings', 'gnetwork-admin' ),
 				],
 			],
 		];
@@ -126,21 +126,21 @@ class Update extends gNetwork\Module
 		$settings['_remote'][] = [
 			'field'       => 'service_tokens',
 			'type'        => 'text',
-			'title'       => _x( 'Service Tokens', 'Modules: Update: Settings', 'gnetwork' ),
-			'description' => _x( 'Tokens to access external services.', 'Modules: Update: Settings', 'gnetwork' ),
+			'title'       => _x( 'Service Tokens', 'Modules: Update: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Tokens to access external services.', 'Modules: Update: Settings', 'gnetwork-admin' ),
 			'field_class' => [ 'regular-text', 'code-text' ],
 			'values'      => [
-				'github' => _x( 'Github', 'Modules: Update: Settings', 'gnetwork' ),
-				'gitlab' => _x( 'Gitlab', 'Modules: Update: Settings', 'gnetwork' ),
+				'github' => _x( 'Github', 'Modules: Update: Settings', 'gnetwork-admin' ),
+				'gitlab' => _x( 'Gitlab', 'Modules: Update: Settings', 'gnetwork-admin' ),
 			],
 		];
 
 		$settings['_remote'][] = [
 			'field'        => 'package_tokens',
 			'type'         => 'text',
-			'title'        => _x( 'Package Tokens', 'Modules: Update: Settings', 'gnetwork' ),
-			'description'  => _x( 'Tokens to access specefic packages.', 'Modules: Update: Settings', 'gnetwork' ),
-			'string_empty' => _x( 'No packages found. Please use “Refresh Packages” button on the sidebox.', 'Modules: Update: Settings', 'gnetwork' ),
+			'title'        => _x( 'Package Tokens', 'Modules: Update: Settings', 'gnetwork-admin' ),
+			'description'  => _x( 'Tokens to access specefic packages.', 'Modules: Update: Settings', 'gnetwork-admin' ),
+			'string_empty' => _x( 'No packages found. Please use “Refresh Packages” button on the sidebox.', 'Modules: Update: Settings', 'gnetwork-admin' ),
 			'field_class'  => [ 'regular-text', 'code-text' ],
 			'values'       => $packages,
 		];
@@ -151,8 +151,8 @@ class Update extends gNetwork\Module
 	public function settings_section_remote()
 	{
 		Settings::fieldSection(
-			_x( 'Remote', 'Modules: Update: Settings', 'gnetwork' ),
-			_x( 'Updates themes and plugins from a remote repository.', 'Modules: Update: Settings', 'gnetwork' )
+			_x( 'Remote', 'Modules: Update: Settings', 'gnetwork-admin' ),
+			_x( 'Updates themes and plugins from a remote repository.', 'Modules: Update: Settings', 'gnetwork-admin' )
 		);
 	}
 
@@ -162,12 +162,12 @@ class Update extends gNetwork\Module
 
 			if ( $this->options['remote_updates'] ) {
 
-				Settings::submitButton( 'refresh_packages', _x( 'Refresh Packages', 'Modules: Update', 'gnetwork' ), 'small' );
-				Core\HTML::desc( _x( 'Regenerates package informations.', 'Modules: Update', 'gnetwork' ), FALSE );
+				Settings::submitButton( 'refresh_packages', _x( 'Refresh Packages', 'Modules: Update', 'gnetwork-admin' ), 'small' );
+				Core\HTML::desc( _x( 'Regenerates package informations.', 'Modules: Update', 'gnetwork-admin' ), FALSE );
 
 			} else {
 
-				Core\HTML::desc( _x( 'Remote updates are disabled.', 'Modules: Update', 'gnetwork' ), FALSE, '-empty' );
+				Core\HTML::desc( _x( 'Remote updates are disabled.', 'Modules: Update', 'gnetwork-admin' ), FALSE, '-empty' );
 			}
 
 		echo '</p>';
@@ -468,8 +468,8 @@ class Update extends gNetwork\Module
 		if ( ! $new || $source == $new )
 			return $source;
 
-		// FIXME: not working: probably no refrence to the upgrader
-		// $upgrader->skin->feedback( _x( 'Renaming package &hellip;', 'Modules: Update', 'gnetwork' ) );
+		// FIXME: not working: probably no reference to the upgrader
+		// $upgrader->skin->feedback( _x( 'Renaming package &hellip;', 'Modules: Update', 'gnetwork-admin' ) );
 
 		$wp_filesystem->move( $source, $new );
 

@@ -120,7 +120,7 @@ class Blog extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'General', 'Modules: Menu Name', 'gnetwork' ), NULL, 5 );
+		$this->register_menu( _x( 'General', 'Modules: Menu Name', 'gnetwork-admin' ), NULL, 5 );
 	}
 
 	public function default_options()
@@ -167,8 +167,8 @@ class Blog extends gNetwork\Module
 		if ( ! $multisite )
 			$settings['_general'][] = [
 				'field'       => 'ssl_support',
-				'title'       => _x( 'SSL', 'Modules: Blog: Settings', 'gnetwork' ),
-				'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'SSL', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Enables SSL tools to support the network sites.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 				'disabled'    => GNETWORK_DISABLE_SSL,
 			];
 
@@ -176,62 +176,62 @@ class Blog extends gNetwork\Module
 			$settings['_admin'][] = [
 				'field'       => 'admin_locale',
 				'type'        => 'select',
-				'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', 'gnetwork' ),
-				'description' => _x( 'Despite of the site language, always display admin in this locale.', 'Modules: Blog: Settings', 'gnetwork' ),
-				'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'Admin Language', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Despite of the site language, always display admin in this locale.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'none_title'  => _x( 'Site Default', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 				'none_value'  => '',
 				'values'      => Core\Arraay::sameKey( Locale::available() ),
 			];
 
 		$settings['_admin'][] = [
 			'field'       => 'admin_chosen',
-			'title'       => _x( 'Admin Chosen', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-friendly.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Admin Chosen', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Chosen is a jQuery plugin that makes long, unwieldy select boxes much more user-friendly.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'after'       => Settings::fieldAfterIcon( 'https://jjj.github.io/chosen/' ),
 		];
 
 		$settings['_economics'][] = [
 			'field'       => 'thrift_mode',
-			'title'       => _x( 'Thrift Mode', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Trying to make your host happy!', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Thrift Mode', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Trying to make your host happy!', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_economics'][] = [
 			'field'       => 'no_found_rows',
-			'title'       => _x( 'No Found-Rows', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Avoids query count for paginations.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'No Found-Rows', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Avoids query count for paginations.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'after'       => Settings::fieldAfterIcon( 'https://wpartisan.me/?p=166' ),
 		];
 
 		$settings['_economics'][] = [
 			'field'       => 'heartbeat_mode',
 			'type'        => 'select',
-			'title'       => _x( 'Heartbeat Mode', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Controls the Heartbeat API locations.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Heartbeat Mode', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Controls the Heartbeat API locations.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'values'      => [
-				'default'   => _x( 'Use default', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'disable'   => _x( 'Disable everywhere', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'dashboard' => _x( 'Disable on Dashboard page', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'postedit'  => _x( 'Allow only on Post Edit pages', 'Modules: Blog: Settings: Option', 'gnetwork' ),
+				'default'   => _x( 'Use default', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'disable'   => _x( 'Disable everywhere', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'dashboard' => _x( 'Disable on Dashboard page', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'postedit'  => _x( 'Allow only on Post Edit pages', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
 			],
 		];
 
 		$settings['_economics'][] = [
 			'field'       => 'heartbeat_frequency',
 			'type'        => 'select',
-			'title'       => _x( 'Heartbeat Frequency', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Overrides the Heartbeat API frequency.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Heartbeat Frequency', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Overrides the Heartbeat API frequency.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'values'      => [
-				'default' => _x( 'Use default', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'15'      => _x( '15 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'20'      => _x( '20 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'25'      => _x( '25 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'30'      => _x( '30 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'35'      => _x( '35 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'40'      => _x( '40 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'45'      => _x( '45 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'50'      => _x( '50 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
-				'60'      => _x( '60 seconds', 'Modules: Blog: Settings: Option', 'gnetwork' ),
+				'default' => _x( 'Use default', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'15'      => _x( '15 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'20'      => _x( '20 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'25'      => _x( '25 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'30'      => _x( '30 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'35'      => _x( '35 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'40'      => _x( '40 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'45'      => _x( '45 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'50'      => _x( '50 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
+				'60'      => _x( '60 seconds', 'Modules: Blog: Settings: Option', 'gnetwork-admin' ),
 			],
 		];
 
@@ -239,10 +239,10 @@ class Blog extends gNetwork\Module
 			$settings['_economics'][] = [
 				'field'       => 'autosave_interval',
 				'type'        => 'number',
-				'title'       => _x( 'Autosave Interval', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'Autosave Interval', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 				'description' => sprintf(
 					/* translators: `%s`: constant placeholder */
-					_x( 'Time in seconds that WordPress will save the currently editing posts. default is %s seconds.', 'Modules: Blog: Settings', 'gnetwork' ),
+					_x( 'Time in seconds that WordPress will save the currently editing posts. default is %s seconds.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 					Core\HTML::code( AUTOSAVE_INTERVAL )
 				),
 				'min_attr'    => '20',
@@ -251,21 +251,21 @@ class Blog extends gNetwork\Module
 
 		$settings['_services'][] = [
 			'field'       => 'xmlrpc_enabled',
-			'title'       => _x( 'XML-RPC', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Whether XML-RPC services are enabled on this site.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'XML-RPC', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Whether XML-RPC services are enabled on this site.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_services'][] = [
 			'field'       => 'wlw_enabled',
-			'title'       => _x( 'WLW', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Whether Windows Live Writer manifest enabled on this site.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'WLW', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Whether Windows Live Writer manifest enabled on this site.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_services'][] = [
 			'field'       => 'disable_emojis',
 			'type'        => 'disabled',
-			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes the extra code bloat used to add support for Emoji\'s in older browsers.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Emojis', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Removes the extra code bloat used to add support for Emoji\'s in older browsers.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'after'       => Settings::fieldAfterIcon( 'https://wordpress.org/support/article/emoji/' ),
 			'default'     => '1',
 		];
@@ -273,24 +273,24 @@ class Blog extends gNetwork\Module
 		$settings['_services'][] = [
 			'field'       => 'disable_privacytools',
 			'type'        => 'disabled',
-			'title'       => _x( 'Privacy Tools', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Disables core\'s privacy tools including tools for exporting\/erasing personal data.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Privacy Tools', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Disables core\'s privacy tools including tools for exporting\/erasing personal data.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'default'     => '1',
 		];
 
 		$settings['_admin'][] = [
 			'field'       => 'disable_pointers',
 			'type'        => 'disabled',
-			'title'       => _x( 'Admin Pointers', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes all admin pointer tooltips.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Admin Pointers', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Removes all admin pointer tooltips.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'default'     => '1',
 		];
 
 		$settings['_front'][] = [
 			'field'       => 'disable_globalstyles',
 			'type'        => 'disabled',
-			'title'       => _x( 'Global Styles', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes all global style additions.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Global Styles', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Removes all global style additions.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'after'       => Settings::fieldAfterIcon( 'https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/#presets' ),
 			'default'     => '1',
 		];
@@ -298,8 +298,8 @@ class Blog extends gNetwork\Module
 		$settings['_front'][] = [
 			'field'       => 'page_copyright',
 			'type'        => 'page',
-			'title'       => _x( 'Copyright Information', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Defines an HTML meta tag as copyright manifest page for this site.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Copyright Information', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Defines an HTML meta tag as copyright manifest page for this site.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'default'     => '0',
 			'exclude'     => Settings::getPageExcludes(),
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
@@ -308,32 +308,32 @@ class Blog extends gNetwork\Module
 		$settings['_front'][] = [
 			'field'       => 'content_width',
 			'type'        => 'number',
-			'title'       => _x( 'Content Width', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Overrides content width of the active theme. Leave empty to disable.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Content Width', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Overrides content width of the active theme. Leave empty to disable.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'after'       => ! empty( $GLOBALS['content_width'] ) && ! $this->options['content_width'] ? Settings::fieldAfterText( sprintf(
 				/* translators: `%s`: content width placeholder */
-				_x( 'Current is %s', 'Modules: Blog: Settings', 'gnetwork' ),
+				_x( 'Current is %s', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 				Core\HTML::code( $GLOBALS['content_width'] )
 			) ) : FALSE,
 		];
 
 		$settings['_front'][] = [
 			'field'       => 'meta_revised',
-			'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Defines an HTML meta tag for last modified time of each post.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Meta Revised', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Defines an HTML meta tag for last modified time of each post.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_front'][] = [
 			'field'       => 'noindex_attachments',
-			'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Defines No Index/No Follow HTML meta tags for attachment pages.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'No Index Attachments', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Defines No Index/No Follow HTML meta tags for attachment pages.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_front'][] = [
 			'field'       => 'theme_color',
 			'type'        => 'color',
-			'title'       => _x( 'Theme Color', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Defines color of the mobile browser address bar. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Theme Color', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Defines color of the mobile browser address bar. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 		];
 
 		if ( $multisite && class_exists( __NAMESPACE__.'\\Mail' ) ) {
@@ -341,15 +341,15 @@ class Blog extends gNetwork\Module
 			$settings['_overrides'][] = [
 				'field'       => 'from_email',
 				'type'        => 'email',
-				'title'       => _x( 'From Email', 'Modules: Blog: Settings', 'gnetwork' ),
-				'description' => _x( 'This site email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'From Email', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'This site email address that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			];
 
 			$settings['_overrides'][] = [
 				'field'       => 'from_name',
 				'type'        => 'text',
-				'title'       => _x( 'From Name', 'Modules: Blog: Settings', 'gnetwork' ),
-				'description' => _x( 'This site email name that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'From Name', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'This site email name that emails should be sent from. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			];
 		}
 
@@ -357,8 +357,8 @@ class Blog extends gNetwork\Module
 			$settings['_overrides'][] = [
 				'field'       => 'ga_override',
 				'type'        => 'text',
-				'title'       => _x( 'GA Override', 'Modules: Blog: Settings', 'gnetwork' ),
-				'description' => _x( 'This site Google Analytics tracking account. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'GA Override', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'This site Google Analytics tracking account. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 				'placeholder' => 'UA-XXXXXXXX-X',
 				'field_class' => [ 'regular-text', 'code-text' ],
 			];
@@ -366,16 +366,16 @@ class Blog extends gNetwork\Module
 		$settings['_misc'][] = [
 			'field'       => 'blog_redirect',
 			'type'        => 'url',
-			'title'       => _x( 'Redirect URL', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Redirects the site to a custom URL. Leave empty to disable.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Redirect URL', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Redirects the site to a custom URL. Leave empty to disable.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'placeholder' => 'https://anothersite.com',
 		];
 
 		$settings['_misc'][] = [
 			'field'       => 'blog_redirect_status',
 			'type'        => 'select',
-			'title'       => _x( 'Redirect Status Code', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'HTTP status header code for redirection of this site.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Redirect Status Code', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'HTTP status header code for redirection of this site.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_Redirection' ),
 			'dir'         => 'ltr',
 			'default'     => '301',
@@ -390,24 +390,24 @@ class Blog extends gNetwork\Module
 
 		$settings['_misc'][] = [
 			'field'       => 'shortlink_numeric',
-			'title'       => _x( 'Numeric Shortlinks', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Adds support for numeric/alpha-numeric shortlinks.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Numeric Shortlinks', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Adds support for numeric/alpha-numeric shortlinks.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_misc'][] = [
 			'field'   => 'shortlink_type',
 			'type'    => 'select',
-			'title'   => _x( 'Shortlink Type', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'   => _x( 'Shortlink Type', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'default' => 'numeric',
 			'values'  => [
 				'numeric'   => sprintf(
 					/* translators: `%s`: short-link type placeholder */
-					_x( 'Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ),
+					_x( 'Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 					Core\URL::home( '123' )
 				),
 				'bijection' => sprintf(
 					/* translators: `%s`: short-link type placeholder */
-					_x( 'Alpha-Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork' ),
+					_x( 'Alpha-Numeric (%s)', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 					Core\URL::home( 'd3E' )
 				),
 			],
@@ -416,8 +416,8 @@ class Blog extends gNetwork\Module
 		$settings['_login'][] = [
 			'field'       => 'login_after_cap',
 			'type'        => 'cap',
-			'title'       => _x( 'Log-in to Admin', 'Modules: Blog: Settings', 'gnetwork' ),
-			'description' => _x( 'Selected and above will redirect after successful log-in to admin.', 'Modules: Blog: Settings', 'gnetwork' ),
+			'title'       => _x( 'Log-in to Admin', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Selected and above will redirect after successful log-in to admin.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			'default'     => 'edit_posts',
 		];
 
@@ -426,22 +426,22 @@ class Blog extends gNetwork\Module
 			$settings['_overrides'][] = [
 				'field'       => 'text_copyright',
 				'type'        => 'textarea-quicktags',
-				'title'       => _x( 'Copyright Notice', 'Modules: Blog: Settings', 'gnetwork' ),
-				'description' => _x( 'Displays as copyright notice on the footer on the front-end. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'Copyright Notice', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Displays as copyright notice on the footer on the front-end. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			];
 
 			$settings['_login'][] = [
 				'field'       => 'redirect_login',
 				'type'        => 'url',
-				'title'       => _x( 'Log-in After', 'Modules: Blog: Settings', 'gnetwork' ),
-				'description' => _x( 'Full URL to redirect after successful log-in. Leave empty to use the home. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'Log-in After', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Full URL to redirect after successful log-in. Leave empty to use the home. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			];
 
 			$settings['_login'][] = [
 				'field'       => 'redirect_logout',
 				'type'        => 'url',
-				'title'       => _x( 'Log-out After', 'Modules: Blog: Settings', 'gnetwork' ),
-				'description' => _x( 'Full URL to redirect after compelete log-out. Leave empty to use the home. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork' ),
+				'title'       => _x( 'Log-out After', 'Modules: Blog: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Full URL to redirect after compelete log-out. Leave empty to use the home. Set to override the network.', 'Modules: Blog: Settings', 'gnetwork-admin' ),
 			];
 		}
 

@@ -40,7 +40,7 @@ class NotFound extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Not Found', 'Modules: Menu Name', 'gnetwork' ), NULL );
+		$this->register_menu( _x( 'Not Found', 'Modules: Menu Name', 'gnetwork-admin' ), NULL );
 	}
 
 	public function default_options()
@@ -60,23 +60,23 @@ class NotFound extends gNetwork\Module
 
 		$settings['_front'][] = [
 			'field'       => 'check_slugs',
-			'title'       => _x( 'Check Slugs', 'Modules: NotFound: Settings', 'gnetwork' ),
-			'description' => _x( 'Tries to redirect unknown posttype or taxonomy to it&#8217;s archives.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'title'       => _x( 'Check Slugs', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Tries to redirect unknown posttype or taxonomy to it&#8217;s archives.', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
 			'default'     => '1',
 		];
 
 		$settings['_front'][] = [
 			'field'       => 'link_to_archives',
-			'title'       => _x( 'Link to Archives', 'Modules: NotFound: Settings', 'gnetwork' ),
-			'description' => _x( 'Displays a link button to unknown posttype or taxonomy archives.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'title'       => _x( 'Link to Archives', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Displays a link button to unknown posttype or taxonomy archives.', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
 			'default'     => '1',
 		];
 
 		$settings['_front'][] = [
 			'field'       => 'page_404',
 			'type'        => 'page',
-			'title'       => _x( 'Custom 404 Error', 'Modules: NotFound: Settings', 'gnetwork' ),
-			'description' => _x( 'Displays the selected page as 404 Error page.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'title'       => _x( 'Custom 404 Error', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Displays the selected page as 404 Error page.', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
 			'default'     => '0',
 			'exclude'     => Settings::getPageExcludes(),
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
@@ -85,14 +85,14 @@ class NotFound extends gNetwork\Module
 		$settings['_front'][] = [
 			'field'       => 'disable_guessing',
 			'type'        => 'disabled',
-			'title'       => _x( 'Disable 404 Guessing', 'Modules: NotFound: Settings', 'gnetwork' ),
-			'description' => _x( 'Attempts to guess a redirect URL for a 404 request.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'title'       => _x( 'Disable 404 Guessing', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Attempts to guess a redirect URL for a 404 request.', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_front'][] = [
 			'field'       => 'strict_guessing',
-			'title'       => _x( 'Strict 404 Guessing', 'Modules: NotFound: Settings', 'gnetwork' ),
-			'description' => _x( 'Whether to perform a strict guess for a 404 redirect.', 'Modules: NotFound: Settings', 'gnetwork' ),
+			'title'       => _x( 'Strict 404 Guessing', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Whether to perform a strict guess for a 404 redirect.', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
 		];
 
 		return $settings;
@@ -106,12 +106,12 @@ class NotFound extends gNetwork\Module
 			$location = GNETWORK_REDIRECT_404_URL;
 
 		if ( ! $location )
-			Core\HTML::desc( _x( 'Redirect 404 disabled.', 'Modules: NotFound: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Redirect 404 disabled.', 'Modules: NotFound: Settings', 'gnetwork-admin' ) );
 
 		else
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: not-found location */
-				_x( 'Current Location: %s', 'Modules: NotFound: Settings', 'gnetwork' ),
+				_x( 'Current Location: %s', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
 				Core\HTML::code( Core\HTML::link(
 					Core\URL::relative( $location ),
 					$location,
@@ -287,7 +287,7 @@ class NotFound extends gNetwork\Module
 			return $states;
 
 		if ( $post->ID === (int) $this->options['page_404'] )
-			$states[$this->key] = _x( 'NotFound', 'Modules: NotFound: Page-State', 'gnetwork' );
+			$states[$this->key] = _x( 'NotFound', 'Modules: NotFound: Page-State', 'gnetwork-admin' );
 
 		return $states;
 	}

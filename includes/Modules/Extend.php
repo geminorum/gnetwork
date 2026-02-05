@@ -23,7 +23,7 @@ class Extend extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_tool( _x( 'Extend', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'Extend', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	protected function render_tools_html( $uri, $sub = 'general' )
@@ -63,7 +63,7 @@ class Extend extends gNetwork\Module
 
 		return Core\HTML::tableList( [
 			'site' => [
-				'title'    => _x( 'Site', 'Modules: Extend', 'gnetwork' ),
+				'title'    => _x( 'Site', 'Modules: Extend', 'gnetwork-admin' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return '<code title="'.Core\HTML::escape( $row['blogname'] ).'">'.
 						Core\URL::untrail( $row['_site']->domain.$row['_site']->path ).
@@ -71,11 +71,11 @@ class Extend extends gNetwork\Module
 				},
 			],
 
-			'stylesheet' => [ 'title' => _x( 'Theme', 'Modules: Extend', 'gnetwork' ) ],
-			'template'   => [ 'title' => _x( 'Template', 'Modules: Extend', 'gnetwork' ) ],
+			'stylesheet' => [ 'title' => _x( 'Theme', 'Modules: Extend', 'gnetwork-admin' ) ],
+			'template'   => [ 'title' => _x( 'Template', 'Modules: Extend', 'gnetwork-admin' ) ],
 
 			'plugins' => [
-				'title'    => _x( 'Plugins', 'Modules: Extend', 'gnetwork' ),
+				'title'    => _x( 'Plugins', 'Modules: Extend', 'gnetwork-admin' ),
 				'class'    => '-extend-plugins -has-list -has-list-ltr',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					$list = [];
@@ -90,7 +90,7 @@ class Extend extends gNetwork\Module
 			],
 
 			'editorial' => [
-				'title'    => _x( 'Editorial', 'Modules: Extend', 'gnetwork' ),
+				'title'    => _x( 'Editorial', 'Modules: Extend', 'gnetwork-admin' ),
 				'class'    => '-extend-editorial -has-list -has-list-ltr',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return empty( $value )
@@ -100,8 +100,8 @@ class Extend extends gNetwork\Module
 			],
 
 		], $data, [
-			'title' => Core\HTML::tag( 'h3', _x( 'Overview of Current Active Theme and Plugins', 'Modules: Extend', 'gnetwork' ) ),
-			'empty' => Core\HTML::warning( _x( 'No site found!', 'Modules: Extend', 'gnetwork' ), FALSE ),
+			'title' => Core\HTML::tag( 'h3', _x( 'Overview of Current Active Theme and Plugins', 'Modules: Extend', 'gnetwork-admin' ) ),
+			'empty' => Core\HTML::warning( _x( 'No site found!', 'Modules: Extend', 'gnetwork-admin' ), FALSE ),
 		] );
 	}
 

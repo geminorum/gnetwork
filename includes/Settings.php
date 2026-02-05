@@ -48,14 +48,14 @@ class Settings extends Core\Base
 	public static function headerTitle( $title = NULL, $after = '', $tag = 'h1' )
 	{
 		if ( is_null( $title ) )
-			$title = _x( 'Network Extras', 'Settings: Header Title', 'gnetwork' );
+			$title = _x( 'Network Extras', 'Settings: Header Title', 'gnetwork-admin' );
 
 		echo '<'.$tag.' class="wp-heading-inline settings-title">'.$title.'</'.$tag.'>';
 
 		if ( 'version' == $after )
 			echo ' '.Core\HTML::tag( 'a', [
 				'href'   => 'https://github.com/geminorum/gnetwork/releases',
-				'title'  => _x( 'Plugin Changelog', 'Settings: Header Title: Link Title Attr', 'gnetwork' ),
+				'title'  => _x( 'Plugin Changelog', 'Settings: Header Title: Link Title Attr', 'gnetwork-admin' ),
 				'class'  => [ 'page-title-action', 'settings-title-action' ],
 				'target' => '_blank',
 			], GNETWORK_VERSION );
@@ -70,7 +70,7 @@ class Settings extends Core\Base
 	{
 		echo '<div class="side-nav-wrap">';
 
-		Core\HTML::h2( $title ?? _x( 'Extras', 'Settings: Header Title', 'gnetwork' ), '-title' );
+		Core\HTML::h2( $title ?? _x( 'Extras', 'Settings: Header Title', 'gnetwork-admin' ), '-title' );
 		Core\HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
 
 		echo '<div class="side-nav-content">';
@@ -501,8 +501,8 @@ class Settings extends Core\Base
 	{
 		return [
 			'field'       => 'register_shortcodes',
-			'title'       => _x( 'Extra Shortcodes', 'Settings: Setting Title', 'gnetwork' ),
-			'description' => _x( 'Registers this modules\'s extra shortcodes.', 'Settings: Setting Desc', 'gnetwork' ),
+			'title'       => _x( 'Extra Shortcodes', 'Settings: Setting Title', 'gnetwork-admin' ),
+			'description' => _x( 'Registers this modules\'s extra shortcodes.', 'Settings: Setting Desc', 'gnetwork-admin' ),
 		];
 	}
 
@@ -510,8 +510,8 @@ class Settings extends Core\Base
 	{
 		return [
 			'field'       => 'register_blocktypes',
-			'title'       => _x( 'Extra Blocktypes', 'Settings: Setting Title', 'gnetwork' ),
-			'description' => _x( 'Registers this modules\'s extra blocktypes.', 'Settings: Setting Desc', 'gnetwork' ),
+			'title'       => _x( 'Extra Blocktypes', 'Settings: Setting Title', 'gnetwork-admin' ),
+			'description' => _x( 'Registers this modules\'s extra blocktypes.', 'Settings: Setting Desc', 'gnetwork-admin' ),
 			'disabled'    => ! function_exists( 'register_block_type' ),
 		];
 	}
@@ -520,8 +520,8 @@ class Settings extends Core\Base
 	{
 		return [
 			'field'       => 'editor_buttons',
-			'title'       => _x( 'Editor Buttons', 'Settings: Setting Title', 'gnetwork' ),
-			'description' => _x( 'Displays extra buttons on post content editor.', 'Settings: Setting Desc', 'gnetwork' ),
+			'title'       => _x( 'Editor Buttons', 'Settings: Setting Title', 'gnetwork-admin' ),
+			'description' => _x( 'Displays extra buttons on post content editor.', 'Settings: Setting Desc', 'gnetwork-admin' ),
 		];
 	}
 
@@ -529,8 +529,8 @@ class Settings extends Core\Base
 	{
 		return [
 			'field'       => 'dashboard_widget',
-			'title'       => _x( 'Dashboard Widget', 'Settings: Setting Title', 'gnetwork' ),
-			'description' => _x( 'Adds a widget to this site dashboard.', 'Settings: Setting Desc', 'gnetwork' ),
+			'title'       => _x( 'Dashboard Widget', 'Settings: Setting Title', 'gnetwork-admin' ),
+			'description' => _x( 'Adds a widget to this site dashboard.', 'Settings: Setting Desc', 'gnetwork-admin' ),
 		];
 	}
 
@@ -539,8 +539,8 @@ class Settings extends Core\Base
 		return [
 			'field'       => 'dashboard_accesscap',
 			'type'        => 'cap',
-			'title'       => _x( 'Access Level', 'Settings: Setting Title', 'gnetwork' ),
-			'description' => _x( 'Selected and above can view the dashboard widget.', 'Settings: Setting Desc', 'gnetwork' ),
+			'title'       => _x( 'Access Level', 'Settings: Setting Title', 'gnetwork-admin' ),
+			'description' => _x( 'Selected and above can view the dashboard widget.', 'Settings: Setting Desc', 'gnetwork-admin' ),
 			'default'     => $default ?: '',
 		];
 	}
@@ -550,8 +550,8 @@ class Settings extends Core\Base
 		return [
 			'field'       => 'dashboard_intro',
 			'type'        => 'textarea-quicktags',
-			'title'       => _x( 'Widget Introduction', 'Settings: Setting Title', 'gnetwork' ),
-			'description' => _x( 'Message to display before contents on admin dashbaord widget.', 'Settings: Setting Desc', 'gnetwork' ),
+			'title'       => _x( 'Widget Introduction', 'Settings: Setting Title', 'gnetwork-admin' ),
+			'description' => _x( 'Message to display before contents on admin dashbaord widget.', 'Settings: Setting Desc', 'gnetwork-admin' ),
 		];
 	}
 

@@ -44,8 +44,8 @@ class Commerce extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Commerce', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Products', 'Modules: Menu Name', 'gnetwork' ), 'products', 12, 'edit_others_products' );
+		$this->register_menu( _x( 'Commerce', 'Modules: Menu Name', 'gnetwork-admin' ) );
+		$this->register_tool( _x( 'Products', 'Modules: Menu Name', 'gnetwork-admin' ), 'products', 12, 'edit_others_products' );
 	}
 
 	public function default_options()
@@ -70,49 +70,49 @@ class Commerce extends gNetwork\Module
 			'_overrides' => [
 				[
 					'field'       => 'hide_price_on_outofstock',
-					'title'       => _x( 'Hide Out-of-Stock Prices', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Hides prices of products that are out of stock.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'Hide Out-of-Stock Prices', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Hides prices of products that are out of stock.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'hide_price_on_shoploops',
-					'title'       => _x( 'Hide Prices on Shop Loops', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Hides prices of products on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'Hide Prices on Shop Loops', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Hides prices of products on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'hide_result_count',
-					'title'       => _x( 'Hide Result Count', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Hides the result count text on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'Hide Result Count', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Hides the result count text on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'hide_catalog_ordering',
-					'title'       => _x( 'Hide Catalog Ordering', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Hides the product sorting options on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'Hide Catalog Ordering', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Hides the product sorting options on shop pages loops.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'custom_string_instock',
 					'type'        => 'text',
-					'title'       => _x( 'In Stock Custom String', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Changes default `In stock` message for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'In Stock Custom String', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Changes default `In stock` message for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 					'placeholder' => __( 'In stock', 'woocommerce' ),
 				],
 				[
 					'field'       => 'custom_string_outofstock',
 					'type'        => 'text',
-					'title'       => _x( 'Out-of-Stock Custom String', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Changes default `Out of stock` message for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'Out-of-Stock Custom String', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Changes default `Out of stock` message for customers. Leave empty to use defaults.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 					'placeholder' => __( 'Out of stock', 'woocommerce' ),
 				],
 			],
 			'_fields' => [
 				[
 					'field'       => 'quantity_price_preview',
-					'title'       => _x( 'Quantity &times; Price', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Calculates subtotal on quantity increment by customer.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'Quantity &times; Price', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Calculates subtotal on quantity increment by customer.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'mobile_field',
-					'title'       => _x( 'Mobile Number Field', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds extra required field for mobile number after checkout form.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'Mobile Number Field', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Adds extra required field for mobile number after checkout form.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 			],
@@ -120,8 +120,8 @@ class Commerce extends gNetwork\Module
 				[
 					'field'       => 'no_products_found',
 					'type'        => 'textarea-quicktags',
-					'title'       => _x( 'No Products Found', 'Modules: Commerce: Settings', 'gnetwork' ),
-					'description' => _x( 'Adds a message on no products found page.', 'Modules: Commerce: Settings', 'gnetwork' ),
+					'title'       => _x( 'No Products Found', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Adds a message on no products found page.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 				],
 			],
 		];
@@ -129,7 +129,7 @@ class Commerce extends gNetwork\Module
 
 	public function settings_section_fields()
 	{
-		Settings::fieldSection( _x( 'Fields', 'Modules: Commerce: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Fields', 'Modules: Commerce: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function tools( $sub = NULL, $key = NULL )
@@ -139,8 +139,8 @@ class Commerce extends gNetwork\Module
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		$this->register_button( 'recalculate_stocks', _x( 'Recalculate Stocks', 'Modules: Commerce', 'gnetwork' ) );
-		// $this->register_button( 'cleanup_attributes', _x( 'Cleanup Attributes', 'Modules: Commerce', 'gnetwork' ) );
+		$this->register_button( 'recalculate_stocks', _x( 'Recalculate Stocks', 'Modules: Commerce', 'gnetwork-admin' ) );
+		// $this->register_button( 'cleanup_attributes', _x( 'Cleanup Attributes', 'Modules: Commerce', 'gnetwork-admin' ) );
 	}
 
 	protected function tools_actions( $sub = NULL )
@@ -203,9 +203,9 @@ class Commerce extends gNetwork\Module
 
 		return Core\HTML::tableList( [
 			'_cb'    => 'ID',
-			'ID'     => _x( 'ID', 'Modules: Commerce: Column Title', 'gnetwork' ),
+			'ID'     => _x( 'ID', 'Modules: Commerce: Column Title', 'gnetwork-admin' ),
 			'status' => [
-				'title'    => _x( 'Status', 'Modules: Commerce: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Status', 'Modules: Commerce: Column Title', 'gnetwork-admin' ),
 				'args'     => [ 'statuses' => WordPress\Status::get() ],
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
@@ -220,7 +220,7 @@ class Commerce extends gNetwork\Module
 				},
 			],
 			'stock' => [
-				'title'    => _x( 'Stock', 'Modules: Commerce: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Stock', 'Modules: Commerce: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
@@ -236,7 +236,7 @@ class Commerce extends gNetwork\Module
 				},
 			],
 			'title' => [
-				'title'    => _x( 'Title', 'Modules: Commerce: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Title', 'Modules: Commerce: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return Utilities::getPostTitle( $row );
 				},
@@ -244,8 +244,8 @@ class Commerce extends gNetwork\Module
 		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Woocommerce Products', 'Modules: Commerce', 'gnetwork' ) ),
-			'empty'      => Core\HTML::warning( _x( 'No Products!', 'Modules: Commerce', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Woocommerce Products', 'Modules: Commerce', 'gnetwork-admin' ) ),
+			'empty'      => Core\HTML::warning( _x( 'No Products!', 'Modules: Commerce', 'gnetwork-admin' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -508,10 +508,10 @@ class Commerce extends gNetwork\Module
 		$meta = get_user_meta( $order->get_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE );
 
 		echo '<p class="form-field form-field-wide wc-order-received wc-order-status"><label>';
-			_ex( 'Mobile contact:', 'Modules: Commerce', 'gnetwork' );
+			_ex( 'Mobile contact:', 'Modules: Commerce', 'gnetwork-admin' );
 
 			if ( $meta )
-				echo Core\HTML::tel( $meta, _x( 'The mobile number associated with this user.', 'Modules: Commerce', 'gnetwork' ) );
+				echo Core\HTML::tel( $meta, _x( 'The mobile number associated with this user.', 'Modules: Commerce', 'gnetwork-admin' ) );
 
 			else
 				gNetwork()->na();
@@ -526,7 +526,7 @@ class Commerce extends gNetwork\Module
 			return;
 
 		echo '<p class="form-field form-field-wide" style="margin:0">';
-			echo '<strong style="display:block">'._x( 'Mobile:', 'Modules: Commerce: Action Title', 'gnetwork' );
+			echo '<strong style="display:block">'._x( 'Mobile:', 'Modules: Commerce: Action Title', 'gnetwork-admin' );
 			echo '</strong> '.Core\HTML::tel( $meta );
 		echo '</p>';
 	}

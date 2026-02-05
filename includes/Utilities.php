@@ -20,7 +20,7 @@ class Utilities extends Core\Base
 		if ( ! empty( $updates[$plugin] ) )
 			echo Core\HTML::info( sprintf(
 				/* translators: `%1$s`: plugin name, `%2$s`: version number */
-				_x( 'A new version of %1$s is available. Please update to version %2$s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', 'gnetwork' ),
+				_x( 'A new version of %1$s is available. Please update to version %2$s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', 'gnetwork-admin' ),
 				Core\HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
 				$updates[$plugin]->update->new_version
 			) );
@@ -435,8 +435,8 @@ class Utilities extends Core\Base
 
 		Scripts::enqueueScript( 'api.remote.content' );
 
-		$title  = _x( 'Import from a remote content.', 'Utilities: Remote Content', 'gnetwork' );
-		$label  = sprintf( '%s %s&nbsp;', Core\HTML::getDashicon( 'download' ), _x( 'Import', 'Utilities: Remote Content', 'gnetwork' ) );
+		$title  = _x( 'Import from a remote content.', 'Utilities: Remote Content', 'gnetwork-admin' );
+		$label  = sprintf( '%s %s&nbsp;', Core\HTML::getDashicon( 'download' ), _x( 'Import', 'Utilities: Remote Content', 'gnetwork-admin' ) );
 		$button = Core\HTML::button( $label, '#', $title, TRUE, [
 			'action' => 'import-remote-content',
 			'remote' => $remote,
@@ -448,7 +448,7 @@ class Utilities extends Core\Base
 			'target' => '_blank',
 			'class'  => '-icon-wrap',
 			'data'  => [
-				'tooltip'     => _x( 'See the remote content.', 'Utilities: Remote Content', 'gnetwork' ),
+				'tooltip'     => _x( 'See the remote content.', 'Utilities: Remote Content', 'gnetwork-admin' ),
 				'tooltip-pos' => Core\HTML::rtl() ? 'left' : 'right',
 			],
 		], Core\HTML::getDashicon( 'external' ) );
@@ -460,18 +460,18 @@ class Utilities extends Core\Base
 	{
 		if ( ! $constant ) {
 
-			Core\HTML::desc( _x( 'Logging data disabled by constant.', 'Utilities', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Logging data disabled by constant.', 'Utilities', 'gnetwork-admin' ) );
 
 		} else if ( $option ) {
 
 			if ( ! is_dir( $constant ) || ! Core\File::writable( $constant ) ) {
 
-				Core\HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ), TRUE, '-danger' );
+				Core\HTML::desc( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork-admin' ), TRUE, '-danger' );
 
 				echo '<p class="submit -wrap-buttons">';
 					Settings::submitButton(
 						'create_log_folder',
-						_x( 'Create Log Folder', 'Utilities', 'gnetwork' ),
+						_x( 'Create Log Folder', 'Utilities', 'gnetwork-admin' ),
 						'small'
 					);
 				echo '</p>';
@@ -480,21 +480,21 @@ class Utilities extends Core\Base
 
 				Core\HTML::desc( sprintf(
 					/* translators: `%s`: log folder path */
-					_x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork' ),
+					_x( 'Log folder exists and writable on: %s', 'Utilities', 'gnetwork-admin' ),
 					'<br />'.Core\HTML::code( $constant )
 				) );
 
 				if ( ! Core\File::exists( '.htaccess', $constant ) ) {
 					Core\HTML::desc( sprintf(
 						/* translators: `%s`: `.htaccess` */
-						_x( 'Warning: %s not found!', 'Utilities', 'gnetwork' ),
+						_x( 'Warning: %s not found!', 'Utilities', 'gnetwork-admin' ),
 						Core\HTML::code( '.htaccess' )
 					), TRUE, '-danger' );
 
 					echo '<p class="submit -wrap-buttons">';
 						Settings::submitButton(
 							'secure_log_folder',
-							_x( 'Secure Log Folder', 'Utilities', 'gnetwork' ),
+							_x( 'Secure Log Folder', 'Utilities', 'gnetwork-admin' ),
 							'small'
 						);
 					echo '</p>';
@@ -503,17 +503,17 @@ class Utilities extends Core\Base
 
 		} else {
 
-			Core\HTML::desc( _x( 'Data logs are disabled.', 'Utilities', 'gnetwork' ), TRUE, '-empty' );
+			Core\HTML::desc( _x( 'Data logs are disabled.', 'Utilities', 'gnetwork-admin' ), TRUE, '-empty' );
 		}
 	}
 
 	public static function emptyDataLogs( $path )
 	{
 		if ( ! is_dir( $path ) || ! Core\File::writable( $path ) )
-			echo Core\HTML::error( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork' ) );
+			echo Core\HTML::error( _x( 'Log folder not exists or writable.', 'Utilities', 'gnetwork-admin' ) );
 
 		else
-			echo Core\HTML::warning( _x( 'No Logs!', 'Utilities', 'gnetwork' ) );
+			echo Core\HTML::warning( _x( 'No Logs!', 'Utilities', 'gnetwgnetwork-adminork' ) );
 	}
 
 	// @SOURCE: http://stackoverflow.com/a/14744288

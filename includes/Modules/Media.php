@@ -44,8 +44,8 @@ class Media extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Media', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Images', 'Modules: Menu Name', 'gnetwork' ), 'images' );
+		$this->register_menu( _x( 'Media', 'Modules: Menu Name', 'gnetwork-admin' ) );
+		$this->register_tool( _x( 'Images', 'Modules: Menu Name', 'gnetwork-admin' ), 'images' );
 	}
 
 	protected function setup_ajax( $request )
@@ -67,8 +67,8 @@ class Media extends gNetwork\Module
 				[
 					'field'       => 'tools_accesscap',
 					'type'        => 'cap',
-					'title'       => _x( 'Tools Access', 'Modules: Media: Settings', 'gnetwork' ),
-					'description' => _x( 'Selected and above can access the image tools.', 'Modules: Media: Settings', 'gnetwork' ),
+					'title'       => _x( 'Tools Access', 'Modules: Media: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Selected and above can access the image tools.', 'Modules: Media: Settings', 'gnetwork-admin' ),
 					'default'     => 'edit_others_posts',
 				],
 			],
@@ -144,11 +144,11 @@ class Media extends gNetwork\Module
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', 'gnetwork' ) );
-		$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', 'gnetwork' ) );
-		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', 'gnetwork' ) );
-		$this->register_button( 'ssl_correction', _x( 'Correct SSL', 'Modules: Media', 'gnetwork' ) );
-		$this->register_button( 'purge_meta', _x( 'Purge Meta', 'Modules: Media', 'gnetwork' ) );
+		$this->register_button( 'clean_attachments', _x( 'Clean Attachments', 'Modules: Media', 'gnetwork-admin' ) );
+		$this->register_button( 'sync_attachments', _x( 'Sync Attachments', 'Modules: Media', 'gnetwork-admin' ) );
+		$this->register_button( 'cache_in_content', _x( 'Cache In Content', 'Modules: Media', 'gnetwork-admin' ) );
+		$this->register_button( 'ssl_correction', _x( 'Correct SSL', 'Modules: Media', 'gnetwork-admin' ) );
+		$this->register_button( 'purge_meta', _x( 'Purge Meta', 'Modules: Media', 'gnetwork-admin' ) );
 	}
 
 	protected function tools_actions( $sub = NULL )
@@ -259,7 +259,7 @@ class Media extends gNetwork\Module
 		global $_wp_additional_image_sizes;
 
 		if ( empty( $_wp_additional_image_sizes ) )
-			Core\HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', 'gnetwork-admin' ) );
 		else
 			Core\HTML::tableSide( $_wp_additional_image_sizes );
 	}
@@ -278,17 +278,17 @@ class Media extends gNetwork\Module
 
 		return Core\HTML::tableList( [
 			'_cb' => 'ID',
-			'ID'  => _x( 'ID', 'Modules: Media: Column Title', 'gnetwork' ),
+			'ID'  => _x( 'ID', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 
 			'date' => [
-				'title'    => _x( 'Date', 'Modules: Media: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Date', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return gNetwork\Datetime::humanTimeDiffRound( $row->post_date );
 				},
 			],
 
 			'type' => [
-				'title'    => _x( 'Type', 'Modules: Media: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Type', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 				'args'     => [ 'post_types' => WordPress\PostType::get( 2 ) ],
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
@@ -298,7 +298,7 @@ class Media extends gNetwork\Module
 			],
 
 			'title' => [
-				'title' => _x( 'Title', 'Modules: Media: Column Title', 'gnetwork' ),
+				'title' => _x( 'Title', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 				'args'  => [
 					'url'   => get_bloginfo( 'url' ),
 					'admin' => admin_url( 'post.php' ),
@@ -324,43 +324,43 @@ class Media extends gNetwork\Module
 							'href'   => add_query_arg( [ 'action' => 'edit', 'post' => $row->ID ], $column['args']['admin'] ),
 							'class'  => '-link -row-link -row-link-edit',
 							'target' => '_blank',
-						], _x( 'Edit', 'Modules: Media: Row Action', 'gnetwork' ) ),
+						], _x( 'Edit', 'Modules: Media: Row Action', 'gnetwork-admin' ) ),
 
 						'view' => Core\HTML::tag( 'a', [
 							'href'   => add_query_arg( [ 'p' => $row->ID ], $column['args']['url'] ),
 							'class'  => '-link -row-link -row-link-view',
 							'target' => '_blank',
-						], _x( 'View', 'Modules: Media: Row Action', 'gnetwork' ) ),
+						], _x( 'View', 'Modules: Media: Row Action', 'gnetwork-admin' ) ),
 
 						'clean' => Core\HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'clean_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-clean',
-							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
-						], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork' ) ),
+							'data'  => [ 'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', 'gnetwork-admin' ) ],
+						], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork-admin' ) ),
 
 						'sync' => Core\HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'sync_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-sync',
-							'data'  => [ 'spinner' => _x( 'Syncing &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
-						], _x( 'Sync', 'Modules: Media: Row Action', 'gnetwork' ) ),
+							'data'  => [ 'spinner' => _x( 'Syncing &hellip;', 'Modules: Media: Row Action', 'gnetwork-admin' ) ],
+						], _x( 'Sync', 'Modules: Media: Row Action', 'gnetwork-admin' ) ),
 
 						'cache' => Core\HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'cache_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-cache',
-							'data'  => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
-						], _x( 'Cache', 'Modules: Media: Row Action', 'gnetwork' ) ),
+							'data'  => [ 'spinner' => _x( 'Caching &hellip;', 'Modules: Media: Row Action', 'gnetwork-admin' ) ],
+						], _x( 'Cache', 'Modules: Media: Row Action', 'gnetwork-admin' ) ),
 
 						'correct' => Core\HTML::tag( 'a', [
 							'href'  => add_query_arg( array_merge( $query, [ 'what' => 'correct_post' ] ), $column['args']['ajax'] ),
 							'class' => '-link -row-ajax -row-ajax-correct',
-							'data'  => [ 'spinner' => _x( 'Correcting SSL &hellip;', 'Modules: Media: Row Action', 'gnetwork' ) ],
-						], _x( 'Correct SSL', 'Modules: Media: Row Action', 'gnetwork' ) ),
+							'data'  => [ 'spinner' => _x( 'Correcting SSL &hellip;', 'Modules: Media: Row Action', 'gnetwork-admin' ) ],
+						], _x( 'Correct SSL', 'Modules: Media: Row Action', 'gnetwork-admin' ) ),
 					];
 				},
 			],
 
 			'attached' => [
-				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', 'gnetwork' ),
+				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 				'class'    => '-attached-media -has-list -has-list-ltr',
 				'args'     => [ 'wpupload' => wp_get_upload_dir() ],
 				'callback' => function ( $value, $row, $column, $index, $key, $args ) {
@@ -373,8 +373,8 @@ class Media extends gNetwork\Module
 						return Utilities::htmlEmpty();
 
 					$list     = [];
-					$original = _x( 'Original Size', 'Modules: Media: Title Attr', 'gnetwork' );
-					$sizes    = _x( 'Number of Sizes', 'Modules: Media: Title Attr', 'gnetwork' );
+					$original = _x( 'Original Size', 'Modules: Media: Title Attr', 'gnetwork-admin' );
+					$sizes    = _x( 'Number of Sizes', 'Modules: Media: Title Attr', 'gnetwork-admin' );
 					$checked  = Core\HTTP::checkURLs( Core\Arraay::column( $attachments, 'url' ) );
 
 					$thumbnail_id  = get_post_meta( $row->ID, '_thumbnail_id', TRUE );
@@ -423,7 +423,7 @@ class Media extends gNetwork\Module
 			],
 
 			'content' => [
-				'title'    => _x( 'In Content', 'Modules: Media: Column Title', 'gnetwork' ),
+				'title'    => _x( 'In Content', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 				'class'    => '-media-in-content -has-list -has-list-ltr',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 
@@ -434,8 +434,8 @@ class Media extends gNetwork\Module
 					$externals = Core\URL::checkExternals( $extracted );
 					$message   = sprintf(
 						'<small><code class="-external-resource" title="%s">%s</code></small>',
-						_x( 'External Resource', 'Modules: Media: Title Attr', 'gnetwork' ),
-						_x( 'Ex', 'Modules: Media: External Resource', 'gnetwork' )
+						_x( 'External Resource', 'Modules: Media: Title Attr', 'gnetwork-admin' ),
+						_x( 'Ex', 'Modules: Media: External Resource', 'gnetwork-admin' )
 					);
 
 					if ( FALSE === ( $checked = Core\HTTP::checkURLs( $extracted ) ) )
@@ -461,8 +461,8 @@ class Media extends gNetwork\Module
 		], $posts, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Posts with Attachments', 'Modules: Media', 'gnetwork' ) ),
-			'empty'      => Core\HTML::warning( _x( 'No Posts!', 'Modules: Media', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Posts with Attachments', 'Modules: Media', 'gnetwork-admin' ) ),
+			'empty'      => Core\HTML::warning( _x( 'No Posts!', 'Modules: Media', 'gnetwork-admin' ) ),
 			'pagination' => $pagination,
 		] );
 	}
@@ -902,7 +902,7 @@ class Media extends gNetwork\Module
 
 	public function bulk_actions( $actions )
 	{
-		return array_merge( $actions, [ 'cleanattachments' => _x( 'Clean Attachments', 'Modules: Media: Bulk Action', 'gnetwork' ) ] );
+		return array_merge( $actions, [ 'cleanattachments' => _x( 'Clean Attachments', 'Modules: Media: Bulk Action', 'gnetwork-admin' ) ] );
 	}
 
 	public function handle_bulk_actions( $redirect_to, $doaction, $post_ids )
@@ -939,9 +939,9 @@ class Media extends gNetwork\Module
 					'id'      => $post->ID,
 					'parent'  => $post->post_parent,
 					'nonce'   => wp_create_nonce( $this->hook( $post->ID ) ),
-					'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', 'gnetwork' ),
+					'spinner' => _x( 'Cleaning &hellip;', 'Modules: Media: Row Action', 'gnetwork-admin' ),
 				],
-			], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork' ) );
+			], _x( 'Clean', 'Modules: Media: Row Action', 'gnetwork-admin' ) );
 		}
 
 		return $actions;
@@ -964,7 +964,7 @@ class Media extends gNetwork\Module
 				if ( ! $this->clean_attachment( $post['attachment'] ) )
 					Ajax::errorMessage();
 
-				Ajax::success( _x( 'Cleaned', 'Modules: Media: Row Action', 'gnetwork' ) );
+				Ajax::success( _x( 'Cleaned', 'Modules: Media: Row Action', 'gnetwork-admin' ) );
 				break;
 
 			case 'clean_post':
@@ -980,9 +980,9 @@ class Media extends gNetwork\Module
 					Ajax::errorMessage();
 
 				if ( TRUE === $count || 0 === $count )
-					Ajax::success( _x( 'Already Cleaned!', 'Modules: Media: Row Action', 'gnetwork' ) );
+					Ajax::success( _x( 'Already Cleaned!', 'Modules: Media: Row Action', 'gnetwork-admin' ) );
 
-				Ajax::success( _x( 'Cleaned!', 'Modules: Media: Row Action', 'gnetwork' ) );
+				Ajax::success( _x( 'Cleaned!', 'Modules: Media: Row Action', 'gnetwork-admin' ) );
 				break;
 
 			case 'sync_post':
@@ -998,9 +998,9 @@ class Media extends gNetwork\Module
 					Ajax::errorMessage();
 
 				if ( TRUE === $count || 0 === $count )
-					Ajax::success( _x( 'Already Synced!', 'Modules: Media: Row Action', 'gnetwork' ) );
+					Ajax::success( _x( 'Already Synced!', 'Modules: Media: Row Action', 'gnetwork-admin' ) );
 
-				Ajax::success( _x( 'Synced!', 'Modules: Media: Row Action', 'gnetwork' ) );
+				Ajax::success( _x( 'Synced!', 'Modules: Media: Row Action', 'gnetwork-admin' ) );
 				break;
 
 			case 'cache_post':
@@ -1013,7 +1013,7 @@ class Media extends gNetwork\Module
 				if ( ! $this->cache_in_content( $post['post_id'] ) )
 					Ajax::errorMessage();
 
-				Ajax::success( _x( 'Cached', 'Modules: Media: Row Action', 'gnetwork' ) );
+				Ajax::success( _x( 'Cached', 'Modules: Media: Row Action', 'gnetwork-admin' ) );
 				break;
 
 			case 'correct_post':
@@ -1026,7 +1026,7 @@ class Media extends gNetwork\Module
 				if ( ! $this->ssl_correction( $post['post_id'] ) )
 					Ajax::errorMessage();
 
-				Ajax::success( _x( 'SSL Corrected', 'Modules: Media: Row Action', 'gnetwork' ) );
+				Ajax::success( _x( 'SSL Corrected', 'Modules: Media: Row Action', 'gnetwork-admin' ) );
 		}
 
 		Ajax::errorWhat();

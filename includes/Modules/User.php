@@ -74,13 +74,13 @@ class User extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'User', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'User', 'Modules: Menu Name', 'gnetwork-admin' ) );
 
 		if ( ! is_multisite() )
 			return;
 
 		if ( $this->options['network_roles'] )
-			$this->register_tool( _x( 'Network Roles', 'Modules: Menu Name', 'gnetwork' ), 'roles' );
+			$this->register_tool( _x( 'Network Roles', 'Modules: Menu Name', 'gnetwork-admin' ), 'roles' );
 	}
 
 	public function default_options()
@@ -108,8 +108,8 @@ class User extends gNetwork\Module
 		$settings['_general'][] = [
 			'field'       => 'site_user_id',
 			'type'        => 'number',
-			'title'       => _x( 'Site User ID', 'Modules: User: Settings', 'gnetwork' ),
-			'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', 'gnetwork' ),
+			'title'       => _x( 'Site User ID', 'Modules: User: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'ID of site user for the network.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			'after'       => Settings::fieldAfterIcon( WordPress\User::edit( $this->options['site_user_id'], [], TRUE, FALSE ) ),
 		];
 
@@ -117,8 +117,8 @@ class User extends gNetwork\Module
 			$settings['_general'][] = [
 				'field'       => 'site_user_role',
 				'type'        => 'select',
-				'title'       => _x( 'Site User Role', 'Modules: User: Settings', 'gnetwork' ),
-				'description' => _x( 'Default site user role for new sites on the network.', 'Modules: User: Settings', 'gnetwork' ),
+				'title'       => _x( 'Site User Role', 'Modules: User: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Default site user role for new sites on the network.', 'Modules: User: Settings', 'gnetwork-admin' ),
 				'default'     => 'editor',
 				'values'      => [
 					'administrator' => _x( 'Administrator', 'User role' ),
@@ -132,78 +132,78 @@ class User extends gNetwork\Module
 		$settings['_general'][] = [
 			'field'       => 'apppass_accesscap',
 			'type'        => 'cap',
-			'title'       => _x( 'Application Password Access', 'Modules: User: Settings', 'gnetwork' ),
-			'description' => _x( 'Selected and above can create Application Passwords.', 'Modules: User: Settings', 'gnetwork' ),
+			'title'       => _x( 'Application Password Access', 'Modules: User: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Selected and above can create Application Passwords.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			'default'     => $multisite ? '_member_of_network' : '_member_of_site',
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'disable_avatars',
 			'type'        => 'disabled',
-			'title'       => _x( 'User Avatars', 'Modules: User: Settings', 'gnetwork' ),
-			'description' => _x( 'Shows user avatars across network.', 'Modules: User: Settings', 'gnetwork' ),
+			'title'       => _x( 'User Avatars', 'Modules: User: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Shows user avatars across network.', 'Modules: User: Settings', 'gnetwork-admin' ),
 		];
 
 		if ( $multisite )
 			$settings['_general'][] = [
 				'field'       => 'network_roles',
-				'title'       => _x( 'Network Roles', 'Modules: User: Settings', 'gnetwork' ),
-				'description' => _x( 'Tries to automatically add each user to the network sites.', 'Modules: User: Settings', 'gnetwork' ),
+				'title'       => _x( 'Network Roles', 'Modules: User: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Tries to automatically add each user to the network sites.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			];
 
 		if ( $multisite )
 			$settings['_general'][] = [
 				'field'       => 'admin_user_edit',
-				'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', 'gnetwork' ),
-				'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', 'gnetwork' ),
+				'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			];
 
 		$settings['_search'][] = [
 			'field'       => 'enhanced_search',
-			'title'       => _x( 'Enhanced Search', 'Modules: User: Settings', 'gnetwork' ),
-			'description' => _x( 'Improves the admin users search.', 'Modules: User: Settings', 'gnetwork' ),
+			'title'       => _x( 'Enhanced Search', 'Modules: User: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Improves the admin users search.', 'Modules: User: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_search'][] = [
 			'field'       => 'search_values',
 			'type'        => 'checkboxes-values',
-			'title'       => _x( 'Search Values', 'Modules: User: Settings', 'gnetwork' ),
-			'description' => _x( 'Default values used by WordPress to do the search.', 'Modules: User: Settings', 'gnetwork' ),
+			'title'       => _x( 'Search Values', 'Modules: User: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Default values used by WordPress to do the search.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			'values'      => [
-				'user_login'    => _x( 'User Login', 'Modules: User: Settings: Search Value', 'gnetwork' ),
-				'user_url'      => _x( 'User URL', 'Modules: User: Settings: Search Value', 'gnetwork' ),
-				'user_email'    => _x( 'User Email', 'Modules: User: Settings: Search Value', 'gnetwork' ),
-				'user_nicename' => _x( 'User Nicename', 'Modules: User: Settings: Search Value', 'gnetwork' ),
-				'display_name'  => _x( 'Display Name', 'Modules: User: Settings: Search Value', 'gnetwork' ),
+				'user_login'    => _x( 'User Login', 'Modules: User: Settings: Search Value', 'gnetwork-admin' ),
+				'user_url'      => _x( 'User URL', 'Modules: User: Settings: Search Value', 'gnetwork-admin' ),
+				'user_email'    => _x( 'User Email', 'Modules: User: Settings: Search Value', 'gnetwork-admin' ),
+				'user_nicename' => _x( 'User Nicename', 'Modules: User: Settings: Search Value', 'gnetwork-admin' ),
+				'display_name'  => _x( 'Display Name', 'Modules: User: Settings: Search Value', 'gnetwork-admin' ),
 			],
 		];
 
 		$settings['_search'][] = [
 			'field'       => 'search_metas',
 			'type'        => 'checkboxes-values',
-			'title'       => _x( 'Search Metas', 'Modules: User: Settings', 'gnetwork' ),
-			'description' => _x( 'Default metas used by WordPress to do the search.', 'Modules: User: Settings', 'gnetwork' ),
+			'title'       => _x( 'Search Metas', 'Modules: User: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Default metas used by WordPress to do the search.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			'values'      => $this->filters( 'enhanced_search_metakeys', [
-				'mobile'          => _x( 'Mobile', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
-				'identity_number' => _x( 'Identity Number', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
-				'first_name'      => _x( 'First Name', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
-				'last_name'       => _x( 'Last Name', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
-				'nickname'        => _x( 'Nickname', 'Modules: User: Settings: Search Meta', 'gnetwork' ),
+				'mobile'          => _x( 'Mobile', 'Modules: User: Settings: Search Meta', 'gnetwork-admin' ),
+				'identity_number' => _x( 'Identity Number', 'Modules: User: Settings: Search Meta', 'gnetwork-admin' ),
+				'first_name'      => _x( 'First Name', 'Modules: User: Settings: Search Meta', 'gnetwork-admin' ),
+				'last_name'       => _x( 'Last Name', 'Modules: User: Settings: Search Meta', 'gnetwork-admin' ),
+				'nickname'        => _x( 'Nickname', 'Modules: User: Settings: Search Meta', 'gnetwork-admin' ),
 			] ),
 		];
 
 		if ( $multisite )
 			$settings['_dashboard'][] = [
 				'field'       => 'dashboard_sites',
-				'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', 'gnetwork' ),
-				'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', 'gnetwork' ),
+				'title'       => _x( 'Dashboard Sites', 'Modules: User: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Displays current user list of sites on the user dashboard.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			];
 
 		if ( $multisite )
 			$settings['_dashboard'][] = [
 				'field'       => 'dashboard_menu',
-				'title'       => _x( 'Dashboard User Menu', 'Modules: User: Settings', 'gnetwork' ),
-				'description' => _x( 'Displays global user menu navigation on the user dashboard.', 'Modules: User: Settings', 'gnetwork' ),
+				'title'       => _x( 'Dashboard User Menu', 'Modules: User: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Displays global user menu navigation on the user dashboard.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			];
 
 		return $settings;
@@ -221,10 +221,10 @@ class User extends gNetwork\Module
 
 			Settings::submitButton(
 				'default_role_for_users',
-				_x( 'Default Role for All Users', 'Modules: User', 'gnetwork' ),
+				_x( 'Default Role for All Users', 'Modules: User', 'gnetwork-admin' ),
 				'small',
 				[
-					'title' => _x( 'Adds all registered users on the main site with default role.', 'Modules: User', 'gnetwork' ),
+					'title' => _x( 'Adds all registered users on the main site with default role.', 'Modules: User', 'gnetwork-admin' ),
 				]
 			);
 
@@ -234,16 +234,16 @@ class User extends gNetwork\Module
 		if ( $this->options['network_roles'] ) {
 
 			echo Core\HTML::button(
-				_x( 'Network Roles', 'Modules: Menu Name', 'gnetwork' ),
+				_x( 'Network Roles', 'Modules: Menu Name', 'gnetwork-admin' ),
 				$this->get_menu_url( 'roles', NULL, 'tools' ),
-				_x( 'View and set network roles here.', 'Modules: User', 'gnetwork' ),
+				_x( 'View and set network roles here.', 'Modules: User', 'gnetwork-admin' ),
 			);
 
 			$emtpy = FALSE;
 		}
 
 		if ( $emtpy )
-			Core\HTML::desc( _x( 'Network Roles are disabled.', 'Modules: User', 'gnetwork' ), TRUE, '-empty' );
+			Core\HTML::desc( _x( 'Network Roles are disabled.', 'Modules: User', 'gnetwork-admin' ), TRUE, '-empty' );
 
 		echo '</p>';
 	}
@@ -328,9 +328,9 @@ class User extends gNetwork\Module
 		if ( empty( $sites ) )
 			return Core\HTML::desc( gNetwork()->na() );
 
-		Settings::fieldSection( _x( 'Default User Roles', 'Modules: User: Settings', 'gnetwork' ), [
-			_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', 'gnetwork' ),
-			_x( 'Please note that the roles listed here are from the main site of your network. Also only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', 'gnetwork' ),
+		Settings::fieldSection( _x( 'Default User Roles', 'Modules: User: Settings', 'gnetwork-admin' ), [
+			_x( 'New users will receive these roles when activating their account. Existing users will receive these roles only if they have the current default role or no role at all for each particular site.', 'Modules: User: Settings', 'gnetwork-admin' ),
+			_x( 'Please note that the roles listed here are from the main site of your network. Also only public, non-mature and non-dashboard sites appear here.', 'Modules: User: Settings', 'gnetwork-admin' ),
 		] );
 
 		echo '<table class="form-table">';
@@ -351,7 +351,7 @@ class User extends gNetwork\Module
 				'none_value' => 'none',
 				'after'      => Settings::fieldAfterIcon(
 					$site->siteurl.'/wp-admin/users.php',
-					_x( 'View Users List', 'Modules: User: Settings', 'gnetwork' ),
+					_x( 'View Users List', 'Modules: User: Settings', 'gnetwork-admin' ),
 					'admin-users'
 				),
 			] );
@@ -363,7 +363,7 @@ class User extends gNetwork\Module
 			'field'       => 'update_sites_roles',
 			'name_attr'   => 'update_sites_roles',
 			'type'        => 'checkbox',
-			'description' => _x( 'Also Update Roles for Current Users', 'Modules: User: Settings', 'gnetwork' ),
+			'description' => _x( 'Also Update Roles for Current Users', 'Modules: User: Settings', 'gnetwork-admin' ),
 		] );
 
 		return TRUE;
@@ -374,8 +374,8 @@ class User extends gNetwork\Module
 		do_action( $this->hook_base( 'setup_menu' ), 'user' );
 
 		$hook = add_menu_page(
-			_x( 'Network Extras', 'Modules: User: Page Menu', 'gnetwork' ),
-			_x( 'Extras', 'Modules: User: Page Menu', 'gnetwork' ),
+			_x( 'Network Extras', 'Modules: User: Page Menu', 'gnetwork-admin' ),
+			_x( 'Extras', 'Modules: User: Page Menu', 'gnetwork-admin' ),
 			'exist',
 			$this->base,
 			[ $this, 'settings_page' ],
@@ -390,7 +390,7 @@ class User extends gNetwork\Module
 				add_submenu_page( $this->base,
 					sprintf(
 						/* translators: `%s`: menu title */
-						_x( 'gNetwork Extras: %s', 'Modules: User: Page Menu', 'gnetwork' ),
+						_x( 'gNetwork Extras: %s', 'Modules: User: Page Menu', 'gnetwork-admin' ),
 						$args['title']
 					),
 					$args['title'],
@@ -403,10 +403,10 @@ class User extends gNetwork\Module
 	public function user_admin_menu_late()
 	{
 		$GLOBALS['submenu'][$this->base][0] = [
-			_x( 'Overview', 'Modules: Menu Name', 'gnetwork' ),
+			_x( 'Overview', 'Modules: Menu Name', 'gnetwork-admin' ),
 			'exist',
 			$this->base,
-			_x( 'Network Extras', 'Modules: User: Page Menu', 'gnetwork' ),
+			_x( 'Network Extras', 'Modules: User: Page Menu', 'gnetwork-admin' ),
 		];
 	}
 
@@ -527,14 +527,14 @@ class User extends gNetwork\Module
 
 		$html = sprintf(
 			/* translators: `%s`: total user number */
-			_x( 'There are %s total users', 'Modules: User', 'gnetwork' ),
+			_x( 'There are %s total users', 'Modules: User', 'gnetwork-admin' ),
 			Core\Number::format( $result['total_users'] )
 		);
 
 		foreach ( $result['avail_roles'] as $role => $count )
 			$html.= $separator.sprintf(
 				/* translators: `%1$s`: role user number, `%2$s`: role name */
-				_x( '%1$s are %2$s', 'Modules: User', 'gnetwork' ),
+				_x( '%1$s are %2$s', 'Modules: User', 'gnetwork-admin' ),
 				Core\Number::format( $count ),
 				array_key_exists( $role, $roles ) ? $roles[$role] : Core\HTML::code( $role )
 			);
@@ -772,11 +772,11 @@ class User extends gNetwork\Module
 				_nx(
 					'Marked as Spam <span class="count">(%s)</span>',
 					'Marked as Spams <span class="count">(%s)</span>',
-					$spams, 'Modules: User', 'gnetwork' )
+					$spams, 'Modules: User', 'gnetwork-admin' )
 			).'</a>';
 
 		else
-			$view.= _x( 'Marked as Spam', 'Modules: User', 'gnetwork' ).'</a>';
+			$view.= _x( 'Marked as Spam', 'Modules: User', 'gnetwork-admin' ).'</a>';
 
 		return array_merge( $views, [ 'spam' => $view ] );
 	}
@@ -809,13 +809,13 @@ class User extends gNetwork\Module
 	public function wpmu_users_columns( $columns )
 	{
 		$columns = Core\Arraay::insert( $columns, [
-			'extra' => _x( 'Extra', 'Modules: User', 'gnetwork' ),
+			'extra' => _x( 'Extra', 'Modules: User', 'gnetwork-admin' ),
 		], 'username', 'after' );
 
 		unset( $columns['name'], $columns['email'], $columns['registered'] );
 
 		return array_merge( $columns, [
-			'timestamps' => _x( 'Timestamps', 'Modules: User', 'gnetwork' ),
+			'timestamps' => _x( 'Timestamps', 'Modules: User', 'gnetwork-admin' ),
 		] );
 	}
 
@@ -839,7 +839,7 @@ class User extends gNetwork\Module
 
 		if ( $user->first_name || $user->last_name ) {
 			echo '<li class="-row -fullname">';
-				echo $this->get_column_icon( FALSE, 'nametag', _x( 'Name', 'Modules: User', 'gnetwork' ) );
+				echo $this->get_column_icon( FALSE, 'nametag', _x( 'Name', 'Modules: User', 'gnetwork-admin' ) );
 				printf( '%s %s', $user->first_name, $user->last_name );
 			echo '</li>';
 		}
@@ -853,10 +853,10 @@ class User extends gNetwork\Module
 				$blogname = empty( $blogs[$blog] ) ? '#'.$blog : $blogs[$blog]->blogname;
 
 				echo '<li class="-row -displayname">';
-					echo $this->get_column_icon( FALSE, 'nametag', _x( 'Custom Name', 'Modules: User', 'gnetwork' ) );
+					echo $this->get_column_icon( FALSE, 'nametag', _x( 'Custom Name', 'Modules: User', 'gnetwork-admin' ) );
 					printf(
 						/* translators: `%1$s`: blog name, `%2$s`: custom display name */
-						_x( 'In %1$s as: %2$s', 'Modules: User: Custom Name', 'gnetwork' ),
+						_x( 'In %1$s as: %2$s', 'Modules: User: Custom Name', 'gnetwork-admin' ),
 						$blogname,
 						$custom
 					);
@@ -866,21 +866,21 @@ class User extends gNetwork\Module
 
 		if ( GNETWORK_COMMERCE_MOBILE_METAKEY && ( $mobile = get_user_meta( $user->ID, GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) ) ) {
 			echo '<li class="-row -mobile">';
-				echo $this->get_column_icon( FALSE, 'smartphone', _x( 'Mobile', 'Modules: User', 'gnetwork' ) );
-				echo apply_shortcodes(  sprintf( '[tel title="%s"]%s[/tel]', _x( 'Click to Call', 'Modules: User', 'gnetwork' ), $mobile ) );
+				echo $this->get_column_icon( FALSE, 'smartphone', _x( 'Mobile', 'Modules: User', 'gnetwork-admin' ) );
+				echo apply_shortcodes(  sprintf( '[tel title="%s"]%s[/tel]', _x( 'Click to Call', 'Modules: User', 'gnetwork-admin' ), $mobile ) );
 			echo '</li>';
 		}
 
 		if ( $user->user_email ) {
 			echo '<li class="-row -email">';
-				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', 'gnetwork' ) );
+				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', 'gnetwork-admin' ) );
 				echo Core\HTML::mailto( $user->user_email );
 			echo '</li>';
 		}
 
 		if ( $user->user_url ) {
 			echo '<li class="-row -url">';
-				echo $this->get_column_icon( FALSE, 'admin-links', _x( 'URL', 'Modules: User', 'gnetwork' ) );
+				echo $this->get_column_icon( FALSE, 'admin-links', _x( 'URL', 'Modules: User', 'gnetwork-admin' ) );
 				echo Core\HTML::link( Core\URL::prepTitle( $user->user_url ), $user->user_url );
 			echo '</li>';
 		}
@@ -902,11 +902,11 @@ class User extends gNetwork\Module
 
 		$html.= '<table><tbody>';
 
-		$html.= '<tr><td>'._x( 'Registered', 'Modules: User', 'gnetwork' ).'</td><td><code title="'
+		$html.= '<tr><td>'._x( 'Registered', 'Modules: User', 'gnetwork-admin' ).'</td><td><code title="'
 			.gNetwork\Datetime::dateFormat( $registered, 'timeampm' ).'">'
 			.gNetwork\Datetime::dateFormat( $registered ).'</code></td></tr>';
 
-		$html.= '<tr><td>'._x( 'Last Login', 'Modules: User', 'gnetwork' ).'</td><td>'
+		$html.= '<tr><td>'._x( 'Last Login', 'Modules: User', 'gnetwork-admin' ).'</td><td>'
 			.( $lastlogin ? '<code title="'.gNetwork\Datetime::dateFormat( $lastlogged, 'timeampm' ).'">'
 				.gNetwork\Datetime::dateFormat( $lastlogged ).'</code>'
 			: gNetwork()->na() ).'</td></tr>';
@@ -916,7 +916,7 @@ class User extends gNetwork\Module
 			if ( $lastactivity = bp_get_user_last_activity( $user->ID ) )
 				$lastactive = Core\Date::timestamp( $lastactivity );
 
-			$html.= '<tr><td>'._x( 'Last Activity', 'Modules: User', 'gnetwork' ).'</td><td>'
+			$html.= '<tr><td>'._x( 'Last Activity', 'Modules: User', 'gnetwork-admin' ).'</td><td>'
 				.( $lastactivity
 					? '<code title="'.bp_core_time_since( $lastactivity ).'">'
 						.gNetwork\Datetime::dateFormat( $lastactive )
@@ -924,7 +924,7 @@ class User extends gNetwork\Module
 				.'</code></td></tr>';
 		}
 
-		$html.= '<tr><td>'._x( 'Register IP', 'Modules: User', 'gnetwork' ).'</td><td><code>'
+		$html.= '<tr><td>'._x( 'Register IP', 'Modules: User', 'gnetwork-admin' ).'</td><td><code>'
 			.( $register_ip ? gnetwork_ip_lookup( $register_ip ) : gNetwork()->na( FALSE ) ).'</code></td></tr>';
 
 		$html.= '</tbody></table>';
@@ -940,16 +940,18 @@ class User extends gNetwork\Module
 		] );
 	}
 
-	// @SOURCE: Better Admin Users Search by Applelo - v1.2.0 - 20221211
+	// @SOURCE: Better Admin Users Search by `Applelo` - 1.2.0 - 20221211
 	// @REF: https://wordpress.org/plugins/better-admin-users-search/
 	public function pre_user_query_enhanced_search( &$user_query )
 	{
 		global $wpdb;
 
-		if ( empty( $_GET['s'] ) || 'WHERE 1=1' === $user_query->query_where )
+		if ( empty( $_GET['s'] )
+			|| 'WHERE 1=1' === $user_query->query_where )
 			return;
 
-		if ( ! count( $this->options['search_values'] ) )
+		if ( ! count( $this->options['search_values'] )
+			|| empty( $user_query->query_vars['search'] ) )
 			return;
 
 		$where  = 'WHERE 1=1';

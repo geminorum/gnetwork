@@ -25,7 +25,7 @@ class Uptime extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Uptime', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Uptime', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -44,8 +44,8 @@ class Uptime extends gNetwork\Module
 				[
 					'field'       => 'uptimerobot_apikey',
 					'type'        => 'text',
-					'title'       => _x( 'API Key', 'Modules: Uptime: Settings', 'gnetwork' ),
-					'description' => _x( 'Key for communication between this site and UptimeRobot.com', 'Modules: Uptime: Settings', 'gnetwork' ),
+					'title'       => _x( 'API Key', 'Modules: Uptime: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Key for communication between this site and UptimeRobot.com', 'Modules: Uptime: Settings', 'gnetwork-admin' ),
 					'constant'    => 'UPTIMEROBOT_APIKEY',
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
@@ -60,7 +60,7 @@ class Uptime extends gNetwork\Module
 		return [
 			[
 				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'Uptime Robot', 'Modules: Uptime: Help Tab Title', 'gnetwork' ),
+				'title'   => _x( 'Uptime Robot', 'Modules: Uptime: Help Tab Title', 'gnetwork-admin' ),
 				'content' => '<p>Uptime Robot monitors your site and alerts you if your sites are down.</p><p>Register and get api key from <a href="https://uptimerobot.com/dashboard.php#mySettings" target="_blank" rel="noreferrer"><i>here</i></a>.</p>',
 			],
 		];
@@ -71,7 +71,7 @@ class Uptime extends gNetwork\Module
 		if ( empty( $this->api_key ) )
 			return FALSE;
 
-		$this->add_dashboard_widget( 'dashboard', _x( 'Uptime Monitor', 'Modules: Uptime: Widget Title', 'gnetwork' ) );
+		$this->add_dashboard_widget( 'dashboard', _x( 'Uptime Monitor', 'Modules: Uptime: Widget Title', 'gnetwork-admin' ) );
 	}
 
 	public function render_widget_dashboard()
@@ -105,24 +105,38 @@ class Uptime extends gNetwork\Module
 			echo '</tbody></table></div>';
 
 			echo '<div class="sub"><table class="base-table-uptime"><tbody><tr><td>';
-				/* translators: `%s`: all time uptime ratio */
-				echo Utilities::getCounted( $monitor['all_time_uptime_ratio'], _x( 'Uptime Ratio: %s', 'Modules: Uptime', 'gnetwork' ) );
+
+				echo Utilities::getCounted(
+					$monitor['all_time_uptime_ratio'],
+					/* translators: `%s`: all time uptime ratio */
+					_x( 'Uptime Ratio: %s', 'Modules: Uptime', 'gnetwork-admin' )
+				);
+
 			echo '</td><td>';
-				/* translators: `%s`: average response time */
-				echo Utilities::getCounted( $monitor['average_response_time'], _x( 'Response Time: %s', 'Modules: Uptime', 'gnetwork' ) );
+
+				echo Utilities::getCounted(
+					$monitor['average_response_time'],
+					/* translators: `%s`: average response time */
+					_x( 'Response Time: %s', 'Modules: Uptime', 'gnetwork-admin' )
+				);
+
 			echo '</td></tr><tr><td>';
 
 				printf(
 					/* translators: `%s`: interval */
-					_x( 'Interval: %s', 'Modules: Uptime', 'gnetwork' ),
+					_x( 'Interval: %s', 'Modules: Uptime', 'gnetwork-admin' ),
 					gNetwork\Datetime::htmlFromSeconds( $monitor['interval'], 2 )
 				);
 
 			echo '</td><td>';
-				/* translators: `%s`: response time */
-				echo Utilities::getCounted( $monitor['response_times'][0]['value'], _x( 'Last Response Time: %s', 'Modules: Uptime', 'gnetwork' ) );
-			echo '</td></tr></tbody></table>';
 
+				echo Utilities::getCounted(
+					$monitor['response_times'][0]['value'],
+					/* translators: `%s`: response time */
+					_x( 'Last Response Time: %s', 'Modules: Uptime', 'gnetwork-admin' )
+				);
+
+			echo '</td></tr></tbody></table>';
 			echo '</div></div>';
 		}
 	}
@@ -130,13 +144,13 @@ class Uptime extends gNetwork\Module
 	private function get_uptimerobot_type( $type )
 	{
 		switch ( $type ) {
-			case '1' : return Core\HTML::getDashicon( 'warning', _x( 'Down', 'Modules: Uptime', 'gnetwork' ) );
-			case '2' : return Core\HTML::getDashicon( 'marker', _x( 'Up', 'Modules: Uptime', 'gnetwork' ) );
-			case '99': return Core\HTML::getDashicon( 'star-empty', _x( 'Paused', 'Modules: Uptime', 'gnetwork' ) );
-			case '98': return Core\HTML::getDashicon( 'star-filled', _x( 'Started', 'Modules: Uptime', 'gnetwork' ) );
+			case '1' : return Core\HTML::getDashicon( 'warning', _x( 'Down', 'Modules: Uptime', 'gnetwork-admin' ) );
+			case '2' : return Core\HTML::getDashicon( 'marker', _x( 'Up', 'Modules: Uptime', 'gnetwork-admin' ) );
+			case '99': return Core\HTML::getDashicon( 'star-empty', _x( 'Paused', 'Modules: Uptime', 'gnetwork-admin' ) );
+			case '98': return Core\HTML::getDashicon( 'star-filled', _x( 'Started', 'Modules: Uptime', 'gnetwork-admin' ) );
 		}
 
-		return Core\HTML::getDashicon( 'info', 'span', _x( 'Unknown!', 'Modules: Uptime', 'gnetwork' ) );
+		return Core\HTML::getDashicon( 'info', 'span', _x( 'Unknown!', 'Modules: Uptime', 'gnetwork-admin' ) );
 	}
 
 	// @REF: https://uptimerobot.com/api#getMonitors
@@ -179,16 +193,16 @@ class Uptime extends gNetwork\Module
 			$data = json_decode( wp_remote_retrieve_body( $response ), TRUE );
 
 			if ( empty( $data['stat'] ) )
-				return new Core\Error( 'unknown_response', _x( 'Something is wrong with UptimeRobot.com API!', 'Modules: Uptime', 'gnetwork' ) );
+				return new Core\Error( 'unknown_response', _x( 'Something is wrong with UptimeRobot.com API!', 'Modules: Uptime', 'gnetwork-admin' ) );
 
 			else if ( 'fail' == $data['stat'] )
 				/* translators: `%s`: error type */
-				return new Core\Error( $data['error']['type'], sprintf( _x( 'UptimeRobot.com API: %s', 'Modules: Uptime', 'gnetwork' ), str_replace( '_', ' ', $data['error']['type'] ) ) );
+				return new Core\Error( $data['error']['type'], sprintf( _x( 'UptimeRobot.com API: %s', 'Modules: Uptime', 'gnetwork-admin' ), str_replace( '_', ' ', $data['error']['type'] ) ) );
 
 			else if ( 'ok' == $data['stat'] )
 				return $data['monitors'];
 		}
 
-		return new Core\Error( 'not_ok_status', Core\HTTP::getStatusDesc( $status, _x( 'Unknown!', 'Modules: Uptime', 'gnetwork' ) ) );
+		return new Core\Error( 'not_ok_status', Core\HTTP::getStatusDesc( $status, _x( 'Unknown!', 'Modules: Uptime', 'gnetwork-admin' ) ) );
 	}
 }

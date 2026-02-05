@@ -36,11 +36,11 @@ class Mail extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Mail', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Test Mail', 'Modules: Menu Name', 'gnetwork' ), 'testmail', 16 );
+		$this->register_menu( _x( 'Mail', 'Modules: Menu Name', 'gnetwork-admin' ) );
+		$this->register_tool( _x( 'Test Mail', 'Modules: Menu Name', 'gnetwork-admin' ), 'testmail', 16 );
 
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] )
-			$this->register_tool( _x( 'Email Logs', 'Modules: Menu Name', 'gnetwork' ), 'emaillogs', 15, NULL, FALSE );
+			$this->register_tool( _x( 'Email Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'emaillogs', 15, NULL, FALSE );
 	}
 
 	public function default_options()
@@ -66,30 +66,30 @@ class Mail extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'disposable_check',
-					'title'       => _x( 'Check Provider', 'Modules: Mail: Settings', 'gnetwork' ),
-					'description' => _x( 'Checks if the email comes from a disposable email provider.', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'Check Provider', 'Modules: Mail: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Checks if the email comes from a disposable email provider.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 					'after'       => Settings::fieldAfterIcon( 'https://github.com/MattKetmo/EmailChecker/blob/master/res/throwaway_domains.txt' ),
 				],
 				[
 					'field'       => 'from_email',
 					'type'        => 'email',
-					'title'       => _x( 'From Email', 'Modules: Mail: Settings', 'gnetwork' ),
-					'description' => _x( 'Specifies the email address that emails should be sent from. Leave blank for default.', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'From Email', 'Modules: Mail: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Specifies the email address that emails should be sent from. Leave blank for default.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'from_name',
 					'type'        => 'text',
-					'title'       => _x( 'From Name', 'Modules: Mail: Settings', 'gnetwork' ),
-					'description' => _x( 'Specifies the name that emails should be sent from. Leave blank for WordPress.', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'From Name', 'Modules: Mail: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Specifies the name that emails should be sent from. Leave blank for WordPress.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'sender',
 					'type'        => 'text',
-					'title'       => _x( 'Return Path', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'Return Path', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					'description' => sprintf(
 						/* translators: `%s`: `from` placeholder */
-						_x( 'Sets the return-path email address. Use %s to match the From Email or empty to disable.', 'Modules: Mail: Settings', 'gnetwork' ),
+						_x( 'Sets the return-path email address. Use %s to match the From Email or empty to disable.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( 'FROM' )
 					),
 					'default'     => 'FROM',
@@ -98,11 +98,11 @@ class Mail extends gNetwork\Module
 				[
 					'field'   => 'mailer',
 					'type'    => 'radio',
-					'title'   => _x( 'Mailer', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'   => _x( 'Mailer', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					'default' => 'mail',
 					'values'  => [
-						'mail' => _x( 'Use the PHP mail() function to send emails.', 'Modules: Mail: Settings', 'gnetwork' ),
-						'smtp' => _x( 'Sends all WordPress emails via SMTP.', 'Modules: Mail: Settings', 'gnetwork' ),
+						'mail' => _x( 'Use the PHP mail() function to send emails.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
+						'smtp' => _x( 'Sends all WordPress emails via SMTP.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					],
 				],
 			],
@@ -110,40 +110,40 @@ class Mail extends gNetwork\Module
 				[
 					'field'       => 'smtp_host',
 					'type'        => 'text',
-					'title'       => _x( 'SMTP Host', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'SMTP Host', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => 'localhost',
 				],
 				[
 					'field'       => 'smtp_port',
 					'type'        => 'number',
-					'title'       => _x( 'SMTP Port', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'SMTP Port', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'small-text', 'code-text' ],
 					'default'     => '25',
 				],
 				[
 					'field'       => 'smtp_secure',
 					'type'        => 'radio',
-					'title'       => _x( 'Encryption', 'Modules: Mail: Settings', 'gnetwork' ),
-					'description' => _x( 'For most servers SSL is the recommended option.', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'Encryption', 'Modules: Mail: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'For most servers SSL is the recommended option.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					'default'     => 'no',
 					'values'      => [
-						'no'  => _x( 'No encryption.', 'Modules: Mail: Encryption Option', 'gnetwork' ),
-						'ssl' => _x( 'Use SSL encryption.', 'Modules: Mail: Encryption Option', 'gnetwork' ),
-						'tls' => _x( 'Use TLS encryption. This is not the same as STARTTLS.', 'Modules: Mail: Encryption Option', 'gnetwork' ),
+						'no'  => _x( 'No encryption.', 'Modules: Mail: Encryption Option', 'gnetwork-admin' ),
+						'ssl' => _x( 'Use SSL encryption.', 'Modules: Mail: Encryption Option', 'gnetwork-admin' ),
+						'tls' => _x( 'Use TLS encryption. This is not the same as STARTTLS.', 'Modules: Mail: Encryption Option', 'gnetwork-admin' ),
 					],
 				],
 				[
 					'field'       => 'smtp_username',
 					'type'        => 'text',
-					'title'       => _x( 'Username', 'Modules: Mail: Settings', 'gnetwork' ),
-					'description' => _x( 'Leave empty to disable authentication.', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'Username', 'Modules: Mail: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Leave empty to disable authentication.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 				[
 					'field'       => 'smtp_password',
 					'type'        => 'text',
-					'title'       => _x( 'Password', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'Password', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 			],
@@ -153,8 +153,8 @@ class Mail extends gNetwork\Module
 			$settings['_log'] = [
 				[
 					'field'       => 'log_all',
-					'title'       => _x( 'Log All', 'Modules: Mail: Settings', 'gnetwork' ),
-					'description' => _x( 'Logs all out-going emails in a secure folder.', 'Modules: Mail: Settings', 'gnetwork' ),
+					'title'       => _x( 'Log All', 'Modules: Mail: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Logs all out-going emails in a secure folder.', 'Modules: Mail: Settings', 'gnetwork-admin' ),
 				],
 			];
 
@@ -164,15 +164,15 @@ class Mail extends gNetwork\Module
 	public function settings_section_smtp()
 	{
 		Settings::fieldSection(
-			_x( 'SMTP Settings', 'Modules: Mail: Settings', 'gnetwork' ),
-			_x( 'These options only apply if you have chosen to send mail by SMTP above.', 'Modules: Mail: Settings', 'gnetwork' )
+			_x( 'SMTP Settings', 'Modules: Mail: Settings', 'gnetwork-admin' ),
+			_x( 'These options only apply if you have chosen to send mail by SMTP above.', 'Modules: Mail: Settings', 'gnetwork-admin' )
 		);
 	}
 
 	public function settings_section_log()
 	{
 		Settings::fieldSection(
-			_x( 'Log Settings', 'Modules: Mail: Settings', 'gnetwork' )
+			_x( 'Log Settings', 'Modules: Mail: Settings', 'gnetwork-admin' )
 		);
 	}
 
@@ -191,7 +191,7 @@ class Mail extends gNetwork\Module
 		return [
 			[
 				'id'      => $this->classs( 'help-gmail' ),
-				'title'   => _x( 'Gmail SMTP', 'Modules: Mail: Help Tab Title', 'gnetwork' ),
+				'title'   => _x( 'Gmail SMTP', 'Modules: Mail: Help Tab Title', 'gnetwork-admin' ),
 				'content' => '<p><table><tbody>
 				<tr><td style="width:150px">SMTP Host</td><td><code>smtp.gmail.com</code></td></tr>
 				<tr><td>SMTP Port</td><td><code>465</code></td></tr>
@@ -209,14 +209,14 @@ class Mail extends gNetwork\Module
 		echo $this->wrap_open_buttons();
 
 		echo Core\HTML::button(
-			_x( 'Test Mail', 'Modules: Mail', 'gnetwork' ),
+			_x( 'Test Mail', 'Modules: Mail', 'gnetwork-admin' ),
 			$this->get_menu_url( 'testmail', NULL, 'tools' )
 		);
 
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {
 
 			echo Core\HTML::button(
-				_x( 'Email Logs', 'Modules: Mail', 'gnetwork' ),
+				_x( 'Email Logs', 'Modules: Mail', 'gnetwork-admin' ),
 				$this->get_menu_url( 'emaillogs', NULL, 'tools' )
 			);
 		}
@@ -260,12 +260,12 @@ class Mail extends gNetwork\Module
 	{
 		if ( 'testmail' == $sub ) {
 
-			$this->register_button( 'send_testmail', _x( 'Send Test Mail', 'Modules: Mail', 'gnetwork' ), TRUE );
+			$this->register_button( 'send_testmail', _x( 'Send Test Mail', 'Modules: Mail', 'gnetwork-admin' ), TRUE );
 
 		} else if ( 'emaillogs' == $sub ) {
 
-			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: Mail', 'gnetwork' ), TRUE );
-			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: Mail', 'gnetwork' ), FALSE, TRUE );
+			$this->register_button( 'deletelogs_selected', _x( 'Delete Selected', 'Modules: Mail', 'gnetwork-admin' ), TRUE );
+			$this->register_button( 'deletelogs_all', _x( 'Delete All', 'Modules: Mail', 'gnetwork-admin' ), FALSE, TRUE );
 		}
 	}
 
@@ -531,21 +531,21 @@ class Mail extends gNetwork\Module
 	{
 		$to      = isset( $_POST['send_testmail_to'] ) ? $_POST['send_testmail_to'] : $this->get_from_email();
 		/* translators: `%s`: site name */
-		$subject = isset( $_POST['send_testmail_subject'] ) ? $_POST['send_testmail_subject'] : sprintf( _x( '[%s] Test Mail', 'Modules: Mail', 'gnetwork' ), WordPress\Site::nameforEmail() );
-		$message = isset( $_POST['send_testmail_message'] ) ? $_POST['send_testmail_message'] : _x( 'This is a test email generated by the gNetwork Mail plugin.', 'Modules: Mail', 'gnetwork' );
+		$subject = isset( $_POST['send_testmail_subject'] ) ? $_POST['send_testmail_subject'] : sprintf( _x( '[%s] Test Mail', 'Modules: Mail', 'gnetwork-admin' ), WordPress\Site::nameforEmail() );
+		$message = isset( $_POST['send_testmail_message'] ) ? $_POST['send_testmail_message'] : _x( 'This is a test email generated by the gNetwork Mail plugin.', 'Modules: Mail', 'gnetwork-admin' );
 
 		echo '<table class="form-table"><tbody>';
 			echo '<tr><th scope="row"><label for="send_testmail_to">';
-				_ex( 'To', 'Modules: Mail', 'gnetwork' );
+				_ex( 'To', 'Modules: Mail', 'gnetwork-admin' );
 			echo '</label></th><td><input type="text" id="send_testmail_to" name="send_testmail_to" value="'.$to.'" class="regular-text code" />';
 			echo Settings::fieldAfterIcon( 'https://www.mail-tester.com/', 'Test the Spammyness of your Emails' );
 			echo '</td></tr>';
 			echo '<tr><th scope="row"><label for="send_testmail_subject">';
-				_ex( 'Subject', 'Modules: Mail', 'gnetwork' );
+				_ex( 'Subject', 'Modules: Mail', 'gnetwork-admin' );
 			echo '</label></th><td><input type="text" id="send_testmail_subject" name="send_testmail_subject" value="'.$subject.'" class="regular-text" />';
 			echo '</td></tr>';
 			echo '<tr><th scope="row"><label for="send_testmail_message">';
-				_ex( 'Message', 'Modules: Mail', 'gnetwork' );
+				_ex( 'Message', 'Modules: Mail', 'gnetwork-admin' );
 			echo '</label></th><td><textarea id="send_testmail_message" name="send_testmail_message" cols="45" rows="5" class="large-text">'.$message.'</textarea>';
 			echo '</td></tr>';
 		echo '</tbody></table>';
@@ -577,19 +577,19 @@ class Mail extends gNetwork\Module
 			$smtp_debug = ob_get_clean();
 
 			$classes = 'notice-'.( FALSE === $result ? 'error' : 'success' ).' fade inline';
-			echo Core\HTML::notice( _x( 'Test message sent.', 'Modules: Mail', 'gnetwork' ), $classes, FALSE );
+			echo Core\HTML::notice( _x( 'Test message sent.', 'Modules: Mail', 'gnetwork-admin' ), $classes, FALSE );
 
-			Core\HTML::desc( _x( 'The result was:', 'Modules: Mail', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'The result was:', 'Modules: Mail', 'gnetwork-admin' ) );
 			Core\HTML::dump( $result );
 
 			echo '<hr />';
 
-			Core\HTML::desc( _x('The SMTP debugging output:', 'Modules: Mail', 'gnetwork' ) );
+			Core\HTML::desc( _x('The SMTP debugging output:', 'Modules: Mail', 'gnetwork-admin' ) );
 			echo Core\HTML::wrap( $smtp_debug, '-debug-wrap' );
 
 			echo '<hr />';
 
-			Core\HTML::desc( _x('The full phpmailer object properties:', 'Modules: Mail', 'gnetwork' ) );
+			Core\HTML::desc( _x('The full phpmailer object properties:', 'Modules: Mail', 'gnetwork-admin' ) );
 			Core\HTML::tableSide( $phpmailer );
 
 			unset( $phpmailer );
@@ -612,7 +612,7 @@ class Mail extends gNetwork\Module
 			'_cb' => 'file',
 
 			'info' => [
-				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', 'gnetwork' ),
+				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', 'gnetwork-admin' ),
 				'class'    => '-column-info',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					$html = '';
@@ -642,17 +642,17 @@ class Mail extends gNetwork\Module
 						$html.= '<hr />';
 
 					if ( ! empty( $row['user'] ) )
-						$html.= '<code title="'._x( 'User', 'Modules: Mail: Email Logs Table', 'gnetwork' )
+						$html.= '<code title="'._x( 'User', 'Modules: Mail: Email Logs Table', 'gnetwork-admin' )
 							.'">'.Core\HTML::link( get_user_by( 'id', $row['user'] )->user_login, WordPress\User::edit( $row['user'] ) ).'</code> @ ';
 
 					if ( ! empty( $row['site'] ) )
-						$html.= '<code title="'._x( 'Site', 'Modules: Mail: Email Logs Table', 'gnetwork' )
+						$html.= '<code title="'._x( 'Site', 'Modules: Mail: Email Logs Table', 'gnetwork-admin' )
 							.'">'.$row['site'].'</code>';
 
 					// TODO: display `locale`/`blog` data here!
 
 					if ( ! empty( $row['smtp'] ) )
-						$html.= ' &#5397; <code title="'._x( 'SMTP', 'Modules: Mail: Email Logs Table', 'gnetwork' )
+						$html.= ' &#5397; <code title="'._x( 'SMTP', 'Modules: Mail: Email Logs Table', 'gnetwork-admin' )
 							.'">'.$row['smtp'].'</code>';
 
 					if ( ! empty( $row['headers'] ) ) {
@@ -686,25 +686,25 @@ class Mail extends gNetwork\Module
 						'download' => Core\HTML::tag( 'a', [
 							'href'  => WordPress\URL::adminPOST( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'download' ] ),
 							'class' => '-link -row-link -row-link-download',
-						], _x( 'Download', 'Modules: Mail: Row Action', 'gnetwork' ) ),
+						], _x( 'Download', 'Modules: Mail: Row Action', 'gnetwork-admin' ) ),
 
 						'delete' => Core\HTML::tag( 'a', [
 							'href'  => WordPress\URL::adminPOST( $this->hook( 'logs' ), [ 'log' => $row['file'], 'what' => 'delete' ] ),
 							'class' => '-link -row-link -row-link-delete',
-						], _x( 'Delete', 'Modules: Mail: Row Action', 'gnetwork' ) ),
+						], _x( 'Delete', 'Modules: Mail: Row Action', 'gnetwork-admin' ) ),
 					];
 				},
 			],
 
 			'content' => [
-				'title'    => _x( 'What', 'Modules: Mail: Email Logs Table Column', 'gnetwork' ),
+				'title'    => _x( 'What', 'Modules: Mail: Email Logs Table Column', 'gnetwork-admin' ),
 				'class'    => '-column-content',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					$content   = '';
 					$direction = empty( $row['rtl'] ) ? '' : ' style="direction:rtl"';
 
 					if ( ! empty( $row['subject'] ) )
-						$content.= _x( 'Subject', 'Modules: Mail: Email Logs Table Prefix', 'gnetwork' ).': <code'
+						$content.= _x( 'Subject', 'Modules: Mail: Email Logs Table Prefix', 'gnetwork-admin' ).': <code'
 							.$direction.'>'.$row['subject'].'</code><hr />';
 
 					if ( ! empty( $row['message'] ) ) {
@@ -729,7 +729,7 @@ class Mail extends gNetwork\Module
 		], $logs, [
 			'navigation' => 'before',
 			'search'     => 'before',
-			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Email Logs', 'Modules: Mail', 'gnetwork' ) ),
+			'title'      => Core\HTML::tag( 'h3', _x( 'Overview of Email Logs', 'Modules: Mail', 'gnetwork-admin' ) ),
 			'pagination' => $pagination,
 		] );
 	}

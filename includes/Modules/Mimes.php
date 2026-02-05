@@ -27,7 +27,7 @@ class Mimes extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Mimes', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Mimes', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -44,8 +44,8 @@ class Mimes extends gNetwork\Module
 				[
 					'field'       => 'tools_accesscap',
 					'type'        => 'cap',
-					'title'       => _x( 'Tools Access', 'Modules: Mimes: Settings', 'gnetwork' ),
-					'description' => _x( 'Selected and above can access the mime tools.', 'Modules: Mimes: Settings', 'gnetwork' ),
+					'title'       => _x( 'Tools Access', 'Modules: Mimes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Selected and above can access the mime tools.', 'Modules: Mimes: Settings', 'gnetwork-admin' ),
 					'default'     => 'edit_others_posts',
 				],
 			],
@@ -94,7 +94,7 @@ class Mimes extends gNetwork\Module
 			case 'image/avif':
 			case 'image/svg+xml':
 
-				$label = _x( 'View Image URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				$label = _x( 'View Image URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 				break;
 
 			case 'video/mpeg':
@@ -103,19 +103,19 @@ class Mimes extends gNetwork\Module
 			case 'video/ogg':
 			case 'video/quicktime':
 
-				$label = _x( 'View Video URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				$label = _x( 'View Video URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 				break;
 
 			case 'text/csv':
 			case 'text/xml':
 
-				$label = _x( 'View Data File URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				$label = _x( 'View Data File URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 				break;
 
 			case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
 			case 'application/vnd.ms-excel':
 
-				$label = _x( 'View Spreadsheet URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				$label = _x( 'View Spreadsheet URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 				break;
 
 			case 'application/pdf':
@@ -123,36 +123,36 @@ class Mimes extends gNetwork\Module
 			case 'application/msword':
 			case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
 
-				$label = _x( 'View Document URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				$label = _x( 'View Document URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 				break;
 
 			case 'text/html':
 
-				$label = _x( 'View HTML file URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				$label = _x( 'View HTML file URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 				break;
 
 			default:
 
-				$label = _x( 'View Item URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+				$label = _x( 'View Item URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 
 				if ( $mimetype && Core\Text::has( $mimetype, '/' ) ) {
 
 					$parts = explode( '/', $mimetype );
 
 					if ( in_array( $parts[0], [ 'image' ], TRUE ) )
-						$label = _x( 'View Image URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+						$label = _x( 'View Image URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 
 					else if ( in_array( $parts[0], [ 'audio' ], TRUE ) )
-						$label = _x( 'View Audio URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+						$label = _x( 'View Audio URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 
 					else if ( in_array( $parts[0], [ 'video' ], TRUE ) )
-						$label = _x( 'View Video URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+						$label = _x( 'View Video URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 
 					else if ( in_array( $parts[0], [ 'application' ], TRUE ) )
-						$label = _x( 'View Application URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+						$label = _x( 'View Application URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 
 					else if ( in_array( $parts[0], [ 'text' ], TRUE ) )
-						$label = _x( 'View Text URL', 'Modules: Mimes: Row Action', 'gnetwork' );
+						$label = _x( 'View Text URL', 'Modules: Mimes: Row Action', 'gnetwork-admin' );
 				}
 		}
 
@@ -173,16 +173,16 @@ class Mimes extends gNetwork\Module
 	{
 		return array_merge( $post_mime_types, [
 			'text' => [
-				_x( 'Text', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
-				_x( 'Manage Texts', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
+				_x( 'Text', 'Modules: Mimes: Post Mime Type', 'gnetwork-admin' ),
+				_x( 'Manage Texts', 'Modules: Mimes: Post Mime Type', 'gnetwork-admin' ),
 				/* translators: `%s`: media texts count */
-				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
+				_nx_noop( 'Text <span class="count">(%s)</span>', 'Texts <span class="count">(%s)</span>', 'Modules: Mimes: Post Mime Type', 'gnetwork-admin' ),
 			],
 			'application' => [
-				_x( 'Application', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
-				_x( 'Manage Applications', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
+				_x( 'Application', 'Modules: Mimes: Post Mime Type', 'gnetwork-admin' ),
+				_x( 'Manage Applications', 'Modules: Mimes: Post Mime Type', 'gnetwork-admin' ),
 				/* translators: `%s`: media applications count */
-				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Mimes: Post Mime Type', 'gnetwork' ),
+				_nx_noop( 'Application <span class="count">(%s)</span>', 'Applications <span class="count">(%s)</span>', 'Modules: Mimes: Post Mime Type', 'gnetwork-admin' ),
 			],
 		] );
 	}

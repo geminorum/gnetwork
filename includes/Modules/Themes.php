@@ -68,7 +68,7 @@ class Themes extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Themes', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Themes', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -93,26 +93,26 @@ class Themes extends gNetwork\Module
 				[
 					'field'       => 'disable_themes',
 					'type'        => 'disabled',
-					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Enhances supported active themes with styles and extra goodies.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'Theme Enhancements', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Enhances supported active themes with styles and extra goodies.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'content_actions',
-					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Applies extra hooks before and after post content on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'Content Actions', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Applies extra hooks before and after post content on front-end.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 					'constant'    => 'GNETWORK_DISABLE_CONTENT_ACTIONS',
 				],
 				[
 					'field'       => 'hidden_title',
-					'title'       => _x( 'Hidden Title', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Supports hidden titles on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'Hidden Title', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Supports hidden titles on front-end.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'body_class',
 					'type'        => 'text',
-					'title'       => _x( 'Body Class', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'Body Class', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Appends as extra HTML body class on all pages on front-end.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 					'field_class' => [ 'regular-text', 'code-text' ],
 					'default'     => GNETWORK_BODY_CLASS,
 				],
@@ -121,33 +121,33 @@ class Themes extends gNetwork\Module
 				[
 					'field'       => 'disable_patterns',
 					'type'        => 'disabled',
-					'title'       => _x( 'Theme Patterns', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Block Patterns are a feature in WordPress that are part of the Gutenberg editor.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'Theme Patterns', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Block Patterns are a feature in WordPress that are part of the Gutenberg editor.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 			],
 			'_insert' => [
 				[
 					'field'       => 'header_code',
-					'title'       => _x( 'Header Code', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Appends the following code to the end of head in HTML, on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'Header Code', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Appends the following code to the end of head in HTML, on front-end.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'header_html',
 					'type'        => 'textarea-code-editor',
-					'title'       => _x( 'In Header', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'In Header', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'footer_code',
-					'title'       => _x( 'Footer Code', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Appends the following code to the end of body in HTML, on front-end.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'Footer Code', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Appends the following code to the end of body in HTML, on front-end.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'footer_html',
 					'type'        => 'textarea-code-editor',
-					'title'       => _x( 'In Footer', 'Modules: Themes: Settings', 'gnetwork' ),
-					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', 'gnetwork' ),
+					'title'       => _x( 'In Footer', 'Modules: Themes: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Accepts raw HTML.', 'Modules: Themes: Settings', 'gnetwork-admin' ),
 				],
 			],
 		];
@@ -197,7 +197,7 @@ class Themes extends gNetwork\Module
 			echo '<label for="'.$name.'">';
 			echo '<input name="'.$name.'" type="checkbox" id="'.$name.'" ';
 			checked( get_post_meta( $post->ID, '_hidden_title', TRUE ) );
-			echo ' /> '._x( 'Hide Title on Front-end', 'Modules: Themes', 'gnetwork' );
+			echo ' /> '._x( 'Hide Title on Front-end', 'Modules: Themes', 'gnetwork-admin' );
 
 		echo '</label></div>';
 	}

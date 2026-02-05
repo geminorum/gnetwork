@@ -43,8 +43,8 @@ class Authors extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Authors', 'Modules: Menu Name', 'gnetwork' ) );
-		$this->register_tool( _x( 'Authors', 'Modules: Menu Name', 'gnetwork' ), NULL, 9, 'edit_users' );
+		$this->register_menu( _x( 'Authors', 'Modules: Menu Name', 'gnetwork-admin' ) );
+		$this->register_tool( _x( 'Authors', 'Modules: Menu Name', 'gnetwork-admin' ), NULL, 9, 'edit_users' );
 	}
 
 	public function default_options()
@@ -66,37 +66,37 @@ class Authors extends gNetwork\Module
 			'_general' => [
 				[
 					'field'       => 'force_multi_author',
-					'title'       => _x( 'Force Multi Author', 'Modules: Authors: Settings', 'gnetwork' ),
-					'description' => _x( 'Overrides checks for this site has more than one author.', 'Modules: Authors: Settings', 'gnetwork' ),
+					'title'       => _x( 'Force Multi Author', 'Modules: Authors: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Overrides checks for this site has more than one author.', 'Modules: Authors: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'authors_manage_tags',
-					'title'       => _x( 'Manage Post Tags', 'Modules: Authors: Settings', 'gnetwork' ),
-					'description' => _x( 'Allows authors to manage post tags.', 'Modules: Authors: Settings', 'gnetwork' ),
+					'title'       => _x( 'Manage Post Tags', 'Modules: Authors: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Allows authors to manage post tags.', 'Modules: Authors: Settings', 'gnetwork-admin' ),
 					'default'     => '1',
 				],
 				[
 					'field'       => 'siteuser_as_default',
-					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', 'gnetwork' ),
-					'description' => _x( 'Uses site user as default author of new posts in admin.', 'Modules: Authors: Settings', 'gnetwork' ),
+					'title'       => _x( 'Default Author', 'Modules: Authors: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Uses site user as default author of new posts in admin.', 'Modules: Authors: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'remove_author_pages',
-					'title'       => _x( 'Remove Author Pages', 'Modules: Authors: Settings', 'gnetwork' ),
-					'description' => _x( 'Triggers a 404 error for all author pages or redirect to custom URL.', 'Modules: Authors: Settings', 'gnetwork' ),
+					'title'       => _x( 'Remove Author Pages', 'Modules: Authors: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Triggers a 404 error for all author pages or redirect to custom URL.', 'Modules: Authors: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'replace_author_links',
 					'type'        => 'url',
-					'title'       => _x( 'Replace Author Links', 'Modules: Authors: Settings', 'gnetwork' ),
-					'description' => _x( 'Replaces author links with links to a custom URL.', 'Modules: Authors: Settings', 'gnetwork' ),
+					'title'       => _x( 'Replace Author Links', 'Modules: Authors: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Replaces author links with links to a custom URL.', 'Modules: Authors: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'replace_status_code',
 					'type'        => 'select',
-					'title'       => _x( 'Redirect Status Code', 'Modules: Authors: Settings', 'gnetwork' ),
-					'description' => _x( 'Defines HTTP status header code while redirecting to custom URL.', 'Modules: Authors: Settings', 'gnetwork' ),
+					'title'       => _x( 'Redirect Status Code', 'Modules: Authors: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Defines HTTP status header code while redirecting to custom URL.', 'Modules: Authors: Settings', 'gnetwork-admin' ),
 					'after'       => Settings::fieldAfterIcon( 'https://en.wikipedia.org/wiki/List_of_HTTP_status_codes' ),
 					'dir'         => 'ltr',
 					'default'     => '301',
@@ -127,25 +127,25 @@ class Authors extends gNetwork\Module
 		foreach ( WordPress\User::get() as $user_id => $user )
 			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
 
-		Settings::headerTitle( _x( 'Author Tools', 'Modules: Authors', 'gnetwork' ) );
+		Settings::headerTitle( _x( 'Author Tools', 'Modules: Authors', 'gnetwork-admin' ) );
 
 		echo '<table class="form-table">';
 
 			if ( is_multisite() && ( $user = gNetwork()->user() ) ) {
 
-				echo '<tr><th scope="row">'._x( 'Site User', 'Modules: Authors: Settings', 'gnetwork' ).'</th><td>';
+				echo '<tr><th scope="row">'._x( 'Site User', 'Modules: Authors: Settings', 'gnetwork-admin' ).'</th><td>';
 				echo $this->wrap_open_buttons();
 
 				if ( is_user_member_of_blog( $user ) )
-					Core\HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', 'gnetwork' ) );
+					Core\HTML::desc( _x( 'The user is already member of this blog.', 'Modules: Authors: Settings', 'gnetwork-admin' ) );
 
 				else
-					Settings::submitButton( 'add_site_user', _x( 'Add User to this Site', 'Modules: Authors: Settings', 'gnetwork' ) );
+					Settings::submitButton( 'add_site_user', _x( 'Add User to this Site', 'Modules: Authors: Settings', 'gnetwork-admin' ) );
 
 				echo '</p></td></tr>';
 			}
 
-			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', 'gnetwork' ).'</th><td>';
+			echo '<tr><th scope="row">'._x( 'Bulk Change Author', 'Modules: Authors: Settings', 'gnetwork-admin' ).'</th><td>';
 
 			echo $this->wrap_open_buttons();
 
@@ -158,7 +158,7 @@ class Authors extends gNetwork\Module
 				'default'   => 'all',
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'to', 'Modules: Authors: Settings', 'gnetwork-admin' ).'&nbsp;&ndash;&nbsp;';
 
 			unset( $users['all'] );
 
@@ -171,7 +171,7 @@ class Authors extends gNetwork\Module
 				'default'   => gNetwork()->user(),
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'on', 'Modules: Authors: Settings', 'gnetwork-admin' ).'&nbsp;&ndash;&nbsp;';
 
 			$this->do_settings_field( [
 				'type'      => 'select',
@@ -182,9 +182,9 @@ class Authors extends gNetwork\Module
 				'values'    => WordPress\PostType::get( 0, [ 'show_ui' => TRUE ] ),
 			] );
 
-			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', 'gnetwork' ).'&nbsp;&ndash;&nbsp;';
+			echo '&nbsp;&mdash;&nbsp;'._x( 'do', 'Modules: Authors: Settings', 'gnetwork-admin' ).'&nbsp;&ndash;&nbsp;';
 
-			Settings::submitButton( 'bulk_change_author', _x( 'Change', 'Modules: Authors: Settings', 'gnetwork' ), FALSE, TRUE );
+			Settings::submitButton( 'bulk_change_author', _x( 'Change', 'Modules: Authors: Settings', 'gnetwork-admin' ), FALSE, TRUE );
 
 			echo '</p></td></tr>';
 		echo '</table>';
@@ -236,7 +236,7 @@ class Authors extends gNetwork\Module
 
 	public static function userRoles()
 	{
-		Core\HTML::desc( _x( 'List of user roles that the current user is allowed to edit.', 'Modules: Authors: User Roles', 'gnetwork' ) );
+		Core\HTML::desc( _x( 'List of user roles that the current user is allowed to edit.', 'Modules: Authors: User Roles', 'gnetwork-admin' ) );
 		Core\HTML::tableSide( get_editable_roles() );
 	}
 
@@ -249,20 +249,20 @@ class Authors extends gNetwork\Module
 
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: site-user */
-				_x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
+				_x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', 'gnetwork-admin' ),
 				$edit ? Core\HTML::link( $name, $edit, TRUE ) : $name )
 			);
 
 		} else {
 
-			Core\HTML::desc( _x( 'Site-User for current network is <strong>not</strong> defined.', 'Modules: Authors: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'Site-User for current network is <strong>not</strong> defined.', 'Modules: Authors: Settings', 'gnetwork-admin' ) );
 		}
 
 		if ( $default_role ) {
 
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: user role */
-				_x( 'Default role for this site is: %s', 'Modules: Authors: Settings', 'gnetwork' ),
+				_x( 'Default role for this site is: %s', 'Modules: Authors: Settings', 'gnetwork-admin' ),
 				Core\HTML::code( get_option( 'default_role' ) )
 			) );
 		}

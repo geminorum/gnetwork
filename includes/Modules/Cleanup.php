@@ -17,7 +17,7 @@ class Cleanup extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_tool( _x( 'Cleanup', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_tool( _x( 'Cleanup', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_settings()
@@ -32,26 +32,26 @@ class Cleanup extends gNetwork\Module
 		$settings['_options'][] = [
 			'field'       => 'purge_options_site',
 			'type'        => 'button',
-			'title'       => _x( 'Options', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes site obsolete option data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Blog Options', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'title'       => _x( 'Options', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Removes site obsolete option data.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Blog Options', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_transient'][] = [
 			'field'       => 'transient_purge_site',
 			'type'        => 'button',
-			'title'       => _x( 'Transient', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes site expired transient cache.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Expired', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'title'       => _x( 'Transient', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Removes site expired transient cache.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Expired', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_transient'][] = [
 			'field'       => 'transient_purge_site_all',
 			'type'        => 'button',
-			'description' => _x( 'Removes all site transient cache.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge All', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes all site transient cache.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge All', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
@@ -59,9 +59,9 @@ class Cleanup extends gNetwork\Module
 			$settings['_sitemeta'][] = [
 				'field'       => 'purge_sitemeta',
 				'type'        => 'button',
-				'title'       => _x( 'Site Meta', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'description' => _x( 'Removes cached site meta data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'default'     => _x( 'Purge Site Meta', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'title'       => _x( 'Site Meta', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Removes cached site meta data.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'default'     => _x( 'Purge Site Meta', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 				'values'      => $confirm,
 			];
 
@@ -72,24 +72,24 @@ class Cleanup extends gNetwork\Module
 				$settings['_options'][] = [
 					'field'       => 'purge_options_network',
 					'type'        => 'button',
-					'description' => _x( 'Removes network obsolete option data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-					'default'     => _x( 'Purge Network Options', 'Modules: Cleanup: Settings', 'gnetwork' ),
+					'description' => _x( 'Removes network obsolete option data.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+					'default'     => _x( 'Purge Network Options', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 					'values'      => $confirm,
 				];
 
 				$settings['_transient'][] = [
 					'field'       => 'transient_purge_network',
 					'type'        => 'button',
-					'description' => _x( 'Removes network expired transient cache.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-					'default'     => _x( 'Purge Network Expired', 'Modules: Cleanup: Settings', 'gnetwork' ),
+					'description' => _x( 'Removes network expired transient cache.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+					'default'     => _x( 'Purge Network Expired', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 					'values'      => $confirm,
 				];
 
 				$settings['_transient'][] = [
 					'field'       => 'transient_purge_network_all',
 					'type'        => 'button',
-					'description' => _x( 'Removes all network transient cache.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-					'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', 'gnetwork' ),
+					'description' => _x( 'Removes all network transient cache.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+					'default'     => _x( 'Purge All Network', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 					'values'      => $confirm,
 				];
 
@@ -97,8 +97,8 @@ class Cleanup extends gNetwork\Module
 					$settings['_sitemeta'][] = [
 						'field'       => 'purge_sitemeta_all',
 						'type'        => 'button',
-						'description' => _x( 'Removes all cached site meta data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-						'default'     => _x( 'Purge All Site Meta', 'Modules: Cleanup: Settings', 'gnetwork' ),
+						'description' => _x( 'Removes all cached site meta data.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+						'default'     => _x( 'Purge All Site Meta', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 						'values'      => $confirm,
 					];
 			}
@@ -106,25 +106,25 @@ class Cleanup extends gNetwork\Module
 			$settings['_users'][] = [
 				'field'       => 'users_defaultmeta',
 				'type'        => 'button',
-				'title'       => _x( 'User Meta', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'description' => _x( 'Removes default meta stored for each user.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'default'     => _x( 'Purge Default Meta', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'title'       => _x( 'User Meta', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Removes default meta stored for each user.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'default'     => _x( 'Purge Default Meta', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 				'values'      => $confirm,
 			];
 
 			$settings['_users'][] = [
 				'field'       => 'users_contactmethods',
 				'type'        => 'button',
-				'description' => _x( 'Removes empty contact methods stored for each user.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'default'     => _x( 'Purge Empty Contact Methods', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'description' => _x( 'Removes empty contact methods stored for each user.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'default'     => _x( 'Purge Empty Contact Methods', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 				'values'      => $confirm,
 			];
 
 			$settings['_users'][] = [
 				'field'       => 'users_last_activity',
 				'type'        => 'button',
-				'description' => _x( 'Removes BuddyPress last activity back-comp meta stored for each user.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'default'     => _x( 'Back-Comp Last Activity', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'description' => _x( 'Removes BuddyPress last activity back-comp meta stored for each user.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'default'     => _x( 'Back-Comp Last Activity', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 				'after'       => Settings::fieldAfterIcon( 'http://wp.me/pLVLj-gc' ),
 				'values'      => $confirm,
 			];
@@ -132,8 +132,8 @@ class Cleanup extends gNetwork\Module
 			$settings['_users'][] = [
 				'field'       => 'users_meta_obsolete',
 				'type'        => 'button',
-				'description' => _x( 'Removes obsolete user meta keys.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'default'     => _x( 'Purge Obsolete User Metadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'description' => _x( 'Removes obsolete user meta keys.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'default'     => _x( 'Purge Obsolete User Metadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 				'values'      => $confirm,
 			];
 		}
@@ -141,92 +141,92 @@ class Cleanup extends gNetwork\Module
 		$settings['_posts'][] = [
 			'field'       => 'postmeta_editdata',
 			'type'        => 'button',
-			'title'       => _x( 'Post Meta', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes last edit user and lock meta stored for each post.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Last User & Post Lock Metadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'title'       => _x( 'Post Meta', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Removes last edit user and lock meta stored for each post.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Last User & Post Lock Metadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_posts'][] = [
 			'field'       => 'postmeta_oldslug',
 			'type'        => 'button',
-			'description' => _x( 'Removes the old slug stored for each post.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Old Slug Redirect Metadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes the old slug stored for each post.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Old Slug Redirect Metadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_posts'][] = [
 			'field'       => 'postmeta_obsolete',
 			'type'        => 'button',
-			'description' => _x( 'Removes obsolete post meta data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Obsolete Post Matadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes obsolete post meta data.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Obsolete Post Matadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_posts'][] = [
 			'field'       => 'postmeta_orphaned',
 			'type'        => 'button',
-			'description' => _x( 'Removes orphaned post meta-data from database.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Orphaned Post Matadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes orphaned post meta-data from database.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Orphaned Post Matadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_posts'][] = [
 			'field'       => 'thumbnail_orphanedmeta',
 			'type'        => 'button',
-			'description' => _x( 'Checks for orphaned thumbnail meta data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Orphaned Featured Image Matadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Checks for orphaned thumbnail meta data.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Orphaned Featured Image Matadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_terms'][] = [
 			'field'       => 'term_orphaned',
 			'type'        => 'button',
-			'title'       => _x( 'Terms', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes orphaned term relationships from database.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Orphaned Terms', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'title'       => _x( 'Terms', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Removes orphaned term relationships from database.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Orphaned Terms', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_terms'][] = [
 			'field'       => 'termmeta_orphaned',
 			'type'        => 'button',
-			'title'       => _x( 'Term Meta', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'description' => _x( 'Removes orphaned term meta-data from database.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Orphaned Term Matadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'title'       => _x( 'Term Meta', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Removes orphaned term meta-data from database.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Orphaned Term Matadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_comments'][] = [
 			'field'       => 'comments_orphanedmeta',
 			'type'        => 'button',
-			'title'       => _x( 'Comments', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'description' => _x( 'Checks for orphaned comment meta data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Orphaned Matadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'title'       => _x( 'Comments', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Checks for orphaned comment meta data.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Orphaned Matadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_comments'][] = [
 			'field'       => 'comments_akismetmeta',
 			'type'        => 'button',
-			'description' => _x( 'Removes Akismet related comment meta data.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge Akismet Metadata', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes Akismet related comment meta data.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Akismet Metadata', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_comments'][] = [
 			'field'       => 'comments_agentfield',
 			'type'        => 'button',
-			'description' => _x( 'Removes user agent data from comments.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Purge User Agent Fields', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Removes user agent data from comments.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge User Agent Fields', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
 		$settings['_comments'][] = [
 			'field'       => 'comments_oldposts',
 			'type'        => 'button',
-			'description' => _x( 'Disables comments and pings on posts published before <b>last month</b>.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-			'default'     => _x( 'Close Comments on Old Posts', 'Modules: Cleanup: Settings', 'gnetwork' ),
+			'description' => _x( 'Disables comments and pings on posts published before <b>last month</b>.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Close Comments on Old Posts', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 
@@ -234,9 +234,9 @@ class Cleanup extends gNetwork\Module
 			$settings['_files'][] = [
 				'field'       => 'files_clean_core',
 				'type'        => 'button',
-				'title'       => _x( 'Files', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'description' => _x( 'Removes unnecessary files on your WordPress install.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'default'     => _x( 'Clean Core Files', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'title'       => _x( 'Files', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Removes unnecessary files on your WordPress install.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'default'     => _x( 'Clean Core Files', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 				'values'      => $confirm,
 			];
 
@@ -244,9 +244,9 @@ class Cleanup extends gNetwork\Module
 			$settings['_tables'][] = [
 				'field'       => 'db_table_obsolete',
 				'type'        => 'button',
-				'title'       => _x( 'DB Tables', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'description' => _x( 'Removes obsolete database tables on your WordPress install.', 'Modules: Cleanup: Settings', 'gnetwork' ),
-				'default'     => _x( 'Drop Obsolete Tables', 'Modules: Cleanup: Settings', 'gnetwork' ),
+				'title'       => _x( 'DB Tables', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Removes obsolete database tables on your WordPress install.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+				'default'     => _x( 'Drop Obsolete Tables', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 				'values'      => $confirm,
 			];
 
@@ -260,7 +260,7 @@ class Cleanup extends gNetwork\Module
 
 	public function render_tools( $uri, $sub = 'general' )
 	{
-		Settings::headerTitle( _x( 'Cleanup Tools', 'Modules: Cleanup', 'gnetwork' ) );
+		Settings::headerTitle( _x( 'Cleanup Tools', 'Modules: Cleanup', 'gnetwork-admin' ) );
 
 		$this->render_form_start( $uri, $sub, 'bulk', 'tools' );
 
@@ -1051,7 +1051,7 @@ class Cleanup extends gNetwork\Module
 			if ( $message )
 				Core\HTML::desc( sprintf(
 					/* translators: `%s`: filename */
-					_x( 'Removing %s &hellip;', 'Modules: Update', 'gnetwork' ),
+					_x( 'Removing %s &hellip;', 'Modules: Update', 'gnetwork-admin' ),
 					$file
 				) );
 

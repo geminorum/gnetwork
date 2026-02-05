@@ -148,15 +148,15 @@ class ShortCodes extends gNetwork\Module
 	public function register_shortcode_ui()
 	{
 		shortcode_ui_register_for_shortcode( 'ref', [
-			'label'         => Core\HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+			'label'         => Core\HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
 			'listItemImage' => 'dashicons-editor-quote',
 			'inner_content' => [
-				'label'       => Core\HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
-				'description' => Core\HTML::escape( _x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', 'gnetwork' ) ),
+				'label'       => Core\HTML::escape( _x( 'Reference', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
+				'description' => Core\HTML::escape( _x( 'Make a reference to an external source.', 'Modules: ShortCodes: UI: Description', 'gnetwork-admin' ) ),
 			],
 			'attrs' => [
 				[
-					'label'  => Core\HTML::escape( _x( 'External Resource', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label'  => Core\HTML::escape( _x( 'External Resource', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
 					'attr'   => 'url',
 					'type'   => 'text',
 					'encode' => TRUE,
@@ -166,42 +166,42 @@ class ShortCodes extends gNetwork\Module
 					],
 				],
 				[
-					'label' => Core\HTML::escape( _x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label' => Core\HTML::escape( _x( 'External Resource Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
 					'attr'  => 'url_title',
 					'type'  => 'text',
 					'meta'  => [
-						'placeholder' => Core\HTML::escape( _x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ),
+						'placeholder' => Core\HTML::escape( _x( 'Read more about it', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork-admin' ) ),
 					],
 				],
 			],
 		] );
 
 		shortcode_ui_register_for_shortcode( 'email', [
-			'label'         => Core\HTML::escape( _x( 'Email', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+			'label'         => Core\HTML::escape( _x( 'Email', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
 			'listItemImage' => 'dashicons-email-alt',
 			'inner_content' => [
-				'label'       => Core\HTML::escape( _x( 'Email Address', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
-				'description' => Core\HTML::escape( _x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', 'gnetwork' ) ),
+				'label'       => Core\HTML::escape( _x( 'Email Address', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
+				'description' => Core\HTML::escape( _x( 'Full email address to appear as link and cloaked against spam bots.', 'Modules: ShortCodes: UI: Description', 'gnetwork-admin' ) ),
 				'meta'        => [ 'dir' => 'ltr' ],
 			],
 			'attrs' => [
 				[
-					'label' => Core\HTML::escape( _x( 'Display Text', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label' => Core\HTML::escape( _x( 'Display Text', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
 					'attr'  => 'content',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
+					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'Email Me', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork-admin' ) ) ],
 				],
 				[
-					'label' => Core\HTML::escape( _x( 'Email Subject', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label' => Core\HTML::escape( _x( 'Email Subject', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
 					'attr'  => 'subject',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
+					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'About something important', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork-admin' ) ) ],
 				],
 				[
-					'label' => Core\HTML::escape( _x( 'Link Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork' ) ),
+					'label' => Core\HTML::escape( _x( 'Link Hover', 'Modules: ShortCodes: UI: Label', 'gnetwork-admin' ) ),
 					'attr'  => 'title',
 					'type'  => 'text',
-					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork' ) ) ],
+					'meta'  => [ 'placeholder' => Core\HTML::escape( _x( 'Jump right into it!', 'Modules: ShortCodes: UI: Placeholder', 'gnetwork-admin' ) ) ],
 				],
 			],
 		] );
@@ -210,26 +210,26 @@ class ShortCodes extends gNetwork\Module
 	public function tinymce_strings( $strings )
 	{
 		$new = [
-			'gnetworkref-title' => _x( 'Cite This', 'TinyMCE Strings: Ref', 'gnetwork' ),
-			'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'TinyMCE Strings: Ref', 'gnetwork' ),
-			'gnetworkref-text'  => _x( 'Ref Text', 'TinyMCE Strings: Ref', 'gnetwork' ),
-			'gnetworkref-url'   => _x( 'Ref URL', 'TinyMCE Strings: Ref', 'gnetwork' ),
+			'gnetworkref-title' => _x( 'Cite This', 'TinyMCE Strings: Ref', 'gnetwork-admin' ),
+			'gnetworkref-attr'  => _x( 'Cite This (Ctrl+Q)', 'TinyMCE Strings: Ref', 'gnetwork-admin' ),
+			'gnetworkref-text'  => _x( 'Ref Text', 'TinyMCE Strings: Ref', 'gnetwork-admin' ),
+			'gnetworkref-url'   => _x( 'Ref URL', 'TinyMCE Strings: Ref', 'gnetwork-admin' ),
 
-			'gnetworkemail-title'   => _x( 'Email', 'TinyMCE Strings: Email', 'gnetwork' ),
-			'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'TinyMCE Strings: Email', 'gnetwork' ),
-			'gnetworkemail-email'   => _x( 'Full Email', 'TinyMCE Strings: Email', 'gnetwork' ),
-			'gnetworkemail-text'    => _x( 'Display Text', 'TinyMCE Strings: Email', 'gnetwork' ),
-			'gnetworkemail-subject' => _x( 'Email Subject', 'TinyMCE Strings: Email', 'gnetwork' ),
-			'gnetworkemail-hover'   => _x( 'Link Hover', 'TinyMCE Strings: Email', 'gnetwork' ),
+			'gnetworkemail-title'   => _x( 'Email', 'TinyMCE Strings: Email', 'gnetwork-admin' ),
+			'gnetworkemail-attr'    => _x( 'Email (Ctrl+E)', 'TinyMCE Strings: Email', 'gnetwork-admin' ),
+			'gnetworkemail-email'   => _x( 'Full Email', 'TinyMCE Strings: Email', 'gnetwork-admin' ),
+			'gnetworkemail-text'    => _x( 'Display Text', 'TinyMCE Strings: Email', 'gnetwork-admin' ),
+			'gnetworkemail-subject' => _x( 'Email Subject', 'TinyMCE Strings: Email', 'gnetwork-admin' ),
+			'gnetworkemail-hover'   => _x( 'Link Hover', 'TinyMCE Strings: Email', 'gnetwork-admin' ),
 
-			'gnetworksearch-title' => _x( 'Search', 'TinyMCE Strings: Search', 'gnetwork' ),
-			'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'TinyMCE Strings: Search', 'gnetwork' ),
-			'gnetworksearch-text'  => _x( 'Display Text', 'TinyMCE Strings: Search', 'gnetwork' ),
-			'gnetworksearch-query' => _x( 'Override Criteria', 'TinyMCE Strings: Search', 'gnetwork' ),
+			'gnetworksearch-title' => _x( 'Search', 'TinyMCE Strings: Search', 'gnetwork-admin' ),
+			'gnetworksearch-attr'  => _x( 'Search (Ctrl+3)', 'TinyMCE Strings: Search', 'gnetwork-admin' ),
+			'gnetworksearch-text'  => _x( 'Display Text', 'TinyMCE Strings: Search', 'gnetwork-admin' ),
+			'gnetworksearch-query' => _x( 'Override Criteria', 'TinyMCE Strings: Search', 'gnetwork-admin' ),
 
-			'gnetworkgpeople-title' => _x( 'People', 'TinyMCE Strings: People', 'gnetwork' ),
-			'gnetworkgpeople-attr'  => _x( 'People', 'TinyMCE Strings: People', 'gnetwork' ),
-			'gnetworkgpeople-name'  => _x( 'Name', 'TinyMCE Strings: People', 'gnetwork' ),
+			'gnetworkgpeople-title' => _x( 'People', 'TinyMCE Strings: People', 'gnetwork-admin' ),
+			'gnetworkgpeople-attr'  => _x( 'People', 'TinyMCE Strings: People', 'gnetwork-admin' ),
+			'gnetworkgpeople-name'  => _x( 'Name', 'TinyMCE Strings: People', 'gnetwork-admin' ),
 		];
 
 		return array_merge( $strings, $new );
@@ -1825,7 +1825,7 @@ class ShortCodes extends gNetwork\Module
 
 			$name = sanitize_term_field( 'name', $term->name, $term->term_id, $term->taxonomy, 'display' );
 
-			// FIXME: must cache the term, not html
+			// FIXME: must cache the term, not HTML
 			$this->people[$person] = Core\HTML::tag( 'a', [
 				'href'  => get_term_link( $term, $term->taxonomy ),
 				'title' => $content == $name ? FALSE : $name,

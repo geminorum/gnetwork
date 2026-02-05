@@ -264,7 +264,7 @@ class Module extends WordPress\Module
 	{
 		$subs = [];
 
-		$subs['overview'] = _x( 'Overview', 'Module Core: Menu Name', 'gnetwork' );
+		$subs['overview'] = _x( 'Overview', 'Module Core: Menu Name', 'gnetwork-admin' );
 
 		foreach ( $this->get_menus( $context ) as $priority => $group )
 			foreach ( $group as $sub => $args )
@@ -272,7 +272,7 @@ class Module extends WordPress\Module
 					$subs[$sub] = $args['title'];
 
 		if ( 'settings' == $context && WordPress\User::isSuperAdmin() )
-			$subs['console'] = _x( 'Console', 'Module Core: Menu Name', 'gnetwork' );
+			$subs['console'] = _x( 'Console', 'Module Core: Menu Name', 'gnetwork-admin' );
 
 		return $subs;
 	}
@@ -793,62 +793,62 @@ class Module extends WordPress\Module
 
 	public function settings_section_misc()
 	{
-		Settings::fieldSection( _x( 'Miscellaneous', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Miscellaneous', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_styling()
 	{
-		Settings::fieldSection( _x( 'Styling', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Styling', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_admin()
 	{
-		Settings::fieldSection( _x( 'Administration', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Administration', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_front()
 	{
-		Settings::fieldSection( _x( 'Front-end', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Front-end', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_overrides()
 	{
-		Settings::fieldSection( _x( 'Overrides', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Overrides', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_services()
 	{
-		Settings::fieldSection( _x( 'Services', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Services', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_economics()
 	{
-		Settings::fieldSection( _x( 'Economics', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Economics', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_redirects()
 	{
-		Settings::fieldSection( _x( 'Redirects', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Redirects', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_login()
 	{
-		Settings::fieldSection( _x( 'Login', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Login', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_signup()
 	{
-		Settings::fieldSection( _x( 'Sign-up', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Sign-up', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_dashboard()
 	{
-		Settings::fieldSection( _x( 'Dashboard', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Dashboard', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	public function settings_section_adminbar()
 	{
-		Settings::fieldSection( _x( 'Admin-bar', 'Module Core: Settings', 'gnetwork' ) );
+		Settings::fieldSection( _x( 'Admin-bar', 'Module Core: Settings', 'gnetwork-admin' ) );
 	}
 
 	protected function settings_buttons( $sub = NULL )
@@ -880,7 +880,7 @@ class Module extends WordPress\Module
 			$args['type'] = 'debug';
 
 			if ( ! $args['title'] )
-				$args['title'] = _x( 'Debug', 'Module Core', 'gnetwork' );
+				$args['title'] = _x( 'Debug', 'Module Core', 'gnetwork-admin' );
 		}
 
 		add_settings_field(
@@ -912,15 +912,15 @@ class Module extends WordPress\Module
 		if ( method_exists( $this, 'get_shortcodes' ) )
 			$screen->add_help_tab( [
 				'id'      => $this->classs( 'help-shortcodes' ),
-				'title'   => _x( 'Extra Shortcodes', 'Module Core: Help Tab Title', 'gnetwork' ),
-				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', 'gnetwork' )
+				'title'   => _x( 'Extra Shortcodes', 'Module Core: Help Tab Title', 'gnetwork-admin' ),
+				'content' => '<p>'._x( 'These are extra shortcodes provided by this module:', 'Module Core: Help Tab Content', 'gnetwork-admin' )
 					.'</p>'.Core\HTML::listCode( $this->get_shortcodes(), '<code>[%1$s]</code>' ),
 			] );
 
 		if ( $options = $this->init_options( FALSE ) )
 			$screen->add_help_tab( [
 				'id'       => $this->classs( 'help-options' ),
-				'title'    => _x( 'Saved Options', 'Module Core: Help Tab Title', 'gnetwork' ),
+				'title'    => _x( 'Saved Options', 'Module Core: Help Tab Title', 'gnetwork-admin' ),
 				'content'  => Core\HTML::tableCode( $options ),
 				'priority' => 999,
 			] );
@@ -1063,7 +1063,7 @@ class Module extends WordPress\Module
 		echo Core\HTML::tag( 'a', [
 			'href'  => add_query_arg( 'flush', '' ),
 			'class' => [ '-description', '-refresh' ],
-		], _x( 'Please refresh the page to generate the data.', 'Module Core', 'gnetwork' ) );
+		], _x( 'Please refresh the page to generate the data.', 'Module Core', 'gnetwork-admin' ) );
 
 		echo $after; // WPCS: XSS ok;
 
@@ -1079,8 +1079,8 @@ class Module extends WordPress\Module
 	{
 		return self::metabox_getTitleAction( [
 			'url'   => add_query_arg( 'flush', '' ),
-			'title' => _x( 'Click to refresh the content', 'Module Core: Title Action', 'gnetwork' ),
-			'link'  => _x( 'Refresh', 'Module Core: Title Action', 'gnetwork' ),
+			'title' => _x( 'Click to refresh the content', 'Module Core: Title Action', 'gnetwork-admin' ),
+			'link'  => _x( 'Refresh', 'Module Core: Title Action', 'gnetwork-admin' ),
 		] );
 	}
 
@@ -1376,7 +1376,7 @@ class Module extends WordPress\Module
 			'name'        => $name,
 			'value'       => self::req( $name, '' ),
 			'class'       => '-search',
-			'placeholder' => _x( 'Search', 'Tablelist: Filter', 'gnetwork' ),
+			'placeholder' => _x( 'Search', 'Tablelist: Filter', 'gnetwork-admin' ),
 		] );
 	}
 

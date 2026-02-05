@@ -29,7 +29,7 @@ class OpenSearch extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'OpenSearch', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'OpenSearch', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -56,36 +56,36 @@ class OpenSearch extends gNetwork\Module
 				[
 					'field'       => 'opensearch',
 					'type'        => 'enabled',
-					'title'       => _x( 'OpenSearch', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'OpenSearch support for this blog.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'OpenSearch', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'OpenSearch support for this blog.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					'default'     => '0',
 				],
 				[
 					'field'       => 'suggestions',
 					'type'        => 'enabled',
-					'title'       => _x( 'Suggestions', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'OpenSearch Suggestions support for this site.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'Suggestions', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'OpenSearch Suggestions support for this site.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					'default'     => '0',
 				],
 				[
 					'field'       => 'shortname',
 					'type'        => 'text',
-					'title'       => _x( 'ShortName', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'A short name for the search engine. <b>16</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'ShortName', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'A short name for the search engine. <b>16</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					'default'     => $name,
 					'field_class' => 'medium-text',
 				],
 				[
 					'field'       => 'longname',
 					'type'        => 'text',
-					'title'       => _x( 'LongName', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'An extended name for the search engine. <b>48</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'LongName', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'An extended name for the search engine. <b>48</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'description',
 					'type'        => 'textarea',
-					'title'       => _x( 'Description', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'Description', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'A brief description of the search engine. <b>1024</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					'default'     => sprintf(
 						/* translators: `%s`: site name */
 						_x( 'Search %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
@@ -95,8 +95,8 @@ class OpenSearch extends gNetwork\Module
 				[
 					'field'       => 'attribution',
 					'type'        => 'text',
-					'title'       => _x( 'Attribution', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'Attribution', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'A list of all sources or entities that should be credited. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					'field_class' => 'large-text',
 					'default'     => sprintf(
 						/* translators: `%s`: site name */
@@ -107,28 +107,28 @@ class OpenSearch extends gNetwork\Module
 				[
 					'field'       => 'syndication',
 					'type'        => 'select',
-					'title'       => _x( 'Syndication Right', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'Indicates the degree to which the search results provided.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'Syndication Right', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Indicates the degree to which the search results provided.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					'default'     => 'open',
 					'values'      => [
-						'open'    => _x( 'Open', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-						'limited' => _x( 'Limited', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-						'private' => _x( 'Private', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-						'closed'  => _x( 'Closed', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+						'open'    => _x( 'Open', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+						'limited' => _x( 'Limited', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+						'private' => _x( 'Private', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+						'closed'  => _x( 'Closed', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					],
 				],
 				[
 					'field'       => 'contact',
 					'type'        => 'email',
-					'title'       => _x( 'Contact', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'An email address at which the maintainer of the search engine can be reached.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'Contact', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'An email address at which the maintainer of the search engine can be reached.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					'default'     => get_network_option( NULL, 'admin_email' ),
 				],
 				[
 					'field'       => 'tags',
 					'type'        => 'text',
-					'title'       => _x( 'Tags', 'Modules: OpenSearch: Settings', 'gnetwork' ),
-					'description' => _x( 'A set of words that are used as keywords to identify and categorize this search content. Single words and are delimited by space. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+					'title'       => _x( 'Tags', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'A set of words that are used as keywords to identify and categorize this search content. Single words and are delimited by space. <b>256</b> chars or less, no HTML.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 					'field_class' => 'large-text',
 				],
 			],
@@ -143,7 +143,7 @@ class OpenSearch extends gNetwork\Module
 
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: manifest link */
-				_x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork' ),
+				_x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
 				Core\HTML::code( Core\HTML::link(
 					Core\URL::relative( $manifest ),
 					$manifest,
@@ -153,7 +153,7 @@ class OpenSearch extends gNetwork\Module
 
 		} else {
 
-			Core\HTML::desc( _x( 'There is no manifest available.', 'Modules: OpenSearch: Settings', 'gnetwork' ) );
+			Core\HTML::desc( _x( 'There is no manifest available.', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ) );
 		}
 	}
 
@@ -162,7 +162,7 @@ class OpenSearch extends gNetwork\Module
 		return [
 			 [
 				'id'      => $this->classs( 'help' ),
-				'title'   => _x( 'OpenSearch', 'Modules: OpenSearch: Help Tab Title', 'gnetwork' ),
+				'title'   => _x( 'OpenSearch', 'Modules: OpenSearch: Help Tab Title', 'gnetwork-admin' ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
 					<p>This site\'s OpenSearch description file is located on:<br />'.Core\HTML::link( NULL, self::getManifestURL() ).'</p>
 				<p>Fore more information:<br />

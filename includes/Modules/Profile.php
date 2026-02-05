@@ -71,7 +71,7 @@ class Profile extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_menu( _x( 'Profile', 'Modules: Menu Name', 'gnetwork' ) );
+		$this->register_menu( _x( 'Profile', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
 	public function default_options()
@@ -98,43 +98,43 @@ class Profile extends gNetwork\Module
 		if ( $multisite )
 			$settings['_general'][] = [
 				'field'       => 'display_name_per_site',
-				'title'       => _x( 'Custom Display Name', 'Modules: Profile: Settings', 'gnetwork' ),
-				'description' => _x( 'Enables custom display name per-site for each user.', 'Modules: Profile: Settings', 'gnetwork' ),
+				'title'       => _x( 'Custom Display Name', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+				'description' => _x( 'Enables custom display name per-site for each user.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 			];
 
 		$settings['_general'][] = [
 			'field'       => 'disable_password_reset',
 			'type'        => 'disabled',
-			'title'       => _x( 'Password Reset', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Controls whether to allow a password to be reset.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'Password Reset', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Controls whether to allow a password to be reset.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'disable_colorschemes',
 			'type'        => 'disabled',
-			'title'       => _x( 'Color Schemes', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Controls whether to allow a selection of admin color scheme.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'Color Schemes', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Controls whether to allow a selection of admin color scheme.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'contact_methods',
-			'title'       => _x( 'Contact Methods', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Adds extra contact methods to user profiles.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'Contact Methods', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Adds extra contact methods to user profiles.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 			'default'     => '1',
 		];
 
 		$settings['_general'][] = [
 			'field'       => 'user_locale',
-			'title'       => _x( 'User Language', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Enables admin language switcher for each user.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'User Language', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Enables admin language switcher for each user.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 			'after'       => Settings::fieldAfterIcon( 'https://core.trac.wordpress.org/ticket/29783' ),
 		];
 
 		$settings['_signup'][] = [
 			'field'       => 'page_signup_disabled',
 			'type'        => 'page',
-			'title'       => _x( 'Disabled Page', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Redirects network sign-up into this page, if registration have been <b>disabled</b>.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'Disabled Page', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Redirects network sign-up into this page, if registration have been <b>disabled</b>.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 			'default'     => '0',
 			'exclude'     => Settings::getPageExcludes(),
 			'after'       => Settings::fieldAfterNewPostType( 'page' ),
@@ -143,40 +143,40 @@ class Profile extends gNetwork\Module
 		$settings['_signup'][] = [
 			'field'       => 'redirect_signup_url',
 			'type'        => 'text', // `url` will not work on relative URLs
-			'title'       => _x( 'Custom Location', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Full URL to the custom sign-up page.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'Custom Location', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Full URL to the custom sign-up page.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 			'field_class' => [ 'regular-text', 'url-text' ],
 		];
 
 		$settings['_signup'][] = [
 			'field'       => 'redirect_signup_after',
 			'type'        => 'text', // `url` will not work on relative URLs
-			'title'       => _x( 'Location After', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Redirects into this URL after a successful registraion.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'Location After', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Redirects into this URL after a successful registraion.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 			'field_class' => [ 'regular-text', 'url-text' ],
 		];
 
 		$settings['_signup'][] = [
 			'field'       => 'store_signup_ip',
-			'title'       => _x( 'IP Address', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Stores user\'s IP address upon registration.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'IP Address', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Stores user\'s IP address upon registration.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 			'default'     => '1',
 		];
 
 		$settings['_signup'][] = [
 			'field'       => 'default_colorscheme',
 			'type'        => 'select',
-			'title'       => _x( 'Default Color Scheme', 'Modules: Profile: Settings', 'gnetwork' ),
-			'description' => _x( 'Sets as default upon each user registeration.', 'Modules: Profile: Settings', 'gnetwork' ),
+			'title'       => _x( 'Default Color Scheme', 'Modules: Profile: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Sets as default upon each user registeration.', 'Modules: Profile: Settings', 'gnetwork-admin' ),
 			'values'      => [
-				'0'         => _x( 'Default', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-				'light'     => _x( 'Light', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-				'blue'      => _x( 'Blue', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-				'coffee'    => _x( 'Coffee', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-				'ectoplasm' => _x( 'Ectoplasm', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-				'midnight'  => _x( 'Midnight', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-				'ocean'     => _x( 'Ocean', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
-				'sunrise'   => _x( 'Sunrise', 'Modules: Profile: Settings: Color Scheme', 'gnetwork' ),
+				'0'         => _x( 'Default', 'Modules: Profile: Settings: Color Scheme', 'gnetwork-admin' ),
+				'light'     => _x( 'Light', 'Modules: Profile: Settings: Color Scheme', 'gnetwork-admin' ),
+				'blue'      => _x( 'Blue', 'Modules: Profile: Settings: Color Scheme', 'gnetwork-admin' ),
+				'coffee'    => _x( 'Coffee', 'Modules: Profile: Settings: Color Scheme', 'gnetwork-admin' ),
+				'ectoplasm' => _x( 'Ectoplasm', 'Modules: Profile: Settings: Color Scheme', 'gnetwork-admin' ),
+				'midnight'  => _x( 'Midnight', 'Modules: Profile: Settings: Color Scheme', 'gnetwork-admin' ),
+				'ocean'     => _x( 'Ocean', 'Modules: Profile: Settings: Color Scheme', 'gnetwork-admin' ),
+				'sunrise'   => _x( 'Sunrise', 'Modules: Profile: Settings: Color Scheme', 'gnetwork-admin' ),
 			],
 		];
 
@@ -191,7 +191,7 @@ class Profile extends gNetwork\Module
 
 			echo Core\HTML::error( sprintf(
 				/* translators: `%s`: upload error */
-				_x( 'Before you can upload a file, you will need to fix the following error: %s', 'Modules: Profile', 'gnetwork' ),
+				_x( 'Before you can upload a file, you will need to fix the following error: %s', 'Modules: Profile', 'gnetwork-admin' ),
 				'<b>'.$wpupload['error'].'</b>'
 			), FALSE );
 
@@ -210,10 +210,10 @@ class Profile extends gNetwork\Module
 
 				$size = Core\File::formatSize( apply_filters( 'import_upload_size_limit', wp_max_upload_size() ) );
 
-				Settings::submitButton( 'import_users_csv', _x( 'Import Users', 'Modules: Profile', 'gnetwork' ), 'small' );
+				Settings::submitButton( 'import_users_csv', _x( 'Import Users', 'Modules: Profile', 'gnetwork-admin' ), 'small' );
 				Core\HTML::desc( sprintf(
 					/* translators: `%s`: maximum file size */
-					_x( 'Upload a list of users in CSV. Maximum size: <b>%s</b>', 'Modules: Profile', 'gnetwork' ),
+					_x( 'Upload a list of users in CSV. Maximum size: <b>%s</b>', 'Modules: Profile', 'gnetwork-admin' ),
 					Core\HTML::wrapLTR( $size )
 				), FALSE );
 
@@ -223,8 +223,8 @@ class Profile extends gNetwork\Module
 
 		echo $this->wrap_open_buttons();
 
-			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: Profile', 'gnetwork' ), 'small' );
-			Core\HTML::desc( _x( 'Click to get all registered users in CSV.', 'Modules: Profile', 'gnetwork' ), FALSE );
+			Settings::submitButton( 'export_users_csv', _x( 'Export Users', 'Modules: Profile', 'gnetwork-admin' ), 'small' );
+			Core\HTML::desc( _x( 'Click to get all registered users in CSV.', 'Modules: Profile', 'gnetwork-admin' ), FALSE );
 
 		echo '</p>';
 	}
@@ -234,7 +234,7 @@ class Profile extends gNetwork\Module
 		return [
 			[
 				'id'      => $this->classs( 'contact-methods' ),
-				'title'   => _x( 'Contact Methods', 'Modules: Profile: Help Tab Title', 'gnetwork' ),
+				'title'   => _x( 'Contact Methods', 'Modules: Profile: Help Tab Title', 'gnetwork-admin' ),
 				'content' => Core\HTML::tableCode( wp_get_user_contact_methods(), TRUE ),
 			],
 		];
@@ -375,7 +375,7 @@ class Profile extends gNetwork\Module
 	public function admin_notices()
 	{
 		if ( $this->is_request_action( 'edit-profile-banned' ) )
-			echo Core\HTML::warning( _x( 'Sorry, you are not allowed to edit your profile.', 'Modules: Profile', 'gnetwork' ) );
+			echo Core\HTML::warning( _x( 'Sorry, you are not allowed to edit your profile.', 'Modules: Profile', 'gnetwork-admin' ) );
 	}
 
 	public function setup_screen( $screen )
@@ -460,7 +460,7 @@ class Profile extends gNetwork\Module
 		$store_lastlogin = gNetwork()->option( 'login', 'store_lastlogin', TRUE );
 		$profileuser     = get_user_to_edit( $GLOBALS['user_id'] );
 
-		echo '><h2>'._x( 'Account Information', 'Modules: Profile', 'gnetwork' ).'</h2>';
+		echo '><h2>'._x( 'Account Information', 'Modules: Profile', 'gnetwork-admin' ).'</h2>';
 		echo '<table class="form-table">';
 
 		if ( isset( $profileuser->register_ip )
@@ -469,7 +469,7 @@ class Profile extends gNetwork\Module
 		else
 			$register_ip = gNetwork()->na();
 
-		echo '<tr class="register_ip"><th>'._x( 'Registration IP', 'Modules: Profile', 'gnetwork' )
+		echo '<tr class="register_ip"><th>'._x( 'Registration IP', 'Modules: Profile', 'gnetwork-admin' )
 			.'</th><td>'.$register_ip.'</td></tr>';
 
 		$register_date = Core\Date::timestamp( $profileuser->user_registered );
@@ -479,7 +479,7 @@ class Profile extends gNetwork\Module
 			.')</span></small></small>';
 
 		echo '<tr class="register_date"><th>'
-				._x( 'Registration on', 'Modules: Profile', 'gnetwork' )
+				._x( 'Registration on', 'Modules: Profile', 'gnetwork-admin' )
 			.'</th><td>'.$register_on.'</td></tr>';
 
 		if ( $store_lastlogin || current_user_can( 'edit_users' ) ) {
@@ -495,16 +495,16 @@ class Profile extends gNetwork\Module
 			}
 
 			echo '<tr class="last_login'.( $store_lastlogin ? '' : ' error' ).'"><th>'
-					._x( 'Last Login', 'Modules: Profile', 'gnetwork' )
+					._x( 'Last Login', 'Modules: Profile', 'gnetwork-admin' )
 				.'</th><td>'
 					.$lastlogin
-					.( $store_lastlogin ? '' : ' &mdash; <strong>'._x( 'Last Logins are Disabled.', 'Modules: Profile', 'gnetwork' ).'</strong>' )
+					.( $store_lastlogin ? '' : ' &mdash; <strong>'._x( 'Last Logins are Disabled.', 'Modules: Profile', 'gnetwork-admin' ).'</strong>' )
 				.'</td></tr>';
 		}
 
 		if ( current_user_can( 'edit_users' ) ) {
 
-			echo '</table><h2>'._x( 'Administrative Options', 'Modules: Profile', 'gnetwork' ).'</h2>';
+			echo '</table><h2>'._x( 'Administrative Options', 'Modules: Profile', 'gnetwork-admin' ).'</h2>';
 			echo '<table class="form-table">';
 
 			$nicename = $profileuser->user_login == $profileuser->user_nicename
@@ -512,40 +512,40 @@ class Profile extends gNetwork\Module
 				: $profileuser->user_nicename;
 
 			$name_nicename = $this->hook( 'nicename' );
-			echo '<tr><th><label for="'.$name_nicename.'">'._x( 'Slug', 'Modules: Profile', 'gnetwork' )
+			echo '<tr><th><label for="'.$name_nicename.'">'._x( 'Slug', 'Modules: Profile', 'gnetwork-admin' )
 				.'</label></th><td><input type="text" name="'.$name_nicename.'" id="'.$name_nicename.'" value="'
 				.Core\HTML::escape( $nicename ).'" class="regular-text" dir="ltr" /><p class="description">'.
-					_x( 'This will be used in the URL of the user\'s page.', 'Modules: Profile', 'gnetwork' )
+					_x( 'This will be used in the URL of the user\'s page.', 'Modules: Profile', 'gnetwork-admin' )
 				.'</p></td></tr>';
 
 			// prevents locking himself out!
 			if ( ! IS_PROFILE_PAGE ) {
 
 				$name_disable = $this->hook( 'disable_user' );
-				echo '<tr><th>'._x( 'Account Login', 'Modules: Profile', 'gnetwork' )
+				echo '<tr><th>'._x( 'Account Login', 'Modules: Profile', 'gnetwork-admin' )
 					.'</th><td><label for="'.$name_disable.'">'
 					.'<input type="checkbox" name="'.$name_disable.'" id="'.$name_disable.'" value="1"';
 						checked( 1, get_the_author_meta( 'disable_user', $profileuser->ID ) );
-				echo ' /> '._x( 'Disable user login with this account', 'Modules: Profile', 'gnetwork' )
+				echo ' /> '._x( 'Disable user login with this account', 'Modules: Profile', 'gnetwork-admin' )
 					.'</label></td></tr>';
 
 				$edit_disable = $this->hook( 'disable_edit' );
-				echo '<tr><th>'._x( 'Profile Edit', 'Modules: Profile', 'gnetwork' )
+				echo '<tr><th>'._x( 'Profile Edit', 'Modules: Profile', 'gnetwork-admin' )
 					.'</th><td><label for="'.$edit_disable.'">'
 					.'<input type="checkbox" name="'.$edit_disable.'" id="'.$edit_disable.'" value="1"';
 						checked( 1, get_the_author_meta( 'disable_edit', $profileuser->ID ) );
-				echo ' /> '._x( 'Ban this user to edit profile', 'Modules: Profile', 'gnetwork' )
+				echo ' /> '._x( 'Ban this user to edit profile', 'Modules: Profile', 'gnetwork-admin' )
 					.'</label></td></tr>';
 			}
 
 			if ( $this->options['disable_password_reset'] ) {
 
 				$name_reset = $this->hook( 'password_reset' );
-				echo '<tr><th>'._x( 'Password Reset', 'Modules: Profile', 'gnetwork' )
+				echo '<tr><th>'._x( 'Password Reset', 'Modules: Profile', 'gnetwork-admin' )
 					.'</th><td><label for="'.$name_reset.'">'
 					.'<input type="checkbox" name="'.$name_reset.'" id="'.$name_reset.'" value="1"';
 						checked( 1, get_the_author_meta( 'disable_password_reset', $profileuser->ID ) );
-				echo ' /> '._x( 'Disable this account password reset via default login page', 'Modules: Profile', 'gnetwork' )
+				echo ' /> '._x( 'Disable this account password reset via default login page', 'Modules: Profile', 'gnetwork-admin' )
 					.'</label></td></tr>';
 			}
 		}
@@ -626,18 +626,18 @@ class Profile extends gNetwork\Module
 	{
 		if ( is_multisite() && ! is_network_admin() && ! is_user_admin() ) {
 
-			echo '</table><h2>'._x( 'Site Options', 'Modules: Profile', 'gnetwork' ).'</h2>';
+			echo '</table><h2>'._x( 'Site Options', 'Modules: Profile', 'gnetwork-admin' ).'</h2>';
 			echo '<table class="form-table">';
 
 			$site = get_current_blog_id();
 			$name = empty( $profileuser->custom_display_name[$site] ) ? FALSE : $profileuser->custom_display_name[$site];
 
 			echo '<tr><th><label for="custom_display_name">'
-				._x( 'Nickname for this site', 'Modules: Profile', 'gnetwork' )
+				._x( 'Nickname for this site', 'Modules: Profile', 'gnetwork-admin' )
 				.'</label></th><td><input type="text" name="custom_display_name" id="custom_display_name" value="'
 				.( $name ? Core\HTML::escape( $name ) : '' )
 				.'" class="regular-text" /><p class="description">'
-					._x( 'This will be displayed as your name in this site only.', 'Modules: Profile', 'gnetwork' )
+					._x( 'This will be displayed as your name in this site only.', 'Modules: Profile', 'gnetwork-admin' )
 				.'</p></td></tr>';
 
 			echo '</table><table class="form-table">';
@@ -863,17 +863,17 @@ class Profile extends gNetwork\Module
 
 		$key = $this->hook( $meta );
 
-		echo '</table><h2>'._x( 'Private Information', 'Modules: Profile', 'gnetwork' ).'</h2>';
+		echo '</table><h2>'._x( 'Private Information', 'Modules: Profile', 'gnetwork-admin' ).'</h2>';
 		echo '<table class="form-table">';
 
 		echo '<tr><th><label for="'.$key.'">'
-			._x( 'Identity Number', 'Modules: Profile', 'gnetwork' )
+			._x( 'Identity Number', 'Modules: Profile', 'gnetwork-admin' )
 			.'</label></th><td><input type="text" name="'.$key.'" id="'.$key.'" value="'
 			.( empty( $profileuser->{$meta} ) ? '' : Core\HTML::escape( $profileuser->{$meta} ) )
 			.'" class="regular-text -identity-number"'
 			.' pattern="'.Core\Validation::getIdentityNumberHTMLPattern().'"'
 			.' dir="ltr" data-ortho="identity" /><p class="description">'
-				._x( 'National Identity or Social Security Number for private use only.', 'Modules: Profile', 'gnetwork' )
+				._x( 'National Identity or Social Security Number for private use only.', 'Modules: Profile', 'gnetwork-admin' )
 			.'</p></td></tr>';
 
 		echo '</table><table class="form-table">';
