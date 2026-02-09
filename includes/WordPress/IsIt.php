@@ -34,6 +34,32 @@ class IsIt extends Core\Base
 	}
 
 	/**
+	 * Determine whether the current request is for an AMP page.
+	 * @see https://amp-wp.org/reference/function/amp_is_request/
+	 *
+	 * This function cannot be called before the parse_query action because it
+	 * needs to be able to determine the queried object is able to be served
+	 * as AMP. If 'amp' theme support is not present, this function returns true
+	 * just if the query var is present. If theme support is present, then it
+	 * returns true in transitional mode if an AMP template is available and
+	 * the query var is present, or else in standard mode if just the template
+	 * is available.
+	 *
+	 * @return bool
+	 */
+	public static function amp()
+	{
+		if ( function_exists( 'amp_is_request' ) )
+			return amp_is_request();
+
+		// This function has been deprecated.
+		if ( function_exists( 'is_amp_endpoint' ) )
+			return is_amp_endpoint();
+
+		return FALSE;
+	}
+
+	/**
 	 * Determines whether the current request is for the customize preview screen.
 	 * NOTE: wrapper for `is_customize_preview()` @since WP 4.0.0
 	 *
@@ -329,5 +355,53 @@ class IsIt extends Core\Base
 			return TRUE;
 
 		return FALSE;
+	}
+
+	public static function contentHasPages()
+	{
+		global $pages;
+
+		if ( empty( $pages ) )
+			return FALSE;
+
+		$count = is_array( $pages ) ? count( $pages ) : 0;
+
+		if ( is_array( $pages ) && $count < 2 )
+			return FALSE;
+
+		return $count;
+	}
+
+	public static function contentCurrentPage()
+	{
+		global $page;
+
+		if ( empty( $page ) )
+			return 1;
+
+		return (int) $page;
+	}
+
+	public static function contentFirstPage()
+	{
+		global $page;
+
+		if ( empty( $page ) )
+			return TRUE;
+
+		return 1 === ( (int) $page );
+	}
+
+	public static function contentLastPage()
+	{
+		global $page;
+
+		if ( empty( $page ) )
+			return TRUE;
+
+		if ( ! $pages = self::contentHasPages() )
+			return TRUE;
+
+		return $page === $pages;
 	}
 }

@@ -4,6 +4,20 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 use geminorum\gNetwork\Core;
 
+/***
+	[Summary of Roles](https://wordpress.org/documentation/article/roles-and-capabilities/#summary-of-roles)
+	--------------------------------------------------------------------------------------------------------
+
+	-   [Super Admin]: somebody with access to the site network administration features and all other features. See the [Create a Network](https://wordpress.org/support/article/create-a-network/)article.
+	-   [Administrator]: (*slug: 'administrator'*) -- somebody who has access to all the administration features within a single site.
+	-   [Editor]: (*slug: 'editor'*) -- somebody who can publish and manage posts including the posts of other users.
+	-   [Author]: (*slug: 'author'*) -- somebody who can publish and manage their own posts.
+	-   [Contributor]: (*slug: 'contributor'*) -- somebody who can write and manage their own posts but cannot publish them.
+	-   [Subscriber]: (*slug: 'subscriber'*) -- somebody who can only manage their profile.
+
+	Upon installing WordPress, an Administrator account is automatically created.
+***/
+
 class Role extends Core\Base
 {
 

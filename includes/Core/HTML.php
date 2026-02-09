@@ -11,6 +11,11 @@ class HTML extends Base
 		return L10n::rtl();
 	}
 
+	public static function dir()
+	{
+		return L10n::rtl() ? 'rtl' : 'ltr';
+	}
+
 	public static function link( $html, $link = '#', $target_blank = FALSE )
 	{
 		if ( is_null( $html ) )
@@ -29,7 +34,7 @@ class HTML extends Base
 	{
 		return '<a class="'.self::prepClass( '-mailto', $class ).'"'
 			.' href="mailto:'.trim( $email ).'"'
-			.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
+			.( $title ? ' data-bs-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
 			.'>'.( $content ?? self::wrapLTR( trim( $email ) ) )
 		.'</a>';
 	}
@@ -39,7 +44,7 @@ class HTML extends Base
 		return '<a class="'.self::prepClass( '-tel', $class ).'"'
 			.' href="'.self::prepURLforTel( $number ).'"'
 			.' data-tel-number="'.self::escape( $number ).'"'
-			.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
+			.( $title ? ' data-bs-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
 			.'>'.( $content ?? self::wrapLTR( Number::localize( $number ) ) )
 		.'</a>';
 	}
@@ -51,7 +56,7 @@ class HTML extends Base
 
 		return '<a class="'.self::prepClass( '-geo', $class )
 			.'" href="'.self::prepURLforGeo( $data )
-			.'"'.( $title ? ' data-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
+			.'"'.( $title ? ' data-bs-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
 			.' data-geo-data="'.self::escape( $data ).'">'
 			.self::wrapLTR( $content ).'</a>';
 	}
@@ -93,27 +98,38 @@ class HTML extends Base
 		if ( $html ) echo self::tag( 'h4', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
 	}
 
-	public static function inline( $tag, $string, $class = FALSE, $click_to_copy = FALSE )
+	public static function inline( $tag, $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
 	{
 		return ( empty( $string ) && '0' !== $string ) ? '' : self::tag( $tag, [
+			'title' => $title,
 			'class' => self::attrClass( $class, $click_to_copy ? 'do-clicktoclip' : '' ),
 			'data'  => $click_to_copy ? [ 'clipboard-text' => TRUE === $click_to_copy ? $string : $click_to_copy ] : FALSE,
 		], $string );
 	}
 
-	public static function code( $string, $class = FALSE, $click_to_copy = FALSE )
+	public static function code( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
 	{
-		return self::inline( 'code', $string, $class, $click_to_copy );
+		return self::inline( 'code', $string, $class, $click_to_copy, $title );
 	}
 
-	public static function span( $string, $class = FALSE, $click_to_copy = FALSE )
+	public static function span( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
 	{
-		return self::inline( 'span', $string, $class, $click_to_copy );
+		return self::inline( 'span', $string, $class, $click_to_copy, $title );
 	}
 
-	public static function mark( $string, $class = FALSE, $click_to_copy = FALSE )
+	public static function mark( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
 	{
-		return self::inline( 'mark', $string, $class, $click_to_copy );
+		return self::inline( 'mark', $string, $class, $click_to_copy, $title );
+	}
+
+	public static function em( $string, $class = FALSE, $space = FALSE )
+	{
+		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'em', [ 'class' => $class ], $string );
+	}
+
+	public static function strong( $string, $class = FALSE, $space = FALSE )
+	{
+		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'strong', [ 'class' => $class ], $string );
 	}
 
 	public static function small( $string, $class = FALSE, $space = FALSE )
@@ -1232,7 +1248,7 @@ class HTML extends Base
 			'all'      => FALSE,
 			'next'     => FALSE,
 			'previous' => FALSE,
-			'rtl'      => self::rtl(),
+			'rtl'      => L10n::rtl(),
 		], $pagination );
 
 		$icons = self::atts( [
@@ -1459,46 +1475,53 @@ class HTML extends Base
 
 	// TODO: Move to `WordPress\Screen`
 	// TODO: migrate to `wp_get_admin_notice()` @since WP 6.4.0
-	// @REF: https://codex.wordpress.org/Plugin_API/Action_Reference/admin_notices
-	// CLASSES: `notice-error`, `notice-warning`, `notice-success`, `notice-info`, `is-dismissible`, `fade`, `inline`
-	public static function notice( $notice, $class = 'notice-success fade', $dismissible = TRUE )
+	// @SEE: https://make.wordpress.org/core/2023/10/16/introducing-admin-notice-functions-in-wordpress-6-4/
+	// @REF: https://developer.wordpress.org/reference/hooks/admin_notices/
+	public static function notice( $notice, $class = NULL, $dismissible = TRUE )
 	{
-		return sprintf( '<div class="notice %s%s -notice">%s</div>', $class, ( $dismissible ? ' is-dismissible' : '' ), Text::autoP( $notice ) );
+		return self::tag( 'div', [
+			'class' => self::attrClass(
+				'notice',
+				$class ?? 'notice-success',
+				$dismissible ? 'is-dismissible' : '',
+				'-notice',
+			),
+		], Text::autoP( $notice ) );
 	}
 
-	public static function error( $notice, $dismissible = TRUE, $extra = '' )
+	public static function error( $notice, $dismissible = TRUE, $extra = [] )
 	{
-		return self::notice( $notice, 'notice-error fade '.self::prepClass( $extra ), $dismissible );
+		return self::notice( $notice, self::attrClass( 'notice-error', $extra ), $dismissible );
 	}
 
-	public static function success( $notice, $dismissible = TRUE, $extra = '' )
+	public static function success( $notice, $dismissible = TRUE, $extra = [] )
 	{
-		return self::notice( $notice, 'notice-success fade '.self::prepClass( $extra ), $dismissible );
+		return self::notice( $notice, self::attrClass( 'notice-success', $extra ), $dismissible );
 	}
 
-	public static function warning( $notice, $dismissible = TRUE, $extra = '' )
+	public static function warning( $notice, $dismissible = TRUE, $extra = [] )
 	{
-		return self::notice( $notice, 'notice-warning fade '.self::prepClass( $extra ), $dismissible );
+		return self::notice( $notice, self::attrClass( 'notice-warning', $extra ), $dismissible );
 	}
 
-	public static function info( $notice, $dismissible = TRUE, $extra = '' )
+	public static function info( $notice, $dismissible = TRUE, $extra = [] )
 	{
-		return self::notice( $notice, 'notice-info fade '.self::prepClass( $extra ), $dismissible );
+		return self::notice( $notice, self::attrClass( 'notice-info', $extra ), $dismissible );
 	}
 
 	// @REF: https://developer.wordpress.org/resource/dashicons/
-	public static function getDashicon( $icon = NULL, $title = FALSE, $class = '' )
+	public static function getDashicon( $icon = NULL, $title = FALSE, $class = '', $atts = [] )
 	{
 		$icon = $icon ?? 'wordpress-alt';
 
 		if ( ! Text::starts( $icon, 'dashicons-' ) )
 			$icon = sprintf( 'dashicons-%s', $icon );
 
-		return self::tag( 'span', [
+		return self::tag( 'span', array_merge( [
 			'data-icon' => 'dashicons',
 			'title'     => $title,
 			'class'     => self::attrClass( 'dashicons', $icon, $class ),
-		], NULL );
+		], $atts ), NULL );
 	}
 
 	public static function radioSelect( $list, $atts = [] )
@@ -1839,6 +1862,7 @@ class HTML extends Base
 
 					if ( $is_open )
 						$grab_open = FALSE;
+
 					else
 						$stripped++;
 
@@ -1853,6 +1877,7 @@ class HTML extends Base
 						$tag = '';
 
 					} else if ( $is_close ) {
+
 						$is_close = FALSE;
 						array_pop( $tags );
 						$tag = '';
@@ -1873,7 +1898,7 @@ class HTML extends Base
 		}
 
 		while ( $tags )
-			$result.= '</'.array_pop($tags).'>';
+			$result.= '</'.array_pop( $tags ).'>';
 
 		return $result;
 	}

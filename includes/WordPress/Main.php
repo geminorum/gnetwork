@@ -73,18 +73,18 @@ class Main extends Core\Base
 
 	protected static function actions( $hook, ...$args )
 	{
-		return do_action( sprintf( '%s%s_%s',
+		return do_action( Core\Text::underlined(
 			static::BASE,
-			static::MODULE ? sprintf( '_%s', static::MODULE ) : '',
+			static::MODULE,
 			$hook
 		), ...$args );
 	}
 
 	protected static function filters( $hook, ...$args )
 	{
-		return apply_filters( sprintf( '%s%s_%s',
+		return apply_filters( Core\Text::underlined(
 			static::BASE,
-			static::MODULE ? sprintf( '_%s', static::MODULE ) : '',
+			static::MODULE,
 			$hook
 		), ...$args );
 	}

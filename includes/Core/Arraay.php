@@ -31,6 +31,36 @@ class Arraay extends Base
 		return empty( $text ) ? [ $default ] : self::prepString( preg_split( '//u', $text, -1, PREG_SPLIT_NO_EMPTY ), [ $default ] );
 	}
 
+	public static function trimText( $input, $filter = TRUE, $additional = NULL )
+	{
+		if ( empty ( $input ) )
+			return $input;
+
+		$array = array_map(
+			static function ( $value ) use ( $additional ) {
+				return Text::trim( $value, $additional );
+			}, $input );
+
+		return $filter
+			? array_values( array_unique( array_filter( $array ) ) )
+			: $array;
+	}
+
+	public static function trimTextQuotes( $input, $filter = TRUE, $list = NULL )
+	{
+		if ( empty ( $input ) )
+			return $input;
+
+		$array = array_map(
+			static function ( $value ) use ( $list ) {
+				return Text::trimQuotes( $value, $list );
+			}, $input );
+
+		return $filter
+			? array_values( array_unique( array_filter( $array ) ) )
+			: $array;
+	}
+
 	// deep array_filter()
 	public static function filterArray( $input, $callback = NULL )
 	{
@@ -189,7 +219,7 @@ class Arraay extends Base
 	 * based on the type and exact ordering of the keys.
 	 *
 	 * @source https://eddmann.com/posts/handling-array-equality-in-php/
-	 * @example `Arraay::identicalValues([1, 2, 3], [3, 2, 1])` // TRUE
+	 * @example `Arraay::identicalValues( [1, 2, 3], [3, 2, 1] )` // TRUE
 	 *
 	 * With the identical operator `===` you are able to check for equality
 	 * based on the type and exact ordering of the keys.

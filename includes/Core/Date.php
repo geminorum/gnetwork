@@ -31,21 +31,21 @@ class Date extends Base
 	 * @see https://make.wordpress.org/core/2019/09/23/date-time-improvements-wp-5-3/
 	 *
 	 * @param string $format
-	 * @param int $timestamp
+	 * @param mixed $datetime
 	 * @param string $timezone_string
 	 * @return string
 	 */
-	public static function get( $format, $timestamp = NULL, $timezone_string = NULL )
+	public static function get( $format, $datetime = NULL, $timezone_string = NULL )
 	{
 		return \wp_date(
 			$format,
-			$timestamp,
+			self::timestamp( $datetime, $timezone_string, NULL ),
 			$timezone_string ? new \DateTimeZone( $timezone_string ) : NULL
 		);
 	}
 
 	/**
-	 * Retrieves the date in localized format, based on a sum of Unix
+	 * Retrieves the date in localized format, based on a sum of UNIX
 	 * timestamp and timezone offset in seconds.
 	 * NOTE: wrapper for `date_i18n()`
 	 *
@@ -90,7 +90,7 @@ class Date extends Base
 		if ( ! extension_loaded( 'intl' ) )
 			return self::get(
 				$format ?? 'm/d/Y',
-				$datetime_string ? strtotime( $datetime_string ) : NULL,
+				$datetime_string,
 				$timezone_string
 			);
 
@@ -360,24 +360,20 @@ class Date extends Base
 	 * FIXME: avoid using `wp_date()`
 	 * @ref: https://stackoverflow.com/questions/15877971/calculating-the-end-of-a-decade
 	 *
-	 * @param int|string $timestamp
+	 * @param mixed $datetime
 	 * @param string $calendar_type
 	 * @param string $timezone_string
 	 * @param bool $extended
 	 * @return string|array
 	 */
-	public static function calculateDecade( $timestamp, $calendar_type = NULL, $timezone_string = NULL, $extended = FALSE )
+	public static function calculateDecade( $datetime, $calendar_type = NULL, $timezone_string = NULL, $extended = FALSE )
 	{
-		if ( empty( $timestamp ) )
+		if ( empty( $datetime ) )
 			return FALSE;
 
-		if ( ! self::isTimestamp( $timestamp ) )
-			$timestamp = strtotime( $timestamp );
-
-		$timezone = new \DateTimeZone( $timezone_string ?? self::currentTimeZone() );
-		$year     = Number::translate( wp_date( 'Y', $timestamp, $timezone ) );
-		$start    = $year - ( $year % 10 ) - ( $year % 10 ? 0 : 10 );
-		$end      = $year - ( $year % 10 ) + ( $year % 10 ? 10 : 0 );
+		$year  = Number::translate( self::get( 'Y', $datetime, $timezone_string ) );
+		$start = $year - ( $year % 10 ) - ( $year % 10 ? 0 : 10 );
+		$end   = $year - ( $year % 10 ) + ( $year % 10 ? 10 : 0 );
 
 		return $extended ? [
 			'year'  => $year,
@@ -438,49 +434,110 @@ class Date extends Base
 	}
 
 	/**
-	 * Returns an `ISO-8601` date from a date string.
-	 * NOTE: timezone should be UTC before using this
-	 * @SEE: https://www.reddit.com/r/PHP/comments/hnd438/why_isnt_date_iso8601_deprecated/
+	 * Returns the timestamp from various data formats.
 	 *
-	 * @source `bp_core_get_iso8601_date()`
-	 * @example `2004-02-12T15:19:21+00:00`
-	 *
-	 * @param int|string $timestamp
+	 * @param mixed $datetime
 	 * @param string $timezone_string
 	 * @param string $fallback
-	 * @return string
+	 * @return int
 	 */
-	public static function getISO8601( $date = NULL, $timezone_string = NULL, $fallback = '' )
+	public static function timestamp( $datetime = NULL, $timezone_string = NULL, $fallback = '' )
 	{
-		if ( ! $date && ! is_null( $date ) )
+		if ( ! $datetime && ! is_null( $datetime ) )
 			return $fallback;
+
+		if ( is_a( $datetime, 'DateTimeInterface' ) )
+			return $datetime->format( 'U' );
+
+		if ( self::isTimestamp( $datetime ) )
+			return (int) $datetime;
 
 		try {
 
-			$datetime = new \DateTime( $date, new \DateTimeZone( $timezone_string ?? 'UTC' ) );
+			$object = new \DateTime(
+				$datetime ?? 'now',
+				new \DateTimeZone( $timezone_string ?? self::currentTimeZone() )
+			);
 
 		} catch ( \Exception $e ) {
 
 			return $fallback;
 		}
 
-		return $datetime->format( \DateTime::ATOM );
+		return $object->format( 'U' );
 	}
 
-	public static function htmlCurrent( $format = 'l, F j, Y', $class = FALSE, $title = FALSE )
+	/**
+	 * Returns an `ISO-8601` date from various data formats.
+	 * @SEE: https://www.reddit.com/r/PHP/comments/hnd438/why_isnt_date_iso8601_deprecated/
+	 *
+	 * Date and time expressed according to ISO 8601:
+	 * - Date in UTC: `2026-02-05`
+	 * - Time in UTC: `18:13:14Z` / `T181314Z`
+	 * - Date and time in UTC: `2026-02-05T18:13:14Z` / `20260205T181314Z`
+	 * - Date and time with the offset:
+	 * 		- `2026-02-05T06:13:14-12:00 UTC−12:00`
+	 * 		- `2026-02-05T18:13:14+00:00 UTC+00:00`
+	 * 		- `2026-02-06T06:13:14+12:00 UTC+12:00`
+	 * - Week: `2026-W06`
+	 * - Week with weekday: `2026-W06-4`
+	 * - Ordinal date: `2026‐036`
+	 *
+	 * @source `bp_core_get_iso8601_date()`
+	 * @example `2004-02-12T15:19:21+00:00`
+	 * @example `2026-02-05T03:23:59+03:30`
+	 *
+	 * @param mixed $datetime
+	 * @param string $timezone_string
+	 * @param string $fallback
+	 * @return string
+	 */
+	public static function getISO8601( $datetime = NULL, $timezone_string = NULL, $fallback = '' )
 	{
-		$html = self::htmlDateTime( current_time( 'timestamp' ), current_time( 'timestamp', TRUE ), $format, $title );
-		return $class ? '<span class="'.$class.'">'.$html.'</span>' : $html;
+		if ( ! $datetime && ! is_null( $datetime ) )
+			return $fallback;
+
+		if ( is_a( $datetime, 'DateTimeInterface' ) )
+			return $datetime->format( \DateTime::ATOM );
+
+		if ( self::isTimestamp( $datetime ) )
+			$datetime = sprintf( '@%d', $datetime );
+
+		try {
+
+			$object = new \DateTime(
+				$datetime ?? 'now',
+				new \DateTimeZone( $timezone_string ?? self::currentTimeZone() )
+			);
+
+		} catch ( \Exception $e ) {
+
+			return $fallback;
+		}
+
+		return $object->format( \DateTime::ATOM );
 	}
 
-	// NOTE: DEPRECATED
-	public static function htmlDateTime( $time, $gmt = NULL, $format = 'l, F j, Y', $title = FALSE )
+	// NOTE: Here the signature is different: not supporting the calendar-type and using WordPress core methods.
+	public static function htmlCurrent( $format = NULL, $class = FALSE, $title = FALSE )
+	{
+		$html = self::htmlDateTime( NULL, $format, $title );
+		return $class ? HTML::span( $html, $class ) : $html;
+	}
+
+	// NOTE: Here the signature is different: not supporting the calendar-type and using WordPress core methods.
+	public static function htmlDateTime( $datetime, $format = NULL, $title = FALSE, $timezone_string = NULL )
 	{
 		return HTML::tag( 'time', [
-			'datetime' => date( 'c', ( $gmt ?: $time ) ),
-			'title'    => $title,
-			'class'    => 'do-timeago', // @SEE: http://timeago.yarp.com/
-		], self::get( $format, $time ) );
+			'datetime'       => self::getISO8601( $datetime, $timezone_string, FALSE ),
+			'title'          => $title,
+			'data-bs-toggle' => $title ? 'tooltip' : FALSE,
+			'class'          => 'do-timeago', // @SEE: https://github.com/rmm5t/jquery-timeago
+		], self::get(
+			$format ?? 'l, F j, Y',
+			$datetime,
+			$timezone_string
+		) );
 	}
 
 	// @REF: https://stackoverflow.com/a/43956977
@@ -526,7 +583,7 @@ class Date extends Base
 	}
 
 	// @SOURCE: WP `human_time_diff()`
-	public static function humanTimeDiff( $timestamp, $now = '', $atts = [] )
+	public static function humanTimeDiff( $datetime, $now = '', $atts = [], $timezone_string = NULL )
 	{
 		$args = self::atts( [
 			'now'    => 'Now',
@@ -541,8 +598,7 @@ class Date extends Base
 			'noop_years'   => L10n::getNooped( '%s year', '%s years' ),
 		], $atts );
 
-		if ( ! self::isTimestamp( $timestamp ) )
-			$timestamp = strtotime( $timestamp );
+		$timestamp = self::timestamp( $datetime, $timezone_string );
 
 		if ( empty( $now ) )
 			$now = time();
@@ -705,7 +761,7 @@ class Date extends Base
 	}
 
 	// FIXME: correct last week : http://stackoverflow.com/a/7175802
-	public static function moment( $timestamp, $now = '', $atts = [] )
+	public static function moment( $datetime, $now = '', $atts = [], $timezone_string = NULL )
 	{
 		$args = self::atts( [
 			'now'            => 'Now',
@@ -731,8 +787,7 @@ class Date extends Base
 			'format_f_y'     => 'F Y',
 		], $atts );
 
-		if ( ! self::isTimestamp( $timestamp ) )
-			$timestamp = strtotime( $timestamp );
+		$timestamp = self::timestamp( $datetime, $timezone_string );
 
 		if ( empty( $now ) )
 			$now = time();
@@ -984,7 +1039,7 @@ class Date extends Base
 		// `IntlCalendar` works with milliseconds so you need to
 		// multiply the `timestamp` with `1000`.
 		// @REF: https://www.php.net/manual/en/intlcalendar.fromdatetime.php#114461
-		// $intl->setTime( $object->getTimestamp() * 1000 );
+		// `$intl->setTime( $object->getTimestamp() * 1000 );`
 
 		// @REF: https://www.the-art-of-web.com/php/intl-date-formatter/
 		$formatter = datefmt_create(
@@ -998,7 +1053,7 @@ class Date extends Base
 
 		$datetime = is_a( $datetime_string, 'DateTimeInterface' )
 			? $datetime_string
-			: strtotime( $datetime_string ?? 'now' );
+			: self::strtotime( $datetime_string, $timezone_string, NULL );
 
 		return datefmt_format( $formatter, $datetime );
 	}
@@ -1055,7 +1110,7 @@ class Date extends Base
 	 */
 	public static function sanitizeCalendar( $calendar_type, $fallback = NULL, $extra = [] )
 	{
-		$fallback  = $fallback ?? Core\L10n::calendar();
+		$fallback  = $fallback ?? L10n::calendar();
 		$sanitized = $calendar_type;
 
 		if ( ! $calendar_type )

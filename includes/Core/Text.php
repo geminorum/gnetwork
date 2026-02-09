@@ -5,11 +5,54 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Text extends Base
 {
 
+	public static function spaced()
+	{
+		return self::glued( func_get_args(), ' ' );
+	}
+
+	public static function dotted()
+	{
+		return self::glued( func_get_args(), '.' );
+	}
+
+	public static function dashed()
+	{
+		return self::glued( func_get_args(), '-' );
+	}
+
+	public static function underlined()
+	{
+		return self::glued( func_get_args(), '_' );
+	}
+
+	public static function gluedNBSP()
+	{
+		return self::removeStartEnd( self::glued( func_get_args(), '&nbsp;' ), '&nbsp;' );
+	}
+
+	public static function glued( $args, $with = ' ' )
+	{
+		$parts = [];
+
+		foreach ( $args as $arg )
+
+			if ( is_array( $arg ) )
+				$parts = array_merge( $parts, $arg );
+
+			else if ( $arg && TRUE !== $arg )
+				$parts[] = trim( $arg );
+
+		return $with === ' ' || 1 !== strlen( $with )
+			? self::trim( implode( $with, $parts ) )
+			: self::trim( implode( $with, $parts ), $with );
+	}
+
 	/**
 	 * Strips whitespace (or other characters) from the beginning and end of a string.
+	 * NOTE: additional chars will be quoted by `preg_quote()`
 	 *
 	 * @param string $text
-	 * @return string $additional
+	 * @return string|array $additional
 	 * @return string
 	 */
 	public static function trim( $text, $additional = NULL )
@@ -35,13 +78,17 @@ class Text extends Base
 		];
 
 		if ( $additional )
-			$chars = array_merge( $chars, array_map( 'preg_quote', preg_split( '//u', (string) $additional, -1, PREG_SPLIT_NO_EMPTY ) ) );
+			$chars = array_merge( $chars, array_map( 'preg_quote',
+				is_array( $additional )
+					? array_filter( $additional )
+					: preg_split( '//u', (string) $additional, -1, PREG_SPLIT_NO_EMPTY )
+			) );
 
 		$text = preg_replace(
 			// @REF: https://www.php.net/manual/en/ref.mbstring.php#113569
 			'/^['.implode( '', $chars ).']*(?U)(.*)['.implode( '', $chars ).']*$/u',
 			'\\1',
-			(string) $text
+			trim( (string) $text )
 		);
 
 		if ( 0 === strlen( $text ) )
@@ -50,13 +97,11 @@ class Text extends Base
 		return $text;
 	}
 
+	// NOTE: the list must **not** be quoted!
 	public static function trimQuotes( $text, $list = NULL )
 	{
-		if ( ! $text = self::trim( $text ) )
-			return '';
-
 		$list = $list ?? [
-			"\s",
+			",", "،", //  Arabic Comma
 			"'", "\"",
 			"*",
 			"<", ">",
@@ -67,27 +112,17 @@ class Text extends Base
 			":", ";",
 		];
 
-		$text = preg_replace(
-			// @REF: https://www.php.net/manual/en/ref.mbstring.php#113569
-			'/^['.implode( '', $list ).']*(?U)(.*)['.implode( '', $list ).']*$/u',
-			'\\1',
-			(string) $text
-		);
-
-		if ( 0 === strlen( $text ) )
-			return '';
-
-		return self::trim( $text );
+		return self::trim( $text, $list );
 	}
 
 	/**
-	 * right trim of a string
+	 * Trims the right side of a string given a needle.
 	 * @source https://stackoverflow.com/a/32739088
 	 *
-	 * @param string $text Original string
-	 * @param string $needle String to trim from the end of $text
-	 * @param bool|true $case_sensitive Perform case-sensitive matching, defaults to true
-	 * @return string Trimmed string
+	 * @param string $text
+	 * @param string $needle
+	 * @param bool $case_sensitive
+	 * @return string
 	 */
 	public static function rightTrim( $text, $needle, $case_sensitive = TRUE )
 	{
@@ -100,13 +135,13 @@ class Text extends Base
 	}
 
 	/**
-	 * left trim of a string
+	 * Trims the left side of a string given a needle.
 	 * @source https://stackoverflow.com/a/32739088
 	 *
-	 * @param string $text Original string
-	 * @param string $needle String to trim from the beginning of $text
-	 * @param bool|true $case_sensitive Perform case-sensitive matching, defaults to true
-	 * @return string Trimmed string
+	 * @param string $text
+	 * @param string $needle
+	 * @param bool $case_sensitive
+	 * @return string
 	 */
 	public static function leftTrim( $text, $needle, $case_sensitive = TRUE )
 	{
@@ -148,6 +183,17 @@ class Text extends Base
 			return $text;
 
 		return preg_replace( '/'.preg_quote( $needle, '/' ).'$/', '', $text );
+	}
+
+	public static function removeStartEnd( $text, $needle )
+	{
+		if ( empty( $text ) || empty( $needle ) )
+			return $text;
+
+		$text = self::removeFromstart( $text, $needle );
+		$text = self::removeFromEnd( $text, $needle );
+
+		return self::trim( $text );
 	}
 
 	public static function stripAllSpaces( $text )
@@ -219,7 +265,7 @@ class Text extends Base
 		$text = strtolower( $text );
 		$text = Number::translate( $text );
 
-		// remove arabic/persian accents
+		// remove Arabic/Persian accents
 		$text = preg_replace( "/[\x{0618}-\x{061A}\x{064B}-\x{065F}]+/u", '', $text );
 
 		$text = self::normalizeZWNJ( $text );
@@ -265,6 +311,21 @@ class Text extends Base
 		$text = trim( $text, '.-_' );
 
 		return self::trim( $text );
+	}
+
+	// NOTE: Hex-encoded octets are case-insensitive.
+	public static function prepOctets( $text )
+	{
+		if ( ! $text )
+			return $text;
+
+		if ( ! str_contains( $text, '%' ) )
+			return $text;
+
+		return preg_replace_callback( '|%[a-fA-F0-9][a-fA-F0-9]|',
+			static function ( $matches ) {
+				return self::strToLower( $matches[0] );
+			}, $text );
 	}
 
 	public static function nameFamilyFirst( $text, $separator = ', ' )
@@ -575,7 +636,7 @@ class Text extends Base
 	}
 
 	/**
-	 * String contains multi-byte (non-ASCII/non-single-byte) `UTF-8` characters.
+	 * String contains multibyte (non-ASCII/non-single-byte) `UTF-8` characters.
 	 *
 	 * @param string $text
 	 * @return bool
@@ -621,22 +682,22 @@ class Text extends Base
 		if ( 0 === strlen( $text ) )
 			return '';
 
-		// Removes all `ZWJ`
+		// Removes all `ZWJ`.
 		$text = preg_replace( '/\x{200D}+/u', '', $text );
 
-		// Converts all RIGHT-TO-LEFT MARK (&rlm;) into `ZWNJ`
+		// Converts all RIGHT-TO-LEFT MARK `&rlm;` into `ZWNJ`.
 		$text = preg_replace( '/\x{200F}+/u', '‌', $text );
 
-		// Converts all RIGHT-TO-LEFT EMBEDDING into `ZWNJ`
+		// Converts all RIGHT-TO-LEFT EMBEDDING into `ZWNJ`.
 		$text = preg_replace( '/\x{202B}+/u', '‌', $text );
 
-		// Converts all soft hyphens (&shy;) into `ZWNJ`
+		// Converts all soft hyphens `&shy;` into `ZWNJ`.
 		$text = preg_replace( '/\x{00AD}+/u', '‌', $text );
 
-		// Converts all angled dash (&not;) into `ZWNJ`
+		// Converts all angled dash `&not;` into `ZWNJ`.
 		$text = preg_replace( '/\x{00AC}+/u', '‌', $text );
 
-		// Removes more than one `ZWNJ`
+		// Removes more than one `ZWNJ`.
 		$text = preg_replace( '/\x{200C}{2,}/u', '‌', $text );
 
 		// Cleans `ZWNJ` before and after numbers, English words, spaces, and punctuation.
@@ -820,29 +881,57 @@ class Text extends Base
 	// @SEE: `mb_convert_case()`
 	public static function strToLower( $text, $encoding = 'UTF-8' )
 	{
-		return function_exists( 'mb_strtolower' ) ? mb_strtolower( $text, $encoding ) : strtolower( $text );
+		return function_exists( 'mb_strtolower' )
+			? mb_strtolower( $text ?? '', $encoding )
+			: strtolower( $text ?? '' );
+	}
+
+	public static function strToUpper( $text, $encoding = 'UTF-8' )
+	{
+		return function_exists( 'mb_strtoupper' )
+			? mb_strtoupper( $text ?? '', $encoding )
+			: strtoupper( $text ?? '' );
 	}
 
 	public static function strLen( $text, $encoding = 'UTF-8' )
 	{
-		return function_exists( 'mb_strlen' ) ? mb_strlen( $text, $encoding ) : strlen( $text );
+		return function_exists( 'mb_strlen' )
+			? mb_strlen( $text ?? '', $encoding )
+			: strlen( $text ?? '' );
 	}
 
 	public static function subStr( $text, $start = 0, $length = 1, $encoding = 'UTF-8' )
 	{
-		return function_exists( 'mb_substr' ) ? mb_substr( $text, $start, $length, $encoding ) : substr( $text, $start, $length );
+		return function_exists( 'mb_substr' )
+			? mb_substr( $text ?? '', $start, $length, $encoding )
+			: substr( $text ?? '', $start, $length );
 	}
 
 	// @SOURCE: https://github.com/alecgorge/PHP-String-Class
-	public static function strReplace( $search, $replace, $subject )
+	public static function strReplace( $search, $replace, $text )
 	{
-		return preg_replace( '@'.preg_quote( $search ).'@u', $replace, $subject );
+		if ( empty( $search ) || empty( $text ) )
+			return $text;
+
+		return preg_replace(
+			'@'.preg_quote( $search ).'@u',
+			$replace ?? '',
+			$text
+		);
 	}
 
 	// @SOURCE: https://github.com/alecgorge/PHP-String-Class
 	public static function strSplit( $text, $length = 1 )
 	{
-		preg_match_all( '/.{1,'.$length.'}/us', $text, $matches );
+		if ( empty( $text ) || $length < 1 )
+			return $text;
+
+		preg_match_all(
+			'/.{1,'.$length.'}/us',
+			$text,
+			$matches
+		);
+
 		return $matches[0];
 	}
 
@@ -850,16 +939,24 @@ class Text extends Base
 	 * Pads a string to a certain length with another string.
 	 * @source https://www.php.net/manual/en/ref.mbstring.php#90611
 	 *
-	 * @param string $input
+	 * @param string $text
 	 * @param int $pad_length
 	 * @param string $pad_string
 	 * @param int $pad_style
 	 * @param string $encoding
 	 * @return string
 	 */
-	public static function strPad( $input, $length, $pad_string, $pad_type, $encoding = 'UTF-8' )
+	public static function strPad( $text, $length, $pad_string, $pad_type, $encoding = 'UTF-8' )
 	{
-		return str_pad( $input, strlen( $input ) - mb_strlen( $input, $encoding ) + $length, $pad_string, $pad_type );
+		if ( empty( $text ) )
+			return $text;
+
+		return str_pad(
+			$text,
+			strlen( $text ) - mb_strlen( $text, $encoding ) + $length,
+			$pad_string,
+			$pad_type
+		);
 	}
 
 	public static function internalEncoding( $encoding = 'UTF-8' )
@@ -1421,11 +1518,14 @@ class Text extends Base
 	}
 
 	// @SOURCE: http://php.net/manual/en/function.preg-replace-callback.php#91950
-	// USAGE: `Text::replaceWords( $words, $text, static function ( $matched ) { return '<strong>{$matched}</strong>'; } );`
+	// USAGE: `Text::replaceWords( $text, $words, static function ( $matched ) { return '<strong>{$matched}</strong>'; } );`
 	// FIXME: maybe space before/after the words
-	public static function replaceWords( $words, $text, $callback, $skip_links = TRUE )
+	public static function replaceWords( $text, $words, $callback, $skip_links = TRUE )
 	{
-		$pattern = '(^|[^\\w\\-])('.implode( '|', array_map( 'preg_quote', $words ) ).')($|[^\\w\\-])';
+		if ( empty( $text ) || empty( $words ) )
+			return $text;
+
+		$pattern = '(^|[^\\w\\-])('.implode( '|', array_map( 'preg_quote', (array) $words ) ).')($|[^\\w\\-])';
 
 		if ( $skip_links )
 			$pattern = '<a[^>]*>.*?<\/a\s*>(*SKIP)(*FAIL)|'.$pattern;

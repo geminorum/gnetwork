@@ -131,7 +131,8 @@ class Image extends Base
 			imagecopy( $image, $tmp, $x + $i,  $y, 0, 0, 1, $height );
 		}
 
-		imagedestroy( $tmp );
+		if ( PHP_VERSION_ID < 80000 )
+			imagedestroy( $tmp );
 
 		return TRUE;
 	}
@@ -172,7 +173,8 @@ class Image extends Base
 		else
 			$created = imagejpeg( $image, $image_path );
 
-		imagedestroy( $image );
+		if ( PHP_VERSION_ID < 80000 )
+			imagedestroy( $image );
 
 		return $created;
 	}
@@ -203,7 +205,8 @@ class Image extends Base
 
 		$created = imagejpeg( $image, $image_path );
 
-		imagedestroy( $image );
+		if ( PHP_VERSION_ID < 80000 )
+			imagedestroy( $image );
 
 		return $created;
 	}
@@ -232,7 +235,9 @@ class Image extends Base
 
 		$image = imagecreatefromstring( $data );
 		$dims = [ imagesx( $image ), imagesy( $image ) ];
-		imagedestroy($image);
+
+		if ( PHP_VERSION_ID < 80000 )
+			imagedestroy($image);
 
 		return $dims;
 	}

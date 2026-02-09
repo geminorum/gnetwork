@@ -92,17 +92,17 @@ class L10n extends Base
 			case 'n_cs_precedes': $info = ''; break; // `true` if currency_symbol precedes a negative value, `false` if it succeeds one
 			case 'n_sep_by_space': $info = ''; break; // `true` if a space separates currency_symbol from a negative value, `false` otherwise
 			case 'p_sign_posn': $info = ''; break;
-				// `0` - Parentheses surround the quantity and currency_symbol
-				// `1` - The sign string precedes the quantity and currency_symbol
-				// `2` - The sign string succeeds the quantity and currency_symbol
-				// `3` - The sign string immediately precedes the currency_symbol
-				// `4` - The sign string immediately succeeds the currency_symbol
+				// `0` - Parentheses surround the quantity and currency_symbol.
+				// `1` - The sign string precedes the quantity and currency_symbol.
+				// `2` - The sign string succeeds the quantity and currency_symbol.
+				// `3` - The sign string immediately precedes the currency_symbol.
+				// `4` - The sign string immediately succeeds the currency_symbol.
 			case 'n_sign_posn': $info = ''; break;
-				// `0` - Parentheses surround the quantity and currency_symbol
-				// `1` - The sign string precedes the quantity and currency_symbol
-				// `2` - The sign string succeeds the quantity and currency_symbol
-				// `3` - The sign string immediately precedes the currency_symbol
-				// `4` - The sign string immediately succeeds the currency_symbol
+				// `0` - Parentheses surround the quantity and currency_symbol.
+				// `1` - The sign string precedes the quantity and currency_symbol.
+				// `2` - The sign string succeeds the quantity and currency_symbol.
+				// `3` - The sign string immediately precedes the currency_symbol.
+				// `4` - The sign string immediately succeeds the currency_symbol.
 		}
 
 		return $info;

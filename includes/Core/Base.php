@@ -386,7 +386,7 @@ class Base
 
 		} catch ( \Exception $e ) {
 
-			self::_log( 'varSize() :: '.$e->getMessage() );
+			self::_log( 'Exception: `varSize()` :: '.$e->getMessage() );
 
 			return 0;
 		}

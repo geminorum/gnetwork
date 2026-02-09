@@ -18,7 +18,7 @@ class URL extends Base
 
 		// @SEE: `esc_url()`
 		if ( $sanitized && ! preg_match( '/^http(s)?:\/\//', $sanitized ) )
-			$sanitized = 'http://'.$sanitized;
+			$sanitized = 'https://'.$sanitized;
 
 		return esc_url( $sanitized, NULL, 'db' );
 	}

@@ -18,7 +18,7 @@ class Term extends Core\Base
 	 */
 	public static function get( $term_or_id = NULL, $taxonomy = '' )
 	{
-		if ( FALSE === $term_or_id )
+		if ( FALSE === $term_or_id || 0 === $term_or_id )
 			return $term_or_id;
 
 		if ( $term_or_id instanceof \WP_Term )
@@ -361,7 +361,7 @@ class Term extends Core\Base
 			return FALSE;
 
 		$taxonomy  = Taxonomy::object( $term );
-		$timestamp = strtotime( get_term_meta( $term->term_id, 'datetime', TRUE ) );
+		$timestamp = Core\Date::timestamp( get_term_meta( $term->term_id, 'datetime', TRUE ) );
 
 		return [
 			'_id'         => $term->term_id,

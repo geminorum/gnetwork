@@ -12,6 +12,58 @@ class Color extends Base
 		return self::validHex( $text );
 	}
 
+	/**
+	 * Prepares a value as color for the given context.
+	 *
+	 * @param string $value
+	 * @param array $field
+	 * @param string $context
+	 * @param string $icon
+	 * @return string
+	 */
+	public static function prep( $value, $field = [], $context = 'display', $icon = NULL )
+	{
+		if ( self::empty( $value ) )
+			return '';
+
+		$raw   = $value;
+		$title = empty( $field['title'] ) ? NULL : $field['title'];
+
+		// tries to sanitize with fallback
+		if ( ! $value = self::sanitize( $value ) )
+			$value = $raw;
+
+		$html = sprintf( '<i class="-color %s" title="%s" style="background-color:%s" data-color="%s"></i>',
+			'%s', // placeholder for css class
+			HTML::escapeAttr( $title ?? $value ),
+			$value,
+			$raw,
+		);
+
+		switch ( $context ) {
+			case 'raw'   : return $raw;
+			case 'edit'  : return $raw;
+			case 'input' : return $value;
+			case 'export': return $value;
+			case 'print' : return sprintf( $html, '-print-placeholder' );
+			case 'admin' :
+			     default : return sprintf( $html, self::is( $value ) ? '-is-valid' : '-is-not-valid' );
+
+			case 'icon':
+				return HTML::getDashicon(
+					'color-picker',
+					$title ?? $value,
+					self::is( $value ) ? '-is-valid' : '-is-not-valid',
+					[
+						'style'      => sprintf( 'background-color:%s', $value ),
+						'data-color' => $value,
+					]
+				);
+		}
+
+		return $value;
+	}
+
 	// @REF: `rest_parse_hex_color()`
 	public static function validHex( $color )
 	{
@@ -119,8 +171,8 @@ class Color extends Base
 		// We multiply by 100 to turn the decimal into a readable percent value.
 		$computedV = 100 * $maxRGB;
 
-		// Special case if hueless (equal parts RGB make black, white, or grays)
-		// Note that Hue is technically undefined when chroma is zero, as
+		// Special case if hue-less (equal parts RGB make black, white, or grays).
+		// Note that Hue is technically undefined when chroma is zero as
 		//   attempting to calculate it would cause division by zero (see
 		//   below), so most applications simply substitute a Hue of zero.
 		// Saturation will always be zero in this case, see below for details.
@@ -133,7 +185,7 @@ class Color extends Base
 		$computedS = 100 * ( $chroma / $maxRGB );
 
 		// Calculate Hue component
-		// Hue is calculated on the "chromacity plane", which is represented
+		// Hue is calculated on the "chroma-city plane", which is represented
 		//   as a 2D hexagon, divided into six 60-degree sectors. We calculate
 		//   the bisecting angle as a value 0 <= x < 6, that represents which
 		//   portion of which sector the line falls on.
@@ -154,14 +206,14 @@ class Color extends Base
 	}
 
 	/**
-	 * Find the resulting colour by blending 2 colours
-	 * and setting an opacity level for the foreground colour.
+	 * Find the resulting color by blending 2 colors
+	 * and setting an opacity level for the foreground color.
 	 * @author J de Silva
 	 *
-	 * @param string $foreground Hexadecimal colour value of the foreground colour.
-	 * @param integer $opacity Opacity percentage (of foreground colour). A number between 0 and 100.
-	 * @param string $background Optional. Hexadecimal colour value of the background colour. Default is: <code>FFFFFF</code> aka white.
-	 * @return string Hexadecimal colour value. <code>false</code> on errors.
+	 * @param string $foreground Hexadecimal color value of the foreground color.
+	 * @param integer $opacity Opacity percentage (of foreground color). A number between 0 and 100.
+	 * @param string $background Optional. Hexadecimal color value of the background color. Default is: `FFFFFF` aka white.
+	 * @return false|string Hexadecimal color value. `FALSE` on errors.
 	 *
 	 * @REF: http://www.gidnetwork.com/b-135.html
 	 */
@@ -172,15 +224,15 @@ class Color extends Base
 		if ( is_null( $background ) )
 			$background = 'FFFFFF';
 
-		// accept only valid hexadecimal colour values.
+		// Accept only valid hexadecimal color values.
 		$pattern = '~^[a-f0-9]{6,6}$~i';
 
-		// "Invalid hexadecimal colour value(s) found"
+		// "Invalid hexadecimal color value(s) found"
 		if ( ! @preg_match( $pattern, $foreground )
 			|| ! @preg_match( $pattern, $background ) )
 				return FALSE;
 
-		// validate opacity data/number.
+		// Validate opacity data/number.
 		$opacity = (int) $opacity;
 
 		// "Opacity percentage error, valid numbers are between 0 - 100"
@@ -195,10 +247,10 @@ class Color extends Base
 		if ( 0 == $opacity )
 			return strtoupper( $background );
 
-		// calculate $transparency value.
+		// Calculate $transparency value.
 		$transparency = 100 - $opacity;
 
-		// do this only ONCE per script, for each unique colour.
+		// Do this only ONCE per script, for each unique color.
 		if ( ! isset( $rgb[$foreground] ) ) {
 			$f = [
 				'r' => hexdec( $foreground[0].$foreground[1] ),
@@ -210,7 +262,7 @@ class Color extends Base
 
 		} else {
 
-			// if this function is used 100 times in a script, this block is run 99 times
+			// If this function is used 100 times in a script, this block is run 99 times
 			$f = $rgb[$foreground];
 		}
 
@@ -260,8 +312,8 @@ class Color extends Base
 		return [ $r, $g, $b ];
 	}
 
-	// ff9900 -> 255 153 0
-	// #ff9900 -> 255 153 0
+	// `ff9900` -> `255 153 0`
+	// `#ff9900` -> `255 153 0`
 	public static function hex2rgb_2( $hex )
 	{
 		return sscanf( $hex, '%2x%2x%2x' ); // @REF: http://php.net/manual/en/function.sscanf.php#25190
@@ -280,11 +332,9 @@ class Color extends Base
 		return $hex;
 	}
 
-	// @REF: https://github.com/aristath/ariColor
-	// `composer require aristath/ari-color`
 	public static function get( $color = '#ffffff' )
 	{
-		return \ariColor::newColor( $color, 'auto' );
+		return \geminorum\gEditorial\Misc\ColorCalc::newColor( $color, 'auto' );
 	}
 
 	// returns a CSS value, using the auto-detected mode
@@ -296,7 +346,7 @@ class Color extends Base
 		if ( is_string( $color ) && 'transparent' == trim( $color ) )
 			return 'transparent';
 
-		$object = \ariColor::newColor( $color );
+		$object = \geminorum\gEditorial\Misc\ColorCalc::newColor( $color );
 
 		return $object->toCSS( $object->mode );
 	}
@@ -478,7 +528,7 @@ class Color extends Base
 	 */
 	public static function rgbFromHex( $color )
 	{
-		// convert shorthand colors to full format, e.g. "FFF" -> "FFFFFF"
+		// Converts shorthand colors to full format, e.g. `FFF` -> `FFFFFF`
 		$color = preg_replace( '~^(.)(.)(.)$~', '$1$1$2$2$3$3', str_replace( '#', '', $color ) );
 
 		return [
@@ -492,9 +542,8 @@ class Color extends Base
 	 * Make HEX color darker.
 	 * @source `wc_hex_darker()`
 	 *
-	 * @param mixed $color  Color.
-	 * @param int   $factor Darker factor.
-	 *                      Defaults to 30.
+	 * @param mixed $color Color.
+	 * @param int $factor Darker factor. Defaults to `30`.
 	 * @return string
 	 */
 	public static function hexDarker( $color, $factor = 30 )
@@ -523,9 +572,8 @@ class Color extends Base
 	 * Make HEX color lighter.
 	 * @source `wc_hex_lighter()`
 	 *
-	 * @param mixed $color  Color.
-	 * @param int   $factor Lighter factor.
-	 *                      Defaults to 30.
+	 * @param mixed $color
+	 * @param int $factor Lighter factor. Defaults to `30`.
 	 * @return string
 	 */
 	public static function hexLlighter( $color, $factor = 30 )
@@ -555,8 +603,8 @@ class Color extends Base
 	 * Determine whether a hex color is light.
 	 * @source `wc_hex_is_light()`
 	 *
-	 * @param mixed $color Color.
-	 * @return bool  True if a light color.
+	 * @param mixed $color
+	 * @return bool
 	 */
 	public static function hexIsLight( $color )
 	{
@@ -614,13 +662,13 @@ class Color extends Base
 	 *
 	 * @source https://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
 	 *
-	 * @param  int $r1
-	 * @param  int $g1
-	 * @param  int $b1
-	 * @param  int $r2
-	 * @param  int $g2
-	 * @param  int $b2
-	 * @return int $difference
+	 * @param int $r1
+	 * @param int $g1
+	 * @param int $b1
+	 * @param int $r2
+	 * @param int $g2
+	 * @param int $b2
+	 * @return int
 	 */
 	public static function colorDiff( $r1, $g1, $b1, $r2, $g2, $b2 )
 	{

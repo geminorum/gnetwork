@@ -915,7 +915,7 @@ class Taxonomy extends Core\Base
 				return get_term( $term['term_id'], $taxonomy );
 
 			else
-				return FALSE; // avoid inserting numbers as new terms!
+				return FALSE; // Avoids inserting numbers as new terms!
 
 		} else if ( $term = term_exists( $target, $taxonomy ) ) {
 

@@ -464,10 +464,10 @@ class Number extends Base
 					// decreasing step, e.g. from hundreds to ones
 					if ( $last >= 1000 ) {
 
-						// if we drop from more than 1000 then we've finished the phrase
+						// If we drop from more than 1000 then we've finished the phrase.
 						$sum+= $stack->pop();
 
-						// this is the first element of a new phrase
+						// This is the first element of a new phrase.
 						$stack->push( $part );
 
 					} else {
@@ -483,7 +483,7 @@ class Number extends Base
 				}
 			} else {
 
-				// this is the first element of a new phrase
+				// This is the first element of a new phrase.
 				$stack->push( $part );
 			}
 
@@ -521,10 +521,9 @@ class Number extends Base
 
 	/**
 	 * Gets modulus (substitute for `bcmod`)
-	 * by Andrius Baranauskas and Laurynas Butkus
-	 *
 	 * `left_operand` can be really big, but be careful with modulus.
 	 *
+	 * @author `Andrius Baranauskas` and `Laurynas Butkus`
 	 * @source https://www.php.net/manual/en/function.bcmod.php#38474
 	 *
 	 * @param string $left_operand

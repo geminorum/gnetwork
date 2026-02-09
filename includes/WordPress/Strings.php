@@ -347,6 +347,22 @@ class Strings extends Core\Base
 		return $array;
 	}
 
+	/**
+	 * Balances tags of string using a modified stack.
+	 * NOTE: wrapper for `force_balance_tags()`
+	 * NOTE: ignores the `use_balanceTags` option
+	 *
+	 * @param string $html
+	 * @return string
+	 */
+	public static function balanceTags( $html )
+	{
+		if ( self::isEmpty( $html ) )
+			return $html;
+
+		return force_balance_tags( $html );
+	}
+
 	public static function prepTitle( $text, $post_id = 0 )
 	{
 		if ( ! $text )
@@ -367,60 +383,11 @@ class Strings extends Core\Base
 		if ( $shortcode )
 			$text = ShortCode::apply( $text, TRUE );
 
+		$text = self::balanceTags( $text );
 		$text = apply_filters( 'geditorial_markdown_to_html', $text, $autop );
 		$text = apply_filters( 'html_format_i18n', $text );
 		$text = apply_filters( 'gnetwork_typography', $text );
 
 		return $autop ? wpautop( $text ) : Core\Text::trim( $text );
-	}
-
-	// TODO: move to `Misc\PersianAddress`
-	public static function prepAddress( $data, $context = 'display', $fallback = FALSE )
-	{
-		if ( self::empty( $data ) )
-			return $fallback;
-
-		if ( ! $data = Core\Text::normalizeWhitespace( self::cleanupChars( $data ) ) )
-			return $fallback;
-
-		$data = trim( $data, '.-|…' );
-		$data = str_ireplace( [ '_', '|', '–', '—'  ], '-', $data );
-		$data = sprintf( ' %s ', $data ); // padding with space
-
-		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) ) {
-
-			$data = Core\Number::translate( $data );
-
-			if ( class_exists( 'geminorum\\gEditorial\\Misc\\NumbersInPersian' ) )
-				$data = \geminorum\gEditorial\Misc\NumbersInPersian::textOrdinalToNumbers( $data, 100 );
-
-			$prefixes = [
-				'پلاک'   => 'پ',
-				'خیابان' => 'خ',
-				'بلوک'   => 'ب',
-				'کوچه'   => 'ک',
-				'فرعی'   => 'فرعی',
-				'بلوار'  => 'بلوار',
-				'بن بست' => 'بن‌بست',
-			];
-
-			foreach ( $prefixes as $from => $to ) {
-
-				$pattern = sprintf( '/%s[\s]?([0-9۰-۹]+)/mu', preg_quote( $from ) );
-
-				$data = preg_replace_callback( $pattern,
-					static function ( $matches ) use ( $to ) {
-						return sprintf( ' %s%s ', $to, Core\Text::trim( $matches[1] ) ); // padding with space
-					}, $data );
-			}
-
-			$data = Core\Number::translatePersian( $data );
-		}
-
-		$data = preg_replace( '/\s+([\,\،])/mu', '$1', $data );
-		$data = preg_replace( '/\s+([\-])/mu', '$1', $data );
-		$data = preg_replace( '/([\-])\s+/mu', '$1', $data );
-
-		return Core\Text::normalizeWhitespace( $data );
 	}
 }

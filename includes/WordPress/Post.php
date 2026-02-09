@@ -880,4 +880,18 @@ class Post extends Core\Base
 
 		return use_block_editor_for_post( $post );
 	}
+
+	public static function publishedInLast( $post, $in, $modulus = NULL )
+	{
+		if ( ! $post = self::get( $post ) )
+			return FALSE;
+
+		if ( ! $in )
+			return FALSE;
+
+		$publish  = strtotime( $post->post_date_gmt );
+		$modified = strtotime( $post->post_modified_gmt );
+
+		return ( $modified < $publish + ( absint( $in ) * ( $modulus ?? MINUTE_IN_SECONDS ) ) );
+	}
 }
