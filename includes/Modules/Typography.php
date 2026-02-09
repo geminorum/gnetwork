@@ -452,10 +452,10 @@ class Typography extends gNetwork\Module
 			$brand_name = gNetwork()->brand( 'name' );
 			$brand_url  = gNetwork()->brand( 'url' );
 
-			$content = Core\Text::replaceWords( [ $brand_name ], $content,
+			$content = Core\Text::replaceWords( $content, $brand_name,
 				static function ( $matched ) use ( $brand_url ) {
-					return '<em>'.Core\HTML::link( $matched, $brand_url ).'</em>';
-				} );
+					return sprintf( '<em><a href="%s" class="-brand">%s</a><em>', $brand_url, $matched );
+				}, TRUE );
 		}
 
 		return $content;
@@ -619,7 +619,7 @@ class Typography extends gNetwork\Module
 		$url = $args['scheme'].'://'.$lang.$args['domain'].'/'.urlencode( str_ireplace( ' ', '_', $slug ) );
 
 		$html = '<a href="'.esc_url( $url ).'" class="wiki wikipedia"'
-				.( $args['title'] ? ' data-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] ).'"' : '' )
+				.( $args['title'] ? ' data-bs-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] ).'"' : '' )
 				.'>'.trim( $content ).'</a>';
 
 		return self::shortcodeWrap( $html, 'wikipedia', $args, FALSE );

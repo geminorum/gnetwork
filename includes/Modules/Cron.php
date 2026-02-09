@@ -27,7 +27,7 @@ class Cron extends gNetwork\Module
 			return FALSE;
 
 		if ( function_exists( 'wp_get_ready_cron_jobs' ) )
-			$this->filter_module( 'dashboard', 'pointers', 1, 4 );
+			$this->filter_module( 'dashboard', 'pointers', 1, 20 );
 
 		if ( ! $this->options['dashboard_widget'] )
 			$this->action( 'activity_box_end', 0, 12 );

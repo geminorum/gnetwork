@@ -733,21 +733,21 @@ class ShortCodes extends gNetwork\Module
 					if ( $parent = get_post( $post->post_parent ) ) {
 
 						$html = Core\HTML::tag( 'a', [
-							'href'        => apply_filters( 'the_permalink', get_permalink( $parent ), $parent ),
-							'title'       => get_the_title( $parent ),
-							'class'       => 'parent',
-							'data-toggle' => 'tooltip',
-							'rel'         => 'parent',
+							'href'           => apply_filters( 'the_permalink', get_permalink( $parent ), $parent ),
+							'title'          => get_the_title( $parent ),
+							'class'          => 'parent',
+							'data-bs-toggle' => 'tooltip',
+							'rel'            => 'parent',
 						], $args['html'] );
 
 					} else {
 
 						$html = Core\HTML::tag( 'a', [
-							'href'        => home_url( '/' ),
-							'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
-							'class'       => 'home',
-							'data-toggle' => 'tooltip',
-							'rel'         => 'home',
+							'href'           => home_url( '/' ),
+							'title'          => _x( 'Home', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
+							'class'          => 'home',
+							'data-bs-toggle' => 'tooltip',
+							'rel'            => 'home',
 						], $args['html'] );
 					}
 				}
@@ -756,11 +756,11 @@ class ShortCodes extends gNetwork\Module
 			case 'home':
 
 				$html = Core\HTML::tag( 'a', [
-					'href'        => home_url( '/' ),
-					'title'       => _x( 'Home', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
-					'class'       => 'home',
-					'data-toggle' => 'tooltip',
-					'rel'         => 'home',
+					'href'           => home_url( '/' ),
+					'title'          => _x( 'Home', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
+					'class'          => 'home',
+					'data-bs-toggle' => 'tooltip',
+					'rel'            => 'home',
 				], $args['html'] );
 		}
 
@@ -1035,7 +1035,7 @@ class ShortCodes extends gNetwork\Module
 			$text = $email;
 
 		$html = '<a class="email" href="'.antispambot( "mailto:".$email.( $args['subject'] ? '?subject='.urlencode( $args['subject'] ) : '' ) )
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] ).'"' : '' ).'>'
+				.'"'.( $args['title'] ? ' data-bs-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] ).'"' : '' ).'>'
 				.( $email == $text ? antispambot( $email ) : $text ).'</a>';
 
 		return self::shortcodeWrap( $html, 'email', $args, FALSE );
@@ -1105,7 +1105,7 @@ class ShortCodes extends gNetwork\Module
 		$html = '<a class="sms" href="'.Core\HTML::prepURLforSMS( $number )
 				.( $args['body'] ? '?body='.rawurlencode( $args['body'] )
 				.'" data-sms-body="'.Core\HTML::escape( $args['body'] ) : '' )
-				.'"'.( $args['title'] ? ' data-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] )
+				.'"'.( $args['title'] ? ' data-bs-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] )
 				.'"' : '' ).' data-sms-number="'.Core\HTML::escape( $number ).'">'
 				.Core\HTML::wrapLTR( Core\Number::localize( $content ) ).'</a>';
 
@@ -1549,8 +1549,8 @@ class ShortCodes extends gNetwork\Module
 			'url'       => FALSE,
 			// 'url_text'  => is_rtl() ? '[&#8620;]' : '[&#8619;]',
 			'url_text'  => is_rtl()
-				? '<svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.096 8.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707z"/></svg>'   // @source https://icons.getbootstrap.com/icons/arrow-up-left-square/
-				: '<svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.854 8.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707z"/></svg>', // @source https://icons.getbootstrap.com/icons/arrow-up-right-square/
+				? '<svg width="16" height="16" fill="currentColor" style="vertical-align:middle" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.096 8.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707z"/></svg>'   // @source https://icons.getbootstrap.com/icons/arrow-up-left-square/
+				: '<svg width="16" height="16" fill="currentColor" style="vertical-align:middle" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.854 8.803a.5.5 0 1 1-.708-.707L9.243 6H6.475a.5.5 0 1 1 0-1h3.975a.5.5 0 0 1 .5.5v3.975a.5.5 0 1 1-1 0V6.707z"/></svg>', // @source https://icons.getbootstrap.com/icons/arrow-up-right-square/
 			'url_title' => _x( 'External Resource', 'Shortcodes Module: Defaults', 'gnetwork' ),
 			'template'  => '&#8207;[%s]&#8206;',
 			'combine'   => FALSE, // combine identical notes
@@ -1572,14 +1572,21 @@ class ShortCodes extends gNetwork\Module
 
 		if ( $args['url'] )
 			$url = Core\HTML::tag( 'a', [
-				'class'       => 'reference-external',
-				'data-toggle' => 'tooltip',
-				'href'        => $args['url'],
-				'title'       => $args['url_title'],
+				'class'          => 'reference-external',
+				'data-bs-toggle' => 'tooltip',
+				'href'           => $args['url'],
+				'title'          => $args['url_title'],
+				'rel'            => 'nofollow noopener',
 			], $args['url_text'] );
 
 		if ( $url )
-			$ref = $ref ? sprintf( '%s&nbsp;%s', $ref, $url ) : $url;
+			$ref = $ref
+				? sprintf( '%s&nbsp;%s', $ref, $url )
+				: sprintf( '%s&nbsp;%s', Core\HTML::tag( 'a', [
+					'href'  => $args['url'],
+					'class' => 'url-prep-title',
+					'rel'   => 'nofollow noopener',
+				], Core\URL::prepTitle( $args['url'] ) ), $url );
 
 		if ( ! $ref )
 			return NULL;
@@ -1598,10 +1605,10 @@ class ShortCodes extends gNetwork\Module
 		}
 
 		$html = Core\HTML::tag( 'a', [
-			'href'        => '#citenote-'.$key,
-			'title'       => $title,
-			'class'       => 'cite-scroll',
-			'data-toggle' => 'tooltip',
+			'href'           => '#citenote-'.$key,
+			'title'          => $title,
+			'class'          => 'cite-scroll',
+			'data-bs-toggle' => 'tooltip',
 		], sprintf( $args['template'], Core\Number::localize( $key ) ) );
 
 		return '&#xfeff;'.'<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'" data-ref="'.$key.'">'.$html.'</sup>'.' '; // plus extra space
@@ -1627,7 +1634,7 @@ class ShortCodes extends gNetwork\Module
 			'number_after' => '.&nbsp;',
 			'back'         => TRUE,
 			// 'back_text'    => is_rtl() ? '[&#10532;]' : '[&#10531;]', // '[&#8618;]' : '[&#8617;]',
-			'back_text'    => '<svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/></svg>', // @source https://icons.getbootstrap.com/icons/arrow-up-square/
+			'back_text'    => '<svg width="16" height="16" fill="currentColor" style="vertical-align:middle" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/></svg>', // @source https://icons.getbootstrap.com/icons/arrow-up-square/
 			'back_title'   => _x( 'Back to Text', 'Shortcodes Module: Defaults', 'gnetwork' ),
 			'context'      => NULL,
 			'wrap'         => TRUE,
@@ -1652,10 +1659,10 @@ class ShortCodes extends gNetwork\Module
 
 			if ( $args['back'] )
 				$html.= ' '.Core\HTML::tag( 'a', [
-					'href'        => '#citeref-'.$number,
-					'title'       => $args['back_title'],
-					'class'       => 'cite-scroll -back',
-					'data-toggle' => 'tooltip',
+					'href'           => '#citeref-'.$number,
+					'title'          => $args['back_title'],
+					'class'          => 'cite-scroll -back -print-hide',
+					'data-bs-toggle' => 'tooltip',
 				], $args['back_text'] ).' ';
 
 			$html.= '<span class="-text ref-text"><span class="citation">'.$text.'</span></span>';
@@ -1701,19 +1708,21 @@ class ShortCodes extends gNetwork\Module
 		return Utilities::getLayout( 'amp.reference' );
 	}
 
-	// Appends ref to table of contents on gEditorial Headings
+	// Appends ref to table of contents on `gEditorial` Headings
 	public function headings_toc( $toc )
 	{
 		if ( empty( $toc ) || count( $toc ) < 2 )
 			return $toc;
 
+		$niche = 3;
+
 		if ( count( $this->ref_ids ) )
 			$toc[] = $this->filters( 'reflist_toc', [
 				'slug'  => 'references',
 				'title' => _x( 'References', 'Shortcodes Module: Defaults', 'gnetwork' ),
-				'niche' => '3',
+				'niche' => $niche,
 				'page'  => $GLOBALS['page'],
-			], $toc );
+			], $toc, $niche );
 
 		return $toc;
 	}
