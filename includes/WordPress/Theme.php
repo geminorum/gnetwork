@@ -362,15 +362,17 @@ class Theme extends Core\Base
 		if ( $content_callback && is_callable( $content_callback ) )
 			Hook::filterOnce( 'the_content', $content_callback, 12, 1 );
 
-		// NOTE: cannot relay on `$post_id` filter data!
+		// NOTE: can not relay on `$post_id` filter data!
 		if ( $title_callback && is_callable( $title_callback ) )
 			// Hook::filterOnce( 'the_title', $title_callback, 12, 2 );
 			add_filter( 'the_title', $title_callback, 12, 2 );
 
-		// If we are in theme-compat, we don't need the `Edit` post link.
+		// If we are in `theme-compat`, we don't need the `Edit` post link.
 		add_filter( 'get_edit_post_link',
-			static function ( $edit_link = '', $post_id = 0 ) {
-				return 0 === $post_id ? FALSE : $edit_link;
+			static function ( $edit_link = '', $post_id = 0 )
+				use ( $post ) {
+
+				return $post->ID === (int) $post_id ? FALSE : $edit_link;
 			}, 10, 2 );
 	}
 

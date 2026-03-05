@@ -473,6 +473,9 @@ class PostType extends Core\Base
 
 	public static function getIDsBySearch( $string, $atts = [], $columns = NULL, $fields = NULL )
 	{
+		if ( empty( $string ) )
+			return [];
+
 		$args = array_merge( [
 			's'              => $string,
 			'fields'         => $fields ?? 'ids', // OR: `id=>parent`

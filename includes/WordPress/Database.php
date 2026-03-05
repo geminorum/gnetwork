@@ -91,14 +91,14 @@ class Database extends Core\Base
 	{
 		global $wpdb;
 
-		if ( $limit )
+		if ( absint( $limit ?: 0 ) )
 			$query = $wpdb->prepare( "
 				SELECT post_id, GROUP_CONCAT( meta_value ) as meta
 				FROM {$wpdb->postmeta}
 				WHERE meta_key = %s
 				GROUP BY post_id
 				LIMIT %d
-			", $meta_key, $limit );
+			", $meta_key, (int) $limit );
 		else
 			$query = $wpdb->prepare( "
 				SELECT post_id, GROUP_CONCAT( meta_value ) as meta

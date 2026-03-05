@@ -4,32 +4,6 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Text extends Base
 {
-
-	public static function spaced()
-	{
-		return self::glued( func_get_args(), ' ' );
-	}
-
-	public static function dotted()
-	{
-		return self::glued( func_get_args(), '.' );
-	}
-
-	public static function dashed()
-	{
-		return self::glued( func_get_args(), '-' );
-	}
-
-	public static function underlined()
-	{
-		return self::glued( func_get_args(), '_' );
-	}
-
-	public static function gluedNBSP()
-	{
-		return self::removeStartEnd( self::glued( func_get_args(), '&nbsp;' ), '&nbsp;' );
-	}
-
 	public static function glued( $args, $with = ' ' )
 	{
 		$parts = [];
@@ -45,6 +19,11 @@ class Text extends Base
 		return $with === ' ' || 1 !== strlen( $with )
 			? self::trim( implode( $with, $parts ) )
 			: self::trim( implode( $with, $parts ), $with );
+	}
+
+	public static function gluedNBSP()
+	{
+		return self::removeStartEnd( self::glued( func_get_args(), '&nbsp;' ), '&nbsp;' );
 	}
 
 	/**
@@ -235,7 +214,7 @@ class Text extends Base
 		if ( $normalize )
 			$text = self::normalizeWhitespace( $text, TRUE );
 
-		return array_filter( array_map( [ __CLASS__, 'trim' ], preg_split( "/\r\n|\n|\r/", $text ) ) );
+		return array_values( array_filter( array_map( [ __CLASS__, 'trim' ], preg_split( "/\r\n|\n|\r/", $text ) ) ) );
 	}
 
 	public static function stripNonNumeric( $text )
@@ -515,6 +494,7 @@ class Text extends Base
 
 		foreach ( [
 			'alignnone',
+			'alignfull',
 			'alignwide',
 			'aligncenter',
 			'alignleft',

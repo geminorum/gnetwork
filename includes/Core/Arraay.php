@@ -33,7 +33,7 @@ class Arraay extends Base
 
 	public static function trimText( $input, $filter = TRUE, $additional = NULL )
 	{
-		if ( empty ( $input ) )
+		if ( empty( $input ) )
 			return $input;
 
 		$array = array_map(
@@ -48,7 +48,7 @@ class Arraay extends Base
 
 	public static function trimTextQuotes( $input, $filter = TRUE, $list = NULL )
 	{
-		if ( empty ( $input ) )
+		if ( empty( $input ) )
 			return $input;
 
 		$array = array_map(
@@ -1379,5 +1379,50 @@ class Arraay extends Base
 			},
 			array_chunk( $array, $chunk )
 		);
+	}
+
+	/**
+	 * Extract keys/values preserving the original ordering.
+	 * NOTE: `array_keys()` does not always respect ordering.
+	 * @source https://stackoverflow.com/a/28633226
+	 *
+	 * @param array $array
+	 * @return array
+	 */
+	public static function extractKeysValues( $array )
+	{
+		$keys   = array_keys( $array );
+		$values = [];
+
+		foreach( $keys as $key )
+			$values[] = $array[$key];
+
+		return [
+			'keys'   => $keys,
+			'values' => $values,
+		];
+	}
+
+	/**
+	 * Retrieves array keys in provided order.
+	 * NOTE: `array_keys()` does not always respect ordering.
+	 * @source https://stackoverflow.com/a/28633226
+	 *
+	 * @param array $input
+	 * @param array $ordered_keys
+	 * @return array
+	 */
+	public static function valuesByKeys( $input, $ordered_keys )
+	{
+		$values = [];
+
+		if ( empty( $input ) || empty( $ordered_keys ) )
+			return $values;
+
+		foreach( $ordered_keys as $ordered_key )
+			if ( array_key_exists( $ordered_key, $input ) )
+        		$values[] = $input[$ordered_key];
+
+    	return $values;
 	}
 }

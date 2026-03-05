@@ -11,6 +11,7 @@ class Module extends Core\Base
 	protected $key  = NULL;
 	protected $path = NULL;
 	protected $site = NULL;
+	protected $icon = NULL; // `Dashicons` only
 
 	public static function module() { return []; }
 	protected function setup( $args = [] ) {}

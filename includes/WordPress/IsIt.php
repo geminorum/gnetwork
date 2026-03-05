@@ -33,6 +33,37 @@ class IsIt extends Core\Base
 		return empty( $required ) || version_compare( PHP_VERSION, $required, '>=' );
 	}
 
+	// @SEE: `WordPress\Screen::mustRegisterUI()`
+	public static function singularUI( $posttypes = '' )
+	{
+		if ( is_robots() || is_favicon() || is_feed() )
+			return FALSE;
+
+		// NOTE: `wp-activate.php` does not reach here!
+		// maybe: `/signup` but will redirect on logged in
+		if ( ! empty( get_query_var( 'signup' ) ) || '/wp-signup.php' === $_SERVER['REQUEST_URI'] )
+			return FALSE;
+
+		if ( FALSE === $posttypes && ( is_embed() || is_search() ) )
+			return FALSE;
+
+		if ( FALSE !== $posttypes && ! is_singular( $posttypes ) )
+			return FALSE;
+
+		if ( ! $pagename = get_query_var( 'pagename' ) )
+			return TRUE;
+
+		if ( in_array( $pagename, [
+			'not-found',  // `gNetwork` Not-Found
+			// 'signup',
+			// 'activate',
+			// 'register',   // `BuddyPress` register page
+		], TRUE ) )
+			return FALSE;
+
+		return TRUE;
+	}
+
 	/**
 	 * Determine whether the current request is for an AMP page.
 	 * @see https://amp-wp.org/reference/function/amp_is_request/

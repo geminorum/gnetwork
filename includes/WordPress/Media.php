@@ -192,6 +192,9 @@ class Media extends Core\Base
 
 		$sizes = [];
 
+		if ( empty( $taxonomy ) )
+			return $sizes;
+
 		foreach ( (array) $_wp_additional_image_sizes as $name => $args ) {
 
 			if ( array_key_exists( 'taxonomy', $args ) ) {

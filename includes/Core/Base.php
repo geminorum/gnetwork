@@ -4,6 +4,26 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Base
 {
+	public static function spc()
+	{
+		return Text::glued( func_get_args(), ' ' );
+	}
+
+	public static function dot()
+	{
+		return Text::glued( func_get_args(), '.' );
+	}
+
+	public static function dsh()
+	{
+		return Text::glued( func_get_args(), '-' );
+	}
+
+	public static function und()
+	{
+		return Text::glued( func_get_args(), '_' );
+	}
+
 	// NOTE: pseudo magic method!
 	public function setVars( $args )
 	{
@@ -393,11 +413,11 @@ class Base
 	}
 
 	/**
-	 * Converts a comma- or space-separated list of scalar values to an array.
-	 * @ref: `wp_parse_list()`
+	 * Converts a comma or space-separated list of scalar values to an array.
+	 * @source: `wp_parse_list()`
 	 *
-	 * @param mixed $input
-	 * @return array $list
+	 * @param int|string|array $input
+	 * @return array
 	 */
 	public static function list( $input )
 	{
@@ -409,11 +429,11 @@ class Base
 	}
 
 	/**
-	 * Cleans up an array, comma- or space-separated list of IDs.
-	 * @ref `wp_parse_id_list()`
+	 * Cleans up an array, comma, or space-separated list of IDs.
+	 * @source `wp_parse_id_list()`
 	 *
-	 * @param mixed $input
-	 * @return array $ids
+	 * @param int|string|array $input
+	 * @return array
 	 */
 	public static function ids( $input )
 	{
@@ -421,6 +441,7 @@ class Base
 	}
 
 	// @REF: `shortcode_atts()`
+	// NOTE: DEPRECATED: use `Base::parsed()`
 	public static function atts( $pairs, $atts )
 	{
 		$atts = (array) $atts;
@@ -436,23 +457,68 @@ class Base
 		return $out;
 	}
 
-	// @REF: `wp_parse_args()`
-	public static function args( $args, $defaults = '' )
+	/**
+	 * Combines provided arguments with expected and fill in defaults when needed.
+	 * NOTE: difference with `Base::args()` is that only return existing keys on defaults.
+	 *
+	 * @old `Base::atts()`
+	 * @source `shortcode_atts()`
+	 *
+	 * @param array $defaults
+	 * @param string|array $data
+	 * @return array
+	 */
+	public static function parsed( $defaults, $data )
 	{
-		if ( is_object( $args ) )
-			$r = get_object_vars( $args );
+		$parsed = [];
+		$data   = self::args( $data );
 
-		else if ( is_array( $args ) )
-			$r = &$args;
+		if ( empty( $defaults ) )
+			return $parsed;
 
-		else
-			// wp_parse_str( $args, $r );
-			parse_str( $args, $r );
+		if ( empty( $data ) )
+			return $defaults;
 
-		if ( is_array( $defaults ) )
-			return array_merge( $defaults, $r );
+		foreach ( $defaults as $key => $value ) {
 
-		return $r;
+			if ( array_key_exists( $key, $data ) )
+				$parsed[$key] = $data[$key];
+
+			else
+				$parsed[$key] = $value;
+		}
+
+		return $parsed;
+	}
+
+	/**
+	 * Merges user defined arguments into defaults array.
+	 * Allows for both string or array to be merged into another array.
+	 * NOTE: difference with `Base::parsed()` is that merges data with defaults.
+	 *
+	 * @source `wp_parse_args()`
+	 *
+	 * @param string|array $arguments
+	 * @param array $defaults
+	 * @return array
+	 */
+	public static function args( $arguments, $defaults = '' )
+	{
+		$parsed = [];
+
+		if ( is_object( $arguments ) )
+			$parsed = get_object_vars( $arguments );
+
+		else if ( is_array( $arguments ) )
+			$parsed = &$arguments;
+
+		else if ( ! empty( $args ) )
+			parse_str( (string) $arguments, $parsed );
+
+		if ( is_array( $defaults ) && $defaults )
+			return array_merge( $defaults, $parsed );
+
+		return $parsed;
 	}
 
 	/**
@@ -511,8 +577,8 @@ class Base
 		return ( $preserve_type && ( is_object( $args ) || is_object( $defaults ) ) ) ? (object) $output : $output;
 	}
 
-	// maps a function to all non-iterable elements of an array or an object
-	// this is similar to `array_walk_recursive()` but acts upon objects too
+	// Maps a function to all non-iterable elements of an array or an object.
+	// NOTE: similar to `array_walk_recursive()` but acts upon objects too.
 	// @REF: `map_deep()`
 	public static function mapDeep( $data, $callback )
 	{

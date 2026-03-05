@@ -7,7 +7,7 @@ use geminorum\gNetwork\Core;
 class User extends Core\Base
 {
 
-	public static function colorScheme( $user = NULL, $fallback = 'fresh' )
+	public static function colorScheme( $user = NULL, $fallback = 'modern' )
 	{
 		if ( ! $user && ! is_user_logged_in() )
 			return $fallback;

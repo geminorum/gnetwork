@@ -788,9 +788,9 @@ class Post extends Core\Base
 	}
 
 	// @old: `WordPress\PostType::newPostFromTerm()`
-	public static function newByTerm( $term, $taxonomy = 'category', $posttype = 'post', $user_id = NULL )
+	public static function newByTerm( $term, $taxonomy = NULL, $posttype = 'post', $user_id = NULL )
 	{
-		if ( ! $term = Term::get( $term, $taxonomy ) )
+		if ( ! $term = Term::get( $term, $taxonomy ?: '' ) )
 			return FALSE;
 
 		$new_post = [

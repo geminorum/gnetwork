@@ -117,6 +117,11 @@ class HTML extends Base
 		return self::inline( 'span', $string, $class, $click_to_copy, $title );
 	}
 
+	public static function abbr( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
+	{
+		return self::inline( 'abbr', $string, $class, $click_to_copy, $title );
+	}
+
 	public static function mark( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
 	{
 		return self::inline( 'mark', $string, $class, $click_to_copy, $title );
@@ -830,14 +835,17 @@ class HTML extends Base
 		echo $html;
 	}
 
-	public static function headerNav( $uri = '', $active = '', $subs = [], $prefix = 'nav-tab', $wrap = 'h3', $item = FALSE )
+	public static function headerNav( $uri = '', $active = '', $subs = [], $wrap_extra = [], $prefix = 'nav-tab', $wrap = 'h3', $item = FALSE )
 	{
 		if ( empty( $subs ) )
 			return '';
 
 		$html = '';
+		$pos  = L10n::rtl() ? 'left' : 'right';
 
 		foreach ( $subs as $slug => $page ) {
+
+			$hint = $data = FALSE;
 
 			if ( is_array( $page ) ) {
 
@@ -847,12 +855,21 @@ class HTML extends Base
 				$args = empty( $page['args'] ) ? [ 'sub' => $slug ] : $page['args'];
 				$hint = empty( $page['hint'] ) ? ( empty( $page['title'] ) ? $slug : $page['title'] ) : $page['hint'];
 
+				if ( $hint ) {
+
+					$data = [
+						'tooltip'     => $hint,
+						'tooltip-pos' => $pos,
+					];
+
+					$hint = FALSE;
+				}
+
 			} else {
 
 				$title = sprintf( '<span class="-nav-link-title">%s</span>', $page );
 				$icon  = '';
 				$args  = [ 'sub' => $slug ];
-				$hint  = FALSE;
 			}
 
 			$url   = add_query_arg( $args, $uri );
@@ -864,13 +881,13 @@ class HTML extends Base
 			];
 
 			if ( $item )
-				$html.= self::tag( $item, [ 'class' => $class, 'title' => $hint ], self::link( $icon.$title, $url ) );
+				$html.= self::tag( $item, [ 'class' => $class, 'title' => $hint, 'data' => $data ], self::link( $icon.$title, $url ) );
 			else
-				$html.= self::tag( 'a', [ 'class' => $class, 'title' => $hint, 'href' => $url ], $icon.$title );
+				$html.= self::tag( 'a', [ 'class' => $class, 'title' => $hint, 'data' => $data, 'href' => $url ], $icon.$title );
 		}
 
 		if ( $wrap )
-			echo self::tag( $wrap, [ 'class' => $prefix.'-wrapper' ], $html );
+			echo self::tag( $wrap, array_merge( [ 'class' => $prefix.'-wrapper' ], $wrap_extra ), $html );
 
 		else
 			echo $html;
@@ -982,21 +999,25 @@ class HTML extends Base
 		if ( empty( $columns ) )
 			return FALSE;
 
+		$empty = $alt = TRUE;
+		$hidden_columns = [];
+
 		$args = self::atts( [
-			'empty'      => NULL,
-			'title'      => NULL,
-			'before'     => FALSE,
-			'after'      => FALSE,
-			'row_prep'   => FALSE,   // call back to prep each row data
-			'row_class'  => FALSE,   // call back to filter each row class
-			'callback'   => FALSE,   // for all cells
-			'sanitize'   => TRUE,    // using `sanitizeDisplay()`
-			'search'     => FALSE,   // 'before', // 'after', // FIXME: add search box
-			'navigation' => FALSE,   // 'before', // 'after',
-			'direction'  => NULL,
-			'pagination' => [],
-			'map'        => [],
-			'extra'      => [],      // just passing around!
+			'empty'        => NULL,
+			'title'        => NULL,
+			'before'       => FALSE,
+			'after'        => FALSE,
+			'return_empty' => FALSE,   // Whether to return the empty results of data // NOTE: default is better to be `FALSE` for help the caller
+			'row_prep'     => FALSE,   // Callback to prep each row data
+			'row_class'    => FALSE,   // Callback to filter each row class
+			'callback'     => FALSE,   // for all cells
+			'sanitize'     => TRUE,    // using `sanitizeDisplay()`
+			'search'       => FALSE,   // 'before', // 'after', // FIXME: add search box
+			'navigation'   => FALSE,   // 'before', // 'after',
+			'direction'    => NULL,
+			'pagination'   => [],
+			'map'          => [],
+			'extra'        => [],      // just passing around!
 		], $atts );
 
 		echo '<div'.( is_null( $args['direction'] ) ? '' : ' dir="'.$args['direction'].'"' ).' class="base-table-wrap">';
@@ -1038,10 +1059,22 @@ class HTML extends Base
 
 				if ( is_array( $column ) ) {
 
-					$title = empty( $column['title'] ) ? $key : $column['title'];
+					$parsed_column = self::atts( [
+						'title'      => $key,
+						'class'      => [],
+						'hide_empty' => FALSE,
+					], $column );
 
-					if ( ! empty( $column['class'] ) )
-						$class = array_merge( $class, (array) $column['class'] );
+					if ( $parsed_column['hide_empty'] && ! empty( $data ) ) {
+
+						if ( ! array_filter( Arraay::column( $data, $key ) ) ) {
+							$hidden_columns[] = $key;
+							continue;
+						}
+					}
+
+					$title = $parsed_column['title'];
+					$class = array_merge( $class, (array) $parsed_column['class'] );
 
 				} else if ( '_cb' === $key ) {
 
@@ -1059,15 +1092,7 @@ class HTML extends Base
 
 		echo '</tr></thead><tbody class="-list">';
 
-		if ( empty( $data ) ) {
-
-			echo '<tr><td colspan="'.count( $columns ).'">';
-				self::desc( $args['empty'], TRUE, 'base-table-empty' );
-			echo '</td></tr>';
-
-		} else {
-
-			$alt = TRUE;
+		if ( ! empty( $data ) ) {
 
 			foreach ( $data as $index => $row ) {
 
@@ -1088,6 +1113,9 @@ class HTML extends Base
 				echo '<tr class="'.self::prepClass( $row_class ).'">';
 
 				foreach ( $columns as $offset => $column ) {
+
+					if ( in_array( $offset, $hidden_columns, TRUE ) )
+						continue;
 
 					$cell     = 'td';
 					$value    = NULL;
@@ -1177,7 +1205,14 @@ class HTML extends Base
 				$alt = ! $alt;
 
 				echo '</tr>';
+				$empty = FALSE;
 			}
+		}
+
+		if ( $empty ) {
+			echo '<tr><td colspan="'.( count( $columns ) - count( $hidden_columns ) ).'">';
+				self::desc( $args['empty'], TRUE, 'base-table-empty' );
+			echo '</td></tr>';
 		}
 
 		echo '</tbody></table>';
@@ -1204,7 +1239,7 @@ class HTML extends Base
 
 		echo '</div></div>';
 
-		return TRUE;
+		return $args['return_empty'] ? $empty : TRUE;
 	}
 
 	public static function tableActions( $actions, $verbose = TRUE )
@@ -1300,13 +1335,16 @@ class HTML extends Base
 
 			echo '<div class="-controls">';
 
-			echo '&nbsp;';
-			echo '&nbsp;';
+			if ( $args['total'] ) {
 
-			vprintf( '<span class="-total-pages">%s / %s</span>', [
-				Number::format( $args['total'] ),
-				Number::format( $args['pages'] ),
-			] );
+				echo '&nbsp;';
+				echo '&nbsp;';
+
+				vprintf( '<span class="-total-pages">%s / %s</span>', [
+					Number::format( $args['total'] ),
+					Number::format( $args['pages'] ),
+				] );
+			}
 
 			echo '&nbsp;';
 			echo '&nbsp;';
@@ -1391,8 +1429,8 @@ class HTML extends Base
 			'pages'    => (int) $max,
 			'limit'    => (int) $limit,
 			'paged'    => (int) $paged,
-			'extra'    => $extra, // extra args to add to the links
-			'all'      => $all, // WTF?! (probably display all!)
+			'extra'    => $extra,         // Extra arguments to add to the links
+			'all'      => $all,           // WTF?! (probably display all!)
 			'next'     => FALSE,
 			'previous' => FALSE,
 		];

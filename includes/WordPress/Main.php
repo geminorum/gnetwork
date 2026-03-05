@@ -73,7 +73,7 @@ class Main extends Core\Base
 
 	protected static function actions( $hook, ...$args )
 	{
-		return do_action( Core\Text::underlined(
+		return do_action( self::und(
 			static::BASE,
 			static::MODULE,
 			$hook
@@ -82,7 +82,7 @@ class Main extends Core\Base
 
 	protected static function filters( $hook, ...$args )
 	{
-		return apply_filters( Core\Text::underlined(
+		return apply_filters( self::und(
 			static::BASE,
 			static::MODULE,
 			$hook

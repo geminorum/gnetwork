@@ -791,18 +791,18 @@ class Taxonomy extends Core\Base
 
 	public static function getIDbyMeta( $key, $value, $single = TRUE )
 	{
-		global $wpdb, $gEditorialTermIDbyMeta;
+		global $wpdb, $gCoreTermIDbyMeta;
 
 		if ( empty( $key ) || empty( $value ) )
 			return FALSE;
 
-		if ( empty( $gEditorialTermIDbyMeta ) )
-			$gEditorialTermIDbyMeta = [];
+		if ( empty( $gCoreTermIDbyMeta ) )
+			$gCoreTermIDbyMeta = [];
 
 		$group = $single ? 'single' : 'all';
 
-		if ( isset( $gEditorialTermIDbyMeta[$key][$group][$value] ) )
-			return $gEditorialTermIDbyMeta[$key][$group][$value];
+		if ( isset( $gCoreTermIDbyMeta[$key][$group][$value] ) )
+			return $gCoreTermIDbyMeta[$key][$group][$value];
 
 		$query = $wpdb->prepare( "
 			SELECT term_id
@@ -815,32 +815,32 @@ class Taxonomy extends Core\Base
 			? $wpdb->get_var( $query )
 			: $wpdb->get_col( $query );
 
-		return $gEditorialTermIDbyMeta[$key][$group][$value] = $results;
+		return $gCoreTermIDbyMeta[$key][$group][$value] = $results;
 	}
 
 	public static function invalidateIDbyMeta( $meta, $value = FALSE )
 	{
-		global $gEditorialTermIDbyMeta;
+		global $gCoreTermIDbyMeta;
 
 		if ( empty( $meta ) )
 			return TRUE;
 
-		if ( empty( $gEditorialTermIDbyMeta ) )
+		if ( empty( $gCoreTermIDbyMeta ) )
 			return TRUE;
 
 		if ( FALSE === $value ) {
 
 			// clear all meta by key
 			foreach ( (array) $meta as $key ) {
-				unset( $gEditorialTermIDbyMeta[$key]['all'] );
-				unset( $gEditorialTermIDbyMeta[$key]['single'] );
+				unset( $gCoreTermIDbyMeta[$key]['all'] );
+				unset( $gCoreTermIDbyMeta[$key]['single'] );
 			}
 
 		} else {
 
 			foreach ( (array) $meta as $key ) {
-				unset( $gEditorialTermIDbyMeta[$key]['all'][$value] );
-				unset( $gEditorialTermIDbyMeta[$key]['single'][$value] );
+				unset( $gCoreTermIDbyMeta[$key]['all'][$value] );
+				unset( $gCoreTermIDbyMeta[$key]['single'][$value] );
 			}
 		}
 
@@ -968,14 +968,14 @@ class Taxonomy extends Core\Base
 	 * Determines whether a taxonomy term exists.
 	 * Formerly `is_term()`, Introduced in WP 2.3.0.
 	 *
+	 * NOTE: THE OLD VERSION OF `term_exists()`
 	 * @SEE: https://make.wordpress.org/core/2022/04/28/taxonomy-performance-improvements-in-wordpress-6-0/
-	 * @SOURCE: OLD VERSION OF `term_exists()`
 	 *
 	 * @global wpdb $wpdb WordPress database abstraction object.
 	 *
 	 * @param int|string $term: The term to check. Accepts term ID, slug, or name.
 	 * @param string $taxonomy: Optional. The taxonomy name to use.
-	 * @param int $parent: Optional. ID of parent term under which to confine the exists search.
+	 * @param int $parent: Optional. ID of parent term under which to confine the `exists` search.
 	 * @return mixed Returns null if the term does not exist.
 	 *               Returns the term ID if no taxonomy is specified and the term ID exists.
 	 *               Returns an array of the term ID and the term taxonomy ID if the taxonomy is specified and the pairing exists.
@@ -1001,7 +1001,7 @@ class Taxonomy extends Core\Base
 			if ( ! empty( $taxonomy ) ) {
 
 				// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
-				return $wpdb->get_row( $wpdb->prepare( $tax_select . $where . ' AND tt.taxonomy = %s', $term, $taxonomy ), ARRAY_A );
+				return $wpdb->get_row( $wpdb->prepare( $tax_select.$where. ' AND tt.taxonomy = %s', $term, $taxonomy ), ARRAY_A );
 
 			} else {
 
@@ -1156,7 +1156,7 @@ class Taxonomy extends Core\Base
 
 	// `get_objects_in_term()` without cache updating
 	// @SOURCE: `wp_delete_term()`
-	public static function getTermObjects( $term_taxonomy_id, $taxonomy )
+	public static function getTermObjects( $term_taxonomy_id )
 	{
 		global $wpdb;
 
@@ -1185,7 +1185,7 @@ class Taxonomy extends Core\Base
 		$tt_id = $exists['term_taxonomy_id'];
 		$count = 0;
 
-		foreach ( self::getTermObjects( $tt_id, $taxonomy ) as $object_id ) {
+		foreach ( self::getTermObjects( $tt_id ) as $object_id ) {
 
 			do_action( 'delete_term_relationships', $object_id, $tt_id, $taxonomy );
 

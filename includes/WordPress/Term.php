@@ -362,6 +362,7 @@ class Term extends Core\Base
 
 		$taxonomy  = Taxonomy::object( $term );
 		$timestamp = Core\Date::timestamp( get_term_meta( $term->term_id, 'datetime', TRUE ) );
+		$subtitle  = $taxonomy->taxonomyfields_tagline ?? 'tagline';
 
 		return [
 			'_id'         => $term->term_id,
@@ -379,7 +380,7 @@ class Term extends Core\Base
 			'ago'         => $timestamp ? human_time_diff( $timestamp ) : FALSE,
 			'image'       => self::image( $term, $context ),
 			'description' => wpautop( apply_filters( 'html_format_i18n', $term->description ) ),
-			'subtitle'    => get_term_meta( $term->term_id, 'subtitle', TRUE ) ?: get_term_meta( $term->term_id, 'tagline', TRUE ),
+			'subtitle'    => $subtitle ? get_term_meta( $term->term_id, $subtitle, TRUE ) : get_term_meta( $term->term_id, 'subtitle', TRUE ),
 		];
 	}
 
@@ -537,9 +538,9 @@ class Term extends Core\Base
 	 * @param string $taxonomy
 	 * @return false|string
 	 */
-	public static function getRestRoute( $term_or_id, $taxonomy = '' )
+	public static function getRestRoute( $term_or_id, $taxonomy = NULL )
 	{
-		if ( ! $term = self::get( $term_or_id, $taxonomy ) )
+		if ( ! $term = self::get( $term_or_id, $taxonomy ?: '' ) )
 			return FALSE;
 
 		if ( ! $object = Taxonomy::object( $term ) )
@@ -606,17 +607,104 @@ class Term extends Core\Base
 	}
 
 	/**
+	 * Updates a term based on arguments provided.
+	 * NOTE: wrapper for `wp_update_term()` with taxonomy change and meta support.
+	 *
+	 * @param mixed $term
+	 * @param array $data
+	 * @return false|int
+	 */
+	public static function update( $term, $data = [] )
+	{
+		if ( ! $term = self::get( $term ) )
+			return FALSE;
+
+		if ( ! empty( $data['taxonomy'] ) && $data['taxonomy'] !== $term->taxonomy ) {
+
+			if ( ! $term = self::updateTaxonomy( $term, $data['taxonomy'] ) )
+				return FALSE;
+		}
+
+		$args = self::atts( [
+			'alias_of'    => '',   // Slug of the term to make this term an alias of. Accepts a term slug.
+			'description' => '',
+			'parent'      => 0,
+			'slug'        => '',
+		], $data );
+
+		if ( array_filter( $args ) ) {
+			$updated = wp_update_term( $term->term_id, $term->taxonomy, $args );
+
+			if ( self::isError( $updated ) )
+				return self::_log( $data, $updated );
+		}
+
+		if ( empty( $data['meta'] ) )
+			return $term->term_id;
+
+		$override = ! empty( $data['meta_override'] );
+
+		foreach ( $data['meta'] as $meta_key => $meta_value ) {
+
+			if ( $override )
+				update_term_meta( $term->term_id, $meta_key, $meta_value );
+			else
+				// will bail if an entry with the same key is found
+				add_term_meta( $term->term_id, $meta_key, $meta_value, TRUE );
+		}
+
+		clean_term_cache( $term->term_id, $term->taxonomy );
+
+		return $term->term_id;
+	}
+
+	/**
 	 * Performs term count update immediately.
 	 *
-	 * @param int|string $term_or_id
+	 * @param mixed $term_or_id
 	 * @param string $taxonomy
 	 * @return bool
 	 */
-	public static function updateCount( $term_or_id, $taxonomy )
+	public static function updateCount( $term_or_id, $taxonomy = NULL )
 	{
-		if ( ! $term = self::get( $term_or_id, $taxonomy ) )
+		if ( ! $term = self::get( $term_or_id, $taxonomy ?: '' ) )
 			return FALSE;
 
-		return wp_update_term_count_now( [ $term->term_id ], $taxonomy );
+		return wp_update_term_count_now( [ $term->term_id ], $term->taxonomy );
+	}
+
+	/**
+	 * Changes the taxonomy of a term.
+	 * @source https://wordpress.stackexchange.com/a/243693
+	 *
+	 * @param mixed $term
+	 * @param string $target
+	 * @return false|object
+	 */
+	public static function updateTaxonomy( $term, $target )
+	{
+		global $wpdb;
+
+		if ( ! $term = self::get( $term ) )
+			return FALSE;
+
+		if ( $target === $term->taxonomy )
+			return $term;
+
+		$update = $wpdb->update(
+			$wpdb->prefix.'term_taxonomy',
+			[ 'taxonomy' => $target ],
+			[ 'term_taxonomy_id' => $term->term_id ],
+			[ '%s' ],
+			[ '%d' ]
+		);
+
+		if ( ! $update )
+			return FALSE;
+
+		clean_term_cache( [ $term->term_id ], $term->taxonomy, FALSE );
+		clean_term_cache( [ $term->term_id ], $target, FALSE );
+
+		return self::get( $term->term_id );
 	}
 }

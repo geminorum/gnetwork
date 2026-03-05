@@ -21,6 +21,30 @@ class L10n extends Base
 		return $site ? get_locale() : determine_locale();
 	}
 
+	/**
+	 * Reduces to the available from a list of supported languages.
+	 *
+	 * @param array $supported
+	 * @param string $fallback
+	 * @param string $locale
+	 * @return string
+	 */
+	public static function available( $supported, $fallback = 'en', $locale = NULL )
+	{
+		$locale = $locale ?? self::locale( TRUE );
+
+		if ( '' === $locale )
+			$locale = 'en_US';
+
+		if ( ! $language = substr( $locale, 0, 2 ) )
+			return $fallback;
+
+		if ( ! in_array( $language, $supported, TRUE ) )
+			return $fallback;
+
+		return $language;
+	}
+
 	public static function sanitize( $locale = NULL )
 	{
 		if ( '' === $locale || 'en' === $locale )
