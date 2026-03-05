@@ -13,6 +13,7 @@ class Images extends gNetwork\Module
 	protected $key     = 'images';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
+	protected $icon    = 'images-alt';
 
 	protected function setup_actions()
 	{

@@ -197,20 +197,18 @@ class Module extends WordPress\Module
 	}
 
 	// We call `setup_menu` action only if `WordPress\Screen::mustRegisterUI()`
-	public function register_menu( $title = NULL, $sub = NULL, $priority = 10, $capability = NULL, $callback = NULL )
+	public function register_menu( $title = NULL, $sub = NULL, $priority = 10, $capability = NULL, $callback = NULL, $icon = NULL )
 	{
-		if ( is_null( $sub ) )
-			$sub = $this->key;
-
-		if ( is_null( $callback ) )
-			$callback = [ $this, 'settings' ];
-
 		if ( $this->is_network() ) {
 
-			if ( is_null( $capability ) )
-				$capability = 'manage_network_options';
-
-			Modules\Network::registerMenu( $sub, $title, $callback, $capability, $priority );
+			Modules\Network::registerMenu(
+				$sub ?? $this->key,
+				$title,
+				$callback ?? [ $this, 'settings' ],
+				$capability,
+				$priority,
+				$icon, //  ?? $this->icon // auto icon disabled on horizontal navigations!
+			);
 
 		} else {
 
@@ -219,26 +217,31 @@ class Module extends WordPress\Module
 					? $this->options['menus_accesscap']
 					: 'manage_options';
 
-			Modules\Admin::registerMenu( $sub, $title, $callback, $capability, $priority );
+			Modules\Admin::registerMenu(
+				$sub ?? $this->key,
+				$title,
+				$callback ?? [ $this, 'settings' ],
+				$capability,
+				$priority,
+				$icon, //  ?? $this->icon // auto icon disabled on horizontal navigations!
+			);
 		}
 
 		// no need for user menu
 	}
 
-	public function register_tool( $title = NULL, $sub = NULL, $priority = 10, $capability = NULL, $callback = NULL )
+	public function register_tool( $title = NULL, $sub = NULL, $priority = 10, $capability = NULL, $callback = NULL, $icon = NULL )
 	{
-		if ( is_null( $sub ) )
-			$sub = $this->key;
-
-		if ( is_null( $callback ) )
-			$callback = [ $this, 'tools' ];
-
 		if ( $this->is_network() ) {
 
-			if ( is_null( $capability ) )
-				$capability = 'manage_network_options';
-
-			Modules\Network::registerTool( $sub, $title, $callback, $capability, $priority );
+			Modules\Network::registerTool(
+				$sub ?? $this->key,
+				$title,
+				$callback ?? [ $this, 'tools' ],
+				$capability,
+				$priority,
+				$icon ?? $this->icon
+			);
 
 		} else {
 
@@ -247,7 +250,14 @@ class Module extends WordPress\Module
 					? $this->options['tools_accesscap']
 					: 'manage_options';
 
-			Modules\Admin::registerTool( $sub, $title, $callback, $capability, $priority );
+			Modules\Admin::registerTool(
+				$sub ?? $this->key,
+				$title,
+				$callback ?? [ $this, 'tools' ],
+				$capability,
+				$priority,
+				$icon ?? $this->icon
+			);
 		}
 
 		// no need for user menu
@@ -262,17 +272,26 @@ class Module extends WordPress\Module
 
 	protected function get_subs( $context = 'settings' )
 	{
-		$subs = [];
+		$subs = [
+			'overview' => [
+				'title' => _x( 'Overview', 'Module Core: Menu Name', 'gnetwork-admin' ),
+			],
+		];
 
-		$subs['overview'] = _x( 'Overview', 'Module Core: Menu Name', 'gnetwork-admin' );
+		// only for contexts with `side-nav`
+		if ( in_array( $context, [ 'tools' ], TRUE ) )
+			$subs['overview']['icon'] = Core\HTML::getDashicon( 'dashboard' );
 
 		foreach ( $this->get_menus( $context ) as $priority => $group )
 			foreach ( $group as $sub => $args )
 				if ( WordPress\User::cuc( $args['cap'] ) )
-					$subs[$sub] = $args['title'];
+					$subs[$sub] = $args;
 
 		if ( 'settings' == $context && WordPress\User::isSuperAdmin() )
-			$subs['console'] = _x( 'Console', 'Module Core: Menu Name', 'gnetwork-admin' );
+			$subs['console'] = [
+				'title' => _x( 'Console', 'Module Core: Menu Name', 'gnetwork-admin' ),
+				// 'icon'  => Core\HTML::getDashicon( 'admin-generic' ), // WORKING: but it's too much on horizontal navigations!
+			];
 
 		return $subs;
 	}

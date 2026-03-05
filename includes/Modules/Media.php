@@ -14,6 +14,7 @@ class Media extends gNetwork\Module
 	protected $key     = 'media';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
+	protected $icon    = 'admin-media';
 
 	private $posttype_sizes = [];
 	private $taxonomy_sizes = [];

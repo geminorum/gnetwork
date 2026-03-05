@@ -109,28 +109,30 @@ class Network extends gNetwork\Module
 			: $relative;
 	}
 
-	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options', $priority = 10 )
+	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = NULL, $priority = 10, $icon = NULL )
 	{
 		if ( ! is_network_admin() )
 			return;
 
 		gNetwork()->network->menus['settings'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
-			'cap'   => $capability,
+			'icon'  => $icon ? Core\HTML::getDashicon( $icon ) : NULL,
+			'cap'   => $capability ?? 'manage_network_options',
 		];
 
 		if ( $callback )
 			add_action( static::BASE.'_network_settings', $callback );
 	}
 
-	public static function registerTool( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_network_options', $priority = 10 )
+	public static function registerTool( $sub, $title = NULL, $callback = FALSE, $capability = NULL, $priority = 10, $icon = NULL )
 	{
 		if ( ! is_network_admin() )
 			return;
 
 		gNetwork()->network->menus['tools'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
-			'cap'   => $capability,
+			'icon'  => $icon ? Core\HTML::getDashicon( $icon ) : NULL,
+			'cap'   => $capability ?? 'manage_network_options',
 		];
 
 		if ( $callback )

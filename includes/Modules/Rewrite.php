@@ -11,6 +11,7 @@ class Rewrite extends gNetwork\Module
 {
 	protected $key     = 'rewrite';
 	protected $network = FALSE;
+	protected $icon    = 'editor-unlink';
 
 	protected function setup_actions()
 	{

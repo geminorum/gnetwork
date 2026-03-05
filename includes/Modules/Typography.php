@@ -13,6 +13,7 @@ class Typography extends gNetwork\Module
 	protected $key     = 'typography';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
+	protected $icon    = 'editor-paragraph';
 
 	protected function setup_actions()
 	{

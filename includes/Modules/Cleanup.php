@@ -14,6 +14,7 @@ class Cleanup extends gNetwork\Module
 	protected $network = FALSE;
 	protected $user    = FALSE;
 	protected $front   = FALSE;
+	protected $icon    = 'trash';
 
 	public function setup_menu( $context )
 	{

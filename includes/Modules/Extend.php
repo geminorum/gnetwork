@@ -10,7 +10,8 @@ use geminorum\gNetwork\WordPress;
 
 class Extend extends gNetwork\Module
 {
-	protected $key = 'extend';
+	protected $key  = 'extend';
+	protected $icon = 'networking';
 
 	protected function setup_actions()
 	{

@@ -13,6 +13,7 @@ class Mail extends gNetwork\Module
 {
 	protected $key  = 'mail';
 	protected $ajax = TRUE;
+	protected $icon = 'email-alt';
 
 	protected function setup_actions()
 	{

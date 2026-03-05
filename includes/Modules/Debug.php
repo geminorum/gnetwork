@@ -18,6 +18,7 @@ class Debug extends gNetwork\Module
 	protected $ajax       = TRUE;
 	protected $cron       = TRUE;
 	protected $installing = TRUE;
+	protected $icon       = 'code-standards';
 
 	private $http_calls = [];
 

@@ -15,6 +15,7 @@ class SMS extends gNetwork\Module
 
 	protected $key  = 'sms';
 	protected $ajax = TRUE;
+	protected $icon = 'buddicons-pm';
 	protected $beta = TRUE; // FIXME
 
 	public function setup_menu( $context )

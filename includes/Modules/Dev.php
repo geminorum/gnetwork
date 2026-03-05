@@ -16,6 +16,7 @@ class Dev extends gNetwork\Module
 	protected $ajax       = TRUE;
 	protected $cron       = TRUE;
 	protected $installing = TRUE;
+	protected $icon       = 'hammer';
 
 	protected function setup_actions()
 	{

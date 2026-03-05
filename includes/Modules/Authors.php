@@ -12,6 +12,7 @@ class Authors extends gNetwork\Module
 {
 	protected $key     = 'authors';
 	protected $network = FALSE;
+	protected $icon    = 'admin-users';
 
 	protected function setup_actions()
 	{

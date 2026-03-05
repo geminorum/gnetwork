@@ -186,28 +186,30 @@ class Admin extends gNetwork\Module
 			: $relative;
 	}
 
-	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )
+	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = NULL, $priority = 10, $icon = NULL )
 	{
 		if ( ! is_blog_admin() )
 			return;
 
 		gNetwork()->admin->menus['settings'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
-			'cap'   => $capability,
+			'icon'  => $icon ? Core\HTML::getDashicon( $icon ) : NULL,
+			'cap'   => $capability ?? 'manage_options',
 		];
 
 		if ( $callback )
 			add_action( static::BASE.'_admin_settings', $callback );
 	}
 
-	public static function registerTool( $sub, $title = NULL, $callback = FALSE, $capability = 'manage_options', $priority = 10 )
+	public static function registerTool( $sub, $title = NULL, $callback = FALSE, $capability = NULL, $priority = 10, $icon = NULL )
 	{
 		if ( ! is_blog_admin() )
 			return;
 
 		gNetwork()->admin->menus['tools'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
-			'cap'   => $capability,
+			'icon'  => $icon ? Core\HTML::getDashicon( $icon ) : NULL,
+			'cap'   => $capability ?? 'manage_options',
 		];
 
 		if ( $callback )

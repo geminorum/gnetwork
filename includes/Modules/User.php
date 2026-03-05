@@ -425,14 +425,15 @@ class User extends gNetwork\Module
 			: $relative;
 	}
 
-	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = 'read', $priority = 10 )
+	public static function registerMenu( $sub, $title = NULL, $callback = FALSE, $capability = NULL, $priority = 10, $icon = NULL )
 	{
 		if ( ! is_user_admin() )
 			return;
 
 		gNetwork()->user->menus['settings'][((int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
-			'cap'   => $capability,
+			'icon'  => $icon ? Core\HTML::getDashicon( $icon ) : NULL,
+			'cap'   => $capability ?? 'read',
 		];
 
 		if ( $callback )
