@@ -1,0 +1,45 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Admin Dashboard
+
+////////////////////////////////////////////////////////////////////////////////
+// #dashboard_right_now #wp-version-message,
+// #dashboard_right_now .inside .versions p,
+// #dashboard_right_now .inside .versions span,
+// #dashboard_right_now .inside p.musub,
+// #dashboard_right_now h3.mu-storage,
+#dashboard_activity #future-posts h3,
+#dashboard_activity #published-posts h3 {
+  display: none !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+#dashboard_right_now {
+  div.main {
+    padding: 0 12px 1px !important;
+  }
+
+  div.sub {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  div.main,
+  div.sub {
+    ul:not(:empty) {
+      margin-bottom: -10px;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.gnetwork-admin-wrap-widget {
+  &.-user-sites {
+    table {
+      width: 100%;
+    }
+  }
+
+  // &.-user-tos {}
+}

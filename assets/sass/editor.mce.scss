@@ -20,13 +20,17 @@ html .mce-content-body.rtl {
     padding-left: 5px;
   }
 
+  .mejs-container {
+    /*rtl:ignore*/
+    direction: ltr;
+  }
+
   // shortcake
   .mce-offscreen-selection {
 
     /*rtl:begin:ignore*/
     left: auto !important;
     right: -9999999999px !important;
-
     /*rtl:end:ignore*/
   }
 }

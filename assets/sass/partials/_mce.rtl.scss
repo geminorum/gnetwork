@@ -1,0 +1,69 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: MCE: RTL
+
+////////////////////////////////////////////////////////////////////////////////
+$spacer: 1rem !default;
+
+////////////////////////////////////////////////////////////////////////////////
+.mce-rtl.mce-container,
+.mce-rtl.mce-container *,
+.mce-rtl .mce-widget,
+.mce-rtl .mce-widget *,
+.mce-rtl .mce-reset {
+  text-align: right;
+  direction: rtl;
+}
+
+.mce-rtl .mce-charmap,
+.mce-rtl .mce-charmap * {
+  direction: ltr;
+}
+
+.mce-rtl.mce-container {
+  .mce-charmap td div,
+  .mce-colorbtn-trans div {
+    text-align: center;
+  }
+}
+
+.mce-menu.mce-menu-align .mce-menu-shortcut,
+.mce-menu.mce-menu-align .mce-caret {
+  right: auto !important;
+  left: 0 !important;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// .mce-tooltip-inner {
+//   direction: rtl;
+// }
+
+// .mce-toolbar .mce-btn-group .mce-btn,
+// .qt-dfw {
+//   float: right;
+// }
+
+// #wp-link #wp-link-url {
+//   direction: ltr;
+// }
+
+
+////////////////////////////////////////////////////////////////////////////////
+// .mce-menubtn.mce-fixed-width span {
+//   text-align: right;
+// }
+
+// .mce-container-body {
+//   .mce-resizehandle {
+//     right: auto !important;
+//     left: 0 !important;
+//     padding-left: 0 !important;
+//     margin-left: 0 !important;
+//     margin-right: 2px !important;
+
+//     i.mce-i-resize {
+//       transform: scale(-1, 1);
+//     }
+//   }
+// }

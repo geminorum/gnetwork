@@ -28,12 +28,12 @@ body.locale-fa-ir {
     font-family: $font-family-base;
   }
 
-  ol {
-    list-style-type: persian !important;
+  ol:not(.-toc, .wc-progress-steps) {
+    list-style-type: persian;
 
-    &.wc-progress-steps {
-      list-style-type: none !important;
-    }
+    // &.wc-progress-steps {
+    //   list-style-type: none !important;
+    // }
   }
 
   .subtitle {

@@ -19,6 +19,10 @@ $spacer: 1rem !default;
   > .-description {
     text-align: center;
     margin-top: $spacer;
+
+    .button {
+      margin-right: $spacer * .5;
+    }
   }
 
   > .-toolbox-after {
@@ -88,16 +92,69 @@ $spacer: 1rem !default;
     max-width: 100%;
   }
 
+  .-wrap.-settings-field {
+    &.-file {
+      input[type="file"] {
+        max-width: unset;
+        width: 100%;
+        margin-bottom: 0;
+        padding: 1em 2em 1em 2em;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+      }
+
+      position: relative;
+      margin: 1em -2em .5em -2em; // side paddings for card
+
+      .-field-after {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 2em;
+        background: #f7f7f7;
+        z-index: 2;
+      }
+
+      &:last-child {
+        margin-bottom: -1em; // only if it's the last
+      }
+    }
+  }
+
+  // .-wrap-embed {}
+
+  > .-title-debug {
+    /*rtl:ignore*/
+    direction: ltr;
+    margin-top: 1em;
+    margin-bottom: .5em;
+
+    + pre {
+      margin-top: .5em;
+    }
+  }
+
   pre {
     /*rtl:ignore*/
     direction: ltr;
     background: #f5f2f0;
     overflow: auto;
-    margin: 0 -2em -1em -2em; // padding for card
+    margin: 1em -2em 1em -2em; // side paddings for card
     padding: $spacer;
     unicode-bidi: embed;
     font-size: 13px;
     @include theme-fonts-core-code;
+    // @include theme-clearfix;
+
+    &:last-child {
+      margin-bottom: -1em; // only if it's the last
+    }
+
+    &[dir="rtl"] {
+      /*rtl:ignore*/
+      direction: rtl;
+    }
   }
 }
 

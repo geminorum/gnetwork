@@ -150,25 +150,7 @@ table.wp-list-table { // WordPress Core
   }
 
   .inline-edit-col {
-
-    .input-text-wrap {
-      .-description.-empty {
-        margin: 0;
-        padding-top: .5rem;
-        font-size: smaller;
-        color: #555;
-
-        a {
-          text-decoration: none;
-          color: inherit;
-
-          &:hover {
-            text-decoration: underline;
-            color: #222;
-          }
-        }
-      }
-    }
+    // .input-text-wrap {}
   }
 
   .inline-edit-row {
@@ -310,17 +292,17 @@ div.base-table-actions {
       padding: 0 10px 1px;
       margin: 1px 0;
 
-      &.-icon {
-        padding: 0 4px 0;
-        line-height: 2;
-      }
+      // &.-icon {
+      //   padding: 0 4px 0;
+      //   line-height: 2;
+      // }
 
       .dashicons {
         top: 0;
         width: 20px;
         height: 20px;
         font-size: 20px;
-        vertical-align: text-top;
+        // vertical-align: text-top;
       }
     }
 
@@ -345,7 +327,10 @@ div.base-table-actions {
     }
 
     .-total-pages {
-      line-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      height: 40px;
+      padding: 0 ($spacer * .5);
     }
   }
 }
@@ -443,7 +428,7 @@ table.base-table-list {
     .dashicons {
       width: 20px;
       height: 20px;
-      size: 20px;
+      // size: 20px;
     }
   }
 

@@ -1,0 +1,59 @@
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+/// gNetwork Partials: Cron Module: Admin Dashboard
+
+////////////////////////////////////////////////////////////////////////////////
+$spacer: 1rem !default;
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+#dashboard_right_now {
+  .geditorial-admin-wrap.-audit + .gnetwork-wrap.-user.-count-users,
+  .geditorial-admin-wrap.-audit + .gnetwork-wrap.-cron.-status-check,
+  .mu-storage + .gnetwork-wrap.-user.-count-users,
+  .mu-storage + .gnetwork-wrap.-cron.-status-check {
+    margin-top: 1em;
+  }
+
+  .gnetwork-wrap.-user.-count-users,
+  .gnetwork-wrap.-cron.-status-check {
+    p {
+      font-size: smaller;
+      margin-bottom: 0.5em;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// dashbard widget
+#gnetwork-cron-status-check {
+  .spinner {
+    margin: 4px 0 0;
+  }
+
+  .-status {
+    display: block;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+    border-left: 2px solid $brand-info;
+  }
+
+  .-error {
+    border-color: $brand-danger !important;
+  }
+
+  .-notice {
+    border-color: $brand-warning !important;
+  }
+
+  .-success {
+    border-color: $brand-success !important;
+  }
+
+  .-wrap-buttons {
+    float: none !important;
+    padding: 0 !important;
+    margin: 0 0 ($spacer * -.25) 0 !important;
+  }
+}

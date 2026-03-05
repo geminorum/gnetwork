@@ -1,4 +1,4 @@
-// Balloon.css v1.0.0
+// Balloon.css v1.0.0 - 2026-01-31
 // https://github.com/kazzkiq/balloon.css
 
 ///
@@ -9,6 +9,11 @@ $balloon-bg:         fade-out(#101010, .05) !default;
 $balloon-base-size:  12px !default;
 $balloon-arrow-size: 5px !default;
 $balloon-move:       4px !default;
+
+// delay in and out variables
+// @source https://github.com/kazzkiq/balloon.css/pull/120/changes
+$balloon-delay-in:       0.5s !default;
+$balloon-delay-out:      0s !default;
 
 ///
 // Mixins
@@ -87,6 +92,8 @@ button[aria-label] {
     @include balloon-base-effects();
     @include balloon-normalized-text();
 
+    transition-delay: var(--ballon-delay-out, $balloon-delay-out);
+
     background: var(--balloon-color);
     border-radius: 2px;
     color: #fff;
@@ -94,12 +101,15 @@ button[aria-label] {
     padding: .5em 1em;
     position: absolute;
     white-space: nowrap;
+    word-break: break-all; // Add word-break to enforce correct size @source https://github.com/kazzkiq/balloon.css/pull/127/changes
     z-index: 10;
   }
 
   &::before {
     @include balloon-arrow-down();
     @include balloon-base-effects();
+
+    transition-delay: var(--ballon-delay-out, $balloon-delay-out);
 
     content: "";
     position: absolute;
@@ -113,6 +123,8 @@ button[aria-label] {
     &::after {
       opacity: 1;
       pointer-events: none;
+
+      transition-delay: var(--ballon-delay-in, $balloon-delay-in);
     }
   }
 

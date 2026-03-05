@@ -54,7 +54,73 @@ $spacer: 1rem !default;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+@media only screen and (max-width: 960px) {
+  body.auto-fold {
+    .side-nav-wrap {
+      margin-left: -1em; // better to be `em`
+
+      > .notice {
+        margin-left: calc( 35px + #{($spacer)} );
+      }
+
+      .side-nav-content {
+        margin-left: 32px;
+      }
+
+      > .-title {
+        transform: rotate(90deg);
+        transform-origin: left top;
+        left: ($spacer * 1.5);
+      }
+
+      > ul {
+        top: calc( ( var(--side-nav-title-length, 10) * 1ch ) + #{($spacer * 1)} );
+        // top: calc( ( var(--side-nav-title-length, 10) * 1ch ) );
+        width: 32px;
+
+        span.-nav-link-title {
+          @include theme-visually-hidden;
+          display: inline-block;
+        }
+
+        li a {
+          padding: 6px 0 6px 10px !important;
+        }
+
+        li.-active a {
+          width: calc( 100% - 10px );
+        }
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 @media screen and (max-width: 782px) {
+  body.auto-fold {
+    .side-nav-wrap {
+      margin-top: 1em;
+      margin-left: 0;
+
+      > .notice {
+        margin-left: calc( 35px + #{($spacer * .5)} );
+      }
+    }
+
+    .side-nav-content {
+      padding-left: 10px;
+
+      .-wrap.-toolbox-column .-title,
+      .base-table-title > h2,
+      .base-table-title > h3,
+      > form > h2,
+      > form > h3,
+      > h3 {
+        margin-top: .5em;
+      }
+    }
+  }
+
   .-wrap.-toolbox-links ul {
     display: block;
 
@@ -72,7 +138,15 @@ $spacer: 1rem !default;
     }
   }
 
-  table.wp-list-table {
+  table.base-table-list {
+     thead {
+      td.check-column {
+        width: auto;
+      }
+    }
+  }
+
+  table.wp-list-table { // wordpress core
     thead {
       body.admin-bar & {
         top: 0; // admin-bar is not sticky on mobile

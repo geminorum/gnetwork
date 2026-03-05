@@ -53,6 +53,16 @@
   .-button + .-button {
     margin-left: $spacer * .25;
   }
+
+  input[type="checkbox"]:checked::before,
+  input[type="radio"]:checked::before {
+    // float: none;
+    // margin-left: - .175rem;
+  }
+
+// input[type="checkbox"]:checked::before {
+//   margin: -2px -3px 0 0;
+// }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,6 +81,27 @@
     max-width: unset;
   }
 }
+
+.wp-list-table .inline-edit-col .input-text-wrap .-description.-empty,
+.form-table .form-field .-wrap.field-wrap.-empty, // like on user profiles
+.form-table .form-field .-description.-empty,
+.form-wrap .form-field .-description.-empty {
+  margin: 0;
+  padding-top: .5rem;
+  font-size: smaller;
+  color: #555;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      text-decoration: underline;
+      color: #222;
+    }
+  }
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 .wp-tab-panel {

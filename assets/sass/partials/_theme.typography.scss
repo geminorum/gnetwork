@@ -18,7 +18,7 @@
   }
 
   html[lang="fa-IR"] {
-    ol {
+    ol:not(.-toc) {
       list-style-type: persian !important;
     }
   }

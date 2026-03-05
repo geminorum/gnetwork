@@ -13,12 +13,21 @@ $spacer: 1rem !default;
 .-wrap.card {
   > .title,
   > .-title {
-    small.sub {
+    .sub {
       font-weight: 400;
       display: inline-block;
       color: $gray;
       margin-left: $spacer * .5;
       float: right;
+
+      a:not(:hover) {
+        text-decoration: none;
+        color:inherit;
+      }
+    }
+
+    code {
+      padding: 0 ($spacer * .25);
     }
   }
 

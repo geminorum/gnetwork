@@ -26,6 +26,17 @@
 // }
 
 ////////////////////////////////////////////////////////////////////////////////
+.mce-container {
+  .mce-widget {
+    &.mce-btn-has-text {
+      button span.mce-txt {
+        padding: 0 10px;
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 .gnetwork-tinymce-icon {
   &::before {
     @include theme-fonts-core-dashicons;
@@ -61,36 +72,3 @@
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////
-
-/*rtl:begin:ignore*/
-body.rtl {
-  .mce-tooltip-inner {
-    direction: rtl;
-  }
-
-  .mce-window-body .mce-container.mce-rtl * {
-    direction: rtl;
-    text-align: right;
-  }
-
-  .mce-toolbar .mce-btn-group .mce-btn,
-  .qt-dfw {
-    float: right;
-  }
-
-  .mce-charmap,
-  .mce-charmap * {
-    direction: ltr !important;
-  }
-
-  .mce-charmap td div {
-    text-align: center !important;
-  }
-
-  #wp-link #wp-link-url {
-    direction: ltr;
-  }
-}
-
-/*rtl:end:ignore*/
