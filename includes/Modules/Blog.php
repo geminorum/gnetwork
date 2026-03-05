@@ -109,6 +109,8 @@ class Blog extends gNetwork\Module
 		if ( $this->options['disable_privacytools'] )
 			$this->_setup_disable_privacytools();
 
+		// $this->filter_false( 'default_option_wp_enable_real_time_collaboration', 20 );
+
 		$this->filter_empty_array( 'jetpack_get_default_modules' );
 
 		// ADOPTED FROM: Jetpack Without Promotions v1.0.0 by required

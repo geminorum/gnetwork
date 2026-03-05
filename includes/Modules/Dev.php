@@ -41,9 +41,10 @@ class Dev extends gNetwork\Module
 
 	public function setup_menu( $context )
 	{
-		$this->register_tool( _x( 'Dev Tools', 'Modules: Menu Name', 'gnetwork-admin' ) );
+		// $this->register_tool( _x( 'Dev Tools', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
+	// DISABLED
 	public function render_tools( $uri, $sub = 'general' )
 	{
 		echo '<br />';

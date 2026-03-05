@@ -70,8 +70,11 @@ class Settings extends Core\Base
 	{
 		echo '<div class="side-nav-wrap">';
 
-		Core\HTML::h2( $title ?? _x( 'Extras', 'Settings: Header Title', 'gnetwork-admin' ), '-title' );
-		Core\HTML::headerNav( $uri, $active, $subs, 'side-nav', 'ul', 'li' );
+		$title = $title ?? _x( 'Extras', 'Settings: Header Title', 'gnetwork-admin' );
+		$extra = [ 'style' => sprintf( '--side-nav-title-length: %d', Core\Text::utf8Len( $title ) ) ];
+
+		Core\HTML::h2( $title, '-title' );
+		Core\HTML::headerNav( $uri, $active, $subs, $extra, 'side-nav', 'ul', 'li' );
 
 		echo '<div class="side-nav-content">';
 
@@ -328,7 +331,7 @@ class Settings extends Core\Base
 			'rel'    => 'noreferrer',
 			'data'   => [
 				'tooltip'     => $title,
-				'tooltip-pos' => Core\HTML::rtl() ? 'left' : 'right',
+				'tooltip-pos' => Core\L10n::rtl() ? 'left' : 'right',
 			],
 		], Core\HTML::getDashicon( $icon ) );
 

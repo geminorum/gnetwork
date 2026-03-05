@@ -304,6 +304,7 @@ class Site extends gNetwork\Module
 
 			update_option( 'siteurl', str_replace( $switch[0], $switch[1], get_option( 'siteurl' ) ) );
 			update_option( 'home', str_replace( $switch[0], $switch[1], get_option( 'home' ) ) );
+			update_option( 'upload_url_path', str_replace( $switch[0], $switch[1], get_option( 'upload_url_path' ) ) );
 
 			Logger::siteINFO( 'SSL', sprintf( 'switched to: %s', str_replace( '://', '', $switch[1] ) ) );
 

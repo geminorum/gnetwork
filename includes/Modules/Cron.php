@@ -284,7 +284,11 @@ class Cron extends gNetwork\Module
 		return site_url( 'wp-cron.php?doing_wp_cron='.sprintf( '%.22F', microtime( TRUE ) ) );
 	}
 
-	// gets the status of WP-Cron functionality on the site by performing a test spawn
+	/**
+	 * Retrieves the status of `WP-Cron` functionality on the site by performing a test spawn.
+	 *
+	 * @return mixed
+	 */
 	private function status_check_spawn()
 	{
 		if ( defined( 'DISABLE_WP_CRON' ) && DISABLE_WP_CRON )
@@ -438,7 +442,7 @@ class Cron extends gNetwork\Module
 			);
 		}
 
-		echo '</p></div>';
+		echo '</p><div class="clear"></div></div>';
 	}
 
 	protected function get_missing_actions()

@@ -204,6 +204,7 @@ class Mimes extends gNetwork\Module
 		'geojson'     => [ 'application/json', 'text/json' ],
 		'gpx'         => [ 'application/gpx+xml', 'text/xml', 'application/octet-stream' ],                // @specs: https://www.topografix.com/GPX/1/1/
 		'heic'        => [ 'image/heic', 'image/heif' ],                                                   // NOTE: In PHP 8.5, it returns `image/heif`. Before that, it returns `image/heic`.
+		'ics'         => [ 'text/calendar' ],
 		'json'        => [ 'application/json', 'text/json' ],
 		'kml'         => [ 'application/vnd.google-earth.kml+xml', 'application/xml', 'text/xml' ],        // https://en.wikipedia.org/wiki/Keyhole_Markup_Language
 		'kmz'         => [ 'application/vnd.google-earth.kmz', 'application/zip', 'application/x-zip' ],   // @REF: https://stackoverflow.com/a/24662632

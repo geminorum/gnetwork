@@ -1387,7 +1387,7 @@ JS;
 			if ( ! $parents = WordPress\Taxonomy::getTermParents( $term_id, $taxonomy ) )
 				continue;
 
-			foreach ( WordPress\Taxonomy::getTermObjects( $term_id, $taxonomy ) as $object_id )
+			foreach ( WordPress\Taxonomy::getTermObjects( $term_id ) as $object_id )
 				wp_set_object_terms( $object_id, $parents, $taxonomy, TRUE );
 		}
 

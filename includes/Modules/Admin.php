@@ -32,7 +32,7 @@ class Admin extends gNetwork\Module
 			$this->action( 'admin_menu', 0, 999, 'late' );
 			$this->action( 'admin_enqueue_scripts', 0, 999 );
 
-			// hides network-active plugins alongside plugins active for the current site
+			// NOTE: hides network-active plugins alongside plugins active for the current site
 			if ( 'active' != self::req( 'plugin_status' ) )
 				$this->filter_false( 'show_network_active_plugins' );
 		}
@@ -117,7 +117,7 @@ class Admin extends gNetwork\Module
 			$tools = add_submenu_page( 'tools.php',
 				_x( 'Network Tools', 'Modules: Admin: Page Menu', 'gnetwork-admin' ),
 				_x( 'Extras', 'Modules: Admin: Page Menu', 'gnetwork-admin' ),
-				'edit_posts', // core's for tools.php
+				'edit_posts', // core's for `tools.php`
 				$this->base.'-tools',
 				[ $this, 'tools_page' ]
 			);
@@ -135,7 +135,7 @@ class Admin extends gNetwork\Module
 			$tools = add_submenu_page( 'tools.php',
 				_x( 'Network Tools', 'Modules: Admin: Page Menu', 'gnetwork-admin' ),
 				_x( 'Extras', 'Modules: Admin: Page Menu', 'gnetwork-admin' ),
-				'edit_posts', // core's for tools.php
+				'edit_posts', // core's for `tools.php`
 				$this->base.'-tools',
 				[ $this, 'tools_page' ]
 			);

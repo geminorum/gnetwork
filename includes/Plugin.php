@@ -19,13 +19,13 @@ class Plugin extends WordPress\Plugin
 			// 'GNETWORK_TRACKING_GA_ACCOUNT'      => 'UA-XXXXXXXX-X', // define if necessary
 			// 'GNETWORK_BLACKLIST_REMOTE_CONTENT' => 'https://gist.githubusercontent.com/{user}/{gist_id}/raw', // define if necessary
 
-			'GNETWORK_SEARCH_REDIRECT'       => FALSE, // set TRUE to redirect all searches to the network search url
 			'GNETWORK_SEARCH_URL'            => home_url( '/' ),
+			'GNETWORK_SEARCH_REDIRECT'       => FALSE,                      // Set `TRUE` to redirect all searches to the network search URL
 			'GNETWORK_SEARCH_QUERYID'        => 's',
-			'GNETWORK_BP_EXCLUDEUSERS'       => FALSE, // comma separated ids of users whom you want to exclude
-			'GNETWORK_ADMINBAR'              => TRUE, // disable admin bar for non caps, like: 'edit_others_posts'
-			'GNETWORK_ADMINBAR_LOGIN'        => TRUE, // disable admin bar login/register nodes
-			'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE, // autoresize textarea and more...
+			'GNETWORK_BP_EXCLUDEUSERS'       => FALSE,                      // Comma separated ids of users whom you want to exclude.
+			'GNETWORK_ADMINBAR'              => TRUE,                       // Disable admin bar for non caps, like: 'edit_others_posts'
+			'GNETWORK_ADMINBAR_LOGIN'        => TRUE,                       // Disable admin bar login/register nodes
+			'GNETWORK_ADMIN_JS_ENHANCEMENTS' => TRUE,                       // Auto-resize text-area and more.
 			'GNETWORK_REDIRECT_404_URL'      => home_url( '/not-found' ),
 
 			'GNETWORK_CACHE_DIR' => sprintf( '%s/cache', WP_CONTENT_DIR ),   // FALSE to disable
@@ -104,16 +104,16 @@ class Plugin extends WordPress\Plugin
 	protected function late_constants()
 	{
 		return [
-			'GNETWORK_BASE' => network_home_url( '/', $this->ssl() ? 'https' : 'http' ), // comes handy on multi-network
-			'GNETWORK_NAME' => is_multisite() ? get_network_option( NULL, 'site_name' ) : get_option( 'blogname' ), // comes handy on multi-network
-			'GNETWORK_LOGO' => 'login.png', // default logo image file, must relative to wp-content
+			'GNETWORK_BASE' => network_home_url( '/', $this->ssl() ? 'https' : 'http' ),                              // comes handy on multi-network
+			'GNETWORK_NAME' => is_multisite() ? get_network_option( NULL, 'site_name' ) : get_option( 'blogname' ),   // comes handy on multi-network
+			'GNETWORK_LOGO' => 'login.png',                                                                           // default logo image file, must relative to `wp-content`
 
 			'GNETWORK_DISABLE_CREDITS'       => FALSE,
 			'GNETWORK_DISABLE_ALL_HELP_TABS' => FALSE,
 			'GNETWORK_DISABLE_PRIVACY_TOOLS' => TRUE,
 
 			'GCORE_DEFAULT_COUNTRY_CODE'    => gNetwork()->option( 'base_country', 'site' ) ?: 'IR',
-			'GCORE_DEFAULT_PROVINCE_CODE'   => gNetwork()->option( 'base_province', 'site' ) ?: 'TEH',
+			'GCORE_DEFAULT_PROVINCE_CODE'   => gNetwork()->option( 'base_province', 'site' ) ?: 'THR',
 			// 'GCORE_DEFAULT_PROVINCE_LATLNG' => gNetwork()->option( 'base_province_latlng', 'site' ) ?: '35.688889,51.389722',
 			'GCORE_DEFAULT_COUNTRY_PHONE'   => gNetwork()->option( 'base_country_phone', 'site' ) ?: '98',
 			'GCORE_DEFAULT_PROVINCE_PHONE'  => gNetwork()->option( 'base_province_phone', 'site' ) ?: '21',
