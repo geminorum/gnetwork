@@ -27,6 +27,7 @@ define( 'GNETWORK_MIN_PHP', '7.2' );
 define( 'GNETWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GNETWORK_URL', plugin_dir_url( __FILE__ ) );
 define( 'GNETWORK_FILE', basename( GNETWORK_DIR ) . '/' . basename( __FILE__ ) );
+define( 'GNETWORK_HASH', md5( GNETWORK_VERSION.GNETWORK_URL ) );
 
 if ( is_readable( WP_CONTENT_DIR . '/gnetwork-custom.php' ) ) {
 	require_once WP_CONTENT_DIR . '/gnetwork-custom.php';
@@ -51,7 +52,8 @@ if ( version_compare( GNETWORK_MIN_PHP, PHP_VERSION, '>=' ) ) {
 			GNETWORK_DIR,
 			GNETWORK_URL,
 			GNETWORK_FILE,
-			GNETWORK_VERSION
+			GNETWORK_VERSION,
+			GNETWORK_HASH
 		);
 	}
 

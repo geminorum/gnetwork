@@ -522,7 +522,7 @@ class Admin extends gNetwork\Module
 			Utilities::linkStyleSheet( 'admin.all' );
 
 		if ( is_rtl() )
-			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.rtl.css', GNETWORK_VERSION );
+			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/admin.rtl.css', GNETWORK_HASH );
 
 		Utilities::customStyleSheet( 'admin.css' );
 

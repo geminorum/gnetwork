@@ -496,7 +496,7 @@ class Login extends gNetwork\Module
 		Utilities::linkStyleSheet( 'login.all' );
 
 		if ( is_rtl() )
-			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/login.rtl.css', GNETWORK_VERSION );
+			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/login.rtl.css', GNETWORK_HASH );
 
 		if ( 'splitscreen' == $this->options['login_class'] ) {
 			$variables = '.split-screen .-first{background-color:'.gNetwork()->brand( 'color' ).'!important}';

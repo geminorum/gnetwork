@@ -404,8 +404,8 @@ class Themes extends gNetwork\Module
 
 				add_action( 'wp_head', static function () {
 					Themes::linkStyleSheet( 'p2-rtl' );
-					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes/p2-rtl.css', [], GNETWORK_VERSION );
-					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes/p2-rtl-print.css', [ 'p2-rtl' ], GNETWORK_VERSION, 'print' );
+					// wp_enqueue_style( 'p2-rtl', GNETWORK_URL.'assets/css/themes/p2-rtl.css', [], GNETWORK_HASH );
+					// wp_enqueue_style( 'p2-print-style-rtl', GNETWORK_URL.'assets/css/themes/p2-rtl-print.css', [ 'p2-rtl' ], GNETWORK_HASH, 'print' );
 				}, 99 );
 			}
 
@@ -818,11 +818,11 @@ class Themes extends gNetwork\Module
 
 	public static function enqueueStyle( $theme, $rtl = FALSE )
 	{
-		wp_enqueue_style( 'gnetwork-themes-'.$theme, GNETWORK_URL.'assets/css/themes/'.$theme.( $rtl ? '-rtl' : '' ).'.css', [], GNETWORK_VERSION );
+		wp_enqueue_style( 'gnetwork-themes-'.$theme, GNETWORK_URL.'assets/css/themes/'.$theme.( $rtl ? '-rtl' : '' ).'.css', [], GNETWORK_HASH );
 	}
 
 	// with no RTL check
-	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all', $verbose = TRUE )
+	public static function linkStyleSheet( $css, $version = GNETWORK_HASH, $media = 'all', $verbose = TRUE )
 	{
 		return Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/themes/'.$css.'.css', $version, $media, $verbose );
 	}

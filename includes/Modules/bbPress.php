@@ -30,7 +30,7 @@ class bbPress extends gNetwork\Module
 		if ( ! is_bbpress() )
 			return;
 
-		wp_enqueue_style( static::BASE.'-bbpress', GNETWORK_URL.'assets/css/front.bbpress.css', [], GNETWORK_VERSION );
+		wp_enqueue_style( static::BASE.'-bbpress', GNETWORK_URL.'assets/css/front.bbpress.css', [], GNETWORK_HASH );
 		wp_style_add_data( static::BASE.'-bbpress', 'rtl', 'replace' );
 	}
 }

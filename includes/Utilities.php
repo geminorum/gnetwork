@@ -271,12 +271,12 @@ class Utilities extends Core\Base
 			return $layout;
 	}
 
-	public static function linkStyleSheet( $css, $version = GNETWORK_VERSION, $media = 'all', $verbose = TRUE )
+	public static function linkStyleSheet( $css, $version = GNETWORK_HASH, $media = 'all', $verbose = TRUE )
 	{
 		return Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css.( is_rtl() ? '-rtl' : '' ).'.css', $version, $media, $verbose );
 	}
 
-	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_VERSION )
+	public static function customStyleSheet( $css, $link = TRUE, $version = GNETWORK_HASH )
 	{
 		$file = WordPress\Site::customFile( $css, FALSE );
 
