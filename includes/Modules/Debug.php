@@ -86,6 +86,12 @@ class Debug extends gNetwork\Module
 		if ( GNETWORK_DEBUG_LOG )
 			$this->register_tool( _x( 'Error Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'errorlogs', 20, NULL, FALSE );
 
+		if ( GNETWORK_SYSTEM_LOG )
+			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'systemlogs', 20, NULL, FALSE );
+
+		if ( GNETWORK_MONOLOG_LOG )
+			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'monologlogs', 20, NULL, FALSE );
+
 		if ( GNETWORK_ANALOG_LOG )
 			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'analoglogs', 20, NULL, FALSE );
 
@@ -128,6 +134,12 @@ class Debug extends gNetwork\Module
 			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
 				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
 
+			else if ( GNETWORK_SYSTEM_LOG && 'systemlogs' == $sub )
+				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_SYSTEM_LOG ) ? 'purged' : 'error' ) );
+
+			else if ( GNETWORK_MONOLOG_LOG && 'monologlogs' == $sub )
+				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_MONOLOG_LOG ) ? 'purged' : 'error' ) );
+
 			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
 				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
 
@@ -144,6 +156,12 @@ class Debug extends gNetwork\Module
 
 			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
 				Core\File::download( GNETWORK_DEBUG_LOG, Core\File::prepName( 'debug.log' ) );
+
+			else if ( GNETWORK_SYSTEM_LOG && 'systemlogs' == $sub )
+				Core\File::download( GNETWORK_SYSTEM_LOG, Core\File::prepName( 'system.log' ) );
+
+			else if ( GNETWORK_MONOLOG_LOG && 'monologlogs' == $sub )
+				Core\File::download( GNETWORK_MONOLOG_LOG, Core\File::prepName( 'monolog.log' ) );
 
 			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
 				Core\File::download( GNETWORK_ANALOG_LOG, Core\File::prepName( 'analog.log' ) );
@@ -178,6 +196,8 @@ class Debug extends gNetwork\Module
 
 			$map = [
 				'errorlogs'    => GNETWORK_DEBUG_LOG,
+				'systemlogs'   => GNETWORK_SYSTEM_LOG,
+				'monologlogs'  => GNETWORK_MONOLOG_LOG,
 				'analoglogs'   => GNETWORK_ANALOG_LOG,
 				'failedlogs'   => GNETWORK_FAILED_LOG,
 				'notfoundlogs' => GNETWORK_NOTFOUND_LOG,
@@ -470,6 +490,8 @@ class Debug extends gNetwork\Module
 			'DL_DIR'        => GNETWORK_DL_DIR,
 			'DL_URL'        => GNETWORK_DL_URL,
 			'DEBUG_LOG'     => GNETWORK_DEBUG_LOG,
+			'SYSTEM_LOG'    => GNETWORK_SYSTEM_LOG,
+			'MONOLOG_LOG'   => GNETWORK_MONOLOG_LOG,
 			'ANALOG_LOG'    => GNETWORK_ANALOG_LOG,
 			'FAILED_LOG'    => GNETWORK_FAILED_LOG,
 			'NOTFOUND_LOG'  => GNETWORK_NOTFOUND_LOG,
@@ -895,6 +917,7 @@ class Debug extends gNetwork\Module
 			'pcre'      => 'Perl Compatible Regular Expressions',
 			'imagick'   => 'Image Processing (ImageMagick)',
 			'gmagick'   => 'Gmagick',
+			'filter'    => 'Filter',
 		];
 
 		foreach ( $extensions as $ext => $why )
@@ -1004,6 +1027,16 @@ class Debug extends gNetwork\Module
 				/* translators: `%s`: log file size */
 				_x( '%s in Error Logs', 'Modules: Debug', 'gnetwork-admin' ),
 			],
+			'systemlogs' => [
+				GNETWORK_SYSTEM_LOG,
+				/* translators: `%s`: log file size */
+				_x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+			],
+			'monologlogs' => [
+				GNETWORK_MONOLOG_LOG,
+				/* translators: `%s`: log file size */
+				_x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+			],
 			'analoglogs' => [
 				GNETWORK_ANALOG_LOG,
 				/* translators: `%s`: log file size */
@@ -1089,6 +1122,18 @@ class Debug extends gNetwork\Module
 				echo Core\HTML::button(
 					_x( 'Check Error Logs', 'Modules: Debug', 'gnetwork-admin' ),
 					$this->get_menu_url( 'errorlogs', 'network', 'tools' )
+				);
+
+			if ( GNETWORK_SYSTEM_LOG )
+				echo Core\HTML::button(
+					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+					$this->get_menu_url( 'systemlogs', 'network', 'tools' )
+				);
+
+			if ( GNETWORK_MONOLOG_LOG )
+				echo Core\HTML::button(
+					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+					$this->get_menu_url( 'monologlogs', 'network', 'tools' )
 				);
 
 			if ( GNETWORK_ANALOG_LOG )

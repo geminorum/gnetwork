@@ -420,7 +420,7 @@ class AdminBar extends gNetwork\Module
 			'parent' => $group_id,
 			'id'     => static::BASE.'-info-pagenow',
 			'title'  => sprintf( 'PageNow: %s', $pagenow ?: 'EMPTY' ),
-			'href'   => GNETWORK_ANALOG_LOG ? $this->get_menu_url( 'analoglogs', 'network', 'tools' ) : FALSE,
+			'href'   => GNETWORK_SYSTEM_LOG ? $this->get_menu_url( 'systemlogs', 'network', 'tools' ) : FALSE,
 			'meta'   => [
 				'title' => _x( 'Check System Logs', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				'class' => $this->adminbar__get_css_class( '-ltr' ),

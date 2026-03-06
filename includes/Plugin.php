@@ -53,7 +53,10 @@ class Plugin extends WordPress\Plugin
 
 			// @REF: https://core.trac.wordpress.org/ticket/18391
 			'GNETWORK_DEBUG_LOG'    => WP_DEBUG_LOG && TRUE !== WP_DEBUG_LOG ? WP_DEBUG_LOG : WP_CONTENT_DIR.'/debug.log', // `FALSE` to disable
-			'GNETWORK_ANALOG_LOG'   => WP_CONTENT_DIR.'/analog.log',     // `FALSE` to disable
+
+			'GNETWORK_SYSTEM_LOG'   => WP_CONTENT_DIR.'/system.log',     // `FALSE` to disable
+			'GNETWORK_MONOLOG_LOG'  => FALSE, // WP_CONTENT_DIR.'/monolog.log',    // `FALSE` to disable
+			'GNETWORK_ANALOG_LOG'   => FALSE, // WP_CONTENT_DIR.'/analog.log',     // `FALSE` to disable
 			'GNETWORK_FAILED_LOG'   => WP_CONTENT_DIR.'/failed.log',     // `FALSE` to disable
 			'GNETWORK_SEARCH_LOG'   => WP_CONTENT_DIR.'/search.log',     // `FALSE` to disable
 			'GNETWORK_NOTFOUND_LOG' => WP_CONTENT_DIR.'/notfound.log',   // `FALSE` to disable
