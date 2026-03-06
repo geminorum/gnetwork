@@ -2,19 +2,36 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-class Logger
+class Logger extends Core\Base
 {
-	const BASE   = 'gnetwork';
+	const BASE = 'gnetwork';
+
 	const LEVELS = [
-		'URGENT',
-		'ALERT',
-		'CRITICAL',
-		'ERROR',
-		'WARNING',
-		'NOTICE',
-		'INFO',
-		'DEBUG',
-		'FAILED', // not in the analog, log in different file
+		'URGENT'    ,   // `system is unusable` // not in the `Monolog`
+		'EMERGENCY' ,   // `system is unusable` // not in the `Analog`
+		'ALERT'     ,   // `action must be taken immediately`
+		'CRITICAL'  ,   // `critical conditions`
+		'ERROR'     ,   // `runtime errors that do not require immediate action but should typically be logged and monitored`
+		'WARNING'   ,   // `exceptional occurrences that are not errors`
+		'NOTICE'    ,   // `normal but significant events`
+		'INFO'      ,   // `interesting events`
+		'DEBUG'     ,   // `detailed debug information`
+
+		// not in the `Analog`/`Monolog`
+		'FAILED', // logs in a separate file
+	];
+
+	// NOT USED!
+	// @REF: https://seldaek.github.io/monolog/doc/01-usage.html#log-levels
+	const RFC5424 = [
+		'DEBUG'    ,  // (100): Detailed debug information.
+		'INFO'     ,  // (200): Interesting events. Examples: User logs in, SQL logs.
+		'NOTICE'   ,  // (250): Normal but significant events.
+		'WARNING'  ,  // (300): Exceptional occurrences that are not errors. Examples: Use of deprecated APIs, poor use of an API, undesirable things that are not necessarily wrong.
+		'ERROR'    ,  // (400): Runtime errors that do not require immediate action but should typically be logged and monitored.
+		'CRITICAL' ,  // (500): Critical conditions. Example: Application component unavailable, unexpected exception.
+		'ALERT'    ,  // (550): Action must be taken immediately. Example: Entire website down, database unavailable, etc. This should trigger the SMS alerts and wake you up.
+		'EMERGENCY',  // (600): Emergency: system is unusable.
 	];
 
 	public static function setup()
@@ -55,13 +72,13 @@ class Logger
 
 		$event = $gNetworkStopWatch->stop( $name, $category );
 
-		// $event->getCategory();   // Returns the category the event was started in
-		// $event->getOrigin();     // Returns the event start time in milliseconds
-		// $event->ensureStopped(); // Stops all periods not already stopped
-		// $event->getStartTime();  // Returns the start time of the very first period
-		// $event->getEndTime();    // Returns the end time of the very last period
-		// $event->getDuration();   // Returns the event duration, including all periods
-		// $event->getMemory();     // Returns the max memory usage of all periods
+		// $event->getCategory();   // Returns the category the event was started in.
+		// $event->getOrigin();     // Returns the event start time in milliseconds.
+		// $event->ensureStopped(); // Stops all periods not already stopped.
+		// $event->getStartTime();  // Returns the start time of the very first period.
+		// $event->getEndTime();    // Returns the end time of the very last period.
+		// $event->getDuration();   // Returns the event duration, including all periods.
+		// $event->getMemory();     // Returns the max memory usage of all periods.
 
 		$event->ensureStopped();
 
@@ -84,6 +101,10 @@ class Logger
 			if ( empty( $gNetworkAnalog ) )
 				$gNetworkAnalog = [];
 
+			/**
+			 * @package `analog/analog`
+			 * @source https://github.com/jbroadway/analog
+			 */
 			$gNetworkAnalog[$path] = new \Analog\Logger();
 			$gNetworkAnalog[$path]->handler( \Analog\Handler\File::init( $path ) );
 
@@ -91,7 +112,7 @@ class Logger
 			\Analog::$format = '[%2$s] %1$s :: (%3$d) %4$s'."\n";
 			\Analog::$date_format = 'd-M-Y H:i:s e';
 
-			// overrride machine name with user ip
+			// Overrides machine name with user IP
 			if ( ! empty( $_SERVER['SERVER_ADDR'] )
 				&& $_SERVER['SERVER_ADDR'] != $_SERVER['REMOTE_ADDR'] )
 					\Analog::$machine = $_SERVER['REMOTE_ADDR']; // HTTP::IP();
@@ -100,7 +121,7 @@ class Logger
 		return $gNetworkAnalog[$path];
 	}
 
-	// PSR-3
+	// `PSR-3`
 	public static function log( $level, $message, $context = [] )
 	{
 		if ( $analog = self::getAnalog() )
@@ -127,57 +148,48 @@ class Logger
 			gNetwork()->bot->log( $level, $message, $context );
 	}
 
-	// system is unusable
 	public static function URGENT( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::URGENT, $context, $path );
 		self::logAdminBot( $message, 'URGENT', $context );
 	}
 
-	// action must be taken immediately
 	public static function ALERT( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::ALERT, $context, $path );
 		self::logAdminBot( $message, 'ALERT', $context );
 	}
 
-	// critical conditions
 	public static function CRITICAL( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::CRITICAL, $context, $path );
 		self::logAdminBot( $message, 'CRITICAL', $context );
 	}
 
-	// runtime errors that do not require immediate action
-	// but should typically be logged and monitored
 	public static function ERROR( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::ERROR, $context, $path );
 		self::logAdminBot( $message, 'ERROR', $context );
 	}
 
-	// exceptional occurrences that are not errors
 	public static function WARNING( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::WARNING, $context, $path );
 		self::logAdminBot( $message, 'WARNING', $context );
 	}
 
-	// normal but significant events
 	public static function NOTICE( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::NOTICE, $context, $path );
 		self::logAdminBot( $message, 'NOTICE', $context );
 	}
 
-	// interesting events
 	public static function INFO( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::INFO, $context, $path );
 		self::logAdminBot( $message, 'INFO', $context );
 	}
 
-	// detailed debug information
 	public static function DEBUG( $message, $context = [], $path = NULL )
 	{
 		self::logAnalog( $message, \Analog::DEBUG, $context, $path );
@@ -190,7 +202,6 @@ class Logger
 		self::logAdminBot( $message, 'FAILED', $context );
 	}
 
-	// system is unusable
 	public static function siteURGENT( $prefix, $message = '', $context = [] )
 	{
 		$site = WordPress\Site::name();
@@ -198,7 +209,6 @@ class Logger
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'URGENT', $context );
 	}
 
-	// action must be taken immediately
 	public static function siteALERT( $prefix, $message = '', $context = [] )
 	{
 		$site = WordPress\Site::name();
@@ -206,7 +216,6 @@ class Logger
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'ALERT', $context );
 	}
 
-	// critical conditions
 	public static function siteCRITICAL( $prefix, $message = '', $context = [] )
 	{
 		$site = WordPress\Site::name();
@@ -214,8 +223,6 @@ class Logger
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'CRITICAL', $context );
 	}
 
-	// runtime errors that do not require immediate action
-	// but should typically be logged and monitored
 	public static function siteERROR( $prefix, $message = '', $context = [] )
 	{
 		$site = WordPress\Site::name();
@@ -223,7 +230,6 @@ class Logger
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'ERROR', $context );
 	}
 
-	// exceptional occurrences that are not errors
 	public static function siteWARNING( $prefix, $message = '', $context = [] )
 	{
 		$site = WordPress\Site::name();
@@ -231,7 +237,6 @@ class Logger
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'WARNING', $context );
 	}
 
-	// normal but significant events
 	public static function siteNOTICE( $prefix, $message = '', $context = [] )
 	{
 		$site = WordPress\Site::name();
@@ -239,7 +244,6 @@ class Logger
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'NOTICE', $context );
 	}
 
-	// interesting events
 	public static function siteINFO( $prefix, $message = '', $context = [] )
 	{
 		$site = WordPress\Site::name();
@@ -247,7 +251,6 @@ class Logger
 		self::logAdminBot( $prefix.': '.$site.': '.$message, 'INFO', $context );
 	}
 
-	// detailed debug information
 	public static function siteDEBUG( $prefix, $message = '', $context = [] )
 	{
 		$site = WordPress\Site::name();

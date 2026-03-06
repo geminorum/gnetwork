@@ -273,9 +273,13 @@ class Profile extends gNetwork\Module
 	{
 		$count = 0;
 
-		// skipping ip on the imported
+		// Skips storing IP while importing
 		$this->options['store_signup_ip'] = FALSE;
 
+		/**
+		 * @package `parsecsv/php-parsecsv`
+		 * @link https://github.com/parsecsv/parsecsv-for-php
+		 */
 		$csv = new \ParseCsv\Csv();
 		$csv->auto( Core\File::normalize( $file_path ) );
 

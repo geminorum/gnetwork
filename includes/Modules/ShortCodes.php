@@ -1407,6 +1407,10 @@ class ShortCodes extends gNetwork\Module
 
 				if ( $file = get_attached_file( $args['id'] ) ) {
 
+					/**
+					 * @package `parsecsv/php-parsecsv`
+					 * @link https://github.com/parsecsv/parsecsv-for-php
+					 */
 					$csv = new \ParseCsv\Csv();
 					$csv->auto( Core\File::normalize( $file ) );
 
@@ -1422,6 +1426,10 @@ class ShortCodes extends gNetwork\Module
 
 				if ( $string = Core\HTTP::getContents( $args['url'] ) ) {
 
+					/**
+					 * @package `parsecsv/php-parsecsv`
+					 * @link https://github.com/parsecsv/parsecsv-for-php
+		 			*/
 					$csv = new \ParseCsv\Csv();
 					$csv->parse( $string );
 

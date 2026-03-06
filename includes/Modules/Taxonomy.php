@@ -2010,6 +2010,10 @@ JS;
 	{
 		$count = 0;
 
+		/**
+		 * @package `parsecsv/php-parsecsv`
+		 * @link https://github.com/parsecsv/parsecsv-for-php
+		 */
 		$csv = new \ParseCsv\Csv();
 		$csv->auto( Core\File::normalize( $file_path ) );
 

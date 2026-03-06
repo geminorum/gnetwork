@@ -27,9 +27,9 @@ class Optimize extends gNetwork\Module
 	{
 		return [
 			'jquery_enhanced' => '0',
-			'jquery_cdn'      => '0',
 			'jquery_latest'   => '0',
 			'jquery_bottom'   => '0',
+			'jquery_cdn'      => '0',
 		];
 	}
 
@@ -43,20 +43,20 @@ class Optimize extends gNetwork\Module
 					'description' => _x( 'Enhances use of jQuery by WordPress on front-end and administration.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
 				],
 				[
-					'field'       => 'jquery_cdn',
-					'title'       => _x( 'jQuery from CDN', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
-					'description' => _x( 'Replace WordPress jQuery with CDN.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
-					'after'       => Settings::fieldAfterIcon( 'https://releases.jquery.com' ),
-				],
-				[
 					'field'       => 'jquery_latest',
 					'title'       => _x( 'jQuery Latest', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
-					'description' => _x( 'Replace WordPress jQuery with the latest version.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Replaces WordPress jQuery with the latest version on front-end.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'jquery_bottom',
 					'title'       => _x( 'jQuery on Bottom', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
-					'description' => _x( 'Prints jQuery in footer on front-end.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Prints jQuery in footer of HTML on front-end.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+				],
+				[
+					'field'       => 'jquery_cdn',
+					'title'       => _x( 'jQuery from CDN', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Replaces WordPress jQuery with a CDN version.', 'Modules: Optimize: Settings', 'gnetwork-admin' ),
+					'after'       => Settings::fieldAfterIcon( 'https://releases.jquery.com' ),
 				],
 			],
 		];
@@ -105,13 +105,13 @@ class Optimize extends gNetwork\Module
 		remove_action( 'embed_head', 'locale_stylesheet', 30 );
 		remove_action( 'wp_head', 'wp_generator' );
 
-		// completely remove the version number from pages and feeds
+		// Completely remove the version number from pages and feeds.
 		add_filter( 'the_generator', '__return_null', 99 );
 
 		remove_filter( 'comment_text', 'make_clickable', 9 );
 		remove_filter( 'comment_text', 'capital_P_dangit', 31 );
 
-		// to avoid the URL rewriting logic from running unnecessarily
+		// Avoids the URL rewriting logic from running unnecessarily.
 		// @REF: https://make.wordpress.org/core/2021/02/22/improved-https-detection-and-migration-in-wordpress-5-7/
 		remove_filter( 'the_content', 'wp_replace_insecure_home_url' );
 		remove_filter( 'the_excerpt', 'wp_replace_insecure_home_url' );

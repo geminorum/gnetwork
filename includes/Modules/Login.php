@@ -256,6 +256,7 @@ class Login extends gNetwork\Module
 
 		if ( 'wp-login.php' === $pagenow
 			&& get_option( 'permalink_structure' )
+			&& isset( $request['path'] )
 			&& $request['path'] !== self::trailingSlash( $request['path'] ) ) {
 
 			$this->redirect_custom_login( TRUE );
