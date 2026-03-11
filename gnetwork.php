@@ -18,12 +18,12 @@ GitHub Plugin URI: https://github.com/geminorum/gnetwork
 Release Asset: true
 Requires WP: 5.9.0
 Requires at least: 5.9.0
-Requires PHP: 7.4
 Tested up to: 6.9
+Requires PHP: 8.3
 */
 
 define( 'GNETWORK_VERSION', '3.18.0' );
-define( 'GNETWORK_MIN_PHP', '7.2' );
+define( 'GNETWORK_MIN_PHP', '8.3' );
 define( 'GNETWORK_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GNETWORK_URL', plugin_dir_url( __FILE__ ) );
 define( 'GNETWORK_FILE', basename( GNETWORK_DIR ) . '/' . basename( __FILE__ ) );
