@@ -40,6 +40,21 @@ class Scripts extends Core\Base
 		return self::enqueueScript( $asset, $dep, $version, $base, $path );
 	}
 
+	public static function enqueuePackage( $asset, $package = NULL, $dep = [], $version = NULL, $base = NULL, $path = 'assets/packages' )
+	{
+		if ( is_null( $package ) )
+			$package = $asset.'/'.$asset;
+
+		$handle  = strtolower( static::BASE.'-'.str_replace( '.', '-', $asset ) );
+		$variant = self::const( 'SCRIPT_DEBUG' ) ? '' : '.min';
+
+		wp_enqueue_script( $handle, ( $base ?? static::URL ).$path.'/'.$package.$variant.'.js', $dep, $version ?? static::VERSION, TRUE );
+		wp_script_add_data( $handle, 'strategy', 'defer' );
+		wp_script_add_data( $handle, 'fetchpriority', 'low' );
+
+		return $handle;
+	}
+
 	// @REF: https://fontawesome.com/how-to-use/customizing-wordpress/snippets/setup-cdn-webfont
 	public static function enqueueStyleCDN( $url, $integrity = NULL, $actions = NULL )
 	{
