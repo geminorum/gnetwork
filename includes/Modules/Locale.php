@@ -319,7 +319,7 @@ class Locale extends gNetwork\Module
 			'pdfemb_list_options'        => 'page',
 			'theme-sniffer'              => 'page', // [Theme Sniffer](https://wordpress.org/plugins/theme-sniffer/)
 			'wp-jquery-update-test'      => 'page', // [Test jQuery Updates](https://wordpress.org/plugins/wp-jquery-update-test/)
-
+			'koko-analytics'             => 'page', // [Koko Analytics](https://wordpress.org/plugins/koko-analytics)
 
 			// [Rank Math](https://wordpress.org/plugins/seo-by-rank-math/)
 			'rank-math'                 => 'page',

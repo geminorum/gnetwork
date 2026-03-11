@@ -148,6 +148,7 @@ class Plugin extends WordPress\Plugin
 			'Captcha',
 			'OpenSearch',
 			'Support',
+			// 'Mobile',
 			'Mail',
 			'SMS',
 			// 'Bot',

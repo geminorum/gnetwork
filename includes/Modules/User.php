@@ -511,6 +511,8 @@ class User extends gNetwork\Module
 		return user_can( $user, $this->options['apppass_accesscap'] );
 	}
 
+	// TODO: add stand-alone widget for roles and counts
+	// TODO: maybe move to `Editorial`
 	public function activity_box_end()
 	{
 		if ( current_user_can( 'list_users' ) && ! WordPress\User::isLargeCount() )

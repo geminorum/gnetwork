@@ -782,7 +782,7 @@ class Debug extends gNetwork\Module
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: PHP version */
 			_x( 'PHP: %s', 'Modules: Debug', 'gnetwork-admin' ),
-			Core\HTML::code( PHP_VERSION )
+			Core\HTML::link( Core\HTML::code( PHP_VERSION ), 'https://www.php.net/supported-versions', TRUE )
 		) );
 
 		echo Core\HTML::listCode( self::getPHPExtensions(),

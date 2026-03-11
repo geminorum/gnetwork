@@ -159,7 +159,9 @@ class Rewrite extends gNetwork\Module
 
 	public function table_list_row_class( $row_class, $row, $index, $args )
 	{
-		if ( 'missing' == $row['source'] )
+		$row_class[] = 'code';
+
+		if ( 'missing' === $row['source'] )
 			$row_class[] = '-row-color-danger';
 
 		return $row_class;
