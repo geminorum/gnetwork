@@ -262,7 +262,17 @@ class Scripts extends Core\Base
 		wp_style_add_data( static::BASE.'-github-markdown', 'rtl', 'replace' );
 	}
 
-	public static function pkgAutosize( $ver = '6.0.1' )
+	// @link http://www.jacklmoore.com/autosize
+	// @source
+	public static function pkgAutosize( $version = '6.0.1' )
+	{
+		$handle = self::enqueuePackage( 'autosize', NULL, [], $version );
+		wp_add_inline_script( $handle, "autosize(document.querySelectorAll('textarea'));" );
+
+		return $handle;
+	}
+
+	public static function pkgAutosize_OLD( $ver = '6.0.1' )
 	{
 		$handle = static::BASE.'-autosize';
 
