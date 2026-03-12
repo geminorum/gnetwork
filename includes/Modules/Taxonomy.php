@@ -2101,7 +2101,7 @@ JS;
 			return Core\HTML::desc( $empty ?? gNetwork()->na( FALSE ), TRUE, '-empty' );
 
 		$columns = [
-			'ID' => _x( 'ID', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
+			'ID'       => _x( 'ID', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 			'posttype' => [
 				'title'    => _x( 'Post-Type', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 				'class'    => '-results-rowtype',
@@ -2115,9 +2115,10 @@ JS;
 						: Core\HTML::code( $row->post_type );
 				}
 			],
-			'title'    => [
+			'title' => [
 				'title'    => _x( 'Post', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) use ( $description ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args )
+					use ( $description ) {
 
 					$html = post_type_exists( $row->post_type )
 						? ( WordPress\Post::htmlLink( $row ) ?: WordPress\Post::title( $row ) )
@@ -2155,9 +2156,10 @@ JS;
 						: Core\HTML::code( $row->taxonomy );
 				}
 			],
-			'name'    => [
+			'name' => [
 				'title'    => _x( 'Term', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) use ( $description ) {
+				'callback' => static function ( $value, $row, $column, $index, $key, $args )
+					use ( $description ) {
 
 					$html = taxonomy_exists( $row->taxonomy )
 						? ( WordPress\Term::htmlLink( $row, $row->name ) ?: WordPress\Term::title( $row ) )
@@ -2167,6 +2169,12 @@ JS;
 						$html.= Core\HTML::wrap( wpautop( $row->description ), '-description' );
 
 					return $html;
+				},
+			],
+			'count' => [
+				'title'    => _x( 'Count', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
+				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+					return Utilities::htmlCount( $row->count );
 				},
 			],
 		];

@@ -187,6 +187,23 @@ class Utilities extends Core\Base
 			: sprintf( '<span title="%s" class="'.Core\HTML::prepClass( '-empty', $class ).'">&mdash;</span>', $title_attr );
 	}
 
+	public static function htmlCount( $count, $title = NULL, $empty = NULL )
+	{
+		if ( is_array( $count ) )
+			$count = count( $count );
+
+		return $count
+			? Core\Number::format( $count )
+			: $empty ?? self::htmlEmpty( 'column-count-empty', $title ?? _x( 'No Count', 'Helper: Title Attribute', 'gnetwork' ) );
+	}
+
+	public static function htmlOrder( $order, $title = NULL )
+	{
+		return $order
+			? Core\Number::localize( $order )
+			: $empty ?? self::htmlEmpty( 'column-order-empty', $title ?? _x( 'No Order', 'Helper: Title Attribute', 'gnetwork' ) );
+	}
+
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
 	public static function getMustache( $base = GNETWORK_DIR )
 	{
@@ -212,7 +229,7 @@ class Utilities extends Core\Base
 	}
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags
-	// TODO: drop mustache for gNetwork
+	// TODO: drop mustache for `gNetwork`
 	public static function renderMustache( $part, $data = [], $verbose = TRUE )
 	{
 		$mustache = self::getMustache();
@@ -379,13 +396,13 @@ class Utilities extends Core\Base
 	// @package `10up/async-transients`
 	public static function getTransient( $key, $callback, $args = [] )
 	{
-		return \TenUp\AsyncTransients\get_async_transient( static::BASE.'-'.$key, $callback, $args );
+		// return \TenUp\AsyncTransients\get_async_transient( static::BASE.'-'.$key, $callback, $args );
 	}
 
 	// @package `10up/async-transients`
 	public static function setTransient( $key, $data, $ttl = GNETWORK_CACHE_TTL )
 	{
-		return \TenUp\AsyncTransients\set_async_transient( static::BASE.'-'.$key, $data, $ttl );
+		// return \TenUp\AsyncTransients\set_async_transient( static::BASE.'-'.$key, $data, $ttl );
 	}
 
 	public static function log( $error = '[Unknown]', $message = FALSE, $extra = FALSE, $path = GNETWORK_DEBUG_LOG )
