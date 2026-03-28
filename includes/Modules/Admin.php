@@ -233,7 +233,8 @@ class Admin extends gNetwork\Module
 				if ( 'post.php' != $pagenow && 'post-new.php' != $pagenow )
 					return FALSE;
 
-			break;
+				break;
+
 			case 'term':
 
 				if ( ! is_admin() )
@@ -242,27 +243,31 @@ class Admin extends gNetwork\Module
 				if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
 					return FALSE;
 
-			break;
+				break;
+
 			case 'widget':
 
 				if ( 'widgets.php' != $pagenow )
 					return FALSE;
 
-			break;
+				break;
+
 			case 'admin':
 
 				if ( ! is_admin() )
 					return FALSE;
 
-			break;
+				break;
+
 			case 'front':
 
 				if ( is_admin() )
 					return FALSE;
 
-			break;
-			default:
+				break;
+
 			case 'all':
+			default:
 		}
 
 		gNetwork()->editor->tinymce[$row][$plugin] = $filepath ? GNETWORK_URL.$filepath : FALSE;

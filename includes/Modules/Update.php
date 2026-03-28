@@ -488,7 +488,7 @@ class Update extends gNetwork\Module
 			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
 				$defaults['Authorization'] = sprintf( 'token %s', $this->options['package_tokens'][$package['slug']] );
 
-			else if ( ! empty( $this->options['service_tokens']['github']) )
+			else if ( ! empty( $this->options['service_tokens']['github'] ) )
 				$defaults['Authorization'] = sprintf( 'token %s', $this->options['service_tokens']['github'] );
 
 		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
@@ -499,7 +499,7 @@ class Update extends gNetwork\Module
 				// $defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['package_tokens'][$package['slug']] );
 				$defaults['PRIVATE-TOKEN'] = sprintf( '%s', $this->options['package_tokens'][$package['slug']] );
 
-			else if ( ! empty( $this->options['service_tokens']['gitlab']) )
+			else if ( ! empty( $this->options['service_tokens']['gitlab'] ) )
 				// $defaults['Authorization'] = sprintf( 'Bearer %s', $this->options['service_tokens']['gitlab'] );
 				$defaults['PRIVATE-TOKEN'] = sprintf( '%s', $this->options['service_tokens']['gitlab'] );
 		}
@@ -581,7 +581,7 @@ class Update extends gNetwork\Module
 			// 		'access_token' => $this->options['package_tokens'][$package['slug']],
 			// 	], $url );
 			//
-			// if ( ! empty( $this->options['service_tokens']['github']) )
+			// if ( ! empty( $this->options['service_tokens']['github'] ) )
 			// 	return add_query_arg( [
 			// 		'access_token' => $this->options['service_tokens']['github'],
 			// 	], $url );
@@ -593,7 +593,7 @@ class Update extends gNetwork\Module
 					'private_token' => $this->options['package_tokens'][$package['slug']],
 				], $url );
 
-			if ( ! empty( $this->options['service_tokens']['gitlab']) )
+			if ( ! empty( $this->options['service_tokens']['gitlab'] ) )
 				return add_query_arg( [
 					'private_token' => $this->options['service_tokens']['gitlab'],
 				], $url );
@@ -680,7 +680,7 @@ class Update extends gNetwork\Module
 				], TRUE ) )
 					continue;
 
-				if ( $filename !== $asset['name'])
+				if ( $filename !== $asset['name'] )
 					continue;
 
 				return $asset['browser_download_url'];
@@ -723,7 +723,7 @@ class Update extends gNetwork\Module
 				], TRUE ) )
 					continue;
 
-				if ( $filename !== $asset['name'])
+				if ( $filename !== $asset['name'] )
 					continue;
 
 				return $asset['download_count'];

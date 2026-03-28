@@ -14,7 +14,7 @@ class OutputterCurrentObject extends \QM_Output_Html
 	{
 		parent::__construct( $collector );
 
-		add_filter( 'qm/output/menus', array( $this, 'admin_menu' ), 200 );
+		add_filter( 'qm/output/menus', [ $this, 'admin_menu' ], 200 );
 	}
 
 	public function name()

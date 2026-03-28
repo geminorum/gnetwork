@@ -115,46 +115,45 @@ class DumpDebug extends Core\Base
 
 							$id = substr( md5( rand().':'.$key.':'.$level ), 0, 8 );
 
-							echo "<a href=\"javascript:toggleDisplay('". $id ."');\" style=\"text-decoration:none\">";
-							echo "<span style='color:#666666'>" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "</span>";
+							echo "<a href=\"javascript:toggleDisplay('".$id."');\" style=\"text-decoration:none\">";
+							echo "<span style='color:#666666'>".$type.( $type_length !== null ? "(".$type_length.")" : "")."</span>";
 							echo "</a>";
-							echo "<span id=\"plus". $id ."\" style=\"display: " . ($collapse ? "inline" : "none") . ";\">&nbsp;&#10549;</span>";
-							echo "<div id=\"container". $id ."\" style=\"display: " . ($collapse ? "" : "inline") . ";\">";
+							echo "<span id=\"plus".$id."\" style=\"display: ".( $collapse ? "inline" : "none" ).";\">&nbsp;&#10549;</span>";
+							echo "<div id=\"container".$id."\" style=\"display: ".( $collapse ? "" : "inline" ).";\">";
 							echo "<br />";
 						}
 
-						for ($i=0; $i <= $level; $i++) {
+						for ( $i=0; $i <= $level; $i++ )
 							echo $isTerminal ? "|" : "<span style='color:black'>|</span>&nbsp";
-						}
 
 						echo $isTerminal ? "\n" : "<br />";
 					}
 
-					for ($i=0; $i <= $level; $i++) {
+					for ( $i=0; $i <= $level; $i++ )
 						echo $isTerminal ? "|    " : "<span style='color:black'>|</span>&nbsp;";
-					}
 
-					echo $isTerminal ? "[" . $key . "] => " : "<span style='color:black'>[" . $key . "]&nbsp;=>&nbsp;</span>";
+					echo $isTerminal ? "[".$key."] => " : "<span style='color:black'>[".$key."]&nbsp;=>&nbsp;</span>";
 
-					call_user_func($recursive, $value, $level+1);
+					call_user_func( $recursive, $value, $level + 1 );
 				}
 
-				if ($notEmpty) {
-					for ($i=0; $i <= $level; $i++) {
-						echo $isTerminal ? "|" : "<span style='color:black'>|</span>&nbsp";
-					}
+				if ( $notEmpty ) {
 
-					if (!$isTerminal) {
+					for ( $i=0; $i <= $level; $i++ )
+						echo $isTerminal ? "|" : "<span style='color:black'>|</span>&nbsp";
+
+					if ( ! $isTerminal )
 						echo "</div>";
-					}
 
 				} else {
-					echo $isTerminal ?
-							$type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " :
-							"<span style='color:#666666'>" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "</span>&nbsp;";
+
+					echo $isTerminal
+						? ( $type.( $type_length !== null ? "(".$type_length.")" : "")."  " )
+						: ( "<span style='color:#666666'>".$type.( $type_length !== null ? "(".$type_length.")" : "")."</span>&nbsp;" );
 				}
 
 			} else {
+
 				echo $isTerminal ?
 						$type . ($type_length !== null ? "(" . $type_length . ")" : "") . "  " :
 						"<span style='color:#666666'>" . $type . ($type_length !== null ? "(" . $type_length . ")" : "") . "</span>&nbsp;";

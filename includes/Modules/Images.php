@@ -95,18 +95,18 @@ class Images extends gNetwork\Module
 					'description' => _x( 'Handles images within paragraph tags on the content.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					'default'     => 'replace_with_figure',
 					'values'      => [
-						'ignore_all'          => _x( 'Ignores the paragraps and leave them as are!', 'Modules: Images: Settings', 'gnetwork-admin' ),
+						'ignore_all'         => _x( 'Ignores the paragraps and leave them as are!', 'Modules: Images: Settings', 'gnetwork-admin' ),
+						'remove_surrounding' => _x( 'Removes the surrounding paragraps and keep the images.', 'Modules: Images: Settings', 'gnetwork-admin' ),
+						'replace_with_div'   => sprintf(
+							/* translators: `%s`: HTML tag placeholder */
+							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork-admin' ),
+							Core\HTML::code( 'div' )
+						),
 						'replace_with_figure' => sprintf(
 							/* translators: `%s`: HTML tag placeholder */
 							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 							Core\HTML::code( 'figure' )
 						),
-						'replace_with_div' => sprintf(
-							/* translators: `%s`: HTML tag placeholder */
-							_x( 'Replaces the paragraps with %s tags.', 'Modules: Images: Settings', 'gnetwork-admin' ),
-							Core\HTML::code( 'div' )
-						),
-						'remove_surrounding' => _x( 'Removes the surrounding paragraps and keep the images.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 					],
 				],
 			],

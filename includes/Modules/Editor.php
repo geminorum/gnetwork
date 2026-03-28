@@ -16,11 +16,11 @@ class Editor extends gNetwork\Module
 	protected $ajax    = TRUE;
 
 	public $tinymce = [
-		[], // 0: teeny_mce_buttons
-		[], // 1: mce_buttons
-		[], // 2: mce_buttons_2
-		[], // 3: mce_buttons_3
-		[], // 4: mce_buttons_4
+		[], // 0: `teeny_mce_buttons`
+		[], // 1: `mce_buttons`
+		[], // 2: `mce_buttons_2`
+		[], // 3: `mce_buttons_3`
+		[], // 4: `mce_buttons_4`
 	];
 
 	protected function setup_actions()
@@ -85,7 +85,7 @@ class Editor extends gNetwork\Module
 		return $query;
 	}
 
-	// using short-links instead of perma-links inside the editor
+	// Using short-links instead of perma-links inside the editor.
 	public function wp_link_query( $results, $query )
 	{
 		foreach ( $results as &$result )
@@ -136,7 +136,7 @@ class Editor extends gNetwork\Module
 		if ( WordPress\IsIt::blockEditor() )
 			return $buttons;
 
-		// skip adding on term description editors
+		// Skips adding on term description editors.
 		if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
 			$buttons = $this->mce_wppage_button( $buttons );
 
@@ -154,7 +154,7 @@ class Editor extends gNetwork\Module
 		if ( WordPress\IsIt::blockEditor() )
 			return $buttons;
 
-		// skip adding on term description editors
+		// Skips adding on term description editors.
 		if ( ! array_key_exists( 'taxonomy', $_REQUEST ) )
 			$buttons = $this->mce_wpcode_button( $buttons );
 
@@ -197,7 +197,7 @@ class Editor extends gNetwork\Module
 
 	public function mce_external_plugins( $plugin_array )
 	{
-		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		$variant = self::const( 'SCRIPT_DEBUG' ) ? '' : '.min';
 
 		foreach ( $this->tinymce as $row )
 			foreach ( $row as $plugin => $filepath )
@@ -210,20 +210,21 @@ class Editor extends gNetwork\Module
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-// Originally based on : MCE Table Buttons v3.3 - 2018-06-20
+// Originally based on : `MCE Table Buttons` v3.3.1 - 2026-03-28
 // by Jake Goldman http://10up.com
-// http://10up.com/plugins-modules/wordpress-mce-table-buttons/
-// @SOURCE: https://wordpress.org/plugins/mce-table-buttons/
+// http://10up.com/plugins-modules/wordpress-mce-table-buttons
+// https://github.com/10up/mce-table-buttons
+// https://wordpress.org/plugins/mce-table-buttons/
 
-	// fixes weirdness resulting from `wpautop` and formatting clean up not built for tables
+	// Fixes weirdness resulting from `wpautop()` and formatting clean up not built for tables.
 	public function content_save_pre( $content )
 	{
 		if ( FALSE !== strpos( $content, '<table' ) ) {
 
-			// paragraphed content inside of a td requires first paragraph to have extra line breaks (or else autop breaks)
+			// Paragraphed content inside of a `td` requires first paragraph to have extra line breaks (or else `autop()` breaks).
 			$content = preg_replace( "/<td([^>]*)>(.+\r?\n\r?\n)/m", "<td$1>\n\n$2", $content );
 
-			// make sure there's space around the table
+			// Makes sure there's space around the table.
 			if ( substr( $content, -8 ) == '</table>' )
 				$content.= "\n<br />";
 		}
@@ -231,7 +232,7 @@ class Editor extends gNetwork\Module
 		return $content;
 	}
 
-	// removes the table toolbar introduced in TinyMCE 4.3.0
+	// Removes the table toolbar introduced in `TinyMCE 4.3.0`
 	public function tiny_mce_before_init( $mceInit, $editor_id )
 	{
 		$mceInit['table_toolbar'] = '';

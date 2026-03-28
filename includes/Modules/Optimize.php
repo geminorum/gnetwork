@@ -149,7 +149,7 @@ class Optimize extends gNetwork\Module
 		];
 	}
 
-	public function wp_resource_hints(  $urls, $relation_type )
+	public function wp_resource_hints( $urls, $relation_type )
 	{
 		return in_array( $relation_type, [ 'preconnect', 'dns-prefetch' ], TRUE )
 			? array_merge( $urls, [ 'href' =>'https://code.jquery.com/', 'crossorigin' ] )

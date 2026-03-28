@@ -198,7 +198,7 @@ class NotFound extends gNetwork\Module
 						'btn-outline-primary',
 						'btn-lg',
 						'btn-block',
-					]),
+					] ),
 				], $object->labels->archives ), 'd-grid gap-2 my-3' );
 
 		} else if ( $taxonomy = get_query_var( 'taxonomy' ) ) {
@@ -213,7 +213,7 @@ class NotFound extends gNetwork\Module
 						'btn-outline-primary',
 						'btn-lg',
 						'btn-block',
-					]),
+					] ),
 				], sprintf(
 					/* translators: `%1$s`: camel case / plural taxonomy, `%2$s`: camel case / singular taxonomy, `%3$s`: lower case / plural taxonomy, `%4$s`: lower case / singular taxonomy */
 					_x( 'View %1$s Archives', 'Module: NotFound', 'gnetwork' ),

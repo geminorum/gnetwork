@@ -319,7 +319,7 @@ class AdminBar extends gNetwork\Module
 					'title'  => _x( 'HTTP Calls', 'Modules: AdminBar: Nodes', 'gnetwork' ),
 				] );
 
-				foreach (  $calls as $offset => $call ) {
+				foreach ( $calls as $offset => $call ) {
 
 					$url = Core\URL::parseDeep( $call['url'] );
 

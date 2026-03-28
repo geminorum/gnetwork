@@ -286,7 +286,7 @@ class Notify extends gNetwork\Module
 	// CHANGED: we opt-out notifying the admin
 	public function wp_new_user_notification( $user_id, $deprecated = NULL, $notify = '' )
 	{
-		if ( ! in_array( $notify, array( 'user', 'admin', 'both', '' ), TRUE ) )
+		if ( ! in_array( $notify, [ 'user', 'admin', 'both', '' ], TRUE ) )
 			return;
 
 		$site = WordPress\Site::nameforEmail();
