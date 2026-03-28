@@ -251,19 +251,19 @@ class Text extends Base
 		$text = preg_replace( "/(\x{200C})/u", ' ', $text );
 
 		$text = str_ireplace( [
-			" ی ", // orphaned after zwnj conversion
+			" ی ", // orphaned after `ZWNJ` conversion
 		], ' ', $text );
 
 		$text = str_ireplace( [
-			"\xD8\x8C", // `،` // Arabic Comma
-			"\xD8\x9B", // `؛` // Arabic Semicolon
-			"\xD9\x94", // `ٔ`  // Arabic Hamza Above
-			"\xD9\xAC", // `٬` // Arabic Thousands Separator
-			"\xD8\x8D", // `؍` // Arabic Date Separator
+			"\xD8\x8C", // `،` // `Arabic Comma`
+			"\xD8\x9B", // `؛` // `Arabic Semicolon`
+			"\xD9\x94", // `ٔ`  // `Arabic Hamza Above`
+			"\xD9\xAC", // `٬` // `Arabic Thousands Separator`
+			"\xD8\x8D", // `؍` // `Arabic Date Separator`
 
 			"\xC2\xAB",     // `«`
 			"\xC2\xBB",     // `»`
-			"\xE2\x80\xA6", // `…` // Horizontal Ellipsis
+			"\xE2\x80\xA6", // `…` // `Horizontal Ellipsis`
 
 			"@",
 			"?",
@@ -1120,7 +1120,7 @@ class Text extends Base
 		if ( ! $text )
 			return $text;
 
-		// Looks for three punctuation characters: . (period), ! (exclamation), or ? (question mark), followed by a space
+		// Looks for three punctuation characters: `.` (period), `!` (exclamation), or `?` (question mark), followed by a space.
 		$parts = preg_split( '/(\.|!|\?)\s/', strip_tags( $text ), 2, PREG_SPLIT_DELIM_CAPTURE );
 
 		// [0] is the first sentence and [1] is the punctuation character at the end
@@ -1354,7 +1354,7 @@ class Text extends Base
 	 * @source https://www.php.net/manual/en/function.preg-match-all.php#81559
 	 *
 	 * @param string $text
-	 * @return int $length
+	 * @return int
 	 */
 	public static function utf8Len( $text )
 	{
@@ -1827,7 +1827,7 @@ class Text extends Base
 		exit;
 	}
 
-	// USAGE: `Text::correctMixedEncoding('Ù…Ø­ØªÙˆØ§ÛŒ Ù…ÛŒÚ©Ø³ Ø´Ø¯Ù‡ و بخش سالم');`
+	// USAGE: `Text::correctMixedEncoding( 'Ù…Ø­ØªÙˆØ§ÛŒ Ù…ÛŒÚ©Ø³ Ø´Ø¯Ù‡ و بخش سالم' );`
 	// @REF: https://stackoverflow.com/questions/48948340/mixed-encoding-and-make-everything-utf-8
 	// @REF: https://gist.github.com/man4toman/029f43b802f4ee52d5fab2526cdd3cbd
 	// @SEE: https://gist.github.com/man4toman/f69a8bbf0c51b77f4202af7f2c0e7754
@@ -1839,7 +1839,7 @@ class Text extends Base
 		}, hex2bin( bin2hex( $text ) ) );
 	}
 
-	// FIXME: address the other attrs
+	// FIXME: address the other attributes
 	// @REF: https://gist.github.com/man4toman/a645c4022f741c879110d09834f73d12
 	public static function unlinkify( $text )
 	{
@@ -1853,7 +1853,7 @@ class Text extends Base
 	}
 
 	// case insensitive version of `strtr()`
-	// by Alexander Peev
+	// by `Alexander Peev`
 	// @REF: https://www.php.net/manual/en/function.strtr.php#82051
 	public static function strtr( $text, $one = NULL, $two = NULL )
 	{

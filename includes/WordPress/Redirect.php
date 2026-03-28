@@ -52,6 +52,12 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 		wp_die(); // something's wrong!
 	}
 
+	public static function doRefererWithLog( $log, $message = 'updated', $key = 'message' )
+	{
+		self::_log_error( $log );
+		self::doReferer( $message, $key );
+	}
+
 	// OLD: `Core\WordPress::redirectReferer()`
 	public static function doReferer( $message = 'updated', $key = 'message' )
 	{

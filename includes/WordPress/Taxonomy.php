@@ -255,7 +255,13 @@ class Taxonomy extends Core\Base
 		if ( ! $object = self::object( $taxonomy ) )
 			return $fallback;
 
-		return apply_filters( 'geditorial_taxonomy_archive_link', $fallback, $object->name );
+		$link = $fallback; // WTF: WordPress does not support archives for terms
+
+		return apply_filters( 'nucleus_taxonomy_archive_link',
+			$link,
+			$object->name,
+			$fallback
+		);
 	}
 
 	/**
@@ -265,11 +271,12 @@ class Taxonomy extends Core\Base
 	 * @param string|object $taxonomy
 	 * @param array $extra
 	 * @param mixed $fallback
+	 * @param string $capability
 	 * @return string
 	 */
-	public static function edit( $taxonomy, $extra = [], $fallback = FALSE )
+	public static function edit( $taxonomy, $extra = [], $fallback = FALSE, $capability = NULL )
 	{
-		return self::can( $taxonomy, 'manage_terms' )
+		return self::can( $taxonomy, $capability ?? 'manage_terms' )
 			? URL::editTaxonomy( $taxonomy, $extra )
 			: $fallback;
 	}
@@ -1001,11 +1008,11 @@ class Taxonomy extends Core\Base
 			if ( ! empty( $taxonomy ) ) {
 
 				// phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber
-				return $wpdb->get_row( $wpdb->prepare( $tax_select.$where. ' AND tt.taxonomy = %s', $term, $taxonomy ), ARRAY_A );
+				return $wpdb->get_row( $wpdb->prepare( $tax_select.$where.' AND tt.taxonomy = %s', $term, $taxonomy ), ARRAY_A );
 
 			} else {
 
-				return $wpdb->get_var( $wpdb->prepare( $select . $where, $term ) );
+				return $wpdb->get_var( $wpdb->prepare( $select.$where, $term ) );
 			}
 		}
 
@@ -1417,8 +1424,10 @@ class Taxonomy extends Core\Base
 
 	public static function listTermsJS( $taxonomy, $fields = NULL, $extra = [] )
 	{
-		if ( is_null( $fields ) )
-			$fields = [ 'term_id', 'name' ];
+		$fields = $fields ?? [
+			'term_id',
+			'name',
+		];
 
 		return array_map( function ( $term ) use ( $fields ) {
 			return Core\Arraay::keepByKeys( get_object_vars( $term ), $fields );
@@ -1433,30 +1442,30 @@ class Taxonomy extends Core\Base
 
 	public static function addSupport( $taxonomy, $features )
 	{
-		global $gEditorialTaxonomyFeatures;
+		global $NucleusTaxonomyFeatures;
 
 		foreach ( (array) $features as $feature )
 
 			if ( 2 == func_num_args() )
-				$gEditorialTaxonomyFeatures[$taxonomy][$feature] = TRUE;
+				$NucleusTaxonomyFeatures[$taxonomy][$feature] = TRUE;
 
 			else
-				$gEditorialTaxonomyFeatures[$taxonomy][$feature] = array_slice( func_get_args(), 2 );
+				$NucleusTaxonomyFeatures[$taxonomy][$feature] = array_slice( func_get_args(), 2 );
 	}
 
 	public static function removeSupport( $taxonomy, $feature )
 	{
-		global $gEditorialTaxonomyFeatures;
+		global $NucleusTaxonomyFeatures;
 
-		unset( $gEditorialTaxonomyFeatures[$taxonomy][$feature] );
+		unset( $NucleusTaxonomyFeatures[$taxonomy][$feature] );
 	}
 
 	public static function getAllSupports( $taxonomy )
 	{
-		global $gEditorialTaxonomyFeatures;
+		global $NucleusTaxonomyFeatures;
 
-		if ( isset( $gEditorialTaxonomyFeatures[$taxonomy] ) )
-			return $gEditorialTaxonomyFeatures[$taxonomy];
+		if ( isset( $NucleusTaxonomyFeatures[$taxonomy] ) )
+			return $NucleusTaxonomyFeatures[$taxonomy];
 
 		return [];
 	}
@@ -1473,11 +1482,11 @@ class Taxonomy extends Core\Base
 
 	public static function getBySupport( $feature, $operator = 'and' )
 	{
-		global $gEditorialTaxonomyFeatures;
+		global $NucleusTaxonomyFeatures;
 
 		$features = array_fill_keys( (array) $feature, TRUE );
 
-		return array_keys( wp_filter_object_list( $gEditorialTaxonomyFeatures, $features, $operator ) );
+		return array_keys( wp_filter_object_list( $NucleusTaxonomyFeatures, $features, $operator ) );
 	}
 
 	public static function isThumbnail( $attachment_id, $metakey = 'image' )
@@ -1504,8 +1513,7 @@ class Taxonomy extends Core\Base
 	// @SEE: `Scripts::enqueueThickBox()`
 	public static function htmlFeaturedImage( $term_id, $size = NULL, $link = TRUE, $metakey = NULL )
 	{
-		if ( is_null( $size ) )
-			$size = Media::getAttachmentImageDefaultSize( NULL, Term::taxonomy( $term_id ) ?: NULL );
+		$size = $size ?? Media::getAttachmentImageDefaultSize( NULL, Term::taxonomy( $term_id ) ?: NULL );
 
 		return Media::htmlAttachmentImage(
 			self::getThumbnailID( $term_id, $metakey ),
@@ -1518,22 +1526,18 @@ class Taxonomy extends Core\Base
 
 	public static function getThumbnailID( $term_id, $metakey = NULL )
 	{
-		if ( is_null( $metakey ) )
-			$thumbnail_id = (int) get_term_meta( $term_id, 'image', TRUE );
-
-		else if ( $metakey )
-			$thumbnail_id = (int) get_term_meta( $term_id, $metakey, TRUE );
-
-		else
-			$thumbnail_id = FALSE;
-
-		return apply_filters( 'geditorial_get_term_thumbnail_id', $thumbnail_id, $term_id, $metakey );
+		// NOTE: this is **NOT** a core filter @since WP 7.0.0
+		// @old `geditorial_get_term_thumbnail_id`
+		return apply_filters( 'term_thumbnail_id',
+			( (int) get_term_meta( $term_id, $metakey ?? 'image', TRUE ) ) ?: FALSE,
+			get_term( $term_id )
+		);
 	}
 
 	// NOTE: DEPRECATED
 	public static function getArchiveLink( $taxonomy )
 	{
-		self::_dep( 'Taxonomy::link()' );
+		self::_dep( 'WordPress\Taxonomy::link()' );
 		return self::link( $taxonomy );
 	}
 

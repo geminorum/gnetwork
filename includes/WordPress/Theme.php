@@ -228,12 +228,12 @@ class Theme extends Core\Base
 	// @SOURCE: `bp_set_theme_compat_active()`
 	public static function compatActive( $set = NULL )
 	{
-		global $gEditorialWPThemeCompatActive;
+		global $NucleusWPThemeCompatActive;
 
 		if ( is_null( $set ) )
-			return $gEditorialWPThemeCompatActive;
+			return $NucleusWPThemeCompatActive;
 
-		return $gEditorialWPThemeCompatActive = $set;
+		return $NucleusWPThemeCompatActive = $set;
 	}
 
 	// @SOURCE: `bp_theme_compat_reset_post()`

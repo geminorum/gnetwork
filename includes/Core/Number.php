@@ -81,7 +81,7 @@ class Number extends Base
 	 * Converts digits into Arabic numbers.
 	 *
 	 * @param string $string
-	 * @return string $translated
+	 * @return string
 	 */
 	public static function translateArabic( $string )
 	{

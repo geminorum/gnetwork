@@ -343,7 +343,7 @@ class Post extends Core\Base
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
 
-		$filtered = apply_filters( 'geditorial_post_overview_pre_link', NULL, $post, $context );
+		$filtered = apply_filters( 'nucleus_post_overview_pre_link', NULL, $post, $context );
 
 		if ( ! is_null( $filtered ) )
 			return $filtered;
@@ -810,7 +810,7 @@ class Post extends Core\Base
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
 
-		$filtered = apply_filters( 'geditorial_post_image_pre_src', NULL, $post, $context, $size, $thumbnail_id );
+		$filtered = apply_filters( 'nucleus_post_image_pre_src', NULL, $post, $context, $size, $thumbnail_id );
 
 		if ( ! is_null( $filtered ) )
 			return $filtered;

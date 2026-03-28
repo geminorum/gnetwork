@@ -379,8 +379,7 @@ class IsIt extends Core\Base
 		if ( FALSE === GNETWORK_MAIN_NETWORK )
 			return TRUE;
 
-		if ( is_null( $network_id ) )
-			$network_id = get_current_network_id();
+		$network_id = $network_id ?? get_current_network_id();
 
 		if ( GNETWORK_MAIN_NETWORK == $network_id )
 			return TRUE;

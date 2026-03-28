@@ -560,7 +560,7 @@ class Color extends Base
 			$new_hex_component = dechex( $new_decimal );
 
 			if ( strlen( $new_hex_component ) < 2 )
-				$new_hex_component = '0' . $new_hex_component;
+				$new_hex_component = '0'.$new_hex_component;
 
 			$color.= $new_hex_component;
 		}
@@ -591,7 +591,7 @@ class Color extends Base
 			$new_hex_component = dechex( $new_decimal );
 
 			if ( strlen( $new_hex_component ) < 2 )
-				$new_hex_component = '0' . $new_hex_component;
+				$new_hex_component = '0'.$new_hex_component;
 
 			$color .= $new_hex_component;
 		}
@@ -687,13 +687,13 @@ class Color extends Base
 	 *
 	 * @source https://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
 	 *
-	 * @param  int $r1
-	 * @param  int $g1
-	 * @param  int $b1
-	 * @param  int $r2
-	 * @param  int $g2
-	 * @param  int $b2
-	 * @return int $difference
+	 * @param int $r1
+	 * @param int $g1
+	 * @param int $b1
+	 * @param int $r2
+	 * @param int $g2
+	 * @param int $b2
+	 * @return int
 	 */
 	public static function brightnessDiff( $r1, $g1, $b1, $r2, $g2, $b2 )
 	{
@@ -711,13 +711,13 @@ class Color extends Base
 	 *
 	 * @source https://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
 	 *
-	 * @param  int $r1
-	 * @param  int $g1
-	 * @param  int $b1
-	 * @param  int $r2
-	 * @param  int $g2
-	 * @param  int $b2
-	 * @return int $difference
+	 * @param int $r1
+	 * @param int $g1
+	 * @param int $b1
+	 * @param int $r2
+	 * @param int $g2
+	 * @param int $b2
+	 * @return int
 	 */
 	public static function luminosityDiff( $r1, $g1, $b1, $r2, $g2, $b2 )
 	{
@@ -738,7 +738,7 @@ class Color extends Base
 	 * Pythagorean Distance
 	 *
 	 * Manni suggested to use the Pythagorean Distance in the comments.
-	 * I ported his code to PHP. However I found it hard to find a
+	 * I ported his code to PHP. However, I found it hard to find a
 	 * good threshold. Sometimes well contrasting colors return a very
 	 * low value, sometimes their value is very high. I settled for
 	 * a threshold of 250 in my script, but suggest to use the
@@ -747,13 +747,13 @@ class Color extends Base
 	 * @see https://en.wikipedia.org/wiki/Pythagorean_theorem
 	 * @source https://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
 	 *
-	 * @param  int $r1
-	 * @param  int $g1
-	 * @param  int $b1
-	 * @param  int $r2
-	 * @param  int $g2
-	 * @param  int $b2
-	 * @return int $difference
+	 * @param int $r1
+	 * @param int $g1
+	 * @param int $b1
+	 * @param int $r2
+	 * @param int $g2
+	 * @param int $b2
+	 * @return int
 	 */
 	public static function pythagoreanDiff( $r1, $g1, $b1, $r2, $g2, $b2 )
 	{
@@ -767,13 +767,13 @@ class Color extends Base
 	/**
 	 * YIQ algorithm (less precise)
 	 *
-	 * Another simpliest and less precise way called YIQ,
+	 * Another simplest and less precise way called YIQ,
 	 * because it converts the RGB color space into YIQ.
 	 *
-	 * @see	https://en.wikipedia.org/wiki/YIQ
+	 * @see https://en.wikipedia.org/wiki/YIQ
 	 * @source https://stackoverflow.com/a/42921358
 	 *
-	 * @param  string $hexcolor
+	 * @param string $hexcolor
 	 * @return string
 	 */
 	public static function yiqDiff( $hex, $dark = '#000000', $light = '#FFFFFF' )
@@ -792,7 +792,7 @@ class Color extends Base
 	 *
 	 * @source https://stackoverflow.com/a/42921358
 	 *
-	 * @param  string $hex
+	 * @param string $hex
 	 * @return string
 	 */
 	public static function luminosityContrast( $hex, $dark = '#000000', $light = '#FFFFFF' )

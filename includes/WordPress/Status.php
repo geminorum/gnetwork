@@ -114,7 +114,7 @@ class Status extends Core\Base
 			'draft',
 		];
 
-		return apply_filters( 'geditorial_status_acceptable',
+		return apply_filters( 'nucleus_status_acceptable',
 			array_diff( $statuses, (array) $excludes ),
 			(array) $posttypes,
 			$context,

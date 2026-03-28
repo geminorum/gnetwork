@@ -101,8 +101,11 @@ class File extends Base
 	 *
 	 * On windows systems, replaces backslashes with forward slashes
 	 * and forces upper-case drive letters.
+	 *
 	 * Allows for two leading slashes for Windows network shares, but
 	 * ensures that all other duplicate slashes are reduced to a single.
+	 *
+	 * NOTE: has no `wp_is_stream()` checks
 	 *
 	 * @source: `wp_normalize_path()`
 	 *
@@ -111,12 +114,17 @@ class File extends Base
 	 */
 	public static function normalize( $path )
 	{
+		$path = (string) $path;
+
 		if ( empty( $path ) )
 			return '';
 
 		$path = str_replace( '\\', '/', $path );
-		$path = preg_replace( '|(?<=.)/+|', '/', $path );
 
+		// Replace multiple slashes down to a singular, allowing for network shares having two slashes.
+		$path = (string) preg_replace( '|(?<=.)/+|', '/', $path );
+
+		// Windows paths should uppercase the drive letter.
 		if ( ':' === substr( $path, 1, 1 ) )
 			$path = ucfirst( $path );
 
@@ -338,16 +346,16 @@ class File extends Base
 		return $path;
 	}
 
-	// ORIGINALLY BASED ON: Secure Folder wp-content/uploads v1.2
+	// ORIGINALLY BASED ON: `Secure Folder wp-content/uploads` v1.2
 	// BY: Daniel Satria : http://ruanglaba.com
-	// puts index.html on given folder and subs
+	// puts `index.html` on given folder and subs
 	public static function putIndexHTML( $base, $index )
 	{
 		copy( $index, $base.'/index.html' );
 
 		if ( $dir = opendir( $base ) )
 			while ( FALSE !== ( $file = readdir( $dir ) ) )
-				if ( is_dir( $base.'/'.$file ) && ! in_array(  $file, [ '.', '..' ], TRUE ) )
+				if ( is_dir( $base.'/'.$file ) && ! in_array( $file, [ '.', '..' ], TRUE ) )
 					self::putIndexHTML( $base.'/'. $file, $index );
 
 		closedir( $dir );
@@ -702,7 +710,7 @@ class File extends Base
 				if ( ! $file->isDot() )
 					unlink( $file->getPathname() );
 
-		} catch ( Exception $e ) {
+		} catch ( \Exception $e ) {
 
 			self::_log( $e->getMessage().': '.sprintf( '%s', $path ) );
 		}
@@ -755,7 +763,7 @@ class File extends Base
 	public static function toCSV( $data, $maxmemory = NULL )
 	{
 		if ( is_null( $maxmemory ) )
-			$maxmemory =  5 * 1024 * 1024; // `5MB`
+			$maxmemory = 5 * 1024 * 1024; // `5MB`
 
 		$handle = fopen( 'php://temp/maxmemory:'.$maxmemory, 'r+' );
 
@@ -899,7 +907,7 @@ class File extends Base
 
 			// read $bite characters of the file into a string
 			$string = fread( $handle, $bite )
-				or die ( "Can't read from file " . $file . "." ); // FIXME
+				or die ( "Can't read from file ".$file."." ); // FIXME
 
 			// if we happen to have read to the end of the file then we need to ignore
 			// the last line as this will be a newline character
@@ -1057,7 +1065,7 @@ class File extends Base
 
 			while ( $line = fgets( $file_handler ) ) {
 
-				++$i;
+				$i++;
 
 				// case-sensitive is false by default
 				if ( FALSE === $case_sensitive ) {
@@ -1067,7 +1075,7 @@ class File extends Base
 
 				// Finds the string and store it in an array.
 				if ( FALSE !== strpos( $line, $search ) )
-					$line_number .=  $i.",";
+					$line_number.= $i.",";
 			}
 
 			fclose( $file_handler );

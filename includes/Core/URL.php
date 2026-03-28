@@ -10,7 +10,7 @@ class URL extends Base
 	 * @source `sanitize_url()`
 	 *
 	 * @param string $url
-	 * @return string $sanitized
+	 * @return string
 	 */
 	public static function sanitize( $url )
 	{

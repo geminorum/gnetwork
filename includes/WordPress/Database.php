@@ -86,7 +86,7 @@ class Database extends Core\Base
 	}
 
 	// @REF: https://github.com/scribu/wp-custom-field-taxonomies
-	// FIXME: must limit to selected posttypes
+	// FIXME: must limit to the selected post-types
 	public static function getPostMetaRows( $meta_key, $limit = FALSE )
 	{
 		global $wpdb;
@@ -111,7 +111,7 @@ class Database extends Core\Base
 	}
 
 	// @REF: https://github.com/scribu/wp-custom-field-taxonomies
-	// FIXME: must limit to selected posttypes
+	// FIXME: must limit to the selected post-types
 	public static function getPostMetaKeys( $same_key = FALSE )
 	{
 		global $wpdb;
@@ -280,11 +280,9 @@ class Database extends Core\Base
 	{
 		global $wpdb;
 
-		$counts = [];
-		$from   = $to = '';
-
-		if ( is_null( $user_id ) )
-			$user_id = get_current_user_id();
+		$counts  = [];
+		$from    = $to = '';
+		$user_id = $user_id ?? get_current_user_id();
 
 		$extra_checks = "AND post_status != 'auto-draft'";
 
@@ -415,7 +413,7 @@ class Database extends Core\Base
 		}
 	}
 
-	// register a table with $wpdb
+	// Register a table with `$wpdb`
 	// @SOURCE: `scb_register_table()`
 	public static function registerTable( $key, $name = FALSE )
 	{
@@ -428,7 +426,7 @@ class Database extends Core\Base
 		$wpdb->$key = $wpdb->prefix.$name;
 	}
 
-	// runs the SQL query for installing/upgrading a table
+	// Runs the SQL query for installing/upgrading a table.
 	// @SOURCE: `scb_install_table()`
 	public static function installTable( $key, $columns, $options = [] )
 	{
@@ -472,7 +470,7 @@ class Database extends Core\Base
 		$wpdb->query( "CREATE TABLE IF NOT EXISTS $full_table_name ( $columns ) $table_options;" );
 	}
 
-	// runs the SQL query for uninstalling a table
+	// Runs the SQL query for uninstalling a table.
 	// @SOURCE: `scb_uninstall_table()`
 	public static function uninstallTable( $key )
 	{
@@ -481,7 +479,7 @@ class Database extends Core\Base
 		$wpdb->query( "DROP TABLE IF EXISTS ".$wpdb->{$key} );
 	}
 
-	// prepare an array for an IN statement
+	// Prepare an array for an `IN` statement.
 	// @ SOURCE: `scbUtil::array_to_sql()`
 	public static function array2SQL( $values )
 	{

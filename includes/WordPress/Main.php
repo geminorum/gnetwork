@@ -97,6 +97,13 @@ class Main extends Core\Base
 		return static::factory()->module( $module )->get_module_path( $context );
 	}
 
+	public static function bailWithError( $results, $code, $message = NULL, $error_key = NULL )
+	{
+		$results[( $error_key ?? 'error' )] = new Core\Error( $code, $message ?? '' );
+
+		return $results;
+	}
+
 	protected static function getString( $string, $posttype = 'post', $group = 'titles', $fallback = FALSE, $module = NULL )
 	{
 		if ( ! $module = $module ?? static::MODULE )

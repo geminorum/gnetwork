@@ -157,7 +157,7 @@ class Date extends Base
 		$hours   = (int) $offset;
 		$minutes = ( $offset - $hours );
 
-		$sign     = ( $offset < 0 ) ? '-' : '+';
+		$sign     = $offset < 0 ? '-' : '+';
 		$abs_hour = abs( $hours );
 		$abs_mins = abs( $minutes * 60 );
 
@@ -267,7 +267,7 @@ class Date extends Base
 	public static function daysInMonth( $month, $year, $calendar_type = NULL )
 	{
 		// @source: https://www.php.net/manual/en/function.cal-days-in-month.php#38666
-		// return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
+		// return $month == 2 ? ( $year % 4 ? 28 : ( $year % 100 ? 29 : ( $year % 400 ? 28 : 29 ) ) ) : ( ($month - 1 ) % 7 % 2 ? 30 : 31 );
 
 		return cal_days_in_month( 0, $month, $year ); // `CAL_GREGORIAN`
 	}
@@ -428,7 +428,8 @@ class Date extends Base
 
 		} catch ( \Exception $e ) {
 
-			// echo $e->getMessage();
+			self::_log( 'Exception: `Date::make()` :: '.$e->getMessage() );
+
 			return FALSE;
 		}
 	}
@@ -460,6 +461,8 @@ class Date extends Base
 			);
 
 		} catch ( \Exception $e ) {
+
+			self::_log( 'Exception: `Date::timestamp()` :: '.$e->getMessage() );
 
 			return $fallback;
 		}
@@ -511,6 +514,8 @@ class Date extends Base
 			);
 
 		} catch ( \Exception $e ) {
+
+			self::_log( 'Exception: `Date::getISO8601()` :: '.$e->getMessage() );
 
 			return $fallback;
 		}
@@ -920,7 +925,9 @@ class Date extends Base
 			// Convert it to a timestamp
 			return $datetime->getTimestamp();
 
-		} catch ( \Exception $ex ) {
+		} catch ( \Exception $e ) {
+
+			self::_log( 'Exception: `Date::midnight()` :: '.$e->getMessage() );
 
 			// If something went wrong with the above, return midnight `UTC`
 			$time = time();

@@ -6,12 +6,11 @@ use geminorum\gNetwork\Core;
 
 class SwitchSite extends Core\Base
 {
-
 	/**
 	 * Wraps core function for `switch_to_blog()`
 	 *
 	 * @param int $site_id
-	 * @return bool $switched
+	 * @return bool
 	 */
 	public static function to( $site_id )
 	{
@@ -21,7 +20,7 @@ class SwitchSite extends Core\Base
 	/**
 	 * Wraps core function for `restore_current_blog()`
 	 *
-	 * @return bool $switched
+	 * @return bool
 	 */
 	public static function restore()
 	{

@@ -6,7 +6,6 @@ use geminorum\gNetwork\Core;
 
 class Attachment extends Core\Base
 {
-
 	/**
 	 * Retrieves attachments for a parent post given mime type.
 	 * @old `Media::getAttachments()`
@@ -15,7 +14,7 @@ class Attachment extends Core\Base
 	 * @param null|int|object $parent
 	 * @param string $mime
 	 * @param mixed $fallback
-	 * @return array $attachments
+	 * @return array
 	 */
 	public static function list( $parent = NULL, $mime = 'image', $fallback = [] )
 	{
@@ -47,7 +46,7 @@ class Attachment extends Core\Base
 	 * @param null|string $capability
 	 * @param null|int|object $user_id
 	 * @param bool $fallback
-	 * @return bool $can
+	 * @return bool
 	 */
 	public static function can( $attachment, $capability, $user_id = NULL, $fallback = FALSE )
 	{
@@ -60,7 +59,7 @@ class Attachment extends Core\Base
 	 * @param int|object $attachment
 	 * @param array $extra
 	 * @param mixed $fallback
-	 * @return string $link
+	 * @return string
 	 */
 	public static function edit( $attachment, $extra = [], $fallback = FALSE )
 	{
@@ -72,7 +71,7 @@ class Attachment extends Core\Base
 	 *
 	 * @param null|int|object $attachment
 	 * @param mixed $fallback
-	 * @return string $mime
+	 * @return string
 	 */
 	public static function type( $attachment = NULL, $fallback = FALSE )
 	{
@@ -88,7 +87,7 @@ class Attachment extends Core\Base
 	 * @param null|int|object $attachment
 	 * @param null|string $fallback
 	 * @param bool $filter
-	 * @return string $title
+	 * @return string
 	 */
 	public static function title( $attachment = NULL, $fallback = NULL, $filter = TRUE )
 	{

@@ -61,8 +61,8 @@ abstract class DataType extends Core\Base
 
 	public static function sanitize( $input, $default = '', $field = [], $context = 'save' )
 	{
-		$sanitized = Text::trim( $input );
-		$sanitized = Number::translate( $sanitized );
+		$sanitized = Core\Text::trim( $input );
+		$sanitized = Core\Number::translate( $sanitized );
 
 		return $sanitized;
 	}

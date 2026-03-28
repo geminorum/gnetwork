@@ -25,7 +25,7 @@ class HTML extends Base
 			'class'  => '-link',
 			'href'   => $link,
 			'target' => $target_blank ? '_blank' : FALSE,
-			'dummy'  => 'wtf', // HACK: dummy attr to distract the `wordWrap()`!
+			'dummy'  => 'wtf', // HACK: dummy attribute to distract the `wordWrap()`!
 		], $html );
 	}
 
@@ -875,13 +875,14 @@ class HTML extends Base
 			$url   = add_query_arg( $args, $uri );
 			$class = [
 				$prefix,
-				sprintf( '%s-%s', $prefix, $slug ),
+				self::dsh( $prefix, $slug ),
 				$icon ? '-has-navicon' : '-has-not-navicon',
 				$slug === $active ? sprintf( '%s-active -active', $prefix ) : '',
 			];
 
 			if ( $item )
 				$html.= self::tag( $item, [ 'class' => $class, 'title' => $hint, 'data' => $data ], self::link( $icon.$title, $url ) );
+
 			else
 				$html.= self::tag( 'a', [ 'class' => $class, 'title' => $hint, 'data' => $data, 'href' => $url ], $icon.$title );
 		}
@@ -1553,7 +1554,7 @@ class HTML extends Base
 		$icon = $icon ?? 'wordpress-alt';
 
 		if ( ! Text::starts( $icon, 'dashicons-' ) )
-			$icon = sprintf( 'dashicons-%s', $icon );
+			$icon = self::dsh( 'dashicons', $icon );
 
 		return self::tag( 'span', array_merge( [
 			'data-icon' => 'dashicons',
@@ -1593,7 +1594,7 @@ class HTML extends Base
 
 		if ( ! is_null( $args['none_title'] ) ) {
 
-			$id = implode( '-', [ $args['id'], $args['none_value'] ] );
+			$id = self::dsh( $args['id'], $args['none_value'] );
 
 			$html.= '<'.$args['wrap'].'><label for"'.self::escapeAttr( $id ).'">';
 			$html.= self::tag( 'input', [
@@ -1631,7 +1632,7 @@ class HTML extends Base
 			else
 				$title = $value;
 
-			$id = implode( '-', [ $args['id'], $key ] );
+			$id = self::dsh( $args['id'], $key );
 
 			$html.= '<'.$args['wrap'].'><label for"'.self::escapeAttr( $id ).'">';
 			$html.= self::tag( 'input', [

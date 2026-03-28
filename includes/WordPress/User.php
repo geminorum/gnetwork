@@ -184,18 +184,18 @@ class User extends Core\Base
 
 	public static function getIDbyMeta( $key, $value, $single = TRUE )
 	{
-		global $wpdb, $gEditorialUserIDbyMeta;
+		global $wpdb, $NucleusUserIDbyMeta;
 
 		if ( empty( $key ) || empty( $value ) )
 			return FALSE;
 
-		if ( empty( $gEditorialUserIDbyMeta ) )
-			$gEditorialUserIDbyMeta = [];
+		if ( empty( $NucleusUserIDbyMeta ) )
+			$NucleusUserIDbyMeta = [];
 
 		$group = $single ? 'single' : 'all';
 
-		if ( isset( $gEditorialUserIDbyMeta[$key][$group][$value] ) )
-			return $gEditorialUserIDbyMeta[$key][$group][$value];
+		if ( isset( $NucleusUserIDbyMeta[$key][$group][$value] ) )
+			return $NucleusUserIDbyMeta[$key][$group][$value];
 
 		$query = $wpdb->prepare( "
 			SELECT user_id
@@ -208,32 +208,32 @@ class User extends Core\Base
 			? $wpdb->get_var( $query )
 			: $wpdb->get_col( $query );
 
-		return $gEditorialUserIDbyMeta[$key][$group][$value] = $results;
+		return $NucleusUserIDbyMeta[$key][$group][$value] = $results;
 	}
 
 	public static function invalidateIDbyMeta( $meta, $value = FALSE )
 	{
-		global $gEditorialUserIDbyMeta;
+		global $NucleusUserIDbyMeta;
 
 		if ( empty( $meta ) )
 			return TRUE;
 
-		if ( empty( $gEditorialUserIDbyMeta ) )
+		if ( empty( $NucleusUserIDbyMeta ) )
 			return TRUE;
 
 		if ( FALSE === $value ) {
 
 			// clear all meta by key
 			foreach ( (array) $meta as $key ) {
-				unset( $gEditorialUserIDbyMeta[$key]['all'] );
-				unset( $gEditorialUserIDbyMeta[$key]['single'] );
+				unset( $NucleusUserIDbyMeta[$key]['all'] );
+				unset( $NucleusUserIDbyMeta[$key]['single'] );
 			}
 
 		} else {
 
 			foreach ( (array) $meta as $key ) {
-				unset( $gEditorialUserIDbyMeta[$key]['all'][$value] );
-				unset( $gEditorialUserIDbyMeta[$key]['single'][$value] );
+				unset( $NucleusUserIDbyMeta[$key]['all'][$value] );
+				unset( $NucleusUserIDbyMeta[$key]['single'][$value] );
 			}
 		}
 

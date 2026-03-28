@@ -298,7 +298,7 @@ class Term extends Core\Base
 		if ( ! $term = self::get( $term ) )
 			return FALSE;
 
-		$filtered = apply_filters( 'geditorial_term_overview_pre_link', NULL, $term, $context );
+		$filtered = apply_filters( 'nucleus_term_overview_pre_link', NULL, $term, $context );
 
 		if ( ! is_null( $filtered ) )
 			return $filtered;
@@ -561,7 +561,7 @@ class Term extends Core\Base
 		if ( ! $term = self::get( $term ) )
 			return FALSE;
 
-		$filtered = apply_filters( 'geditorial_term_image_pre_src', NULL, $term, $context, $size, $thumbnail_id );
+		$filtered = apply_filters( 'nucleus_term_image_pre_src', NULL, $term, $context, $size, $thumbnail_id );
 
 		if ( ! is_null( $filtered ) )
 			return $filtered;

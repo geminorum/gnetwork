@@ -295,7 +295,7 @@ class Media extends Core\Base
 		$extensions = apply_filters( 'image_sideload_extensions', [ 'jpg', 'jpeg', 'jpe', 'png', 'gif', 'webp', 'avif' ], $url );
 
 		// Sets variables for storage, fix file filename for query strings.
-		preg_match( '/[^\?]+\.(' . implode( '|', array_map( 'preg_quote', $extensions ) ) . ')\b/i', $url, $matches );
+		preg_match( '/[^\?]+\.('.implode( '|', array_map( 'preg_quote', $extensions ) ).')\b/i', $url, $matches );
 
 		if ( ! $matches )
 			return FALSE; // `new \WP_Error( 'image_sideload_failed', __( 'Invalid image URL.' ) );`
@@ -485,7 +485,7 @@ class Media extends Core\Base
 		$upload = self::upload();
 
 		// Is URL in uploads directory?
-		if ( FALSE === strpos( $url, $upload['baseurl'] . '/' ) )
+		if ( FALSE === strpos( $url, $upload['baseurl'].'/' ) )
 			return 0;
 
 		$file  = Core\File::basename( $url );
@@ -542,7 +542,7 @@ class Media extends Core\Base
 		else if ( $taxonomy && isset( $sizes[$taxonomy] ) )
 			$size = $taxonomy;
 
-		$size = apply_filters( 'geditorial_get_thumbnail_default_size', $size, $perent_posttype, $perent_taxonomy, $fallback );
+		$size = apply_filters( 'nucleus_get_thumbnail_default_size', $size, $perent_posttype, $perent_taxonomy, $fallback );
 
 		return $size ?: $fallback;
 	}
@@ -568,7 +568,7 @@ class Media extends Core\Base
 				$src = $img[0];
 		}
 
-		return apply_filters( 'geditorial_get_thumbnail_src', $src, $attachment_id, $img, $fallback );
+		return apply_filters( 'nucleus_get_thumbnail_src', $src, $attachment_id, $img, $fallback );
 	}
 
 	public static function htmlAttachmentImage( $attachment_id, $size = NULL, $link = TRUE, $data = [], $class = '-attachment-image' )
@@ -594,7 +594,7 @@ class Media extends Core\Base
 		return $link ? Core\HTML::tag( 'a', [
 			'href'   => wp_get_attachment_url( $attachment_id ),
 			'title'  => get_the_title( $attachment_id ),
-			'data'    => $data,
+			'data'   => $data,
 			'target' => '_blank',
 			'class'  => [ '-attachment', 'thickbox' ],
 		], $image ) : $image;

@@ -252,7 +252,11 @@ class PostType extends Core\Base
 		if ( ! $link = get_post_type_archive_link( $object->name ) )
 			$link = $fallback;
 
-		return apply_filters( 'geditorial_posttype_archive_link', $link, $object->name );
+		return apply_filters( 'nucleus_posttype_archive_link',
+			$link,
+			$object->name,
+			$fallback
+		);
 	}
 
 	/**
@@ -262,11 +266,12 @@ class PostType extends Core\Base
 	 * @param string|object $posttype
 	 * @param array $extra
 	 * @param mixed $fallback
+	 * @param string $capability
 	 * @return string
 	 */
-	public static function edit( $posttype, $extra = [], $fallback = FALSE )
+	public static function edit( $posttype, $extra = [], $fallback = FALSE, $capability = NULL )
 	{
-		return self::can( $posttype, 'read' )
+		return self::can( $posttype, $capability ?? 'read' )
 			? URL::editPostType( $posttype, $extra )
 			: $fallback;
 	}
@@ -321,18 +326,18 @@ class PostType extends Core\Base
 	// @SEE: https://tommcfarlin.com/get-post-id-by-meta-value/
 	public static function getIDbyMeta( $key, $value, $single = TRUE )
 	{
-		global $wpdb, $gEditorialPostIDbyMeta;
+		global $wpdb, $NucleusPostIDbyMeta;
 
 		if ( empty( $key ) || empty( $value ) )
 			return FALSE;
 
-		if ( empty( $gEditorialPostIDbyMeta ) )
-			$gEditorialPostIDbyMeta = [];
+		if ( empty( $NucleusPostIDbyMeta ) )
+			$NucleusPostIDbyMeta = [];
 
 		$group = $single ? 'single' : 'all';
 
-		if ( isset( $gEditorialPostIDbyMeta[$key][$group][$value] ) )
-			return $gEditorialPostIDbyMeta[$key][$group][$value];
+		if ( isset( $NucleusPostIDbyMeta[$key][$group][$value] ) )
+			return $NucleusPostIDbyMeta[$key][$group][$value];
 
 		$query = $wpdb->prepare( "
 			SELECT post_id
@@ -345,12 +350,12 @@ class PostType extends Core\Base
 			? $wpdb->get_var( $query )
 			: $wpdb->get_col( $query );
 
-		return $gEditorialPostIDbyMeta[$key][$group][$value] = $results;
+		return $NucleusPostIDbyMeta[$key][$group][$value] = $results;
 	}
 
 	public static function getIDListbyMeta( $meta, $values )
 	{
-		global $wpdb, $gEditorialPostIDbyMeta;
+		global $wpdb, $NucleusPostIDbyMeta;
 
 		if ( empty( $meta ) )
 			return FALSE;
@@ -374,39 +379,39 @@ class PostType extends Core\Base
 
 		$list = Core\Arraay::pluck( $results, 'post_id', 'meta_value' );
 
-		if ( empty( $gEditorialPostIDbyMeta ) )
-			$gEditorialPostIDbyMeta = [];
+		if ( empty( $NucleusPostIDbyMeta ) )
+			$NucleusPostIDbyMeta = [];
 
 		// update cache
 		foreach ( $filtered as $value )
-			$gEditorialPostIDbyMeta[$meta]['single'][$value] = array_key_exists( $value, $list ) ? $list[$value] : FALSE;
+			$NucleusPostIDbyMeta[$meta]['single'][$value] = array_key_exists( $value, $list ) ? $list[$value] : FALSE;
 
 		return $list;
 	}
 
 	public static function invalidateIDbyMeta( $meta, $value = FALSE )
 	{
-		global $gEditorialPostIDbyMeta;
+		global $NucleusPostIDbyMeta;
 
 		if ( empty( $meta ) )
 			return TRUE;
 
-		if ( empty( $gEditorialPostIDbyMeta ) )
+		if ( empty( $NucleusPostIDbyMeta ) )
 			return TRUE;
 
 		if ( FALSE === $value ) {
 
 			// clear all meta by key
 			foreach ( (array) $meta as $key ) {
-				unset( $gEditorialPostIDbyMeta[$key]['all'] );
-				unset( $gEditorialPostIDbyMeta[$key]['single'] );
+				unset( $NucleusPostIDbyMeta[$key]['all'] );
+				unset( $NucleusPostIDbyMeta[$key]['single'] );
 			}
 
 		} else {
 
 			foreach ( (array) $meta as $key ) {
-				unset( $gEditorialPostIDbyMeta[$key]['all'][$value] );
-				unset( $gEditorialPostIDbyMeta[$key]['single'][$value] );
+				unset( $NucleusPostIDbyMeta[$key]['all'][$value] );
+				unset( $NucleusPostIDbyMeta[$key]['single'][$value] );
 			}
 		}
 
@@ -636,7 +641,7 @@ class PostType extends Core\Base
 			// NOTE: this is a core filter @since WP 5.9.0
 			// @old `geditorial_get_post_thumbnail_id`
 			return apply_filters( 'post_thumbnail_id',
-				(int) get_post_meta( $post_id, $metakey, TRUE ),
+				( (int) get_post_meta( $post_id, $metakey, TRUE ) ) ?: FALSE,
 				get_post( $post_id )
 			);
 

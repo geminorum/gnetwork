@@ -11,7 +11,7 @@ class Strings extends Core\Base
 	 * Retrieves the list item separator based on the locale.
 	 * NOTE: wrapper for `wp_get_list_item_separator()` @since WP 6.0.0
 	 *
-	 * @return string $separator
+	 * @return string
 	 */
 	public static function separator()
 	{
@@ -361,6 +361,32 @@ class Strings extends Core\Base
 			return $html;
 
 		return force_balance_tags( $html );
+	}
+
+	/**
+	 * Generates a title attribute by name and description.
+	 *
+	 * @param string $name
+	 * @param string $description
+	 * @return string
+	 */
+	public static function makeTitleAttribute( $name, $description = NULL )
+	{
+		$text = '';
+
+		if ( $name )
+			$text.= apply_filters( 'string_format_i18n', $name );
+
+		if ( ! $description )
+			return $text;
+
+		if ( ! $stripped = Core\Text::stripTags( $description ) )
+			return $text;
+
+		if ( ! $text )
+			return $stripped;
+
+		return sprintf( '%s :: %s', $text, $stripped );
 	}
 
 	public static function prepTitle( $text, $post_id = 0 )

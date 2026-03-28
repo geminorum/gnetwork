@@ -229,7 +229,7 @@ class Image extends Base
 			curl_close( $ch );
 
 		if ( $http_status != 200 ) {
-			echo 'http status[' . $http_status . '] errno [' . $curl_errno . ']';
+			echo 'http status['.$http_status.'] errno ['.$curl_errno.']';
 			return [0,0];
 		}
 
@@ -237,7 +237,7 @@ class Image extends Base
 		$dims = [ imagesx( $image ), imagesy( $image ) ];
 
 		if ( PHP_VERSION_ID < 80000 )
-			imagedestroy($image);
+			imagedestroy( $image );
 
 		return $dims;
 	}
