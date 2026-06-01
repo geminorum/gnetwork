@@ -95,6 +95,7 @@ class User extends gNetwork\Module
 			'disable_avatars'   => '0',
 			'network_roles'     => '0',
 			'admin_user_edit'   => '0',
+			'allow_emails'      => '0',
 			'dashboard_sites'   => '0',
 			'dashboard_menu'    => '0',
 		];
@@ -102,7 +103,7 @@ class User extends gNetwork\Module
 
 	public function default_settings()
 	{
-		$settings  = array_fill_keys( [ '_general', '_search', '_dashboard' ], [] );
+		$settings  = array_fill_keys( [ '_general', '_username', '_search', '_dashboard' ], [] );
 		$multisite = is_multisite();
 
 		$settings['_general'][] = [
@@ -157,6 +158,12 @@ class User extends gNetwork\Module
 				'title'       => _x( 'Administrator User Edit', 'Modules: User: Settings', 'gnetwork-admin' ),
 				'description' => _x( 'Allows site administrators to edit users of their sites.', 'Modules: User: Settings', 'gnetwork-admin' ),
 			];
+
+		$settings['_username'][] = [
+			'field'       => 'allow_emails',
+			'title'       => _x( 'Email Addresses', 'Modules: User: Settings', 'gnetwork-admin' ),
+			'description' => _x( 'Allows email addresses as user-name.', 'Modules: User: Settings', 'gnetwork-admin' ),
+		];
 
 		$settings['_search'][] = [
 			'field'       => 'enhanced_search',
@@ -557,6 +564,11 @@ class User extends gNetwork\Module
 	{
 		if ( GNETWORK_DISABLE_USERNAME_CHECKS )
 			return $username;
+
+		// Email addresses can contain characters not allowed in the strict set, such as `+`.
+		// NOTE: muse use `is_email()` directly without the sanitization!
+		if ( $this->options['allow_emails'] && is_email( $raw_username ) )
+			return $raw_username;
 
 		if ( ! $strict )
 			$username = Core\Number::translate( $username );
