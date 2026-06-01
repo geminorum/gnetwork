@@ -27,7 +27,6 @@ jQuery(function ($) {
 
   $('a[data-tab="' + window.location.hash.slice(1) + '"]', '.-base').trigger('click');
 
-  // FIXME: must trigger core to store current state
   if ($('#screen-meta-links').length && $('.postbox-container .postbox').length) {
     // $('<div id="gnetwork-admin-metabox-controls" class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-toggle" class="button show-settings">' + gNetwork.metabox_controls_toggle + '</button></div>')
     //   .appendTo('#screen-meta-links');
@@ -47,11 +46,13 @@ jQuery(function ($) {
     $('body').on('click', '#gnetwork-admin-metabox-collapse', function (e) {
       e.preventDefault();
       $('.postbox-container .postbox:not(.closed)').addClass('closed');
+      if (window.postboxes) window.postboxes.save_state(window.postboxes.page);
     });
 
     $('body').on('click', '#gnetwork-admin-metabox-expand', function (e) {
       e.preventDefault();
       $('.postbox-container .postbox.closed').removeClass('closed');
+      if (window.postboxes) window.postboxes.save_state(window.postboxes.page);
       // $('.postbox-container .postbox:not(.closed) .gnetwork-chosen').trigger('chosen:updated'); // FIXME: not the correct event
     });
   }
