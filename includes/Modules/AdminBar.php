@@ -105,6 +105,9 @@ class AdminBar extends gNetwork\Module
 		add_action( 'admin_bar_menu', 'wp_admin_bar_customize_menu', 40 );
 		add_action( 'admin_bar_menu', 'wp_admin_bar_updates_menu', 50 );
 
+		if ( WordPress\IsIt::compatWP( '7.0' ) ) // @since WP 7.0.0
+			add_action( 'admin_bar_menu', 'wp_admin_bar_command_palette_menu', 55 ); // Command palette
+
 		// content related
 		if ( ! is_network_admin() && ! is_user_admin() ) {
 
