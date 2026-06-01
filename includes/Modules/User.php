@@ -68,7 +68,7 @@ class User extends gNetwork\Module
 
 		$this->action( 'deleted_user' );
 
-		// cron hook / executes only on the main-site
+		// `Cron` hook / executes only on the main-site
 		$this->action( 'update_network_counts' );
 	}
 
@@ -86,8 +86,8 @@ class User extends gNetwork\Module
 	public function default_options()
 	{
 		return [
-			'site_user_id'      => '0',                                                         // `GNETWORK_SITE_USER_ID`
-			'site_user_role'    => 'editor',                                                    // `GNETWORK_SITE_USER_ROLE`
+			'site_user_id'      => '0',      // `GNETWORK_SITE_USER_ID`
+			'site_user_role'    => 'editor', // `GNETWORK_SITE_USER_ROLE`
 			'enhanced_search'   => '0',
 			'search_values'     => [],
 			'search_metas'      => [],
@@ -497,7 +497,9 @@ class User extends gNetwork\Module
 
 	public function wp_is_large_network( $is, $using, $count )
 	{
-		return 'users' == $using ? $count > GNETWORK_LARGE_NETWORK_IS : $is;
+		return 'users' === $using
+			? ( $count > GNETWORK_LARGE_NETWORK_IS )
+			: $is;
 	}
 
 	// @since WP 6.0.0
@@ -511,7 +513,7 @@ class User extends gNetwork\Module
 		if ( 'none' == $this->options['apppass_accesscap'] )
 			return FALSE;
 
-		// no need: we check this before adding the filter
+		// NO-NEED: we check this before adding the filter
 		if ( in_array( $this->options['apppass_accesscap'], [ '_member_of_network', '_member_of_site'] ) )
 			return $available;
 
@@ -719,7 +721,7 @@ class User extends gNetwork\Module
 		return TRUE;
 	}
 
-	// Adopted from: WP User Edit by John James Jacoby v0.1.0 - 2017-11-16
+	// Adopted from: `WP User Edit` by `John James Jacoby` v0.1.0 - 2017-11-16
 	// @REF: https://github.com/stuttter/wp-user-edit
 	public function map_meta_cap( $caps = [], $cap = '', $user_id = 0, $args = [] )
 	{
@@ -729,24 +731,24 @@ class User extends gNetwork\Module
 			case 'edit_users':
 			case 'manage_network_users':
 
-				// allow user to edit themselves
+				// Allow user to edit themselves.
 				if ( ( 'edit_user' === $cap ) && isset( $args[0] ) && ( $user_id === $args[0] ) )
 					break;
 
-				// if previously not allowed, undo it; we'll check our own way
+				// If previously not allowed, undo it; we'll check our own way.
 				if ( FALSE !== ( $index = array_search( 'do_not_allow', $caps ) ) )
 					unset( $caps[$index] );
 
 				// FIXME: WTF?
-				// if multisite, user must be a member of the site
+				// If multi-site, user must be a member of the site.
 				if ( is_multisite() && isset( $args[0] ) && ! is_user_member_of_blog( $args[0] ) )
 					$caps[] = 'do_not_allow';
 
-				// admins cannot modify super admins
+				// Admins cannot modify super admins.
 				else if ( isset( $args[0] ) && WordPress\User::isSuperAdmin( $args[0] ) )
 					$caps[] = 'do_not_allow';
 
-				// fallback on `edit_users`
+				// fallback
 				else
 					$caps[] = 'edit_users';
 		}
@@ -820,7 +822,7 @@ class User extends gNetwork\Module
 		$user_query->query_where.= " AND {$wpdb->users}.spam = '1'";
 	}
 
-	// defaults: 'cb', 'username', 'name', 'email', 'registered', 'blogs'
+	// NOTE: default columns: `cb`, `username`, `name`, `email`, `registered`, `blogs`
 	public function wpmu_users_columns( $columns )
 	{
 		$columns = Core\Arraay::insert( $columns, [
@@ -906,7 +908,7 @@ class User extends gNetwork\Module
 	private function render_timestamps( $user_id )
 	{
 		$html = '';
-		$mode = empty( $_REQUEST['mode'] ) ? 'list' : $_REQUEST['mode'];
+		// $mode = empty( $_REQUEST['mode'] ) ? 'list' : $_REQUEST['mode'];
 
 		$user        = get_user_by( 'id', $user_id );
 		$lastlogin   = get_user_meta( $user->ID, 'lastlogin', TRUE );
@@ -934,7 +936,7 @@ class User extends gNetwork\Module
 			$html.= '<tr><td>'._x( 'Last Activity', 'Modules: User', 'gnetwork-admin' ).'</td><td>'
 				.( $lastactivity
 					? '<code title="'.bp_core_time_since( $lastactivity ).'">'
-						.gNetwork\Datetime::dateFormat( $lastactive )
+						.gNetwork\Datetime::dateFormat( $lastactive ?? '' )
 					: '<code>'.gNetwork()->na( FALSE ) )
 				.'</code></td></tr>';
 		}

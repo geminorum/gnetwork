@@ -399,38 +399,56 @@ class Settings extends Core\Base
 		return Core\HTML::wrap( $html.Core\HTML::renderList( $list ), '-field-after-placeholders' );
 	}
 
-	// using caps instead of roles
-	public static function getUserCapList( $cap = NULL, $none_title = NULL, $none_value = NULL )
+	/**
+	 * Retrieves the list of capabilities with role titles.
+	 * NOTE: must check with `WordPress\User::cuc()`
+	 * TODO: Move to `Fields` Service
+	 *
+	 * @param string $single_title
+	 * @param bool $pseudo_caps
+	 * @param string $none_title
+	 * @param string $none_value
+	 * @return array|string
+	 */
+	public static function getUserCapList( $single_title = NULL, $pseudo_caps = NULL, $none_title = NULL, $none_value = NULL )
 	{
-		$caps = [
-			'edit_theme_options'   => _x( 'Administrators', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
-			'edit_others_posts'    => _x( 'Editors', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
-			'edit_published_posts' => _x( 'Authors', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
-			'edit_posts'           => _x( 'Contributors', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
-			'_member_of_site'      => _x( 'Site Users', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ), // pseudo-cap
+		$multisite   = is_multisite();
+		$pseudo_caps = $pseudo_caps ?? $multisite;
+		$none_value  = $none_value  ?? 'none';
+		$none_title  = $none_title  ?? _x( '&ndash; No One &ndash;', 'Fields: Role Dropdown', 'gnetwork' );
+
+		$list = [
+			'edit_theme_options'   => _x( 'Administrators', 'Fields: Role Dropdown', 'gnetwork' ),
+			'edit_others_posts'    => _x( 'Editors', 'Fields: Role Dropdown', 'gnetwork' ),
+			'edit_published_posts' => _x( 'Authors', 'Fields: Role Dropdown', 'gnetwork' ),
+			'edit_posts'           => _x( 'Contributors', 'Fields: Role Dropdown', 'gnetwork' ),
 		];
 
-		if ( is_multisite() ) {
-			$caps = [
-				'manage_network' => _x( 'Super Admins', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ),
-			] + $caps + [
-				'_member_of_network' => _x( 'Network Users', 'Utilities: Dropdown: Get User Roles', 'gnetwork' ), // pseudo-cap
-			];
+		if ( $multisite ) {
+
+			if ( $pseudo_caps )
+				$list['_member_of_site'] = _x( 'Site Users', 'Fields: Role Dropdown', 'gnetwork' );
+
+			$list = [
+				'manage_network' => _x( 'Super Admins', 'Fields: Role Dropdown', 'gnetwork' ),
+			] + $list;
+
+			if ( $pseudo_caps )
+				$list['_member_of_network'] = _x( 'Network Users', 'Fields: Role Dropdown', 'gnetwork' );
 		}
 
-		if ( is_null( $none_title ) )
-			$none_title = _x( '&ndash; No One &ndash;', 'Utilities: Dropdown: Get User Roles', 'gnetwork' );
-
-		if ( is_null( $none_value ) )
-			$none_value = 'none';
+		// @hook: `gnetwork_settings_user_cap_list`
+		$list = apply_filters( self::und( static::BASE, 'settings', 'user_cap_list' ),
+			$list,
+			$pseudo_caps,
+			$none_value,
+			$none_title,
+		);
 
 		if ( $none_title )
-			$caps[$none_value] = $none_title;
+			$list[$none_value] = $none_title;
 
-		if ( is_null( $cap ) )
-			return $caps;
-		else
-			return $caps[$cap];
+		return $single_title ? $list[$single_title] : $list;
 	}
 
 	public static function statusOptions( $statuses = [] )
@@ -1336,7 +1354,7 @@ class Settings extends Core\Base
 			case 'cap':
 
 				if ( ! $args['values'] )
-					$args['values'] = self::getUserCapList( NULL, $args['none_title'], $args['none_value'] );
+					$args['values'] = self::getUserCapList( NULL, NULL, $args['none_title'], $args['none_value'] );
 
 				if ( count( $args['values'] ) ) {
 

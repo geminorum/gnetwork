@@ -832,8 +832,8 @@ class Profile extends gNetwork\Module
 			foreach ( $metas as $meta )
 				$row[] = empty( $saved[$meta][0] ) ? '' : $saved[$meta][0];
 
-			foreach ( $contacts as $saved )
-				$row[] = empty( $saved[$meta][0] ) ? '' : $saved[$meta][0];
+			foreach ( $contacts as $contact => $contact_title )
+				$row[] = empty( $saved[$contact][0] ) ? '' : $saved[$contact][0];
 
 			$data[] = $row;
 		}

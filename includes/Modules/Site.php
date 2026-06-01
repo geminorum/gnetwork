@@ -205,7 +205,11 @@ class Site extends gNetwork\Module
 			),
 			'field_class' => [ 'regular-text', 'url-text' ],
 			'placeholder' => 'https://redirect.li/ip/?ip=%s',
-			'after'       => $this->options['lookup_ip_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_ip_service'], Core\HTTP::IP() ) ) : '',
+			'after'       => $this->options['lookup_ip_service']
+				? Settings::fieldAfterLink( sprintf(
+					$this->options['lookup_ip_service'],
+					Core\HTTP::IP()
+				) ) : '',
 		];
 
 		$settings['_misc'][] = [
@@ -219,7 +223,11 @@ class Site extends gNetwork\Module
 			),
 			'field_class' => [ 'regular-text', 'url-text' ],
 			'placeholder' => 'https://countrycode.org/%s',
-			'after'       => $this->options['lookup_country_service'] ? Settings::fieldAfterLink( sprintf( $this->options['lookup_country_service'], GCORE_DEFAULT_COUNTRY_CODE ) ) : '',
+			'after'       => $this->options['lookup_country_service']
+				? Settings::fieldAfterLink( sprintf(
+					$this->options['lookup_country_service'],
+					self::const( 'NUCLEUS_DEFAULT_COUNTRY_CODE', 'IR' )
+				) ) : '',
 		];
 
 		return $settings;

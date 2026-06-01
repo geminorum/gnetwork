@@ -500,8 +500,10 @@ class Login extends gNetwork\Module
 			Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/login.rtl.css', GNETWORK_HASH );
 
 		if ( 'splitscreen' == $this->options['login_class'] ) {
-			$variables = '.split-screen .-first{background-color:'.gNetwork()->brand( 'color' ).'!important}';
+
+			$variables = 'body.login.splitscreen{background-color:'.gNetwork()->brand( 'background' ).'}';
 			$variables.= '.split-screen .-second{background-color:'.gNetwork()->brand( 'background' ).'!important}';
+			$variables.= '.split-screen .-first{background-color:'.gNetwork()->brand( 'color' ).'!important}';
 
 			printf( "<style>\n%s\n</style>\n", $variables );
 		}

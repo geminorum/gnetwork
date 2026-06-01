@@ -524,6 +524,8 @@ class Locale extends gNetwork\Module
 			'manage-transactions'       => 'page',
 			'woo-sync-hub'              => 'page',
 
+			'list-all-urls' => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );

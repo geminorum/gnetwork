@@ -58,7 +58,7 @@ class Commerce extends gNetwork\Module
 			'custom_string_instock'    => '',
 			'custom_string_outofstock' => '',
 			'quantity_price_preview'   => '0',
-			'mobile_field'             => '1',
+			'mobile_field'             => '0',
 			'no_products_found'        => '0',
 		];
 	}
@@ -113,7 +113,7 @@ class Commerce extends gNetwork\Module
 					'field'       => 'mobile_field',
 					'title'       => _x( 'Mobile Number Field', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
 					'description' => _x( 'Adds extra required field for mobile number after checkout form.', 'Modules: Commerce: Settings', 'gnetwork-admin' ),
-					'default'     => '1',
+					// 'default'     => '1',
 				],
 			],
 			'_misc' => [

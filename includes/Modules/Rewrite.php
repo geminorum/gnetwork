@@ -26,7 +26,7 @@ class Rewrite extends gNetwork\Module
 			add_action( 'delete_category', [ $this, 'flush_rewrite_rules' ], 9, 0 );
 			add_action( 'edited_category', [ $this, 'flush_rewrite_rules' ], 9, 0 );
 
-			// TODO: add notice and disable category base input on Permalink Settings
+			// TODO: add notice and disable category base input on Perma-link Settings
 		}
 
 		if ( ! is_blog_admin() )
