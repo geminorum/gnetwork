@@ -22,6 +22,7 @@ class Dev extends gNetwork\Module
 	{
 		// $this->filter( 'http_request_args', 2, 12 );
 		$this->filter( 'redirect_canonical', 2, 99999 );
+		$this->filter( 'doing_it_wrong_trigger_error', 4, 999 );
 
 		// $this->action( 'http_api_curl', 3, 999 );
 		$this->filter_false( 'https_ssl_verify' );
@@ -65,6 +66,14 @@ class Dev extends gNetwork\Module
 			Logger::siteDEBUG( 'CANONICAL', esc_url( $requested_url ).' >> '.esc_url( $redirect_url ) );
 
 		return $redirect_url;
+	}
+
+	public function doing_it_wrong_trigger_error( $trigger, $function_name, $message, $version )
+	{
+		if ( '_load_textdomain_just_in_time' === $function_name )
+			return FALSE;
+
+		return $trigger;
 	}
 
 	public function http_api_curl( &$handle, $parsed_args, $url )
