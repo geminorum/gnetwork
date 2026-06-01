@@ -7,20 +7,38 @@ class Arraay extends Base
 
 	public static function prepString()
 	{
-		$args = array_map( function ( $value ) {
+		$input = array_map( function ( $value ) {
 			return $value ? (array) $value : [];
 		}, func_get_args() );
 
-		return empty( $args ) ? [] : array_values( array_unique( array_filter( array_map( [ __NAMESPACE__.'\\Text', 'trim' ], array_merge( ...$args ) ) ) ) );
+		return empty( $input ) ? [] : array_values( array_unique( array_filter( array_map( [ __NAMESPACE__.'\\Text', 'trim' ], array_merge( ...$input ) ) ) ) );
+	}
+
+	// NOTE: preserves the top level keys.
+	public static function prepItemsString( $input )
+	{
+		if ( empty( $input ) )
+			return [];
+
+		return array_map( [ __CALSS__, 'prepString' ], $input );
 	}
 
 	public static function prepNumeral()
 	{
-		$args = array_map( function ( $value ) {
+		$input = array_map( function ( $value ) {
 			return $value ? (array) $value : [];
 		}, func_get_args() );
 
-		return empty( $args ) ? [] : array_values( array_unique( array_filter( array_map( [ __NAMESPACE__.'\\Number', 'intval' ], array_merge( ...$args ) ) ) ) );
+		return empty( $input ) ? [] : array_values( array_unique( array_filter( array_map( [ __NAMESPACE__.'\\Number', 'intval' ], array_merge( ...$input ) ) ) ) );
+	}
+
+	// NOTE: preserves the top level keys.
+	public static function prepItemsNumeral( $input )
+	{
+		if ( empty( $input ) )
+			return [];
+
+		return array_map( [ __CALSS__, 'prepNumeral' ], $input );
 	}
 
 	public static function prepSplitters( $text, $default = '|' )
@@ -61,7 +79,7 @@ class Arraay extends Base
 			: $array;
 	}
 
-	// deep array_filter()
+	// deep `array_filter()`
 	public static function filterArray( $input, $callback = NULL )
 	{
 		foreach ( $input as &$value )
@@ -84,7 +102,7 @@ class Arraay extends Base
 	}
 
 	/**
-	 * Adds a prefix to each item value of an array.
+	 * Adds a prefix to each item value of the given array.
 	 * @source https://stackoverflow.com/a/28115783
 	 * @since PHP 5.3.0
 	 *
@@ -101,7 +119,7 @@ class Arraay extends Base
 	}
 
 	/**
-	 * Adds a prefix to each item key of an array.
+	 * Adds a prefix to each item key of the given array.
 	 *
 	 * @param array $array
 	 * @param string $prefix

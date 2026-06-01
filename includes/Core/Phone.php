@@ -60,7 +60,7 @@ class Phone extends Base
 			if ( strlen( $sanitized ) > 13 )
 				return $default;
 
-			$province_prefix = self::const( 'GCORE_DEFAULT_PROVINCE_PHONE', '21' );
+			$province_prefix = self::const( 'NUCLEUS_DEFAULT_PROVINCE_PHONE', '21' );
 			$province_length = strlen( $province_prefix );
 
 			// under 10 digits and starts with `9`

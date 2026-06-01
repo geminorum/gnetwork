@@ -240,7 +240,8 @@ class HTML extends Base
 			.' class="'.self::prepClass( '-rows', $class )
 			.'"'.self::propData( $data ).'>';
 
-			foreach ( $rows as $row )
+		foreach ( $rows as $row )
+			if ( $row )
 				$html.= self::row( $row, '', [], $sub_tag );
 
 		return $html.'</'.( $tag ?: 'div' ).'>';
@@ -428,13 +429,13 @@ class HTML extends Base
 				if ( ! count( $att ) )
 					continue;
 
-				if ( 'data' == $key ) {
+				if ( 'data' === $key ) {
 
 					$html.= self::propData( $att );
 
 					continue;
 
-				} else if ( 'class' == $key ) {
+				} else if ( 'class' === $key ) {
 
 					$att = self::prepClass( $att );
 
@@ -458,16 +459,16 @@ class HTML extends Base
 			if ( FALSE === $att )
 				continue;
 
-			if ( 'class' == $key && ! $sanitized )
+			if ( 'class' === $key && ! $sanitized )
 				$att = self::prepClass( $att );
 
-			else if ( 'class' == $key || 'title' == $key )
+			else if ( in_array( $key, [ 'class', 'title' ], TRUE ) )
 				$att = $att;
 
-			else if ( 'href' == $key && '#' != $att )
+			else if ( 'href' === $key && '#' !== $att )
 				$att = self::escapeURL( $att );
 
-			else if ( 'src' == $key && FALSE === strpos( $att, 'data:image' ) )
+			else if ( 'src' === $key && FALSE === strpos( $att, 'data:image' ) )
 				$att = self::escapeURL( $att );
 
 			else
@@ -497,6 +498,7 @@ class HTML extends Base
 	}
 
 	// @ref: `esc_html()`, `esc_attr()`
+	// NOTE: reverse with `WP_HTML_Decoder::decode_attribute( $string );`
 	public static function escape( $data )
 	{
 		if ( is_null( $data ) )
@@ -667,6 +669,9 @@ class HTML extends Base
 		else if ( is_bool( $value ) )
 			$value = $value ? 'TRUE' : 'FALSE';
 
+		else if ( is_callable( $value ) )
+			$value = self::callableName( $value );
+
 		else if ( is_array( $value ) )
 			$value = self::joined( $value, '[', ']', ',', 'EMPTY ARRAY' );
 
@@ -683,6 +688,26 @@ class HTML extends Base
 			$value = nl2br( trim( $value ) );
 
 		return $value;
+	}
+
+	/**
+	 * Retrieves name or definition of callable.
+	 * @source https://stackoverflow.com/a/68113840
+	 *
+	 * @param callable $callable
+	 * @return string
+	 */
+	public static function callableName( callable $callable )
+	{
+		switch ( TRUE ) {
+			case is_string( $callable ) && strpos( $callable, '::' ): return '[static] '.$callable;
+			case is_string( $callable ): return '[function] '.$callable;
+			case is_array( $callable ) && is_object( $callable[0] ): return '[method] '.get_class( $callable[0] ).'->'.$callable[1];
+			case is_array( $callable ): return '[static] '.$callable[0].'::'.$callable[1];
+			case $callable instanceof Closure: return '[closure]';
+			case is_object( $callable ): return '[invokable] '.get_class( $callable );
+			default: return '[unknown]';
+		}
 	}
 
 	public static function tableDouble( $data, $columns = [], $verbose = TRUE, $class = '' )
@@ -769,7 +794,7 @@ class HTML extends Base
 
 		if ( ! empty( $array ) ) {
 
-			foreach ( $array as $key => $val ) {
+			foreach ( (array) $array as $key => $val ) {
 
 				$val = maybe_unserialize( $val );
 
@@ -778,11 +803,15 @@ class HTML extends Base
 				if ( is_string( $key ) ) {
 					echo '<td class="-key">';
 						echo '<strong>'.$key.'</strong>';
-						if ( $type ) echo '<br /><small>'.gettype( $val ).'</small>';
+						if ( $type ) echo '<br /><small>'.( is_callable( $val ) ? 'callable' : gettype( $val ) ).'</small>';
 					echo '</td>';
 				}
 
-				if ( is_array( $val ) || is_object( $val ) ) {
+				if ( is_callable( $val ) ) {
+
+					echo '<td class="-val -not-table -callable"><code>'.self::callableName( $val ).'</code>';
+
+				} else if ( is_array( $val ) || is_object( $val ) ) {
 
 					echo '<td class="-val -table">';
 					self::tableSide( $val, $type );
@@ -808,6 +837,7 @@ class HTML extends Base
 			}
 
 		} else {
+
 			echo '<tr class="-row"><td class="-val -not-table"><small class="-empty">EMPTY</small></td></tr>';
 		}
 

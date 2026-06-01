@@ -450,10 +450,10 @@ class Taxonomy extends Core\Base
 		$rows = [];
 
 		foreach ( $terms as $term )
-			$rows[] = Core\HTML::row( Core\HTML::tag( 'a', [
+			$rows[] = Core\HTML::tag( 'a', [
 				'href'  => get_term_link( $term, $taxonomy ),
 				'class' => '-term',
-			], sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy, 'display' ) ) );
+			], sanitize_term_field( 'name', $term->name, $term->term_id, $taxonomy, 'display' ) );
 
 		return Core\HTML::rows( $rows, '-rows-'.$taxonomy, [ 'taxonomy' => $taxonomy ] );
 	}
@@ -1580,10 +1580,10 @@ class Taxonomy extends Core\Base
 	{
 		usort( $terms, function ( $a, $b ) {
 
-			$aLast = end( explode( ' ', $a->name ) );
-			$bLast = end( explode( ' ', $b->name ) );
+			$aLast = explode( ' ', $a->name );
+			$bLast = explode( ' ', $b->name );
 
-			return strcasecmp( $aLast, $bLast );
+			return strcasecmp( end( $aLast ), end( $bLast ) );
 		} );
 
 		return $terms;

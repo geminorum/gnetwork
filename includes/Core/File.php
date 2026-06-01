@@ -207,6 +207,22 @@ class File extends Base
 	}
 
 	/**
+	 * Returns only the last extension for given filepath.
+	 *
+	 * @param string $filepath
+	 * @return false|string
+	 */
+	public static function fileExt( $filepath )
+	{
+		if ( ! $filepath )
+			return FALSE;
+
+		preg_match( '/\.[^\.]+$/i', trim( $filepath ), $extension );
+
+		return $extension[0] ?? NULL;
+	}
+
+	/**
 	 * Returns a filename of a temporary unique file.
 	 * NOTE: doesn’t delete the file/can’t use extensions.
 	 * @source `wp_tempnam()` without length checks
@@ -757,8 +773,42 @@ class File extends Base
 		return $list;
 	}
 
-	// output up to `5MB` is kept in memory, if it becomes bigger
-	// it will automatically be written to a temporary file
+	/**
+	 * Returns the entire number of files including all child directories.
+	 * @source https://www.jonasjohn.de/snippets/php/count-files-recursive.htm
+	 *
+	 * @param string $path
+	 * @return int
+	 */
+	public static function countDIR( $path )
+	{
+		$path = self::trail( $path ); // Ensure that the path contains an ending slash.
+
+		$count  = 0;
+		$handle = opendir( $path );
+
+		if ( ! $handle )
+			return -1;
+
+		while ( $file = readdir( $handle ) ) {
+
+			if ( $file === '.' || $file === '..' )
+				continue;
+
+			if ( is_dir( $path.$file ) )
+				$count += self::countDIR( $path.$file );
+
+			else
+				$count++; // increase file count
+		}
+
+		closedir( $handle );
+
+		return $count;
+	}
+
+	// Outputs up to `5MB` is kept in memory, if it becomes bigger
+	// it will automatically be written to a temporary file.
 	// @REF: http://php.net/manual/en/function.fputcsv.php#74118
 	public static function toCSV( $data, $maxmemory = NULL )
 	{

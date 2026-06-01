@@ -261,10 +261,17 @@ class Text extends Base
 			"\xD9\xAC", // `٬` // `Arabic Thousands Separator`
 			"\xD8\x8D", // `؍` // `Arabic Date Separator`
 
-			"\xC2\xAB",     // `«`
-			"\xC2\xBB",     // `»`
+			// "\xC2\xAB",     // `«`
+			// "\xC2\xBB",     // `»`
 			"\xE2\x80\xA6", // `…` // `Horizontal Ellipsis`
 
+			'’', '‘',
+			'“', '”',
+			'«', '»',
+			'‹', '›',
+
+			'€',
+			'©',
 			"@",
 			"?",
 			"؟",
@@ -286,7 +293,8 @@ class Text extends Base
 		$text = str_replace( [ '%20', '+', '–', '—' ], '-', $text );
 		$text = preg_replace( '/[\r\n\t -]+/', '-', $text );
 		$text = preg_replace( '/\.{2,}/', '.', $text );
-		$text = preg_replace( '/-{2,}/', '-', $text );
+		// $text = preg_replace( '/-{2,}/', '-', $text );
+		$text = preg_replace( '/-(?=-)/', '', $text ); // contiguous dashes
 		$text = trim( $text, '.-_' );
 
 		return self::trim( $text );
@@ -952,20 +960,22 @@ class Text extends Base
 	// @REF: http://www.catswhocode.com/blog/3-ways-to-compress-css-files-using-php
 	public static function minifyCSS( $buffer )
 	{
-		$buffer = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer ); // comments
-		$buffer = str_replace( [ "\r\n", "\r", "\n", "\t", '  ', '    ', '    ' ], '', $buffer ); // remove tabs, spaces, newlines, etc.
-		$buffer = preg_replace( '/\s+/', ' ', $buffer ); // normalize whitespace
-		$buffer = preg_replace( '/;(?=\s*})/', '', $buffer ); // remove ; before }
-		$buffer = preg_replace( '/(,|:|;|\{|}|\*\/|>) /', '$1', $buffer ); // remove space after , : ; { } */ >
-		$buffer = preg_replace( '/ (,|;|\{|}|\(|\)|>)/', '$1', $buffer ); // remove space before , ; { } ( ) >
-		$buffer = preg_replace( '/(:| )0\.([0-9]+)(%|em|ex|px|in|cm|mm|pt|pc)/i', '${1}.${2}${3}', $buffer ); // strips leading 0 on decimal values (converts 0.5px into .5px)
-		$buffer = preg_replace( '/(:| )(\.?)0(%|em|ex|px|in|cm|mm|pt|pc)/i', '${1}0', $buffer ); // strips units if value is 0 (converts 0px to 0)
-		$buffer = preg_replace( '/0 0 0 0/', '0', $buffer ); // converts all zeros value into short-hand
-		$buffer = preg_replace( '/#([a-f0-9])\\1([a-f0-9])\\2([a-f0-9])\\3/i', '#\1\2\3', $buffer ); // shortern 6-character hex color codes to 3-character where possible
+		if ( empty( $buffer ) )
+			return '';
 
-		$buffer = preg_replace( '/\x{FEFF}/u', '', $buffer ); // remove utf8 bom
+		$buffer = preg_replace( '!/\*[^*]*\*+([^/][^*]*\*+)*/!',                    '',              $buffer ); // remove comments.
+		$buffer = str_replace ( [ "\r\n", "\r", "\n", "\t", '  ', '    ', '    ' ], '',              $buffer ); // remove tabs, spaces, newlines, etc.
+		$buffer = preg_replace( '/\s+/',                                            ' ',             $buffer ); // normalize whitespace.
+		$buffer = preg_replace( '/;(?=\s*})/',                                      '',              $buffer ); // remove `;` before `}`.
+		$buffer = preg_replace( '/(,|:|;|\{|}|\*\/|>) /',                           '$1',            $buffer ); // remove space after `,:;{}*/>`.
+		$buffer = preg_replace( '/ (,|;|\{|}|\(|\)|>)/',                            '$1',            $buffer ); // remove space before `,;{}()>`.
+		$buffer = preg_replace( '/(:| )0\.([0-9]+)(%|em|ex|px|in|cm|mm|pt|pc)/i',   '${1}.${2}${3}', $buffer ); // strips leading 0 on decimal values (converts `0.5px` into `.5px`).
+		$buffer = preg_replace( '/(:| )(\.?)0(%|em|ex|px|in|cm|mm|pt|pc)/i',        '${1}0',         $buffer ); // strips units if value is `0` (converts `0px` to `0`).
+		$buffer = preg_replace( '/0 0 0 0/',                                        '0',             $buffer ); // converts all zeros value into short-hand.
+		$buffer = preg_replace( '/#([a-f0-9])\\1([a-f0-9])\\2([a-f0-9])\\3/i',      '#\1\2\3',       $buffer ); // shortern 6-character hex color codes to 3-character where possible.
+		$buffer = preg_replace( '/\x{FEFF}/u',                                      '',              $buffer ); // remove utf8 bom
 
-		return self::trim( $buffer );
+		return trim( $buffer );
 	}
 
 	// @REF: http://php.net/manual/en/function.ob-start.php#71953
@@ -973,6 +983,9 @@ class Text extends Base
 	// @REF: https://coderwall.com/p/fatjmw/compressing-html-output-with-php
 	public static function minifyHTML( $buffer )
 	{
+		if ( empty( $buffer ) )
+			return '';
+
 		$buffer = str_replace( [ "\n", "\r", "\t" ], '', $buffer );
 
 		$buffer = preg_replace( [
@@ -1317,21 +1330,26 @@ class Text extends Base
 	{
 		$code = ord( substr( $text, $offset, 1 ) );
 
-		if ( $code >= 128 ) { // otherwise 0xxxxxxx
+		if ( $code >= 128 ) { // otherwise, `0xxxxxxx`
 
 			if ( $code < 224 )
-				$bytesnumber = 2; // 110xxxxx
+				$bytesnumber = 2; // `110xxxxx`
+
 			else if ( $code < 240 )
-				$bytesnumber = 3; // 1110xxxx
+				$bytesnumber = 3; // `1110xxxx`
+
 			else if ( $code < 248 )
-				$bytesnumber = 4; // 11110xxx
+				$bytesnumber = 4; // `11110xxx`
+
+			else
+				$bytesnumber = 0;
 
 			$codetemp = $code - 192 - ( $bytesnumber > 2 ? 32 : 0 ) - ( $bytesnumber > 3 ? 16 : 0 );
 
 			for ( $i = 2; $i <= $bytesnumber; $i++ ) {
 				++$offset;
 
-				$code2    = ord( substr( $text, $offset, 1 ) ) - 128; // 10xxxxxx
+				$code2    = ord( substr( $text, $offset, 1 ) ) - 128; // `10xxxxxx`
 				$codetemp = $codetemp * 64 + $code2;
 			}
 
@@ -1361,6 +1379,13 @@ class Text extends Base
 		return preg_match_all( '/[[:print:]\pL]/u', $text );
 	}
 
+	/**
+	 * Counts the words on given input.
+	 *
+	 * @param string $text
+	 * @param bool $normalize
+	 * @return int
+	 */
 	public static function wordCount( $text, $normalize = TRUE )
 	{
 		if ( $normalize )
@@ -1370,7 +1395,10 @@ class Text extends Base
 			return 0;
 
 		// @REF: https://github.com/GlotPress/GlotPress/pull/1478
-		return count( preg_split( '/[\s]+/i', $text, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE ) );
+		if ( ! $parts = preg_split( '/[\s]+/i', $text, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE ) )
+			return 0;
+
+		return count( $parts );
 	}
 
 	public static function wordCountUTF8( $text, $normalize = TRUE )
@@ -2144,6 +2172,42 @@ class Text extends Base
 		// $search = array('/',';',',',"\N","\n");
 		// $replace = array('\/','\;','\,','\n','\n');
 		// $text = str_replace($search,$replace,$text);
+
+		return self::trim( $text );
+	}
+
+	/**
+	 * Perform the encoding necessary for `ICS` feed text per RFC 5545, section 3.3.11.
+	 *
+	 * The backslash must be escaped first, otherwise the backslashes introduced
+	 * by the subsequent replacements would themselves be escaped a second time.
+	 *
+	 * - A comma must be escaped as "\,".
+	 * - A semicolon must be escaped as "\;", not "\:".
+	 * - A backslash must be escaped as "\\".
+	 * - Newlines must be escaped as "\n" to avoid breaking the feed structure.
+	 * - Backslashes must be escaped first so the escape character introduced by
+	 * subsequent replacements is not itself doubled.
+	 * - A plaintext string with none of the special characters must pass through untouched.
+	 * - All escapable characters combined must be escaped together.
+	 *
+	 * @source https://github.com/Automattic/edit-flow/pull/941
+	 *
+	 * @param string $text
+	 * @return string
+	 */
+	public static function icsEscaping( $text )
+	{
+		if ( ! $text )
+			return  '';
+
+		$text = self::normalizeWhitespace( $text, TRUE );
+		$text = self::normalizeZWNJ( $text );
+
+		$text = str_replace( '\\', '\\\\', $text );
+		$text = str_replace( [ "\r\n", "\r", "\n" ], '\n', $text );
+		$text = str_replace( ';', '\;', $text );
+		$text = str_replace( ',', '\,', $text );
 
 		return self::trim( $text );
 	}

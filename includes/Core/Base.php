@@ -89,9 +89,18 @@ class Base
 		return $value;
 	}
 
+	/**
+	 * Determines whether a variable is empty.
+	 *
+	 * @param mixed $value
+	 * @return bool
+	 */
 	public static function empty( $value )
 	{
 		if ( empty( $value ) )
+			return TRUE;
+
+		if ( is_array( $value ) && empty( array_filter( $value ) ) )
 			return TRUE;
 
 		// only checks for empty strings
@@ -110,7 +119,7 @@ class Base
 		return FALSE;
 	}
 
-	// converts to boolean
+	// converts into boolean
 	public static function bool( $value )
 	{
 		if ( is_bool( $value ) )
@@ -381,10 +390,7 @@ class Base
 
 	public static function stat( $format = NULL )
 	{
-		if ( is_null( $format ) )
-			$format = '%d queries in %.3f seconds, using %.2fMB memory.';
-
-		return sprintf( $format,
+		return sprintf( $format ?? '%d queries in %.3f seconds, using %.2fMB memory.',
 			@$GLOBALS['wpdb']->num_queries,
 			self::timerStop( FALSE, 3 ),
 			memory_get_peak_usage() / 1024 / 1024
@@ -395,8 +401,11 @@ class Base
 	public static function timerStop( $verbose = FALSE, $precision = 3 )
 	{
 		global $timestart;
+
 		$total = number_format( ( microtime( TRUE ) - $timestart ), $precision );
+
 		if ( $verbose ) echo $total;
+
 		return $total;
 	}
 
@@ -415,9 +424,10 @@ class Base
 	{
 		try {
 
-			$start_memory = memory_get_usage();
-			$var = unserialize( serialize( $var ) );
-			return memory_get_usage() - $start_memory - PHP_INT_SIZE * 8;
+			$start = memory_get_usage();
+			$var   = unserialize( serialize( $var ) );
+
+			return memory_get_usage() - $start - PHP_INT_SIZE * 8;
 
 		} catch ( \Exception $e ) {
 
@@ -611,9 +621,14 @@ class Base
 		return $data;
 	}
 
-	// remove slashes from a string or array of strings
-	// @REF: `wp_unslash()`
-	// @REF: `stripslashes_deep()`
+	/**
+	 * Removes slashes from given string or array of strings
+	 * @source `wp_unslash()`
+	 * @source `stripslashes_deep()`
+	 *
+	 * @param string|array $array
+	 * @return string|array
+	 */
 	public static function unslash( $array )
 	{
 		if ( empty( $array ) )

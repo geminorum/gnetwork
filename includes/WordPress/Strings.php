@@ -53,6 +53,35 @@ class Strings extends Core\Base
 		return $strings;
 	}
 
+	/**
+	 * Checks if the given input has truthy value.
+	 *
+	 * @param mixed $input
+	 * @param array $reference
+	 * @return bool
+	 */
+	public static function isTruthy( $input, $reference = NULL )
+	{
+		if ( self::empty( $input ) )
+			return FALSE;
+
+		if ( TRUE === $input || 1 === $input )
+			return TRUE;
+
+		if ( ! $trimmed = Core\Text::trim( (string) $input ) )
+			return FALSE;
+
+		if ( is_null( $reference ) )
+			$reference = [
+				'TRUE',
+				'true',
+				'True',
+				'1',
+			];
+
+		return in_array( $trimmed, (array) $reference, TRUE );
+	}
+
 	public static function isEmpty( $string, $empties = NULL )
 	{
 		if ( self::empty( $string ) )
@@ -415,5 +444,37 @@ class Strings extends Core\Base
 		$text = apply_filters( 'gnetwork_typography', $text );
 
 		return $autop ? wpautop( $text ) : Core\Text::trim( $text );
+	}
+
+	public static function stripByProp( $data, $key, $list, $subkey )
+	{
+		if ( ! empty( $data[$key] ) && ! empty( $list ) ) {
+
+			foreach ( $data[$key] as $offset => $meta )
+				if ( in_array( $meta[$subkey], $list, TRUE ) )
+					unset( $data[$key][$offset] );
+
+			// NOTE: mustache.JS needs not object but array!
+			if ( ! empty( $data[$key] ) )
+				$data[$key] = array_values( $data[$key] );
+		}
+
+		return $data;
+	}
+
+	public static function stripEmptyValues( $data, $key, $subkey )
+	{
+		if ( ! empty( $data[$key] ) ) {
+
+			foreach ( $data[$key] as $offset => $meta )
+				if ( empty( $meta[$subkey] ) )
+					unset( $data[$key][$offset] );
+
+			// NOTE: mustache.JS needs not object but array!
+			if ( ! empty( $data[$key] ) )
+				$data[$key] = array_values( $data[$key] );
+		}
+
+		return $data;
 	}
 }

@@ -15,7 +15,7 @@ class HTML extends Core\Base
 
 	public static function extractRootText( $html )
 	{
-		if ( '' === $html )
+		if ( ! $html )
 			return '';
 
 		$processor = new \WP_HTML_Tag_Processor( $html );
@@ -52,5 +52,45 @@ class HTML extends Core\Base
 		}
 
 		return trim( implode( '', $parts ) );
+	}
+
+	public static function stripTags( $html )
+	{
+		if ( ! $html )
+			return '';
+
+		$processor = new \WP_HTML_Tag_Processor( $html );
+		$text      = '';
+
+		while ( $processor->next_token() ) {
+
+			if ( '#text' === $processor->get_token_name() )
+				$text.= $processor->get_modifiable_text();
+
+			$text = $html;
+
+			while ( preg_match( '/<[^>]*>/', $text ) )
+				$text = preg_replace( '/<[^>]*>.*?<\/[^>]*>|<[^>]*\/>|<[^>]*>/s', '', $text );
+		}
+
+		return $text;
+	}
+
+	public static function setAtts( $html, $attributes )
+	{
+		if ( ! $html )
+			return '';
+
+		$processor = new \WP_HTML_Tag_Processor( $html );
+
+		if ( $processor->next_tag() ) {
+
+			foreach ( $attributes as $attribute_key => $attribute_value )
+				$processor->set_attribute( $attribute_key, $attribute_value );
+
+			$html = $processor->get_updated_html();
+		}
+
+		return $html;
 	}
 }

@@ -66,27 +66,49 @@ class Main extends Core\Base
 		return md5( $string );
 	}
 
+	/**
+	 * Retrieves the constant value for given module.
+	 *
+	 * @param string $key
+	 * @param mixed $default
+	 * @param string $module
+	 * @return mixed
+	 */
 	protected static function constant( $key, $default = FALSE, $module = NULL )
 	{
 		return static::factory()->constant( $module ?? static::MODULE, $key, $default );
 	}
 
-	protected static function actions( $hook, ...$args )
-	{
-		return do_action( self::und(
-			static::BASE,
-			static::MODULE,
-			$hook
-		), ...$args );
-	}
-
-	protected static function filters( $hook, ...$args )
+	/**
+	 * Calls the callbacks that have been added to given filter hook.
+	 *
+	 * @param string $hook
+	 * @param mixed $arguments
+	 * @return mixed
+	 */
+	protected static function filters( $hook, ...$arguments )
 	{
 		return apply_filters( self::und(
 			static::BASE,
 			static::MODULE,
 			$hook
-		), ...$args );
+		), ...$arguments );
+	}
+
+	/**
+	 * Calls the callbacks that have been added to given action hook.
+	 *
+	 * @param string $hook
+	 * @param mixed $arguments
+	 * @return mixed
+	 */
+	protected static function actions( $hook, ...$arguments )
+	{
+		return do_action( self::und(
+			static::BASE,
+			static::MODULE,
+			$hook
+		), ...$arguments );
 	}
 
 	protected static function path( $context = NULL, $module = NULL, $fallback = FALSE )

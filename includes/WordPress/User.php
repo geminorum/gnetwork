@@ -83,7 +83,7 @@ class User extends Core\Base
 		if ( ! is_object( $user ) )
 			return FALSE;
 
-		if ( ! $key )
+		if ( ! is_string( $key ) )
 			return $user;
 
 		if ( isset( $user->{$key} ) )
