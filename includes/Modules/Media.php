@@ -27,8 +27,8 @@ class Media extends gNetwork\Module
 		// @REF: https://core.trac.wordpress.org/ticket/57913
 		$this->filter_false( 'pre_option_wp_attachment_pages_enabled' );
 
-		// if ( function_exists( 'normalizer_normalize' ) )
-		// 	$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
+		if ( ! WordPress\IsIt::compatWP( '6.1' ) ) // @since before WP 6.1.0
+			$this->filter( 'wp_handle_upload_prefilter', 1, 1 );
 
 		$this->filter( 'sanitize_file_name', 2, 12 );
 		$this->filter( 'image_send_to_editor', 9 );
@@ -1103,12 +1103,25 @@ class Media extends gNetwork\Module
 		return $size;
 	}
 
-	// ADOPTED FROM: Filename Normalizer v1.0.1 by required
-	// @SOURCE: https://github.com/wearerequired/filename-normalizer
-	// NOTE: @since WP 6.1 this is no longer required.
-	// @SEE: https://core.trac.wordpress.org/changeset/53754
+	/**
+	 * Filters data for the current file to upload.
+	 * NOTE: @since WP 6.1 this is no longer required (Added in `remove_accents()`).
+	 * @see: https://core.trac.wordpress.org/changeset/53754
+	 * @see `Core\Text::removeCombinedAccents()`
+	 *
+	 * @param array $file
+	 * @return array
+	 */
 	public function wp_handle_upload_prefilter( $file )
 	{
+		if ( ! function_exists( 'normalizer_normalize' ) )
+			return $file;
+
+		/**
+		 * Unicode sequence normalization from `NFD` (Normalization Form Decomposed)
+		 * to `NFC` (Normalization Form [Pre]Composed), the encoding used in WordPress core.
+		 * @see https://unicode.org/faq/normalization.html
+		 */
 		if ( ! normalizer_is_normalized( $file['name'] ) )
 			$file['name'] = normalizer_normalize( $file['name'] );
 
