@@ -1115,9 +1115,14 @@ class Media extends gNetwork\Module
 		return $file;
 	}
 
-	// FIXME: waiting on: https://core.trac.wordpress.org/ticket/22363
-	// FIXME: use https://wordpress.org/plugins/wpartisan-filename-sanitizer/
-	// https://wpartisan.me/tutorials/rename-clean-wordpress-media-filenames
+	/**
+	 * Filters a sanitized filename string.
+	 * @ticket https://core.trac.wordpress.org/ticket/22363
+	 *
+	 * @param string $filename
+	 * @param string $filename_raw
+	 * @return string
+	 */
 	public function sanitize_file_name( $filename, $filename_raw )
 	{
 		if ( ! Core\Text::containsUTF8( $filename ) )
@@ -1128,8 +1133,11 @@ class Media extends gNetwork\Module
 
 		// $name = preg_replace( '/'.$ext.'$/', '', $filename );
 		$name = Core\File::basename( $filename, $ext );
+
+		$name = remove_accents( $name );
+		$name = Core\Text::removeCombinedAccents( $name );
 		$name = Core\Text::formatSlug( $name );
-		$name = Core\Text::trim( remove_accents( $name ) );
+		$name = Core\Text::trim( $name );
 
 		$name = Utilities::URLifyDownCode( $name );
 		// $name = Utilities::URLifyFilter( trim( $name ) );
