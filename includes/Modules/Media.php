@@ -1051,7 +1051,7 @@ class Media extends gNetwork\Module
 		if ( ! $attachment = get_post( $id ) )
 			return $html;
 
-		// If no link provided check for short-code supported types
+		// If no link provided check for short-code supported types.
 		if ( empty( $data['url'] ) ) {
 
 			// TODO: must use filter system
@@ -1078,27 +1078,40 @@ class Media extends gNetwork\Module
 			return $html;
 		}
 
-		// We use another hook for images
+		// We use another hook for images.
 		if ( 'image' === substr( $attachment->post_mime_type, 0, 5 ) )
 			return $html;
 
-		// Bail if it's custom link
+		// Bail if it's a custom link.
 		if ( trim( $data['url'] ) != get_attachment_link( $id ) )
 			return $html;
 
-		// Core media.js is failing to set title for video/audio
+		// Core `media.js` is failing to set title for video/audio.
 		$html = isset( $data['post_title'] ) ? $data['post_title'] : strip_tags( $html );
 
 		return WordPress\Media::htmlAttachmentShortLink( $id, $html );
 	}
 
-	// Tries to set correct size for thumbnail meta-box
+	/**
+	 * Filters the size used to display the post thumbnail image in the
+	 * `Featured image` meta box.
+	 *
+	 * When a theme adds `post-thumbnail` support, a special
+	 * `post-thumbnail` image size is registered, which differs from
+	 * the `thumbnail` image size managed via the `Settings` > `Media` screen.
+	 *
+	 * @param string|array $size
+	 * @param int $thumbnail_id
+	 * @param object $post
+	 * @return string|array
+	 */
 	public function admin_post_thumbnail_size( $size, $thumbnail_id, $post )
 	{
 		$_wp_additional_image_sizes = wp_get_additional_image_sizes();
+		$posttype_thumbnail_key     = sprintf( '%s-thumbnail', $post->post_type );
 
-		if ( isset( $_wp_additional_image_sizes[$post->post_type.'-thumbnail'] ) )
-			return $post->post_type.'-thumbnail';
+		if ( isset( $_wp_additional_image_sizes[$posttype_thumbnail_key] ) )
+			return $posttype_thumbnail_key;
 
 		return $size;
 	}
@@ -1142,7 +1155,7 @@ class Media extends gNetwork\Module
 			return Core\Text::strToLower( $filename );
 
 		$info = pathinfo( $filename );
-		$ext  = empty( $info['extension'] ) ? '' : '.'.$info['extension'];
+		$ext  = empty( $info['extension'] ) ? '' : sprintf( '.%s', $info['extension'] );
 
 		// $name = preg_replace( '/'.$ext.'$/', '', $filename );
 		$name = Core\File::basename( $filename, $ext );
@@ -1155,6 +1168,6 @@ class Media extends gNetwork\Module
 		$name = Utilities::URLifyDownCode( $name );
 		// $name = Utilities::URLifyFilter( trim( $name ) );
 
-		return Core\Text::strToLower( $name ).$ext;
+		return Core\Text::strToLower( $name.$ext );
 	}
 }

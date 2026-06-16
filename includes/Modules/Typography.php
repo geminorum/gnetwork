@@ -472,7 +472,7 @@ class Typography extends gNetwork\Module
 			Admin::registerTinyMCE( 'gnetworkasterisks', 'assets/js/tinymce/asterisks', 2 );
 		}
 
-		$this->register_blocktypes();
+		// $this->register_blocktypes();
 		$this->register_shortcodes();
 	}
 

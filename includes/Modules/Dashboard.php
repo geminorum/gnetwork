@@ -215,8 +215,10 @@ class Dashboard extends gNetwork\Module
 			if ( $num_posts && $num_posts->publish ) {
 
 				$text = 'post' == $post_type
-					? _n( '%s Post', '%s Posts', $num_posts->publish )
-					: _n( '%s Page', '%s Pages', $num_posts->publish );
+					/* translators: `%s`: number of posts */
+					? _nx( '%s post', '%s posts', $num_posts->publish, 'Modules: Dashboard: Right Now', 'gnetwork-admin' )
+					/* translators: `%s`: number of pages */
+					: _nx( '%s page', '%s pages', $num_posts->publish, 'Modules: Dashboard: Right Now', 'gnetwork-admin' );
 
 				$text   = sprintf( $text, Core\Number::format( $num_posts->publish ) );
 				$object = get_post_type_object( $post_type );
@@ -277,16 +279,16 @@ class Dashboard extends gNetwork\Module
 
 		if ( $html )
 			echo '<div class="main"><ul>'.$html.'</ul></div>';
+
 		else
-		Core\HTML::desc( _x( 'There are no contents available!', 'Modules: Dashboard: Right Now', 'gnetwork-admin' ), FALSE, '-empty' );
+			Core\HTML::desc( _x( 'There are no contents available!', 'Modules: Dashboard: Right Now', 'gnetwork-admin' ), FALSE, '-empty' );
 
 		ob_start();
-		// do_action( 'rightnow_end' ); // old hook
-		do_action( 'activity_box_end' );
-		$actions = ob_get_clean();
 
-		if ( ! empty( $actions ) )
-			echo '<div class="sub">'.$actions.'</div>';
+			// `do_action( 'rightnow_end' );` // old hook
+			do_action( 'activity_box_end' );
+
+		echo Core\HTML::wrap( ob_get_clean(), 'sub' );
 
 		echo '</div>';
 	}

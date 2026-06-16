@@ -548,16 +548,19 @@ class Login extends gNetwork\Module
 
 		} else if ( $sitelogo = gNetwork()->option( 'network_sitelogo', 'branding' ) ) {
 
-			$default = 320; // NOTE: default width for `div#login`
+			$default = 360;  // NOTE: `320` is default width for `div#login`
+			$square  = 2.5;
 
 			$style = vsprintf( '.login h1 a {
 				background-image: url(%1$s) !important;
 				width: %2$spx !important;
 				height: %3$spx !important;
+				margin: -%4$spx auto 0;
 			}', [
 				esc_url( $sitelogo ),
-				$default / 2,
-				$default / 2,
+				$default / $square,
+				$default / $square,
+				$default / ( $square * 6 ),
 			] );
 
 			printf( "<style>\n%s\n</style>\n", $style );

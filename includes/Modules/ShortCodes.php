@@ -43,7 +43,7 @@ class ShortCodes extends gNetwork\Module
 
 	public function init_late()
 	{
-		$this->register_blocktypes();
+		// $this->register_blocktypes();
 		$this->register_shortcodes();
 
 		if ( is_admin() ) {
@@ -423,10 +423,11 @@ class ShortCodes extends gNetwork\Module
 				$tax_query = [ [
 					'taxonomy' => $args['tax'],
 					'field'    => 'term_id',
-					'terms'    => $term_list,
+					'terms'    => $term_list ?? [],
 				] ];
 
 			} else {
+
 				$error = TRUE;
 			}
 		}
@@ -485,7 +486,7 @@ class ShortCodes extends gNetwork\Module
 						], $order.$title );
 
 					// TODO: add excerpt/content of the post
-					// TODO: add show/more js
+					// TODO: add show/more JS
 				}
 
 				$html.= Core\HTML::tag( 'li', [
@@ -510,7 +511,7 @@ class ShortCodes extends gNetwork\Module
 		return $content;
 	}
 
-	// FIXME: move to `gEditorial` Terms (using api)
+	// FIXME: move to `gEditorial` Terms (using API)
 	// FIXME: working draft
 	// EDITED: 4/5/2016, 5:01:31 PM
 	public function shortcode_all_terms( $atts = [], $content = NULL, $tag = '' )
@@ -752,7 +753,8 @@ class ShortCodes extends gNetwork\Module
 					}
 				}
 
-			break;
+				break;
+
 			case 'home':
 
 				$html = Core\HTML::tag( 'a', [
