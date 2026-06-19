@@ -49,6 +49,9 @@ class Search extends gNetwork\Module
 		if ( '-' !== $this->options['exclusion_prefix'] )
 			$this->filter( 'wp_query_search_exclusion_prefix' );
 
+		if ( $this->options['search_by_postid'] )
+			$this->filter( 'posts_where', 2, 89, 'by_postid' );
+
 		if ( ! empty( $this->options['search_columns'] ) )
 			$this->filter( 'post_search_columns', 3, 9 );
 
@@ -64,6 +67,7 @@ class Search extends gNetwork\Module
 	{
 		return [
 			'search_columns'      => [],
+			'search_by_postid'    => '0',
 			'search_context'      => 'default',
 			'include_taxonomies'  => [],
 			'redirect_single'     => '0',
@@ -87,6 +91,11 @@ class Search extends gNetwork\Module
 						'post_excerpt' => _x( 'Post Excerpt', 'Modules: Search: Settings', 'gnetwork-admin' ),
 						'post_content' => _x( 'Post Content', 'Modules: Search: Settings', 'gnetwork-admin' ),
 					],
+				],
+				[
+					'field'       => 'search_by_postid',
+					'title'       => _x( 'Search by Post-ID', 'Modules: Search: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Enables the user to search by post ID using the built-in search.', 'Modules: Search: Settings', 'gnetwork-admin' ),
 				],
 				[
 					'field'       => 'search_context',
@@ -420,5 +429,28 @@ class Search extends gNetwork\Module
 			: $this->search_form();
 
 		return self::shortcodeWrap( $html, 'search-form', $args );
+	}
+
+	// @source https://github.com/pronamic/wp-pronamic-search-by-id
+	public function posts_where_by_postid( $where )
+	{
+		global $wpdb;
+
+		if ( ! is_search() )
+			return $where;
+
+		if ( ! $criteria = self::req( 's' ) )
+			return $where;
+
+		if ( ! $criteria = sanitize_key( $criteria ) )
+			return $where;
+
+		if ( is_numeric( $criteria ) )
+			$where.= sprintf( ' OR %s.ID = %d', $wpdb->posts, $criteria );
+
+		else if ( preg_match( "/^(\d+)(,\s*\d+)*\$/", $criteria ) ) // string of post IDs
+			$where.= sprintf( ' OR %s.ID in ( %s )', $wpdb->posts, $criteria );
+
+		return $where;
 	}
 }
