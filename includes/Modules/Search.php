@@ -403,12 +403,25 @@ class Search extends gNetwork\Module
 	public function search_form()
 	{
 		$html = '<form role="search" method="get" class="search-form" action="'.esc_url( GNETWORK_SEARCH_URL ).'">';
-			// TODO: do action: `search_form_before`
+
+			if ( has_action( $this->hook( 'search_form_before' ) ) ) {
+				ob_start();
+					$this->actions( 'search_form_before' );
+				$html.= trim( ob_get_clean() );
+			}
+
 			$html.= '<label><span class="screen-reader-text">'._x( 'Search for:', 'Modules: Search: Form: Label', 'gnetwork-admin' ).'</span>';
 			$html.= '<input type="search" class="search-field" placeholder="'.esc_attr_x( 'Search &hellip;', 'Modules: Search: Form: Placeholder', 'gnetwork-admin' );
 			$html.= '" value="'.get_search_query().'" name="'.GNETWORK_SEARCH_QUERYID.'" />';
-			$html.= '</label><input type="submit" class="search-submit" value="'.esc_attr_x( 'Search', 'Modules: Search: Form: Submit Button', 'gnetwork-admin' ).'" />';
-			// TODO: do action: `search_form_after`
+			$html.= '</label>';
+
+			if ( has_action( $this->hook( 'search_form_after' ) ) ) {
+				ob_start();
+					$this->actions( 'search_form_after' );
+				$html.= trim( ob_get_clean() );
+			}
+
+			$html.= '<input type="submit" class="search-submit" value="'.esc_attr_x( 'Search', 'Modules: Search: Form: Submit Button', 'gnetwork-admin' ).'" />';
 		$html.= '</form>';
 
 		return $html;
