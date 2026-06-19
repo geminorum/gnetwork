@@ -49,6 +49,17 @@ class Search extends gNetwork\Module
 		if ( '-' !== $this->options['exclusion_prefix'] )
 			$this->filter( 'wp_query_search_exclusion_prefix' );
 
+		if ( $this->options['search_disabled'] ) {
+			/**
+			 * Adopted from `Disable WP Search` by `Itineris Limited` - 2026-06-20
+			 * @source https://github.com/ItinerisLtd/wp-disable-search
+			 */
+			$this->action( 'parse_query', 1, 99, 'search_disabled' );
+			$this->action( 'widgets_init', 0, 99, 'search_disabled' );
+			$this->filter_empty_string( 'get_search_form', 20 );
+			$this->filter_true( 'disable_wpseo_json_ld_search', 20 );
+		}
+
 		if ( $this->options['search_by_postid'] )
 			$this->filter( 'posts_where', 2, 89, 'by_postid' );
 
@@ -66,6 +77,7 @@ class Search extends gNetwork\Module
 	public function default_options()
 	{
 		return [
+			'search_disabled'     => '0',
 			'search_columns'      => [],
 			'search_by_postid'    => '0',
 			'search_context'      => 'default',
@@ -81,6 +93,11 @@ class Search extends gNetwork\Module
 	{
 		return [
 			'_general' => [
+				[
+					'field'       => 'search_disabled',
+					'title'       => _x( 'Disable Search', 'Modules: Search: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Blocks the ability to use the search queries.', 'Modules: Search: Settings', 'gnetwork-admin' ),
+				],
 				[
 					'field'       => 'search_columns',
 					'type'        => 'checkboxes-values',
@@ -467,5 +484,26 @@ class Search extends gNetwork\Module
 			$where.= sprintf( ' OR %s.ID in ( %s )', $wpdb->posts, $criteria );
 
 		return $where;
+	}
+
+	/**
+	 * Fires after the main query vars have been parsed.
+	 *
+	 * @param object $query
+	 * @return void
+	 */
+	public function parse_query_search_disabled( &$query )
+	{
+		if ( ! is_search() )
+			return;
+
+		$query->is_search       = FALSE;
+		$query->query_vars['s'] = FALSE;
+		$query->query['s']      = FALSE;
+	}
+
+	public function widgets_init_search_disabled()
+	{
+		unregister_widget( 'WP_Widget_Search' );
 	}
 }
