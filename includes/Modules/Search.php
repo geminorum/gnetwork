@@ -400,13 +400,15 @@ class Search extends gNetwork\Module
 	}
 
 	// also overrides for strings!
-	public function search_form()
+	public function search_form( $context = NULL )
 	{
-		$html = '<form role="search" method="get" class="search-form" action="'.esc_url( GNETWORK_SEARCH_URL ).'">';
+		$context = $context ?? 'default';
+
+		$html = '<form role="search" method="get" class="search-form context-'.$context.'" data-context="'.$context.'" action="'.esc_url( GNETWORK_SEARCH_URL ).'">';
 
 			if ( has_action( $this->hook( 'search_form_before' ) ) ) {
 				ob_start();
-					$this->actions( 'search_form_before' );
+					$this->actions( 'search_form_before', $context );
 				$html.= trim( ob_get_clean() );
 			}
 
@@ -417,7 +419,7 @@ class Search extends gNetwork\Module
 
 			if ( has_action( $this->hook( 'search_form_after' ) ) ) {
 				ob_start();
-					$this->actions( 'search_form_after' );
+					$this->actions( 'search_form_after', $context );
 				$html.= trim( ob_get_clean() );
 			}
 
@@ -439,7 +441,7 @@ class Search extends gNetwork\Module
 
 		$html = $args['theme']
 			? get_search_form( [ 'echo' => FALSE ] )
-			: $this->search_form();
+			: $this->search_form( $args['context'] ?? 'shortcode' );
 
 		return self::shortcodeWrap( $html, 'search-form', $args );
 	}
