@@ -770,7 +770,8 @@ JS;
 
 		foreach ( $terms as $term ) {
 
-			$delete = TRUE;
+			// @REF: https://make.wordpress.org/core/2016/10/28/fine-grained-capabilities-for-taxonomy-terms-in-4-7/
+			$delete = current_user_can( 'delete_term', $term->term_id );
 
 			if ( ! $force ) {
 
@@ -790,9 +791,6 @@ JS;
 
 			if ( ! $this->filters( 'delete_term', $delete, $term, $taxonomy, $force ) )
 				continue;
-
-			// MAYBE: check `delete_term` cap for each term
-			// @SEE: https://wp.me/p2AvED-5kA
 
 			$deleted = wp_delete_term( $term->term_id, $taxonomy );
 
