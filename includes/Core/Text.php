@@ -735,6 +735,19 @@ class Text extends Base
 		// with the first character in that sequence.
 		// @source https://stackoverflow.com/a/3278112
 		return preg_replace( '/([\p{Z}\s])[\p{Z}\s]+/u', '$1', $text );
+
+		/**
+		 * Replace all whitespace characters with a basic space (U+0020).
+		 *
+		 * The “Zs” in the pattern selects characters in the `Space_Separator`
+		 * category, which is what Unicode considers space characters.
+		 *
+		 * @see https://www.unicode.org/reports/tr44/#General_Category_Values
+		 * @see https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-6/#G17548
+		 * @see https://www.php.net/manual/en/regexp.reference.unicode.php
+		 * @source `sanitize_file_name()`
+		 */
+		// `return preg_replace( '#\p{Zs}#siu', ' ', $text );`
 	}
 
 	/**
@@ -928,9 +941,9 @@ class Text extends Base
 	 * @source https://www.php.net/manual/en/ref.mbstring.php#90611
 	 *
 	 * @param string $text
-	 * @param int $pad_length
+	 * @param int $length
 	 * @param string $pad_string
-	 * @param int $pad_style
+	 * @param int $pad_type
 	 * @param string $encoding
 	 * @return string
 	 */
@@ -1050,7 +1063,7 @@ class Text extends Base
 	 * Trims a string of words to a specified number of characters, gracefully
 	 * stopping at white spaces. Also strips HTML tags, to prevent breaking
 	 * in the middle of a tag.
-	 * @author c.bavota
+	 * @author `c. bavota`
 	 * @source http://bavotasan.com/2012/trim-characters-using-php/
 	 *
 	 * @param string $text: The string of words to be trimmed.
@@ -1163,8 +1176,8 @@ class Text extends Base
 			// shorthand these- "match" and "index"
 			list( $m, $i ) = $m2;
 
-			// Correct offsets for multi-byte characters (`PREG_OFFSET_CAPTURE` returns *byte*-offset)
-			// we fix this by recounting the text before the offset using multi-byte aware `strlen`
+			// Correct offsets for multibyte characters (`PREG_OFFSET_CAPTURE` returns *byte*-offset)
+			// we fix this by recounting the text before the offset using multibyte aware `strlen`
 			$i = mb_strlen( substr( $title, 0, $i ), 'UTF-8' );
 
 			// Find words that should always be lowercase…
@@ -1190,7 +1203,7 @@ class Text extends Base
 				mb_substr( $m, 1, mb_strlen( $m, 'UTF-8' ), 'UTF-8' )
 			) );
 
-			// Replaces the title with the change (`substr_replace` is not multi-byte aware)
+			// Replaces the title with the change (`substr_replace` is not multibyte aware)
 			$title = mb_substr( $title, 0, $i, 'UTF-8' ).$m.
 					 mb_substr( $title, $i + mb_strlen( $m, 'UTF-8' ), mb_strlen( $title, 'UTF-8' ), 'UTF-8' );
 		}
@@ -1224,10 +1237,10 @@ class Text extends Base
 	 * (such as `[ ] : ; @ & ?` and others), within numbers (such as `.,%#'`),
 	 * and within words (such as - and ').
 	 *
-	 * @author David R. Nadeau, NadeauSoftware.com
+	 * @author `David R. Nadeau`, NadeauSoftware.com
 	 * @see http://nadeausoftware.com/articles/2007/9/php_tip_how_strip_punctuation_characters_web_page
 	 *
-	 * @param string $title
+	 * @param string $text
 	 * @return string
 	 */
 	public static function stripPunctuation( $text )
@@ -1275,9 +1288,28 @@ class Text extends Base
 		], ' ', $text );
 	}
 
+	/**
+	 * Strips the `UTF-8` BOM,
+	 *
+	 * @param string $text
+	 * @return string
+	 */
 	public static function utf8StripBOM( $text )
 	{
-		return preg_replace( '/\x{FEFF}/u', '', $text );
+		return preg_replace( '/\x{FEFF}/u', '', $text ?? '' );
+	}
+
+	/**
+	 * Returns whether `PCRE` Unicode character properties (`UCP`, e.g. `\p{L}`) are available for use.
+	 * @source https://core.trac.wordpress.org/attachment/ticket/24661/24661.6.patch
+	 * @source https://github.com/BeAPI/bea-sanitize-filename/pull/15/changes
+	 * @see `_wp_can_use_pcre_u()`
+	 *
+	 * @return bool
+	 */
+	public static function availablePCREUnicode()
+	{
+		return FALSE !== @preg_match( '/\p{L}/u', '' );
 	}
 
 	/**
@@ -1303,10 +1335,17 @@ class Text extends Base
 		return ( 1 === @preg_match( '/^.{1}/us', $text ) );
 	}
 
-	// @SOURCE: http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#htmlspecialchars
-	// @SOURCE: `_wp_specialchars()`
-	// converts a number of special characters into their HTML entities
-	// specifically deals with: &, <, >, ", and '
+	/**
+	 * Converts a number of special characters into their HTML entities.
+	 * Specifically deals with: `&`, `<`, `>`, `"`, and `'`.
+	 *
+	 * @source `_wp_specialchars()`
+	 * @source http://web.archive.org/web/20110215015142/http://www.phpwact.org/php/i18n/charsets#htmlspecialchars
+	 *
+	 * @param string $text
+	 * @param int $flags
+	 * @return string
+	 */
 	public static function utf8SpecialChars( $text, $flags = ENT_COMPAT )
 	{
 		if ( ! $text )
@@ -1410,17 +1449,17 @@ class Text extends Base
 			return 0;
 
 		// http://php.net/manual/en/function.str-word-count.php#85579
-		// return preg_match_all( "/\\p{L}[\\p{L}\\p{Mn}\\p{Pd}'\\x{2019}]*/u", $html, $matches );
+		// `return preg_match_all( "/\\p{L}[\\p{L}\\p{Mn}\\p{Pd}'\\x{2019}]*/u", $html, $matches );`
 
 		/**
-		* This simple UTF-8 word count function (it only counts)
+		* This simple `UTF-8` word count function (it only counts)
 		* is a bit faster than the one with `preg_match_all`
 		* about 10x slower than the built-in `str_word_count`
 		*
 		* If you need the hyphen or other code points as word-characters
 		* just put them into the [brackets] like [^\p{L}\p{N}\'\-]
-		* If the pattern contains UTF-8, `utf8_encode()` the pattern,
-		* as it is expected to be valid UTF-8 (using the `u` modifier).
+		* If the pattern contains `UTF-8`, `utf8_encode()` the pattern,
+		* as it is expected to be valid `UTF-8` (using the `u` modifier).
 		*
 		* @link http://php.net/manual/en/function.str-word-count.php#107363
 		**/
@@ -2210,5 +2249,35 @@ class Text extends Base
 		$text = str_replace( ',', '\,', $text );
 
 		return self::trim( $text );
+	}
+
+	/**
+	 * Removes `Mn` non-spacing combining marks that follow Latin characters.
+	 * @ticket https://core.trac.wordpress.org/ticket/24661
+	 * @source https://core.trac.wordpress.org/attachment/ticket/24661/24661.6.patch
+	 * @source https://github.com/BeAPI/bea-sanitize-filename/pull/15/changes
+	 * NOTE: does same as `normalizer_normalize()`
+	 *
+	 * @param string $string
+	 * @return string
+	 */
+	public static function removeCombinedAccents( $string )
+	{
+		if ( self::availablePCREUnicode() ) {
+
+			$string = preg_replace( '/(?<=\p{Latin})\p{Mn}+/u', '', $string );
+
+		} else {
+
+			// Generated by `gen_cat_regex_alts.php` from http://www.unicode.org/Public/9.0.0/ucd/UnicodeData.txt
+			static $mn_regex_alts = '\xcc[\x80-\xbf]|\xcd[\x80-\xaf]|\xd2[\x83-\x87]|\xd6[\x91-\xbd\xbf]|\xd7[\x81\x82\x84\x85\x87]|\xd8[\x90-\x9a]|\xd9[\x8b-\x9f\xb0]|\xdb[\x96-\x9c\x9f-\xa4\xa7\xa8\xaa-\xad]|\xdc[\x91\xb0-\xbf]|\xdd[\x80-\x8a]|\xde[\xa6-\xb0]|\xdf[\xab-\xb3]|\xe0(?:\xa0[\x96-\x99\x9b-\xa3\xa5-\xa7\xa9-\xad]|\xa1[\x99-\x9b]|\xa3[\x94-\xa1\xa3-\xbf]|\xa4[\x80-\x82\xba\xbc]|\xa5[\x81-\x88\x8d\x91-\x97\xa2\xa3]|\xa6[\x81\xbc]|\xa7[\x81-\x84\x8d\xa2\xa3]|\xa8[\x81\x82\xbc]|\xa9[\x81\x82\x87\x88\x8b-\x8d\x91\xb0\xb1\xb5]|\xaa[\x81\x82\xbc]|\xab[\x81-\x85\x87\x88\x8d\xa2\xa3]|\xac[\x81\xbc\xbf]|\xad[\x81-\x84\x8d\x96\xa2\xa3]|\xae\x82|\xaf[\x80\x8d]|\xb0[\x80\xbe\xbf]|\xb1[\x80\x86-\x88\x8a-\x8d\x95\x96\xa2\xa3]|\xb2[\x81\xbc\xbf]|\xb3[\x86\x8c\x8d\xa2\xa3]|\xb4\x81|\xb5[\x81-\x84\x8d\xa2\xa3]|\xb7[\x8a\x92-\x94\x96]|\xb8[\xb1\xb4-\xba]|\xb9[\x87-\x8e]|\xba[\xb1\xb4-\xb9\xbb\xbc]|\xbb[\x88-\x8d]|\xbc[\x98\x99\xb5\xb7\xb9]|\xbd[\xb1-\xbe]|\xbe[\x80-\x84\x86\x87\x8d-\x97\x99-\xbc]|\xbf\x86)|\xe1(?:\x80[\xad-\xb0\xb2-\xb7\xb9\xba\xbd\xbe]|\x81[\x98\x99\x9e-\xa0\xb1-\xb4]|\x82[\x82\x85\x86\x8d\x9d]|\x8d[\x9d-\x9f]|\x9c[\x92-\x94\xb2-\xb4]|\x9d[\x92\x93\xb2\xb3]|\x9e[\xb4\xb5\xb7-\xbd]|\x9f[\x86\x89-\x93\x9d]|\xa0[\x8b-\x8d]|\xa2[\x85\x86\xa9]|\xa4[\xa0-\xa2\xa7\xa8\xb2\xb9-\xbb]|\xa8[\x97\x98\x9b]|\xa9[\x96\x98-\x9e\xa0\xa2\xa5-\xac\xb3-\xbc\xbf]|\xaa[\xb0-\xbd]|\xac[\x80-\x83\xb4\xb6-\xba\xbc]|\xad[\x82\xab-\xb3]|\xae[\x80\x81\xa2-\xa5\xa8\xa9\xab-\xad]|\xaf[\xa6\xa8\xa9\xad\xaf-\xb1]|\xb0[\xac-\xb3\xb6\xb7]|\xb3[\x90-\x92\x94-\xa0\xa2-\xa8\xad\xb4\xb8\xb9]|\xb7[\x80-\xb5\xbb-\xbf])|\xe2(?:\x83[\x90-\x9c\xa1\xa5-\xb0]|\xb3[\xaf-\xb1]|\xb5\xbf|\xb7[\xa0-\xbf])|\xe3(?:\x80[\xaa-\xad]|\x82[\x99\x9a])|\xea(?:\x99[\xaf\xb4-\xbd]|\x9a[\x9e\x9f]|\x9b[\xb0\xb1]|\xa0[\x82\x86\x8b\xa5\xa6]|\xa3[\x84\x85\xa0-\xb1]|\xa4[\xa6-\xad]|\xa5[\x87-\x91]|\xa6[\x80-\x82\xb3\xb6-\xb9\xbc]|\xa7\xa5|\xa8[\xa9-\xae\xb1\xb2\xb5\xb6]|\xa9[\x83\x8c\xbc]|\xaa[\xb0\xb2-\xb4\xb7\xb8\xbe\xbf]|\xab[\x81\xac\xad\xb6]|\xaf[\xa5\xa8\xad])|\xef(?:\xac\x9e|\xb8[\x80-\x8f\xa0-\xaf])|\xf0(?:\x90(?:\x87\xbd|\x8b\xa0|\x8d[\xb6-\xba]|\xa8[\x81-\x83\x85\x86\x8c-\x8f\xb8-\xba\xbf]|\xab[\xa5\xa6])|\x91(?:\x80[\x81\xb8-\xbf]|\x81[\x80-\x86\xbf]|\x82[\x80\x81\xb3-\xb6\xb9\xba]|\x84[\x80-\x82\xa7-\xab\xad-\xb4]|\x85\xb3|\x86[\x80\x81\xb6-\xbe]|\x87[\x8a-\x8c]|\x88[\xaf-\xb1\xb4\xb6\xb7\xbe]|\x8b[\x9f\xa3-\xaa]|\x8c[\x80\x81\xbc]|\x8d[\x80\xa6-\xac\xb0-\xb4]|\x90[\xb8-\xbf]|\x91[\x82-\x84\x86]|\x92[\xb3-\xb8\xba\xbf]|\x93[\x80\x82\x83]|\x96[\xb2-\xb5\xbc\xbd\xbf]|\x97[\x80\x9c\x9d]|\x98[\xb3-\xba\xbd\xbf]|\x99\x80|\x9a[\xab\xad\xb0-\xb5\xb7]|\x9c[\x9d-\x9f\xa2-\xa5\xa7-\xab]|\xb0[\xb0-\xb6\xb8-\xbd\xbf]|\xb2[\x92-\xa7\xaa-\xb0\xb2\xb3\xb5\xb6])|\x96(?:\xab[\xb0-\xb4]|\xac[\xb0-\xb6]|\xbe[\x8f-\x92])|\x9b\xb2[\x9d\x9e]|\x9d(?:\x85[\xa7-\xa9\xbb-\xbf]|\x86[\x80-\x82\x85-\x8b\xaa-\xad]|\x89[\x82-\x84]|\xa8[\x80-\xb6\xbb-\xbf]|\xa9[\x80-\xac\xb5]|\xaa[\x84\x9b-\x9f\xa1-\xaf])|\x9e(?:\x80[\x80-\x86\x88-\x98\x9b-\xa1\xa3\xa4\xa6-\xaa]|\xa3[\x90-\x96]|\xa5[\x84-\x8a]))|\xf3\xa0(?:[\x84-\x86][\x80-\xbf]|\x87[\x80-\xaf])'; // 1690 code points.
+
+			// Generated by `gen_script_regex_alts.php` from http://www.unicode.org/Public/9.0.0/ucd/Scripts.txt
+			static $latin_regex_alts = '[\x41-\x5a\x61-\x7a]|\xc2[\xaa\xba]|\xc3[\x80-\x96\x98-\xb6\xb8-\xbf]|[\xc4-\xc9][\x80-\xbf]|\xca[\x80-\xb8]|\xcb[\xa0-\xa4]|\xe1(?:\xb4[\x80-\xa5\xac-\xbf]|\xb5[\x80-\x9c\xa2-\xa5\xab-\xb7\xb9-\xbf]|\xb6[\x80-\xbe]|[\xb8-\xbb][\x80-\xbf])|\xe2(?:\x81[\xb1\xbf]|\x82[\x90-\x9c]|\x84[\xaa\xab\xb2]|\x85[\x8e\xa0-\xbf]|\x86[\x80-\x88]|\xb1[\xa0-\xbf])|\xea(?:\x9c[\xa2-\xbf]|\x9d[\x80-\xbf]|\x9e[\x80-\x87\x8b-\xae\xb0-\xb7]|\x9f[\xb7-\xbf]|\xac[\xb0-\xbf]|\xad[\x80-\x9a\x9c-\xa4])|\xef(?:\xac[\x80-\x86]|\xbc[\xa1-\xba]|\xbd[\x81-\x9a])'; // 1350 code points.
+
+			$string = preg_replace( '/(?<='.$latin_regex_alts.')(?:'.$mn_regex_alts.')+/', '', $string );
+		}
+
+		return $string;
 	}
 }

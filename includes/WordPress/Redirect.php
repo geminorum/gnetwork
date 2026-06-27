@@ -6,6 +6,18 @@ use geminorum\gNetwork\Core;
 
 class Redirect extends Core\Base
 {
+	/**
+	 * Sanitizes a URL for use in a redirect.
+	 * NOTE: wrapper for `wp_sanitize_redirect()`
+	 *
+	 * @param bool|string $location
+	 * @return string
+	 */
+	public static function sanitize( $location )
+	{
+		return wp_sanitize_redirect( $location ?? self::getReferer() );
+	}
+
 	// @REF: `wp_referer_field()`
 	public static function fieldReferer()
 	{
@@ -34,10 +46,10 @@ class Redirect extends Core\Base
 	public static function doJS( $location = NULL, $timeout = 3000 )
 	{
 		?><script>
-function nextpage() {
-	location.href = "<?php echo ( $location ?? self::getReferer() ); ?>";
+function redirect_to_another_page() {
+	location.href = "<?php echo self::sanitize( $location ); ?>";
 }
-setTimeout( "nextpage()", <?php echo $timeout; ?> );
+setTimeout( "redirect_to_another_page()", <?php echo $timeout; ?> );
 </script><?php
 
 		return TRUE; // to help the caller
@@ -46,7 +58,7 @@ setTimeout( "nextpage()", <?php echo $timeout; ?> );
 	// OLD: `Core\WordPress::redirect()`
 	public static function doWP( $location = NULL, $status = 302 )
 	{
-		if ( wp_redirect( $location ?? self::getReferer(), $status ) )
+		if ( wp_redirect( $location ?? self::getReferer(), $status ) ) // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 			exit;
 
 		wp_die(); // something's wrong!

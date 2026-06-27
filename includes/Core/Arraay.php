@@ -780,6 +780,21 @@ class Arraay extends Base
 	 * array is sequentially-indexed or zero-indexed. If there is at least one
 	 * string key, the array will be regarded as an associative array.
 	 *
+	 * This answers a different question than {@see array_is_list()} and is
+	 * more flexible to handle situations where some numeric array indices
+	 * have been removed. A numeric-indexed array is only a “list” when the
+	 * array keys form a contiguous range from zero to the highest key.
+	 *
+	 * Example:
+	 * - `TRUE  === Array::isNumeric( array( 1, 2, 3, 4 ) );`
+	 * - `FALSE === Array::isNumeric( array( 'name' => 'WordPress' ) );`
+	 *
+	 * All-numeric keys vs. list.
+	 * - `$above_two   = array_filter( array( 1, 2, 8, 9 ), fn ( $v ) => $v > 2 );`
+	 * - `$above_two === array( '2' => 8, '3' => 9 );`
+	 * - `TRUE       === Array::isNumeric( $above_two );`
+	 * - `FALSE      === array_is_list( $above_two );`
+	 *
 	 * @source https://stackoverflow.com/a/4254008
 	 * @source `wp_is_numeric_array()`
 	 *
@@ -791,7 +806,11 @@ class Arraay extends Base
 		if ( ! is_array( $array ) || $array === [] )
 			return FALSE;
 
-		return count( array_filter( array_keys( $array ), 'is_string' ) ) === 0;
+		foreach ( $array as $key => $value )
+			if ( is_string( $key ) )
+				return FALSE;
+
+		return TRUE;
 	}
 
 	// NOTE: DEPRECATED

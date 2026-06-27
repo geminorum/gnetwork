@@ -34,6 +34,23 @@ class Email extends Base
 		if ( self::empty( $input ) )
 			return $default;
 
+ 		// Strip surrounding whitespace.
+		$input = Text::trim( $input );
+
+		// Extract the address from `Display Name <username@domain>` format.
+		if ( 1 === preg_match( '/<([^>]+)>$/', $input, $matches ) )
+			$input = $matches[1];
+
+		/**
+		 * Strip soft hyphens and whitespace adjacent to structural separators (dots and @),
+		 * e.g. copy-paste artifacts like `info@example\u{00AD}.com` or `info@example .com`.
+		 *
+		 * In some cases, e.g. autocorrect, some older software has been seen to add the
+		 * space for unrecognized `TLD`. This rejoins the parts for proper examination.
+		 * @source `sanitize_email()`
+		 */
+		$input = preg_replace( '/[\x{00AD}\s]*([.@])[\x{00AD}\s]*/u', '$1', $input ) ?? $input;
+
 		return sanitize_email( Text::trim( $input ) );
 	}
 

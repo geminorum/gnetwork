@@ -7,8 +7,15 @@ use geminorum\gNetwork\Core;
 class User extends Core\Base
 {
 
-	public static function colorScheme( $user = NULL, $fallback = 'modern' )
+	public static function option( string $option_key, $user = NULL )
 	{
+		return get_user_option( $option_key, $user ?? 0 );
+	}
+
+	public static function colorScheme( $user = NULL, $fallback = NULL )
+	{
+		$fallback = $fallback ?? 'modern'; // NOTE: default @since WP 7.0.0
+
 		if ( ! $user && ! is_user_logged_in() )
 			return $fallback;
 
