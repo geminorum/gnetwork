@@ -496,19 +496,8 @@ class Admin extends gNetwork\Module
 
 	public function admin_enqueue_scripts()
 	{
-		if ( gNetwork()->option( 'admin_chosen', 'blog' )
-			&& ! WordPress\IsIt::blockEditor() ) {
-
-			$script = 'jQuery(function($) {
-				$("select.gnetwork-do-chosen, .postbox:not(#submitdiv) .inside select:not(.no-chosen):not(.postform), .tablenav select:not(#bulk-action-selector-top):not(#bulk-action-selector-bottom)").chosen({
-					rtl: "rtl" === $("html").attr("dir"),
-					no_results_text: "'._x( 'No results match', 'Modules: Admin: Chosen', 'gnetwork' ).'",
-					disable_search_threshold: 10
-				}).addClass("gnetwork-chosen");
-			});';
-
-			wp_add_inline_script( Scripts::enqueueScriptVendor( 'chosen.jquery', [ 'jquery' ], '1.8.7' ), $script );
-		}
+		if ( gNetwork()->option( 'admin_chosen', 'blog' ) )
+			$this->_enqueue_admin_chosen();
 
 		if ( GNETWORK_DISABLE_ALL_HELP_TABS )
 			get_current_screen()->remove_help_tabs();
@@ -577,5 +566,47 @@ class Admin extends gNetwork\Module
 			return $content = $branding;
 
 		return Core\HTML::wrap( $content, '-slogan', FALSE );
+	}
+
+	// FIXME: Move to scripts
+	// @SEE: https://github.com/stuttter/wp-chosen
+	private function _enqueue_admin_chosen()
+	{
+		if ( WordPress\IsIt::blockEditor() )
+			return;
+
+		$selectors = [
+			'select.gnetwork-do-chosen',
+			'.postbox:not(#submitdiv) .inside select:not(.no-chosen):not(.postform)',
+			'.tablenav select:not(#bulk-action-selector-top):not(#bulk-action-selector-bottom)',
+		];
+
+		$_no_results = _x( 'No results match', 'Modules: Admin: Chosen', 'gnetwork' );
+		$_selectors  = implode( ',', $selectors );
+
+		$script = <<<JS
+jQuery(function($) {
+	$("{$_selectors}")
+		.chosen({
+			rtl: "rtl" === $("html").attr("dir"),
+			no_results_text: "{$_no_results}",
+			disable_search_threshold: 13,
+			search_contains: true
+		})
+		.addClass("gnetwork-chosen");
+});
+JS;
+		$handle = Scripts::enqueuePackage(
+			'chosen',
+			'chosen-jjj/chosen.jquery',
+			[
+				'jquery',
+			],
+			'3.0.0'
+		);
+
+		wp_add_inline_script( $handle, $script );
+
+		return $handle;
 	}
 }
