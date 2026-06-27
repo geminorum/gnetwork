@@ -25,7 +25,7 @@ import checkTextDomain from 'gulp-checktextdomain';
 import multipipe from 'multipipe';
 import mergeJson from 'merge-json';
 import extend from 'xtend';
-import yaml from 'js-yaml';
+import { load as yaml } from 'js-yaml';
 
 import { exec } from 'child_process';
 import path from 'path';
@@ -71,7 +71,7 @@ const debug = /--debug/.test(process.argv.slice(2));
 const patch = /--patch/.test(process.argv.slice(2)); // bump a patch?
 
 try {
-  env = extend(conf.env, yaml.load(readFileSync('./environment.yml', { encoding: 'utf-8' }), { json: true }));
+  env = extend(conf.env, yaml(readFileSync('./environment.yml', { encoding: 'utf-8' }), { json: true }));
 } catch (e) {
   log.warn('no environment.yml loaded!');
 }
@@ -127,7 +127,7 @@ task('i18n:core:make', function (cb) {
     conf.i18n.core.dist + ' ' +
     conf.i18n.core.temp + ' ' +
     // '--no-purge ' + // the whole point of this is not to use the flag!
-    '--update-mo-files ' + // @REF: https://github.com/wp-cli/i18n-command/issues/126
+    // '--update-mo-files ' + // @REF: https://github.com/wp-cli/i18n-command/issues/126
     '--skip-plugins --skip-themes --skip-packages' +
     (debug ? ' --debug' : ''),
   cb);

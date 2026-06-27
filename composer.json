@@ -38,7 +38,6 @@
     "phelium/mysql-backup": "dev-master",
     "picqer/php-barcode-generator": "^3.2",
     "davidepastore/ipinfo": "^0.7.0",
-    "ziggeo/simple-box-integration": "^0.0.6",
     "nicolab/php-ftp-client": "^2.0",
     "tecnickcom/tc-lib-barcode": "^1.18",
     "kub-at/php-simple-html-dom-parser": "^1.9",
@@ -50,6 +49,7 @@
   "require-temp": {
     "10up/async-transients": "^1.0",
     "behat/transliterator": "^1.5",
+    "ziggeo/simple-box-integration": "^0.0.6",
     "tinify/tinify": "^1.6.1",
     "symfony/stopwatch": "^5.4.39",
     "kint-php/kint": "^5.1.1",
