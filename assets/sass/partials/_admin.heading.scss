@@ -36,9 +36,7 @@
 
       width: 22px !important;
       height: 18px;
-      // margin: 0 2px 0 -2px;
-      margin: 0 5px 0 -2px;
-      // vertical-align: text-top;
+      margin: -4px ($spacer * .25) 0 -2px;
 
       &::before {
         color: $gray-light;
@@ -47,12 +45,13 @@
     }
 
     .-iconsvg {
-      margin: 0 2px 0 -2px;
+      // margin: 0;
+      padding: 0 ($spacer * .5) 0 ($spacer * .25);
 
       svg {
-        width: 22px;
         height: 20px;
-        vertical-align: text-top;
+        width: 20px;
+        vertical-align: middle;
         color: $gray-light;
       }
     }
@@ -61,7 +60,7 @@
       margin: 0 2px 0 -2px;
       width: 22px;
       height: 20px;
-      vertical-align: text-top;
+      vertical-align: middle;
       fill: $gray-light;
     }
 
@@ -74,6 +73,7 @@
 
       .dashicons,
       .-iconsvg {
+        padding: 0;
         margin: 0;
       }
     }
@@ -88,15 +88,15 @@
 
       // NOTE: large icons on mobile
       &.-only-icon {
-        padding: 0 8px 3px;
-        top: -4px;
+        // padding: 0 8px 3px;
+        // top: -4px;
 
         .-iconsvg {
-          vertical-align: middle;
+          // vertical-align: text-top;
 
           svg {
-            width: 42px;
-            height: 42px;
+            width: 36px;
+            height: 36px;
           }
         }
       }

@@ -365,7 +365,7 @@ button[data-tooltip] {
     &::before {
       @include arrow-right();
 
-      right: 100%;
+      right: calc(100% + 1px);
       top: 50%;
       transform: translate(var(--balloon-move), -50%);
     }
@@ -395,7 +395,7 @@ button[data-tooltip] {
     &::before {
       @include arrow-left();
 
-      left: 100%;
+      left: calc(100% + 1px);
       top: 50%;
       transform: translate(calc(var(--balloon-move) * -1), -50%);
     }

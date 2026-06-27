@@ -8,7 +8,11 @@
 // FIXME: style for multiple select
 
 ////////////////////////////////////////////////////////////////////////////////
-@import "vendor/chosen";
+/*rtl:begin:ignore*/
+// @import "vendor/chosen";
+// @import "vendor/chosen-jjj";
+@import "../packages/chosen-jjj/chosen";
+/*rtl:end:ignore*/
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -26,26 +30,38 @@
   // }
 
   .chosen-single {
-    line-height: 28px;
-    height: 28px;
+    line-height: 2;
+    height: 30px;
 
     // caret
-    div b::before {
-      content: "\f140";
-      @include theme-fonts-core-dashicons;
-      font-size: 16px;
-      line-height: 1;
-      color: #72777c;
+    div {
+      width: 22px;
+
+      b {
+        background: none !important;
+
+        &::before {
+          content: "\f347";
+          @include theme-fonts-core-dashicons;
+          font-size: 16px;
+          line-height: 1.75;
+          color: #72777c;
+        }
+      }
     }
   }
 
   .chosen-search {
-    input[type="text"]::before {
-      display: block;
-      width: 20px;
-      height: 20px;
-      @include theme-fonts-core-dashicons;
-      content: "\f140";
+    input[type="text"] {
+      background: none !important;
+
+      &::before {
+        display: block;
+        width: 20px;
+        height: 20px;
+        @include theme-fonts-core-dashicons;
+        content: "\f140";
+      }
     }
 
     &::after {

@@ -4,10 +4,12 @@
 /// gNetwork Partials: MetaBox -------------------------------------------------
 
 .postbox {
-  // FIXME: combine the opacity styles
   .handle-actions {
+    padding-right: 8px;
+
     .handle-order-higher,
     .handle-order-lower {
+      // FIXME: combine the opacity styles
       opacity: .2;
       transition: all 0.1s ease;
     }
@@ -59,6 +61,7 @@
       }
     }
   }
+
 
   &.closed {
     .postbox-title-action,
@@ -141,7 +144,7 @@
   box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
 
   button::after {
-    padding: 4px 2px 0 5px !important;
+    padding: 0 2px 0 5px !important;
     vertical-align: top !important;
   }
 }

@@ -1,8 +1,7 @@
-/* stylelint-disable block-no-empty */
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// Modules: General: Fonts ----------------------------------------------------
+/// Modules: General: Fonts
 
 // SEE: [SASS @font-face mixin](https://gist.github.com/jonathantneal/d0460e5c2d5d7f9bc5e6)
 
@@ -34,7 +33,7 @@ $theme-fonts-repo: "../fonts" !default;
 
 @mixin theme-fonts-unicoderange-Persian() {
   /* stylelint-disable-next-line unit-no-unknown */
-  unicode-range: U+0600-06ff, U+200c-200e, U+2010-2011, U+fb50-fdff, U+fe80-fefc;
+  unicode-range: u+0600-06ff, u+200c-200e, u+2010-2011, u+fb50-fdff, u+fe80-fefc;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -173,7 +172,7 @@ $theme-fonts-repo: "../fonts" !default;
 
 @mixin theme-fonts-VazirMatn-SemiBold-CDN() {
 
-  $font-family-semibold: "Vazirmatn", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-semibold: "Vazirmatn", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazirmatn";
   $ver: "v33.003";
@@ -191,7 +190,7 @@ $theme-fonts-repo: "../fonts" !default;
 
 @mixin theme-fonts-VazirMatn-Bold-CDN() {
 
-  $font-family-bold: "Vazirmatn", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-bold: "Vazirmatn", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazirmatn";
   $ver: "v33.003";
@@ -209,7 +208,7 @@ $theme-fonts-repo: "../fonts" !default;
 
 @mixin theme-fonts-VazirMatn-ExtraBold-CDN() {
 
-  $font-family-extrabold: "Vazirmatn", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-extrabold: "Vazirmatn", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazirmatn";
   $ver: "v33.003";
@@ -227,7 +226,7 @@ $theme-fonts-repo: "../fonts" !default;
 
 @mixin theme-fonts-VazirMatn-Black-CDN() {
 
-  $font-family-black: "Vazirmatn", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-black: "Vazirmatn", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazirmatn";
   $ver: "v33.003";
@@ -570,6 +569,7 @@ $theme-fonts-repo: "../fonts" !default;
 // http://www.google.com/webfonts/earlyaccess
 // http://openfontlibrary.org/en/font/droid-arabic-naskh
 
+/* stylelint-disable-next-line block-no-empty */
 @mixin theme-fonts-DroidArabicNaskh($base: $theme-fonts-repo) {}
 
 @mixin theme-fonts-DroidArabicNaskh_DISABLED($base: $theme-fonts-repo) {
@@ -638,6 +638,7 @@ $theme-fonts-repo: "../fonts" !default;
 // https://www.google.com/get/noto/
 // https://github.com/googlei18n/noto-fonts
 
+/* stylelint-disable-next-line block-no-empty */
 @mixin theme-fonts-NotoNaskhArabic($base: $theme-fonts-repo) {}
 
 @mixin theme-fonts-NotoNaskhArabic_DISABLED($base: $theme-fonts-repo) {
@@ -705,6 +706,7 @@ $theme-fonts-repo: "../fonts" !default;
 /// Droid Arabic Kufi (Arabic) v6
 // http://www.google.com/fonts/earlyaccess
 
+/* stylelint-disable-next-line block-no-empty */
 @mixin theme-fonts-DroidArabicKufi($base: $theme-fonts-repo) {}
 
 @mixin theme-fonts-DroidArabicKufi_DISABLED($base: $theme-fonts-repo) {
@@ -761,6 +763,7 @@ $theme-fonts-repo: "../fonts" !default;
 // http://goo.gl/WhRr3a
 // http://weblogma.com/
 
+/* stylelint-disable-next-line block-no-empty */
 @mixin theme-fonts-WeblogmaYekan($base: $theme-fonts-repo) {}
 
 @mixin theme-fonts-WeblogmaYekan_DISABLED($base: $theme-fonts-repo) {
@@ -805,7 +808,7 @@ $theme-fonts-repo: "../fonts" !default;
 }
 
 @mixin theme-fonts-VazirMatn-Bold-LOCAL() {
-  $font-family-bold: "Vazirmatn", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-bold: "Vazirmatn", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Vazirmatn";
   $weight: "700";
@@ -834,7 +837,7 @@ $theme-fonts-repo: "../fonts" !default;
 }
 
 @mixin theme-fonts-Estedad-Bold-LOCAL() {
-  $font-family-bold: "Estedad", "Tahoma", "Iranian Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !global;
+  $font-family-bold: "Estedad", "Arial", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", sans-serif !global;
 
   $name: "Estedad";
   $weight: "700";

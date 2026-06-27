@@ -110,7 +110,7 @@ $spacer: 1rem !default;
     .side-nav-content {
       padding-left: 10px;
 
-      .-wrap.-toolbox-column .-title,
+      .-wrap.-toolbox-column > .-title,
       .base-table-title > h2,
       .base-table-title > h3,
       > form > h2,

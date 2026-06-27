@@ -34,6 +34,12 @@
     }
 
     li {
+      a {
+        &:not(:hover) {
+          color: inherit;
+        }
+      }
+
       a.notice::before {
         color: $brand-info !important;
       }

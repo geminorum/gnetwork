@@ -5,12 +5,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 @media screen and (max-width: 782px) {
-  .wrap.gnetwork-admin-wrap {
-    padding-right: 10px;
+  .wrap {
+    &.gnetwork-admin-wrap {
+      padding-right: 10px;
+    }
+
+    .-button.-button-icon {
+      &.button-small {
+        padding: 0 12px !important;
+
+        .dashicons {
+          top: 10px !important;
+        }
+      }
+    }
   }
 
   .gnetwork-admin-metabox-controls button {
-    padding: 3px 3px 2px !important;
+    padding: 0 3px !important;
+
+    &::after {
+      padding: 0;
+    }
 
     > span {
       display: none;

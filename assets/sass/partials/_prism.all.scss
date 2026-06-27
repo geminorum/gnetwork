@@ -9,6 +9,11 @@
 
 pre[data-prism="yes"] {
   direction: ltr;
+
+  > code {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 pre[class*="language-"]::before {

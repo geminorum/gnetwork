@@ -10,7 +10,10 @@ $spacer: 1rem !default;
 #customize-controls {
   .customize-info {
     .accordion-section-title {
-      padding-bottom: $spacer * .25;
+      padding-top: $spacer * .125;
+      padding-bottom: $spacer * .125;
+
+      // strong.panel-title {}
     }
   }
 
@@ -44,7 +47,7 @@ $spacer: 1rem !default;
 }
 
 .control-panel-themes .theme-section .customize-themes-section-title.selected::after {
-  padding: 2px 2px 1px 0;
+  padding: 2px 2.5px 0 0;
 }
 
 .themes-filter-bar .feature-filter-toggle::before {

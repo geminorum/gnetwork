@@ -102,6 +102,17 @@ body.login {
       width: 58px;
     }
   }
+
+  div.privacy-policy-page-link {
+    margin: 0 0 ($spacer * 1) !important;
+    padding: 0 ($spacer * 1);
+    font-size: smaller;
+
+    > a:not(:hover) {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

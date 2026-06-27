@@ -10,10 +10,15 @@
 
 // TODO: import styles for module markups
 
+// NOTE: not in the iframe!
+.mce-notification-inner {
+  direction: ltr;
+}
+
 html .mce-content-body.rtl {
-  .mce-notification-inner {
-    direction: ltr;
-  }
+  // .mce-notification-inner {
+  //   direction: ltr;
+  // }
 
   .mce-notification.mce-has-close {
     padding-right: 15px;
