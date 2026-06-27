@@ -1,3 +1,74 @@
+## [3.19.0] - 2026-06-27
+* 🔧 min php 8.3
+* 🔧 change license to GPLv2 or later
+* asset/admin-all: trigger storing the state of boxes
+* main/datetime: 🆙 main
+* main/logger: rethinking system logs
+* main/module: support for module icons
+* main/plugin: using different text-domain for admin
+* main/plugin: using hash on assets
+* main/scripts: auto-size form local package
+* main/scripts: helper for enqueue packages
+* main/utilities: qrcode api revised
+* main/utilities: secure log folder button
+* module/admin-bar: custom toolbar revised
+* module/admin-bar: support for command palette
+* module/admin-bar: unified class for icon only nodes
+* module/admin: drop support for dark mode
+* module/admin: styles for customizer
+* module/admin: upgrade chosen
+* module/bbq: 🆙
+* module/blog: check for amp before ssl redirect script
+* module/branding: fallback for custom logo into network site logo
+* module/branding: fallback network colors
+* module/branding: filter `pwa-wp` with data if disabled
+* module/branding: redirect to site icon for apple touch
+* module/branding: unified checks for manifest enabled
+* module/code: more args for markdown filter
+* module/debug: cert info and locations
+* module/debug: check for multisite on summary upload
+* module/debug: environment summary
+* module/debug: server name
+* module/dev: avoid text-domain triggers
+* module/editor: mce style by direction
+* module/images: handling image in paragraphs
+* module/locale: avoid cache on double checking handles
+* module/login: apply custom/network logo on default login page
+* module/login: support placeholder from branding
+* module/mail: always array logged headers
+* module/mail: log current blog reference
+* module/mail: using iframe to avoid inline-style spillage
+* module/media: apply norimalizer before wp 6.1
+* module/media: remove combined accents from filenames
+* module/mimes: handling multiple extensions with same mime-types
+* module/mimes: migrate attachment url viewer
+* module/not-found: link to archives
+* module/player: download prop for audio player
+* module/player: file name/size after audio player
+* module/search: before/after form action hooks
+* module/search: disable search enhancements in favor of gEditorial services
+* module/search: support disable search
+* module/search: support form context
+* module/search: support search by post-id
+* module/short-codes: last-edited short-code deprecated
+* module/short-codes: mce buttons deprecated
+* module/short-codes: ref-list rendering revised
+* module/shortcodes: qrcode short-code revised
+* module/taxonomy: basic format on rewrite slug
+* module/taxonomy: check delete cap for each term
+* module/taxonomy: support for html tags on quick edit description
+* module/taxonomy: table list for search name/desc tab
+* module/taxonomy: term tabs enabled by default
+* module/typography: avoid word-wrap for product titles
+* module/typography: date column for titles table-list
+* module/typography: remove empty paragraphs and double spaces
+* module/user: allowing email as user names
+* 🆙 chosen-jjj v3.0.0
+* 🆙 Estedad v8.5
+* 🆙 github-markdown-css 5.9.0
+* 🆙 jquery 4.0.0
+* 🆙 jquery migrate 3.6.0
+
 ## [3.18.0]
 * main/utilities: handle front-matter on markdown
 * misc/qm/current-object: support for woo-commerce orders
