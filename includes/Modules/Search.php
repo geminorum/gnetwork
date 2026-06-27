@@ -25,7 +25,7 @@ class Search extends gNetwork\Module
 
 		if ( self::const( 'GEDITORIAL_VERSION' ) ) {
 
- 			// NOTE: Conflicts with gEditorial Services
+ 			// NOTE: Conflicts with `gEditorial Services`
 
 		} else if ( 'include_meta' == $this->options['search_context'] ) {
 
@@ -453,14 +453,18 @@ class Search extends gNetwork\Module
 			'context' => NULL,
 		], $atts, $tag );
 
-		if ( FALSE === $args['context'] || WordPress\IsIt::xml() || WordPress\IsIt::rest() )
+		if ( FALSE === $args['context'] || ! WordPress\Screen::mustRegisterUI( FALSE ) )
 			return NULL;
 
 		$html = $args['theme']
 			? get_search_form( [ 'echo' => FALSE ] )
 			: $this->search_form( $args['context'] ?? 'shortcode' );
 
-		return self::shortcodeWrap( $html, 'search-form', $args );
+		return self::shortcodeWrap(
+			$html,
+			'search-form',
+			$args
+		);
 	}
 
 	// @source https://github.com/pronamic/wp-pronamic-search-by-id

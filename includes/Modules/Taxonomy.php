@@ -388,7 +388,7 @@ JS;
 			);
 
 			self::renderConnectedTermTableList( get_posts( [
-				'post_type'   => $object->object_type,   // self::req( 'post_type', 'any' ),
+				'post_type'   => $object->object_type,   // `self::req( 'post_type', 'any' ),`
 				'post_status' => 'any',
 				'numberposts' => -1,
 				'orderby'     => 'date',
@@ -579,7 +579,7 @@ JS;
 
 			WordPress\Redirect::doReferer( [
 				'message' => 'deleted',
-				'count'   => $count,
+				'count'   => $count ?? 0,
 			] );
 
 		} else if ( self::req( $this->classs( 'do-delete-empties' ) ) ) {

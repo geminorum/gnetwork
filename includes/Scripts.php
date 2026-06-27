@@ -256,7 +256,7 @@ class Scripts extends Core\Base
 		wp_add_inline_script( 'masonry', $script );
 	}
 
-	public static function enqueueGithubMarkdown()
+	public static function enqueueGitHubMarkdown()
 	{
 		wp_enqueue_style( static::BASE.'-github-markdown', GNETWORK_URL.'assets/css/markdown.all.css', [], GNETWORK_HASH );
 		wp_style_add_data( static::BASE.'-github-markdown', 'rtl', 'replace' );

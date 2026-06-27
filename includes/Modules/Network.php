@@ -147,7 +147,7 @@ class Network extends gNetwork\Module
 			$GLOBALS['submenu_file'] = $this->base.'&sub='.$sub;
 
 		else
-			Scripts::enqueueGithubMarkdown();
+			Scripts::enqueueGitHubMarkdown();
 
 		do_action( $this->hook_base( 'network_settings' ), $sub );
 	}

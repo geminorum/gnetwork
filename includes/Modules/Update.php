@@ -110,7 +110,7 @@ class Update extends gNetwork\Module
 				[
 					'field'       => 'remote_updates',
 					'title'       => _x( 'Remote Updates', 'Modules: Update: Settings', 'gnetwork-admin' ),
-					'description' => _x( 'Enables to check for updates on Github and Gitlab.', 'Modules: Update: Settings', 'gnetwork-admin' ),
+					'description' => _x( 'Enables to check for updates on GitHub and GitLab.', 'Modules: Update: Settings', 'gnetwork-admin' ),
 				],
 			],
 		];
@@ -130,8 +130,8 @@ class Update extends gNetwork\Module
 			'description' => _x( 'Tokens to access external services.', 'Modules: Update: Settings', 'gnetwork-admin' ),
 			'field_class' => [ 'regular-text', 'code-text' ],
 			'values'      => [
-				'github' => _x( 'Github', 'Modules: Update: Settings', 'gnetwork-admin' ),
-				'gitlab' => _x( 'Gitlab', 'Modules: Update: Settings', 'gnetwork-admin' ),
+				'github' => _x( 'GitHub', 'Modules: Update: Settings', 'gnetwork-admin' ),
+				'gitlab' => _x( 'GitLab', 'Modules: Update: Settings', 'gnetwork-admin' ),
 			],
 		];
 
@@ -361,7 +361,7 @@ class Update extends gNetwork\Module
 				// 'assets'      => [], // needed for pre-packages
 			], $release );
 
-			// Gitlab won allow downloading the damn links!
+			// NOTE: GitLab wont allow downloading the damn links!
 			// $assets = Arraay::pluck( $release['assets']['sources'], 'url', 'format' );
 			// $data['_download'] = $assets['zip'];
 
@@ -570,7 +570,7 @@ class Update extends gNetwork\Module
 		return $template;
 	}
 
-	// DEPRECATED: Github auth using query parameters
+	// DEPRECATED: GitHub auth using query parameters
 	// @REF: https://developer.github.com/changes/2019-11-05-deprecated-passwords-and-authorizations-api/#authenticating-using-query-parameters
 	private function add_token( $url, $package )
 	{
