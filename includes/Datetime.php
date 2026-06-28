@@ -149,12 +149,23 @@ class Datetime extends WordPress\Main
 		.'</span>';
 	}
 
-	public static function humanTimeAgo( $from, $to = 0 )
+	/**
+	 * Determines the difference between two timestamps.
+	 *
+	 * @param mixed $from
+	 * @param int $to
+	 * @param string $timezone_string
+	 * @return string
+	 */
+	public static function humanTimeAgo( $from, $to = 0, $timezone_string = NULL )
 	{
+		if ( ! $timestamp = Core\Date::timestamp( $from, $timezone_string ) )
+			return $timestamp;
+
 		return sprintf(
 			/* translators: `%s`: time string */
 			_x( '%s ago', 'Datetime: Human Time Ago', 'gnetwork' ),
-			human_time_diff( $from, $to )
+			human_time_diff( $timestamp, (int) $to )
 		);
 	}
 

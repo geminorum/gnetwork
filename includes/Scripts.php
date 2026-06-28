@@ -25,19 +25,19 @@ class Scripts extends Core\Base
 		wp_add_inline_script( $handle, $script );
 	}
 
-	public static function enqueueScript( $asset, $dep = [ 'jquery' ], $version = GNETWORK_HASH, $base = GNETWORK_URL, $path = 'assets/js' )
+	public static function enqueueScript( $asset, $dep = [ 'jquery' ], $version = NULL, $base = GNETWORK_URL, $path = 'assets/js' )
 	{
 		$handle  = strtolower( self::BASE.'-'.str_replace( '.', '-', $asset ) );
 		$variant = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_enqueue_script( $handle, $base.$path.'/'.$asset.$variant.'.js', $dep, $version, TRUE );
+		wp_enqueue_script( $handle, $base.$path.'/'.$asset.$variant.'.js', $dep, $version ?? static::HASH, TRUE );
 
 		return $handle;
 	}
 
-	public static function enqueueScriptVendor( $asset, $dep = [], $version = GNETWORK_HASH, $base = GNETWORK_URL, $path = 'assets/js/vendor' )
+	public static function enqueueScriptVendor( $asset, $dep = [], $version = NULL, $base = GNETWORK_URL, $path = 'assets/js/vendor' )
 	{
-		return self::enqueueScript( $asset, $dep, $version, $base, $path );
+		return self::enqueueScript( $asset, $dep, $version ?? static::HASH, $base, $path );
 	}
 
 	public static function enqueuePackage( $asset, $package = NULL, $dep = [], $version = NULL, $base = NULL, $path = 'assets/packages' )
@@ -48,7 +48,7 @@ class Scripts extends Core\Base
 		$handle  = strtolower( static::BASE.'-'.str_replace( '.', '-', $asset ) );
 		$variant = self::const( 'SCRIPT_DEBUG' ) ? '' : '.min';
 
-		wp_enqueue_script( $handle, ( $base ?? static::URL ).$path.'/'.$package.$variant.'.js', $dep, $version ?? static::VERSION, TRUE );
+		wp_enqueue_script( $handle, ( $base ?? static::URL ).$path.'/'.$package.$variant.'.js', $dep, $version ?? static::HASH, TRUE );
 		wp_script_add_data( $handle, 'strategy', 'defer' );
 		wp_script_add_data( $handle, 'fetchpriority', 'low' );
 
@@ -86,7 +86,7 @@ class Scripts extends Core\Base
 		return $handle;
 	}
 
-	public static function registerBlockAsset( $asset, $version = GNETWORK_HASH, $base_url = GNETWORK_URL, $base_path = GNETWORK_DIR, $dir = 'assets/blocks' )
+	public static function registerBlockAsset( $asset, $version = NULL, $base_url = GNETWORK_URL, $base_path = GNETWORK_DIR, $dir = 'assets/blocks' )
 	{
 		$handle = strtolower( self::BASE.'-block-'.str_replace( '.', '-', $asset ) );
 		$info   = $base_path.$dir.'/'.$asset.'/build/index.asset.php';
@@ -95,7 +95,7 @@ class Scripts extends Core\Base
 
 		$args = self::atts( [
 			'dependencies' => [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-polyfill' ],
-			'version'      => WordPress\IsIt::dev() ? filemtime( $path ) : $version,
+			'version'      => WordPress\IsIt::dev() ? filemtime( $path ) : $version ?? static::HASH,
 		], is_readable( $info ) ? require( $info ) : [] );
 
 		wp_register_script( $handle, $url, $args['dependencies'], $args['version'] );
@@ -104,23 +104,23 @@ class Scripts extends Core\Base
 	}
 
 	// NOT USED
-	public static function registerBlock( $asset, $dep = NULL, $version = GNETWORK_HASH, $base = GNETWORK_URL, $path = 'assets/blocks' )
+	public static function registerBlock( $asset, $dep = NULL, $version = NULL, $base = GNETWORK_URL, $path = 'assets/blocks' )
 	{
 		$dep     = is_null( $dep ) ? [ 'wp-blocks', 'wp-components', 'wp-editor' ] : (array) $dep;
 		$handle  = strtolower( self::BASE.'-block-'.str_replace( '.', '-', $asset ) );
 		$variant = ''; // ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min'; // NOTE: WP-Scripts builds are minified
 
-		wp_register_script( $handle, $base.$path.'/'.$asset.'/build/index'.$variant.'.js', $dep, $version, TRUE );
+		wp_register_script( $handle, $base.$path.'/'.$asset.'/build/index'.$variant.'.js', $dep, $version ?? static::HASH, TRUE );
 
 		return $handle;
 	}
 
-	public static function registerBlockStyle( $asset, $dep = NULL, $version = GNETWORK_HASH, $base = GNETWORK_URL, $path = 'assets/css' )
+	public static function registerBlockStyle( $asset, $dep = NULL, $version = NULL, $base = GNETWORK_URL, $path = 'assets/css' )
 	{
 		$dep    = is_null( $dep ) ? [] : (array) $dep;
 		$handle = strtolower( self::BASE.'-block-'.str_replace( '.', '-', $asset ) );
 
-		wp_register_style( $handle, $base.$path.'/block.'.$asset.'.css', $dep, $version );
+		wp_register_style( $handle, $base.$path.'/block.'.$asset.'.css', $dep, $version ?? static::HASH );
 		wp_style_add_data( $handle, 'rtl', 'replace' );
 
 		return $handle;
@@ -258,7 +258,7 @@ class Scripts extends Core\Base
 
 	public static function enqueueGitHubMarkdown()
 	{
-		wp_enqueue_style( static::BASE.'-github-markdown', GNETWORK_URL.'assets/css/markdown.all.css', [], GNETWORK_HASH );
+		wp_enqueue_style( static::BASE.'-github-markdown', GNETWORK_URL.'assets/css/markdown.all.css', [], static::HASH );
 		wp_style_add_data( static::BASE.'-github-markdown', 'rtl', 'replace' );
 	}
 
