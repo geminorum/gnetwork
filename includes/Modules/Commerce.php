@@ -262,6 +262,7 @@ class Commerce extends gNetwork\Module
 		$this->action( 'admin_order_data_after_order_details', 1, 1, FALSE, 'woocommerce' );
 		$this->action( 'admin_order_data_after_billing_address', 1, 1, FALSE, 'woocommerce' );
 		$this->filter( 'woocommerce_email_order_meta_fields', 3 );
+		$this->filter( 'validate_phone', 3, 9, 'woocommerce' );
 
 		if ( is_admin() )
 			return;
@@ -548,6 +549,21 @@ class Commerce extends gNetwork\Module
 		}
 
 		return $fields;
+	}
+
+	/**
+	 * Filters whether a phone number is considered valid.
+	 * @hook `woocommerce_validate_phone`
+	 * @source https://github.com/woocommerce/woocommerce/pull/65817
+	 *
+	 * @param bool $valid
+	 * @param string $phone
+	 * @param string $country
+	 * @return bool
+	 */
+	public function validate_phone( $valid, $phone, $country )
+	{
+		return $valid ?: Core\Phone::is( $phone, $country );
 	}
 
 	// @REF: https://rudrastyh.com/woocommerce/edit-account-fields.html
