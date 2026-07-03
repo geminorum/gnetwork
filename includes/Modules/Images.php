@@ -18,6 +18,7 @@ class Images extends gNetwork\Module
 	protected function setup_actions()
 	{
 		$this->filter( 'wp_editor_set_quality', 2, 12 );
+		$this->filter( 'jpeg_quality', 2, 12 );
 
 		if ( ! empty( $this->options['output_format'] ) )
 			$this->filter( 'image_editor_output_format', 3, 12 );
@@ -202,6 +203,18 @@ class Images extends gNetwork\Module
 	}
 
 	public function wp_editor_set_quality( $quality, $mime_type )
+	/**
+	 * Filters the JPEG compression quality for backward-compatibility.
+	 *
+	 * @param int $quality
+	 * @param string $context
+	 * @return int
+	 */
+	public function jpeg_quality( $quality, $context )
+	{
+		return (int) $this->options['quality_jpeg'] ?: $quality;
+	}
+
 	{
 		switch ( $mime_type ) {
 			case 'image/jpeg': return $this->options['quality_jpeg'] ?: $quality;
