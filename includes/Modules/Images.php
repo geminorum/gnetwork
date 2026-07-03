@@ -54,6 +54,7 @@ class Images extends gNetwork\Module
 			'bigsize_threshold' => '',
 			'quality_jpeg'      => 60,
 			'quality_webp'      => 75,
+			'quality_avif'      => 75,
 			'output_format'     => [],
 			'default_css_class' => 'img-fluid',
 			'content_paragraps' => 'replace_with_figure',
@@ -159,6 +160,20 @@ class Images extends gNetwork\Module
 					'min_attr'    => 1,
 					'max_attr'    => 100,
 				],
+				[
+					'field'       => 'quality_avif',
+					'type'        => 'number',
+					'title'       => _x( 'AVIF Quality', 'Modules: Images: Settings', 'gnetwork-admin' ),
+					'description' => sprintf(
+						/* translators: `%s`: image type placeholder */
+						_x( 'Sets the compression quality setting used for %s images.', 'Modules: Images: Settings', 'gnetwork-admin' ),
+						Core\HTML::code( 'AVIF' )
+					),
+					'placeholder' => 90,
+					'default'     => 75,
+					'min_attr'    => 1,
+					'max_attr'    => 100,
+				],
 			],
 			'_format' => [
 				[
@@ -191,6 +206,7 @@ class Images extends gNetwork\Module
 		switch ( $mime_type ) {
 			case 'image/jpeg': return $this->options['quality_jpeg'] ?: $quality;
 			case 'image/webp': return $this->options['quality_webp'] ?: $quality;
+			case 'image/avif': return $this->options['quality_avif'] ?: $quality;
 		}
 
 		return $quality;
