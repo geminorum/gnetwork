@@ -261,7 +261,7 @@ class Commerce extends gNetwork\Module
 
 		$this->action( 'admin_order_data_after_order_details', 1, 1, FALSE, 'woocommerce' );
 		$this->action( 'admin_order_data_after_billing_address', 1, 1, FALSE, 'woocommerce' );
-		$this->filter( 'woocommerce_email_order_meta_fields', 3 );
+		$this->filter( 'email_order_meta_fields', 3, 10, 'woocommerce' );
 		$this->filter( 'validate_phone', 3, 9, 'woocommerce' );
 
 		if ( is_admin() )
@@ -528,14 +528,15 @@ class Commerce extends gNetwork\Module
 
 		echo '<p class="form-field form-field-wide" style="margin:0">';
 			echo '<strong style="display:block">'._x( 'Mobile:', 'Modules: Commerce: Action Title', 'gnetwork-admin' );
-			echo '</strong> '.Core\HTML::tel( $meta );
+			// echo '</strong> '.Core\HTML::tel( $meta );
+			echo '</strong> '.Core\Mobile::prep( $meta );
 		echo '</p>';
 	}
 
 	// @REF: https://docs.woocommerce.com/document/add-a-custom-field-in-an-order-to-the-emails/
 	// @SEE: https://rudrastyh.com/woocommerce/order-meta-in-emails.html
 	// MAYBE: for better control/linking: use `woocommerce_email_order_meta` hook
-	public function woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $order )
+	public function email_order_meta_fields( $fields, $sent_to_admin, $order )
 	{
 		if ( $this->options['mobile_field'] ) {
 
@@ -544,7 +545,8 @@ class Commerce extends gNetwork\Module
 			if ( $meta && ( $mobile = wc_format_phone_number( $meta ) ) )
 				$fields[] = [
 					'label' => _x( 'Mobile Number', 'Modules: Commerce', 'gnetwork' ),
-					'value' => Core\Number::localize( $mobile ),
+					// 'value' => Core\Number::localize( $mobile ),
+					'value' => Core\Mobile::prep( $mobile ),
 				];
 		}
 

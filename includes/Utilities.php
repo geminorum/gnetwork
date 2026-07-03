@@ -36,24 +36,32 @@ class Utilities extends Core\Base
 		return $filter ? apply_filters( self::BASE.'_get_feeds', $feeds ) : $feeds;
 	}
 
-	public static function highlightTime( $string, $limit = -1 )
+	public static function highlightTime( $string, $limit = NULL )
 	{
-		$pattern = '/\[([^\]]+)\]/';
+		if ( empty( $string ) )
+			return $string;
 
-		return preg_replace_callback( $pattern,
+		return preg_replace_callback( '/\[([^\]]+)\]/',
 			static function ( $matches ) {
-				return '<b><span title="'.Core\HTML::escape( Datetime::humanTimeAgo( $matches[1] ) ).'">['.$matches[1].']</span></b>';
-			}, $string, $limit );
+				return sprintf( '<b title="%s">[%s]</b>',
+					Core\HTML::escape( Datetime::humanTimeAgo( $matches[1] ) ),
+					$matches[1]
+				);
+			}, $string, $limit ?? -1 );
 	}
 
-	public static function highlightIP( $string, $limit = -1 )
+	public static function highlightIP( $string, $limit = NULL )
 	{
+		if ( empty( $string ) )
+			return $string;
+
 		// @REF: http://regexr.com/35833
 		$pattern = "/((((25[0-5])|(2[0-4]\d)|([01]?\d?\d)))\.){3}((((25[0-5])|(2[0-4]\d)|([01]?\d?\d))))/i";
 
-		return preg_replace_callback( $pattern, static function ( $matches ) {
-			return gnetwork_ip_lookup( $matches[0] );
-		}, $string, $limit );
+		return preg_replace_callback( $pattern,
+			static function ( $matches ) {
+				return gnetwork_ip_lookup( $matches[0] );
+			}, $string, $limit ?? -1 );
 	}
 
 	public static function getDateEditRow( $timestamp, $class = FALSE )

@@ -1029,7 +1029,7 @@ class Cleanup extends gNetwork\Module
 	}
 
 	// public/static is for `_core_updated_successfully` hook
-	public static function files_clean_core( $message = FALSE )
+	public static function files_clean_core( $verbose = FALSE )
 	{
 		$count = 0;
 		$files = [
@@ -1049,7 +1049,7 @@ class Cleanup extends gNetwork\Module
 			if ( TRUE !== unlink( $path ) )
 				continue;
 
-			if ( $message )
+			if ( $verbose )
 				Core\HTML::desc( sprintf(
 					/* translators: `%s`: filename */
 					_x( 'Removing %s &hellip;', 'Modules: Update', 'gnetwork-admin' ),

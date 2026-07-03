@@ -340,7 +340,7 @@ class Update extends gNetwork\Module
 		if ( empty( $response ) )
 			return '';
 
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			return self::atts( [
 				'tag_name'     => '',
@@ -350,7 +350,7 @@ class Update extends gNetwork\Module
 				'assets'       => [], // needed for pre-packages
 			], $response );
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
 			$release = reset( $response );
 
@@ -481,7 +481,7 @@ class Update extends gNetwork\Module
 	{
 		$defaults = [ 'Accept' => 'application/json' ];
 
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			$defaults['Accept'] = 'application/vnd.github.v3+json';
 
@@ -491,7 +491,7 @@ class Update extends gNetwork\Module
 			else if ( ! empty( $this->options['service_tokens']['github'] ) )
 				$defaults['Authorization'] = sprintf( 'token %s', $this->options['service_tokens']['github'] );
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
 			//@REF: https://gitlab.com/gitlab-org/gitlab-foss/issues/63438
 
@@ -511,14 +511,14 @@ class Update extends gNetwork\Module
 	// @REF: https://docs.gitlab.com/ee/api/README.html
 	private function endpoint( $package )
 	{
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			$template = 'repos/:owner/:repo/releases/latest';
 			$endpoint = sprintf( 'https://api.github.com/%s', $this->add_segments( $template, $package['segments'] ) );
 
 			return $this->add_token( $endpoint, $package );
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
 			$endpoint = sprintf( 'https://gitlab.com/api/v4/projects/%s/releases', $package['segments']['id'] );
 
@@ -533,7 +533,7 @@ class Update extends gNetwork\Module
 		if ( empty( $uri ) )
 			return [];
 
-		if ( in_array( $type, [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $type, [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			$parts = explode( '/', str_replace( 'https://github.com/', '', Core\URL::untrail( $uri ) ) );
 
@@ -545,7 +545,7 @@ class Update extends gNetwork\Module
 				'repo'  => $parts[1],
 			];
 
-		} else if ( in_array( $type, [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $type, [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
 			$parts = explode( '/', str_replace( 'https://gitlab.com/', '', Core\URL::untrail( $uri ) ) );
 
@@ -574,7 +574,7 @@ class Update extends gNetwork\Module
 	// @REF: https://developer.github.com/changes/2019-11-05-deprecated-passwords-and-authorizations-api/#authenticating-using-query-parameters
 	private function add_token( $url, $package )
 	{
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			// if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
 			// 	return add_query_arg( [
@@ -586,7 +586,7 @@ class Update extends gNetwork\Module
 			// 		'access_token' => $this->options['service_tokens']['github'],
 			// 	], $url );
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
 			if ( ! empty( $this->options['package_tokens'][$package['slug']] ) )
 				return add_query_arg( [
@@ -604,12 +604,12 @@ class Update extends gNetwork\Module
 
 	private function get_data_version( $package, $data )
 	{
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			if ( isset( $data['tag_name'] ) )
 				return $data['tag_name'];
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
 			if ( isset( $data['tag_name'] ) )
 				return $data['tag_name'];
@@ -622,14 +622,14 @@ class Update extends gNetwork\Module
 	// current api: "2019-03-02 1:08pm GMT"
 	private function get_data_published( $package, $data )
 	{
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			if ( isset( $data['published_at'] ) )
 				return $data['published_at'];
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
-			// EXAMPLE: "2021-01-11T03:47:29.559Z",
+			// EXAMPLE: `2021-01-11T03:47:29.559Z`
 			if ( isset( $data['released_at'] ) )
 				return $data['released_at'];
 		}
@@ -641,7 +641,7 @@ class Update extends gNetwork\Module
 	{
 		$sections = [];
 
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			if ( ! empty( $data['body'] ) )
 				$sections['current_release'] = Utilities::mdExtra( $data['body'] );
@@ -657,7 +657,7 @@ class Update extends gNetwork\Module
 					$sections['changes'] = $changelog;
 			}
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
 			if ( ! empty( $data['description'] ) )
 				$sections['current_release'] = Utilities::mdExtra( $data['description'] );
@@ -668,7 +668,7 @@ class Update extends gNetwork\Module
 
 	private function get_data_download( $package, $data )
 	{
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			$filename = $this->get_data_filename( $package, $data );
 
@@ -689,7 +689,7 @@ class Update extends gNetwork\Module
 			return $this->add_token( $data['zipball_url'], $package );
 			// return $this->endpoint( $package, $data['tag_name'] );
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
 			// FIXME: check for release assets
 			// @SEE: https://gitlab.com/gitlab-org/gitlab/-/issues/238172
@@ -706,12 +706,15 @@ class Update extends gNetwork\Module
 
 	private function get_data_filename( $package, $data )
 	{
-		return $package['slug'].'-'.$data['tag_name'].'.zip';
+		return sprintf( '%s-%s.zip',
+			$package['slug'],
+			$data['tag_name']
+		);
 	}
 
 	private function get_data_download_count( $package, $data )
 	{
-		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
 			$filename = $this->get_data_filename( $package, $data );
 
@@ -729,9 +732,9 @@ class Update extends gNetwork\Module
 				return $asset['download_count'];
 			}
 
-		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'gitlab_plugin', 'gitlab_theme' ], TRUE ) ) {
 
-			// not available on gitlab!
+			// not available on GitLab!
 		}
 
 		return NULL;
@@ -739,18 +742,16 @@ class Update extends gNetwork\Module
 
 	private function get_package_version( $package, $local = NULL )
 	{
-		if ( in_array( $package['type'], [ 'github_plugin', 'gitlab_plugin' ] ) ) {
+		if ( in_array( $package['type'], [ 'github_plugin', 'gitlab_plugin' ], TRUE ) ) {
 
-			if ( is_null( $local ) )
-				$local = get_plugin_data( WP_PLUGIN_DIR.'/'.$package['path'] );
+			$local = $local ?? get_plugin_data( WP_PLUGIN_DIR.'/'.$package['path'] );
 
 			if ( isset( $local['Version'] ) )
 				return $local['Version'];
 
-		} else if ( in_array( $package['type'], [ 'github_theme', 'gitlab_theme' ] ) ) {
+		} else if ( in_array( $package['type'], [ 'github_theme', 'gitlab_theme' ], TRUE ) ) {
 
-			if ( is_null( $local ) )
-				$local = wp_get_theme( $package['slug'] );
+			$local = $local ?? wp_get_theme( $package['slug'] );
 
 			if ( $local->exists() )
 				return $local->get( 'Version' );
@@ -818,7 +819,7 @@ class Update extends gNetwork\Module
 		return $caps;
 	}
 
-	// filter out updates on non main networks
+	// Filters out updates on non main networks
 	public function site_status_tests( $test_type )
 	{
 		unset( $test_type['direct']['plugin_theme_auto_updates'] );
@@ -827,7 +828,7 @@ class Update extends gNetwork\Module
 		return $test_type;
 	}
 
-	// ADOPTED FROM: WP Core Update Cleaner v1.2.0 by Upperdog
+	// ADOPTED FROM: WP Core Update Cleaner v 1.2.0 by `Upperdog`
 	// @REF: https://wordpress.org/plugins/wp-core-update-cleaner/
 	public function _core_updated_successfully( $wp_version )
 	{
@@ -835,7 +836,7 @@ class Update extends gNetwork\Module
 			return;
 
 		// feedback for manual updates
-		$message = in_array( $GLOBALS['action'], [ 'do-core-upgrade', 'do-core-reinstall' ] );
+		$message = in_array( $GLOBALS['action'], [ 'do-core-upgrade', 'do-core-reinstall' ], TRUE );
 
 		Cleanup::files_clean_core( $message );
 	}
