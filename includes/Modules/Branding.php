@@ -396,7 +396,7 @@ class Branding extends gNetwork\Module
 			'short_name' => $this->options['webapp_shortname'],
 			'name'       => $this->options['webapp_longname'],
 			'lang'       => get_bloginfo( 'language' ),
-			'dir'        => is_rtl() ? 'rtl' : 'ltr',
+			'dir'        => Core\HTML::dir(),
 		];
 
 		if ( $this->options['theme_color'] )

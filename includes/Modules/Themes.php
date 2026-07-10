@@ -15,7 +15,18 @@ class Themes extends gNetwork\Module
 	protected $iframe  = FALSE;
 	protected $ajax    = TRUE;
 
-	private $rtl   = NULL;
+	/**
+	 * Determines whether the current locale is right-to-left.
+	 *
+	 * @var bool
+	 */
+	private $rtl = NULL;
+
+	/**
+	 * Current Theme object.
+	 *
+	 * @var \WP_Theme
+	 */
 	private $theme = NULL;
 
 	protected function setup_actions()
@@ -297,7 +308,7 @@ class Themes extends gNetwork\Module
 
 	public function after_setup_theme()
 	{
-		$this->rtl = is_rtl();
+		$this->rtl = Core\L10n::rtl();
 
 		if ( $this->isTheme( 'publish' ) ) {
 

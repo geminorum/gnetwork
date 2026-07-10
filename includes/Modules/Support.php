@@ -266,7 +266,7 @@ class Support extends gNetwork\Module
 			'url'          => get_option( 'home' ),
 			'display_name' => $user->display_name,
 			'email'        => $user->user_email,
-			'useragent'    => $_SERVER['HTTP_USER_AGENT'],
+			'useragent'    => $_SERVER['HTTP_USER_AGENT'] ?? '[UNDEFINED]',
 		];
 
 		$subject = Core\Text::replaceTokens( $this->get_option_fallback( 'subject_template', $this->default_subject_template() ), $tokens );

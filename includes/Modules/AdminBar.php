@@ -16,7 +16,13 @@ class AdminBar extends gNetwork\Module
 	private $sidebar_admin   = FALSE;
 	private $wpcf7_admin     = FALSE;
 	private $wpcf7_shortcode = FALSE;
-	private $show_adminbar   = NULL;
+
+	/**
+	 * Determines whether the admin bar is showing.
+	 *
+	 * @var bool
+	 */
+	private $show_adminbar = NULL;
 
 	public $remove_nodes = [];
 

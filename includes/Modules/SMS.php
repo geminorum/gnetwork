@@ -236,12 +236,8 @@ class SMS extends gNetwork\Module
 	protected function get_bundled_providers()
 	{
 		return [
-			'kavenegar' => [
-				'class' => 'geminorum\\gNetwork\\Providers\\Kavenegar', // autoloaded by composer
-			],
-			'farapaymak' => [
-				'class' => 'geminorum\\gNetwork\\Providers\\Farapaymak', // autoloaded by composer
-			],
+			'kavenegar'   => [ 'class' => gNetwork\Providers\Kavenegar::class   ],
+			'farapaymak'  => [ 'class' => gNetwork\Providers\Farapaymak::class  ],
 		];
 	}
 

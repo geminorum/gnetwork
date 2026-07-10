@@ -76,8 +76,7 @@ class Widgets extends gNetwork\Module
 
 	public function setting_sidebar_widgets( $args, $pre )
 	{
-		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-		extract( $pre, EXTR_SKIP );
+		extract( $pre, EXTR_SKIP );  // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 
 		foreach ( $this->sidebar_widgets as $value_name => $value_title ) {
 
@@ -118,8 +117,7 @@ class Widgets extends gNetwork\Module
 		if ( isset( $wp_meta_boxes['dashboard'][0] ) )
 			unset( $wp_meta_boxes['dashboard'][0] );
 
-		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-		extract( $pre, EXTR_SKIP );
+		extract( $pre, EXTR_SKIP );  // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 
 		$html = Core\HTML::tag( 'input', [
 			'type'    => 'checkbox',
@@ -190,12 +188,12 @@ class Widgets extends gNetwork\Module
 	public function widgets_init()
 	{
 		$widgets = [
-			GNETWORK_DIR.'includes/Widgets/CodeLegend.php' => 'geminorum\\gNetwork\\Widgets\\CodeLegend',
-			GNETWORK_DIR.'includes/Widgets/SiteIcon.php'   => 'geminorum\\gNetwork\\Widgets\\SiteIcon',
+			GNETWORK_DIR.'includes/Widgets/CodeLegend.php' => gNetwork\Widgets\CodeLegend::class,
+			GNETWORK_DIR.'includes/Widgets/SiteIcon.php'   => gNetwork\Widgets\SiteIcon::class,
 		];
 
 		if ( class_exists( __NAMESPACE__.'\\Navigation' ) )
-			$widgets[GNETWORK_DIR.'includes/Widgets/NavigationMenu.php'] = 'geminorum\\gNetwork\\Widgets\\NavigationMenu';
+			$widgets[GNETWORK_DIR.'includes/Widgets/NavigationMenu.php'] = gNetwork\Widgets\NavigationMenu::class;
 
 		foreach ( apply_filters( $this->hook(), $widgets ) as $path => $widget ) {
 

@@ -13,6 +13,7 @@ class Comments extends gNetwork\Module
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
 	protected $cron    = TRUE;
+	protected $icon    = 'admin-comments';
 
 	private $textareas = [];
 

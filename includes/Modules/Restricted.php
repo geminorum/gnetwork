@@ -14,7 +14,13 @@ class Restricted extends gNetwork\Module
 	protected $network = FALSE;
 
 	private $status_code = 403;
-	private $feed_key    = NULL;
+
+	/**
+	 * Current user feed keys.
+	 *
+	 * @var string
+	 */
+	private $feed_key = NULL;
 
 	protected function setup_actions()
 	{

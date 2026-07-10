@@ -14,6 +14,7 @@ class Commerce extends gNetwork\Module
 	protected $key     = 'commerce';
 	protected $network = FALSE;
 	protected $ajax    = TRUE;
+	protected $icon    = 'products';
 
 	protected function setup_actions()
 	{

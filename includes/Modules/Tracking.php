@@ -12,6 +12,11 @@ class Tracking extends gNetwork\Module
 
 	protected $key = 'tracking';
 
+	/**
+	 * Determines whether the tracking scripts should be injected.
+	 *
+	 * @var bool
+	 */
 	private $ignore = NULL;
 
 	protected function setup_actions()

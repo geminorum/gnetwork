@@ -728,8 +728,8 @@ class Media extends gNetwork\Module
 		require_once GNETWORK_DIR.'includes/Misc/MediaEditorGD.php';
 
 		return [
-			'geminorum\\gNetwork\\Misc\\MediaEditorImagick',
-			'geminorum\\gNetwork\\Misc\\MediaEditorGD',
+			gNetwork\Misc\MediaEditorImagick::class,
+			gNetwork\Misc\MediaEditorGD::class,
 		];
 	}
 

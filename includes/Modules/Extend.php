@@ -96,7 +96,7 @@ class Extend extends gNetwork\Module
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return empty( $value )
 						? Utilities::htmlEmpty()
-						: Core\HTML::rows( array_map( [ 'geminorum\\gNetwork\\Core\\HTML', 'code' ], $value ) );
+						: Core\HTML::rows( array_map( [ gNetwork\Core\HTML::class, 'code' ], $value ) );
 				},
 			],
 
