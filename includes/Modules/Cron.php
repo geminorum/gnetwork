@@ -187,7 +187,7 @@ class Cron extends gNetwork\Module
 
 			WordPress\Redirect::doReferer( [
 				'message' => 'deleted',
-				'count'   => $count,
+				'count'   => $count ?? 0,
 			] );
 		}
 	}
@@ -218,7 +218,7 @@ class Cron extends gNetwork\Module
 			echo $this->wrap( $this->get_status(), '-status-check' );
 	}
 
-	public function do_ajax()
+	public function do_ajax(): void
 	{
 		Ajax::checkReferer( $this->classs( 'status-check' ) );
 
@@ -368,7 +368,7 @@ class Cron extends gNetwork\Module
 		@wp_mail( $email, $subject, $message, $headers );
 	}
 
-	public function dashboard_pointers( $items )
+	public function dashboard_pointers( array $items ): array
 	{
 		$can = WordPress\User::cuc( 'manage_options' );
 
@@ -431,12 +431,12 @@ class Cron extends gNetwork\Module
 
 		if ( $link && WordPress\User::cuc( 'manage_options' ) ) {
 
-			echo Core\HTML::button(
+			echo Core\Link::button(
 				_x( 'View Scheduled Tasks', 'Modules: CRON', 'gnetwork-admin' ),
 				$this->get_menu_url( 'cron', 'admin', 'tools' )
 			);
 
-			echo Core\HTML::button(
+			echo Core\Link::button(
 				_x( 'Trigger Manually', 'Modules: CRON', 'gnetwork-admin' ),
 				$this->get_cron_url()
 			);

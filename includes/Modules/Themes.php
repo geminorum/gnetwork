@@ -171,7 +171,7 @@ class Themes extends gNetwork\Module
 		Scripts::enqueueCodeEditor();
 	}
 
-	public function setup_screen( $screen )
+	public function setup_screen( object $screen ): void
 	{
 		if ( $this->options['hidden_title']
 			&& 'post' == $screen->base
@@ -689,7 +689,7 @@ class Themes extends gNetwork\Module
 		}
 	}
 
-	public function isTheme( $theme, $except_stylesheet = NULL )
+	public function isTheme( string $theme, $except_stylesheet = NULL )
 	{
 		if ( is_null( $this->theme ) )
 			$this->theme = wp_get_theme();
@@ -703,11 +703,10 @@ class Themes extends gNetwork\Module
 		return ( $theme == $template || $theme == $stylesheet );
 	}
 
-	public function the_content_actions( $content )
+	public function the_content_actions( ?string $content ): string
 	{
-		if ( defined( 'GNETWORK_DISABLE_CONTENT_ACTIONS' )
-			&& GNETWORK_DISABLE_CONTENT_ACTIONS )
-				return $content;
+		if ( self::const( 'GNETWORK_DISABLE_CONTENT_ACTIONS' ) )
+			return $content;
 
 		$before = $after = '';
 
@@ -728,7 +727,7 @@ class Themes extends gNetwork\Module
 		.Core\HTML::wrap( $after, 'gnetwork-wrap-actions content-after' );
 	}
 
-	public static function continueReading()
+	public static function continueReading(): string
 	{
 		return vsprintf( ' <a href="%1$s" aria-label="%3$s" class="%4$s">%2$s</a>', [
 			esc_url( apply_filters( 'the_permalink', get_permalink(), NULL ) ),

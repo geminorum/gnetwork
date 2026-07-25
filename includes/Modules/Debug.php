@@ -1018,7 +1018,7 @@ class Debug extends gNetwork\Module
 			];
 	}
 
-	public function dashboard_pointers( $items )
+	public function dashboard_pointers( array $items ): array
 	{
 		$quota = 2 * MB_IN_BYTES;  // TODO: customize this
 		$logs  = [
@@ -1119,43 +1119,43 @@ class Debug extends gNetwork\Module
 		echo $this->wrap_open_buttons();
 
 			if ( GNETWORK_DEBUG_LOG )
-				echo Core\HTML::button(
+				echo Core\Link::button(
 					_x( 'Check Error Logs', 'Modules: Debug', 'gnetwork-admin' ),
 					$this->get_menu_url( 'errorlogs', 'network', 'tools' )
 				);
 
 			if ( GNETWORK_SYSTEM_LOG )
-				echo Core\HTML::button(
+				echo Core\Link::button(
 					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
 					$this->get_menu_url( 'systemlogs', 'network', 'tools' )
 				);
 
 			if ( GNETWORK_MONOLOG_LOG )
-				echo Core\HTML::button(
+				echo Core\Link::button(
 					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
 					$this->get_menu_url( 'monologlogs', 'network', 'tools' )
 				);
 
 			if ( GNETWORK_ANALOG_LOG )
-				echo Core\HTML::button(
+				echo Core\Link::button(
 					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
 					$this->get_menu_url( 'analoglogs', 'network', 'tools' )
 				);
 
 			if ( GNETWORK_FAILED_LOG )
-				echo Core\HTML::button(
+				echo Core\Link::button(
 					_x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork-admin' ),
 					$this->get_menu_url( 'failedlogs', 'network', 'tools' )
 				);
 
 			if ( GNETWORK_NOTFOUND_LOG )
-				echo Core\HTML::button(
+				echo Core\Link::button(
 					_x( 'Check Not-Found Logs', 'Modules: Debug', 'gnetwork-admin' ),
 					$this->get_menu_url( 'notfoundlogs', 'network', 'tools' )
 				);
 
 			if ( GNETWORK_SEARCH_LOG )
-				echo Core\HTML::button(
+				echo Core\Link::button(
 					_x( 'Check Search Logs', 'Modules: Debug', 'gnetwork-admin' ),
 					$this->get_menu_url( 'searchlogs', 'network', 'tools' )
 				);

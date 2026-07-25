@@ -78,7 +78,7 @@ class Rewrite extends gNetwork\Module
 
 		echo $this->wrap_open_buttons();
 
-			echo Core\HTML::button(
+			echo Core\Link::button(
 				_x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork-admin' ),
 				$this->get_menu_url( NULL, NULL, 'tools' ),
 				_x( 'View and set network roles here.', 'Modules: Rewrite', 'gnetwork-admin' )
@@ -249,10 +249,10 @@ class Rewrite extends gNetwork\Module
 			}
 		}
 
-		// allow static sources of rewrite rules to override, etc.
+		// Allows static sources of rewrite rules to override, etc.
 		$data = $this->filters( 'rewrite_rules', array_reverse( $data, TRUE ) );
 
-		// set the sources used in our filtering
+		// Sets the sources used in our filtering.
 		$sources = ['all'] + array_unique( array_column( $data, 'source' ) );
 
 		if ( ! empty( $req_search ) ) {
@@ -263,17 +263,17 @@ class Rewrite extends gNetwork\Module
 			if ( ! empty( $wordpress ) )
 				$match_path = str_replace( $wordpress, '', $match_path ?: '' );
 
-			$match_path = ltrim( $match_path, '/' );
+			$match_path = ltrim( $match_path ?? '', '/' );
 		}
 
 		$do_filter = ! empty( $req_source ) && 'all' !== $req_source && in_array( $req_source, $sources );
 
 		$list = [];
 
-		// filter based on match or source if necessary
+		// Filters based on match or source if necessary.
 		foreach ( $data as $rule => $row ) {
 
-			// if we're searching rules based on URL and there's no match, don't return it
+			// If we're searching rules based on URL and there's no match, don't return it.
 			if ( ! empty( $match_path ) && ! preg_match( "!^$rule!", $match_path ) )
 				continue;
 
@@ -292,8 +292,7 @@ class Rewrite extends gNetwork\Module
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// ADOPTED FROM: Remove Category URL by Valerio Souza
-// v1.1.4 - 2019-07-05
+/// ADOPTED FROM: Remove Category URL by `Valerio Souza` - `v1.1.4` - 2019-07-05
 // @SOURCE: https://github.com/valeriosouza/remove-category-url
 
 	public function init()
@@ -301,9 +300,11 @@ class Rewrite extends gNetwork\Module
 		$GLOBALS['wp_rewrite']->extra_permastructs['category']['struct'] = '%category%';
 	}
 
-	public function query_vars( $public_query_vars )
+	public function query_vars( array $public_query_vars ): array
 	{
-		return array_merge( $public_query_vars, [ 'category_redirect' ] );
+		return array_merge( $public_query_vars, [
+			'category_redirect',
+		] );
 	}
 
 	public function request( $query_vars )
@@ -319,7 +320,7 @@ class Rewrite extends gNetwork\Module
 
 	// @REF: https://wordpress.stackexchange.com/a/172961/
 	// TODO: support AMP
-	public function category_rewrite_rules( $rules )
+	public function category_rewrite_rules( array $rules ): array
 	{
 		$terms = get_terms( [
 			'taxonomy'        => 'category',
@@ -357,7 +358,7 @@ class Rewrite extends gNetwork\Module
 		return $new;
 	}
 
-	public function dashboard_pointers( $items )
+	public function dashboard_pointers( array $items ): array
 	{
 		if ( ! WordPress\URL::maybeFlushRules() )
 			return $items;

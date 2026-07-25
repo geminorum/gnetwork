@@ -358,7 +358,7 @@ class Restricted extends gNetwork\Module
 		return _x( 'Public Access Discouraged', 'Modules: Restricted: At a Glance', 'gnetwork-admin' );
 	}
 
-	public function dashboard_pointers( $items )
+	public function dashboard_pointers( array $items ): array
 	{
 		$can = WordPress\User::cuc( 'manage_options' );
 

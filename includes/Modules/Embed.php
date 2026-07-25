@@ -272,7 +272,7 @@ class Embed extends gNetwork\Module
 
 		if ( FALSE === ( $html = get_site_transient( $key ) ) ) {
 
-			$json = Core\HTTP::getJSON( $url );
+			$json = WordPress\Remote::getJSON( $url );
 			$html = $json ? $json['html'] : '';
 
 			set_site_transient( $key, $html, $html ? GNETWORK_CACHE_TTL : HOUR_IN_SECONDS );

@@ -104,7 +104,7 @@ class Legal extends gNetwork\Module
 
 		if ( Core\File::exists( 'ads.txt' ) ) {
 
-			echo Core\HTML::button( sprintf(
+			echo Core\Link::button( sprintf(
 				/* translators: `%s`: file name for `ads.txt` */
 				_x( 'View %s', 'Modules: Mail', 'gnetwork-admin' ),
 				Core\HTML::code( 'ads.txt' )

@@ -662,7 +662,7 @@ class Datetime extends WordPress\Main
 		if ( ! $post = get_post( $post ) )
 			return FALSE;
 
-		$the_day = self::atts( [
+		$the_day = self::parsed( [
 			'cal'   => $default_calendar,
 			'year'  => NULL,
 			'month' => 1,

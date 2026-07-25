@@ -326,7 +326,7 @@ class Update extends gNetwork\Module
 
 		if ( FALSE === ( $data = get_site_transient( $key ) ) ) {
 
-			$json = Core\HTTP::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] );
+			$json = WordPress\Remote::getJSON( $endpoint, [ 'headers' => $this->endpoint_headers( $package ) ] );
 			$data = $json ? $this->cleanup_package_data( $json, $package ) : '';
 
 			set_site_transient( $key, $data, $data ? GNETWORK_CACHE_TTL : HOUR_IN_SECONDS );
@@ -342,7 +342,7 @@ class Update extends gNetwork\Module
 
 		if ( in_array( $package['type'], [ 'github_plugin', 'github_theme' ], TRUE ) ) {
 
-			return self::atts( [
+			return self::parsed( [
 				'tag_name'     => '',
 				'published_at' => '',
 				'zipball_url'  => '',
@@ -354,7 +354,7 @@ class Update extends gNetwork\Module
 
 			$release = reset( $response );
 
-			$data = self::atts( [
+			$data = self::parsed( [
 				'tag_name'    => '',
 				'released_at' => '',
 				'description' => '', // raw markdown

@@ -240,7 +240,7 @@ class User extends gNetwork\Module
 
 		if ( $this->options['network_roles'] ) {
 
-			echo Core\HTML::button(
+			echo Core\Link::button(
 				_x( 'Network Roles', 'Modules: Menu Name', 'gnetwork-admin' ),
 				$this->get_menu_url( 'roles', NULL, 'tools' ),
 				_x( 'View and set network roles here.', 'Modules: User', 'gnetwork-admin' ),
@@ -891,7 +891,7 @@ class User extends gNetwork\Module
 		if ( $user->user_email ) {
 			echo '<li class="-row -email">';
 				echo $this->get_column_icon( FALSE, 'email', _x( 'Email', 'Modules: User', 'gnetwork-admin' ) );
-				echo Core\HTML::mailto( $user->user_email );
+				echo Core\Link::mailto( $user->user_email );
 			echo '</li>';
 		}
 

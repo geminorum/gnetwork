@@ -127,9 +127,9 @@ class Code extends gNetwork\Module
 			// ];
 
 			if ( in_array( $args['type'], [ 'wiki', 'markdown', 'changelog' ] ) )
-				$md = Core\HTTP::getHTML( $url );
+				$md = WordPress\Remote::getHTML( $url );
 
-			else if ( $json = Core\HTTP::getJSON( $url ) )
+			else if ( $json = WordPress\Remote::getJSON( $url ) )
 				$md = base64_decode( $json['content'] );
 
 			else

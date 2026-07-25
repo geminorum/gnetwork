@@ -425,7 +425,7 @@ class Commerce extends gNetwork\Module
 			$fields['billing']['billing_phone']['class'] = [ 'form-row-first', 'phone' ];
 			$fields['billing']['billing_phone']['placeholder'] = _x( 'For calling on land-line', 'Modules: Commerce', 'gnetwork' );
 			if ( Core\L10n::rtl() ) $fields['billing']['billing_phone']['input_class'] = [ 'ltr', 'rtl-placeholder' ];
-			// $fields['billing']['billing_phone']['custom_attributes']['pattern'] = Core\Validation::getMobileHTMLPattern();
+			// $fields['billing']['billing_phone']['custom_attributes']['pattern'] = Core\Mobile::getHTMLPattern();
 
 			$mobile = is_user_logged_in() ? get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) : FALSE;
 
@@ -438,7 +438,7 @@ class Commerce extends gNetwork\Module
 				'priority'          => 105, // after the `billing_phone` with priority `100`
 				'required'          => TRUE,
 				'default'           => $mobile ?: '',
-				'custom_attributes' => [ 'pattern' => Core\Validation::getMobileHTMLPattern() ],
+				'custom_attributes' => [ 'pattern' => Core\Mobile::getHTMLPattern() ],
 			];
 		}
 
@@ -513,7 +513,7 @@ class Commerce extends gNetwork\Module
 			_ex( 'Mobile contact:', 'Modules: Commerce', 'gnetwork-admin' );
 
 			if ( $meta )
-				echo Core\HTML::tel( $meta, _x( 'The mobile number associated with this user.', 'Modules: Commerce', 'gnetwork-admin' ) );
+				echo Core\Link::tel( $meta, _x( 'The mobile number associated with this user.', 'Modules: Commerce', 'gnetwork-admin' ) );
 
 			else
 				gNetwork()->na();
@@ -529,7 +529,7 @@ class Commerce extends gNetwork\Module
 
 		echo '<p class="form-field form-field-wide" style="margin:0">';
 			echo '<strong style="display:block">'._x( 'Mobile:', 'Modules: Commerce: Action Title', 'gnetwork-admin' );
-			// echo '</strong> '.Core\HTML::tel( $meta );
+			// echo '</strong> '.Core\Link::tel( $meta );
 			echo '</strong> '.Core\Mobile::prep( $meta );
 		echo '</p>';
 	}
@@ -581,7 +581,7 @@ class Commerce extends gNetwork\Module
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'required'          => TRUE,
 				'clear'             => TRUE,
-				'custom_attributes' => [ 'pattern' => Core\Validation::getMobileHTMLPattern() ],
+				'custom_attributes' => [ 'pattern' => Core\Mobile::getHTMLPattern() ],
 			], get_user_meta( get_current_user_id(), GNETWORK_COMMERCE_MOBILE_METAKEY, TRUE ) );
 
 			wc_enqueue_js( "$('p#account_mobile_field').insertAfter($('input#account_email').parent());" );
@@ -640,7 +640,7 @@ class Commerce extends gNetwork\Module
 				'placeholder'       => _x( 'For short message purposes', 'Modules: Commerce', 'gnetwork' ),
 				'required'          => TRUE,
 				'clear'             => TRUE,
-				'custom_attributes' => [ 'pattern' => Core\Validation::getMobileHTMLPattern() ],
+				'custom_attributes' => [ 'pattern' => Core\Mobile::getHTMLPattern() ],
 			] );
 	}
 

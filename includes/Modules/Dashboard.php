@@ -18,7 +18,7 @@ class Dashboard extends gNetwork\Module
 		$this->_hook_ajax();
 	}
 
-	public function setup_screen( $screen )
+	public function setup_screen( object $screen ): void
 	{
 		if ( 'dashboard' == $screen->base ) {
 
@@ -142,7 +142,7 @@ class Dashboard extends gNetwork\Module
 		wp_dashboard_cached_rss_widget( 'gnetwork_feeds', 'wp_dashboard_primary_output', $feeds );
 	}
 
-	public function do_ajax()
+	public function do_ajax(): void
 	{
 		require_once ABSPATH.'wp-admin/includes/dashboard.php';
 

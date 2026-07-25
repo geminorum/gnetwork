@@ -119,7 +119,7 @@ class Media extends gNetwork\Module
 		}
 	}
 
-	public function setup_screen( $screen )
+	public function setup_screen( object $screen ): void
 	{
 		if ( 'upload' == $screen->base ) {
 
@@ -948,7 +948,7 @@ class Media extends gNetwork\Module
 		return $actions;
 	}
 
-	public function do_ajax()
+	public function do_ajax(): void
 	{
 		$post = self::unslash( $_REQUEST );
 		$what = empty( $post['what'] ) ? 'nothing': trim( $post['what'] );

@@ -44,7 +44,7 @@ class SMS extends gNetwork\Module
 
 			echo $this->wrap_open_buttons();
 
-			echo Core\HTML::button(
+			echo Core\Link::button(
  				_x( 'SMS Logs', 'Modules: SMS', 'gnetwork-admin' ),
  				$this->get_menu_url( NULL, NULL, 'tools' )
 			);
@@ -218,16 +218,16 @@ class SMS extends gNetwork\Module
 		if ( is_array( $target ) ) {
 
 			foreach ( $target as $item )
-				$html.= Core\HTML::code( Core\HTML::tel( $item ) ).$suffix;
+				$html.= Core\HTML::code( Core\Link::tel( $item ) ).$suffix;
 
 		} else if ( Core\Text::has( $target, ',' ) ) {
 
 			foreach ( explode( ',', $target ) as $item )
-				$html.= Core\HTML::code( Core\HTML::tel( $item ) ).$suffix;
+				$html.= Core\HTML::code( Core\Link::tel( $item ) ).$suffix;
 
 		} else if ( $target ) {
 
-			$html.= Core\HTML::code( Core\HTML::tel( $target ) ).$suffix;
+			$html.= Core\HTML::code( Core\Link::tel( $target ) ).$suffix;
 		}
 
 		return $html;
@@ -238,6 +238,7 @@ class SMS extends gNetwork\Module
 		return [
 			'kavenegar'   => [ 'class' => gNetwork\Providers\Kavenegar::class   ],
 			'farapaymak'  => [ 'class' => gNetwork\Providers\Farapaymak::class  ],
+			// 'melipayamak' => [ 'class' => gNetwork\Providers\Melipayamak::class	],
 		];
 	}
 

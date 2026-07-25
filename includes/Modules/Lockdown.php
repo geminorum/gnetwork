@@ -90,7 +90,8 @@ class Lockdown extends gNetwork\Module
 	private function get_ip()
 	{
 		if ( $this->options['trust_proxied_ip'] )
-			return array_shift( array_map( 'trim', explode( ',', Core\HTTP::IP() ) ) );
+			// return array_shift( array_map( 'trim', explode( ',', Core\HTTP::IP() ) ) );
+			return Core\Text::trim( Core\Arraay::valueFirst( explode( ',', Core\HTTP::IP() ) ) );
 
 		if ( getenv( 'HTTP_FORWARDED' ) )
 			return getenv( 'HTTP_FORWARDED' );

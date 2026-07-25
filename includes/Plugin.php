@@ -7,7 +7,7 @@ class Plugin extends WordPress\Plugin
 {
 	public $base = 'gnetwork';
 
-	protected function early_constants()
+	protected function early_constants(): array
 	{
 		return [
 			// 'GNETWORK_TEXTDOMAIN'   => $this->base,
@@ -107,7 +107,7 @@ class Plugin extends WordPress\Plugin
 		];
 	}
 
-	protected function late_constants()
+	protected function late_constants(): array
 	{
 		return [
 			'GNETWORK_BASE' => network_home_url( '/', $this->ssl() ? 'https' : 'http' ),                              // comes handy on multi-network
@@ -126,7 +126,7 @@ class Plugin extends WordPress\Plugin
 		];
 	}
 
-	protected function modules()
+	protected function modules(): array
 	{
 		$modules = [
 			'Locale',
@@ -199,7 +199,7 @@ class Plugin extends WordPress\Plugin
 		return [ $modules, __NAMESPACE__.'\\Modules' ];
 	}
 
-	protected function actions()
+	protected function actions(): void
 	{
 		add_filter( 'wp_default_autoload_value', [ $this, 'wp_default_autoload_value' ], 20, 4 );
 		add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 20 );
@@ -223,7 +223,7 @@ class Plugin extends WordPress\Plugin
 
 	// NOTE: `custom path` once set by `load_plugin_textdomain()`
 	// NOTE: assumes the plugin directory is the same as the `textdomain`
-	protected function textdomains()
+	protected function textdomains(): void
 	{
 		parent::textdomains();
 
@@ -234,7 +234,7 @@ class Plugin extends WordPress\Plugin
 		load_textdomain( $this->base.'-admin', $this->__dir."languages/admin-{$locale}.mo", $locale );
 	}
 
-	public function bp_include()
+	public function bp_include(): void
 	{
 		if ( is_readable( GNETWORK_DIR.'includes/Modules/BuddyPress.php' ) ) {
 
@@ -251,7 +251,7 @@ class Plugin extends WordPress\Plugin
 		}
 	}
 
-	public function bbp_includes()
+	public function bbp_includes(): void
 	{
 		if ( is_readable( GNETWORK_DIR.'includes/Modules/bbPress.php' ) ) {
 
@@ -268,7 +268,7 @@ class Plugin extends WordPress\Plugin
 		}
 	}
 
-	public function bp_setup_components()
+	public function bp_setup_components(): void
 	{
 		if ( is_readable( GNETWORK_DIR.'includes/Misc/BuddyPressMe.php' ) ) {
 
@@ -312,7 +312,7 @@ class Plugin extends WordPress\Plugin
 		return $pre;
 	}
 
-	public function ssl()
+	public function ssl(): bool
 	{
 		if ( GNETWORK_DISABLE_SSL )
 			return FALSE;
@@ -326,7 +326,7 @@ class Plugin extends WordPress\Plugin
 		return FALSE;
 	}
 
-	public function email( $fallback = FALSE )
+	public function email( mixed $fallback = FALSE ): mixed
 	{
 		if ( isset( $this->mail ) )
 			return $this->mail->get_from_email( $fallback );
@@ -334,7 +334,7 @@ class Plugin extends WordPress\Plugin
 		return $fallback;
 	}
 
-	public function user( $fallback = FALSE )
+	public function user( bool $fallback = FALSE ): int
 	{
 		if ( $user_id = $this->option( 'site_user_id', 'user' ) )
 			return (int) $user_id ;
@@ -352,12 +352,13 @@ class Plugin extends WordPress\Plugin
 		return 0;
 	}
 
-	public function brand( $what = 'name' )
+	public function brand( string $what = 'name' ): string
 	{
 		switch ( $what ) {
-			case 'name'  : $custom = $this->option( 'brand_name', 'branding' ); return $custom ?: GNETWORK_NAME; break;
-			case 'url'   : $custom = $this->option( 'brand_url', 'branding' ); return $custom ?: GNETWORK_BASE; break;
-			case 'email' : $custom = $this->option( 'brand_email', 'branding' ); return $custom ?: $this->email(); break;
+
+			case 'name'  : $custom = $this->option( 'brand_name',  'branding' ); return $custom ?: GNETWORK_NAME;
+			case 'url'   : $custom = $this->option( 'brand_url',   'branding' ); return $custom ?: GNETWORK_BASE;
+			case 'email' : $custom = $this->option( 'brand_email', 'branding' ); return $custom ?: $this->email();
 
 			case 'color' :
 
@@ -369,7 +370,6 @@ class Plugin extends WordPress\Plugin
 
 				return '#d1d1d1';
 
-			break;
 			case 'background' :
 
 				if ( $branding = $this->option( 'webapp_color', 'branding' ) )
@@ -381,7 +381,7 @@ class Plugin extends WordPress\Plugin
 		return '';
 	}
 
-	public function na( $wrap = 'code' )
+	public function na( false|string $wrap = 'code' ): string
 	{
 		return $wrap
 			? Core\HTML::tag( $wrap, [ 'title' => __( 'Not Available', 'gnetwork' ) ], __( 'N/A', 'gnetwork' ) )

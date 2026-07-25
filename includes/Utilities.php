@@ -174,13 +174,13 @@ class Utilities extends Core\Base
 	public static function prepContact( $value, $title = NULL )
 	{
 		if ( Core\Email::is( $value ) )
-			$prepared = Core\HTML::mailto( $value, FALSE, $title );
+			$prepared = Core\Link::mailto( $value, FALSE, $title );
 
 		else if ( Core\URL::isValid( $value ) )
 			$prepared = Core\HTML::link( $title, Core\URL::untrail( $value ) );
 
 		else if ( is_numeric( str_ireplace( [ '+', '-', '.' ], '', $value ) ) )
-			$prepared = Core\HTML::tel( $value, FALSE, $title );
+			$prepared = Core\Link::tel( $value, FALSE, $title );
 
 		else
 			$prepared = Core\HTML::escape( $value );
@@ -462,7 +462,7 @@ class Utilities extends Core\Base
 
 		$title  = _x( 'Import from a remote content.', 'Utilities: Remote Content', 'gnetwork-admin' );
 		$label  = sprintf( '%s %s&nbsp;', Core\HTML::getDashicon( 'download' ), _x( 'Import', 'Utilities: Remote Content', 'gnetwork-admin' ) );
-		$button = Core\HTML::button( $label, '#', $title, TRUE, [
+		$button = Core\Link::button( $label, '#', $title, TRUE, [
 			'action' => 'import-remote-content',
 			'remote' => $remote,
 			'target' => $target,

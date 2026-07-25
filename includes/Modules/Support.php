@@ -167,7 +167,7 @@ class Support extends gNetwork\Module
 		echo '</div>';
 	}
 
-	public function do_ajax()
+	public function do_ajax(): void
 	{
 		$post = self::unslash( $_REQUEST );
 		$what = empty( $post['what'] ) ? 'nothing': trim( $post['what'] );
@@ -240,7 +240,7 @@ class Support extends gNetwork\Module
 
 	private function do_submit_report( $data )
 	{
-		$parsed = self::atts( [
+		$parsed = self::parsed( [
 			'report_subject' => _x( '[UNTITLED]', 'Modules: Support: Defaults', 'gnetwork' ),
 			'report_content' => _x( '[EMPTY]', 'Modules: Support: Defaults', 'gnetwork' ),
 			'report_topic'   => _x( '[UKNOWN]', 'Modules: Support: Defaults', 'gnetwork' ),

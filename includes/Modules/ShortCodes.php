@@ -1070,7 +1070,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = Core\HTML::tel( $number, $args['title'], Core\Number::localize( $content ) );
+		$html = Core\Link::tel( $number, $args['title'], Core\Number::localize( $content ) );
 
 		return self::shortcodeWrap( $html, 'tel', $args, FALSE );
 	}
@@ -1104,7 +1104,7 @@ class ShortCodes extends gNetwork\Module
 		if ( ! $content )
 			$content = $number;
 
-		$html = '<a class="sms" href="'.Core\HTML::prepURLforSMS( $number )
+		$html = '<a class="sms" href="'.Core\Link::prepURLforSMS( $number )
 				.( $args['body'] ? '?body='.rawurlencode( $args['body'] )
 				.'" data-sms-body="'.Core\HTML::escape( $args['body'] ) : '' )
 				.'"'.( $args['title'] ? ' data-bs-toggle="tooltip" title="'.Core\HTML::escape( $args['title'] )
@@ -1426,7 +1426,7 @@ class ShortCodes extends gNetwork\Module
 
 			} else {
 
-				if ( $string = Core\HTTP::getContents( $args['url'] ) ) {
+				if ( $string = WordPress\Remote::getContents( $args['url'] ) ) {
 
 					/**
 					 * @package `parsecsv/php-parsecsv`

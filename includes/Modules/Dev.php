@@ -22,7 +22,8 @@ class Dev extends gNetwork\Module
 	{
 		// $this->filter( 'http_request_args', 2, 12 );
 		$this->filter( 'redirect_canonical', 2, 99999 );
-		$this->filter( 'doing_it_wrong_trigger_error', 4, 999 );
+		// $this->filter( 'doing_it_wrong_trigger_error', 4, 999 ); // WORKS!
+		$this->filter( 'wp_trigger_error_trigger_error', 4, 999 );
 
 		// $this->action( 'http_api_curl', 3, 999 );
 		$this->filter_false( 'https_ssl_verify' );
@@ -54,13 +55,14 @@ class Dev extends gNetwork\Module
 		// self::generateDropinFile();
 	}
 
-	public function http_request_args( $r, $url )
+	public function http_request_args( array $arguments, string $url ): array
 	{
-		$r['sslverify'] = FALSE;
-		return $r;
+		$arguments['sslverify'] = FALSE;
+
+		return $arguments;
 	}
 
-	public function redirect_canonical( $redirect_url, $requested_url )
+	public function redirect_canonical( string $redirect_url, string $requested_url ): string
 	{
 		if ( $redirect_url && Core\URL::stripFragment( $redirect_url ) !== Core\URL::stripFragment( $requested_url ) )
 			Logger::siteDEBUG( 'CANONICAL', esc_url( $requested_url ).' >> '.esc_url( $redirect_url ) );
@@ -68,9 +70,47 @@ class Dev extends gNetwork\Module
 		return $redirect_url;
 	}
 
-	public function doing_it_wrong_trigger_error( $trigger, $function_name, $message, $version )
+	/**
+	 * Filters whether to trigger an error for `_doing_it_wrong()` calls.
+	 *
+	 * @param bool $trigger
+	 * @param string $function_name
+	 * @param string $message
+	 * @param string $version
+	 * @return bool
+	 */
+	public function doing_it_wrong_trigger_error( bool $trigger, string $function_name, string $message, string $version ): bool
 	{
-		if ( '_load_textdomain_just_in_time' === $function_name )
+		if ( ! $trigger )
+			return $trigger;
+
+		if ( in_array( $function_name, [
+			'_load_textdomain_just_in_time',
+		], TRUE ) )
+			return FALSE;
+
+		return $trigger;
+	}
+
+	/**
+	 * Filters whether to trigger an error.
+	 *
+	 * @param bool $trigger
+	 * @param string $function_name
+	 * @param string $message
+	 * @param int $error_level
+	 * @return bool
+	 */
+	public function wp_trigger_error_trigger_error( bool $trigger, string $function_name, string $message, int $error_level ): bool
+	{
+		if ( ! $trigger )
+			return $trigger;
+
+		if ( in_array( $function_name, [
+			'plugins_api',
+			'get_core_checksums',
+			'wp_version_check',
+		], TRUE ) )
 			return FALSE;
 
 		return $trigger;

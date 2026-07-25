@@ -382,7 +382,7 @@ class Profile extends gNetwork\Module
 			echo Core\HTML::warning( _x( 'Sorry, you are not allowed to edit your profile.', 'Modules: Profile', 'gnetwork-admin' ) );
 	}
 
-	public function setup_screen( $screen )
+	public function setup_screen( object $screen ): void
 	{
 		if ( ! in_array( $screen->base, [ 'profile-user', 'profile-network', 'user-edit-network', 'profile', 'user-edit' ] ) )
 			return;

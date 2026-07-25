@@ -77,7 +77,7 @@ class Farapaymak extends gNetwork\Provider
 
 	public function smsSend( $message, $target = NULL, $atts = [] )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'to'      => $target ?: $this->options['farapaymak_admin_numbers'],
 			'from'    => $this->options['farapaymak_from_number'],
 			'text'    => $message,

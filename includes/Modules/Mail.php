@@ -209,14 +209,14 @@ class Mail extends gNetwork\Module
 	{
 		echo $this->wrap_open_buttons();
 
-		echo Core\HTML::button(
+		echo Core\Link::button(
 			_x( 'Test Mail', 'Modules: Mail', 'gnetwork-admin' ),
 			$this->get_menu_url( 'testmail', NULL, 'tools' )
 		);
 
 		if ( GNETWORK_MAIL_LOG_DIR && $this->options['log_all'] ) {
 
-			echo Core\HTML::button(
+			echo Core\Link::button(
 				_x( 'Email Logs', 'Modules: Mail', 'gnetwork-admin' ),
 				$this->get_menu_url( 'emaillogs', NULL, 'tools' )
 			);
@@ -623,16 +623,16 @@ class Mail extends gNetwork\Module
 						if ( is_array( $row['to'] ) ) {
 
 							foreach ( $row['to'] as $to )
-								$html.= Core\HTML::code( Core\HTML::mailto( $to ) ).' ';
+								$html.= Core\HTML::code( Core\Link::mailto( $to ) ).' ';
 
 						} else if ( Core\Text::has( $row['to'], ',' ) ) {
 
 							foreach ( explode( ',', $row['to'] ) as $to )
-								$html.= Core\HTML::code( Core\HTML::mailto( $to ) ).' ';
+								$html.= Core\HTML::code( Core\Link::mailto( $to ) ).' ';
 
 						} else {
 
-							$html.= Core\HTML::code( Core\HTML::mailto( $row['to'] ) ).' ';
+							$html.= Core\HTML::code( Core\Link::mailto( $row['to'] ) ).' ';
 						}
 					}
 

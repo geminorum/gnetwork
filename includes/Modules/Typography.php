@@ -340,7 +340,7 @@ class Typography extends gNetwork\Module
 	// TODO: `wordwrap` headings in content / lookout for link in titles!
 	// TODO: ؟! -> ?!
 	// @SEE: `wp_replace_in_html_tags()`
-	public function general_typography( $content )
+	public function general_typography( ?string $content ): string
 	{
 		$content = str_ireplace( [
 			'<p>***</p>',
@@ -366,7 +366,7 @@ class Typography extends gNetwork\Module
 	// رضوان‌ﷲ علیه
 	// قدّس سره
 	// صلی ﷲ علیه و علی آله
-	public function arabic_typography( $content )
+	public function arabic_typography( ?string $content ): string
 	{
 		$content = preg_replace( "/[\s\t]+(?:(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\)))/i", "$1", $content ); // clean space/tab before
 		// $content = preg_replace( "/(\(ره\)|\(س\)|\(ص\)|\(ع\)|\(عج\))(?![^<]*>|[^<>]*<\/)/ix", '&#xfeff;'."<sup><abbr>$1</abbr></sup>", $content ); // @REF: http://stackoverflow.com/a/18622606
@@ -414,7 +414,7 @@ class Typography extends gNetwork\Module
 	}
 
 	// TODO: check for number with percentage sign
-	public function persian_typography( $content )
+	public function persian_typography( ?string $content ): string
 	{
 		$content = str_ireplace( '&#8220;', '&#xAB;', $content );
 		$content = str_ireplace( '&#8221;', '&#xBB;', $content );
@@ -422,10 +422,10 @@ class Typography extends gNetwork\Module
 		return $content;
 	}
 
-	public function linkify_content( $content )
+	public function linkify_content( ?string $content ): string
 	{
-		if ( gNetwork()->option( 'linkify_hashtags', 'search' )
-			&& ! self::const( 'GNETWORK_DISABLE_LINKIFY_CONTENT' ) ) {
+		if ( ! self::const( 'GNETWORK_DISABLE_LINKIFY_CONTENT' )
+			&& gNetwork()->option( 'linkify_hashtags', 'search' ) ) {
 
 			$content = Core\Text::replaceSymbols( '#', $content,
 				static function ( $matched, $string ) {
@@ -540,7 +540,7 @@ class Typography extends gNetwork\Module
 		return Core\Text::formatSlug( $name );
 	}
 
-	public function the_content_early( $content )
+	public function the_content_early( ?string $content ): string
 	{
 		// $content = str_ireplace(
 		// 	'<p style="text-align: center;">***</p>',
@@ -552,7 +552,7 @@ class Typography extends gNetwork\Module
 		return $content;
 	}
 
-	public function the_content( $content )
+	public function the_content( ?string $content ): string
 	{
 		if ( $this->options['remove_empty_p'] )
 			$content = Core\Text::noEmptyP( $content );
@@ -563,7 +563,7 @@ class Typography extends gNetwork\Module
 		return $content;
 	}
 
-	public function the_content_late( $content )
+	public function the_content_late( ?string $content ): string
 	{
 		if ( self::const( 'GTHEME_IS_SYSTEM_PAGE' ) )
 			return $content;

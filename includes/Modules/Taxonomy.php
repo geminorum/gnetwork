@@ -104,7 +104,7 @@ class Taxonomy extends gNetwork\Module
 		}
 	}
 
-	public function setup_screen( $screen )
+	public function setup_screen( object $screen ): void
 	{
 		if ( 'edit-tags' == $screen->base
 			|| 'term' == $screen->base ) {

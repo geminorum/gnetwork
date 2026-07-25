@@ -118,7 +118,7 @@ class Blacklist extends gNetwork\Module
 		if ( ! defined( 'GNETWORK_BLACKLIST_REMOTE_CONTENT' ) )
 			return;
 
-		if ( ! $content = Core\HTTP::getHTML( GNETWORK_BLACKLIST_REMOTE_CONTENT ) )
+		if ( ! $content = WordPress\Remote::getHTML( GNETWORK_BLACKLIST_REMOTE_CONTENT ) )
 			return Logger::FAILED( 'BLACKLIST: Problem getting remote content' );
 
 		if ( $content === $this->options['blacklisted_ips'] )

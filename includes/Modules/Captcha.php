@@ -195,7 +195,7 @@ class Captcha extends gNetwork\Module
 			$_POST['g-recaptcha-response'],
 		] );
 
-		$response = Core\HTTP::getJSON( $request );
+		$response = WordPress\Remote::getJSON( $request );
 
 		if ( ! empty( $response['error-codes'] ) )
 			Logger::siteWARNING( 'CAPTCHA-VERIFY', implode( ', ', (array) $response['error-codes'] ) );

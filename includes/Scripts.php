@@ -93,7 +93,7 @@ class Scripts extends Core\Base
 		$path   = $base_path.$dir.'/'.$asset.'/build/index.js';
 		$url    = $base_url. $dir.'/'.$asset.'/build/index.js';
 
-		$args = self::atts( [
+		$args = self::parsed( [
 			'dependencies' => [ 'wp-blocks', 'wp-element', 'wp-i18n', 'wp-polyfill' ],
 			'version'      => WordPress\IsIt::dev() ? filemtime( $path ) : $version ?? static::HASH,
 		], is_readable( $info ) ? require( $info ) : [] );

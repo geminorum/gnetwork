@@ -16,7 +16,7 @@ class BuddyPress extends gNetwork\Module
 
 	private $field_name = 'vJD6QVKIjiWbjuxhLqJjVIuZ';
 
-	// runs after bp so plugins are loaded!
+	// NOTE: runs after Buddy-Press so plugins are loaded!
 	protected function setup_actions()
 	{
 		$this->action( 'bp_init', 0, 1 );
@@ -69,8 +69,8 @@ class BuddyPress extends gNetwork\Module
 
 				$this->action( 'bp_activity_before_save' );
 
-				// allows activity authors to delete activity comments by others
-				// https://buddydev.com/?p=17058
+				// Allows activity authors to delete activity comments by others.
+				// @ref https://buddydev.com/?p=17058
 				$this->filter( 'bp_activity_user_can_delete', 2 );
 				$this->action( 'wp_ajax_delete_activity_comment', 0, 1 );
 			}

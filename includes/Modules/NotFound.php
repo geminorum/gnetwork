@@ -194,7 +194,7 @@ class NotFound extends gNetwork\Module
 			if ( $link = WordPress\PostType::link( $object ) )
 				echo Core\HTML::wrap( Core\HTML::tag( 'a', [
 					'href'  => $link,
-					'class' => Core\HTML::buttonClass( FALSE, [
+					'class' => Core\Link::buttonClass( FALSE, [
 						'btn-outline-primary',
 						'btn-lg',
 						'btn-block',
@@ -209,7 +209,7 @@ class NotFound extends gNetwork\Module
 			if ( $link = WordPress\Taxonomy::link( $object ) )
 				echo Core\HTML::wrap( Core\HTML::tag( 'a', [
 					'href'  => $link,
-					'class' => Core\HTML::buttonClass( FALSE, [
+					'class' => Core\Link::buttonClass( FALSE, [
 						'btn-outline-primary',
 						'btn-lg',
 						'btn-block',

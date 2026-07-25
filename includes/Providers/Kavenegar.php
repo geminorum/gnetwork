@@ -144,7 +144,7 @@ class Kavenegar extends gNetwork\Provider
 
 	public function smsSend( $message, $target = NULL, $atts = [] )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'receptor' => $target ?: $this->options['kavenegar_admin_numbers'],
 			'sender'   => $this->options['kavenegar_from_number'],
 			'message'  => $message,
@@ -170,7 +170,7 @@ class Kavenegar extends gNetwork\Provider
 	// FIXME: UNFINISHED
 	public function smsBulk( $message, $target = NULL, $atts = [] )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'receptor' => $target ?: $this->options[$this->key.'_admin_numbers'],
 			'sender'   => $this->options[$this->key.'_from_number'],
 			'message'  => wp_json_encode( $message ),

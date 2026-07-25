@@ -1039,7 +1039,7 @@ class Module extends WordPress\Module
 	 */
 	public static function shortcodeTermTitle( $atts, $term = FALSE )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'title'        => NULL, // FALSE to disable
 			'title_link'   => NULL, // FALSE to disable
 			'title_title'  => '',

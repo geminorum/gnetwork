@@ -204,7 +204,7 @@ class Maintenance extends gNetwork\Module
 		echo Core\HTML::warning( $this->options['admin_notice'] );
 	}
 
-	public function dashboard_pointers( $items )
+	public function dashboard_pointers( array $items ): array
 	{
 		$can = WordPress\User::cuc( 'manage_options' );
 

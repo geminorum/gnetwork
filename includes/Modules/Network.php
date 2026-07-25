@@ -232,7 +232,7 @@ class Network extends gNetwork\Module
 		}
 	}
 
-	public function setup_screen( $screen )
+	public function setup_screen( object $screen ): void
 	{
 		if ( 'sites-network' == $screen->base ) {
 

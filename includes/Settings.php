@@ -191,9 +191,11 @@ class Settings extends Core\Base
 		);
 	}
 
-	public static function cheatin( $message = NULL )
+	public static function cheatin( ?string $message = NULL ): bool
 	{
 		echo Core\HTML::error( $message ?? _x( 'Cheatin&#8217; uh?', 'Settings: Message', 'gnetwork' ) );
+
+		return FALSE; // help the caller
 	}
 
 	public static function huh( $message = NULL )
@@ -362,7 +364,7 @@ class Settings extends Core\Base
 
 	public static function fieldAfterEmail( $email = '', $class = '' )
 	{
-		return $email ? ( '<code class="'.Core\HTML::prepClass( '-field-after', '-email-wrap', $class ).'">'.Core\HTML::mailto( $email ).'</code>' ) : '';
+		return $email ? ( '<code class="'.Core\HTML::prepClass( '-field-after', '-email-wrap', $class ).'">'.Core\Link::mailto( $email ).'</code>' ) : '';
 	}
 
 	public static function fieldAfterButton( $button = '', $class = '' )
@@ -591,7 +593,7 @@ class Settings extends Core\Base
 
 	public static function fieldType( $atts, &$scripts )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'title'        => '&nbsp;',
 			'label_for'    => '',
 			'type'         => 'enabled',

@@ -599,7 +599,7 @@ class Navigation extends gNetwork\Module
 
 						// stripping non-essentials
 						foreach ( $objects as $object ) {
-							$results[] = (object) self::atts( [
+							$results[] = (object) self::parsed( [
 								'ID'               => NULL,
 								'target'           => NULL,
 								'menu_item_parent' => NULL,
