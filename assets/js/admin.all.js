@@ -28,13 +28,13 @@ jQuery(function ($) {
   $('a[data-tab="' + window.location.hash.slice(1) + '"]', '.-base').trigger('click');
 
   if ($('#screen-meta-links').length && $('.postbox-container .postbox').length) {
-    // $('<div id="gnetwork-admin-metabox-controls" class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-toggle" class="button show-settings">' + gNetwork.metabox_controls_toggle + '</button></div>')
+    // $('<div id="gnetwork-admin-metabox-controls" class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-toggle" class="button button-compact show-settings">' + gNetwork.metabox_controls_toggle + '</button></div>')
     //   .appendTo('#screen-meta-links');
 
-    $('<div class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-collapse" class="button show-settings"><span>' + gNetwork.metabox_controls_collapse + '</span></button></div>')
+    $('<div class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-collapse" class="button button-compact show-settings"><span>' + gNetwork.metabox_controls_collapse + '</span></button></div>')
       .appendTo('#screen-meta-links');
 
-    $('<div class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-expand" class="button show-settings"><span>' + gNetwork.metabox_controls_expand + '</span></button></div>')
+    $('<div class="screen-meta-toggle gnetwork-admin-metabox-controls"><button type="button" id="gnetwork-admin-metabox-expand" class="button button-compact show-settings"><span>' + gNetwork.metabox_controls_expand + '</span></button></div>')
       .appendTo('#screen-meta-links');
 
     // $('body').on('click', '#gnetwork-admin-metabox-toggle', function (e) {
@@ -60,7 +60,7 @@ jQuery(function ($) {
   // Adopted from: WP Reset Filters by John James Jacoby - 0.1.0 - 20171208
   // @REF: https://wordpress.org/plugins/wp-reset-filters/
   $('#post-query-submit').addClass('button-primary')
-    .after('<button class="button" id="gnetwork-reset-filters" ' + gNetwork.reset_button_disabled + '>' + gNetwork.reset_button_text + '</button>');
+    .after('<button class="button button-compact" id="gnetwork-reset-filters" ' + gNetwork.reset_button_disabled + '>' + gNetwork.reset_button_text + '</button>');
 
   $('#gnetwork-reset-filters').on('click', function (e) {
     e.preventDefault();
