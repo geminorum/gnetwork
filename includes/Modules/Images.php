@@ -23,8 +23,10 @@ class Images extends gNetwork\Module
 		if ( ! empty( $this->options['output_format'] ) )
 			$this->filter( 'image_editor_output_format', 3, 12 );
 
-		if ( $this->options['skip_exifmeta'] )
+		if ( $this->options['skip_exifmeta'] ) {
 			$this->filter( 'wp_update_attachment_metadata', 2, 12 );
+			$this->filter_true( 'image_strip_meta', 12 );
+		}
 
 		if ( $this->options['edit_thumb_sep'] )
 			$this->filter_true( 'image_edit_thumbnails_separately' );
