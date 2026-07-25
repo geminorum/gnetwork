@@ -48,6 +48,7 @@ class Feed extends gNetwork\Module
 					'type'        => 'disabled',
 					'title'       => _x( 'WordPress Feeds', 'Modules: Feed: Settings', 'gnetwork-admin' ),
 					'description' => _x( 'Select to disable Wordpress core feeds.', 'Modules: Feed: Settings', 'gnetwork-admin' ),
+					'constant'    => 'GNETWORK_DISABLE_CONTENT_FEEDS',
 				],
 				[
 					'field'       => 'delay_feeds',
@@ -71,7 +72,7 @@ class Feed extends gNetwork\Module
 	public function init()
 	{
 		// TODO: check for restricted/maintenance
-		if ( $this->options['disable_feeds'] )
+		if ( $this->options['disable_feeds'] || self::const( 'GNETWORK_DISABLE_CONTENT_FEEDS' ) )
 			$this->_do_disable_feeds();
 
 		if ( $this->options['json_feed'] ) {

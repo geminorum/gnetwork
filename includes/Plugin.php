@@ -68,6 +68,8 @@ class Plugin extends WordPress\Plugin
 			'GNETWORK_DL_DIR'    => ABSPATH.'repo',
 			'GNETWORK_DL_URL'    => network_home_url( 'repo' ),
 
+			// `'GNETWORK_DISABLE_CONTENT_FEEDS' => TRUE,` // NOTE: set only if needed!
+
 			// 'GNETWORK_DISABLE_LINKIFY_CONTENT'  => TRUE,   // NOTE: cannot set this early!
 			// 'GNETWORK_DISABLE_LOCALE_OVERRIDES' => TRUE,   // NOTE: cannot set this early!
 			// 'GNETWORK_DISABLE_CONTENT_ACTIONS'  => TRUE,   // NOTE: cannot set this early!
