@@ -15,6 +15,8 @@ class Kavenegar extends gNetwork\Provider
 	// https://github.com/kavenegar/kavenegar-examples-php/
 	// @SEE: https://github.com/MahdiMajidzadeh/laravel-kavenegar
 
+	const API_KEY_CONSTANT = 'KAVENEGAR_API_KEY';
+
 	protected $key  = 'kavenegar';
 	protected $type = 'sms';
 
@@ -28,11 +30,10 @@ class Kavenegar extends gNetwork\Provider
 
 	protected function setup_actions()
 	{
-		if ( defined( 'KAVENEGAR_API_KEY' ) && KAVENEGAR_API_KEY )
-			$this->api_key = KAVENEGAR_API_KEY;
-
-		else if ( isset( $this->options['kavenegar_api_key'] ) )
-			$this->api_key = $this->options['kavenegar_api_key'];
+		$this->api_key = self::const(
+			static::API_KEY_CONSTANT,
+			$this->options['kavenegar_api_key']
+		);
 
 		add_filter( $this->base.'_sms_recieve_args', [ $this, 'sms_recieve_args' ] );
 	}
@@ -44,7 +45,7 @@ class Kavenegar extends gNetwork\Provider
 				'type'        => 'text',
 				'title'       => _x( 'API Key', 'Provider: Kavenegar', 'gnetwork-admin' ),
 				'description' => _x( 'Key for communication between this site and Kavenegar.', 'Provider: Kavenegar', 'gnetwork-admin' ),
-				'constant'    => 'KAVENEGAR_API_KEY',
+				'constant'    => static::API_KEY_CONSTANT,
 				'field_class' => [ 'regular-text', 'code-text' ],
 			],
 			'from_number' => [
