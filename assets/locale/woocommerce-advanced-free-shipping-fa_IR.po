@@ -2,20 +2,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Advanced Free Shipping\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-27 22:31+0330\n"
+"PO-Revision-Date: 2026-07-26 23:12+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: Jeroen Sormani <info@jeroensormani.com>\n"
 "Language: fa_IR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.9\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
 "X-Poedit-Basepath: ../../../woocommerce-advanced-free-shipping\n"
 "X-Poedit-SearchPath-0: ..\n"
 
+#. Description of the plugin
+#: woocommerce-advanced-free-shipping.php
+msgid "Advanced Free Shipping for WooCommerce is an plugin which allows you to set up advanced free shipping conditions."
+msgstr ""
+
+#. Plugin Name of the plugin
+#: woocommerce-advanced-free-shipping.php
+msgid "Advanced Free Shipping for WooCommerce"
+msgstr "ارسال رایگان پیشرفته برای ووکامرس"
+
 #: libraries/wp-conditions/conditions/wpc-product-stock-status-condition.php:52
-#: libraries/wp-conditions/conditions/wpc-stock-status-condition.php:69
+#: libraries/wp-conditions/conditions/wpc-stock-status-condition.php:71
 #, fuzzy
 #| msgid "Backorders"
 msgid "On backorder"
@@ -52,9 +62,7 @@ msgid "Useful links"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-zipcode-condition.php:12
-msgid ""
-"Compare against customer zipcode. All zipcodes are matched with a 'starts "
-"with' matching method."
+msgid "Compare against customer zipcode. All zipcodes are matched with a 'starts with' matching method."
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-volume-condition.php:12
@@ -319,9 +327,7 @@ msgid "Product age"
 msgstr "کالا"
 
 #: woocommerce-advanced-free-shipping.php:310
-msgid ""
-"Advanced Free Shipping requires PHP 7.0 or higher and your current PHP "
-"version is %s. Please (contact your host to) update your PHP version."
+msgid "Advanced Free Shipping requires PHP 7.0 or higher and your current PHP version is %s. Please (contact your host to) update your PHP version."
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-zipcode-condition.php:10
@@ -395,8 +401,7 @@ msgid "stock"
 msgstr "موجودی"
 
 #: libraries/wp-conditions/conditions/wpc-state-condition.php:12
-msgid ""
-"Compare against the customer state. Note: only installed states will show up"
+msgid "Compare against the customer state. Note: only installed states will show up"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-state-condition.php:10
@@ -428,9 +433,8 @@ msgid "Role"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-quantity-condition.php:12
-#, fuzzy
 msgid "Compared against the quantity of items in the cart"
-msgstr "این محصول قادر به افزوده شدن به سبد خرید شما نیست."
+msgstr "مقایسه در برابر تعداد موارد در سبد خرید"
 
 #: libraries/wp-conditions/conditions/wpc-quantity-condition.php:10
 msgid "quantity"
@@ -448,19 +452,19 @@ msgstr ""
 msgid "Payment Gateway"
 msgstr ""
 
-#: libraries/wp-conditions/conditions/wpc-page-condition.php:74
+#: libraries/wp-conditions/conditions/wpc-page-condition.php:75
 msgid "My account"
 msgstr ""
 
-#: libraries/wp-conditions/conditions/wpc-page-condition.php:73
+#: libraries/wp-conditions/conditions/wpc-page-condition.php:74
 msgid "Terms & conditions"
 msgstr "شرایط و قوانین"
 
-#: libraries/wp-conditions/conditions/wpc-page-condition.php:72
+#: libraries/wp-conditions/conditions/wpc-page-condition.php:73
 msgid "Checkout"
 msgstr ""
 
-#: libraries/wp-conditions/conditions/wpc-page-condition.php:70
+#: libraries/wp-conditions/conditions/wpc-page-condition.php:71
 msgid "Shop page"
 msgstr ""
 
@@ -485,9 +489,7 @@ msgid "height"
 msgstr "بلندا"
 
 #: libraries/wp-conditions/conditions/wpc-day-condition.php:12
-msgid ""
-"Compare to day. You can use ranges with greater/less operators. Current day: "
-"%s"
+msgid "Compare to day. You can use ranges with greater/less operators. Current day: %s"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-day-condition.php:10
@@ -518,9 +520,7 @@ msgid "Date"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-coupon-condition.php:12
-msgid ""
-"Matched against the applied coupon codes or coupon amounts (use '%' or '$' "
-"for the respective amounts"
+msgid "Matched against the applied coupon codes or coupon amounts (use '%' or '$' for the respective amounts"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-coupon-condition.php:10
@@ -576,9 +576,8 @@ msgid "city"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-category-condition.php:12
-#, fuzzy
 msgid "All products in cart must match the given category"
-msgstr "مجموع وزن (به گرم) همه محصولات در سبد خرید."
+msgstr "همه کالاها در سبد باید با دسته‌بندی تعریف‌شده مطابقت داشته باشند."
 
 #: libraries/wp-conditions/conditions/wpc-category-condition.php:10
 msgid "category"
@@ -621,7 +620,7 @@ msgid "Continents"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-contains-product-condition.php:61
-#: libraries/wp-conditions/conditions/wpc-product-condition.php:43
+#: libraries/wp-conditions/conditions/wpc-product-condition.php:47
 msgid "Search for a product"
 msgstr ""
 
@@ -630,26 +629,19 @@ msgid "Settings"
 msgstr "تنظیمات"
 
 #. Author URI of the plugin
+#: woocommerce-advanced-free-shipping.php
 msgid "https://jeroensormani.com/"
 msgstr ""
 
 #. Author of the plugin
+#: woocommerce-advanced-free-shipping.php
 msgid "Jeroen Sormani"
 msgstr ""
 
-#. Description of the plugin
-msgid ""
-"WooCommerce Advanced Free Shipping is an plugin which allows you to set up "
-"advanced free shipping conditions."
-msgstr ""
-
 #. Plugin URI of the plugin
+#: woocommerce-advanced-free-shipping.php
 msgid "https://wordpress.org/plugins/woocommerce-advanced-free-shipping/"
 msgstr ""
-
-#. Plugin Name of the plugin
-msgid "WooCommerce Advanced Free Shipping"
-msgstr "نرخ ارسال رایگان پیشرفته ووکامرس"
 
 #: includes/class-wafs-post-type.php:137
 msgid "Shipping settings"
@@ -732,9 +724,8 @@ msgid "Add New"
 msgstr "افزودن نرخ تازه"
 
 #: includes/class-wafs-post-type.php:50
-#, fuzzy
 msgid "Advanced Free Shipping rate"
-msgstr "ارسال رایگان"
+msgstr "نرخ ارسال رایگان پیشرفته"
 
 #: includes/class-wafs-post-type.php:49
 #, fuzzy
@@ -746,18 +737,16 @@ msgid "Hide other shipping methods when free shipping is available"
 msgstr ""
 
 #: includes/class-wafs-method.php:103
-#, fuzzy
 msgid "Hide other shipping"
-msgstr "هزینه‌های ارسال تا زمان ورود نشانی، پنهان شود"
+msgstr "پنهان‌سازی ارسال‌های دیگر"
 
 #: includes/class-wafs-method.php:97
 msgid "Enable/Disable"
 msgstr "فعالسازی/غیرفعالسازی"
 
 #: includes/class-wafs-method.php:24
-#, fuzzy
 msgid "Advanced Free Shipping"
-msgstr "ارسال رایگان"
+msgstr "ارسال رایگان پیشرفته"
 
 #: includes/class-wafs-method.php:23
 msgid "Free Shipping (configurable per rate)"
@@ -824,12 +813,12 @@ msgid "There are no options available"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-product-stock-status-condition.php:51
-#: libraries/wp-conditions/conditions/wpc-stock-status-condition.php:68
+#: libraries/wp-conditions/conditions/wpc-stock-status-condition.php:70
 msgid "Out of stock"
 msgstr "عدم موجودی"
 
 #: libraries/wp-conditions/conditions/wpc-product-stock-status-condition.php:50
-#: libraries/wp-conditions/conditions/wpc-stock-status-condition.php:67
+#: libraries/wp-conditions/conditions/wpc-stock-status-condition.php:69
 msgid "In stock"
 msgstr "موجود در انبار"
 
@@ -839,22 +828,22 @@ msgid "No shipping class"
 msgstr ""
 
 #: libraries/wp-conditions/conditions/wpc-condition.php:48
-#: libraries/wp-conditions/functions.php:296
+#: libraries/wp-conditions/functions.php:313
 msgid "Less or equal to "
 msgstr "کمتر یا مساوی با "
 
 #: libraries/wp-conditions/conditions/wpc-condition.php:47
-#: libraries/wp-conditions/functions.php:295
+#: libraries/wp-conditions/functions.php:312
 msgid "Greater or equal to"
 msgstr "بیشتر یا مساوی با"
 
 #: libraries/wp-conditions/conditions/wpc-condition.php:46
-#: libraries/wp-conditions/functions.php:294
+#: libraries/wp-conditions/functions.php:311
 msgid "Not equal to"
 msgstr "عدم تساوی با"
 
 #: libraries/wp-conditions/conditions/wpc-condition.php:45
-#: libraries/wp-conditions/functions.php:293
+#: libraries/wp-conditions/functions.php:310
 msgid "Equal to"
 msgstr "تساوی با"
 
@@ -882,9 +871,8 @@ msgid "Compared to the lengthiest product in cart"
 msgstr "این محصول قادر به افزوده شدن به سبد خرید شما نیست."
 
 #: libraries/wp-conditions/conditions/wpc-weight-condition.php:12
-#, fuzzy
 msgid "Weight calculated on all the cart contents"
-msgstr "مجموع وزن (به گرم) همه محصولات در سبد خرید."
+msgstr "وزن محاسبه‌شده بر اساس تمامی محتوای سبد خرید"
 
 #: includes/admin/class-wafs-condition.php:127
 #: libraries/wp-conditions/conditions/wpc-category-condition.php:9
@@ -987,9 +975,8 @@ msgstr "کد تخفیف"
 
 #: includes/admin/class-wafs-condition.php:109
 #: libraries/wp-conditions/conditions/wpc-contains-product-condition.php:9
-#, fuzzy
 msgid "Contains product"
-msgstr "کالا"
+msgstr "شامل کالا"
 
 #: includes/admin/class-wafs-condition.php:108
 #: libraries/wp-conditions/conditions/wpc-quantity-condition.php:9
@@ -1016,7 +1003,7 @@ msgstr "جمع جزء"
 #: libraries/wp-conditions/conditions/wpc-contains-product-condition.php:11
 #: libraries/wp-conditions/conditions/wpc-contains-shipping-class-condition.php:11
 #: libraries/wp-conditions/conditions/wpc-coupon-condition.php:11
-#: libraries/wp-conditions/conditions/wpc-page-condition.php:71
+#: libraries/wp-conditions/conditions/wpc-page-condition.php:72
 #: libraries/wp-conditions/conditions/wpc-payment-gateway-condition.php:11
 #: libraries/wp-conditions/conditions/wpc-quantity-condition.php:11
 #: libraries/wp-conditions/conditions/wpc-shipping-method-condition.php:11
@@ -1027,6 +1014,9 @@ msgstr "جمع جزء"
 #: libraries/wp-conditions/conditions/wpc-weight-condition.php:11
 msgid "Cart"
 msgstr "سبد خرید"
+
+#~ msgid "WooCommerce Advanced Free Shipping"
+#~ msgstr "نرخ ارسال رایگان پیشرفته ووکامرس"
 
 #, fuzzy
 #~ msgid "Advanced Free Shipping methods"

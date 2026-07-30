@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress - 7.0.x - Administration\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-06-02 01:39+0330\n"
+"PO-Revision-Date: 2026-07-29 04:25+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: https://fa.geminorum.ir\n"
 "Language: fa\n"
@@ -11305,7 +11305,7 @@ msgstr "برگزیدن یک فهرست برای ویرایش:"
 #. translators: %s: URL to Upgrade Network screen.
 #: wp-admin/includes/ms.php:695
 msgid "Thank you for Updating! Please visit the <a href=\"%s\">Upgrade Network</a> page to update all your sites."
-msgstr "برای به‌روزرسانی سپاس‌گذاریم! برای به‌روزرسانی تمامی سایت‌ها، صفحهٔ <a href=\"%s\">ارتقای شبکه</a> را بازدید کنید."
+msgstr "برای به‌روزرسانی سپاس‌گزاریم! برای به‌روزرسانی تمامی سایت‌ها، صفحهٔ <a href=\"%s\">ارتقای شبکه</a> را بازدید کنید."
 
 #: wp-admin/setup-config.php:510
 msgid "All right, sparky! You&#8217;ve made it through this part of the installation. WordPress can now communicate with your database. If you are ready, time now to&hellip;"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WordPress - 7.0.x\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2026-06-26 12:43+0330\n"
+"PO-Revision-Date: 2026-07-27 23:45+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: https://fa.geminorum.ir\n"
 "Language: fa\n"
@@ -834,46 +834,36 @@ msgid "The connection to real-time collaboration was interrupted. Editing is pau
 msgstr ""
 
 #: wp-includes/js/dist/editor.js:45485
-#, fuzzy
-#| msgid "Conditions"
 msgid "Connection lost"
-msgstr "شرایط"
+msgstr "اتصال قطع شده است"
 
 #: wp-includes/js/dist/editor.js:45478
 msgid "Real-time collaboration has reached its connection limit. Try again later or contact your site administrator."
 msgstr ""
 
 #: wp-includes/js/dist/editor.js:45477
-#, fuzzy
-#| msgid "Too many redirects."
 msgid "Too many editors connected"
-msgstr "تعداد بازگردانی‌ها بالاست."
+msgstr "ویرایشگرهای زیادی متصل هستند"
 
 #: wp-includes/js/dist/editor.js:45472
 msgid "Your connection to real-time collaboration has timed out. Editing is paused to prevent conflicts with other editors."
 msgstr ""
 
 #: wp-includes/js/dist/editor.js:45471
-#, fuzzy
-#| msgid "Session expired"
 msgid "Connection expired"
-msgstr "نشست به اتمام رسیده است"
+msgstr "اتصال منقضی شده است"
 
 #: wp-includes/js/dist/editor.js:45466
 msgid "Real-time collaboration couldn't verify your permissions. Check that you have access to edit this post or contact your site administrator."
 msgstr ""
 
 #: wp-includes/js/dist/editor.js:45465
-#, fuzzy
-#| msgid "Table of Contents"
 msgid "Unable to connect"
-msgstr "فهرست مطالب"
+msgstr "ناتوانی در اتصال"
 
 #: wp-includes/js/dist/editor.js:41971
-#, fuzzy
-#| msgid "Add note"
 msgid "Add a new note."
-msgstr "افزودن یادداشت"
+msgstr "افزودن یادداشت تازه."
 
 #. translators: %s: Date and time of the revision.
 #: wp-includes/js/dist/editor.js:39504
@@ -882,8 +872,6 @@ msgstr ""
 
 #. translators: %d: number of revisions.
 #: wp-includes/js/dist/editor.js:37679
-#, fuzzy
-#| msgid "Revisions (%s)"
 msgid "Revisions (%d)"
 msgstr "رونوشت‌ها (%s)"
 
@@ -895,25 +883,18 @@ msgstr "%1$s از %2$s"
 
 #. translators: %d: Total number of patterns.
 #: wp-includes/js/dist/editor.js:37554
-#, fuzzy
-#| msgid "%s item"
-#| msgid_plural "%s items"
 msgid "%d item"
 msgid_plural "%d items"
 msgstr[0] "%s مورد"
 msgstr[1] "%s مورد"
 
 #: wp-includes/js/dist/editor.js:37123
-#, fuzzy
-#| msgid "Style Variations"
 msgid "Color Variations"
-msgstr "متغییرهای شیوه‌بندی"
+msgstr "متغییرهای رنگی"
 
 #: wp-includes/js/dist/editor.js:36838
-#, fuzzy
-#| msgid "Shadow"
 msgid "Shadow Type"
-msgstr "سایه"
+msgstr "نوع سایه"
 
 #: wp-includes/js/dist/editor.js:20142
 msgid "Visitors will see blank pages."
@@ -937,16 +918,12 @@ msgstr "افزوده شد"
 
 #: wp-includes/js/dist/editor.js:16881 wp-includes/js/dist/editor.js:54419
 #: wp-admin/includes/revision.php:97
-#, fuzzy
-#| msgid "Remove"
 msgid "Removed"
-msgstr "حذف"
+msgstr "حذف‌شده"
 
 #: wp-includes/js/dist/editor.js:16860
-#, fuzzy
-#| msgid "Formatting"
 msgid "Formatting changed"
-msgstr "قالب‌بندی"
+msgstr "قالب‌بندی تغییر کرد"
 
 #. translators: %d: number of formats changed
 #: wp-includes/js/dist/editor.js:16853
@@ -1031,10 +1008,8 @@ msgid "%s (Copy)"
 msgstr "%s (رونوشت)"
 
 #: wp-includes/js/dist/editor.js:9639
-#, fuzzy
-#| msgid "Choose file"
 msgid "Choose files"
-msgstr "انتخاب پرونده"
+msgstr "انتخاب پرونده‌ها"
 
 #. translators: %s: The title of the media item.
 #: wp-includes/js/dist/editor.js:9277
@@ -3261,10 +3236,8 @@ msgid "⌘K"
 msgstr "⌘K"
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:566
-#, fuzzy
-#| msgid "Sorry, you are not allowed to create a comment on this post."
 msgid "Sorry, you are not allowed to create notes for this post."
-msgstr "با عرض پوزش، شما مجاز به افزودن دیدگاه به این نوشته نیستید."
+msgstr "با عرض پوزش، شما مجاز به افزودن یادداشت به این فرسته نیستید."
 
 #. translators: %s: The directive, e.g. data-wp-on--click.
 #: wp-includes/interactivity-api/class-wp-interactivity-api.php:1038
@@ -19309,7 +19282,7 @@ msgstr ""
 #: wp-includes/js/dist/block-library.js:17805
 #: wp-includes/js/dist/block-library.js:17814
 msgid "Repeated background"
-msgstr ""
+msgstr "پس‌زمینه تکرارشونده"
 
 #: wp-includes/js/dist/block-library.js:12358
 msgid "One column"
@@ -19321,7 +19294,7 @@ msgstr "صد"
 
 #: wp-includes/js/dist/block-library.js:10364
 msgid "Find out more"
-msgstr ""
+msgstr "بیشتر بدانید"
 
 #: wp-includes/js/dist/edit-post.js:1930
 #: wp-includes/js/dist/edit-widgets.js:3439
@@ -19462,7 +19435,7 @@ msgstr "کپی URL به کلیپ‌برد"
 
 #: wp-includes/media-template.php:502 wp-includes/media-template.php:743
 msgid "Used as:"
-msgstr ""
+msgstr "استفاده به عنوان:"
 
 #. translators: 1: Parameter, 2: Multiplier.
 #: wp-includes/rest-api.php:2566
@@ -22434,7 +22407,7 @@ msgstr "مرورگر شما توانایی بارگذاری پرونده‌ها 
 
 #: wp-includes/class-wp-xmlrpc-server.php:674 wp-includes/option.php:2957
 msgid "Allow people to submit comments on new posts."
-msgstr "برای نوشته‌های تازه، اجازهٔ ارسال دیدگاه به افراد داده شود."
+msgstr "برای فرسته‌های تازه، اجازهٔ ارسال دیدگاه به افراد داده شود."
 
 #. translators: %s: Documentation URL.
 #: wp-includes/user.php:3474
@@ -22586,7 +22559,7 @@ msgstr "- انتخاب -"
 
 #: wp-includes/js/dist/block-library.js:59795
 msgid "Display entries from any RSS or Atom feed."
-msgstr "نمایش نوشته‌ها از هر RSS یا خوراک Atom."
+msgstr "نمایش فرسته‌ها از هر RSS یا خوراک Atom."
 
 #: wp-includes/js/dist/block-library.js:59945
 #: wp-includes/js/dist/block-library.js:59953
@@ -22662,7 +22635,7 @@ msgstr "چکیده مخفی است."
 
 #: wp-includes/widgets/class-wp-widget-calendar.php:34
 msgid "A calendar of your site’s posts."
-msgstr "تقویمی از نوشته‌های سایت شما."
+msgstr "تقویمی از فرسته‌های سایت شما."
 
 #: wp-includes/media.php:5040
 msgid "Edit gallery"
@@ -23163,7 +23136,7 @@ msgstr "ابزارهای بلوک"
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-autosaves-controller.php:170
 msgid "Sorry, you are not allowed to view autosaves of this post."
-msgstr "با عرض پوزش، شما مجاز به مشاهدهٔ ذخیره خودکار این نوشته نیستید."
+msgstr "با عرض پوزش، شما مجاز به مشاهدهٔ ذخیره خودکار این فرسته نیستید."
 
 #: wp-includes/js/dist/annotations.js:146
 msgid "Annotation"
@@ -23395,12 +23368,12 @@ msgstr "تبدیل به فهرست بی‌ترتیب"
 
 #: wp-includes/js/dist/block-library.js:33286
 msgid "Latest Posts"
-msgstr "نوشته‌های اخیر"
+msgstr "فرسته‌های اخیر"
 
 #: wp-includes/js/dist/block-library.js:32984
 #: wp-includes/js/dist/block-library.js:32990
 msgid "Display post date"
-msgstr "نمایش تاریخ نوشته"
+msgstr "نمایش تاریخ فرسته"
 
 #: wp-includes/js/dist/block-library.js:32462
 #: wp-includes/js/dist/block-library.js:32469
@@ -23532,7 +23505,7 @@ msgstr "جاسازی ویدئویی از VideoPress."
 
 #: wp-includes/js/dist/block-library.js:21584
 msgid "Embed a Tumblr post."
-msgstr "جاسازی نوشته‌ای از Tumblr."
+msgstr "جاسازی فرسته‌ای از Tumblr."
 
 #: wp-includes/js/dist/block-library.js:21575
 msgid "Embed a TED video."
@@ -23621,7 +23594,7 @@ msgstr "بلاگ"
 #: wp-includes/js/dist/block-library.js:41401
 #: wp-includes/js/dist/block-library.js:41405
 msgid "post"
-msgstr "نوشته"
+msgstr "فرسته"
 
 #: wp-includes/js/dist/block-library.js:21373
 msgid "Embed an Instagram post."
@@ -24130,7 +24103,7 @@ msgstr "همان‌گونه که هست بماند"
 
 #: wp-includes/js/dist/editor.js:42114
 msgid "The content of your post doesn’t match the template assigned to your post type."
-msgstr "محتوای نوشته شما مطابق با الگوی اختصاص یافته به گونه نوشته شما نیست."
+msgstr "محتوای فرسته شما مطابق با الگوی اختصاص یافته به گونه فرسته شما نیست."
 
 #: wp-includes/js/dist/editor.js:42130
 msgid "Resetting the template may result in loss of content, do you want to continue?"
@@ -24236,11 +24209,11 @@ msgstr "تغییر به پیش‌نویس"
 
 #: wp-includes/js/dist/editor.js:48607
 msgid "Are you sure you want to unschedule this post?"
-msgstr "آیا اطمینان دارید که می‌خواهید این نوشته را از زمان‌بندی خارج کنید؟"
+msgstr "آیا اطمینان دارید که می‌خواهید این فرسته را از زمان‌بندی خارج کنید؟"
 
 #: wp-includes/js/dist/editor.js:48604
 msgid "Are you sure you want to unpublish this post?"
-msgstr "آیا مطمئنید می‌خواهید این نوشته را از حالت انتشار خارج نمائید؟"
+msgstr "آیا مطمئنید می‌خواهید این فرسته را از حالت انتشار خارج نمائید؟"
 
 #: wp-includes/js/dist/editor.js:46620
 msgid "Immediately"
@@ -24329,11 +24302,11 @@ msgstr "ساختار «%1$s» اعمال شود."
 
 #: wp-includes/js/dist/editor.js:47059
 msgid "Your theme uses post formats to highlight different kinds of content, like images or videos. Apply a post format to see this special styling."
-msgstr "پوستهٔ شما از شکل‌بندی‌های نوشته برای برجسته‌سازی انواع مختلف محتوا مانند تصاویر و ویدئوها استفاده می‌کند. یک شکل‌بندی نوشته برای دیدن این سبک‌بندی خاص وارد کنید."
+msgstr "پوستهٔ شما از شکل‌بندی‌های فرسته برای برجسته‌سازی انواع مختلف محتوا مانند تصاویر و ویدئوها استفاده می‌کند. یک شکل‌بندی فرسته برای دیدن این سبک‌بندی خاص وارد کنید."
 
 #: wp-includes/js/dist/editor.js:47053
 msgid "Use a post format"
-msgstr "از ساختار نوشته استفاده کنید"
+msgstr "از ساختار فرسته استفاده کنید"
 
 # ترجمه برای تک‌خط شدن در ستون کناری کوتاه شده است.
 #: wp-includes/js/dist/editor.js:48057
@@ -24386,11 +24359,11 @@ msgstr "آواتار"
 
 #: wp-includes/js/dist/editor.js:45645
 msgid "This post is already being edited"
-msgstr "این نوشته هم‌اکنون در حال ویرایش است"
+msgstr "این فرسته هم‌اکنون در حال ویرایش است"
 
 #: wp-includes/js/dist/editor.js:45645
 msgid "Someone else has taken over this post"
-msgstr "شخص دیگری این نوشته را دست گرفته است."
+msgstr "شخص دیگری این فرسته را دست گرفته است."
 
 #. translators: %d: Number of Styles revisions.
 #: wp-includes/js/dist/edit-site.js:21261
@@ -24401,7 +24374,7 @@ msgstr[1] "%s رونوشت"
 
 #: wp-includes/js/dist/editor.js:45321
 msgid "Post Format"
-msgstr "ساختار نوشته"
+msgstr "ساختار فرسته"
 
 #: wp-includes/js/dist/block-library.js:55295
 #: wp-includes/js/dist/editor.js:45273
@@ -24888,11 +24861,11 @@ msgstr "با عرض پوزش، شما مجاز به خواندن بلوک‌ها
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-block-renderer-controller.php:122
 msgid "Sorry, you are not allowed to read blocks of this post."
-msgstr "با عرض پوزش، شما مجاز به خواندن بلوک‌های این نوشته نیستید."
+msgstr "با عرض پوزش، شما مجاز به خواندن بلوک‌های این فرسته نیستید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-block-renderer-controller.php:91
 msgid "ID of the post context."
-msgstr "شناسه متن نوشته."
+msgstr "شناسه متن فرسته."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-block-renderer-controller.php:54
 msgid "Attributes for the block."
@@ -24918,7 +24891,7 @@ msgstr ""
 
 #: wp-includes/theme.php:4288
 msgid "Post formats supported."
-msgstr "حالات مختلف نوشته پشتیبانی می‌شود."
+msgstr "حالات مختلف فرسته پشتیبانی می‌شود."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-themes-controller.php:617
 msgid "Features supported by this theme."
@@ -24971,15 +24944,15 @@ msgstr "نامک به‌صورت خودکار از عنوان تولید می‌
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2512
 msgid "Permalink template for the post."
-msgstr "الگوی پایاپیوند برای این نوشته."
+msgstr "الگوی پایاپیوند برای این فرسته."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-autosaves-controller.php:354
 msgid "Preview link for the post."
-msgstr "پیوند پیش‌نمایش برای نوشته."
+msgstr "پیوند پیش‌نمایش برای فرسته."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-autosaves-controller.php:295
 msgid "There is no autosave revision for this post."
-msgstr "برای این نوشته هیچ ذخیره خودکاری از رونوشت وجود ندارد."
+msgstr "برای این فرسته هیچ ذخیره خودکاری از رونوشت وجود ندارد."
 
 #: wp-includes/class-wp-post-type.php:1017 wp-admin/edit-form-advanced.php:190
 #: wp-admin/edit-form-advanced.php:193
@@ -24989,7 +24962,7 @@ msgstr "برگه به‌روز شد."
 #: wp-includes/class-wp-post-type.php:1017 wp-admin/edit-form-advanced.php:175
 #: wp-admin/edit-form-advanced.php:178
 msgid "Post updated."
-msgstr "نوشته به‌روز شد."
+msgstr "فرسته به‌روز شد."
 
 #: wp-includes/class-wp-post-type.php:1016
 msgid "Page scheduled."
@@ -24997,7 +24970,7 @@ msgstr "برگه زمان‌بندی شد."
 
 #: wp-includes/class-wp-post-type.php:1016
 msgid "Post scheduled."
-msgstr "نوشته زمان‌بندی شد."
+msgstr "فرسته زمان‌بندی شد."
 
 #: wp-includes/class-wp-post-type.php:1014
 msgid "Page reverted to draft."
@@ -25005,7 +24978,7 @@ msgstr "برگرداندن برگه به پیش‌نویس."
 
 #: wp-includes/class-wp-post-type.php:1014
 msgid "Post reverted to draft."
-msgstr "نوشته پیش‌نویس شد."
+msgstr "فرسته پیش‌نویس شد."
 
 #: wp-includes/class-wp-post-type.php:1013
 msgid "Page published privately."
@@ -25013,7 +24986,7 @@ msgstr "برگه به صورت خصوصی منتشر شد."
 
 #: wp-includes/class-wp-post-type.php:1013
 msgid "Post published privately."
-msgstr "نوشته به صورت خصوصی منتشر شد."
+msgstr "فرسته به صورت خصوصی منتشر شد."
 
 #: wp-includes/class-wp-post-type.php:1012 wp-admin/edit-form-advanced.php:196
 msgid "Page published."
@@ -25021,7 +24994,7 @@ msgstr "برگه منتشر شد."
 
 #: wp-includes/class-wp-post-type.php:1012 wp-admin/edit-form-advanced.php:181
 msgid "Post published."
-msgstr "نوشته منتشر شد."
+msgstr "فرسته منتشر شد."
 
 #. translators: %s: Block name.
 #: wp-includes/class-wp-block-type-registry.php:120
@@ -25086,15 +25059,15 @@ msgstr "کاربر کنونی می‌تواند رده‌ها را در رده�
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2908
 msgid "The current user can change the author on this post."
-msgstr "کاربر کنونی می‌تواند نویسنده این نوشته را تغییر دهد."
+msgstr "کاربر کنونی می‌تواند نویسنده این فرسته را تغییر دهد."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2892
 msgid "The current user can sticky this post."
-msgstr "کاربر کنونی می‌تواند این نوشته را سنجاق کند."
+msgstr "کاربر کنونی می‌تواند این فرسته را سنجاق کند."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2859
 msgid "The current user can publish this post."
-msgstr "کاربر کنونی می‌تواند این نوشته را منتشر کند."
+msgstr "کاربر کنونی می‌تواند این فرسته را منتشر کند."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:1610
 #: wp-admin/includes/ms.php:45
@@ -25754,7 +25727,7 @@ msgstr "تغییرات سفارشی‌سازی‌تان را برای انتشا
 
 #: wp-includes/script-loader.php:1350
 msgid "Homepage and posts page must be different."
-msgstr "صفحه خانه و برگه نوشته‌ها باید متفاوت باشند."
+msgstr "صفحه خانه و برگه فرسته‌ها باید متفاوت باشند."
 
 #. translators: %d: Error count.
 #: wp-includes/script-loader.php:1345 wp-includes/script-loader.php:1347
@@ -26361,7 +26334,7 @@ msgstr "محتوای برگه خانه شما"
 
 #: wp-includes/class-wp-customize-manager.php:5642
 msgid "You can choose what&#8217;s displayed on the homepage of your site. It can be posts in reverse chronological order (classic blog), or a fixed/static page. To set a static homepage, you first need to create two Pages. One will become the homepage, and the other will be where your posts are displayed."
-msgstr "انتخاب کنید که چه چیزی در برگه خانه سایت شما نمایش داده شود. می‌تواند فرسته‌ها با ترتیب زمانی معکوس (بلاگ کلاسیک)، یا برگه ایستا/ثابت باشد. برای تنظیم برگه خانه ایستا، ابتدا نیاز به ایجاد دو برگه دارید. یکی برای برگه خانه و دیگری جایی که نوشته‌های شما نمایش داده شود."
+msgstr "انتخاب کنید که چه چیزی در برگه خانه سایت شما نمایش داده شود. می‌تواند فرسته‌ها با ترتیب زمانی معکوس (بلاگ کلاسیک)، یا برگه ایستا/ثابت باشد. برای تنظیم برگه خانه ایستا، ابتدا نیاز به ایجاد دو برگه دارید. یکی برای برگه خانه و دیگری جایی که فرسته‌های شما نمایش داده شود."
 
 #: wp-includes/class-wp-customize-manager.php:5640
 msgid "Homepage Settings"
@@ -26577,7 +26550,7 @@ msgstr "نشانی پرونده رسانه‌ای"
 
 #: wp-includes/widgets/class-wp-widget-media.php:146
 msgid "Attachment post ID"
-msgstr "شناسه نوشته پیوست"
+msgstr "شناسه فرسته پیوست"
 
 #: wp-includes/widgets/class-wp-widget-media.php:511
 msgid "Looks like this is not the correct kind of file. Please link to an appropriate file instead."
@@ -27106,11 +27079,11 @@ msgstr "عنوان برای این رده‌بندی."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:363
 msgid "The title for the post type."
-msgstr "عنوان برای نوع نوشته."
+msgstr "عنوان برای نوع فرسته."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:154
 msgid "Cannot view post type."
-msgstr "نمی‌توانید نوع نوشته را مشاهده کنید."
+msgstr "نمی‌توانید نوع فرسته را مشاهده کنید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-post-statuses-controller.php:306
 msgid "The title for the status."
@@ -27147,7 +27120,7 @@ msgstr "برنگاشت این پیوست."
 
 #: wp-includes/option.php:2874
 msgid "Default post category."
-msgstr "دسته‌بندی پیش‌فرض نوشته."
+msgstr "دسته‌بندی پیش‌فرض فرسته."
 
 #: wp-includes/option.php:2764
 msgid "Site tagline."
@@ -27226,7 +27199,7 @@ msgstr "بایگانی"
 #: wp-includes/theme.php:2476
 msgctxt "Theme starter content"
 msgid "This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog posts."
-msgstr "این نمونه‌ای از یک بخش از صفحهٔ نخست است. بخش‌های صفحه نخست می‌توانند از هر بخشی به جز خود صفحه نخست باشند، مانند برگه‌ای که آخرین نوشته‌های بلاگ شما را نمایش می‌دهد."
+msgstr "این نمونه‌ای از یک بخش از صفحهٔ نخست است. بخش‌های صفحه نخست می‌توانند از هر بخشی به جز خود صفحه نخست باشند، مانند برگه‌ای که آخرین فرسته‌های بلاگ شما را نمایش می‌دهد."
 
 #: wp-includes/theme.php:2468
 msgctxt "Theme starter content"
@@ -27298,17 +27271,17 @@ msgstr ""
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:189
 msgid "Sorry, you are not allowed to view revisions of this post."
-msgstr "با عرض پوزش، شما مجاز به مشاهده رونوشت‌های این نوشته نیستید."
+msgstr "با عرض پوزش، شما مجاز به مشاهده رونوشت‌های این فرسته نیستید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:610
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:618
 msgid "Sorry, you are not allowed to create a comment on this post."
-msgstr "با عرض پوزش، شما مجاز به افزودن دیدگاه به این نوشته نیستید."
+msgstr "با عرض پوزش، شما مجاز به افزودن دیدگاه به این فرسته نیستید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:584
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:594
 msgid "Sorry, you are not allowed to create this comment without a post."
-msgstr "با عرض پوزش، شما بدون یک نوشته مجاز به ایجاد این دیدگاه نیستید."
+msgstr "با عرض پوزش، شما بدون یک فرسته مجاز به ایجاد این دیدگاه نیستید."
 
 #. translators: %s: Request parameter.
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:547
@@ -27321,7 +27294,7 @@ msgstr "با عرض پوزش، شما مجاز به ویرایش '%s' برای �
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:463
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:626
 msgid "Sorry, you are not allowed to read the post for this comment."
-msgstr "با عرض پوزش، شما مجاز به خواندن نوشتهٔ این دیدگاه نیستید."
+msgstr "با عرض پوزش، شما مجاز به خواندن فرسته این دیدگاه نیستید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:455
 msgid "Sorry, you are not allowed to read this comment."
@@ -27329,7 +27302,7 @@ msgstr "با عرض پوزش، شما اجازهٔ خواندن این دیدگ�
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:144
 msgid "Sorry, you are not allowed to read comments without a post."
-msgstr "با عرض پوزش، شما بدون یک نوشته مجاز به خواندن دیدگاه‌ها نیستید."
+msgstr "با عرض پوزش، شما بدون یک فرسته مجاز به خواندن دیدگاه‌ها نیستید."
 
 #: wp-includes/theme.php:2433
 msgctxt "Theme starter content"
@@ -27382,12 +27355,12 @@ msgstr "با عرض پوزش، شما مجاز به اختصاص دادن رده
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:709
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:920
 msgid "Sorry, you are not allowed to make posts sticky."
-msgstr "با عرض پوزش، شما اجازهٔ سنجاق کردن نوشته‌ها را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ سنجاق کردن فرسته‌ها را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:113
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:154
 msgid "Reassign the deleted user's posts and links to this user ID."
-msgstr "اختصاص دادن دوباره پیوندها و نوشته‌های حذف شده کاربر به این شناسه کاربری."
+msgstr "اختصاص دادن دوباره پیوندها و فرسته‌های حذف شده کاربر به این شناسه کاربری."
 
 #: wp-includes/script-loader.php:1340
 msgid "This theme does not support video headers on this page. Navigate to the front page or another page that supports video headers."
@@ -27592,12 +27565,12 @@ msgstr "رونوشت‌ها به زباله‌دان منتقل نمی‌شون�
 #. translators: %s: force=true
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1152
 msgid "The post does not support trashing. Set '%s' to delete."
-msgstr "نوشته به زباله‌دان منتقل نمی‌شوند. برای حذف «%s» را تنظیم کنید."
+msgstr "این فرسته به زباله‌دان منتقل نمی‌شود. برای حذف «%s» را تنظیم کنید."
 
 #. translators: %s: force=true
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1080
 msgid "The comment does not support trashing. Set '%s' to delete."
-msgstr "دیدگاه به زباله‌دان منتقل نمی‌شوند. برای حذف «%s» را تنظیم کنید."
+msgstr "این دیدگاه به زباله‌دان منتقل نمی‌شود. برای حذف «%s» را تنظیم کنید."
 
 #: wp-includes/class-wp-customize-manager.php:5453
 msgid "Or, enter a YouTube URL:"
@@ -27618,7 +27591,7 @@ msgstr "زمینه دیدگاه بیش از حداکثر طول مجاز است.
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-post-types-controller.php:387
 msgid "Taxonomies associated with post type."
-msgstr "رده‌بندی‌های مرتبط با گونه نوشته."
+msgstr "رده‌بندی‌های مرتبط با گونه فرسته."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:3123
 msgid "Limit result set to posts with one or more specific slugs."
@@ -28002,19 +27975,19 @@ msgstr "شناسه فرسته والد نامعتبر است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1440
 msgid "A password protected post can not be set to sticky."
-msgstr "نوشتهٔ محافظت‌شده با رمز نمی‌تواند سنجاق شود."
+msgstr "فرستهٔ محافظت‌شده با رمز عبور، نمی‌تواند سنجاق شود."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1429
 msgid "A sticky post can not be password protected."
-msgstr "یک نوشته سنجاق شده نمی‌تواند با رمزعبور محافظت شود."
+msgstr "یک فرسته سنجاق شده نمی‌تواند با رمز عبور محافظت شود."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1421
 msgid "A post can not be sticky and have a password."
-msgstr "یک نوشته نمی‌تواند سنجاق‌شده و رمز داشته باشد."
+msgstr "یک فرسته نمی‌تواند سنجاق‌شده و رمز عبور داشته باشد."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1161
 msgid "The post has already been deleted."
-msgstr "نوشته پیش از این حذف‌شده است."
+msgstr "فرسته پیش از این حذف‌شده است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:187
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:195
@@ -28031,7 +28004,7 @@ msgstr ""
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:691
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:745
 msgid "Cannot create existing post."
-msgstr "نمی‌توانید نوشته موجود ایجاد کنید."
+msgstr "نمی‌توانید فرسته موجود ایجاد کنید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:565
 msgid "Sorry, you are not allowed to create new users."
@@ -28039,7 +28012,7 @@ msgstr "با عرض پوزش، شما مجاز به ایجاد کاربر تاز
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:599
 msgid "Incorrect post password."
-msgstr "رمز عبور نوشته نادرست است."
+msgstr "رمز عبور فرسته نادرست است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:221
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:244
@@ -28069,7 +28042,7 @@ msgstr ""
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-post-statuses-controller.php:95
 msgid "Sorry, you are not allowed to manage post statuses."
-msgstr "با عرض پوزش، شما مجاز به مدیریت وضعیت‌های نوشته نیستد."
+msgstr "با عرض پوزش، شما مجاز به مدیریت وضعیت‌های فرسته نیستد."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:1483
 msgid "An alphanumeric identifier for the user."
@@ -28141,7 +28114,7 @@ msgstr "محدود‌سازی نتایج به دیدگاه‌های تخصیص �
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1771
 msgid "Limit result set to comments assigned to specific post IDs."
-msgstr "محدود‌سازی نتایج به دیدگاه‌های تخصیص یافته به شناسه‌های نوشته خاص."
+msgstr "محدود‌سازی نتایج به دیدگاه‌های تخصیص یافته به شناسه‌های فرسته خاص."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1762
 msgid "Ensure result set excludes specific parent IDs."
@@ -28220,7 +28193,7 @@ msgstr ""
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:1602
 msgid "The ID of the associated post object."
-msgstr "شناسه ابژه نوشته مرتبط."
+msgstr "شناسه ابژه فرسته مرتبط."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2538
 msgid "The ID for the parent of the post."
@@ -28355,7 +28328,7 @@ msgstr "داده‌ای عرضه نشده است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:1203
 msgid "The ID for the associated post of the attachment."
-msgstr "شناسه برای نوشته مرتبط با پیوست."
+msgstr "شناسه برای فرسته مرتبط با پیوست."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:1196
 msgid "Details about the media file, specific to its type."
@@ -28372,7 +28345,7 @@ msgstr "نوع والد نامعتبر است."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:145
 msgid "Sorry, you are not allowed to upload media to this post."
-msgstr "با عرض پوزش، شما مجاز به بارگذاری رسانه در این نوشته نیستید."
+msgstr "با عرض پوزش، شما مجاز به بارگذاری رسانه در این فرسته نیستید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:136
 #: wp-includes/rest-api/endpoints/class-wp-rest-attachments-controller.php:555
@@ -28390,7 +28363,7 @@ msgstr "ویژگی‌های برگه"
 
 #: wp-includes/class-wp-post-type.php:1001
 msgid "Post Attributes"
-msgstr "ویژگی‌های نوشته"
+msgstr "ویژگی‌های فرسته"
 
 #: wp-includes/class-wp-post-type.php:994
 msgid "View Pages"
@@ -28398,7 +28371,7 @@ msgstr "دیدن برگه‌ها"
 
 #: wp-includes/class-wp-post-type.php:994
 msgid "View Posts"
-msgstr "دیدن نوشته‌ها"
+msgstr "دیدن فرسته‌ها"
 
 #: wp-includes/post.php:234
 msgid "No changesets found in Trash."
@@ -28467,11 +28440,11 @@ msgstr "به دیگر سایت‌ها اجازه ارسال بازتاب و با
 
 #: wp-includes/option.php:2895
 msgid "Blog pages show at most."
-msgstr "بیشترین تعداد نوشته‌ها در هر برگهٔ بلاگ."
+msgstr "بیشترین تعداد فرسته‌ها در هر صفحه بلاگ."
 
 #: wp-includes/option.php:2884
 msgid "Default post format."
-msgstr "ساختار پیش‌فرض نوشته."
+msgstr "ساختار پیش‌فرض فرسته."
 
 #: wp-includes/option.php:2863
 msgid "Convert emoticons like :-) and :-P to graphics on display."
@@ -28627,7 +28600,7 @@ msgstr "%1$s نمی‌تواند ساخته شود: %2$s"
 #: wp-includes/class-wp-customize-nav-menus.php:1049
 #: wp-includes/js/dist/block-editor.js:48981
 msgid "Post"
-msgstr "نوشته"
+msgstr "فرسته"
 
 #. translators: 1: .mp4, 2: .mov
 #: wp-includes/class-wp-customize-manager.php:6102
@@ -28947,7 +28920,7 @@ msgstr "با عرض پوزش، شما اجازهٔ حذف این برگه را �
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1074
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1128
 msgid "Sorry, you are not allowed to delete this post."
-msgstr "با عرض پوزش، شما اجازهٔ حذف این نوشته را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ حذف این فرسته را ندارید."
 
 #. translators: %s: Site title.
 #: wp-login.php:338
@@ -29127,7 +29100,7 @@ msgstr "(بدون عنوان)"
 
 #: wp-includes/post.php:1897
 msgid "Unregistering a built-in post type is not allowed"
-msgstr "لغو ثبت نوع نوشتهٔ توکار مجاز نیست"
+msgstr "لغو ثبت نوع فرستهٔ توکار مجاز نیست"
 
 #: wp-includes/post.php:735
 msgctxt "post status"
@@ -29490,7 +29463,7 @@ msgstr "عملیات موفق بود. پیام %s حذف شد."
 
 #: wp-mail.php:257
 msgid "Posted title:"
-msgstr "عنوان نوشته:"
+msgstr "عنوان فرسته:"
 
 #: wp-mail.php:256 wp-admin/includes/plugin-install.php:658
 msgid "Author:"
@@ -29648,7 +29621,7 @@ msgstr "فهرست برگه‌ها"
 
 #: wp-includes/class-wp-post-type.php:1011
 msgid "Posts list"
-msgstr "فهرست نوشته‌ها"
+msgstr "فهرست فرسته‌ها"
 
 #: wp-includes/class-wp-post-type.php:1010
 msgid "Pages list navigation"
@@ -29656,7 +29629,7 @@ msgstr "راه‌بری فهرست برگه‌ها"
 
 #: wp-includes/class-wp-post-type.php:1010
 msgid "Posts list navigation"
-msgstr "راه‌بری فهرست نوشته‌ها"
+msgstr "راه‌بری فهرست فرسته‌ها"
 
 #: wp-includes/class-wp-post-type.php:1008
 msgid "Filter pages list"
@@ -29664,7 +29637,7 @@ msgstr "پالایه فهرست برگه‌ها"
 
 #: wp-includes/class-wp-post-type.php:1008
 msgid "Filter posts list"
-msgstr "پالایه فهرست نوشته‌ها"
+msgstr "پالایه فهرست فرسته‌ها"
 
 #: wp-includes/class-wp-post-type.php:1000
 msgid "Page Archives"
@@ -29672,13 +29645,13 @@ msgstr "بایگانی برگه‌ها"
 
 #: wp-includes/class-wp-post-type.php:1000
 msgid "Post Archives"
-msgstr "بایگانی نوشته‌ها"
+msgstr "بایگانی فرسته‌ها"
 
 #: wp-includes/class-wp-customize-nav-menus.php:200
 #: wp-includes/customize/class-wp-customize-nav-menu-item-setting.php:337
 #: wp-includes/nav-menu.php:921
 msgid "Post Type Archive"
-msgstr "بایگانی نوع نوشته"
+msgstr "بایگانی نوع فرسته"
 
 #: wp-includes/ms-functions.php:667
 msgid "Site names can only contain lowercase letters (a-z) and numbers."
@@ -29825,7 +29798,7 @@ msgstr "دیدگاه‌های کهنه‌تر"
 #. translators: Post calendar label. %s: Date.
 #: wp-includes/general-template.php:2532
 msgid "Posts published on %s"
-msgstr "نوشته‌های منتشر شده در %s"
+msgstr "فرسته‌های منتشر شده در %s"
 
 #. translators: %s: 'document_title_separator' filter name.
 #: wp-includes/feed.php:106 wp-includes/feed.php:132
@@ -29838,11 +29811,11 @@ msgstr "بستن صفحه اشتراک"
 
 #: wp-includes/embed.php:1214
 msgid "Copy and paste this code into your site to embed"
-msgstr "برای جاسازی این نوشته، این کد را در سایت خود قرار دهید"
+msgstr "برای جاسازی این فرسته، این کد را در سایت خود قرار دهید"
 
 #: wp-includes/embed.php:1207
 msgid "Copy and paste this URL into your WordPress site to embed"
-msgstr "برای جاسازی نوشته، این نشانی را در سایت وردپرسی خود قرار دهید"
+msgstr "برای جاسازی فرسته، این نشانی را در سایت وردپرسی خود قرار دهید"
 
 #: wp-includes/embed.php:1200
 msgid "HTML Embed"
@@ -29873,7 +29846,7 @@ msgstr "بیشتر"
 
 #: wp-includes/js/dist/block-library.js:21383
 msgid "Embed a WordPress post."
-msgstr "جاسازی یک نوشته وردپرس."
+msgstr "جاسازی یک فرسته وردپرس."
 
 #. translators: Hidden accessibility text.
 #: wp-includes/customize/class-wp-widget-area-customize-control.php:66
@@ -30205,11 +30178,11 @@ msgstr "بستن تگ فهرست بی‌اولویت"
 
 #: wp-includes/script-loader.php:818
 msgid "Close inserted text tag"
-msgstr "بستن تگ نوشتهٔ وارده"
+msgstr "بستن تگ فرستهٔ وارده"
 
 #: wp-includes/script-loader.php:817
 msgid "Inserted text"
-msgstr "نوشتهٔ وارده"
+msgstr "فرستهٔ وارده"
 
 #: wp-includes/script-loader.php:816
 msgid "Close deleted text tag"
@@ -30371,7 +30344,7 @@ msgstr[1] "پوستهٔ شما دارای %s محدوده برای فهرست ا
 
 #: wp-includes/class-wp-customize-nav-menus.php:661
 msgid "This panel is used for managing navigation menus for content you have already published on your site. You can create menus and add items for existing content such as pages, posts, categories, tags, formats, or custom links."
-msgstr "این بخش برای مدیریت فهرست‌های راه‌بری محتوای از پیش منتشرشدهٔ سایت شما استفاده می‌شود. می‌توانید فهرست‌های تازه بسازید و گزینه‌هایی از محتوای موجود در سایتتان مانند برگه‌ها، نوشته‌ها، دسته‌ها، برچسب‌ها، ساختارها یا پیوندهای شخصی به آن بیافزایید."
+msgstr "این بخش برای مدیریت فهرست‌های راه‌بری محتوای از پیش منتشرشدهٔ سایت شما استفاده می‌شود. می‌توانید فهرست‌های تازه بسازید و گزینه‌هایی از محتوای موجود در سایتتان مانند برگه‌ها، فرسته‌ها، دسته‌ها، برچسب‌ها، ساختارها یا پیوندهای شخصی به آن بیافزایید."
 
 #. translators: %s: Previous item name.
 #: wp-includes/class-wp-customize-nav-menus.php:570 wp-admin/nav-menus.php:582
@@ -30421,7 +30394,7 @@ msgstr "تعداد گزینه‌های پیداشده: %d"
 
 #: wp-includes/js/dist/core-data.js:14514
 msgid "Post Type"
-msgstr "نوع نوشته"
+msgstr "نوع فرسته"
 
 #: wp-includes/js/dist/block-library.js:10807
 #: wp-includes/js/dist/block-library.js:10816
@@ -30599,7 +30572,7 @@ msgstr "پیش‌نمایش سایت"
 
 #: wp-includes/post.php:1829 wp-includes/post.php:1830
 msgid "Post type names must be between 1 and 20 characters in length."
-msgstr "نامِ نوعِ نوشته باید بین ۱ تا ۲۰ حرف باشد."
+msgstr "نامِ نوعِ فرسته باید بین ۱ تا ۲۰ حرف باشد."
 
 #. translators: Revision date format, see
 #. https://www.php.net/manual/datetime.format.php
@@ -30721,7 +30694,7 @@ msgstr "گزینه %1$s برای خانواده توابع %2$s منسوخ شد�
 #: wp-includes/blocks/archives.php:62
 #: wp-includes/widgets/class-wp-widget-archives.php:100
 msgid "Select Post"
-msgstr "انتخاب نوشته"
+msgstr "انتخاب فرسته"
 
 #: wp-includes/blocks/archives.php:59
 #: wp-includes/widgets/class-wp-widget-archives.php:97
@@ -30856,7 +30829,7 @@ msgstr "پیش از این، یک رده با نام ارائه‌شده در ا
 
 #: wp-includes/pluggable.php:1934
 msgid "You can see all comments on this post here:"
-msgstr "می‌توانید همهٔ دیدگاه‌های این نوشته را اینجا ببینید:"
+msgstr "می‌توانید همهٔ دیدگاه‌های این فرسته را اینجا ببینید:"
 
 #: wp-includes/pluggable.php:1898
 msgid "You can see all pingbacks on this post here:"
@@ -30905,15 +30878,15 @@ msgstr "قبلی"
 #. translators: Hidden accessibility text.
 #: wp-includes/link-template.php:2895 wp-includes/link-template.php:3035
 msgid "Posts navigation"
-msgstr "راه‌بری نوشته‌ها"
+msgstr "راه‌بری فرسته‌ها"
 
 #: wp-includes/link-template.php:2894
 msgid "Newer posts"
-msgstr "نوشته‌های تازه‌تر"
+msgstr "فرسته‌های تازه‌تر"
 
 #: wp-includes/link-template.php:2893
 msgid "Older posts"
-msgstr "نوشته‌های کهنه‌تر"
+msgstr "فرسته‌های کهنه‌تر"
 
 #: wp-includes/l10n.php:1843
 msgctxt "translations"
@@ -32315,7 +32288,7 @@ msgstr "ابری از برچسب‌هایی که بیشتر استفاده کر�
 
 #: wp-includes/widgets/class-wp-widget-rss.php:26
 msgid "Entries from any RSS or Atom feed."
-msgstr "نوشته‌ها از هر خوراک RSS یا Atom."
+msgstr "فرسته‌ها از هر خوراک RSS یا Atom."
 
 #: wp-includes/widgets/class-wp-widget-recent-comments.php:27
 msgid "Your site&#8217;s most recent comments."
@@ -32323,7 +32296,7 @@ msgstr "آخرین دیدگاه‌های سایت شما."
 
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:27
 msgid "Your site&#8217;s most recent Posts."
-msgstr "آخرین نوشته‌های سایت شما."
+msgstr "آخرین فرسته‌های سایت شما."
 
 #: wp-includes/widgets/class-wp-widget-categories.php:27
 msgid "A list or dropdown of categories."
@@ -32335,7 +32308,7 @@ msgstr "پیوندهای ورود، RSS و WordPress.org."
 
 #: wp-includes/widgets/class-wp-widget-archives.php:27
 msgid "A monthly archive of your site&#8217;s Posts."
-msgstr "بایگانی ماهانه برای نوشته‌های سایت شما."
+msgstr "بایگانی ماهانه برای فرسته‌های سایت شما."
 
 #: wp-includes/widgets/class-wp-widget-search.php:27
 msgid "A search form for your site."
@@ -32768,7 +32741,7 @@ msgstr "صوت"
 
 #: wp-includes/class-wp-post-type.php:1003
 msgid "Uploaded to this post"
-msgstr "بارگذاری در این نوشته"
+msgstr "بارگذاری در این فرسته"
 
 #: wp-includes/media.php:5001
 #: wp-admin/includes/class-wp-media-list-table.php:158
@@ -33016,7 +32989,7 @@ msgstr "افزودن به گالری"
 
 #: wp-includes/class-wp-post-type.php:1002
 msgid "Insert into post"
-msgstr "گذاشتن در نوشته"
+msgstr "گذاشتن در فرسته"
 
 #: wp-includes/media.php:4997
 msgid "Create a new gallery"
@@ -33054,7 +33027,7 @@ msgstr "%1$s %2$s %3$s خوراک"
 
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:180
 msgid "Display post date?"
-msgstr "نمایش تاریخ نوشته؟"
+msgstr "نمایش تاریخ فرسته؟"
 
 #: wp-includes/class-wp-xmlrpc-server.php:5482 wp-admin/includes/post.php:41
 #: wp-admin/includes/post.php:86
@@ -33071,7 +33044,7 @@ msgstr "با عرض پوزش، رونوشت‌ها غیرفعال هستند."
 #: wp-includes/class-wp-xmlrpc-server.php:5046
 #: wp-includes/class-wp-xmlrpc-server.php:6280 wp-admin/includes/post.php:517
 msgid "Sorry, you are not allowed to edit posts."
-msgstr "با عرض پوزش، شما اجازهٔ ویرایش نوشته‌ها را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ ویرایش فرسته‌ها را ندارید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:2963
 msgid "Sorry, the user could not be updated."
@@ -33079,7 +33052,7 @@ msgstr "با عرض پوزش، کاربر نمی‌تواند به‌روز شو
 
 #: wp-includes/class-wp-xmlrpc-server.php:1775
 msgid "There is a revision of this post that is more recent."
-msgstr "رونوشت تازه‌تری از این نوشته وجود دارد."
+msgstr "رونوشت تازه‌تری از این فرسته وجود دارد."
 
 #: wp-includes/class-wp-xmlrpc-server.php:310
 msgid "Incorrect username or password."
@@ -33136,7 +33109,7 @@ msgstr ""
 
 #: wp-includes/class-wp-xmlrpc-server.php:1399
 msgid "Sorry, you cannot stick a private post."
-msgstr "با عرض پوزش، شما نمی‌توانید یک نوشته خصوصی را چسبان کنید."
+msgstr "با عرض پوزش، شما نمی‌توانید یک فرسته خصوصی را چسبان کنید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:5980
 msgid "Sorry, you are not allowed to publish this page."
@@ -33152,7 +33125,7 @@ msgstr "تصویر سربرگ"
 
 #: wp-includes/class-wp-xmlrpc-server.php:592
 msgid "Post Thumbnail"
-msgstr "تصویرکِ نوشته"
+msgstr "تصویرک فرسته"
 
 #: wp-includes/script-loader.php:806
 msgid "Toggle Editor Text Direction"
@@ -33244,7 +33217,7 @@ msgstr "ترکیبی"
 
 #: wp-includes/class-wp-customize-manager.php:5698
 msgid "Posts page"
-msgstr "برگهٔ نوشته‌ها"
+msgstr "برگهٔ فرسته‌ها"
 
 #: wp-includes/script-loader.php:1342
 msgid "Allowed Files"
@@ -33431,7 +33404,7 @@ msgstr "معرفی کوتاه"
 #: wp-includes/js/dist/editor.js:6028 wp-includes/js/dist/editor.js:39778
 #: wp-admin/includes/file.php:32
 msgid "Posts Page"
-msgstr "برگه نوشته‌ها"
+msgstr "برگه فرسته‌ها"
 
 #: wp-includes/js/dist/block-editor.js:49088
 msgid "Front page"
@@ -33440,7 +33413,7 @@ msgstr "برگه نخست"
 #: wp-includes/class-wp-customize-manager.php:5663
 #: wp-admin/options-reading.php:94
 msgid "Your latest posts"
-msgstr "آخرین نوشته‌های شما"
+msgstr "آخرین فرسته‌های شما"
 
 #: wp-includes/js/dist/block-library.js:38161
 #: wp-includes/js/dist/block-library.js:38362
@@ -33466,7 +33439,7 @@ msgstr "شیوه‌نامه‌ها"
 #: wp-includes/class-wp-xmlrpc-server.php:1472
 #: wp-includes/class-wp-xmlrpc-server.php:5806
 msgid "The post type may not be changed."
-msgstr "نوع نوشته نمی‌تواند تغییر یابد."
+msgstr "نوع فرسته نمی‌تواند تغییر یابد."
 
 #: wp-includes/class-wp-xmlrpc-server.php:577
 msgid "Image default align"
@@ -33496,7 +33469,7 @@ msgstr "نوع پیوند پیش‌فرض تصویر"
 #: wp-admin/includes/post.php:284 wp-admin/includes/post.php:2087
 #: wp-admin/includes/post.php:2091
 msgid "Sorry, you are not allowed to edit this post."
-msgstr "با عرض پوزش، شما اجازه ویرایش این نوشته را ندارید."
+msgstr "با عرض پوزش، شما اجازه ویرایش این فرسته را ندارید."
 
 #: wp-includes/admin-bar.php:478 wp-admin/site-editor.php:322
 msgid "Edit Site"
@@ -33517,13 +33490,13 @@ msgstr "،"
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:167
 #: wp-admin/edit.php:22 wp-admin/edit.php:47 wp-admin/post.php:135
 msgid "Sorry, you are not allowed to edit posts in this post type."
-msgstr "با عرض پوزش، شما اجازهٔ ویرایش نوشته‌هایی با این نوع نوشته را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ ویرایش فرسته‌هایی با این نوع را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:309
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1178
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:540
 msgid "The post cannot be deleted."
-msgstr "نوشته نمیتواند حذف شود."
+msgstr "فرسته نمیتواند حذف شود."
 
 #: wp-includes/class-wp-xmlrpc-server.php:3518
 msgid "Sorry, you are not allowed to delete this category."
@@ -33545,7 +33518,7 @@ msgstr "با عرض پوزش، شما اجازه اختصاص‌دادن رده�
 #: wp-includes/class-wp-xmlrpc-server.php:1588
 #: wp-includes/class-wp-xmlrpc-server.php:1615
 msgid "Sorry, one of the given taxonomies is not supported by the post type."
-msgstr "با عرض پوزش، یکی از رده‌بندی‌های ارائه‌شده، توسط این گونه نوشته پشتیبانی نمی‌شود."
+msgstr "با عرض پوزش، یکی از رده‌بندی‌های ارائه‌شده، توسط این گونه فرسته پشتیبانی نمی‌شود."
 
 #: wp-includes/class-wp.php:327 wp-includes/ms-deprecated.php:277
 #: wp-includes/ms-deprecated.php:296
@@ -33566,16 +33539,16 @@ msgstr "شناسه نویسنده نامعتبر است."
 #: wp-admin/includes/post.php:43 wp-admin/includes/post.php:88
 #: wp-admin/post-new.php:61 wp-admin/press-this.php:20
 msgid "Sorry, you are not allowed to create posts as this user."
-msgstr "با عرض پوزش، شما اجازهٔ ایجاد نوشته به عنوان این کاربر را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ ایجاد فرسته به عنوان این کاربر را ندارید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1503
 msgid "Sorry, you are not allowed to create password protected posts in this post type."
-msgstr "با عرض پوزش، شما مجاز نیستید در این نوع نوشته، نوشتهٔ رمزدار بسازید."
+msgstr "با عرض پوزش، شما مجاز نیستید در این نوع فرسته، فرستهٔ رمزدار بسازید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1486
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1579
 msgid "Sorry, you are not allowed to create private posts in this post type."
-msgstr "با عرض پوزش، شما مجاز نیستید نوشتهٔ خصوصی با این نوع بسازید."
+msgstr "با عرض پوزش، شما مجاز نیستید فرستهٔ خصوصی با این نوع بسازید."
 
 #. translators: See https://www.php.net/manual/datetime.format.php
 #: wp-includes/general-template.php:1242 wp-includes/general-template.php:1738
@@ -33869,7 +33842,7 @@ msgstr "همهٔ برگه‌ها"
 
 #: wp-includes/class-wp-post-type.php:999
 msgid "All Posts"
-msgstr "همهٔ نوشته‌ها"
+msgstr "همهٔ فرسته‌ها"
 
 #. translators: %s: Name of the post type e.g: "post".
 #: wp-includes/js/dist/block-library.js:50123
@@ -33885,7 +33858,7 @@ msgstr "بازخوان:"
 
 #: wp-includes/link-template.php:2811
 msgid "Post navigation"
-msgstr "راه‌بری نوشته‌ها"
+msgstr "راه‌بری فرسته‌ها"
 
 #: wp-includes/link-template.php:3332
 msgid "Comments navigation"
@@ -34010,7 +33983,7 @@ msgstr "صدا"
 #: wp-includes/class-wp-xmlrpc-server.php:5441
 #: wp-includes/class-wp-xmlrpc-server.php:5813
 msgid "Invalid post format."
-msgstr "ساختار نامعتبر نوشته."
+msgstr "ساختار فرسته نامعتبر است."
 
 #: wp-includes/class-wp-editor.php:1922
 msgid "No search term specified. Showing recent items."
@@ -34074,7 +34047,7 @@ msgstr "برگه‌ای در زباله‌دان یافت نشد."
 
 #: wp-includes/class-wp-post-type.php:997
 msgid "No posts found in Trash."
-msgstr "نوشته‌ای در زباله‌دان یافت نشد."
+msgstr "فرسته‌ای در زباله‌دان یافت نشد."
 
 #: wp-includes/class-wp-post-type.php:996
 msgid "No pages found."
@@ -34174,7 +34147,7 @@ msgstr "کسی درخواست به‌روزرسانی رمز این حساب ر�
 
 #: wp-includes/post-formats.php:74 wp-includes/revision.php:706
 msgid "Invalid post."
-msgstr "نوشته نامعتبر است."
+msgstr "فرسته نامعتبر است."
 
 #: wp-includes/admin-bar.php:418
 msgid "Manage Site"
@@ -34272,7 +34245,7 @@ msgstr "یک پاسخ"
 
 #: wp-includes/theme-compat/comments.php:24
 msgid "This post is password protected. Enter the password to view comments."
-msgstr "این نوشته با رمز عبور محافظت شده است. برای نمایش دیدگاه‌ها رمز عبور را وارد کنید."
+msgstr "این فرسته با رمز عبور محافظت شده است. برای نمایش دیدگاه‌ها رمز عبور را وارد کنید."
 
 #: wp-includes/class-wp-taxonomy.php:631
 msgid "Choose from the most used tags"
@@ -34356,7 +34329,7 @@ msgstr "جست‌وجوی برگه‌ها"
 
 #: wp-includes/class-wp-post-type.php:995
 msgid "Search Posts"
-msgstr "جست‌وجوی نوشته‌ها"
+msgstr "جست‌وجوی فرسته‌ها"
 
 #: wp-includes/class-wp-post-type.php:991
 msgid "Edit Page"
@@ -34412,7 +34385,7 @@ msgstr "پوسته بدون %1$s"
 #: wp-includes/class-wp-xmlrpc-server.php:6401
 #: wp-includes/class-wp-xmlrpc-server.php:6641
 msgid "Sorry, you must be able to edit posts on this site in order to view categories."
-msgstr "با عرض پوزش، شما برای ویرایش دسته‌ها باید اجازهٔ ویرایش نوشته‌ها را داشته باشید."
+msgstr "با عرض پوزش، شما برای ویرایش دسته‌ها باید اجازهٔ ویرایش فرسته‌ها را داشته باشید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:5399
 msgid "Sorry, you are not allowed to publish pages on this site."
@@ -34422,12 +34395,12 @@ msgstr "با عرض پوزش، شما اجازهٔ انتشار برگه در ا
 #: wp-includes/class-wp-xmlrpc-server.php:5426
 #: wp-includes/class-wp-xmlrpc-server.php:5431
 msgid "Sorry, you are not allowed to publish posts on this site."
-msgstr "با عرض پوزش، شما اجازهٔ انتشار نوشته در این سایت را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ انتشار فرسته در این سایت را ندارید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:1476
 #: wp-includes/class-wp-xmlrpc-server.php:5144
 msgid "Sorry, you are not allowed to post on this site."
-msgstr "با عرض پوزش، شما مجاز نیستید در این سایت نوشته‌ای بنویسید."
+msgstr "با عرض پوزش، شما مجاز نیستید در این سایت فرسته‌ای بنویسید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:4077
 #: wp-includes/class-wp-xmlrpc-server.php:4161
@@ -34439,7 +34412,7 @@ msgstr "با عرض پوزش، شما اجازه دسترسی به جزئیات 
 
 #: wp-includes/class-wp-xmlrpc-server.php:3374
 msgid "Sorry, you must be able to edit posts on this site in order to view tags."
-msgstr "با عرض پوزش، شما برای ویرایش برچسب‌ها باید اجازهٔ ویرایش نوشته‌ها را داشته باشید."
+msgstr "با عرض پوزش، شما برای ویرایش برچسب‌ها باید اجازهٔ ویرایش فرسته‌ها را داشته باشید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:609
 msgid "Site Tagline"
@@ -34584,7 +34557,7 @@ msgstr "ابتدا باید <a href=\"%s\">وارد شوید</a>، سپس می�
 #. translators: %s: Current user's display name.
 #: wp-signup.php:385
 msgid "Welcome back, %s. By filling out the form below, you can <strong>add another site to your account</strong>. There is no limit to the number of sites you can have, so create to your heart&#8217;s content, but write responsibly!"
-msgstr "%s، خوش آمدید. پس از تکمیل فرم زیر، می‌توانید <strong>سایت دیگری به حساب خودتان اضافه کنید</strong>. محدودیتی در تعداد سایت‌های مجاز برای هر کاربر وجود ندارد. حالا می‌توانید شروع کنید، اما به یاد داشته باشید که در برابر نوشته‌های خود مسئولیت دارید!"
+msgstr "%s، خوش آمدید. پس از تکمیل فرم زیر، می‌توانید <strong>سایت دیگری به حساب خودتان اضافه کنید</strong>. محدودیتی در تعداد سایت‌های مجاز برای هر کاربر وجود ندارد. حالا می‌توانید شروع کنید، اما به یاد داشته باشید که در برابر فرسته‌های خود مسئولیت دارید!"
 
 #: wp-signup.php:158
 msgid "Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!"
@@ -34732,32 +34705,32 @@ msgstr "بارگذاری پرونده لغو شد."
 #. translators: %s: Post title.
 #: wp-includes/pluggable.php:2105
 msgid "A new comment on the post \"%s\" is waiting for your approval"
-msgstr "دیدگاه تازه‌ای در نوشته «%s» در انتظار بررسی شماست"
+msgstr "دیدگاه تازه‌ای در فرسته «%s» در انتظار بررسی شماست"
 
 #. translators: %s: Post title.
 #: wp-includes/pluggable.php:2094
 msgid "A new pingback on the post \"%s\" is waiting for your approval"
-msgstr "بازخوان تازه‌ای در نوشتهٔ «%s» در انتظار بررسی شماست"
+msgstr "بازخوان تازه‌ای در فرستهٔ «%s» در انتظار بررسی شماست"
 
 #. translators: %s: Post title.
 #: wp-includes/pluggable.php:2083
 msgid "A new trackback on the post \"%s\" is waiting for your approval"
-msgstr "بازتاب تازه‌ای در نوشته «%s» در انتظار بررسی شماست"
+msgstr "بازتاب تازه‌ای در فرسته «%s» در انتظار بررسی شماست"
 
 #. translators: %s: Post title.
 #: wp-includes/pluggable.php:1891
 msgid "New pingback on your post \"%s\""
-msgstr "بازخوان تازه‌ای در نوشته شما «%s»"
+msgstr "بازخوان تازه‌ای در فرسته شما «%s»"
 
 #. translators: %s: Post title.
 #: wp-includes/pluggable.php:1877
 msgid "New trackback on your post \"%s\""
-msgstr "بازتاب تازه‌ای در نوشته شما «%s»"
+msgstr "بازتاب تازه‌ای در فرسته شما «%s»"
 
 #. translators: %s: Post title.
 #: wp-includes/pluggable.php:1919
 msgid "New comment on your post \"%s\""
-msgstr "دیدگاه تازه‌ای در نوشته شما «%s»"
+msgstr "دیدگاه تازه‌ای در فرسته شما «%s»"
 
 #: wp-includes/ms-load.php:481
 msgid "If your site does not display, please contact the owner of this network."
@@ -34846,11 +34819,11 @@ msgstr "با عرض پوزش، شما اجازهٔ تغییر نویسندهٔ �
 
 #: wp-includes/class-wp-xmlrpc-server.php:5865
 msgid "Sorry, you are not allowed to change the post author as this user."
-msgstr "با عرض پوزش، شما اجازهٔ تغییر نویسندهٔ نوشته با این نام کاربری را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ تغییر نویسندهٔ فرسته با این نام کاربری را ندارید."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:912
 msgid "Sorry, you are not allowed to update posts as this user."
-msgstr "با عرض پوزش، شما مجاز نیستید با این نام‌کاربری نوشته‌ها را ویرایش کنید."
+msgstr "با عرض پوزش، شما مجاز نیستید با این نام‌کاربری فرسته‌ها را ویرایش کنید."
 
 #: wp-includes/class-wp-customize-nav-menus.php:957
 #: wp-includes/class-wp-xmlrpc-server.php:1459
@@ -34867,7 +34840,7 @@ msgstr "با عرض پوزش، شما مجاز نیستید با این نام�
 #: wp-admin/post-new.php:24 wp-admin/post.php:131 wp-admin/post.php:246
 #: wp-admin/post.php:283 wp-admin/post.php:312 wp-admin/site-editor.php:170
 msgid "Invalid post type."
-msgstr "نوع نوشته نامعتبر است."
+msgstr "نوع فرسته نامعتبر است."
 
 #: wp-includes/js/dist/block-editor.js:48058
 msgid "Sorry, you are not allowed to edit images on this site."
@@ -34876,20 +34849,20 @@ msgstr "با عرض پوزش، شما اجازهٔ ویرایش تصاویر ر�
 #: wp-includes/class-wp-xmlrpc-server.php:1492
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:1589
 msgid "Sorry, you are not allowed to publish posts in this post type."
-msgstr "با عرض پوزش، شما اجازهٔ انتشار این نوع نوشته را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ انتشار این نوع فرسته را ندارید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:5230
 #: wp-includes/class-wp-xmlrpc-server.php:5304
 #: wp-includes/class-wp-xmlrpc-server.php:6244
 #: wp-includes/class-wp-xmlrpc-server.php:6822
 msgid "Sorry, no such post."
-msgstr "ببخشید، چنین نوشته‌ای پیدا نشد."
+msgstr "ببخشید، چنین فرسته‌ای پیدا نشد."
 
 #: wp-includes/class-wp-xmlrpc-server.php:5239
 #: wp-includes/class-wp-xmlrpc-server.php:5982
 #: wp-includes/class-wp-xmlrpc-server.php:6882
 msgid "Sorry, you are not allowed to publish this post."
-msgstr "با عرض پوزش، شما اجازهٔ انتشار این نوشته را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ انتشار این فرسته را ندارید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:4332
 msgid "Sorry, you are not allowed to update options."
@@ -34897,7 +34870,7 @@ msgstr "با عرض پوزش، شما اجازهٔ به‌روزرسانی گز�
 
 #: wp-includes/class-wp-xmlrpc-server.php:4119
 msgid "Sorry, you are not allowed to access details of this post."
-msgstr "با عرض پوزش، شما اجازهٔ دسترسی به جزئیات این نوشته را ندارید."
+msgstr "با عرض پوزش، شما اجازهٔ دسترسی به جزئیات این فرسته را ندارید."
 
 #: wp-includes/class-wp-xmlrpc-server.php:4012
 msgid "A valid email address is required."
@@ -34933,7 +34906,7 @@ msgstr "نویسندهٔ دیدگاه باید نام و نشانی ایمیل �
 #: wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php:205
 #: wp-includes/revision.php:362
 msgid "Invalid post ID."
-msgstr "شناسهٔ نوشته نامعتبر است."
+msgstr "شناسهٔ فرسته نامعتبر است."
 
 #: wp-includes/class-wp-xmlrpc-server.php:3679
 #: wp-includes/class-wp-xmlrpc-server.php:3843
@@ -35299,11 +35272,11 @@ msgstr "نمی‌توان از یک رونوشت، رونوشت تهیه کرد"
 
 #: wp-includes/post.php:4939
 msgid "Could not insert post into the database."
-msgstr "ناتوانی در جای‌گذاری نوشته در پایگاه‌داده."
+msgstr "ناتوانی در جای‌گذاری فرسته در پایگاه‌داده."
 
 #: wp-includes/post.php:4907
 msgid "Could not update post in the database."
-msgstr "ناتوانی در به‌روزرسانی نوشته در پایگاه‌داده."
+msgstr "ناتوانی در به‌روزرسانی فرسته در پایگاه‌داده."
 
 #: wp-includes/post.php:4604
 msgid "Content, title, and excerpt are empty."
@@ -35410,7 +35383,7 @@ msgstr "برگهٔ بعد"
 
 #: wp-includes/post-template.php:424
 msgid "There is no excerpt because this is a protected post."
-msgstr "هیچ چکیده‌ای موجود نیست زیرا‌این یک نوشته حفاظت شده است."
+msgstr "هیچ چکیده‌ای موجود نیست زیرا‌این یک فرسته حفاظت شده است."
 
 #. translators: %s: Private post title.
 #: wp-includes/post-template.php:147
@@ -35603,17 +35576,17 @@ msgstr "دیدگاه‌های تازه‌تر &raquo;"
 
 #: wp-includes/deprecated.php:2702
 msgid "Last Post"
-msgstr "آخرین نوشته"
+msgstr "آخرین فرسته"
 
 #: wp-includes/link-template.php:2081 wp-includes/link-template.php:2357
 #: wp-includes/js/dist/block-library.js:51904
 msgid "Next Post"
-msgstr "نوشتهٔ بعدی"
+msgstr "فرستهٔ بعدی"
 
 #: wp-includes/link-template.php:2081 wp-includes/link-template.php:2357
 #: wp-includes/js/dist/block-library.js:51887
 msgid "Previous Post"
-msgstr "نوشتهٔ قبلی"
+msgstr "فرستهٔ قبلی"
 
 #: wp-includes/link-template.php:840
 msgid "Comments Feed"
@@ -36137,7 +36110,7 @@ msgstr "%1$s %2$s نتایج جست‌وجو برای &laquo;%3$s&raquo; خور�
 #. translators: 1: Site name, 2: Separator (raquo), 3: Author name.
 #: wp-includes/general-template.php:3328
 msgid "%1$s %2$s Posts by %3$s Feed"
-msgstr "%1$s %2$s خوراک نوشته‌های %3$s"
+msgstr "%1$s %2$s خوراک فرسته‌های %3$s"
 
 #. translators: 1: Site name, 2: Separator (raquo), 3: Tag name.
 #: wp-includes/general-template.php:3324
@@ -36364,7 +36337,7 @@ msgstr "ابر برچسب"
 
 #: wp-includes/widgets.php:1764
 msgid "Display item date?"
-msgstr "نمایش تاریخ نوشته؟"
+msgstr "نمایش تاریخ فرسته؟"
 
 #: wp-includes/widgets.php:1761
 msgid "Display item author if available?"
@@ -36400,13 +36373,13 @@ msgstr "%1$s در %2$s"
 
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:174
 msgid "Number of posts to show:"
-msgstr "تعداد نوشته‌هایی که نمایش داده می‌شود:"
+msgstr "تعداد فرسته‌هایی که نمایش داده می‌شود:"
 
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:31
 #: wp-includes/widgets/class-wp-widget-recent-posts.php:49
 #: wp-admin/includes/upgrade.php:426
 msgid "Recent Posts"
-msgstr "آخرین نوشته‌ها"
+msgstr "آخرین فرسته‌ها"
 
 #: wp-includes/widgets/class-wp-widget-categories.php:218
 #: wp-includes/js/dist/block-library.js:10921
@@ -36457,7 +36430,7 @@ msgstr "تقویم"
 #: wp-includes/js/dist/block-library.js:10868
 #: wp-includes/js/dist/block-library.js:10874
 msgid "Show post counts"
-msgstr "نمایش تعداد نوشته‌ها"
+msgstr "نمایش تعداد فرسته‌ها"
 
 #: wp-includes/blocks/archives.php:53
 #: wp-includes/widgets/class-wp-widget-archives.php:91
@@ -36576,7 +36549,7 @@ msgstr "برای پاسخ دادن وارد شوید"
 #. translators: %s: Category name.
 #: wp-includes/class-walker-category.php:171
 msgid "Feed for all posts filed under %s"
-msgstr "خوراک برای ‌همهٔ نوشته‌های پیرامون %s"
+msgstr "خوراک برای ‌همهٔ فرسته‌های پیرامون %s"
 
 #: wp-includes/category-template.php:557 wp-includes/class-wp-taxonomy.php:633
 msgid "No categories"
@@ -36866,7 +36839,7 @@ msgstr "فعال‌سازی"
 
 #: wp-includes/deprecated.php:2702 wp-admin/network/settings.php:342
 msgid "First Post"
-msgstr "اولین نوشته"
+msgstr "اولین فرسته"
 
 #: wp-includes/admin-bar.php:650 wp-includes/js/dist/block-editor.js:54405
 #: wp-includes/js/dist/block-editor.js:74390
@@ -37142,7 +37115,7 @@ msgstr "(بدون عنوان)"
 
 #: wp-includes/class-wp-post-type.php:992
 msgid "New Post"
-msgstr "نوشته تازه"
+msgstr "فرسته تازه"
 
 #: wp-includes/post.php:100
 msgid "Edit Media"
@@ -37755,11 +37728,11 @@ msgstr "کاربران"
 
 #: wp-includes/class-wp-post-type.php:991
 msgid "Edit Post"
-msgstr "ویرایش نوشته"
+msgstr "ویرایش فرسته"
 
 #: wp-includes/class-wp-post-type.php:993
 msgid "View Post"
-msgstr "نمایش نوشته"
+msgstr "نمایش فرسته"
 
 #: wp-includes/class-wp-taxonomy.php:624
 msgid "Edit Tag"
@@ -38264,7 +38237,7 @@ msgstr "عنوان"
 #: wp-includes/class-wp-post-type.php:996
 #: wp-includes/js/dist/block-library.js:33286
 msgid "No posts found."
-msgstr "هیچ نوشته‌ای پیدا نشد."
+msgstr "هیچ فرسته‌ای پیدا نشد."
 
 #: wp-activate.php:181 wp-includes/post-template.php:1814
 #: wp-admin/includes/meta-boxes.php:218
