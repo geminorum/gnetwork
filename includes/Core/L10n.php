@@ -45,7 +45,7 @@ class L10n extends Base
 		return $language;
 	}
 
-	public static function sanitize( $locale = NULL )
+	public static function sanitize( ?string $locale = NULL ): string
 	{
 		if ( '' === $locale || 'en' === $locale )
 			return 'en_US';
@@ -79,8 +79,14 @@ class L10n extends Base
 		return $fallback;
 	}
 
-	// FIXME: UNFINISHED!
-	// numeric formatting information
+	/**
+	 * Get numeric formatting information.
+	 * FIXME: UNFINISHED!
+	 *
+	 * @param false|string $field
+	 * @param mixed $fallback
+	 * @return mixed
+	 */
 	public static function localeconv( $field = FALSE, $fallback = NULL )
 	{
 		$locale = localeconv();
@@ -146,8 +152,7 @@ class L10n extends Base
 	 */
 	public static function getISO639( $locale = NULL )
 	{
-		if ( is_null( $locale ) )
-			$locale = self::locale();
+		$locale = $locale ?? self::locale();
 
 		if ( ! $locale )
 			return 'en';

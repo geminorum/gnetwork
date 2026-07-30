@@ -7,75 +7,50 @@ class Validation extends Base
 
 	public static function sanitizePostCode( $input )
 	{
-		$sanitized = Number::translate( Text::trim( $input ) );
-
-		if ( ! self::isPostCode( $sanitized ) )
-			return '';
-
-		return $sanitized;
+		self::_dep( 'Core\PostCode::sanitize()' );
+		return PostCode::sanitize( $input );
 	}
 
 	public static function isPostCode( $input )
 	{
-		if ( self::empty( $input ) )
-			return FALSE;
-
-		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
-			return self::isIranPostCode( $input );
-
-		// @SOURCE: `WC_Validation::is_postcode()`
-		if ( 0 < strlen( trim( preg_replace( '/[\s\-A-Za-z0-9]/', '', $input ) ) ) )
-			return FALSE;
-
-		return TRUE;
+		self::_dep( 'Core\PostCode::is()' );
+		return PostCode::is( $input );
 	}
 
-	// @REF: https://github.com/VahidN/DNTPersianUtils.Core/blob/master/src/DNTPersianUtils.Core/Validators/IranCodesUtils.cs#L13
-	// @REF: https://www.dotnettips.info/newsarchive/details/14187
 	public static function isIranPostCode( $input )
 	{
-		return (bool) preg_match( '/(?!(\d)\1{3})[13-9]{4}[1346-9][013-9]{5}/',
-			trim( str_ireplace( [ '-', ' ' ], '', Number::translate( Text::trim( $input ) ) ) ) );
+		self::_dep( 'Core\PostCode::isIranPostCode()' );
+		return PostCode::isIranPostCode( $input );
 	}
 
 	public static function getMobileHTMLPattern()
 	{
-		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
-			return '[0-9۰-۹+]{11,}';
-
-		return '[0-9+]{11,}';
+		self::_dep( 'Core\Mobile::getHTMLPattern()' );
+		return Mobile::getHTMLPattern();
 	}
 
 	public static function sanitizePhoneNumber( $input )
 	{
+		self::_dep( 'Core\Phone::sanitize()' );
 		return Phone::sanitize( $input );
 	}
 
 	public static function isPhoneNumber( $input )
 	{
-		if ( self::empty( $input ) )
-			return FALSE;
-
-		if ( ! Phone::is( $input ) )
-			return FALSE;
-
-		return TRUE;
+		self::_dep( 'Core\Phone::is()' );
+		return Phone::is( $input );
 	}
 
 	public static function sanitizeMobileNumber( $input )
 	{
-		return Phone::sanitize( $input );
+		self::_dep( 'Core\Mobile::sanitize()' );
+		return Mobile::sanitize( $input );
 	}
 
 	public static function isMobileNumber( $input )
 	{
-		if ( self::empty( $input ) )
-			return FALSE;
-
-		if ( ! Phone::is( $input ) )
-			return FALSE;
-
-		return TRUE;
+		self::_dep( 'Core\Mobile::is()' );
+		return Mobile::is( $input );
 	}
 
 	// @SEE: http://www.aliarash.com/article/shenasameli/shenasa_meli.htm

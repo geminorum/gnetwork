@@ -15,7 +15,7 @@ class Arraay extends Base
 	}
 
 	// NOTE: preserves the top level keys.
-	public static function prepItemsString( $input )
+	public static function prepItemsString( mixed $input )
 	{
 		if ( empty( $input ) )
 			return [];
@@ -33,7 +33,7 @@ class Arraay extends Base
 	}
 
 	// NOTE: preserves the top level keys.
-	public static function prepItemsNumeral( $input )
+	public static function prepItemsNumeral( mixed $input )
 	{
 		if ( empty( $input ) )
 			return [];
@@ -41,7 +41,7 @@ class Arraay extends Base
 		return array_map( [ __CALSS__, 'prepNumeral' ], $input );
 	}
 
-	public static function prepSplitters( $text, $default = '|' )
+	public static function prepSplitters( ?string $text, string $default = '|' ): ?array
 	{
 		if ( is_null( $text ) )
 			return NULL;
@@ -49,7 +49,7 @@ class Arraay extends Base
 		return empty( $text ) ? [ $default ] : self::prepString( preg_split( '//u', $text, -1, PREG_SPLIT_NO_EMPTY ), [ $default ] );
 	}
 
-	public static function trimText( $input, $filter = TRUE, $additional = NULL )
+	public static function trimText( mixed $input, bool $filter = TRUE, mixed $additional = NULL )
 	{
 		if ( empty( $input ) )
 			return $input;
@@ -64,7 +64,7 @@ class Arraay extends Base
 			: $array;
 	}
 
-	public static function trimTextQuotes( $input, $filter = TRUE, $list = NULL )
+	public static function trimTextQuotes( mixed $input, bool $filter = TRUE, mixed $list = NULL )
 	{
 		if ( empty( $input ) )
 			return $input;
@@ -80,7 +80,7 @@ class Arraay extends Base
 	}
 
 	// deep `array_filter()`
-	public static function filterArray( $input, $callback = NULL )
+	public static function filterArray( array $input, ?callable $callback = NULL )
 	{
 		foreach ( $input as &$value )
 			if ( is_array( $value ) )
@@ -89,7 +89,7 @@ class Arraay extends Base
 		return $callback ? array_filter( $input, $callback ) : array_filter( $input );
 	}
 
-	public static function splitValues( $input, $splitter = '|' )
+	public static function splitValues( mixed $input, string $splitter = '|' )
 	{
 		if ( empty( $input ) )
 			return [];
@@ -106,46 +106,46 @@ class Arraay extends Base
 	 * @source https://stackoverflow.com/a/28115783
 	 * @since PHP 5.3.0
 	 *
-	 * @param array $array
+	 * @param array $input
 	 * @param string $prefix
 	 * @return array
 	 */
-	public static function prefixValues( $array, $prefix )
+	public static function prefixValues( array $input, string $prefix )
 	{
-		if ( empty( $prefix ) || empty( $array ) )
-			return $array;
+		if ( empty( $prefix ) || empty( $input ) )
+			return $input;
 
-		return preg_filter( '/^/', $prefix, $array );
+		return preg_filter( '/^/', $prefix, $input );
 	}
 
 	/**
 	 * Adds a prefix to each item key of the given array.
 	 *
-	 * @param array $array
+	 * @param array $input
 	 * @param string $prefix
 	 * @return array
 	 */
-	public static function prefixKeys( $array, $prefix )
+	public static function prefixKeys( array $input, string $prefix )
 	{
-		if ( empty( $prefix ) || empty( $array ) )
-			return $array;
+		if ( empty( $prefix ) || empty( $input ) )
+			return $input;
 
-		$keys = array_keys( $array );
+		$keys = array_keys( $input );
 
-		return self::replaceKeys( $array, array_combine( $keys, self::prefixValues( $keys, $prefix ) ) );
+		return self::replaceKeys( $input, array_combine( $keys, self::prefixValues( $keys, $prefix ) ) );
 	}
 
-	public static function roundArray( $array, $precision = -3, $mode = PHP_ROUND_HALF_UP )
+	public static function roundArray( string|array $input, int $precision = -3, int $mode = PHP_ROUND_HALF_UP )
 	{
 		$rounded = [];
 
-		foreach ( (array) $array as $key => $value )
+		foreach ( (array) $input as $key => $value )
 			$rounded[$key] = round( (float) $value, $precision, $mode );
 
 		return $rounded;
 	}
 
-	public static function reKey( $list, $key )
+	public static function reKey( array $list, string $key )
 	{
 		if ( ! empty( $list ) ) {
 			$ids  = self::pluck( $list, $key );
@@ -156,7 +156,7 @@ class Arraay extends Base
 	}
 
 	// OR: `array_combine( $array, $array );`
-	public static function sameKey( $old )
+	public static function sameKey( string|array $old )
 	{
 		$new = [];
 
@@ -168,11 +168,11 @@ class Arraay extends Base
 	}
 
 	// USE: `array_keys()` on posted checkboxes
-	public static function getKeys( $options, $if = TRUE )
+	public static function getKeys( string|array $input, mixed $if = TRUE )
 	{
 		$keys = [];
 
-		foreach ( (array) $options as $key => $value )
+		foreach ( (array) $input as $key => $value )
 			if ( $value == $if )
 				$keys[] = $key;
 
@@ -263,7 +263,7 @@ class Arraay extends Base
 	}
 
 	// @REF: https://stackoverflow.com/a/56428184
-	public static function getByKeyLike( $array, $pattern )
+	public static function getByKeyLike( array $array, string $pattern ): array
 	{
 		return array_intersect_key( $array, array_flip( array_filter( (array) preg_grep( $pattern, array_keys( $array ) ) ) ) );
 	}
@@ -782,7 +782,7 @@ class Arraay extends Base
 	 *
 	 * This answers a different question than {@see array_is_list()} and is
 	 * more flexible to handle situations where some numeric array indices
-	 * have been removed. A numeric-indexed array is only a “list” when the
+	 * have been removed. A numeric-indexed array is only a `list` when the
 	 * array keys form a contiguous range from zero to the highest key.
 	 *
 	 * Example:
@@ -947,7 +947,7 @@ class Arraay extends Base
 	}
 
 	// @SOURCE: https://www.php.net/manual/en/function.array-intersect.php#69762
-	public static function union( $a, $b )
+	public static function union( array $a, array $b ): array
 	{
                                         //  $a = 1 2 3 4
 		return                          //  $b =   2   4 5 6
@@ -962,30 +962,30 @@ class Arraay extends Base
 	 * Retrieves duplicate values of an array.
 	 * @source https://stackoverflow.com/a/3450063
 	 *
-	 * @param array $array
+	 * @param array $input
 	 * @return array
 	 */
-	public static function duplicates( $array )
+	public static function duplicates( array $input ): array
 	{
-		return array_diff_assoc( $array, array_unique( $array ) );
+		return array_diff_assoc( $input, array_unique( $input ) );
 	}
 
 	/**
 	 * Preps list of objects with provided keys.
 	 *
-	 * @param array $array
+	 * @param array $input
 	 * @param string $index_key
 	 * @param string $value_key
 	 * @return array
 	 */
-	public static function toObjectForJS( $array, $index_key = 'code', $value_key = 'label' )
+	public static function toObjectForJS( array $input, string $index_key = 'code', string $value_key = 'label' ): array
 	{
-		if ( empty( $array ) )
-			return $array;
+		if ( empty( $input ) )
+			return $input;
 
 		$list = [];
 
-		foreach ( $array as $index => $value )
+		foreach ( $input as $index => $value )
 			$list[] = (object) [
 				$index_key => $index,
 				$value_key => $value,
@@ -999,16 +999,16 @@ class Arraay extends Base
 	 *
 	 * @source https://stackoverflow.com/a/4345578
 	 *
-	 * @param object $object
+	 * @param object $input
 	 * @return array
 	 */
-	public static function fromObject( $object )
+	public static function fromObject( object $input ): array
 	{
-		if ( \is_array( $object ) || \is_object( $object ) ) {
+		if ( \is_array( $input ) || \is_object( $input ) ) {
 
 			$array = [];
 
-			foreach ( $object as $key => $value )
+			foreach ( $input as $key => $value )
 				$array[$key] = ( \is_array( $value ) || \is_object( $value ) )
 					? self::fromObject( $value )
 					: $value;
@@ -1016,7 +1016,7 @@ class Arraay extends Base
 			return $array;
 		}
 
-		return $object;
+		return $input;
 	}
 
 	/**
@@ -1101,7 +1101,7 @@ class Arraay extends Base
 	 *
 	 * @param array $keys
 	 * @param array $values
-	 * @param bool  $pad
+	 * @param bool $pad
 	 * @return array
 	 */
 	public static function combine( $keys, $values, $pad = TRUE )

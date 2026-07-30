@@ -9,15 +9,42 @@ class ShortCode extends Core\Base
 
 	const NAME_INPUT_PATTERN = '[-a-zA-Z0-9_]{3,}';
 
-	public static function exists( $tag )
+	/**
+	 * Combines user attributes with known attributes and fill in defaults when needed.
+	 * NOTE: wrapper for `shortcode_atts()` with string handling
+	 *
+	 * @param string|array|null $input
+	 * @param array $defaults
+	 * @param string $shortcode
+	 * @param string $single_fallback
+	 * @return array
+	 */
+	public static function attributes( string|array|null $input, array $defaults, string $shortcode = '', $single_fallback = '' ): array
+	{
+		$attributes = [];
+
+		if ( $single_fallback && is_string( $input ) )
+			$attributes[$single_fallback] = $input;
+
+		else if ( is_array( $input ) )
+			$attributes = $input;
+
+		return shortcode_atts(
+			$attributes ?? [],
+			$defaults,
+			$shortcode,
+		);
+	}
+
+	public static function exists( string $tag ): bool
 	{
 		return empty( $tag ) ? FALSE : shortcode_exists( $tag );
 	}
 
 	// @SEE: https://konstantin.blog/2013/dont-do_shortcode/
-	public static function apply( $text, $ignore_html = FALSE )
+	public static function apply( string $text, bool $ignore_html = FALSE ): string
 	{
-		return empty( $text ) ? '' : apply_shortcodes( $text, $ignore_html );
+		return empty( $text ) ? '' : (string) apply_shortcodes( $text, $ignore_html );
 	}
 
 	/**
@@ -29,24 +56,24 @@ class ShortCode extends Core\Base
 	 * Simply pass the short-code's tag and an array of any attributes.
 	 *
 	 * @global array $shortcode_tags
-	 * @param string $shortcode The short-code tag name.
-	 * @param array $atts The attributes (optional).
-	 * @param array The short-code content (NULL by default).
 	 *
-	 * @return string|bool False on failure, the result of the short-code on success.
+	 * @param string $shortcode
+	 * @param array $attributes
+	 * @param string $content
+	 * @return mixed
 	 */
-	public static function tag( $shortcode, $atts = [], $content = NULL )
+	public static function tag( string $shortcode, array $attributes = [], ?string $content = NULL ): mixed
 	{
 		global $shortcode_tags;
 
 		if ( isset( $shortcode_tags[$shortcode] ) && is_callable( $shortcode_tags[$shortcode] ) )
-			return call_user_func( $shortcode_tags[$shortcode], $atts, $content, $shortcode );
+			return call_user_func( $shortcode_tags[$shortcode], $attributes, $content, $shortcode );
 
 		return $content;
 	}
 
 	// NOTE: like `Core\HTML::tag()`
-	public static function build( $tag, $atts = [], $content = NULL )
+	public static function build( string $tag, array $atts = [], ?string $content = NULL )
 	{
 		$args = '';
 
@@ -59,8 +86,15 @@ class ShortCode extends Core\Base
 		return sprintf( '[%1$s%2$s /]', $tag, $args );
 	}
 
-	public static function wrap( $html, $suffix = FALSE, $args = [], $block = TRUE, $extra = [], $base = '' )
-	{
+	public static function wrap(
+		?string $html,
+		string $suffix = '',
+		array $args = [],
+		bool $block = TRUE,
+		string|array $extra = [],
+		string $base = '',
+	): ?string {
+
 		if ( is_null( $html ) )
 			return $html;
 
@@ -89,5 +123,25 @@ class ShortCode extends Core\Base
 			return $before.Core\HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $html ).$after;
 
 		return Core\HTML::tag( $wrap, array_merge( [ 'class' => $classes ], $extra ), $before.$html );
+	}
+
+	/**
+	 * First strip out registered and enclosing short-codes using native
+	 * WordPress `strip_shortcodes()` function. Then strip out the short-codes
+	 * with a filthy regex, because people don't properly register
+	 * their short-codes.
+	 *
+	 * @old `WordPress\Strings::stripShortCode()`
+	 * @source `Yoast\WP\SEO\Helpers\String_Helper::strip_shortcode()`
+	 *
+	 * @param mixed $input
+	 * @return string
+	 */
+	public static function strip( mixed $input ): string
+	{
+		if ( ! $input = Core\Text::force( $input ) )
+			return '';
+
+		return preg_replace( '`\[[^\]]+\]`s', '', \strip_shortcodes( $input ) );
 	}
 }

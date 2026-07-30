@@ -61,7 +61,7 @@ class URL extends Base
 	}
 
 	// @SOURCE: `add_query_arg()`
-	public static function parseDeep( $url )
+	public static function parseDeep( string $url ): array
 	{
 		if ( $frag = strstr( $url, '#' ) )
 			$url = substr( $url, 0, -strlen( $frag ) );
@@ -92,23 +92,31 @@ class URL extends Base
 
 		return [
 			'base'     => $base,
-			'query'    => $args,
 			'protocol' => $pro,
+			'scheme'   => $pro, // back-compatibility with `parse_url`
 			'fragment' => $frag,
+			'host'     => explode( '/', $base, 2 )[0] ?? '',
+			'path'     => strrchr( $base, '/' ),
+			'query'    => $args,
 		];
 	}
 
-	// strips the #fragment from a URL, if one is present
-	// @REF: `strip_fragment_from_url()`
-	public static function stripFragment( $url )
+	/**
+	 * Strips the fragment from a URL, if one is present.
+	 * @REF: `strip_fragment_from_url()`
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	public static function stripFragment( string $url ): string
 	{
 		$parsed = self::parse( $url );
 
 		if ( empty( $parsed['host'] ) )
 			return $url;
 
-		// this mirrors code in `redirect_canonical()`
-		// it does not handle every case
+		// This mirrors code in `redirect_canonical()`
+		// it does not handle every case.
 		$url = $parsed['scheme'].'://'.$parsed['host'];
 
 		if ( ! empty( $parsed['port'] ) )
@@ -192,19 +200,24 @@ class URL extends Base
 		);
 	}
 
-	public static function home( $path = '' )
+	public static function toScheme( string $url, string $scheme ): string
+	{
+		return preg_replace( '/^http(s?):/i', sprintf( '%s:', $scheme ), $url );
+	}
+
+	public static function home( string $path = '' ): string
 	{
 		return $path ? ( self::trail( get_option( 'home' ) ).$path ) : self::untrail( get_option( 'home' ) );
 	}
 
 	// Checks whether the given URL belongs to this site.
-	public static function isLocal( $url, $domain = NULL )
+	public static function isLocal( string $url, $domain = NULL ): bool
 	{
 		return self::parse( $url, PHP_URL_HOST ) === self::parse( ( is_null( $domain ) ? home_url() : $domain ), PHP_URL_HOST );
 	}
 
 	// Checks whether the given URL is relative or not.
-	public static function isRelative( $url )
+	public static function isRelative( string $url ): bool
 	{
 		$parsed = self::parse( $url );
 		return empty( $parsed['host'] ) && empty( $parsed['scheme'] );
@@ -213,9 +226,10 @@ class URL extends Base
 	// @ALSO: `sanitize_url( $url ) === $url`, `wp_http_validate_url()`
 	// @REF: https://halfelf.org/2015/url-validation/
 	// @REF: https://d-mueller.de/blog/why-url-validation-with-filter_var-might-not-be-a-good-idea/
-	public static function isValid( $url )
+	public static function isValid( string $url ): bool
 	{
-		$url = Text::trim( $url );
+		if ( ! $url = Text::force( $url ) )
+			return FALSE;
 
 		if ( self::empty( $url ) )
 			return FALSE;
@@ -223,8 +237,9 @@ class URL extends Base
 		if ( 0 !== strpos( $url, 'http://' ) && 0 !== strpos( $url, 'https://' ) )
 			return FALSE;
 
-		// $url = filter_var( $url, FILTER_SANITIZE_STRING );
-		$url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+		// `$url = filter_var( $url, FILTER_SANITIZE_STRING );`
+		// `$url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );`
+		$url = Coding::entityEncodeQUOTES( $url );
 
 		if ( FALSE !== filter_var( $url, FILTER_VALIDATE_URL ) )
 			return TRUE;

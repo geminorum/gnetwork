@@ -15,8 +15,14 @@ class Plugin extends Core\Base
 
 	public function __construct() {}
 
-	public static function instance( $dir = NULL, $url = NULL, $file = NULL, $ver = NULL, $hash = NULL )
-	{
+	public static function instance(
+		?string $dir  = NULL,
+		?string $url  = NULL,
+		?string $file = NULL,
+		?string $ver  = NULL,
+		?string $hash = NULL,
+	): static {
+
 		static $instance = NULL;
 
 		if ( NULL === $instance ) {
@@ -27,8 +33,13 @@ class Plugin extends Core\Base
 		return $instance;
 	}
 
-	protected function setup( $dir, $url, $file, $ver, $hash )
-	{
+	protected function setup(
+		?string $dir  = NULL,
+		?string $url  = NULL,
+		?string $file = NULL,
+		?string $ver  = NULL,
+		?string $hash = NULL,
+	): void {
 		$this->__dir  = $dir  ?? '';
 		$this->__url  = $url  ?? '';
 		$this->__file = $file ?? '';
@@ -37,7 +48,7 @@ class Plugin extends Core\Base
 
 		$this->defines( $this->early_constants() );
 
-		if ( ! $this->setup_check() ) return FALSE;
+		if ( ! $this->setup_check() ) return;
 
 		$this->initialize();
 		$this->actions();
@@ -49,13 +60,13 @@ class Plugin extends Core\Base
 		}, 19 ); // child's must run on `20`
 	}
 
-	protected function defines( $constants )
+	protected function defines( array $constants ): void
 	{
 		foreach ( $constants as $key => $val )
 			defined( $key ) || define( $key, $val );
 	}
 
-	public function files( $stack, $base = NULL, $check = TRUE )
+	public function files( string|array $stack, ?string $base = NULL, bool $check = TRUE ): void
 	{
 		$base = $base ?? $this->__dir;
 
@@ -71,13 +82,13 @@ class Plugin extends Core\Base
 				require_once $base.'includes/'.$path.'.php';
 	}
 
-	protected function actions() {}
-	protected function modules() { return [ [], '' ]; }
-	protected function setup_check() { return TRUE; }
-	protected function early_constants() { return []; }
-	protected function late_constants() { return []; }
+	protected function actions(): void {}
+	protected function modules(): array { return [ [], '' ]; }
+	protected function setup_check(): bool { return TRUE; }
+	protected function early_constants(): array { return []; }
+	protected function late_constants(): array { return []; }
 
-	protected function initialize()
+	protected function initialize(): void
 	{
 		list( $modules, $namespace ) = $this->modules();
 
@@ -99,7 +110,7 @@ class Plugin extends Core\Base
 		}
 	}
 
-	protected function setup_loaded()
+	protected function setup_loaded(): void
 	{
 		if ( $this->base )
 			do_action( self::und( $this->base, 'loaded' ),
@@ -113,14 +124,14 @@ class Plugin extends Core\Base
 
 	// NOTE: `custom path` once set by `load_plugin_textdomain()`
 	// NOTE: assumes the plugin directory is the same as the `textdomain`
-	protected function textdomains()
+	protected function textdomains(): void
 	{
 		load_plugin_textdomain( $this->base, FALSE, sprintf( '%s/languages', $this->base ) );
 	}
 
-	public function get_dir()  { return $this->__dir;  }
-	public function get_url()  { return $this->__url;  }
-	public function get_file() { return $this->__file; }
-	public function get_ver()  { return $this->__ver;  }
-	public function get_hash() { return $this->__hash; }
+	public function get_dir(): string  { return $this->__dir;  }
+	public function get_url(): string  { return $this->__url;  }
+	public function get_file(): string { return $this->__file; }
+	public function get_ver(): string  { return $this->__ver;  }
+	public function get_hash(): string { return $this->__hash; }
 }

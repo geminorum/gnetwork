@@ -5,6 +5,87 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Crypto extends Base
 {
 
+	// OLD: `genRandomKey()`
+	// OLD: `Core\Text::hash()`
+	// ALT: `wp_generate_password()`
+	public static function hash( string $salt ): string
+	{
+		$chr = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		$len = 32;
+		$key = '';
+
+		for ( $i = 0; $i < $len; $i++ )
+			$key.= $chr[( rand( 0, ( strlen( $chr ) - 1 ) ) )];
+
+		return md5( $salt.$key );
+	}
+
+	/**
+	 * Generates limited Hash string.
+	 * @author Kyle Coots
+	 * @source https://stackoverflow.com/a/15193543
+	 *
+	 * Allow you to create a unique hash with a maximum value of 32.
+	 * Hash Gen uses PHP `substr`, `md5`, `uniqid`, and rand to generate a unique
+	 * id or hash and allow you to have some added functionality.
+	 *
+	 * You can also supply a hash to be prefixed or appended
+	 * to the hash. `hash` is by default appended to the hash
+	 * unless the param `prefix` is set to prefix[true].
+	 *
+	 * @OLD: `Core\Text::hashLimited()`
+	 *
+	 * @param int $start
+	 * @param int $end
+	 * @param bool $hash
+	 * @param bool $prefix
+	 * @return string
+	 */
+	public static function hashLimited( ?int $start = NULL, ?int $end = 0, bool $hash = FALSE, bool $prefix = FALSE ): string
+	{
+		if ( isset( $start, $end ) && FALSE === $hash ) {
+
+			// `start` IS set NO `hash`
+
+			$md_hash  = substr( md5( uniqid( rand(), TRUE ) ), $start, $end );
+			$new_hash = $md_hash;
+
+		} else if ( isset( $start, $end ) && FALSE !== $hash && FALSE === $prefix ) {
+
+			// `start` IS set WITH `hash` NOT prefixing
+
+			$md_hash  = substr( md5( uniqid( rand(), TRUE ) ), $start, $end );
+			$new_hash = $md_hash.$hash;
+
+		} else if ( ! isset( $start, $end ) && FALSE !== $hash && FALSE === $prefix ) {
+
+			// `start` NOT set WITH `hash` NOT prefixing
+
+			$md_hash  = md5( uniqid( rand(), TRUE ) );
+			$new_hash = $md_hash.$hash;
+
+		} else if ( isset( $start, $end ) && FALSE !== $hash && TRUE === $prefix ) {
+
+			// `start` IS set WITH `hash` IS prefixing
+
+			$md_hash  = substr( md5( uniqid( rand(), TRUE ) ), $start, $end );
+			$new_hash = $hash.$md_hash;
+
+		} else if ( ! isset( $start, $end ) && FALSE !== $hash && TRUE === $prefix ) {
+
+			// `start` NOT set WITH `hash` IS prefixing
+
+			$md_hash  = md5( uniqid( rand(), TRUE ) );
+			$new_hash = $hash.$md_hash;
+
+		} else {
+
+			$new_hash = md5( uniqid( rand(), TRUE ) );
+		}
+
+		return $new_hash;
+	}
+
 	/**
 	 * Generates combinations from given options.
 	 * @source https://codereview.stackexchange.com/a/62198
@@ -13,7 +94,7 @@ class Crypto extends Base
 	 * @param int $count
 	 * @return array
 	 */
-	public static function getCombinations( $options, $count )
+	public static function getCombinations( array $options, int $count ): array
 	{
 		$results = [];
 
@@ -22,7 +103,7 @@ class Crypto extends Base
 		return $results;
 	}
 
-	private static function _genCombinations( &$solutions, $solution, $options, $count, $call )
+	private static function _genCombinations( array &$solutions, array $solution, array $options, int $count, int $call ): void
 	{
 		if ( $count === count( $solution ) )
 			$solutions[] = $solution;
@@ -41,7 +122,7 @@ class Crypto extends Base
 	const BIJECTION_DIC  = 'abcdefghijklmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789';
 	const BIJECTION_BASE = 57; // `strlen( BIJECTION_DIC )`
 
-	public static function encodeBijection( $id )
+	public static function encodeBijection( int $id ): string
 	{
 		$slug = [];
 		$dic  = static::BIJECTION_DIC;
@@ -58,7 +139,7 @@ class Crypto extends Base
 		return implode( '', array_reverse( $slug ) );
 	}
 
-	public static function decodeBijection( $slug )
+	public static function decodeBijection( string $slug ): int|string
 	{
 		$id  = 0;
 		$dic = static::BIJECTION_DIC;

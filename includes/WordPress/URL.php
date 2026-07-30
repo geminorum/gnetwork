@@ -16,7 +16,7 @@ class URL extends Core\Base
 	 * @param bool $trailing_slash_it
 	 * @return string
 	 */
-	public static function current( $trailing_slash_it = FALSE )
+	public static function current( bool $trailing_slash_it = FALSE ): string
 	{
 		global $wp;
 
@@ -38,7 +38,7 @@ class URL extends Core\Base
 	 * @param bool $force_reauth
 	 * @return string
 	 */
-	public static function login( $redirect = '', $force_reauth = FALSE )
+	public static function login( string $redirect = '', bool $force_reauth = FALSE ): string
 	{
 		return wp_login_url( $redirect, $force_reauth );
 	}
@@ -50,7 +50,7 @@ class URL extends Core\Base
 	 * @param bool $custom
 	 * @return string
 	 */
-	public static function register( $custom = FALSE )
+	public static function register( string|bool $custom = FALSE ): string|bool
 	{
 		if ( function_exists( 'buddypress' ) ) {
 
@@ -73,7 +73,7 @@ class URL extends Core\Base
 	}
 
 	// OLD: `Core\WordPress::getAdminPageLink()`
-	public static function admin( $page, $extra = [], $base = NULL )
+	public static function admin( string $page, array $extra = [], ?string $base = NULL ): string
 	{
 		return add_query_arg( array_merge( [ 'page' => $page ], $extra ), admin_url( $base ?? 'admin.php' ) );
 	}
@@ -86,15 +86,18 @@ class URL extends Core\Base
 	 * @param array $extra
 	 * @return string
 	 */
-	public static function adminPOST( $action, $extra = [] )
+	public static function adminPOST( string $action, array $extra = [] ): string
 	{
 		return add_query_arg( array_merge( [ 'action' => $action ], $extra ), admin_url( 'admin-post.php' ) );
 	}
 
-	public static function searchAdminTerm( $criteria, $taxonomy, $extra = [] )
+	public static function searchAdminTerm( string $criteria, string|object $taxonomy, array $extra = [] ): string|false
 	{
 		if ( ! Taxonomy::can( $taxonomy, 'manage_terms' ) )
 			return FALSE;
+
+		if ( $taxonomy instanceof \WP_Taxonomy )
+			$taxonomy = $taxonomy->name;
 
 		return add_query_arg( array_merge( [
 			'taxonomy' => $taxonomy,
@@ -103,19 +106,23 @@ class URL extends Core\Base
 	}
 
 	// OLD: `Core\WordPress::getAdminSearchLink()`
-	public static function searchAdmin( $criteria = FALSE, $posttype = NULL, $extra = [] )
+	public static function searchAdmin( string $criteria, string|object $posttype, array $extra = [] ): string|false
 	{
-		$query = [ 's' => $criteria ];
+		if ( $posttype instanceof \WP_Post_Type )
+			$posttype = $posttype->name;
 
 		if ( PostType::can( $posttype, 'read' ) )
-			$query['post_type'] = $posttype;
+			return FALSE;
 
-		return add_query_arg( array_merge( $query, $extra ), admin_url( 'edit.php' ) );
+		return add_query_arg( array_merge( [
+			'post_type' => $posttype,
+			's'         => $criteria,
+		], $extra ), admin_url( 'edit.php' ) );
 	}
 
 	// TODO: add to filter: 'search_link'
 	// OLD: `Core\WordPress::getSearchLink()`
-	public static function search( $query = FALSE, $url = FALSE, $query_id = 's' )
+	public static function search( string $query = '', string|bool $url = FALSE, string $query_id = 's' ): string
 	{
 		if ( $url )
 			return $query ? add_query_arg( $query_id, urlencode( $query ), $url ) : $url;
@@ -128,7 +135,7 @@ class URL extends Core\Base
 
 	// NOTE: does not any checks!
 	// @SEE: `WordPress\PostType::edit()`
-	public static function editPostType( $posttype = 'post', $extra = [] )
+	public static function editPostType( string|object $posttype = 'post', array $extra = [] ): string
 	{
 		if ( $posttype instanceof \WP_Post_Type )
 			$posttype = $posttype->name;
@@ -142,7 +149,7 @@ class URL extends Core\Base
 
 	// NOTE: does not any checks!
 	// @SEE: `WordPress\Taxonomy::edit()`
-	public static function editTaxonomy( $taxonomy = 'category', $extra = [] )
+	public static function editTaxonomy( string|object $taxonomy = 'category', array $extra = [] ): string
 	{
 		if ( $taxonomy instanceof \WP_Taxonomy )
 			$taxonomy = $taxonomy->name;
@@ -155,7 +162,7 @@ class URL extends Core\Base
 	// @REF: `network_admin_url()`
 	// like core's but with custom network
 	// OLD: `Core\WordPress::networkAdminURL()`
-	public static function networkAdmin( $network = NULL, $path = '', $scheme = 'admin' )
+	public static function networkAdmin( int|object|null $network = NULL, string $path = '', ?string $scheme = 'admin' ): string
 	{
 		if ( ! is_multisite() )
 			return admin_url( $path, $scheme );
@@ -171,7 +178,7 @@ class URL extends Core\Base
 	// @REF: `user_admin_url()`
 	// like core's but with custom network
 	// OLD: `Core\WordPress::userAdminURL()`
-	public static function userAdmin( $network = NULL, $path = '', $scheme = 'admin' )
+	public static function userAdmin( int|object|null $network = NULL, string $path = '', ?string $scheme = 'admin' ): string
 	{
 		$url = self::networkSite( $network, 'wp-admin/user/', $scheme );
 
@@ -184,7 +191,7 @@ class URL extends Core\Base
 	// @REF: `network_site_url()`
 	// like core's but with custom network
 	// OLD: `Core\WordPress::networkSiteURL()`
-	public static function networkSite( $network = NULL, $path = '', $scheme = NULL )
+	public static function networkSite( int|object|null $network = NULL, string $path = '', ?string $scheme = NULL ): string
 	{
 		if ( ! is_multisite() || ! function_exists( 'get_network' ) )
 			return site_url( $path, $scheme );
@@ -207,20 +214,18 @@ class URL extends Core\Base
 	// @REF: `network_home_url()`
 	// like core's but with custom network
 	// OLD: `Core\WordPress::networkHomeURL()`
-	public static function networkHome( $network = NULL, $path = '', $scheme = NULL )
+	public static function networkHome( int|object|null $network = NULL, string $path = '', ?string $scheme = NULL ): string
 	{
 		if ( ! is_multisite() || ! function_exists( 'get_network' ) )
 			return home_url( $path, $scheme );
 
-		if ( ! $network )
-			$network = get_network();
-
+		$network         = $network ?? get_network();
 		$original_scheme = $scheme;
 
 		if ( ! in_array( $scheme, [ 'http', 'https', 'relative' ], TRUE ) )
 			$scheme = is_ssl() && ! is_admin() ? 'https' : 'http';
 
-		if ( 'relative' == $scheme )
+		if ( 'relative' === $scheme )
 			$url = $network->path;
 
 		else
@@ -243,7 +248,7 @@ class URL extends Core\Base
 	 * @param bool $flush
 	 * @return bool
 	 */
-	public static function maybeFlushRules( $flush = FALSE )
+	public static function maybeFlushRules( bool $flush = FALSE ): bool
 	{
 		global $wp_rewrite;
 

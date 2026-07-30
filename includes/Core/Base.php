@@ -4,28 +4,28 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Base
 {
-	public static function spc()
+	public static function spc(): string
 	{
 		return Text::glued( func_get_args(), ' ' );
 	}
 
-	public static function dot()
+	public static function dot(): string
 	{
 		return Text::glued( func_get_args(), '.' );
 	}
 
-	public static function dsh()
+	public static function dsh(): string
 	{
 		return Text::glued( func_get_args(), '-' );
 	}
 
-	public static function und()
+	public static function und(): string
 	{
 		return Text::glued( func_get_args(), '_' );
 	}
 
 	// NOTE: pseudo magic method!
-	public function setVars( $args )
+	public function setVars( array $args ): array
 	{
 		$keys    = array_keys( get_object_vars( $this ) );
 		$updated = [];
@@ -41,24 +41,26 @@ class Base
 	}
 
 	// NOTE: pseudo magic method!
-	public function setVar( $key, $value )
+	public function setVar( string $key, mixed $value ): mixed
 	{
 		return $this->{$key} = $value;
 	}
 
 	// NOTE: pseudo magic method!
-	public function getVar( $key, $default = NULL )
+	public function getVar( string $key, mixed $default = NULL ): mixed
 	{
 		return isset( $this->{$key} ) ? $this->{$key} : $default;
 	}
 
-	public static function define( $name, $value )
+	public static function define( string $name, mixed $value ): bool
 	{
 		if ( $name && ! defined( $name ) )
-			define( $name, $value );
+			return define( $name, $value );
+
+		return FALSE;
 	}
 
-	public static function const( $name, $default = FALSE )
+	public static function const( string $name, mixed $default = FALSE ): mixed
 	{
 		return defined( $name ) ? constant( $name ) : $default;
 	}
@@ -72,7 +74,7 @@ class Base
 	 * @param object $object
 	 * @return mixed
 	 */
-	public static function classConst( $const, $object = NULL )
+	public static function classConst( string $const, ?object $object = NULL ): mixed
 	{
 		$class = $object ? get_class( $object ) : __CLASS__;
 
@@ -95,7 +97,7 @@ class Base
 	 * @param mixed $value
 	 * @return bool
 	 */
-	public static function empty( $value )
+	public static function empty( mixed $value ): bool
 	{
 		if ( empty( $value ) )
 			return TRUE;
@@ -120,7 +122,9 @@ class Base
 	}
 
 	// converts into boolean
-	public static function bool( $value )
+	// @REF: `wp_validate_boolean()`
+	// @OLD: `Base::validateBoolean()`
+	public static function bool( mixed $value ): bool
 	{
 		if ( is_bool( $value ) )
 			return $value;
@@ -134,14 +138,14 @@ class Base
 		return TRUE;
 	}
 
-	public static function req( $key, $default = '', $subkey = FALSE )
+	public static function req( string $key, mixed $default = '', false|string $subkey = FALSE ): mixed
 	{
 		return $subkey
 			? ( $_REQUEST[$key][$subkey] ?? $default )
 			: ( $_REQUEST[$key] ?? $default );
 	}
 
-	public static function do( $values, $key = 'action', $default = FALSE )
+	public static function do( string|array $values, string $key = 'action', mixed $default = FALSE ): mixed
 	{
 		if ( ! isset( $_REQUEST[$key] ) )
 			return $default;
@@ -153,7 +157,7 @@ class Base
 		return $default;
 	}
 
-	public static function step( $value = NULL, $key = 'action', $default = '' )
+	public static function step( ?string $value = NULL, false|string $key = 'action', mixed $default = '' ): mixed
 	{
 		$request = self::req( $key, [] );
 		$action  = is_array( $request )
@@ -166,28 +170,28 @@ class Base
 		return is_null( $value ) ? $action : ( (string) $action === (string) $value );
 	}
 
-	public static function limit( $default = 25, $key = 'limit' )
+	public static function limit( int $default = 25, string $key = 'limit' ): int
 	{
 		return (int) self::req( $key, $default );
 	}
 
-	public static function paged( $default = 1, $key = 'paged' )
+	public static function paged( int $default = 1, string $key = 'paged' ): int
 	{
 		return (int) self::req( $key, $default );
 	}
 
-	public static function orderby( $default = 'title', $key = 'orderby' )
+	public static function orderby( string $default = 'title', string $key = 'orderby' ): string
 	{
-		return self::req( $key, $default );
+		return (string) self::req( $key, $default );
 	}
 
-	public static function order( $default = 'desc', $key = 'order' )
+	public static function order( string $default = 'desc', string $key = 'order' ): string
 	{
 		$req = strtoupper( self::req( $key, $default ) );
 		return ( 'ASC' === $req || 'DESC' === $req ) ? $req : $default;
 	}
 
-	public static function buffer( $callback, $args = [], $fallback = '' )
+	public static function buffer( callable $callback, array $args = [], mixed $fallback = '' ): mixed
 	{
 		if ( ! $callback || ! is_callable( $callback ) )
 			return $fallback;
@@ -199,7 +203,7 @@ class Base
 		return trim( ob_get_clean() );
 	}
 
-	public static function dumpSuccess()
+	public static function dumpSuccess(): void
 	{
 		echo '<div style="color:green;">';
 
@@ -209,7 +213,7 @@ class Base
 		echo '</div>';
 	}
 
-	public static function dumpError()
+	public static function dumpError(): void
 	{
 		echo '<div style="color:red;">';
 
@@ -219,16 +223,17 @@ class Base
 		echo '</div>';
 	}
 
-	public static function dump( $var, $safe = TRUE, $verbose = TRUE )
+	public static function dump( mixed $var, bool $safe = TRUE, bool $verbose = TRUE ): string|true
 	{
 		$export = var_export( $var, TRUE );
 		if ( $safe ) $export = htmlspecialchars( $export );
 		$export = '<pre dir="ltr" style="text-align:left;direction:ltr;">'.$export.'</pre>';
 		if ( ! $verbose ) return $export;
 		echo $export;
+		return TRUE;
 	}
 
-	public static function kill()
+	public static function kill(): void
 	{
 		foreach ( func_get_args() as $arg )
 			self::dump( $arg );
@@ -236,17 +241,19 @@ class Base
 		die ();
 	}
 
-	public static function cheatin( $message = NULL )
+	public static function cheatin( ?string $message = NULL ): bool
 	{
 		wp_die( $message ?? __( 'You don&#8217;t have permission to do this.' ), 403 );
+
+		return FALSE; // help the caller
 	}
 
-	public static function _log_req()
+	public static function _log_req(): false
 	{
 		return self::_log( $_REQUEST );
 	}
 
-	public static function _log_error()
+	public static function _log_error(): false
 	{
 		foreach ( func_get_args() as $error )
 			if ( self::isError( $error ) )
@@ -262,7 +269,7 @@ class Base
 	}
 
 	// INTERNAL
-	public static function _log()
+	public static function _log(): false
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
 			return FALSE; // help the caller
@@ -289,7 +296,8 @@ class Base
 
 	// INTERNAL: used on anything deprecated
 	// TODO: new syntax on PHP 8.4: `#[\Deprecated(message)]`
-	protected static function _dep( $note = '', $prefix = 'DEP: ', $offset = 1 )
+	// @SEE: https://php.watch/versions/8.4/Deprecated
+	protected static function _dep( string $note = '', string $prefix = 'DEP: ', int $offset = 1 ): void
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
 			return;
@@ -328,22 +336,23 @@ class Base
 	}
 
 	// INTERNAL: used on anything deprecated : only on dev mode
-	protected static function _dev_dep( $note = '', $prefix = 'DEP: ', $offset = 2 )
+	protected static function _dev_dep( string $note = '', string $prefix = 'DEP: ', int $offset = 2 ): void
 	{
 		if ( 'development' === self::const( 'WP_STAGE' ) )
 			self::_dep( $note, $prefix, $offset );
 	}
 
 	// INTERNAL: used on functions deprecated
-	public static function _dev_func( $func, $version, $replacement = NULL )
+	public static function _dev_func( string $func, string $version, ?string $replacement = NULL ): void
 	{
 		if ( is_null( $replacement ) )
 			self::_log( sprintf( 'DEP: \'%1$s\' function, since %2$s with no alternative', $func, $version ) );
+
 		else
 			self::_log( sprintf( 'DEP: \'%1$s\' function, since %2$s, Use \'%3$s\'', $func, $version, $replacement ) );
 	}
 
-	public static function console( $data, $table = FALSE )
+	public static function console( mixed $data, bool $table = FALSE ): void
 	{
 		$func = $table ? 'table' : 'log';
 
@@ -353,14 +362,14 @@ class Base
 			echo '<script>console.'.$func.'('.$data.');</script>';
 	}
 
-	public static function _log_trace()
+	public static function _log_trace(): void
 	{
 		// http://stackoverflow.com/a/7039409
 		$e = new \Exception();
 		self::_log( $e->getTraceAsString() );
 	}
 
-	public static function trace( $old = TRUE )
+	public static function trace( bool $old = TRUE ): void
 	{
 		// https://gist.github.com/eddieajau/2651181
 		if ( $old ) {
@@ -377,7 +386,7 @@ class Base
 
 	// USAGE: `Base::callStack( debug_backtrace() );`
 	// @REF: http://stackoverflow.com/a/8497530
-	public static function callStack( $stacktrace )
+	public static function callStack( array $stacktrace ): void
 	{
 		print str_repeat( '=', 50 )."\n";
 		$i = 1;
@@ -388,7 +397,7 @@ class Base
 		}
 	}
 
-	public static function stat( $format = NULL )
+	public static function stat( ?string $format = NULL ): string
 	{
 		return sprintf( $format ?? '%d queries in %.3f seconds, using %.2fMB memory.',
 			@$GLOBALS['wpdb']->num_queries,
@@ -398,18 +407,20 @@ class Base
 	}
 
 	// NOTE: WP core function without `number_format_i18n()`
-	public static function timerStop( $verbose = FALSE, $precision = 3 )
+	public static function timerStop( bool $verbose = FALSE, int $precision = 3 ): string|true
 	{
 		global $timestart;
 
 		$total = number_format( ( microtime( TRUE ) - $timestart ), $precision );
 
-		if ( $verbose ) echo $total;
+		if ( ! $verbose )
+			return $total;
 
-		return $total;
+		echo $total;
+		return TRUE;
 	}
 
-	public static function isFuncDisabled( $func = NULL )
+	public static function isFuncDisabled( ?string $func = NULL ): array|bool
 	{
 		$disabled = explode( ',', ini_get( 'disable_functions' ) );
 
@@ -420,7 +431,7 @@ class Base
 	}
 
 	// http://stackoverflow.com/a/13272939
-	public static function varSize( $var )
+	public static function varSize( mixed $var ): int
 	{
 		try {
 
@@ -444,7 +455,7 @@ class Base
 	 * @param int|string|array $input
 	 * @return array
 	 */
-	public static function list( $input )
+	public static function parseList( int|string|array $input ): array
 	{
 		if ( ! is_array( $input ) )
 			return preg_split( '/[\s,]+/', $input, -1, PREG_SPLIT_NO_EMPTY );
@@ -460,24 +471,19 @@ class Base
 	 * @param int|string|array $input
 	 * @return array
 	 */
-	public static function ids( $input )
+	public static function parseIDs( int|string|array $input ): array
 	{
-		return Arraay::prepNumeral( self::list( $input ) );
+		return Arraay::prepNumeral( self::parseList( $input ) );
 	}
 
 	// @REF: `shortcode_atts()`
-	// NOTE: DEPRECATED: use `Base::parsed()`
-	public static function atts( $pairs, $atts )
+	#[\Deprecated('USE `Core\Base::parsed()`')]
+	public static function atts( array $pairs, array $atts ): array
 	{
-		$atts = (array) $atts;
-		$out  = [];
+		$out = [];
 
-		foreach ( $pairs as $name => $default ) {
-			if ( array_key_exists( $name, $atts ) )
-				$out[$name] = $atts[$name];
-			else
-				$out[$name] = $default;
-		}
+		foreach ( $pairs as $name => $default )
+			$out[$name] = array_key_exists( $name, $atts ) ? $atts[$name] : $default;
 
 		return $out;
 	}
@@ -493,7 +499,7 @@ class Base
 	 * @param string|array $data
 	 * @return array
 	 */
-	public static function parsed( $defaults, $data )
+	public static function parsed( array $defaults, string|array $data ): array
 	{
 		$parsed = [];
 		$data   = self::args( $data );
@@ -527,7 +533,7 @@ class Base
 	 * @param array $defaults
 	 * @return array
 	 */
-	public static function args( $arguments, $defaults = '' )
+	public static function args( string|array $arguments, array $defaults = [] ): array
 	{
 		$parsed = [];
 
@@ -558,24 +564,28 @@ class Base
 	 * `array_merge_recursive()` combines arrays deep in the tree, rather
 	 * than overwriting the `$b` array with the `$a` array.
 	*/
-	public static function recursiveParseArgs( &$a, $b )
+	public static function recursiveParseArgs( array &$a, array $b ): array
 	{
-		$a = (array) $a;
-		$b = (array) $b;
-		$r = $b;
+		$result = $b;
 
-		foreach ( $a as $k => &$v )
-			if ( is_array( $v ) && isset( $r[$k] ) )
-				$r[$k] = self::recursiveParseArgs( $v, $r[$k] );
+		foreach ( $a as $key => &$value )
+			if ( is_array( $value ) && isset( $result[$key] ) )
+				$result[$key] = self::recursiveParseArgs( $value, $result[$key] );
+
 			else
-				$r[$k] = $v;
+				$result[$key] = $value;
 
-		return $r;
+		return $result;
 	}
 
 	// @SOURCE: https://github.com/kallookoo/wp_parse_args_recursive
-	public static function recursiveParseArgsALT( $args, $defaults, $preserve_type = TRUE, $preserve_integer_keys = FALSE )
-	{
+	public static function recursiveParseArgsALT(
+		array|object $args,
+		array|object $defaults,
+		bool $preserve_type = TRUE,
+		bool $preserve_integer_keys = FALSE,
+	): array {
+
 		$output = [];
 
 		foreach ( [ $defaults, $args ] as $list ) {
@@ -605,7 +615,7 @@ class Base
 	// Maps a function to all non-iterable elements of an array or an object.
 	// NOTE: similar to `array_walk_recursive()` but acts upon objects too.
 	// @REF: `map_deep()`
-	public static function mapDeep( $data, $callback )
+	public static function mapDeep( mixed $data, callable $callback ): mixed
 	{
 		if ( is_array( $data ) )
 			foreach ( $data as $index => $item )
@@ -623,13 +633,12 @@ class Base
 
 	/**
 	 * Removes slashes from given string or array of strings
-	 * @source `wp_unslash()`
-	 * @source `stripslashes_deep()`
+	 * @source `wp_unslash()` / `stripslashes_deep()`
 	 *
 	 * @param string|array $array
 	 * @return string|array
 	 */
-	public static function unslash( $array )
+	public static function unslash( string|array $array ): string|array
 	{
 		if ( empty( $array ) )
 			return $array;
@@ -639,16 +648,10 @@ class Base
 		} );
 	}
 
-	// @REF: `wp_validate_boolean()`
-	public static function validateBoolean( $var )
+	#[\Deprecated('USE `Core\Base::bool()`')]
+	public static function validateBoolean( mixed $var ): bool
 	{
-		if ( is_bool( $var ) )
-			return $var;
-
-		if ( is_string( $var ) && 'false' === strtolower( $var ) )
-			return FALSE;
-
-		return (bool) $var;
+		return self::bool( $var );
 	}
 
 	/**
@@ -660,7 +663,7 @@ class Base
 	 * @param mixed $y
 	 * @return void
 	 */
-	public static function swap( &$x, &$y )
+	public static function swap( mixed &$x, mixed &$y ): void
 	{
 		$t = $x;
 		$x = $y;
@@ -668,13 +671,22 @@ class Base
 	}
 
 	// ANCESTOR: `is_wp_error()`
-	public static function isError( $thing )
+	public static function isError( mixed $thing ): bool
 	{
 		return ( ( $thing instanceof \WP_Error ) || ( $thing instanceof Error ) );
 	}
 
-	// NOTE: USAGE: `self::triggerError( __FUNCTION__, 'This is the Message' );`
-	public static function triggerError( $function_name, $message, $error_level = NULL )
+	/**
+	 * Generates a user-level error/warning/notice/deprecation message.
+	 * NOTE: wrapper for `wp_trigger_error()` with fallback.
+	 * @example `self::triggerError( __FUNCTION__, 'This is the Message' );`
+	 *
+	 * @param string $function_name
+	 * @param string $message
+	 * @param int|null $error_level
+	 * @return false
+	 */
+	public static function triggerError( string $function_name, string $message, ?int $error_level = NULL ): false
 	{
 		if ( function_exists( 'wp_trigger_error' ) )
 			wp_trigger_error( $function_name, $message, $error_level ?? E_USER_NOTICE );

@@ -69,6 +69,7 @@ class Database extends Core\Base
 		return $same_key ? Core\Arraay::sameKey( $taxonomies ) : $taxonomies;
 	}
 
+	// TODO: move to `WordPress\PostMeta`
 	public static function getPostMetaForDropdown( $metakey, $exclude_statuses = NULL )
 	{
 		global $wpdb;
@@ -85,72 +86,29 @@ class Database extends Core\Base
 		return $wpdb->get_col( $query );
 	}
 
-	// @REF: https://github.com/scribu/wp-custom-field-taxonomies
-	// FIXME: must limit to the selected post-types
-	public static function getPostMetaRows( $meta_key, $limit = FALSE )
+	#[\Deprecated('USE `WordPress\PostMeta::listByKey()`')]
+	public static function getPostMetaRows( string $meta_key, ?int $limit = NULL )
 	{
-		global $wpdb;
-
-		if ( absint( $limit ?: 0 ) )
-			$query = $wpdb->prepare( "
-				SELECT post_id, GROUP_CONCAT( meta_value ) as meta
-				FROM {$wpdb->postmeta}
-				WHERE meta_key = %s
-				GROUP BY post_id
-				LIMIT %d
-			", $meta_key, (int) $limit );
-		else
-			$query = $wpdb->prepare( "
-				SELECT post_id, GROUP_CONCAT( meta_value ) as meta
-				FROM {$wpdb->postmeta}
-				WHERE meta_key = %s
-				GROUP BY post_id
-			", $meta_key );
-
-		return $wpdb->get_results( $query );
+		return WordPress\PostMeta::listByKey( $meta_key, $limit );
 	}
 
-	// @REF: https://github.com/scribu/wp-custom-field-taxonomies
-	// FIXME: must limit to the selected post-types
-	public static function getPostMetaKeys( $same_key = FALSE )
+	#[\Deprecated('USE `WordPress\PostMeta::listAvailable()`')]
+	public static function getPostMetaKeys( bool $same_key = FALSE )
 	{
-		global $wpdb;
-
-		$meta_keys = $wpdb->get_col( "
-			SELECT meta_key
-			FROM {$wpdb->postmeta}
-			GROUP BY meta_key
-			HAVING meta_key NOT LIKE '\_%'
-			ORDER BY meta_key ASC
-		" );
-
+		$meta_keys = WordPress\PostMeta::listAvailable();
 		return $same_key ? Core\Arraay::sameKey( $meta_keys ) : $meta_keys;
 	}
 
-	// @SEE: `delete_post_meta_by_key( 'related_posts' )`
-	public static function deletePostMeta( $meta_key, $limit = FALSE )
+	#[\Deprecated('USE `WordPress\PostMeta::deleteByKey()`')]
+	public static function deletePostMeta( string $meta_key, ?int $limit = 0 )
 	{
-		global $wpdb;
-
-		if ( $limit )
-			$query = $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s LIMIT %d", $meta_key, $limit );
-		else
-			$query = $wpdb->prepare( "DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", $meta_key );
-
-		return $wpdb->query( $query, ARRAY_A );
+		return WordPress\PostMeta::deleteByKey( $meta_key, $limit );
 	}
 
-	public static function deleteEmptyMeta( $meta_key )
+	#[\Deprecated('USE `WordPress\PostMeta::deleteEmpty()`')]
+	public static function deleteEmptyMeta( string $meta_key )
 	{
-		global $wpdb;
-
-		$query = $wpdb->prepare( "
-			DELETE FROM {$wpdb->postmeta}
-			WHERE meta_key = %s
-			AND meta_value = ''
-		" , $meta_key );
-
-		return $wpdb->get_results( $query, ARRAY_A );
+		return WordPress\PostMeta::deleteEmpty( $meta_key );
 	}
 
 	// FIXME
@@ -489,6 +447,7 @@ class Database extends Core\Base
 		return implode( ',', $values );
 	}
 
+	// TODO: move to `WordPress\UserMeta`
 	public static function listUserMetakeys()
 	{
 		global $wpdb;
@@ -498,7 +457,8 @@ class Database extends Core\Base
 		return array_column( $wpdb->get_results( $query, ARRAY_A ), 'meta_key' );
 	}
 
-	public static function countPostMetaByKey( $metakey )
+	// TODO: move to `WordPress\PostMeta`
+	public static function countPostMetaByKey( string|array $metakey )
 	{
 		global $wpdb;
 
@@ -516,13 +476,9 @@ class Database extends Core\Base
 		" );
 	}
 
-	public static function changePostMetaKey( $from, $to )
+	#[\Deprecated('USE `WordPress\PostMeta::changeKey()`')]
+	public static function changePostMetaKey( string $from, string $to )
 	{
-		global $wpdb;
-
-		if ( ! $from || ! $to || $from === $to )
-			return FALSE;
-
-		return $wpdb->update( $wpdb->postmeta, [ 'meta_key' => $to ], [ 'meta_key' => $from ], [ '%s' ], [ '%s' ] );
+		return WordPress\PostMeta::changeKey( $from, $to );
 	}
 }

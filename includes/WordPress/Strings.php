@@ -13,7 +13,7 @@ class Strings extends Core\Base
 	 *
 	 * @return string
 	 */
-	public static function separator()
+	public static function separator(): string
 	{
 		if ( function_exists( 'wp_get_list_item_separator' ) )
 			return wp_get_list_item_separator();
@@ -22,7 +22,7 @@ class Strings extends Core\Base
 	}
 
 	// @OLD: `Helper::getStringsFromName()`
-	public static function getNameForms( $name )
+	public static function getNameForms( mixed $name ): false|array
 	{
 		if ( ! $name )
 			return FALSE;
@@ -57,10 +57,10 @@ class Strings extends Core\Base
 	 * Checks if the given input has truthy value.
 	 *
 	 * @param mixed $input
-	 * @param array $reference
+	 * @param array|string $reference
 	 * @return bool
 	 */
-	public static function isTruthy( $input, $reference = NULL )
+	public static function isTruthy( mixed $input, array|string|null $reference = NULL ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -82,7 +82,7 @@ class Strings extends Core\Base
 		return in_array( $trimmed, (array) $reference, TRUE );
 	}
 
-	public static function isEmpty( $string, $empties = NULL )
+	public static function isEmpty( string $string, array|string|null $reference = NULL ): bool
 	{
 		if ( self::empty( $string ) )
 			return TRUE;
@@ -95,8 +95,8 @@ class Strings extends Core\Base
 		if ( '' === $trimmed )
 			return TRUE;
 
-		if ( is_null( $empties ) )
-			$empties = [
+		if ( is_null( $reference ) )
+			$reference = [
 				'{}', '{{}}',
 				'[]', '[[]]',
 				'<>', '<<>>',
@@ -133,23 +133,25 @@ class Strings extends Core\Base
 				'ندارد', 'نامعلوم', 'هيچكدام', '؟',
 			];
 
-		foreach ( (array) $empties as $empty )
+		foreach ( (array) $reference as $empty )
 			if ( $empty === $trimmed )
 				return TRUE;
 
 		return FALSE;
 	}
 
-	public static function filterEmpty( $strings, $empties = NULL )
+	public static function filterEmpty( array $strings, array|string|null $reference = NULL ): array
 	{
 		return array_filter( $strings,
-			static function ( $value ) use ( $empties ) {
-				return ! self::isEmpty( $value, $empties );
+			static function ( $value )
+				use ( $reference ) {
+
+				return ! self::isEmpty( $value, $reference );
 			}
 		);
 	}
 
-	public static function trimChars( $text, $length = 45, $append = '&nbsp;&hellip;' )
+	public static function trimChars( string $text, int $length = 45, string $append = '&nbsp;&hellip;' ): string
 	{
 		$append = '<span title="'.Core\HTML::escape( $text ).'">'.$append.'</span>';
 
@@ -159,13 +161,13 @@ class Strings extends Core\Base
 	/**
 	 * Separates given string by set of delimiters into an array.
 	 *
-	 * @param string $string
+	 * @param mixed $string
 	 * @param string|array $delimiters
 	 * @param int $limit
 	 * @param string $delimiter
 	 * @return array
 	 */
-	public static function getSeparated( $string, $delimiters = NULL, $limit = NULL, $delimiter = '|' )
+	public static function getSeparated( mixed $string, string|array|null $delimiters = NULL, ?int $limit = NULL, ?string $delimiter = NULL ): array
 	{
 		if ( '0' === $string || 0 === $string )
 			return [ '0' ];
@@ -175,6 +177,8 @@ class Strings extends Core\Base
 
 		if ( is_array( $string ) )
 			return Core\Arraay::prepString( $string );
+
+		$delimiter = $delimiter ?? '|';
 
 		if ( is_null( $delimiters ) )
 			$delimiters = [
@@ -201,28 +205,25 @@ class Strings extends Core\Base
 		return Core\Arraay::prepString( $separated );
 	}
 
-	public static function getJoined( $items, $before = '', $after = '', $empty = '', $separator = NULL )
+	public static function getJoined( array $items, string $before = '', string $after = '', string $empty = '', ?string $separator = NULL ): string
 	{
-		if ( is_null( $separator ) )
-			$separator = self::separator();
-
 		if ( $items && count( $items ) )
-			return $before.implode( $separator, $items ).$after;
+			return $before.implode( $separator ?? self::separator(), $items ).$after;
 
 		return $empty;
 	}
 
-	public static function joinWithLast( $parts, $between, $last )
+	public static function joinWithLast( array $parts, string $between, string $last ): string
 	{
 		return implode( $last, array_filter( array_merge( [ implode( $between, array_slice( $parts, 0, -1 ) ) ], array_slice( $parts, -1 ) ) ) );
 	}
 
-	public static function getPiped( $items, $before = '', $after = '', $empty = '', $separator = NULL )
+	public static function getPiped( array $items, string $before = '', string $after = '', string $empty = '', ?string $separator = NULL ): string
 	{
 		return self::getJoined( $items, $before, $after, $empty, $separator ?? '|' );
 	}
 
-	public static function getCounted( $count, $template = '%s', $title = FALSE )
+	public static function getCounted( int $count, string|bool|null $template = '%s', string $title = '' ): string
 	{
 		if ( TRUE === $template )
 			$template = ' <span class="-count-wrap">(%s)</span>';
@@ -237,7 +238,7 @@ class Strings extends Core\Base
 			'-count',
 			$count,
 			Core\Number::format( $count ),
-			Core\HTML::escapeAttr( $title ?: '' ),
+			Core\HTML::escape( $title ?: '' ),
 		];
 
 		$html = $title
@@ -248,7 +249,7 @@ class Strings extends Core\Base
 	}
 
 	// @SOURCE: P2
-	public static function excerptedTitle( $content, $word_count )
+	public static function excerptedTitle( string $content, int $word_count ): string
 	{
 		$content = Core\Text::stripTags( $content );
 		$words   = preg_split(
@@ -274,61 +275,19 @@ class Strings extends Core\Base
 		return Core\Text::stripTags( $content );
 	}
 
-	/**
-	 * Strips all HTML tags including script and style.
-	 *
-	 * @source `Yoast\WP\SEO\Helpers\String_Helper::strip_all_tags()`
-	 *
-	 * @param string $text The text to strip the tags from.
-	 * @return string The processed string.
-	 */
-	public static function stripAllTags( $text )
+	public static function cleanupChars( string $input, bool $html = FALSE ): string
 	{
-		return \wp_strip_all_tags( $text );
-	}
-
-	/**
-	 * Standardize whitespace in a string.
-	 *
-	 * Replace line breaks, carriage returns, tabs with a space, then remove double spaces.
-	 *
-	 * @source `Yoast\WP\SEO\Helpers\String_Helper::standardize_whitespace()`
-	 *
-	 * @param string $text Text input to standardize.
-	 * @return string
-	 */
-	public static function standardizeWhitespace( $text )
-	{
-		return \trim( \str_replace( '  ', ' ', \str_replace( [ "\t", "\n", "\r", "\f" ], ' ', $text ) ) );
-	}
-
-	/**
-	 * First strip out registered and enclosing short-codes using native WordPress `strip_shortcodes()` function.
-	 * Then strip out the short-codes with a filthy regex, because people don't properly register their short-codes.
-	 *
-	 * @source `Yoast\WP\SEO\Helpers\String_Helper::strip_shortcode()`
-	 *
-	 * @param string $text Input string that might contain short-codes.
-	 * @return string String without short-codes.
-	 */
-	public static function stripShortCode( $text )
-	{
-		return \preg_replace( '`\[[^\]]+\]`s', '', \strip_shortcodes( $text ) );
-	}
-
-	public static function cleanupChars( $string, $html = FALSE )
-	{
-		if ( self::empty( $string ) )
-			return $string;
+		if ( ! $input = Core\Text::force( $input ) )
+			return '';
 
 		if ( ! class_exists( 'geminorum\\gNetwork\\Core\\Orthography' ) )
-			return apply_filters( 'string_format_i18n', $string );
+			return apply_filters( 'string_format_i18n', $input );
 
 		// return $html
-		// 	? \geminorum\gNetwork\Core\Orthography::cleanupPersianHTML( $string )
-		// 	: \geminorum\gNetwork\Core\Orthography::cleanupPersian( $string );
+		// 	? \geminorum\gNetwork\Core\Orthography::cleanupPersianHTML( $input )
+		// 	: \geminorum\gNetwork\Core\Orthography::cleanupPersian( $input );
 
-		return \geminorum\gNetwork\Core\Orthography::cleanupPersianChars( $string );
+		return \geminorum\gNetwork\Core\Orthography::cleanupPersianChars( $input );
 	}
 
 	/**
@@ -340,7 +299,7 @@ class Strings extends Core\Base
 	 * @param array $allowed
 	 * @return string
 	 */
-	public static function kses( $text, $context = 'none', $allowed = NULL )
+	public static function kses( string $text, string $context = 'none', ?array $allowed = NULL ): string
 	{
 		if ( '' === $text )
 			return $text;
@@ -368,7 +327,7 @@ class Strings extends Core\Base
 		return Core\Text::trim( wp_kses( $text, $allowed ) );
 	}
 
-	public static function ksesArray( $array, $context = 'none', $allowed = NULL )
+	public static function ksesArray( array $array, string $context = 'none', ?array $allowed = NULL ): array
 	{
 		foreach ( $array as $key => $value )
 			$array[$key] = self::kses( $value, $context, $allowed );
@@ -384,10 +343,10 @@ class Strings extends Core\Base
 	 * @param string $html
 	 * @return string
 	 */
-	public static function balanceTags( $html )
+	public static function balanceTags( string $html ): string
 	{
 		if ( self::isEmpty( $html ) )
-			return $html;
+			return '';
 
 		return force_balance_tags( $html );
 	}
@@ -399,7 +358,7 @@ class Strings extends Core\Base
 	 * @param string $description
 	 * @return string
 	 */
-	public static function makeTitleAttribute( $name, $description = NULL )
+	public static function makeTitleAttribute( ?string $name, ?string $description = NULL ): string
 	{
 		$text = '';
 
@@ -418,7 +377,36 @@ class Strings extends Core\Base
 		return sprintf( '%s :: %s', $text, $stripped );
 	}
 
-	public static function prepTitle( $text, $post_id = 0 )
+	/**
+	 * Generates item labels based on given keys.
+	 * @old `Ortho::keyLabels()`
+	 *
+	 * @param array $keys
+	 * @param array $extra
+	 * @return array
+	 */
+	public static function makeLabelsByKeys( array $keys, ?array $extra = NULL ): array
+	{
+		$words = $extra ?? [
+			'nbsp',
+			'html',
+			'eol',
+			'rlm',
+			'zwnj',
+			'zwj',
+			'uri',
+		];
+
+		$list  = [];
+		$upper = array_map( 'strtoupper', $words );
+
+		foreach ( (array) $keys as $key )
+			$list[$key] = str_ireplace( $words, $upper, Core\Text::titleCase( str_replace( '_', ' ', $key ) ) );
+
+		return $list;
+	}
+
+	public static function prepTitle( string $text, int $post_id = 0 ): string
 	{
 		if ( ! $text )
 			return '';
@@ -430,7 +418,7 @@ class Strings extends Core\Base
 		return Core\Text::trim( $text );
 	}
 
-	public static function prepDescription( $text, $shortcode = TRUE, $autop = TRUE )
+	public static function prepDescription( string $text, bool $shortcode = TRUE, bool $autop = TRUE ): string
 	{
 		if ( ! $text )
 			return '';
@@ -446,7 +434,7 @@ class Strings extends Core\Base
 		return $autop ? wpautop( $text ) : Core\Text::trim( $text );
 	}
 
-	public static function stripByProp( $data, $key, $list, $subkey )
+	public static function stripByProp( array $data, string $key, array $list, string $subkey ): array
 	{
 		if ( ! empty( $data[$key] ) && ! empty( $list ) ) {
 
@@ -462,7 +450,7 @@ class Strings extends Core\Base
 		return $data;
 	}
 
-	public static function stripEmptyValues( $data, $key, $subkey )
+	public static function stripEmptyValues( array $data, string $key, string $subkey ): array
 	{
 		if ( ! empty( $data[$key] ) ) {
 

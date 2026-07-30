@@ -6,7 +6,6 @@ use geminorum\gNetwork\Core;
 
 class IsIt extends Core\Base
 {
-
 	/**
 	 * Checks compatibility with the current WordPress version.
 	 * @source `is_wp_version_compatible()`
@@ -15,7 +14,7 @@ class IsIt extends Core\Base
 	 * @param string $required
 	 * @return bool
 	 */
-	public static function compatWP( $required )
+	public static function compatWP( ?string $required ): bool
 	{
 		return empty( $required ) || version_compare( get_bloginfo( 'version' ), $required, '>=' );
 	}
@@ -28,15 +27,43 @@ class IsIt extends Core\Base
 	 * @param string $required
 	 * @return bool
 	 */
-	public static function compatPHP( $required )
+	public static function compatPHP( ?string $required ): bool
 	{
 		return empty( $required ) || version_compare( PHP_VERSION, $required, '>=' );
 	}
 
-	// @SEE: `WordPress\Screen::mustRegisterUI()`
-	public static function singularUI( $posttypes = '' )
+	/**
+	 * Returns whether AI features are supported in the current environment.
+	 * @const `WP_AI_SUPPORT`
+	 *
+	 * @return bool
+	 */
+	public static function supportsAI(): bool
 	{
-		if ( is_robots() || is_favicon() || is_feed() )
+		if ( function_exists( 'wp_supports_ai' ) )
+			return wp_supports_ai();
+
+		return (bool) self::const( 'WP_AI_SUPPORT' );
+	}
+
+	/**
+	 * Determines whether real-time collaboration is enabled.
+	 * @const `WP_ALLOW_COLLABORATION`
+	 *
+	 * @return bool
+	 */
+	public static function supportsCollab(): bool
+	{
+		if ( function_exists( 'wp_is_collaboration_enabled' ) )
+			return wp_is_collaboration_enabled();
+
+		return (bool) self::const( 'WP_ALLOW_COLLABORATION' );
+	}
+
+	// @SEE: `WordPress\Screen::mustRegisterUI()`
+	public static function singularUI( mixed $posttypes = '' ): bool
+	{
+		if ( is_robots() || is_favicon() || is_feed() || self::sitemap() )
 			return FALSE;
 
 		// NOTE: `wp-activate.php` does not reach here!
@@ -78,7 +105,7 @@ class IsIt extends Core\Base
 	 *
 	 * @return bool
 	 */
-	public static function amp()
+	public static function amp(): bool
 	{
 		if ( function_exists( 'amp_is_request' ) )
 			return amp_is_request();
@@ -96,27 +123,30 @@ class IsIt extends Core\Base
 	 *
 	 * @return bool
 	 */
-	public static function customize()
+	public static function customize(): bool
 	{
 		return is_customize_preview();
 	}
 
 	/**
 	 * Determines whether the current request is for the login screen.
-	 * NOTE: `is_login()` @since WP 6.1.0
-	 * @see https://core.trac.wordpress.org/ticket/19898
+	 * NOTE: wrapper for `is_login()` @since WP 6.1.0
+	 * @ticket https://core.trac.wordpress.org/ticket/19898
 	 * @link https://make.wordpress.org/core/2022/09/11/new-is_login-function-for-determining-if-a-page-is-the-login-screen/
 	 *
 	 * @return bool
 	 */
-	public static function login()
+	public static function login(): bool
 	{
+		if ( function_exists( 'is_login' ) )
+			return is_login();
+
 		return FALSE !== stripos( wp_login_url(), $_SERVER['SCRIPT_NAME'] );
 	}
 
 	// @REF: https://make.wordpress.org/core/2019/04/17/block-editor-detection-improvements-in-5-2/
 	// @old: `Core\WordPress::isBlockEditor()`
-	public static function blockEditor()
+	public static function blockEditor(): bool
 	{
 		if ( ! function_exists( 'get_current_screen' ) )
 			return FALSE;
@@ -131,7 +161,7 @@ class IsIt extends Core\Base
 	}
 
 	// @old: `Core\WordPress::isDebug()`
-	public static function debug()
+	public static function debug(): bool
 	{
 		if ( WP_DEBUG && WP_DEBUG_DISPLAY && ! self::dev() )
 			return TRUE;
@@ -144,7 +174,7 @@ class IsIt extends Core\Base
 	// NOTE: `wp_get_environment_type()` @since WP 5.5.0
 	// NOTE: `wp_is_development_mode()` @since WP 6.3.0
 	// @old: `Core\WordPress::isDev()`
-	public static function dev()
+	public static function dev(): bool
 	{
 		if ( 'development' === self::const( 'WP_STAGE' ) )
 			return TRUE;
@@ -159,7 +189,7 @@ class IsIt extends Core\Base
 	}
 
 	// @old: `Core\WordPress::isFlush()`
-	public static function flush( $cap = 'publish_posts', $key = 'flush' )
+	public static function flush( $cap = 'publish_posts', $key = 'flush' ): bool
 	{
 		if ( $cap && isset( $_GET[$key] ) )
 			return did_action( 'init' ) && ( TRUE === $cap || current_user_can( $cap ) );
@@ -168,29 +198,33 @@ class IsIt extends Core\Base
 	}
 
 	// @old: `Core\WordPress::isAdminAJAX()`
-	public static function ajaxAdmin()
+	public static function ajaxAdmin(): bool
 	{
 		return self::ajax() && FALSE !== strpos( wp_get_raw_referer(), '/wp-admin/' );
 	}
 
 	// @old: `Core\WordPress::isAJAX()`
-	public static function ajax()
+	public static function ajax(): bool
 	{
-		// return defined( 'DOING_AJAX' ) && DOING_AJAX;
-		return wp_doing_ajax(); // @since WP 4.7.0
+		if ( function_exists( 'wp_doing_ajax' ) )
+			return wp_doing_ajax(); // @since WP 4.7.0
+
+		return (bool) self::const( 'DOING_AJAX' );
 	}
 
 	// @old: `Core\WordPress::isCRON()`
-	public static function cron()
+	public static function cron(): bool
 	{
-		// return defined( 'DOING_CRON' ) && DOING_CRON;
-		return wp_doing_cron(); // @since WP 4.8.0
+		if ( function_exists( 'wp_doing_cron' ) )
+			return wp_doing_cron(); // @since WP 4.8.0
+
+		return (bool) self::const( 'DOING_CRON' );
 	}
 
 	// support if behind web proxy/balancer
 	// @REF: https://developer.wordpress.org/reference/functions/is_ssl/#comment-4265
 	// @old: `Core\WordPress::isSSL()`
-	public static function ssl()
+	public static function ssl(): bool
 	{
 		// `Cloudflare`
 		if ( ! empty( $_SERVER['HTTP_CF_VISITOR'] ) ) {
@@ -212,7 +246,7 @@ class IsIt extends Core\Base
 	}
 
 	// @old: `Core\WordPress::siteIsHTTPS()`
-	public static function https()
+	public static function https(): bool
 	{
 		if ( function_exists( 'wp_is_using_https' ) )
 			return wp_is_using_https(); // @since WP 5.7.0
@@ -222,13 +256,13 @@ class IsIt extends Core\Base
 	}
 
 	// @old: `Core\WordPress::isImporting()`
-	public static function importing()
+	public static function importing(): bool
 	{
-		return defined( 'WP_IMPORTING' ) && WP_IMPORTING;
+		return (bool) self::const( 'WP_IMPORTING' );
 	}
 
 	// @old: `Core\WordPress::isExport()`
-	public static function exporting()
+	public static function exporting(): bool
 	{
 		if ( defined( 'GNETWORK_IS_WP_EXPORT' ) && GNETWORK_IS_WP_EXPORT )
 			return TRUE;
@@ -237,15 +271,15 @@ class IsIt extends Core\Base
 	}
 
 	// @old: `Core\WordPress::isCLI()`
-	public static function cli()
+	public static function cli(): bool
 	{
-		return defined( 'WP_CLI' ) && WP_CLI;
+		return (bool) self::const( 'WP_CLI' );
 	}
 
 	// @old: `Core\WordPress::isXMLRPC()`
-	public static function xmlRPC()
+	public static function xmlRPC(): bool
 	{
-		return defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST;
+		return (bool) self::const( 'XMLRPC_REQUEST' );
 	}
 
 	/**
@@ -255,12 +289,12 @@ class IsIt extends Core\Base
 	 *
 	 * @return bool
 	 */
-	public static function rest()
+	public static function rest(): bool
 	{
 		if ( function_exists( 'wp_is_serving_rest_request' ) )
 			return wp_is_serving_rest_request(); // @since WP 6.5.0
 
-		return defined( 'REST_REQUEST' ) && REST_REQUEST;
+		return (bool) self::const( 'REST_REQUEST' );
 	}
 
 	/**
@@ -274,7 +308,7 @@ class IsIt extends Core\Base
 	 *
 	 * @return bool
 	 */
-	public static function restEndpoint()
+	public static function restEndpoint(): bool
 	{
 		if ( function_exists( 'wp_is_rest_endpoint' ) )
 			return wp_is_rest_endpoint(); // @since WP 6.5.0
@@ -283,13 +317,13 @@ class IsIt extends Core\Base
 	}
 
 	// @old: `Core\WordPress::isIFrame()`
-	public static function iFrame()
+	public static function iFrame(): bool
 	{
-		return defined( 'IFRAME_REQUEST' ) && IFRAME_REQUEST;
+		return (bool) self::const( 'IFRAME_REQUEST' );
 	}
 
 	// @old: `Core\WordPress::isXML()`
-	public static function xml()
+	public static function xml(): bool
 	{
 		// NOTE: known conflict with caching plugins
 		// if ( function_exists( 'wp_is_xml_request' ) && wp_is_xml_request() )
@@ -313,9 +347,9 @@ class IsIt extends Core\Base
 	// including `WP_CACHE` with a value of `true` loads `advanced-cache.php`.
 	// `Object-cache.php` is loaded and used automatically.
 	// @old: `Core\WordPress::isAdvancedCache()`
-	public static function advancedCache()
+	public static function advancedCache(): bool
 	{
-		return defined( 'WP_CACHE' ) && WP_CACHE;
+		return (bool) self::const( 'WP_CACHE' );
 	}
 
 	/**
@@ -334,7 +368,7 @@ class IsIt extends Core\Base
 	 *
 	 * @return bool
 	 */
-	public static function mobile()
+	public static function mobile(): bool
 	{
 		if ( \function_exists( 'wp_is_mobile' ) )
 			return wp_is_mobile();
@@ -362,14 +396,25 @@ class IsIt extends Core\Base
 		return FALSE;
 	}
 
-	public static function sitemap()
+	/**
+	 * Is the query for a sitemap?
+	 * NOTE: wrapper for `is_sitemap()` @since WP 7.1.0
+	 *
+	 * @return bool
+	 */
+	public static function sitemap(): bool
 	{
-		return FALSE !== strpos( $_SERVER[REQUEST_URI], 'wp-sitemap' );
+		global $wp_query;
+
+		if ( function_exists( 'is_sitemap' ) && isset( $wp_query ) )
+			return is_sitemap();
+
+		return FALSE !== strpos( $_SERVER['REQUEST_URI'], 'wp-sitemap' );
 	}
 
 	// `is_main_network()` with extra checks
 	// @old: `Core\WordPress::isMainNetwork()`
-	public static function mainNetwork( $network_id = NULL )
+	public static function mainNetwork( $network_id = NULL ): bool
 	{
 		// fallback
 		if ( ! defined( 'GNETWORK_MAIN_NETWORK' ) )
@@ -387,7 +432,7 @@ class IsIt extends Core\Base
 		return FALSE;
 	}
 
-	public static function contentHasPages()
+	public static function contentHasPages(): false|int
 	{
 		global $pages;
 
@@ -402,7 +447,7 @@ class IsIt extends Core\Base
 		return $count;
 	}
 
-	public static function contentCurrentPage()
+	public static function contentCurrentPage(): int
 	{
 		global $page;
 
@@ -412,7 +457,7 @@ class IsIt extends Core\Base
 		return (int) $page;
 	}
 
-	public static function contentFirstPage()
+	public static function contentFirstPage(): bool
 	{
 		global $page;
 
@@ -422,7 +467,7 @@ class IsIt extends Core\Base
 		return 1 === ( (int) $page );
 	}
 
-	public static function contentLastPage()
+	public static function contentLastPage(): bool
 	{
 		global $page;
 

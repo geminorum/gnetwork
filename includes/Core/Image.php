@@ -25,6 +25,7 @@ class Image extends Base
 	 * Fixes the rotation of JPEG images using EXIF extension.
 	 * Adopted from: Image Rotation Fixer 1.0 By `Mert Yazıcıoğlu`
 	 * @source https://github.com/merty/image-rotation-fixer
+	 * @see `maybe_exif_rotate()` @since WP 5.3.0
 	 *
 	 * @param string $filepath
 	 * @return bool

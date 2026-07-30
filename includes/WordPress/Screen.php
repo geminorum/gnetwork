@@ -7,7 +7,7 @@ use geminorum\gNetwork\Core;
 class Screen extends Core\Base
 {
 	// OLD: `Core\WordPress::mustRegisterUI()`
-	public static function mustRegisterUI( $check_admin = TRUE )
+	public static function mustRegisterUI( bool $check_admin = TRUE ): bool
 	{
 		if ( IsIt::ajax()
 			|| IsIt::cli()
@@ -24,7 +24,7 @@ class Screen extends Core\Base
 
 	// @REF: `vars.php`
 	// OLD: `Core\WordPress::pageNow()`
-	public static function pageNow( $page = NULL )
+	public static function pageNow( ?string $page = NULL ): bool|string
 	{
 		$now = 'index.php';
 
@@ -37,7 +37,7 @@ class Screen extends Core\Base
 		return in_array( $now, (array) $page, TRUE );
 	}
 
-	public static function isPosttype( $posttype, $screen = NULL )
+	public static function isPosttype( string $posttype, ?object $screen = NULL ): bool
 	{
 		if ( empty( $posttype ) )
 			return FALSE;
@@ -56,7 +56,7 @@ class Screen extends Core\Base
 		return TRUE;
 	}
 
-	public static function isTaxonomy( $taxonomy, $screen = NULL )
+	public static function isTaxonomy( string $taxonomy, ?object $screen = NULL ): bool
 	{
 		if ( empty( $taxonomy ) )
 			return FALSE;

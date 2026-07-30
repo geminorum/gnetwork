@@ -7,12 +7,12 @@ use geminorum\gNetwork\Core;
 class User extends Core\Base
 {
 
-	public static function option( string $option_key, $user = NULL )
+	public static function option( string $option_key, ?int $user = NULL ): mixed
 	{
 		return get_user_option( $option_key, $user ?? 0 );
 	}
 
-	public static function colorScheme( $user = NULL, $fallback = NULL )
+	public static function colorScheme( ?int $user = NULL, ?string $fallback = NULL ): string
 	{
 		$fallback = $fallback ?? 'modern'; // NOTE: default @since WP 7.0.0
 
@@ -23,7 +23,7 @@ class User extends Core\Base
 	}
 
 	// OLD: `WordPress::getUsers()`
-	public static function get( $all_fields = FALSE, $network = FALSE, $extra = [], $rekey = 'ID' )
+	public static function get( bool $all_fields = FALSE, bool $network = FALSE, array $extra = [], string|false $rekey = 'ID' ): array
 	{
 		$users = get_users( array_merge( [
 			'orderby' => 'display_name',
@@ -31,12 +31,12 @@ class User extends Core\Base
 			'fields'  => $all_fields ? 'all_with_meta' : 'all',
 		], $extra ) );
 
-		return Core\Arraay::reKey( $users, $rekey );
+		return $rekey ? Core\Arraay::reKey( $users, $rekey ) : $users;
 	}
 
 	// @REF: `get_blogs_of_user()`
 	// OLD:: `Core\WordPress::getUserSites()`
-	public static function getSites( $user_id, $prefix )
+	public static function getSites( ?int $user_id, string $prefix ): array
 	{
 		$blogs = [];
 		$keys  = get_user_meta( $user_id );
@@ -67,7 +67,7 @@ class User extends Core\Base
 	}
 
 	// MAYBE: rename to `object`
-	public static function user( $field, $key = FALSE )
+	public static function user( mixed $field, string $key = '' ): false|object
 	{
 		if ( 0 === $field || '0' === $field || FALSE === $field )
 			return FALSE;
@@ -90,7 +90,7 @@ class User extends Core\Base
 		if ( ! is_object( $user ) )
 			return FALSE;
 
-		if ( ! is_string( $key ) )
+		if ( ! $key || ! is_string( $key ) )
 			return $user;
 
 		if ( isset( $user->{$key} ) )
@@ -101,7 +101,7 @@ class User extends Core\Base
 
 	// current user can
 	// OLD: `Core\WordPress::cuc()`
-	public static function cuc( $cap, $none = TRUE )
+	public static function cuc( ?string $cap, ?bool $none = TRUE ): ?bool
 	{
 		if ( 'none' == $cap || '0' == $cap )
 			return $none;
@@ -130,7 +130,7 @@ class User extends Core\Base
 	 * @param bool $check
 	 * @return false|string
 	 */
-	public static function edit( $user_id, $extra = [], $network = FALSE, $check = TRUE )
+	public static function edit( int $user_id, array $extra = [], bool $network = FALSE, bool $check = TRUE ): false|string
 	{
 		if ( ! $user_id )
 			return FALSE;
@@ -147,7 +147,7 @@ class User extends Core\Base
 		return FALSE;
 	}
 
-	public static function getTitleRow( $user, $fallback = '', $template = NULL )
+	public static function getTitleRow( mixed $user, string $fallback = '', ?string $template = NULL ): string
 	{
 		if ( ! $object = self::user( $user ) )
 			return $fallback;
@@ -157,20 +157,21 @@ class User extends Core\Base
 
 	// NOTE: alternative to `is_super_admin()`
 	// OLD: `Core\WordPress::isSuperAdmin()`
-	public static function isSuperAdmin( $user_id = FALSE )
+	public static function isSuperAdmin( int|bool $user_id = FALSE ): bool
 	{
 		$cap = is_multisite() ? 'manage_network' : 'manage_options';
 		return $user_id ? user_can( $user_id, $cap ) : current_user_can( $cap );
 	}
 
 	// OLD: `Core\WordPress::superAdminOnly()`
-	public static function superAdminOnly()
+	public static function superAdminOnly(): void
 	{
 		if ( ! self::isSuperAdmin() )
 			self::cheatin();
 	}
 
-	public static function getObjectbyMeta( $meta, $value, $network = TRUE )
+	// TODO: Move to `UserMeta`
+	public static function getObjectbyMeta( string $meta, mixed $value, bool $network = TRUE ): false|object
 	{
 		$args = [
 			'meta_key'    => $meta,
@@ -189,7 +190,8 @@ class User extends Core\Base
 		return reset( $users );
 	}
 
-	public static function getIDbyMeta( $key, $value, $single = TRUE )
+	// TODO: Move to `UserMeta`
+	public static function getIDbyMeta( string $key, mixed $value, bool $single = TRUE ): false|int
 	{
 		global $wpdb, $NucleusUserIDbyMeta;
 
@@ -215,10 +217,11 @@ class User extends Core\Base
 			? $wpdb->get_var( $query )
 			: $wpdb->get_col( $query );
 
-		return $NucleusUserIDbyMeta[$key][$group][$value] = $results;
+		return $NucleusUserIDbyMeta[$key][$group][$value] = $results ?? FALSE;
 	}
 
-	public static function invalidateIDbyMeta( $meta, $value = FALSE )
+	// TODO: Move to `UserMeta`
+	public static function invalidateIDbyMeta( string $meta, false|string $value = FALSE ): bool
 	{
 		global $NucleusUserIDbyMeta;
 
@@ -248,7 +251,7 @@ class User extends Core\Base
 	}
 
 	// @REF: `get_blogs_of_user()`
-	public static function getUserBlogs( $user_id, $prefix )
+	public static function getUserBlogs( int $user_id, string $prefix ): array
 	{
 		$blogs = [];
 		$keys  = get_user_meta( $user_id );
@@ -279,7 +282,7 @@ class User extends Core\Base
 	}
 
 	// @SEE: https://core.trac.wordpress.org/ticket/38741
-	public static function isLargeCount( $network_id = NULL )
+	public static function isLargeCount( int|null $network_id = NULL ): bool
 	{
 		if ( function_exists( 'wp_is_large_user_count' ) )
 			return wp_is_large_user_count( $network_id ); // @since WP 6.0.0
@@ -293,7 +296,7 @@ class User extends Core\Base
 		return FALSE;
 	}
 
-	public static function changeUsername( $old, $new )
+	public static function changeUsername( string $old, string $new ): false|string
 	{
 		global $wpdb;
 

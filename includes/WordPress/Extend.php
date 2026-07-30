@@ -7,7 +7,7 @@ use geminorum\gNetwork\Core;
 class Extend extends Core\Base
 {
 	// @REF: `is_plugin_active()`
-	public static function isPluginActive( $plugin, $network_check = TRUE )
+	public static function isPluginActive( string $plugin, bool $network_check = TRUE ): bool
 	{
 		if ( in_array( $plugin, (array) apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), TRUE ) )
 			return TRUE;
@@ -19,17 +19,17 @@ class Extend extends Core\Base
 	}
 
 	// @REF: `is_plugin_active_for_network()`
-	public static function isPluginActiveForNetwork( $plugin, $network = NULL )
+	public static function isPluginActiveForNetwork( string $plugin, ?int $network_id = NULL ): bool
 	{
 		if ( is_multisite() )
-			return (bool) in_array( $plugin, (array) get_network_option( $network, 'active_sitewide_plugins' ), TRUE );
+			return (bool) in_array( $plugin, (array) get_network_option( $network_id, 'active_sitewide_plugins' ), TRUE );
 
 		return FALSE;
 	}
 
 	// @REF: https://wordpress.org/support/topic/how-to-change-plugins-load-order/
 	// @USAGE: `add_action( 'activated_plugin', function () {} );`
-	public static function pluginFirst( $plugin )
+	public static function pluginFirst( string $plugin ): void
 	{
 		if ( empty( $plugin ) )
 			return;

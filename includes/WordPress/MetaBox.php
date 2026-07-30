@@ -7,7 +7,7 @@ use geminorum\gNetwork\Core;
 class MetaBox extends Core\Base
 {
 	// @OLD: `MetaBox::getTitleAction()`
-	public static function markupTitleAction( $action )
+	public static function markupTitleAction( string|array|false $action, ?string $context = NULL ): string
 	{
 		if ( empty( $action['link'] ) )
 			return '';

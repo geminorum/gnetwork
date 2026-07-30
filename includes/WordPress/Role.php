@@ -9,11 +9,11 @@ use geminorum\gNetwork\Core;
 	--------------------------------------------------------------------------------------------------------
 
 	-   [Super Admin]: somebody with access to the site network administration features and all other features. See the [Create a Network](https://wordpress.org/support/article/create-a-network/)article.
-	-   [Administrator]: (*slug: 'administrator'*) -- somebody who has access to all the administration features within a single site.
-	-   [Editor]: (*slug: 'editor'*) -- somebody who can publish and manage posts including the posts of other users.
-	-   [Author]: (*slug: 'author'*) -- somebody who can publish and manage their own posts.
-	-   [Contributor]: (*slug: 'contributor'*) -- somebody who can write and manage their own posts but cannot publish them.
-	-   [Subscriber]: (*slug: 'subscriber'*) -- somebody who can only manage their profile.
+	-   [Administrator]: (*slug: 'administrator'*) - somebody who has access to all the administration features within a single site.
+	-   [Editor]: (*slug: 'editor'*) - somebody who can publish and manage posts including the posts of other users.
+	-   [Author]: (*slug: 'author'*) - somebody who can publish and manage their own posts.
+	-   [Contributor]: (*slug: 'contributor'*) - somebody who can write and manage their own posts but cannot publish them.
+	-   [Subscriber]: (*slug: 'subscriber'*) - somebody who can only manage their profile.
 
 	Upon installing WordPress, an Administrator account is automatically created.
 ***/
@@ -26,7 +26,7 @@ class Role extends Core\Base
 	// remove_role( $role );
 	// https://learn.wordpress.org/tutorial/custom-post-types-and-capabilities/
 
-	public static function object( $role )
+	public static function object( mixed $role ): false|object
 	{
 		if ( ! $role )
 			return FALSE;
@@ -37,7 +37,7 @@ class Role extends Core\Base
 		return get_role( $role ) ?: FALSE;
 	}
 
-	public static function capabilities( $role, $fallback = [] )
+	public static function capabilities( string $role, array|false $fallback = [] ): array|false
 	{
 		if ( ! $object = self::object( $role ) )
 			return $fallback;
@@ -82,12 +82,16 @@ class Role extends Core\Base
 
 				$list = new \stdClass;
 
-				foreach ( $roles as $role_name => $role )
+				foreach ( $roles as $role_name => $role ) {
+
+					$role_name = (string) $role_name; // Suppress the Notice!
+
 					if ( ! $user )
 						$list->{$role_name} = translate_user_role( $role['name'] );
 
 					else if ( in_array( $role_name, $user->roles, TRUE ) )
 						$list->{$role_name} = translate_user_role( $role['name'] );
+				}
 
 				break;
 
@@ -123,10 +127,10 @@ class Role extends Core\Base
 	 * OLD: `Core\WordPress::cur()`
 	 *
 	 * @param string|array $roles
-	 * @param null|int $user_id
+	 * @param null|int $user
 	 * @return bool
 	 */
-	public static function has( $roles, $user = NULL )
+	public static function has( string|array $roles, mixed $user = NULL ): bool
 	{
 		if ( empty( $roles ) )
 			return FALSE;
@@ -142,7 +146,7 @@ class Role extends Core\Base
 
 	// @REF: `wp_get_users_with_no_role()`
 	// OLD: `Core\WordPress::getUsersWithNoRole()`
-	public static function listHasNoRole( $site_id = NULL )
+	public static function listHasNoRole( ?int $site_id = NULL ): array
 	{
 		global $wpdb;
 
@@ -179,7 +183,7 @@ class Role extends Core\Base
 
 	// @REF: `wp_get_users_with_no_role()`
 	// OLD: `Core\WordPress::getUsersWithRole()`
-	public static function listWithRole( $role, $site_id = NULL )
+	public static function listWithRole( string $role, ?int $site_id = NULL ): array
 	{
 		global $wpdb;
 
@@ -194,8 +198,12 @@ class Role extends Core\Base
 		return $wpdb->get_col( $query );
 	}
 
-	public static function sanitize( $input )
+	public static function sanitize( string $input ): string
 	{
-		return preg_replace( '/[^a-zA-Z0-9_]/gu', '', Core\Number::translate( Core\Text::trim( $input ) ) );
+		return preg_replace(
+			'/[^a-zA-Z0-9_]/gu',
+			'',
+			Core\Number::translate( Core\Text::trim( $input ) )
+		);
 	}
 }

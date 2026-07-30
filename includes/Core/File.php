@@ -440,9 +440,15 @@ class File extends Base
 		return @file_get_contents( $filename );
 	}
 
-	// wrapper for file_put_contents()
-	public static function putContents( $filename, $contents, $path = NULL, $append = TRUE, $check_folder = FALSE )
-	{
+	// NOTE: wrapper for `file_put_contents()`
+	public static function putContents(
+		string $filename,
+		string $contents,
+		?string $path = NULL,
+		bool $append = TRUE,
+		bool $check_folder = FALSE,
+	): false|int {
+
 		$dir = FALSE;
 
 		if ( is_null( $path ) ) {
@@ -532,7 +538,7 @@ class File extends Base
 	}
 
 	// @REF: https://gist.github.com/eusonlito/5099936
-	public static function getFolderSize( $path, $format = TRUE )
+	public static function getFolderSize( string $path, bool $format = TRUE ): int|string
 	{
 		$size = 0;
 
@@ -550,14 +556,14 @@ class File extends Base
 	 * @param bool $format
 	 * @return int|string
 	 */
-	public static function getSize( $path, $format = TRUE )
+	public static function getSize( string $path, bool $format = TRUE ): int|string
 	{
 		$size = 0;
 
 		if ( $path && ( $fh = fopen( $path, 'r+' ) ) ) {
 			$stat = fstat( $fh );
 			fclose( $fh );
-			$size = $stat['size'];
+			$size = Number::notNegative( $stat['size'] );
 		}
 
 		return $format ? self::formatSize( $size ) : $size;
@@ -570,15 +576,15 @@ class File extends Base
 	 * @param string $path
 	 * @return int
 	 */
-	public static function size( $path )
+	public static function size( string $path ): int
 	{
 		if ( function_exists( 'wp_filesize' ) )
-			return wp_filesize( $path );
+			return (int) wp_filesize( $path );
 
 		if ( ! $path || ! file_exists( $path ) )
 			return 0;
 
-		return (int) @filesize( $path );
+		return Number::notNegative( @filesize( $path ) );
 	}
 
 	/**
@@ -810,7 +816,7 @@ class File extends Base
 	// Outputs up to `5MB` is kept in memory, if it becomes bigger
 	// it will automatically be written to a temporary file.
 	// @REF: http://php.net/manual/en/function.fputcsv.php#74118
-	public static function toCSV( $data, $maxmemory = NULL )
+	public static function toCSV( array $data, ?int $maxmemory = NULL ): string
 	{
 		if ( is_null( $maxmemory ) )
 			$maxmemory = 5 * 1024 * 1024; // `5MB`
@@ -820,7 +826,7 @@ class File extends Base
 		foreach ( $data as $fields ) {
 
 			// @SEE: https://github.com/parsecsv/parsecsv-for-php/issues/167
-			fputcsv( $handle, $fields );
+			fputcsv( $handle, $fields, ',', '"', '\\' );
 		}
 
 		rewind( $handle );
@@ -832,10 +838,15 @@ class File extends Base
 		return $csv;
 	}
 
-	// The most perfect or least imperfect CSV file parsing, taking in account line-endings in cells
+	// The most-perfect or least imperfect CSV file parsing, taking in account line-endings in cells.
 	// @source https://gist.github.com/rmpel/ce4892bb180b7bae6ce73717f2f76fc2
-	public static function fromCSV( $file, $separator = ',', $encapsulation = '"', $replace_encapsed_le_with = NULL )
-	{
+	public static function fromCSV(
+		string $file,
+		string $separator = ',',
+		string $encapsulation = '"',
+		?string $replace_encapsed_le_with = NULL,
+	): array {
+
 		$virtual_lines = [];
 		$encapsulated  = FALSE;
 		$virtual_line  = '';
@@ -851,8 +862,7 @@ class File extends Base
 
 					if ( $chars[$i-1] === "\\" && ( $chars[$i-2] !== "\\" || $chars[$i-3] === "\\" ) && $chars[$i+1] !== $encapsulation ) {
 
-						// not an escaped quote
-						// here for clarification
+						// Not an escaped quote, here for clarification!
 
 					} else {
 
@@ -888,7 +898,7 @@ class File extends Base
 	}
 
 	// @REF: https://www.hashbangcode.com/article/remove-last-line-file-php
-	public static function processCSVbyLine( $file, $callback, $args = [] )
+	public static function processCSVbyLine( string $file, ?callable $callback, array $args = [] ): bool|array
 	{
 		if ( ! is_callable( $callback ) )
 			return FALSE;
@@ -1011,7 +1021,7 @@ class File extends Base
 	}
 
 	// @REF: https://paulund.co.uk/html5-download-attribute
-	public static function download( $path, $name = NULL, $mime = 'application/octet-stream' )
+	public static function download( string $path, ?string $name = NULL, string $mime = 'application/octet-stream' ): bool
 	{
 		if ( ! self::readable( $path ) )
 			return FALSE;
@@ -1047,12 +1057,13 @@ class File extends Base
 	 * Includes and evaluates the specified file.
 	 *
 	 * @see https://konstantin.blog/2021/php-benchmark-include-vs-file_get_contents/
+	 * @see `get_file_data()`
 	 *
 	 * @param string $filepath
 	 * @param mixed $fallback
 	 * @return mixed
 	 */
-	public static function requireData( $filepath, $fallback = FALSE )
+	public static function requireData( string $filepath, mixed $fallback = FALSE ): mixed
 	{
 		$path = self::normalize( $filepath );
 		return self::readable( $path )
@@ -1065,11 +1076,11 @@ class File extends Base
 	 * @source https://stackoverflow.com/a/55421531
 	 *
 	 * @param string $filename
-	 * @param array $data
+	 * @param mixed $data
 	 * @param string $path
-	 * @return bool
+	 * @return false|int
 	 */
-	public static function storeData( $filename, $data, $path = NULL )
+	public static function storeData( string $filename, mixed $data, ?string $path = NULL ): false|int
 	{
 		return self::putContents(
 			$filename,

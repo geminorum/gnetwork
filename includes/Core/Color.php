@@ -7,21 +7,21 @@ class Color extends Base
 
 	// TODO: must convert to `DataType`
 
-	public static function is( $text )
+	public static function is( mixed $input ): bool
 	{
-		return self::validHex( $text );
+		return self::validHex( $input );
 	}
 
 	/**
 	 * Prepares a value as color for the given context.
 	 *
-	 * @param string $value
-	 * @param array $field
-	 * @param string $context
-	 * @param string $icon
+	 * @param  mixed       $value
+	 * @param  array|null  $field
+	 * @param  string|null $context
+	 * @param  mixed       $icon
 	 * @return string
 	 */
-	public static function prep( $value, $field = [], $context = 'display', $icon = NULL )
+	public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string
 	{
 		if ( self::empty( $value ) )
 			return '';
@@ -34,8 +34,8 @@ class Color extends Base
 			$value = $raw;
 
 		$html = sprintf( '<i class="-color %s" title="%s" style="background-color:%s" data-color="%s"></i>',
-			'%s', // placeholder for css class
-			HTML::escapeAttr( $title ?? $value ),
+			'%s', // placeholder for CSS class
+			HTML::escape( $title ?? $value ),
 			$value,
 			$raw,
 		);
@@ -338,15 +338,15 @@ class Color extends Base
 	}
 
 	// returns a CSS value, using the auto-detected mode
-	public static function sanitize( $color )
+	public static function sanitize( mixed $input, mixed $default = '', ?array $field = [], ?string $context = 'save' ): mixed
 	{
-		if ( '' == $color )
+		if ( '' == $input )
 			return '';
 
-		if ( is_string( $color ) && 'transparent' == trim( $color ) )
+		if ( is_string( $input ) && 'transparent' == trim( $input ) )
 			return 'transparent';
 
-		$object = \geminorum\gEditorial\Misc\ColorCalc::newColor( $color );
+		$object = \geminorum\gEditorial\Misc\ColorCalc::newColor( $input );
 
 		return $object->toCSS( $object->mode );
 	}

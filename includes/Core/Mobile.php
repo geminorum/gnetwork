@@ -9,24 +9,28 @@ class Mobile extends Base
 
 	/**
 	 * Validates a phone number using a regular expression.
-	 * @source `WC_Validation::is_phone()`
 	 *
-	 * @param string $text Phone number to validate.
+	 * @param string $data Mobile number to validate.
+	 * @param string $country The country code the mobile is being validated for, or null if unknown.
 	 * @return bool
 	 */
-	public static function is( $text )
+	public static function is( $data, $country = NULL )
 	{
-		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $text ) ) ) )
+		if ( self::empty( $data ) )
+			return FALSE;
+
+		// @source `WC_Validation::is_phone()`
+		if ( 0 < strlen( trim( preg_replace( '/[\s\#0-9_\-\+\/\(\)\.]/', '', $data ) ) ) )
 			return FALSE;
 
 		// all zeros!
-		if ( ! intval( $text ) )
+		if ( ! intval( $data ) )
 			return FALSE;
 
 		return TRUE;
 	}
 
-	public static function sanitize( $input, $default = '', $field = [], $context = 'save' )
+	public static function sanitize( mixed $input, mixed $default = '', ?array $field = [], ?string $context = 'save' ): mixed
 	{
 		return Phone::sanitize( $input, $default, $field, $context );
 	}
@@ -40,7 +44,7 @@ class Mobile extends Base
 	 * @param string $icon
 	 * @return string
 	 */
-	public static function prep( $value, $field = [], $context = 'display', $icon = NULL )
+	public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string
 	{
 		if ( self::empty( $value ) )
 			return '';
@@ -66,9 +70,9 @@ class Mobile extends Base
 			case 'print' : return $value;
 			case 'input' : return Number::translate( $value );
 			case 'export': return Number::translate( $value );
-			case 'icon'  : return HTML::tel( $raw, $title ?: $value, $icon ?? HTML::getDashicon( 'smartphone' ), self::is( $raw ) ? '-is-valid' : '-is-not-valid' );
+			case 'icon'  : return Link::tel( $raw, $title ?: $value, $icon ?? HTML::getDashicon( 'smartphone' ), self::is( $raw ) ? '-is-valid' : '-is-not-valid' );
 			case 'admin' :
-			     default : return HTML::tel( $raw, $title ?: FALSE, $value, self::is( $raw ) ? '-is-valid' : '-is-not-valid' );
+			     default : return Link::tel( $raw, $title ?: FALSE, $value, self::is( $raw ) ? '-is-valid' : '-is-not-valid' );
 		}
 
 		return $value;

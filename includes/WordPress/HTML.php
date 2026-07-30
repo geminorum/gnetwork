@@ -7,15 +7,35 @@ use geminorum\gNetwork\Core;
 class HTML extends Core\Base
 {
 
-	// same as `html_entity_decode( $text, ENT_QUOTES, get_bloginfo( 'charset' ) );`
-	public static function entityDecode( $text )
+	/**
+	 * Strips all HTML tags including script and style.
+	 *
+	 * @source `Yoast\WP\SEO\Helpers\String_Helper::strip_all_tags()`
+	 *
+	 * @param string $input
+	 * @return string
+	 */
+	public static function stripAllTags( mixed $input ): string
 	{
-		return \WP_HTML_Decoder::decode_attribute( $text );
+		return \wp_strip_all_tags( Core\Text::force( $input ) );
 	}
 
-	public static function extractRootText( $html )
+	/**
+	 * Convert HTML entities to their corresponding characters.
+	 * NOTE: same as `html_entity_decode( $text, ENT_QUOTES, get_bloginfo( 'charset' ) );`
+	 * NOTE: `WP_HTML_Decoder` @since WP 6.6.0
+	 *
+	 * @param mixed $input
+	 * @return string
+	 */
+	public static function entityDecode( mixed $input ): string
 	{
-		if ( ! $html )
+		return \WP_HTML_Decoder::decode_attribute( Core\Text::force( $input ) );
+	}
+
+	public static function extractRootText( mixed $html ): string
+	{
+		if ( ! $html = Core\Text::force( $html ) )
 			return '';
 
 		$processor = new \WP_HTML_Tag_Processor( $html );
@@ -54,9 +74,9 @@ class HTML extends Core\Base
 		return trim( implode( '', $parts ) );
 	}
 
-	public static function stripTags( $html )
+	public static function stripTags( mixed $html ): string
 	{
-		if ( ! $html )
+		if ( ! $html = Core\Text::force( $html ) )
 			return '';
 
 		$processor = new \WP_HTML_Tag_Processor( $html );
@@ -76,10 +96,10 @@ class HTML extends Core\Base
 		return $text;
 	}
 
-	public static function setAtts( $html, $attributes )
+	public static function setAtts( mixed $input, array $attributes ): mixed
 	{
-		if ( ! $html )
-			return '';
+		if ( ! $html = Core\Text::force( $input ) )
+			return $input;
 
 		$processor = new \WP_HTML_Tag_Processor( $html );
 
@@ -92,5 +112,56 @@ class HTML extends Core\Base
 		}
 
 		return $html;
+	}
+
+	public static function extractAttribute( mixed $input, string $target_attribute, ?string $tag_name = NULL ): string|false 
+	{
+		if ( ! $html = Core\Text::force( $input ) )
+			return $input;
+
+		$processor = new \WP_HTML_Tag_Processor( $html );
+		$tag_query = $tag_name ? [
+			'tag_name' => $tag_name,
+		] : [];
+
+		while ( $processor->next_tag( $tag_query ) ) {
+
+			if ( $attribute = $processor->get_attribute( $target_attribute ) )
+				return $attribute;
+		}
+
+		return FALSE;
+	}
+
+	public static function extractAttributes( mixed $input, array $lookup = [], ?array $tag_query = NULL, bool $single = FALSE ): mixed
+	{
+		if ( ! $html = Core\Text::force( $input ) )
+			return $input;
+
+		$data      = [];
+		$processor = new \WP_HTML_Tag_Processor( $html );
+		$tag_query = $tag_query ?? [
+			'tag_name'    => 'DIV',
+			'breadcrumbs' => [ 'HTML', 'BODY' ],
+		];
+
+		while ( $processor->next_tag( $tag_query ) ) {
+
+			foreach ( $lookup as $target_id => $target_attribute ) {
+
+				if ( $target_id !== $processor->get_attribute( 'id' ) )
+					continue;
+
+				if ( ! $attribute = $processor->get_attribute( $target_attribute ) )
+					continue;
+
+				if ( $single )
+					return $attribute;
+
+				$data[$target_id] = $attribute;
+			}
+		}
+
+		return $single ? FALSE : $data;
 	}
 }

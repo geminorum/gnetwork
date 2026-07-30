@@ -8,7 +8,7 @@ class PostCode extends Base
 	// @SEE: https://github.com/persian-tools/persian-tools/pull/403/files
 
 	// OLD: `Core\Validation::sanitizePostCode()`
-	public static function sanitize( $input, $default = '', $field = [], $context = 'save' )
+	public static function sanitize( mixed $input, mixed $default = '', ?array $field = [], ?string $context = 'save' ): mixed
 	{
 		if ( self::empty( $input ) )
 			return $default;
@@ -23,7 +23,7 @@ class PostCode extends Base
 	}
 
 	// OLD: `Core\Validation::isPostCode()`
-	public static function is( $input )
+	public static function is( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;

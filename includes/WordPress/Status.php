@@ -95,27 +95,23 @@ class Status extends Core\Base
 	 * @param array $excludes
 	 * @return array
 	 */
-	public static function acceptable( $posttypes = 'any', $context = 'query', $excludes = NULL )
+	public static function acceptable( string|array $posttypes = 'any', ?string $context = 'query', ?array $excludes = NULL ): array
 	{
-		// @SEE: `WordPress\Database::getExcludeStatuses()`
-		if ( is_null( $excludes ) )
-			$excludes = [
-				// 'draft',
-				'private',
-				'trash',
-				'auto-draft',
-				'inherit',
-			];
-
-		$statuses = [
+		$available = [
 			'publish',
 			'future',
 			'pending',
 			'draft',
 		];
 
+		// @SEE: `WordPress\Database::getExcludeStatuses()`
+		$excludes = $excludes ?? is_admin() ? [] : [
+			'pending',
+			'draft',
+		];
+
 		return apply_filters( 'nucleus_status_acceptable',
-			array_diff( $statuses, (array) $excludes ),
+			array_diff( $available, (array) $excludes ),
 			(array) $posttypes,
 			$context,
 			$excludes

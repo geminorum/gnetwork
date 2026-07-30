@@ -2,6 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+use geminorum\gNetwork\WordPress;
+
 class HTTP extends Base
 {
 
@@ -10,7 +12,7 @@ class HTTP extends Base
 	 *
 	 * @return bool
 	 */
-	public static function isPOST()
+	public static function isPOST(): bool
 	{
 		return 'POST' === strtoupper( $_SERVER['REQUEST_METHOD'] );
 	}
@@ -20,12 +22,12 @@ class HTTP extends Base
 	 *
 	 * @return bool
 	 */
-	public static function isGET()
+	public static function isGET(): bool
 	{
 		return 'GET' === strtoupper( $_SERVER['REQUEST_METHOD'] );
 	}
 
-	public static function htmlStatus( $code, $title = NULL, $template = NULL )
+	public static function htmlStatus( int|string $code, ?string $title = NULL, ?string $template = NULL ): string
 	{
 		if ( ! $code )
 			return '';
@@ -62,10 +64,10 @@ class HTTP extends Base
 	 * @alt `get_status_header_desc()`
 	 *
 	 * @param int|string $code
-	 * @param string $fallback
+	 * @param false|string $fallback
 	 * @return string
 	 */
-	public static function getStatusDesc( $code, $fallback = '' )
+	public static function getStatusDesc( int|string $code, false|string $fallback = '' ): false|string
 	{
 		static $data = NULL;
 
@@ -163,7 +165,7 @@ class HTTP extends Base
 	 * @param string $context
 	 * @return false
 	 */
-	public static function logError( $url = NULL, $message = NULL, $context = NULL )
+	public static function logError( ?string $url = NULL, ?string $message = NULL, ?string $context = NULL ): false
 	{
 		if ( defined( 'WP_DEBUG_LOG' ) && ! WP_DEBUG_LOG )
 			return FALSE; // help the caller
@@ -177,6 +179,9 @@ class HTTP extends Base
 		else if ( $url )
 			$log = sprintf( '{%s}', $url );
 
+		else
+			return FALSE;
+
 		if ( $context )
 			$log = sprintf( '[%s]: %s', $context, $log );
 
@@ -185,160 +190,32 @@ class HTTP extends Base
 		return FALSE; // help the caller
 	}
 
-	/**
-	 * Retrieves data from the JSON body of a GET request, given a URL.
-	 *
-	 * @param string $url
-	 * @param array $atts
-	 * @param bool $assoc
-	 * @return false|array|object
-	 */
-	public static function getJSON( $url, $atts = [], $assoc = TRUE )
+	#[\Deprecated('USE `WordPress\Remote::getJSON()`')]
+	public static function getJSON( false|string $url, array $atts = [], bool $assoc = TRUE ): false|array|object
 	{
-		if ( ! $url )
-			return FALSE;
-
-		$args = self::recursiveParseArgs( $atts, [
-			'timeout' => 15,
-			'headers' => [ 'Accept' => 'application/json' ],
-		] );
-
-		// $response = wp_remote_get( $url, $args );
-		$response = wp_safe_remote_get( $url, $args );
-
-		if ( self::isError( $response ) )
-			return self::logError( $url, $response->get_error_message(), 'GETJSON' );
-
-		$status = wp_remote_retrieve_response_code( $response );
-
-		if ( 200 !== $status )
-			return self::logError( $url, sprintf( '%d: %s', $status, self::getStatusDesc( $status, 'UKNOWN STATUS' ) ), 'GETJSON' );
-
-		if ( ! $body = wp_remote_retrieve_body( $response ) )
-			return self::logError( $url, '200: EMPTY BODY', 'GETJSON' );
-
-		$data = json_decode( $body, $assoc );
-
-		if ( json_last_error() !== JSON_ERROR_NONE )
-			return self::logError( $url, sprintf( '200: JSON MALFORMED', json_last_error_msg() ), 'GETJSON' );
-
-		return $data;
+		return WordPress\Remote::getJSON( $url, $atts, $assoc );
 	}
 
-	/**
-	 * Puts data as JSON body of a POST request, given a URL.
-	 *
-	 * @param mixed $body
-	 * @param string $url
-	 * @param array $atts
-	 * @param bool $assoc
-	 * @return false|array|object
-	 */
-	public static function postJSON( $body, $url, $atts = [], $assoc = TRUE )
+	#[\Deprecated('USE `WordPress\Remote::postJSON()`')]
+	public static function postJSON( mixed $body, false|string $url, array $atts = [], bool $assoc = TRUE ): false|array|object
 	{
-		if ( ! $url )
-			return FALSE;
-
-		$args = self::recursiveParseArgs( $atts, [
-			'body'    => $body,
-			'timeout' => 15,
-			'headers' => [ 'Accept' => 'application/json' ],
-		] );
-
-		$response = wp_remote_post( $url, $args );
-
-		if ( 'development' === self::const( 'WP_STAGE' ) )
-			self::_log( $args, wp_remote_retrieve_body( $response ) );
-
-		if ( self::isError( $response ) )
-			return self::logError( $url, $response->get_error_message(), 'POSTJSON' );
-
-		$status = wp_remote_retrieve_response_code( $response );
-
-		if ( 200 !== $status )
-			return self::logError( $url, sprintf( '%d: %s', $status, self::getStatusDesc( $status, 'UKNOWN STATUS' ) ), 'POSTJSON' );
-
-		if ( ! $body = wp_remote_retrieve_body( $response ) )
-			return self::logError( $url, '200: EMPTY BODY', 'POSTJSON' );
-
-		$data = json_decode( $body, $assoc );
-
-		if ( json_last_error() !== JSON_ERROR_NONE )
-			return self::logError( $url, sprintf( '200: JSON MALFORMED', json_last_error_msg() ), 'POSTJSON' );
-
-		return $data;
+		return WordPress\Remote::postJSON( $body, $url, $atts, $assoc );
 	}
 
-	/**
-	 * Retrieves data from the HTML body of a GET request, given a URL.
-	 *
-	 * @see https://deliciousbrains.com/wordpress-http-api-requests/
-	 *
-	 * @param string $url
-	 * @param array $atts
-	 * @return false|string
-	 */
-	public static function getHTML( $url, $atts = [] )
+	#[\Deprecated('USE `WordPress\Remote::getHTML()`')]
+	public static function getHTML( false|string $url, array $atts = [] ): false|string
 	{
-		if ( ! $url )
-			return FALSE;
-
-		$args = self::recursiveParseArgs( $atts, [
-			'timeout' => 15,
-			'headers' => [ 'Accept' => 'text/html' ],
-		] );
-
-		// $response = wp_remote_get( $url, $args );
-		$response = wp_safe_remote_get( $url, $args );
-
-		if ( self::isError( $response ) )
-			return self::logError( $url, $response->get_error_message(), 'GETHTML' );
-
-		$status = wp_remote_retrieve_response_code( $response );
-
-		if ( 200 !== $status )
-			return self::logError( $url, sprintf( '%d: %s', $status, self::getStatusDesc( $status, 'UKNOWN STATUS' ) ), 'GETHTML' );
-
-		if ( ! $body = wp_remote_retrieve_body( $response ) )
-			return self::logError( $url, '200: EMPTY BODY', 'GETHTML' );
-
-		return $body;
+		return WordPress\Remote::getHTML( $url, $atts );
 	}
 
-	/**
-	 * Retrieves data from the content body of a GET request, given a URL.
-	 * NOTE: without `accept` header
-	 *
-	 * @param string $url
-	 * @param array $atts
-	 * @return false|string
-	 */
-	public static function getContents( $url, $atts = [] )
+	#[\Deprecated('USE `WordPress\Remote::getContents()`')]
+	public static function getContents( false|string $url, array $atts = [] ): false|string
 	{
-		if ( ! $url )
-			return FALSE;
-
-		$args = self::recursiveParseArgs( $atts, [
-			'timeout' => 15,
-		] );
-
-		$response = wp_safe_remote_get( $url, $args );
-
-		if ( self::isError( $response ) )
-			return self::logError( $url, $response->get_error_message(), 'GETCONTENTS' );
-
-		$status = wp_remote_retrieve_response_code( $response );
-
-		if ( 200 !== $status )
-			return self::logError( $url, sprintf( '%d: %s', $status, self::getStatusDesc( $status, 'UKNOWN STATUS' ) ), 'GETCONTENTS' );
-
-		if ( ! $body = wp_remote_retrieve_body( $response ) )
-			return self::logError( $url, '200: EMPTY BODY', 'GETCONTENTS' );
-
-		return $body;
+		return WordPress\Remote::getContents( $url, $atts );
 	}
 
-	public static function getContents_OLD( $url )
+	// TODO: rename back after deprecation period!
+	public static function getContents_OLD( string $url ): false|string
 	{
 		if ( ! extension_loaded( 'curl' ) )
 			return FALSE;
@@ -366,7 +243,7 @@ class HTTP extends Base
 	}
 
 	// @SOURCE: `wp_get_raw_referer()`
-	public static function referer()
+	public static function referer(): false|string
 	{
 		if ( ! empty( $_REQUEST['_wp_http_referer'] ) )
 			return self::unslash( $_REQUEST['_wp_http_referer'] );
@@ -380,12 +257,12 @@ class HTTP extends Base
 	// @REF: https://github.com/10up/restricted-site-access/blob/develop/restricted_site_access.php
 	// @SEE: https://wordpress.org/support/topic/how-to-troubleshoot-client-ip-detection/
 	// `CloudFlare`: https://www.cloudflare.com/ips/
-	public static function clientIP()
+	public static function clientIP(): string
 	{
 		$headers = [
-			'HTTP_CF_CONNECTING_IP' ,  // Cloudflare // @REF: https://github.com/10up/restricted-site-access/issues/109
-			'HTTP_INCAP_CLIENT_IP'  ,  // Incapsula
-			'HTTP_X_SUCURI_CLIENTIP',  // Sucuri
+			'HTTP_CF_CONNECTING_IP' ,  // `Cloudflare` // @REF: https://github.com/10up/restricted-site-access/issues/109
+			'HTTP_INCAP_CLIENT_IP'  ,  // `Incapsula`
+			'HTTP_X_SUCURI_CLIENTIP',  // `Sucuri`
 			'HTTP_CLIENT_IP',
 			'HTTP_X_FORWARDED_FOR'  ,  // Any Proxy
 			'HTTP_X_FORWARDED',
@@ -415,7 +292,7 @@ class HTTP extends Base
 	}
 
 	// @REF: `WP_Community_Events::get_unsafe_client_ip()`
-	public static function IP( $pad = FALSE )
+	public static function IP( bool $pad = FALSE ): string
 	{
 		$ip = '';
 
@@ -449,7 +326,7 @@ class HTTP extends Base
 		return $pad ? str_pad( $ip, 15, ' ', STR_PAD_LEFT ) : $ip;
 	}
 
-	public static function normalizeIP( $ip )
+	public static function normalizeIP( string $ip ): string
 	{
 		return trim( preg_replace( '/[^0-9a-fA-F:., ]/', '', stripslashes( $ip ) ) );
 	}
@@ -499,27 +376,27 @@ class HTTP extends Base
 		return ( $ip & $mask ) == $subnet;
 	}
 
-	public static function headers( $array )
+	public static function headers( array $array ): void
 	{
 		foreach ( $array as $h => $k )
 			@header( "{$h}: {$k}", TRUE );
 	}
 
-	public static function headerRetryInMinutes( $minutes = '30' )
+	public static function headerRetryInMinutes( int|string $minutes = '30' ): void
 	{
 		@header( "Retry-After: ".( absint( $minutes ) * 60 ) );
 	}
 
-	public static function headerContentUTF8()
+	public static function headerContentUTF8(): void
 	{
 		@header( "Content-Type: text/html; charset=utf-8" );
 	}
 
 	/**
-	 * Performs an HTTP request using the GET method and returns its response.
+	 * Performs an HTTP request using the `GET` method and returns its response.
 	 *
 	 * Abstracts the idiocy of the CURL API for something simpler. Assumes we are
-	 * downloading data (so a GET request) and we need no special request headers.
+	 * downloading data (so a `GET` request) and we need no special request headers.
 	 * Returns an `IO` stream which will be the data requested. The headers of the
 	 * response will be stored in the $headers parameter reference.
 	 *
@@ -531,10 +408,10 @@ class HTTP extends Base
 	 *
 	 * @param string $url
 	 * @param array $headers
-	 * @param string $err_msg
-	 * @return false|stream
+	 * @param string $error_message
+	 * @return false|resource
 	 */
-	public static function download( $url, &$headers, &$err_msg )
+	public static function download( string $url, ?array &$headers, ?string &$error_message ): mixed
 	{
 		if ( ! extension_loaded( 'curl' ) )
 			return FALSE;
@@ -550,7 +427,7 @@ class HTTP extends Base
 		] );
 
 		if ( FALSE === curl_exec( $in_out ) ) {
-			$err_msg << curl_error( $in_out );
+			$error_message << curl_error( $in_out );
 			return FALSE;
 		}
 
@@ -579,7 +456,7 @@ class HTTP extends Base
 
 	// @REF: http://arguments.callee.info/2010/02/21/multiple-curl-requests-with-php/
 	// @REF: http://stackoverflow.com/a/9950468
-	public static function checkURLs( $urls = [] )
+	public static function checkURLs( array $urls = [] ): false|array
 	{
 		if ( ! extension_loaded( 'curl' ) )
 			return FALSE;
@@ -598,7 +475,7 @@ class HTTP extends Base
 
 			curl_setopt( $ch[$i], CURLOPT_URL, $urls[$i] );
 			curl_setopt( $ch[$i], CURLOPT_RETURNTRANSFER, TRUE );
-			// curl_setopt( $ch[$i], CURLOPT_CUSTOMREQUEST, 'HEAD' );
+			// `curl_setopt( $ch[$i], CURLOPT_CUSTOMREQUEST, 'HEAD' );`
 			curl_setopt( $ch[$i], CURLOPT_HEADER, FALSE );
 			curl_setopt( $ch[$i], CURLOPT_NOBODY, TRUE );
 			curl_setopt( $ch[$i], CURLOPT_SSL_VERIFYPEER, FALSE );
@@ -628,7 +505,7 @@ class HTTP extends Base
 
 	// @SEE: https://stackoverflow.com/a/12628971
 	// @REF: https://stackoverflow.com/a/12629254
-	public static function getStatus( $url )
+	public static function getStatus( string|false|null $url ): false|int
 	{
 		if ( self::empty( $url ) || ! extension_loaded( 'curl' ) )
 			return FALSE;
@@ -652,17 +529,17 @@ class HTTP extends Base
 		if ( PHP_VERSION_ID < 80000 )
 			curl_close( $handle );
 
-		return $status;
+		return (int) $status;
 	}
 
 	/**
-	 * Finds where the URL will redirected using curl.
+	 * Finds where the URL will be redirected using curl.
 	 * @source https://www.geeksforgeeks.org/php/how-to-find-where-the-url-will-redirected-using-curl/
 	 *
-	 * @param string $url
+	 * @param false|string $url
 	 * @return false|string
 	 */
-	public static function getRedirect( $url )
+	public static function getRedirect( false|string $url ): false|string
 	{
 		if ( self::empty( $url ) || ! extension_loaded( 'curl' ) )
 			return FALSE;
@@ -692,11 +569,11 @@ class HTTP extends Base
 	 * Retrieves the size of a file without downloading.
 	 * @source https://stackoverflow.com/a/2602624
 	 *
-	 * @param string $url
+	 * @param false|string $url
 	 * @param int $status
 	 * @return false|int
 	 */
-	public static function getSize( $url, &$status = NULL )
+	public static function getSize( false|string $url, ?int &$status = NULL ): false|int
 	{
 		if ( empty( $url ) )
 			return FALSE;
@@ -710,7 +587,7 @@ class HTTP extends Base
 		curl_setopt( $handle, CURLOPT_HEADER, TRUE );
 		curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE );
 		curl_setopt( $handle, CURLOPT_FOLLOWLOCATION, TRUE );
-		curl_setopt( $handle, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT'] );
+		curl_setopt( $handle, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT'] ?? NULL );
 
 		if ( 'development' === wp_get_environment_type() ) {
 			curl_setopt( $handle, CURLOPT_SSL_VERIFYHOST, FALSE );
@@ -741,7 +618,7 @@ class HTTP extends Base
 	 * @param string $url
 	 * @return false|int
 	 */
-	public static function getSizeFromHeaders( $url )
+	public static function getSizeFromHeaders( string $url ): false|int
 	{
 		if ( empty( $url ) )
 			return FALSE;

@@ -105,10 +105,10 @@ class Attachment extends Core\Base
 	/**
 	 * Retrieves attachment rest route given an attachment ID or attachment object.
 	 *
-	 * @param null|int|object $post
+	 * @param mixed $post
 	 * @return false|string $route
 	 */
-	public static function getRestRoute( $post = NULL )
+	public static function getRestRoute( mixed $post = NULL ): false|string
 	{
 		return Post::getRestRoute( $post );
 	}

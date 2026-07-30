@@ -13,16 +13,21 @@ class Module extends Core\Base
 	protected $site = NULL;
 	protected $icon = NULL; // `Dashicons` only
 
-	public static function module() { return []; }
-	protected function setup( $args = [] ) {}
+	public static function factory()
+	{
+		throw new Core\Exception( 'The Factory is not defined!' );
+	}
 
-	protected function options_key()
+	public static function module(): array { return []; }
+	protected function setup( array $args = [] ): bool { return FALSE; }
+
+	protected function options_key(): string
 	{
 		return $this->hook();
 	}
 
 	// NOTE: only has key prefix: `key.arg-with-prefix`
-	protected function dotted()
+	protected function dotted(): string
 	{
 		$suffix = '';
 
@@ -34,7 +39,7 @@ class Module extends Core\Base
 	}
 
 	// NOTE: only has base prefix: `base-arg1-arg2`
-	protected function dashed()
+	protected function dashed(): string
 	{
 		$suffix = '';
 
@@ -45,7 +50,7 @@ class Module extends Core\Base
 		return $this->base.$suffix;
 	}
 
-	protected function hook()
+	protected function hook(): string
 	{
 		$suffix = '';
 
@@ -57,7 +62,7 @@ class Module extends Core\Base
 	}
 
 	// NOTE: same as `hook()` without the `$key`
-	protected function hook_base()
+	protected function hook_base(): string
 	{
 		$suffix = '';
 
@@ -69,7 +74,7 @@ class Module extends Core\Base
 	}
 
 	// NOTE: same as `hook()` without the `$base`
-	protected function hook_key()
+	protected function hook_key(): string
 	{
 		$suffix = '';
 
@@ -80,7 +85,7 @@ class Module extends Core\Base
 		return $this->key.$suffix;
 	}
 
-	protected function classs()
+	protected function classs(): string
 	{
 		$suffix = '';
 
@@ -92,7 +97,7 @@ class Module extends Core\Base
 	}
 
 	// NOTE: same as `classs()` without the `$key`
-	protected function classs_base()
+	protected function classs_base(): string
 	{
 		$suffix = '';
 
@@ -104,7 +109,7 @@ class Module extends Core\Base
 	}
 
 	// NOTE: same as `classs()` without the `$base`
-	protected function classs_key()
+	protected function classs_key(): string
 	{
 		$suffix = '';
 
@@ -115,7 +120,12 @@ class Module extends Core\Base
 		return Core\Text::sanitizeBase( $this->key ).$suffix;
 	}
 
-	protected function hash()
+	protected function salt(): string
+	{
+		return wp_salt();
+	}
+
+	protected function hash(): string
 	{
 		$string = '';
 
@@ -125,7 +135,7 @@ class Module extends Core\Base
 		return md5( $this->base.$this->key.$string );
 	}
 
-	protected function hashwithsalt()
+	protected function hashwithsalt(): string
 	{
 		$suffix = '';
 
@@ -135,19 +145,19 @@ class Module extends Core\Base
 		return wp_hash( $this->base.$this->key.$suffix );
 	}
 
-	protected function stripprefix( $string, $key = NULL, $template = '_%s_' )
+	protected function stripprefix( string $string, ?string $key = NULL, string $template = '_%s_' ): string
 	{
-		return Core\Text::stripPrefix( $string, sprintf( $template, is_null( $key ) ? $this->key : $key ) );
+		return Core\Text::stripPrefix( $string, sprintf( $template, $key ?? $this->key ) );
 	}
 
-	protected function action( $hooks, $args = 1, $priority = 10, $suffix = FALSE, $base = FALSE )
+	protected function action( string|array $hooks, int $arguments = 1, int $priority = 10, string $suffix = '', string $base = '' ): bool
 	{
 		$hooks = (array) $hooks;
 
-		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) ) {
+		if ( $method = Core\Text::sanitizeHook( self::und( Core\Arraay::valueFirst( $hooks ), $suffix ) ) ) {
 
 			foreach ( $hooks as $hook )
-				add_action( ( $base ? $base.'_'.$hook : $hook ), [ $this, $method ], $priority, $args );
+				add_action( self::und( $base, $hook ), [ $this, $method ], $priority, $arguments );
 
 			return TRUE;
 		}
@@ -155,14 +165,14 @@ class Module extends Core\Base
 		return FALSE;
 	}
 
-	protected function filter( $hooks, $args = 1, $priority = 10, $suffix = FALSE, $base = FALSE )
+	protected function filter( string|array $hooks, int $arguments = 1, int $priority = 10, string $suffix = '', string $base = '' ): bool
 	{
 		$hooks = (array) $hooks;
 
-		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hooks[0].'_'.$suffix : $hooks[0] ) ) ) {
+		if ( $method = Core\Text::sanitizeHook( self::und( Core\Arraay::valueFirst( $hooks ), $suffix ) ) ) {
 
 			foreach ( $hooks as $hook )
-				add_filter( ( $base ? $base.'_'.$hook : $hook ), [ $this, $method ], $priority, $args );
+				add_filter( self::und( $base, $hook ), [ $this, $method ], $priority, $arguments );
 
 			return TRUE;
 		}
@@ -177,14 +187,14 @@ class Module extends Core\Base
 	 *
 	 * @param string $module
 	 * @param string $hook
-	 * @param integer $arguments
-	 * @param integer $priority
-	 * @param false|string $suffix
+	 * @param int $arguments
+	 * @param int $priority
+	 * @param string $suffix
 	 * @return bool
 	 */
-	protected function action_module( $module, $hook, $arguments = 1, $priority = 10, $suffix = '' )
+	protected function action_module( string $module, string $hook, int $arguments = 1, int $priority = 10, string $suffix = '' ): bool
 	{
-		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
+		if ( $method = Core\Text::sanitizeHook( self::und( $module, $hook, $suffix ) ) )
 			return add_action( $this->hook_base( $module, $hook ), [ $this, $method ], $priority, $arguments );
 
 		return FALSE;
@@ -197,14 +207,14 @@ class Module extends Core\Base
 	 *
 	 * @param string $module
 	 * @param string $hook
-	 * @param integer $arguments
-	 * @param integer $priority
-	 * @param false|string $suffix
+	 * @param int $arguments
+	 * @param int $priority
+	 * @param string $suffix
 	 * @return bool
 	 */
-	protected function filter_module( $module, $hook, $arguments = 1, $priority = 10, $suffix = '' )
+	protected function filter_module( string $module, string $hook, int $arguments = 1, int $priority = 10, string $suffix = '' ): bool
 	{
-		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $module.'_'.$hook.'_'.$suffix : $module.'_'.$hook ) ) )
+		if ( $method = Core\Text::sanitizeHook( self::und( $module, $hook, $suffix ) ) )
 			return add_filter( $this->hook_base( $module, $hook ), [ $this, $method ], $priority, $arguments );
 
 		return FALSE;
@@ -217,12 +227,12 @@ class Module extends Core\Base
 	 * @param string $hook
 	 * @param int $arguments
 	 * @param int $priority
-	 * @param false|string $suffix
+	 * @param string $suffix
 	 * @return bool
 	 */
-	protected function action_self( $hook, $arguments = 1, $priority = 10, $suffix = FALSE )
+	protected function action_self( string $hook, int $arguments = 1, int $priority = 10, string $suffix = '' ): bool
 	{
-		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
+		if ( $method = Core\Text::sanitizeHook( self::und( $hook, $suffix ) ) )
 			return add_action( $this->hook_base( $this->key, $hook ), [ $this, $method ], $priority, $arguments );
 
 		return FALSE;
@@ -235,10 +245,10 @@ class Module extends Core\Base
 	 * @param string $hook
 	 * @param int $arguments
 	 * @param int $priority
-	 * @param false|string $suffix
+	 * @param string $suffix
 	 * @return bool
 	 */
-	protected function filter_self( $hook, $arguments = 1, $priority = 10, $suffix = FALSE )
+	protected function filter_self( $hook, $arguments = 1, $priority = 10, $suffix = '' ): bool
 	{
 		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
 			return add_filter( $this->hook_base( $this->key, $hook ), [ $this, $method ], $priority, $arguments );
@@ -256,10 +266,10 @@ class Module extends Core\Base
 	 * @param string $hook
 	 * @param int $arguments
 	 * @param int $priority
-	 * @param false|string $suffix
+	 * @param string $suffix
 	 * @return bool
 	 */
-	protected function filter_once( $hook, $arguments = 1, $priority = 10, $suffix = FALSE )
+	protected function filter_once( $hook, $arguments = 1, $priority = 10, $suffix = '' ): bool
 	{
 		if ( $method = Core\Text::sanitizeHook( ( $suffix ? $hook.'_'.$suffix : $hook ) ) )
 			return add_filter( $hook, function () use ( $method ) {
@@ -279,110 +289,162 @@ class Module extends Core\Base
 	}
 
 	// USAGE: `$this->filter_true( 'disable_months_dropdown' );`
-	protected function filter_true( $hook, $priority = 10 )
+	protected function filter_true( string $hook, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) {
-			return TRUE;
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first ) {
+				return TRUE;
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_false( 'disable_months_dropdown' );`
-	protected function filter_false( $hook, $priority = 10 )
+	protected function filter_false( string $hook, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) {
-			return FALSE;
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first ) {
+				return FALSE;
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_true_module( 'meta', 'mainbox_callback' );`
-	protected function filter_true_module( $module, $hook, $priority = 10 )
+	protected function filter_true_module( string $module, string $hook, int $priority = 10 ): true
 	{
-		return add_filter( $this->hook_base( $module, $hook ), static function ( $first ) {
-			return TRUE;
-		}, $priority, 1 );
+		return add_filter( $this->hook_base( $module, $hook ),
+			static function ( $first ) {
+				return TRUE;
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_false_module( 'meta', 'mainbox_callback' );`
-	protected function filter_false_module( $module, $hook, $priority = 10 )
+	protected function filter_false_module( string $module, string $hook, int $priority = 10 ): true
 	{
-		return add_filter( $this->hook_base( $module, $hook ), static function ( $first ) {
-			return FALSE;
-		}, $priority, 1 );
+		return add_filter( $this->hook_base( $module, $hook ),
+			static function ( $first ) {
+				return FALSE;
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_zero( 'option_blog_public' );`
-	protected function filter_zero( $hook, $priority = 10 )
+	protected function filter_zero( string $hook, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) {
-			return 0;
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first ) {
+				return 0;
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_empty_string( 'option_blog_public' );`
-	protected function filter_empty_string( $hook, $priority = 10 )
+	protected function filter_empty_string( string $hook, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) {
-			return '';
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first ) {
+				return '';
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_empty_array( 'option_blog_public' );`
-	protected function filter_empty_array( $hook, $priority = 10 )
+	protected function filter_empty_array( string $hook, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) {
-			return [];
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first ) {
+				return [];
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_append( 'body_class', 'foo' );`
-	protected function filter_append( $hook, $items, $priority = 10 )
+	protected function filter_append( string $hook, string|array $items, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) use ( $items ) {
-			foreach ( (array) $items as $value )
-				$first[] = $value;
-			return $first;
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first ) use ( $items ) {
+				foreach ( (array) $items as $value )
+					$first[] = $value;
+				return $first;
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_append_string( 'admin_body_class', [ 'foo', 'bar' ] );`
-	protected function filter_append_string( $hook, $items, $priority = 10 )
+	protected function filter_append_string( string $hook, string|array $items, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) use ( $items ) {
-			foreach ( (array) $items as $value )
-				$first = sprintf( '%s %s', trim( $first ?: '' ), trim( $value ?: '' ) );
-			return $first;
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first )
+				use ( $items ) {
+
+				foreach ( (array) $items as $value )
+					$first = sprintf( '%s %s', trim( $first ?: '' ), trim( $value ?: '' ) );
+
+				return $first;
+			}, $priority, 1 );
 	}
 
 	// USAGE: `$this->filter_set( 'shortcode_atts_gallery', [ 'columns' => 4 ] );`
-	protected function filter_set( $hook, $items, $priority = 10 )
+	protected function filter_set( string $hook, string|array $items, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) use ( $items ) {
-			foreach ( $items as $key => $value )
-				$first[$key] = $value;
-			return $first;
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first )
+				use ( $items ) {
+
+				foreach ( $items as $key => $value )
+					$first[$key] = $value;
+
+				return $first;
+			}, $priority, 1 );
+	}
+
+	// USAGE: `$this->filter_if_not_set( 'widget_posts_args', [ 'post_type' => 'page' ] );`
+	protected function filter_if_not_set( string $hook, string|array $items, int $priority = 10 ): true
+	{
+		return add_filter( $hook,
+			static function ( $first )
+				use ( $items ) {
+
+				foreach ( $items as $key => $value )
+					if ( ! isset( $first[$key] ) )
+						$first[$key] = $value;
+
+				return $first;
+			}, $priority, 1 );
+	}
+
+	// USAGE: `$this->filter_if_2_set_1( 'reference_metakey', 'vin', 'vehicle' );`
+	protected function filter_if_2_set_1( string $hook, mixed $override, mixed $target, int $priority = 10 ): true
+	{
+		return add_filter( $hook,
+			static function ( $first, $second )
+				use ( $override, $target ) {
+
+				if ( $second === $target )
+					return $override;
+
+				return $first;
+			}, $priority, 2 );
 	}
 
 	// USAGE: `$this->filter_unset( 'shortcode_atts_gallery', [ 'columns' ] );`
-	protected function filter_unset( $hook, $items, $priority = 10 )
+	protected function filter_unset( string $hook, string|array $items, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) use ( $items ) {
-			foreach ( (array) $items as $key )
-				unset( $first[$key] );
-			return $first;
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first )
+				use ( $items ) {
+
+				foreach ( (array) $items as $key )
+					unset( $first[$key] );
+
+				return $first;
+			}, $priority, 1 );
 	}
 
-	// USAGE: $this->filter_string( 'parent_file', 'options-general.php' );
-	protected function filter_string( $hook, $string, $priority = 10 )
+	// USAGE: `$this->filter_string( 'parent_file', 'options-general.php' );`
+	protected function filter_string( string $hook, string $string, int $priority = 10 ): true
 	{
-		return add_filter( $hook, static function ( $first ) use ( $string ) {
-			return $string;
-		}, $priority, 1 );
+		return add_filter( $hook,
+			static function ( $first )
+				use ( $string ) {
+
+				return $string;
+			}, $priority, 1 );
 	}
 
-	protected function actions()
+	protected function actions(): int|bool
 	{
 		$args = func_get_args();
 
@@ -396,7 +458,7 @@ class Module extends Core\Base
 		return has_action( $args[0] );
 	}
 
-	protected function filters()
+	protected function filters(): mixed
 	{
 		$args = func_get_args();
 
@@ -412,11 +474,11 @@ class Module extends Core\Base
 	 * Checks if any action/filter has been registered for a hook in this module.
 	 *
 	 * @param string $hook
-	 * @param false|string $suffix
+	 * @param string $suffix
 	 * @param false|callable $callback
-	 * @return bool
+	 * @return int|bool
 	 */
-	protected function hooked( $hook, $suffix = FALSE, $callback = FALSE )
+	protected function hooked( string $hook, $suffix = '', false|callable $callback = FALSE ): int|bool
 	{
 		if ( $tag = $this->hook( $hook, $suffix ) )
 			return has_filter( $tag, $callback );
@@ -424,69 +486,68 @@ class Module extends Core\Base
 		return FALSE;
 	}
 
-	public function _return_string_yes() { return 'yes'; }
-	public function _return_string_no()  { return 'no'; }
+	public function _return_string_yes(): string { return 'yes'; }
+	public function _return_string_no(): string  { return 'no'; }
 
 	// USAGE: `add_filter( 'body_class', self::_array_append( 'foo' ) );`
-	public static function _array_append( $item )
+	public static function _array_append( mixed $item )
 	{
-		return function ( $array ) use ( $item ) {
+		return function ( $array )
+			use ( $item ) {
+
 			$array[] = $item;
 			return $array;
 		};
 	}
 
 	// USAGE: `add_filter( 'shortcode_atts_gallery', self::_array_set( 'columns', 4 ) );`
-	public static function _array_set( $key, $value )
+	public static function _array_set( string $key, mixed $value )
 	{
-		return function ( $array ) use ( $key, $value ) {
+		return function ( $array )
+			use ( $key, $value ) {
+
 			$array[$key] = $value;
 			return $array;
 		};
 	}
 
-	protected function nonce_create( $context = 'settings', $key = NULL )
+	protected function nonce_create( ?string $context = NULL, ?string $key = NULL ): string
 	{
-		if ( is_null( $key ) )
-			$key = $this->key;
-
-		return wp_create_nonce( $this->base.'-'.$key.'-'.$context );
+		return wp_create_nonce( self::dsh(
+			$this->base,
+			$key ?? $this->key,
+			$context ?? 'settings'
+		) );
 	}
 
-	protected function nonce_verify( $context = 'settings', $nonce = NULL, $key = NULL )
+	protected function nonce_verify( ?string $context = NULL, ?string $nonce = NULL, ?string $key = NULL ): int|false
 	{
-		if ( is_null( $key ) )
-			$key = $this->key;
+		$key     = $key     ?? $this->key;
+		$context = $context ?? 'settings';
+		$nonce   = $nonce   ?? self::req( '_'.self::dsh( $this->base, $key, $context ), NULL );  // OLD: `$_REQUEST['_wpnonce']`
 
-		if ( is_null( $nonce ) )
-			$nonce = self::req( '_'.$this->base.'-'.$key.'-'.$context, NULL ); // OLD: $_REQUEST['_wpnonce']
-
-		return wp_verify_nonce( $nonce, $this->base.'-'.$key.'-'.$context );
+		return wp_verify_nonce( $nonce, self::dsh( $this->base, $key, $context ) );
 	}
 
-	protected function nonce_field( $context = 'settings', $key = NULL, $name = NULL )
+	protected function nonce_field( ?string $context = NULL, ?string $key = NULL, ?string $name = NULL ): string
 	{
-		if ( is_null( $key ) )
-			$key = $this->key;
+		$key     = $key     ?? $this->key;
+		$context = $context ?? 'settings';
+		$name    = $name    ?? '_'.self::dsh( $this->base, $key, $context );  // OLD: `_wpnonce`
 
-		if ( is_null( $name ) )
-			$name = '_'.$this->base.'-'.$key.'-'.$context; // OLD: '_wpnonce'
-
-		return wp_nonce_field( $this->base.'-'.$key.'-'.$context, $name, FALSE, TRUE );
+		return wp_nonce_field( self::dsh( $this->base, $key, $context ), $name, FALSE, TRUE );
 	}
 
-	protected function nonce_check( $context = 'settings', $key = NULL, $name = NULL )
+	protected function nonce_check( ?string $context = NULL, ?string $key = NULL, ?string $name = NULL ): int|false
 	{
-		if ( is_null( $key ) )
-			$key = $this->key;
+		$key     = $key     ?? $this->key;
+		$context = $context ?? 'settings';
+		$name    = $name    ?? '_'.self::dsh( $this->base, $key, $context );  // OLD: `_wpnonce`
 
-		if ( is_null( $name ) )
-			$name = '_'.$this->base.'-'.$key.'-'.$context; // OLD: '_wpnonce'
-
-		return check_admin_referer( $this->base.'-'.$key.'-'.$context, $name );
+		return check_admin_referer( self::dsh( $this->base, $key, $context ), $name );
 	}
 
-	protected function is_request_action( $action, $extra = NULL, $default = FALSE )
+	protected function is_request_action( string $action, ?string $extra = NULL, mixed $default = FALSE ): mixed
 	{
 		$key = $this->hook_base( 'action' );
 
@@ -503,10 +564,9 @@ class Module extends Core\Base
 			return $default;
 	}
 
-	protected function remove_request_action( $extra = [], $url = NULL )
+	protected function remove_request_action( string|array $extra = [], ?string $url = NULL ): string
 	{
-		if ( is_null( $url ) )
-			$url = Core\URL::current();
+		$url = $url ?? Core\URL::current();
 
 		if ( is_array( $extra ) )
 			$remove = $extra;
@@ -518,30 +578,36 @@ class Module extends Core\Base
 		return remove_query_arg( $remove, $url );
 	}
 
-	protected function get_sub_limit_option( $sub = NULL, $context = 'tools', $default = 25, $key = 'limit', $option = 'per_page' )
+	protected function get_sub_limit_option( ?string $sub = NULL, ?string $context = NULL, ?int $default = NULL, string $key = 'limit', string $option = 'per_page' ): int
 	{
-		if ( is_null( $sub ) )
-			$sub = $this->key;
-
+		$sub      = $sub     ?? $this->key;
+		$context  = $context ?? 'tools';
 		$per_page = (int) get_user_option( $this->hook_base( $sub, $context, $option ) );
 
 		if ( empty( $per_page ) || $per_page < 1 )
-			$per_page = $default;
+			$per_page = $default ?? 25;
 
 		return (int) self::req( $key, $per_page );
 	}
 
 	// NOTE: `add_screen_option()` only accept 2 options: `per_page` and `layout_columns`
-	protected function add_sub_screen_option( $sub = NULL, $context = 'tools', $option = TRUE, $default = NULL, $label = NULL )
-	{
+	protected function add_sub_screen_option(
+		?string $sub = NULL,
+		?string $context = NULL,
+		null|bool|string $option = TRUE,
+		?int $default = NULL,
+		?string $label = NULL,
+	): void {
+
 		if ( FALSE === $option )
 			return;
 
 		if ( TRUE === $option )
 			$option = 'per_page';
 
-		$sub    = $sub    ?? $this->key;
-		$option = $option ?? 'per_page';
+		$sub     = $sub     ?? $this->key;
+		$context = $context ?? 'tools';
+		$option  = $option  ?? 'per_page';
 
 		$args = [
 			'option' => $this->hook_base( $sub, $context, $option ), // NOTE: must always ends with `per_page`!
@@ -566,65 +632,81 @@ class Module extends Core\Base
 		add_screen_option( $option, $args );
 	}
 
-	protected function _hook_ajax( $auth = TRUE, $hook = NULL, $method = 'do_ajax' )
+	protected function _hook_ajax( ?bool $auth = TRUE, ?string $hook = NULL, string $method = 'do_ajax' ): bool
 	{
-		if ( is_null( $hook ) )
-			$hook = $this->hook();
+		$hooked = FALSE;
 
 		if ( is_null( $auth ) || TRUE === $auth )
-			add_action( 'wp_ajax_'.$hook, [ $this, $method ] );
+			$hooked = add_action( self::und( 'wp', 'ajax', $hook ?? $this->hook() ), [ $this, $method ] );
 
 		if ( is_null( $auth ) || FALSE === $auth )
-			add_action( 'wp_ajax_nopriv_'.$hook, [ $this, $method ] );
+			$hooked = add_action( self::und( 'wp', 'ajax', 'nopriv', $hook ?? $this->hook() ), [ $this, $method ] );
+
+		return $hooked;
 	}
 
 	// DEFAULT FILTER
-	public function do_ajax()
+	public function do_ajax(): void
 	{
 		wp_send_json_error();
 	}
 
-	protected function _hook_post( $auth = TRUE, $hook = NULL, $method = 'do_post' )
+	protected function _hook_post( ?bool $auth = TRUE, ?string $hook = NULL, string $method = 'do_post' ): bool
 	{
-		if ( ! is_admin() )
-			return;
+		$hooked = FALSE;
 
-		if ( is_null( $hook ) )
-			$hook = $this->hook();
+		if ( ! is_admin() )
+			return $hooked;
 
 		if ( is_null( $auth ) || TRUE === $auth )
-			add_action( 'admin_post_'.$hook, [ $this, $method ] );
+			$hooked = add_action( self::und( 'admin', 'post', $hook ?? $this->hook() ), [ $this, $method ] );
 
 		if ( is_null( $auth ) || FALSE === $auth )
-			add_action( 'admin_post_nopriv_'.$hook, [ $this, $method ] );
+			$hooked = add_action( self::und( 'admin', 'post', 'nopriv', $hook ?? $this->hook() ), [ $this, $method ] );
+
+		return $hooked;
 	}
 
 	// DEFAULT FILTER
-	public function do_post()
+	public function do_post(): void
 	{
 		wp_die();
 	}
 
 	// TODO: un-schedule on deactivation
-	protected function _hook_event( $name, $recurrence = 'monthly' )
+	protected function _hook_event( string $name, ?string $recurrence = NULL, array $args = [] ): bool
 	{
-		$hook = $this->hook( $name );
+		$hook       = $this->hook( $name );
+		$recurrence = $recurrence ?? 'monthly';
 
 		if ( ! wp_next_scheduled( $hook ) )
-			return wp_schedule_event( time(), $recurrence, $hook );
+			return wp_schedule_event( time(), $recurrence, $hook, $args, FALSE );
 
 		return TRUE;
 	}
 
-	protected function hidden( $value, $data = [], $class = '', $id = FALSE )
-	{
+	protected function hidden(
+		string $value,
+		array $data = [],
+		string|array $class = '',
+		string $id = '',
+	): void	{
+
 		echo Core\HTML::wrap( $value, Core\HTML::attrClass( 'hidden', $class ), TRUE, $data, $id );
 	}
 
-	protected function wrap( $html, $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
-	{
+	protected function wrap(
+		mixed $html,
+		string|array $class = '',
+		bool $block = TRUE,
+		string $id = '',
+		bool $hide = FALSE,
+	): string {
+
 		if ( empty( $html ) )
 			return '';
+
+		$html = (string) $html;
 
 		return $block
 			? '<div class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
@@ -638,8 +720,13 @@ class Module extends Core\Base
 				.'>'.$html.'</span>';
 	}
 
-	protected function wrap_open( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
-	{
+	protected function wrap_open(
+		string|array $class = '',
+		bool $block = TRUE,
+		string $id = '',
+		bool $hide = FALSE,
+	): string {
+
 		return $block
 			? '<div class="'.Core\HTML::prepClass( '-wrap', $this->base.'-wrap', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
@@ -650,8 +737,13 @@ class Module extends Core\Base
 				.( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
-	protected function wrap_open_buttons( $class = '', $block = TRUE, $id = FALSE, $hide = FALSE )
-	{
+	protected function wrap_open_buttons(
+		string|array $class = '',
+		bool $block = TRUE,
+		string $id = '',
+		bool $hide = FALSE,
+	): string {
+
 		return $block
 			? '<p class="'.Core\HTML::prepClass( 'submit', $this->base.'-wrap', '-wrap-buttons', '-'.$this->key, $class ).'"'
 				.( $id ? ' id="'.$id.'"' : '' )
@@ -662,8 +754,14 @@ class Module extends Core\Base
 				.( $hide ? ' style="display:none"' : '' ).'>';
 	}
 
-	protected function wrap_open_row( $name = '', $extra = '', $id = FALSE, $hide = FALSE, $tag = 'li' )
-	{
+	protected function wrap_open_row(
+		string $name = '',
+		string|array $extra = '',
+		string $id = '',
+		bool $hide = FALSE,
+		string $tag = 'li',
+	): string {
+
 		return '<'.Core\HTML::sanitizeTag( $tag ).' class="'.Core\HTML::prepClass(
 			'-row',
 			'-wrap-row',
@@ -675,8 +773,12 @@ class Module extends Core\Base
 	}
 
 	// `self::dump( ini_get( 'memory_limit' ) );`
-	protected function raise_memory_limit( $count = 1, $per = 60, $context = NULL )
-	{
+	public function raise_memory_limit(
+		int $count = 1,
+		int $per = 60,
+		?string $context = NULL,
+	): int|string|false {
+
 		$limit = $count ? ( 300 + ( $per * $count ) ) : 0;
 
 		@set_time_limit( $limit );

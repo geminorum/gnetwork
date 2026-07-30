@@ -11,10 +11,10 @@ class Email extends Base
 	 * Verifies that an email is valid.
 	 * NOTE: wrapper for WordPress core `is_email()`
 	 *
-	 * @param string $input
+	 * @param mixed $input
 	 * @return bool
 	 */
-	public static function is( $input )
+	public static function is( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -26,10 +26,13 @@ class Email extends Base
 	 * Strips out all characters that are not allowable in an email.
 	 * NOTE: wrapper for WordPress core `sanitize_email()`
 	 *
-	 * @param string $input
-	 * @return string
+	 * @param  mixed       $input
+	 * @param  mixed       $default
+	 * @param  array|null  $field
+	 * @param  string|null $context
+	 * @return mixed
 	 */
-	public static function sanitize( $input, $default = '', $field = [], $context = 'save' )
+	public static function sanitize( mixed $input, mixed $default = '', ?array $field = [], ?string $context = 'save' ): mixed
 	{
 		if ( self::empty( $input ) )
 			return $default;
@@ -57,13 +60,13 @@ class Email extends Base
 	/**
 	 * Prepares a value as email address for the given context.
 	 *
-	 * @param string $value
-	 * @param array $field
-	 * @param string $context
-	 * @param string $icon
+	 * @param  mixed       $value
+	 * @param  array|null  $field
+	 * @param  string|null $context
+	 * @param  mixed       $icon
 	 * @return string
 	 */
-	public static function prep( $value, $field = [], $context = 'display', $icon = NULL )
+	public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string
 	{
 		if ( self::empty( $value ) )
 			return '';
@@ -81,12 +84,10 @@ class Email extends Base
 			case 'input' : return $value;
 			case 'export': return $value;
 			case 'print' : return HTML::wrapLTR( trim( $raw ) );
-			case 'icon'  : return HTML::mailto( $value, $title, $icon ?? HTML::getDashicon( 'email-alt' ), self::is( $value ) ? '-is-valid' : '-is-not-valid' );
+			case 'icon'  : return Link::mailto( $value, $title, $icon ?? HTML::getDashicon( 'email-alt' ), self::is( $value ) ? '-is-valid' : '-is-not-valid' );
 			case 'admin' :
-			     default : return HTML::mailto( $value, $title, NULL, self::is( $value ) ? '-is-valid' : '-is-not-valid' );
+			     default : return Link::mailto( $value, $title, NULL, self::is( $value ) ? '-is-valid' : '-is-not-valid' );
 		}
-
-		return $value;
 	}
 
 	public static function getHTMLPattern()

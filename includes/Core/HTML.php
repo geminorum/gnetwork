@@ -5,173 +5,188 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class HTML extends Base
 {
 
-	// NOTE: DEPRECATED: use `Core\L10n::rtl()`
-	public static function rtl()
+	#[Deprecated(message:'use `Core\L10n::rtl()` instead')]
+	public static function rtl(): bool
 	{
 		return L10n::rtl();
 	}
 
-	public static function dir()
+	public static function dir(): string
 	{
 		return L10n::rtl() ? 'rtl' : 'ltr';
 	}
 
-	public static function link( $html, $link = '#', $target_blank = FALSE )
-	{
-		if ( is_null( $html ) )
-			$html = $link;
+	#[Deprecated(message:'use `Core\Link::get()` instead')]
+	public static function link(
+		?string $html = NULL,
+		string $link = '#',
+		bool $target_blank = FALSE,
+	): string {
 
-		return self::tag( 'a', [
-			'class'  => '-link',
-			'href'   => $link,
-			'target' => $target_blank ? '_blank' : FALSE,
-			'dummy'  => 'wtf', // HACK: dummy attribute to distract the `wordWrap()`!
-		], $html );
-	}
-
-	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#e-mail-address
-	public static function mailto( $email, $title = FALSE, $content = NULL, $class = '' )
-	{
-		return '<a class="'.self::prepClass( '-mailto', $class ).'"'
-			.' href="mailto:'.trim( $email ).'"'
-			.( $title ? ' data-bs-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
-			.'>'.( $content ?? self::wrapLTR( trim( $email ) ) )
-		.'</a>';
-	}
-
-	public static function tel( $number, $title = FALSE, $content = NULL, $class = '' )
-	{
-		return '<a class="'.self::prepClass( '-tel', $class ).'"'
-			.' href="'.self::prepURLforTel( $number ).'"'
-			.' data-tel-number="'.self::escape( $number ).'"'
-			.( $title ? ' data-bs-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
-			.'>'.( $content ?? self::wrapLTR( Number::localize( $number ) ) )
-		.'</a>';
-	}
-
-	public static function geo( $data, $title = FALSE, $content = NULL, $class = '' )
-	{
-		if ( is_null( $content ) )
-			$content = Number::localize( $data );
-
-		return '<a class="'.self::prepClass( '-geo', $class )
-			.'" href="'.self::prepURLforGeo( $data )
-			.'"'.( $title ? ' data-bs-toggle="tooltip" title="'.self::escape( $title ).'"' : '' )
-			.' data-geo-data="'.self::escape( $data ).'">'
-			.self::wrapLTR( $content ).'</a>';
-	}
-
-	public static function scroll( $html, $to, $title = '' )
-	{
-		return '<a class="scroll" title="'.$title.'" href="#'.$to.'">'.$html.'</a>';
+		return Link::get( $html, $link, $target_blank );
 	}
 
 	// @REF: https://web.dev/native-lazy-loading/
 	// @SEE: https://www.smashingmagazine.com/2021/04/humble-img-element-core-web-vitals/
-	public static function img( $src, $class = '', $alt = '' )
-	{
-		return $src ? '<img src="'.$src.'" class="'.self::prepClass( $class ).'" alt="'.self::escape( $alt ).'" decoding="async" loading="lazy" />' : '';
+	public static function img(
+		mixed $src,
+		string|array $class = '',
+		string $alt = '',
+	): string {
+
+		return $src ? '<img src="'.( (string) $src ).'" class="'.self::prepClass( $class ).'" alt="'.self::escape( $alt ).'" decoding="async" loading="lazy" />' : '';
 	}
 
-	public static function heading( $level, $html, $class = NULL, $link = FALSE )
-	{
-		if ( $level && $html ) echo self::tag( sprintf( 'h%s', $level ), [ 'class' => $class ?? '-title' ], ( $link ? self::link( $html, $link ) : $html ) );
+	public static function heading(
+		mixed $level,   // may come straight from setting
+		string $html,
+		string|array|false|null $class = NULL,
+		string $link = '',
+	): void {
+
+		if ( $level && $html )
+			echo self::tag( sprintf( 'h%s', (string) $level ), [
+				'class' => $class ?? '-title',
+			], $link ? self::link( $html, $link ) : $html );
 	}
 
-	public static function h1( $html, $class = FALSE, $link = FALSE )
+	public static function h1( mixed $html, string|array|null $class = '', string $link = '' ): void
 	{
-		if ( $html ) echo self::tag( 'h1', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
+		self::heading( '1', $html, $class ?: FALSE, $link );
 	}
 
-	public static function h2( $html, $class = FALSE, $link = FALSE )
+	public static function h2( mixed $html, string|array|null $class = '', string $link = '' ): void
 	{
-		if ( $html ) echo self::tag( 'h2', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
+		self::heading( '2', $html, $class ?: FALSE, $link );
 	}
 
-	public static function h3( $html, $class = FALSE, $link = FALSE )
+	public static function h3( mixed $html, string|array|null $class = '', string $link = '' ): void
 	{
-		if ( $html ) echo self::tag( 'h3', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
+		self::heading( '3', $html, $class ?: FALSE, $link );
 	}
 
-	public static function h4( $html, $class = FALSE, $link = FALSE )
+	public static function h4( mixed $html, string|array|null $class = '', string $link = '' ): void
 	{
-		if ( $html ) echo self::tag( 'h4', [ 'class' => $class ], ( $link ? self::link( $html, $link ) : $html ) );
+		self::heading( '4', $html, $class ?: FALSE, $link );
 	}
 
-	public static function inline( $tag, $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
+	public static function h5( mixed $html, string|array|null $class = '', string $link = '' ): void
 	{
+		self::heading( '5', $html, $class ?: FALSE, $link );
+	}
+
+	public static function h6( mixed $html, string|array|null $class = '', string $link = '' ): void
+	{
+		self::heading( '6', $html, $class ?: FALSE, $link );
+	}
+
+	public static function inline(
+		string $tag,
+		mixed $string,
+		string|array $class = '',
+		string|bool $click_to_copy = FALSE,
+		string $title = '',
+	): string {
+
 		return ( empty( $string ) && '0' !== $string ) ? '' : self::tag( $tag, [
-			'title' => $title,
+			'title' => $title ?: FALSE,
 			'class' => self::attrClass( $class, $click_to_copy ? 'do-clicktoclip' : '' ),
 			'data'  => $click_to_copy ? [ 'clipboard-text' => TRUE === $click_to_copy ? $string : $click_to_copy ] : FALSE,
-		], $string );
+		], (string) $string );
 	}
 
-	public static function code( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
-	{
+	public static function code(
+		mixed $string,
+		string|array $class = '',
+		string|bool $click_to_copy = FALSE,
+		string $title = '',
+	): string {
+
 		return self::inline( 'code', $string, $class, $click_to_copy, $title );
 	}
 
-	public static function span( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
-	{
+	public static function span(
+		mixed $string,
+		string|array $class = '',
+		string|bool $click_to_copy = FALSE,
+		string $title = '',
+	): string {
+
 		return self::inline( 'span', $string, $class, $click_to_copy, $title );
 	}
 
-	public static function abbr( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
-	{
+	public static function abbr(
+		mixed $string,
+		string|array $class = '',
+		string|bool $click_to_copy = FALSE,
+		string $title = '',
+	): string {
+
 		return self::inline( 'abbr', $string, $class, $click_to_copy, $title );
 	}
 
-	public static function mark( $string, $class = FALSE, $click_to_copy = FALSE, $title = FALSE )
-	{
+	public static function mark(
+		mixed $string,
+		string|array $class = '',
+		string|bool $click_to_copy = FALSE,
+		string $title = '',
+	): string {
+
 		return self::inline( 'mark', $string, $class, $click_to_copy, $title );
 	}
 
-	public static function em( $string, $class = FALSE, $space = FALSE )
+	public static function em( mixed $string, string|array $class = '', bool $space = FALSE ): string
 	{
-		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'em', [ 'class' => $class ], $string );
+		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'em', [ 'class' => $class ?: FALSE ], (string) $string );
 	}
 
-	public static function strong( $string, $class = FALSE, $space = FALSE )
+	public static function strong( mixed $string, string|array $class = '', bool $space = FALSE ): string
 	{
-		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'strong', [ 'class' => $class ], $string );
+		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'strong', [ 'class' => $class ?: FALSE ], (string) $string );
 	}
 
-	public static function small( $string, $class = FALSE, $space = FALSE )
+	public static function small( mixed $string, string|array $class = '', bool $space = FALSE ): string
 	{
-		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'small', [ 'class' => $class ], $string );
+		return empty( $string ) ? '' : ( $space ? ' ' : '' ).self::tag( 'small', [ 'class' => $class ?: FALSE ], (string) $string );
 	}
 
-	public static function desc( $string, $block = TRUE, $class = '', $nl2br = TRUE )
-	{
-		if ( ! $string )
-			return;
+	public static function desc(
+		mixed $html,
+		bool $block = TRUE,
+		string|array $class = '',
+		bool $nl2br = TRUE,
+	): false {
 
-		if ( is_array( $string ) ) {
+		if ( ! $html )
+			return FALSE;
 
-			$assoc = Arraay::isAssoc( $string );
+		if ( is_array( $html ) ) {
 
-			foreach ( $string as $desc_class => $desc_html )
+			$assoc = Arraay::isAssoc( $html );
+
+			foreach ( $html as $desc_class => $desc_html )
 				self::desc( $desc_html, $block, $assoc ? $desc_class : $class, $nl2br );
 
-			return;
+			return FALSE;
 		}
 
-		if ( ! $string = trim( $string ) )
-			return;
+		if ( ! $html = trim( $html ) )
+			return FALSE;
 
 		$tag = $block ? 'p' : 'span';
 
-		if ( Text::starts( $string, [ '<p', '<ul', '<ol', '<h3', '<h4', '<h5', '<h6' ] ) )
+		if ( Text::starts( $html, [ '<p', '<ul', '<ol', '<h3', '<h4', '<h5', '<h6' ] ) )
 			$tag = 'div';
 
 		echo '<'.$tag.' class="'.self::prepClass( 'description', '-description', $class ).'">'
-			// .Text::wordWrap( $nl2br ? nl2br( $string ) : $string ) // FIXME: messes with html attrs
-			.( $nl2br ? nl2br( $string ) : $string )
+			// .Text::wordWrap( $nl2br ? nl2br( $string ) : $string ) // FIXME: messes with HTML attributes!
+			.( $nl2br ? nl2br( $html ) : $html )
 		.'</'.$tag.'>';
+
+		return FALSE;
 	}
 
-	public static function dieMessage( $html )
+	public static function dieMessage( string $html ): false
 	{
 		echo '<div class="wrap-die-message">';
 			echo wpautop( $html );
@@ -180,50 +195,33 @@ class HTML extends Base
 		return FALSE;
 	}
 
-	public static function label( $input, $for = FALSE, $wrap = 'p' )
-	{
-		$html = self::tag( 'label', [ 'for' => $for, 'class' => 'form-label' ], $input );
-		echo $wrap ? self::tag( $wrap, $html ) : $html;
+	public static function label(
+		string $input,
+		string|false $for = FALSE,
+		string|false $wrap = 'p',
+	): void {
+
+		$html = self::tag( 'label', [
+			'for'   => $for,
+			'class' => 'form-label',
+		], $input );
+
+		echo $wrap
+			? self::tag( $wrap, $html )
+			: $html;
 	}
 
-	public static function buttonClass( $small = TRUE, $extra = [] )
-	{
-		$classes = array_merge( [
-			'btn'                   ,   // BS5
-			'btn-default'           ,   // BS: DEPRECATED
-			'btn-outline-secondary' ,   // BS5
-			'button'                ,   // WP Core: Admin
-			'-button'               ,   // OURS!
-		], (array) $extra );
+	public static function row(
+		mixed $html,
+		string|array $class = '',
+		mixed $data = [],
+		string|false $tag = 'li',
+	): string {
 
-		if ( ! $small )
-			return $classes;
-
-		$classes[] = 'btn-sm';        // BS5
-		$classes[] = 'button-small';  // WP Core: Admin
-
-		return $classes;
-	}
-
-	public static function button( $html, $link = '#', $title = FALSE, $icon = FALSE, $data = [], $id = FALSE )
-	{
-		if ( ! $html )
-			return '';
-
-		return self::tag( ( $link ? 'a' : 'span' ), [
-			'id'     => $id ?: FALSE,
-			'href'   => $link ?: FALSE,
-			'title'  => $title,
-			'class'  => self::buttonClass( TRUE, $icon ? '-button-icon' : [] ),
-			'data'   => $data,
-			// 'target' => '_blank',
-		], $html );
-	}
-
-	public static function row( $html, $class = '', $data = [], $tag = 'li' )
-	{
 		if ( ! $html && ! '0' === $html )
 			return '';
+
+		$html = (string) $html;
 
 		return '<'.( $tag ?: 'div' )
 			.' class="'.self::prepClass( '-row', $class )
@@ -231,8 +229,14 @@ class HTML extends Base
 			.'</'.( $tag ?: 'div' ).'>';
 	}
 
-	public static function rows( $rows, $class = '', $data = [], $tag = 'ul', $sub_tag = 'li' )
-	{
+	public static function rows(
+		array $rows,
+		string|array $class = '',
+		mixed $data = [],
+		string|false $tag = 'ul',
+		string|false $sub_tag = 'li'
+	): string {
+
 		if ( empty( $rows ) )
 			return '';
 
@@ -247,70 +251,99 @@ class HTML extends Base
 		return $html.'</'.( $tag ?: 'div' ).'>';
 	}
 
-	public static function wrap( $html, $class = '', $block = TRUE, $data = [], $id = FALSE )
-	{
+	public static function wrap(
+		mixed $html,
+		string|array $class = '',
+		bool $block = TRUE,
+		mixed $data = [],
+		string $id = '',
+	): string {
+
 		if ( '0' !== $html && ! $html )
 			return '';
+
+		$html = (string) $html;
 
 		return $block
 			? '<div'.( $id ? ' id="'.$id.'" ' : '' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</div>'
 			: '<span'.( $id ? ' id="'.$id.'" ' : '' ).' class="'.self::prepClass( '-wrap', $class ).'"'.self::propData( $data ).'>'.$html.'</span>';
 	}
 
-	public static function wrapLTR( $content )
+	public static function wrapLTR( string $content ): string
 	{
-		// return '&lrm;'.$content.'&rlm;';
+		// `return '&lrm;'.$content.'&rlm;';`
 		return '&#8206;'.$content.'&#8207;';
 	}
 
-	public static function preCode( $content, $rows = 1 )
+	public static function preCode( string $content, int $rows = 1 ): void
 	{
 		echo '<textarea dir="ltr" class="textarea-autosize" rows="'.$rows.'" style="width:100%;text-align:left;direction:ltr;" readonly>';
 			echo self::escapeTextarea( $content );
 		echo '</textarea>';
 	}
 
-	public static function inputHidden( $name, $value = '' )
-	{
+	public static function inputHidden(
+		string $name,
+		string|int $value = '',
+	): void {
+
 		echo '<input type="hidden" name="'.self::escape( $name ).'" value="'.self::escape( $value ).'" />';
 	}
 
 	// @REF: https://gist.github.com/eric1234/5802030
 	// useful when you want to pass on a complex data structure via a form
-	public static function inputHiddenArray( $array, $prefix = '' )
-	{
-		if ( empty( $array ) )
+	public static function inputHiddenArray(
+		array $data,
+		string $prefix = '',
+	): void {
+
+		if ( empty( $data ) )
 			return;
 
-		if ( ! Arraay::isNumeric( $array ) ) {
+		if ( ! Arraay::isNumeric( $data ) ) {
 
-			foreach ( $array as $key => $value ) {
+			foreach ( $data as $key => $value ) {
+
 				$name = empty( $prefix ) ? $key : $prefix.'['.$key.']';
 
 				if ( is_array( $value ) )
 					self::inputHiddenArray( $value, $name );
+
 				else
 					self::inputHidden( $name, $value );
 			}
 
 		} else {
 
-			foreach ( $array as $item ) {
+			foreach ( $data as $item ) {
+
 				if ( is_array( $item ) )
 					self::inputHiddenArray( $item, $prefix.'[]' );
+
 				else
 					self::inputHidden( $prefix.'[]', $item );
 			}
 		}
 	}
 
-	public static function joined( $items, $before = '', $after = '', $sep = '|', $empty = '' )
-	{
+	public static function joined(
+		array $items,
+		string $before = '',
+		string $after = '',
+		string $sep = '|',
+		string $empty = '',
+	): string {
+
 		return count( $items ) ? ( $before.implode( $sep, $items ).$after ) : $empty;
 	}
 
-	public static function tag( $tag, $atts = [], $content = FALSE, $sep = '' )
-	{
+	public static function tag(
+		mixed $tag,
+		string|array $atts = [],
+		string|bool|null $content = FALSE,
+		string $sep = '',
+	): string {
+
 		if ( empty( $tag ) ) {
 
 			if ( ! is_array( $atts ) )
@@ -322,7 +355,7 @@ class HTML extends Base
 			return '';
 		}
 
-		$tag = self::sanitizeTag( $tag );
+		$tag = self::sanitizeTag( (string) $tag );
 
 		if ( is_array( $atts ) )
 			$html = self::_tag_open( $tag, $atts, $content );
@@ -349,8 +382,12 @@ class HTML extends Base
 		return $html.( (string) $content ).'</'.$tag.'>'.$sep;
 	}
 
-	public static function attrBoolean( $value, $current = NULL, $fallback = FALSE )
-	{
+	public static function attrBoolean(
+		mixed $value,
+		mixed $current = NULL,
+		mixed $fallback = FALSE,
+	): mixed {
+
 		if ( ! is_array( $value ) )
 			return (bool) $value;
 
@@ -363,7 +400,7 @@ class HTML extends Base
 		return $fallback;
 	}
 
-	public static function attrClass()
+	public static function attrClass(): array
 	{
 		$classes = [];
 
@@ -378,7 +415,7 @@ class HTML extends Base
 		return Arraay::prepString( $classes );
 	}
 
-	public static function prepClass()
+	public static function prepClass(): string
 	{
 		$classes = func_get_args();
 
@@ -391,7 +428,7 @@ class HTML extends Base
 		return implode( ' ', array_unique( array_filter( call_user_func_array( [ __CLASS__, 'attrClass' ], $classes ), [ __CLASS__, 'sanitizeClass' ] ) ) );
 	}
 
-	public static function propData( $data )
+	public static function propData( mixed $data ): string
 	{
 		if ( empty( $data ) )
 			return '';
@@ -416,8 +453,12 @@ class HTML extends Base
 		return $html;
 	}
 
-	private static function _tag_open( $tag, $atts, $content = TRUE )
-	{
+	private static function _tag_open(
+		string $tag,
+		array $atts,
+		mixed $content = TRUE,
+	): string {
+
 		$html = '<'.$tag;
 
 		foreach ( $atts as $key => $att ) {
@@ -492,14 +533,14 @@ class HTML extends Base
 	 * @param mixed $data
 	 * @return string
 	 */
-	public static function encode( $data )
+	public static function encode( mixed $data ): string
 	{
 		return wp_json_encode( $data, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES );
 	}
 
 	// @ref: `esc_html()`, `esc_attr()`
 	// NOTE: reverse with `WP_HTML_Decoder::decode_attribute( $string );`
-	public static function escape( $data )
+	public static function escape( ?string $data ): string
 	{
 		if ( is_null( $data ) )
 			return '';
@@ -509,13 +550,13 @@ class HTML extends Base
 			: '';
 	}
 
-	// NOTE: DEPRECATED
-	public static function escapeAttr( $data )
+	#[\Deprecated()]
+	public static function escapeAttr( ?string $data ): string
 	{
 		return self::escape( $data );
 	}
 
-	public static function escapeURL( $data )
+	public static function escapeURL( ?string $data ): string
 	{
 		if ( is_null( $data ) )
 			return '';
@@ -523,7 +564,7 @@ class HTML extends Base
 		return esc_url( $data );
 	}
 
-	public static function escapeTextarea( $data )
+	public static function escapeTextarea( ?string $data ): string
 	{
 		if ( is_null( $data ) )
 			return '';
@@ -533,7 +574,7 @@ class HTML extends Base
 
 	// NOTE: like WP core but without filter and fallback
 	// @source `sanitize_html_class()`
-	public static function sanitizeClass( $data )
+	public static function sanitizeClass( ?string $data ): string
 	{
 		if ( is_null( $data ) )
 			return '';
@@ -549,7 +590,7 @@ class HTML extends Base
 
 	// NOTE: like WP core but without filter
 	// @source: `tag_escape()`
-	public static function sanitizeTag( $data )
+	public static function sanitizeTag( ?string $data ): string
 	{
 		if ( is_null( $data ) )
 			return '';
@@ -557,57 +598,22 @@ class HTML extends Base
 		return preg_replace( '/[^a-zA-Z0-9_:]/', '', $data );
 	}
 
-	// @REF: https://www.billerickson.net/code/phone-number-url/
-	// @SEE: https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml
-	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#telephone-numbers
-
-	// OLD: `sanitizePhoneNumberURL()`
-	public static function prepURLforTel( $data )
-	{
-		if ( is_null( $data ) )
-			return '';
-
-		return self::escapeURL( sprintf(
-			Text::starts( $data, 'tel:' ) ? '%s' : 'tel:%s',
-			str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $data )
-		) );
-	}
-
-	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#smsmmsfacetime
-	// OLD: `sanitizeSMSNumberURL()`
-	public static function prepURLforSMS( $data )
-	{
-		if ( is_null( $data ) )
-			return '';
-
-		return self::escapeURL( sprintf(
-			Text::starts( $data, 'sms:' ) ? '%s' : 'sms:%s',
-			str_replace( [ '(', ')', '-', '.', '|', ' ' ], '', $data )
-		) );
-	}
-
-	// OLD: `sanitizeGeoURL()`
-	public static function prepURLforGeo( $data )
-	{
-		if ( is_null( $data ) )
-			return '';
-
-		return self::escapeURL( sprintf(
-			Text::starts( $data, 'geo:' ) ? '%s' : 'geo:%s',
-			str_replace( [ '(', ')', '-', ' ' ], '', $data )
-		) );
-	}
-
-	// NOTE: DEPRECATED
-	public static function getAtts( $string, $expecting = [] )
+	#[Deprecated(message:'use `Core\HTML::parseAtts()` instead')]
+	public static function getAtts( string $string, array $expecting = [] ): array
 	{
 		self::_dev_dep( 'HTML::parseAtts()' );
 
 		return self::parseAtts( $string, $expecting );
 	}
 
-	public static function parseAtts( $string, $expecting = [] )
-	{
+	public static function parseAtts(
+		string $string,
+		array $expecting = [],
+	): array {
+
+		if ( empty( $string ) )
+			return $expecting;
+
 		foreach ( $expecting as $attr => $default ) {
 
 			preg_match( "#".$attr."=\"(.*?)\"#s", $string, $matches );
@@ -619,17 +625,19 @@ class HTML extends Base
 		return $expecting;
 	}
 
-	public static function listCode( $array, $row = NULL, $first = FALSE )
-	{
+	public static function listCode(
+		mixed $array,
+		?string $row = NULL,
+		string|false $first = FALSE,
+	): string {
+
 		if ( ! $array )
 			return '';
 
+		$row  = $row ?? '<code title="%2$s">%1$s</code>';
 		$html = '<ul class="base-list-code">';
 
-		if ( is_null( $row ) )
-			$row = '<code title="%2$s">%1$s</code>';
-
-		if ( $first )
+		if ( FALSE !== $first )
 			$html.= '<li class="-first">'.$first.'</li>';
 
 		foreach ( (array) $array as $key => $value )
@@ -638,13 +646,18 @@ class HTML extends Base
 		return $html.'</ul>';
 	}
 
-	public static function tableCode( $array, $reverse = FALSE, $caption = FALSE )
-	{
+	public static function tableCode(
+		mixed $array,
+		bool $reverse = FALSE,
+		string|false $caption = FALSE,
+	): string {
+
 		if ( ! $array )
 			return '';
 
 		if ( $reverse )
 			$row = '<tr><td class="-val"><code>%1$s</code></td><td class="-var" valign="top">%2$s</td></tr>';
+
 		else
 			$row = '<tr><td class="-var" valign="top">%1$s</td><td class="-val"><code>%2$s</code></td></tr>';
 
@@ -661,7 +674,7 @@ class HTML extends Base
 		return $html.'</tbody></table>';
 	}
 
-	public static function sanitizeDisplay( $value )
+	public static function sanitizeDisplay( mixed $value ): string
 	{
 		if ( is_null( $value ) )
 			$value = 'NULL';
@@ -697,7 +710,7 @@ class HTML extends Base
 	 * @param callable $callable
 	 * @return string
 	 */
-	public static function callableName( callable $callable )
+	public static function callableName( callable $callable ): string
 	{
 		switch ( TRUE ) {
 			case is_string( $callable ) && strpos( $callable, '::' ): return '[static] '.$callable;
@@ -710,8 +723,13 @@ class HTML extends Base
 		}
 	}
 
-	public static function tableDouble( $data, $columns = [], $verbose = TRUE, $class = '' )
-	{
+	public static function tableDouble(
+		mixed $data,
+		array $columns = [],
+		bool $verbose = TRUE,
+		string|array $class = '',
+	): string|true {
+
 		$html = '<table class="'.self::prepClass( 'base-table-double', $class ).'">';
 
 		foreach ( $data as $key => $value )
@@ -730,8 +748,13 @@ class HTML extends Base
 		return TRUE;
 	}
 
-	public static function tableSimple( $data, $columns = [], $verbose = TRUE, $class = '' )
-	{
+	public static function tableSimple(
+		mixed $data,
+		array $columns = [],
+		bool $verbose = TRUE,
+		string|array $class = '',
+	): string|bool {
+
 		if ( empty( $data ) )
 			return $verbose ? FALSE : '';
 
@@ -775,18 +798,29 @@ class HTML extends Base
 
 	// FIXME: WTF: not wrapping the child table!!
 	// FIXME: DRAFT: needs styling
-	public static function tableSideWrap( $array, $title = FALSE )
-	{
+	public static function tableSideWrap(
+		mixed $array,
+		string $title = '',
+	): void {
+
 		echo '<table class="widefat fixed base-table-side-wrap">';
+
 			if ( $title )
 				echo '<thead><tr><th>'.$title.'</th></tr></thead>';
+
 			echo '<tbody>';
+
 			self::tableSide( $array );
+
 		echo '</tbody></table>';
 	}
 
-	public static function tableSide( $array, $type = TRUE, $caption = FALSE )
-	{
+	public static function tableSide(
+		mixed $array,
+		bool $type = TRUE,
+		string $caption = '',
+	): void {
+
 		echo '<table class="base-table-side">';
 
 		if ( $caption )
@@ -844,8 +878,13 @@ class HTML extends Base
 		echo '</table>';
 	}
 
-	public static function linkStyleSheet( $url, $version = NULL, $media = 'all', $verbose = TRUE )
-	{
+	public static function linkStyleSheet(
+		string $url,
+		string|array|false $version = FALSE,
+		string|false $media = 'all',
+		bool $verbose = TRUE,
+	): true {
+
 		if ( is_array( $version ) )
 			$url = add_query_arg( $version, $url );
 
@@ -863,12 +902,22 @@ class HTML extends Base
 			return $html;
 
 		echo $html;
+
+		return TRUE;
 	}
 
-	public static function headerNav( $uri = '', $active = '', $subs = [], $wrap_extra = [], $prefix = 'nav-tab', $wrap = 'h3', $item = FALSE )
-	{
+	public static function headerNav(
+		string $uri = '',
+		string $active = '',
+		array $subs = [],
+		array $wrap_extra = [],
+		string $prefix = 'nav-tab',
+		string $wrap = 'h3',
+		string $item = '',
+	): void {
+
 		if ( empty( $subs ) )
-			return '';
+			return;
 
 		$html = '';
 		$pos  = L10n::rtl() ? 'left' : 'right';
@@ -879,8 +928,8 @@ class HTML extends Base
 
 			if ( is_array( $page ) ) {
 
-				$title = empty( $page['title'] ) ? $slug : sprintf( '<span class="-nav-link-title">%s</span>', $page['title'] );
-				$icon  = empty( $page['icon'] )  ? ''    : sprintf( '<span class="-nav-link-icon" title="%s">%s</span> ', self::escapeAttr( $page['title'] ?? $slug ), $page['icon'] );
+				$title = empty( $page['title'] ) ? $slug : sprintf( '<span class="-nav-link-text">%s</span>', $page['title'] );
+				$icon  = empty( $page['icon'] )  ? ''    : sprintf( '<span class="-nav-link-icon" title="%s">%s</span> ', self::escape( $page['title'] ?? $slug ), $page['icon'] );
 
 				$args = empty( $page['args'] ) ? [ 'sub' => $slug ] : $page['args'];
 				$hint = empty( $page['hint'] ) ? ( empty( $page['title'] ) ? $slug : $page['title'] ) : $page['hint'];
@@ -897,7 +946,7 @@ class HTML extends Base
 
 			} else {
 
-				$title = sprintf( '<span class="-nav-link-title">%s</span>', $page );
+				$title = sprintf( '<span class="-nav-link-text">%s</span>', $page );
 				$icon  = '';
 				$args  = [ 'sub' => $slug ];
 			}
@@ -924,8 +973,13 @@ class HTML extends Base
 			echo $html;
 	}
 
-	public static function tabNav( $active = '', $tabs = [], $prefix = 'nav-tab-', $tag = 'div' )
-	{
+	public static function tabNav(
+		?string $active = '',
+		array $tabs = [],
+		string $prefix = 'nav-tab-',
+		string $tag = 'div',
+	): void {
+
 		if ( empty( $tabs ) )
 			return;
 
@@ -945,12 +999,12 @@ class HTML extends Base
 	}
 
 	// @REF: https://make.wordpress.org/core/2019/04/02/admin-tabs-semantic-improvements-in-5-2/
-	public static function tabsList( $tabs, $atts = [] )
+	public static function tabsList( array|false $tabs, array $atts = [] ): bool
 	{
 		if ( empty( $tabs ) )
 			return FALSE;
 
-		$args = self::atts( [
+		$args = self::parsed( [
 			'active' => NULL, // TRUE forces first tab active
 			'title'  => FALSE,
 			'class'  => FALSE,
@@ -972,7 +1026,7 @@ class HTML extends Base
 
 		foreach ( $tabs as $tab => $tab_atts ) {
 
-			$tab_args = self::atts( [
+			$tab_args = self::parsed( [
 				// 'active'  => FALSE, // not needed here, just for reference
 				'title'   => $tab,
 				'link'    => '#'.$tab,
@@ -1025,15 +1079,19 @@ class HTML extends Base
 		return TRUE;
 	}
 
-	public static function tableList( $columns, $data = [], $atts = [] )
-	{
+	public static function tableList(
+		array|false $columns,
+		array $data = [],
+		array $atts = [],
+	): string|bool {
+
 		if ( empty( $columns ) )
 			return FALSE;
 
 		$empty = $alt = TRUE;
 		$hidden_columns = [];
 
-		$args = self::atts( [
+		$args = self::parsed( [
 			'empty'        => NULL,
 			'title'        => NULL,
 			'before'       => FALSE,
@@ -1090,7 +1148,7 @@ class HTML extends Base
 
 				if ( is_array( $column ) ) {
 
-					$parsed_column = self::atts( [
+					$parsed_column = self::parsed( [
 						'title'      => $key,
 						'class'      => [],
 						'hide_empty' => FALSE,
@@ -1273,10 +1331,10 @@ class HTML extends Base
 		return $args['return_empty'] ? $empty : TRUE;
 	}
 
-	public static function tableActions( $actions, $verbose = TRUE )
+	public static function tableActions( array|false $actions, $verbose = TRUE ): string|bool
 	{
 		if ( ! $actions || ! is_array( $actions ) )
-			return;
+			return FALSE;
 
 		$count = count( $actions );
 
@@ -1296,11 +1354,12 @@ class HTML extends Base
 			return $html;
 
 		echo $html;
+		return TRUE;
 	}
 
-	public static function tableNavigation( $pagination = [] )
+	public static function tableNavigation( array $pagination = [] ): void
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'actions'  => [],
 			'icons'    => [],
 			'before'   => [],
@@ -1317,7 +1376,7 @@ class HTML extends Base
 			'rtl'      => L10n::rtl(),
 		], $pagination );
 
-		$icons = self::atts( [
+		$icons = self::parsed( [
 			'action'   => self::getDashicon( 'update' ),
 			'filter'   => self::getDashicon( 'filter' ),
 			'last'     => self::getDashicon( $args['rtl'] ? 'controls-skipback' : 'controls-skipforward' ),
@@ -1453,8 +1512,15 @@ class HTML extends Base
 		// echo '</div>';
 	}
 
-	public static function tablePagination( $found, $max, $limit, $paged, $extra = [], $all = FALSE )
-	{
+	public static function tablePagination(
+		int|string $found,
+		int|string $max,
+		int|string $limit,
+		int|string $paged,
+		array $extra = [],
+		bool $all = FALSE,
+	): array {
+
 		$pagination = [
 			'total'    => (int) $found,
 			'pages'    => (int) $max,
@@ -1486,8 +1552,14 @@ class HTML extends Base
 		return $pagination;
 	}
 
-	public static function menu( $menu, $callback = FALSE, $list = 'ul', $children = 'children', $class = '-html-menu' )
-	{
+	public static function menu(
+		array|false $menu,
+		callable|false $callback = FALSE,
+		string $list = 'ul',
+		string|false $children = 'children',
+		string|array $class = '-html-menu',
+	): void {
+
 		if ( ! $menu )
 			return;
 
@@ -1499,10 +1571,11 @@ class HTML extends Base
 
 			if ( is_callable( $callback ) )
 				echo call_user_func_array( $callback, [ $item ] );
+
 			else
 				echo self::link( $item['title'], '#'.$item['slug'] );
 
-			if ( ! empty( $item[$children] ) )
+			if ( $children && ! empty( $item[$children] ) )
 				self::menu( $item[$children], $callback, $list, $children, '' );
 
 			echo '</li>';
@@ -1511,7 +1584,7 @@ class HTML extends Base
 		echo '</'.$list.'>';
 	}
 
-	public static function wrapScript( $code, $verbose = TRUE )
+	public static function wrapScript( string $code, bool $verbose = TRUE ): string|true
 	{
 		if ( ! $code )
 			return '';
@@ -1524,10 +1597,11 @@ class HTML extends Base
 			return $script;
 
 		echo $script;
+		return TRUE;
 	}
 
 	// @REF: https://jquery.com/upgrade-guide/3.0/#deprecated-document-ready-handlers-other-than-jquery-function
-	public static function wrapjQueryReady( $code, $verbose = TRUE )
+	public static function wrapjQueryReady( string $code, bool $verbose = TRUE ): string|true
 	{
 		if ( ! $code )
 			return '';
@@ -1540,47 +1614,53 @@ class HTML extends Base
 			return $script;
 
 		echo $script;
+		return TRUE;
 	}
 
 	// TODO: Move to `WordPress\Screen`
 	// TODO: migrate to `wp_get_admin_notice()` @since WP 6.4.0
 	// @SEE: https://make.wordpress.org/core/2023/10/16/introducing-admin-notice-functions-in-wordpress-6-4/
 	// @REF: https://developer.wordpress.org/reference/hooks/admin_notices/
-	public static function notice( $notice, $class = NULL, $dismissible = TRUE )
+	public static function notice( string $notice, string|array $class = '', bool $dismissible = TRUE ): string
 	{
 		return self::tag( 'div', [
 			'class' => self::attrClass(
 				'notice',
-				$class ?? 'notice-success',
+				$class ?: 'notice-success',
 				$dismissible ? 'is-dismissible' : '',
 				'-notice',
 			),
 		], Text::autoP( $notice ) );
 	}
 
-	public static function error( $notice, $dismissible = TRUE, $extra = [] )
+	public static function error( string $notice, bool $dismissible = TRUE, string|array $class = '' )
 	{
-		return self::notice( $notice, self::attrClass( 'notice-error', $extra ), $dismissible );
+		return self::notice( $notice, self::attrClass( 'notice-error', $class ), $dismissible );
 	}
 
-	public static function success( $notice, $dismissible = TRUE, $extra = [] )
+	public static function success( string $notice, bool $dismissible = TRUE, string|array $class = '' )
 	{
-		return self::notice( $notice, self::attrClass( 'notice-success', $extra ), $dismissible );
+		return self::notice( $notice, self::attrClass( 'notice-success', $class ), $dismissible );
 	}
 
-	public static function warning( $notice, $dismissible = TRUE, $extra = [] )
+	public static function warning( string $notice, bool $dismissible = TRUE, string|array $class = '' )
 	{
-		return self::notice( $notice, self::attrClass( 'notice-warning', $extra ), $dismissible );
+		return self::notice( $notice, self::attrClass( 'notice-warning', $class ), $dismissible );
 	}
 
-	public static function info( $notice, $dismissible = TRUE, $extra = [] )
+	public static function info( string $notice, bool $dismissible = TRUE, string|array $class = '' )
 	{
-		return self::notice( $notice, self::attrClass( 'notice-info', $extra ), $dismissible );
+		return self::notice( $notice, self::attrClass( 'notice-info', $class ), $dismissible );
 	}
 
 	// @REF: https://developer.wordpress.org/resource/dashicons/
-	public static function getDashicon( $icon = NULL, $title = FALSE, $class = '', $atts = [] )
-	{
+	public static function getDashicon(
+		?string $icon = NULL,
+		string $title = '',
+		string|array $class = '',
+		array $atts = [],
+	): string {
+
 		$icon = $icon ?? 'wordpress-alt';
 
 		if ( ! Text::starts( $icon, 'dashicons-' ) )
@@ -1588,19 +1668,19 @@ class HTML extends Base
 
 		return self::tag( 'span', array_merge( [
 			'data-icon' => 'dashicons',
-			'title'     => $title,
+			'title'     => $title ?: FALSE,
 			'class'     => self::attrClass( 'dashicons', $icon, $class ),
 		], $atts ), NULL );
 	}
 
-	public static function radioSelect( $list, $atts = [] )
+	public static function radioSelect( array|false $list, array $atts = [] ): string
 	{
 		$html = '';
 
 		if ( FALSE === $list ) // allows hiding
 			return $html;
 
-		$args = self::atts( [
+		$args = self::parsed( [
 			'id'          => FALSE,
 			'name'        => '',
 			'title'       => FALSE,
@@ -1626,7 +1706,7 @@ class HTML extends Base
 
 			$id = self::dsh( $args['id'], $args['none_value'] );
 
-			$html.= '<'.$args['wrap'].'><label for"'.self::escapeAttr( $id ).'">';
+			$html.= '<'.$args['wrap'].'><label for"'.self::escape( $id ).'">';
 			$html.= self::tag( 'input', [
 				'type'     => 'radio',
 				'id'       => $id,
@@ -1664,7 +1744,7 @@ class HTML extends Base
 
 			$id = self::dsh( $args['id'], $key );
 
-			$html.= '<'.$args['wrap'].'><label for"'.self::escapeAttr( $id ).'">';
+			$html.= '<'.$args['wrap'].'><label for"'.self::escape( $id ).'">';
 			$html.= self::tag( 'input', [
 				'type'     => 'radio',
 				'id'       => $id,
@@ -1687,14 +1767,14 @@ class HTML extends Base
 	}
 
 	// TODO: support `optgroup`: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/optgroup
-	public static function dropdown( $list, $atts = [] )
+	public static function dropdown( array|false $list, array $atts = [] ): string
 	{
 		$html = '';
 
 		if ( FALSE === $list ) // allows hiding
 			return $html;
 
-		$args = self::atts( [
+		$args = self::parsed( [
 			'id'          => FALSE,
 			'name'        => '',
 			'title'       => FALSE,
@@ -1756,14 +1836,14 @@ class HTML extends Base
 		], $html );
 	}
 
-	public static function multiSelect( $list, $atts = [] )
+	public static function multiSelect( array|false $list, array $atts = [] ): string
 	{
 		$html = '';
 
 		if ( FALSE === $list ) // allows hiding
 			return $html;
 
-		$args = self::atts( [
+		$args = self::parsed( [
 			'id'       => FALSE,
 			'name'     => '',
 			'class'    => FALSE,
@@ -1848,22 +1928,27 @@ class HTML extends Base
 		return self::wrap( $html, '-multiselect-wrap'.( $args['panel'] ? ' wp-tab-panel' : '' ) );
 	}
 
-	// NOTE: DEPRECATED: use `HTML::rows()`
-	public static function renderList( $items, $keys = FALSE, $list = 'ul' )
+	#[Deprecated(message:'use `Core\HTML::rows()` instead')]
+	public static function renderList( array $items, bool $keys = FALSE, string $list = 'ul' ): string
 	{
 		return $items ? self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : array_filter( $items ) ).'</li>' ) : '';
 	}
 
-	public static function inputForCopy( $text, $class = 'large-text', $code = TRUE, $readonly = TRUE )
-	{
+	public static function inputForCopy(
+		string $text,
+		string|array $class = 'large-text',
+		bool $code = TRUE,
+		bool $readonly = TRUE,
+	): string {
+
 		return '<input type="text" value="'
-			.self::escapeAttr( $text )
+			.self::escape( $text )
 			.'" class="'.self::prepClass( '-input-for-copy', $class, $code ? 'code' : '' )
 			.'" onclick="this.focus();this.select()" '
 			.( $readonly ? 'readonly' : '' ).' />';
 	}
 
-	public static function removeAll( $html )
+	public static function removeAll( string $html ): string
 	{
 		while ( preg_match( '/<[^>]*>/', $html ) )
 			$html = preg_replace( '/<[^>]*>.*?<\/[^>]*>|<[^>]*\/>|<[^>]*>/s', '', $html );
@@ -1879,7 +1964,7 @@ class HTML extends Base
 	 * @param int $max_length
 	 * @return string
 	 */
-	public static function cut( $html, $max_length )
+	public static function cut( mixed $html, int $max_length ): string
 	{
 		if ( empty( $html ) )
 			return $html;

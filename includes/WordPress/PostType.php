@@ -10,30 +10,30 @@ class PostType extends Core\Base
 	const NAME_INPUT_PATTERN   = '[-a-zA-Z0-9_]{3,20}';
 	const MAP_CAP_IMPORT_POSTS = 'edit_others_posts';
 
-	public static function object( $posttype_or_post )
+	public static function object( mixed $type_or_post ): false|object
 	{
-		if ( ! $posttype_or_post )
+		if ( ! $type_or_post )
 			return FALSE;
 
-		if ( $posttype_or_post instanceof \WP_Post )
-			return get_post_type_object( $posttype_or_post->post_type );
+		if ( $type_or_post instanceof \WP_Post )
+			return get_post_type_object( $type_or_post->post_type );
 
-		if ( $posttype_or_post instanceof \WP_Post_Type )
-			return $posttype_or_post;
+		if ( $type_or_post instanceof \WP_Post_Type )
+			return $type_or_post;
 
-		return get_post_type_object( $posttype_or_post );
+		return get_post_type_object( $type_or_post ) ?: FALSE;
 	}
 
 	/**
 	 * Determines whether a post-type is registered.
 	 * @source `post_type_exists()`
 	 *
-	 * @param string|object $posttype_or_post
+	 * @param mixed $type_or_post
 	 * @return bool
 	 */
-	public static function exists( $posttype_or_post )
+	public static function exists( mixed $type_or_post ): bool
 	{
-		return (bool) self::object( $posttype_or_post );
+		return (bool) self::object( $type_or_post );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class PostType extends Core\Base
 	 * @param string|object $posttype
 	 * @return bool
 	 */
-	public static function viewable( $posttype )
+	public static function viewable( string|object $posttype ): bool
 	{
 		if ( ! $posttype )
 			return FALSE;
@@ -54,16 +54,16 @@ class PostType extends Core\Base
 	 * Returns the names or objects of the taxonomies which are
 	 * registered for the requested object or object type.
 	 *
-	 * @param string|object $posttype_or_post
+	 * @param string|object $type_or_post
 	 * @param string $output
 	 * @return array
 	 */
-	public static function taxonomies( $posttype_or_post, $output = 'names' )
+	public static function taxonomies( $type_or_post, $output = 'names' )
 	{
-		if ( ! $posttype_or_post )
+		if ( ! $type_or_post )
 			return [];
 
-		return get_object_taxonomies( $posttype_or_post, $output );
+		return get_object_taxonomies( $type_or_post, $output );
 	}
 
 	/**
@@ -143,12 +143,12 @@ class PostType extends Core\Base
 	/**
 	 * Retrieves the capability assigned to the post-type.
 	 *
-	 * @param string|object $posttype
-	 * @param string $capability
-	 * @param string $fallback
-	 * @return string
+	 * @param mixed $posttype
+	 * @param string|null $capability
+	 * @param bool|string|null $fallback
+	 * @return bool|string|null
 	 */
-	public static function cap( $posttype, $capability = 'edit_posts', $fallback = NULL )
+	public static function cap( mixed $posttype, ?string $capability = 'edit_posts', bool|string|null $fallback = NULL ): bool|string|null
 	{
 		if ( is_null( $capability ) )
 			return TRUE;
@@ -502,8 +502,13 @@ class PostType extends Core\Base
 	}
 
 	// TODO: use db query
-	public static function getLastMenuOrder( $posttype = 'post', $exclude = '', $key = 'menu_order', $statuses = NULL )
-	{
+	public static function getLastMenuOrder(
+		string|array $posttype = 'post',
+		string|array $exclude = '',
+		string|false $prop = 'menu_order',
+		string|array|null $statuses = NULL,
+	): false|int|string|object {
+
 		$post = get_posts( [
 			'posts_per_page' => 1,
 			'orderby'        => 'menu_order',
@@ -519,20 +524,28 @@ class PostType extends Core\Base
 		] );
 
 		if ( empty( $post ) )
-			return 0;
+			return FALSE;
 
-		if ( 'menu_order' == $key )
-			return (int) $post[0]->menu_order;
+		if ( in_array( $prop, [
+			'ID',
+			'menu_order',
+		], TRUE ) )
+			return (int) $post[0]->{$prop};
 
-		return $post[0]->{$key};
+		return $post[0]->{$prop};
 	}
 
 	// TODO: use db query
-	public static function getRandomPostID( $posttype, $has_thumbnail = FALSE, $object = FALSE, $status = 'publish' )
-	{
+	public static function getRandomPostID(
+		string|array $posttype,
+		bool $has_thumbnail = FALSE,
+		bool $object = FALSE,
+		string|array|null $statuses = 'publish',
+	): false|int {
+
 		$args = [
 			'post_type'      => $posttype,
-			'post_status'    => $status,
+			'post_status'    => $statuses ?? Status::acceptable( $posttype, 'random', [ 'pending', 'draft' ] ),
 			'posts_per_page' => 1,
 			'orderby'        => 'rand',
 
@@ -581,7 +594,7 @@ class PostType extends Core\Base
 		return (array) $query->query( $args );
 	}
 
-	public static function supports( $posttype, $feature, $fallback = [] )
+	public static function supports( string $posttype, string $feature, mixed $fallback = [] ): mixed
 	{
 		if ( empty( $posttype ) || empty( $feature ) )
 			return $fallback;
@@ -594,7 +607,7 @@ class PostType extends Core\Base
 		return $fallback;
 	}
 
-	public static function isThumbnail( $attachment_id, $metakey = '_thumbnail_id' )
+	public static function isThumbnail( int $attachment_id, ?string $metakey = '_thumbnail_id' ): false|array
 	{
 		if ( ! $attachment_id )
 			return FALSE;
@@ -702,10 +715,10 @@ class PostType extends Core\Base
 	 * Retrieves post-type rest route given post-type name or object.
 	 * @ref `rest_get_route_for_post_type_items()`
 	 *
-	 * @param string $posttype
-	 * @return string
+	 * @param string|object $posttype
+	 * @return false|string
 	 */
-	public static function getRestRoute( $posttype )
+	public static function getRestRoute( string|object $posttype ): false|string
 	{
 		if ( ! $object = self::object( $posttype ) )
 			return FALSE;
@@ -719,7 +732,7 @@ class PostType extends Core\Base
 		return apply_filters( 'rest_route_for_post_type_items', $route, $object );
 	}
 
-	public static function hasPosts( $posttypes, $published = TRUE, $extra = [] )
+	public static function hasPosts( string|array $posttypes, bool $published = TRUE, array $extra = [] ): bool
 	{
 		$args = array_merge( [
 			'post_type'   => $posttypes,
@@ -757,7 +770,7 @@ class PostType extends Core\Base
 		return get_object_vars( $count );
 	}
 
-	public static function sortByTitle( $posts )
+	public static function sortByTitle( array $posts ): array
 	{
 		usort( $posts, function ( $a, $b ) {
 

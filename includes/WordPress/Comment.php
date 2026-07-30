@@ -11,11 +11,11 @@ class Comment extends Core\Base
 	 * Retrieves comment data given a comment ID or comment object.
 	 * NOTE: simplified version of `get_comment()`
 	 *
-	 * @param int|object $comment
+	 * @param mixed $comment
 	 * @param string $output
-	 * @return object
+	 * @return null|false|object
 	 */
-	public static function get( $comment = NULL, $output = OBJECT )
+	public static function get( mixed $comment = NULL, string $output = OBJECT ): null|false|object
 	{
 		if ( FALSE === $comment )
 			return $comment;
@@ -35,10 +35,10 @@ class Comment extends Core\Base
 	/**
 	 * Retrieves comment type given a comment ID or comment object.
 	 *
-	 * @param int|object $comment
-	 * @return string
+	 * @param mixed $comment
+	 * @return false|string
 	 */
-	public static function type( $comment = NULL )
+	public static function type( mixed $comment = NULL ): false|string
 	{
 		if ( $comment = self::get( $comment ) )
 			return $comment->comment_type;
@@ -49,12 +49,12 @@ class Comment extends Core\Base
 	/**
 	 * Retrieves meta-data for a given comment.
 	 *
-	 * @param object|int $comment
-	 * @param bool|array $keys `false` for all meta
+	 * @param mixed $comment
+	 * @param false|array $keys `false` for all meta
 	 * @param bool $single
-	 * @return array
+	 * @return false|array
 	 */
-	public static function getMeta( $comment, $keys = FALSE, $single = TRUE )
+	public static function getMeta( mixed $comment, array|false $keys = FALSE, bool $single = TRUE ): false|array
 	{
 		if ( ! $comment = self::get( $comment ) )
 			return FALSE;
@@ -87,10 +87,10 @@ class Comment extends Core\Base
 	/**
 	 * Retrieves comment rest route given a comment ID or comment object.
 	 *
-	 * @param int|object $comment
+	 * @param mixed $comment
 	 * @return false|string
 	 */
-	public static function getRestRoute( $comment = NULL )
+	public static function getRestRoute( mixed $comment = NULL ): false|string
 	{
 		if ( ! $comment = self::get( $comment ) )
 			return FALSE;
@@ -98,7 +98,7 @@ class Comment extends Core\Base
 		return sprintf( '/wp/v2/comments/%d', $comment->comment_ID );
 	}
 
-	public static function setKarma( $karma, $comment = NULL )
+	public static function setKarma( int|string $karma, mixed $comment = NULL ): false|int
 	{
 		global $wpdb;
 

@@ -12,7 +12,7 @@ class DataCode extends Base
 
 	public static function prepDataEmail( $data )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'email'   => '',
 			'subject' => '',
 			'body'    => '',
@@ -28,7 +28,7 @@ class DataCode extends Base
 
 	public static function prepDataSMS( $data )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'mobile'  => '',
 			'message' => '',
 		], $data );
@@ -38,7 +38,7 @@ class DataCode extends Base
 
 	public static function prepDataContact( $data )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'name'    => '',
 			'address' => '',
 			'phone'   => '',
@@ -51,7 +51,7 @@ class DataCode extends Base
 	// @REF: https://goqr.me/api/doc/create-qr-code/
 	public static function getQRCode( $data, $atts = [] )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'tag'        => TRUE,
 			'format'     => 'svg', // 'png',
 			'zone'       => 2, // quiet zone

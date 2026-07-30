@@ -244,7 +244,7 @@ class Theme extends Core\Base
 		// Switch defaults if post is set.
 		if ( isset( $wp_query->post ) ) {
 
-			$dummy = self::atts( [
+			$dummy = self::parsed( [
 				'ID'                    => $wp_query->post->ID,
 				'post_status'           => $wp_query->post->post_status,
 				'post_author'           => $wp_query->post->post_author,
@@ -288,7 +288,7 @@ class Theme extends Core\Base
 			// @REF: `bbp_get_empty_datetime()`
 			$date = '0000-00-00 00:00:00';
 
-			$dummy = self::atts( [
+			$dummy = self::parsed( [
 				'ID'                    => -9999,
 				'post_status'           => 'publish',
 				'post_author'           => 0,
@@ -378,7 +378,7 @@ class Theme extends Core\Base
 
 	public static function resetQueryExtras( $atts = [] )
 	{
-		$args = self::atts( [
+		$args = self::parsed( [
 			'disable_robots'    => FALSE,
 			'disable_cache'     => FALSE,
 			'cache_constant'    => FALSE,

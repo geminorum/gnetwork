@@ -22,13 +22,13 @@ class SwitchSite extends Core\Base
 	 *
 	 * @return bool
 	 */
-	public static function restore()
+	public static function restore(): bool
 	{
 		return restore_current_blog();
 	}
 
 	// @REF: `ms_is_switched()`
-	public static function is()
+	public static function is(): bool
 	{
 		return ! empty( $GLOBALS['_wp_switched_stack'] );
 	}
@@ -41,7 +41,7 @@ class SwitchSite extends Core\Base
 	 *
 	 * @return void
 	 */
-	public static function lap()
+	public static function lap(): void
 	{
 		$GLOBALS['_wp_switched_stack'] = [];
 		$GLOBALS['switched']           = FALSE;

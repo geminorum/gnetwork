@@ -12,14 +12,14 @@ class Term extends Core\Base
 	/**
 	 * Gets all term data.
 	 *
-	 * @param int|object $term_or_id
+	 * @param mixed $term_or_id
 	 * @param string $taxonomy
 	 * @return false|object
 	 */
-	public static function get( $term_or_id = NULL, $taxonomy = '' )
+	public static function get( mixed $term_or_id = NULL, string $taxonomy = '' ): false|object
 	{
 		if ( FALSE === $term_or_id || 0 === $term_or_id )
-			return $term_or_id;
+			return FALSE;
 
 		if ( $term_or_id instanceof \WP_Term )
 			return $term_or_id;
@@ -71,13 +71,13 @@ class Term extends Core\Base
 	 * Retrieves the user capability for a given term.
 	 * NOTE: caches the results
 	 *
-	 * @param int|object $term
-	 * @param string $capability
-	 * @param int|object $user_id
-	 * @param mixed $fallback
+	 * @param  mixed       $term
+	 * @param  string|null $capability
+	 * @param  int|null    $user_id
+	 * @param  bool        $fallback
 	 * @return bool
 	 */
-	public static function can( $term, $capability, $user_id = NULL, $fallback = FALSE )
+	public static function can( mixed $term, ?string $capability, ?int $user_id = NULL, bool $fallback = FALSE ): bool
 	{
 		static $cache = [];
 
@@ -538,7 +538,7 @@ class Term extends Core\Base
 	 * @param string $taxonomy
 	 * @return false|string
 	 */
-	public static function getRestRoute( $term_or_id, $taxonomy = NULL )
+	public static function getRestRoute( mixed $term_or_id, ?string $taxonomy = NULL ): false|string
 	{
 		if ( ! $term = self::get( $term_or_id, $taxonomy ?: '' ) )
 			return FALSE;
@@ -625,7 +625,7 @@ class Term extends Core\Base
 				return FALSE;
 		}
 
-		$args = self::atts( [
+		$args = self::parsed( [
 			'alias_of'    => '',   // Slug of the term to make this term an alias of. Accepts a term slug.
 			'description' => '',
 			'parent'      => 0,

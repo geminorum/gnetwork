@@ -6,7 +6,6 @@ use geminorum\gNetwork\Core;
 
 class Site extends Core\Base
 {
-
 	// @SEE `nocache_headers()`
 	// OLD: `Core\WordPress::doNotCache()`
 	public static function doNotCache()

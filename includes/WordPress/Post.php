@@ -11,12 +11,12 @@ class Post extends Core\Base
 	 * NOTE: simplified version of `get_post()`
 	 * @old `PostType::getPost()`
 	 *
-	 * @param int|object $post
+	 * @param mixed $post
 	 * @param string $output
 	 * @param string $filter
-	 * @return object
+	 * @return false|object|null
 	 */
-	public static function get( $post = NULL, $output = OBJECT, $filter = 'raw' )
+	public static function get( mixed $post = NULL, $output = OBJECT, $filter = 'raw' ): false|object|null
 	{
 		if ( FALSE === $post )
 			return $post;
@@ -42,10 +42,10 @@ class Post extends Core\Base
 	 *
 	 * @source `get_post_type()`
 	 *
-	 * @param int|object $post
-	 * @return string
+	 * @param mixed $post
+	 * @return false|string
 	 */
-	public static function type( $post = NULL )
+	public static function type( mixed $post = NULL ): false|string
 	{
 		if ( $post = self::get( $post ) )
 			return $post->post_type;
@@ -57,10 +57,10 @@ class Post extends Core\Base
 	 * Determines whether a post is publicly viewable.
 	 * @source `is_post_publicly_viewable()` @since WP 5.7.0
 	 *
-	 * @param int|object $post
+	 * @param mixed $post
 	 * @return bool
 	 */
-	public static function viewable( $post = NULL )
+	public static function viewable( mixed $post = NULL ): bool
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -73,13 +73,13 @@ class Post extends Core\Base
 	 * Retrieves the user capability for a given post.
 	 * NOTE: caches the result
 	 *
-	 * @param int|object $post
+	 * @param mixed $post
 	 * @param string $capability
 	 * @param int|object $user_id
 	 * @param bool $fallback
 	 * @return bool
 	 */
-	public static function can( $post, $capability, $user_id = NULL, $fallback = FALSE )
+	public static function can( mixed $post, ?string $capability, ?int $user_id = NULL, bool $fallback = FALSE ): bool
 	{
 		static $cache = [];
 
@@ -125,13 +125,17 @@ class Post extends Core\Base
 	 *
 	 * @old `PostType::getPostTitle()`
 	 *
-	 * @param int|object $post
-	 * @param string $fallback
+	 * @param mixed $post
+	 * @param false|string $fallback
 	 * @param bool $filter
 	 * @return string
 	 */
-	public static function title( $post = NULL, $fallback = NULL, $filter = TRUE )
-	{
+	public static function title(
+		mixed $post = NULL,
+		string|false|null $fallback = NULL,
+		bool $filter = TRUE,
+	): string {
+
 		if ( ! $post = self::get( $post ) )
 			return '';
 
@@ -154,13 +158,17 @@ class Post extends Core\Base
 	 *
 	 * @old `PostType::getPostLink()`
 	 *
-	 * @param int|object $post
-	 * @param string $fallback
+	 * @param mixed $post
+	 * @param string|false $fallback
 	 * @param string|array $statuses
-	 * @return string
+	 * @return false|string
 	 */
-	public static function link( $post, $fallback = NULL, $statuses = NULL )
-	{
+	public static function link(
+		mixed             $post     = NULL,
+		string|false      $fallback = FALSE,
+		string|array|null $statuses = NULL,
+	): false|string {
+
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
 
@@ -182,10 +190,10 @@ class Post extends Core\Base
 	 *
 	 * @param int|object $post
 	 * @param array $extra
-	 * @param mixed $fallback
-	 * @return string
+	 * @param false|string $fallback
+	 * @return false|string
 	 */
-	public static function edit( $post, $extra = [], $fallback = FALSE )
+	public static function edit( $post, $extra = [], $fallback = FALSE ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return $fallback;
@@ -216,7 +224,7 @@ class Post extends Core\Base
 	 * @param bool|string $fallback
 	 * @return false|string
 	 */
-	public static function htmlLink( $post, $title = NULL, $fallback = FALSE )
+	public static function htmlLink( $post, $title = NULL, $fallback = FALSE ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return $fallback;
@@ -246,10 +254,10 @@ class Post extends Core\Base
 	 *
 	 * @param int|object $post
 	 * @param array $extra
-	 * @param mixed $fallback
-	 * @return string
+	 * @param false|string $fallback
+	 * @return false|string
 	 */
-	public static function shortlink( $post, $extra = [], $fallback = FALSE )
+	public static function shortlink( $post, $extra = [], $fallback = FALSE ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return $fallback;
@@ -271,10 +279,10 @@ class Post extends Core\Base
 	 *
 	 * @param int|object $post
 	 * @param array $extra
-	 * @param mixed $fallback
+	 * @param false|string $fallback
 	 * @return false|string
 	 */
-	public static function mediaURL( $post, $extra = [], $fallback = FALSE )
+	public static function mediaURL( $post, $extra = [], $fallback = FALSE ): false|string
 	{
 		if ( ! current_user_can( 'upload_files' ) )
 			return $fallback;
@@ -291,10 +299,10 @@ class Post extends Core\Base
 	 *
 	 * @param int|object $post
 	 * @param array $extra
-	 * @param mixed $fallback
+	 * @param false|string $fallback
 	 * @return false|string
 	 */
-	public static function mediaUploadURL( $post, $extra = [], $fallback = FALSE )
+	public static function mediaUploadURL( $post, $extra = [], $fallback = FALSE ): false|string
 	{
 		if ( ! current_user_can( 'upload_files' ) )
 			return $fallback;
@@ -312,7 +320,7 @@ class Post extends Core\Base
 		return self::mediaURL( $post, $extra = [], $fallback = FALSE );
 	}
 
-	public static function endpointURL( $endpoint, $post, $data = NULL, $extra = [], $fallback = FALSE )
+	public static function endpointURL( $endpoint, $post, $data = NULL, $extra = [], $fallback = FALSE ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return $fallback;
@@ -336,9 +344,9 @@ class Post extends Core\Base
 	 *
 	 * @param int|object $post
 	 * @param string $context
-	 * @return string
+	 * @return false|string
 	 */
-	public static function overview( $post, $context = NULL )
+	public static function overview( int|object|null $post, ?string $context = NULL ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -362,9 +370,9 @@ class Post extends Core\Base
 	 *
 	 * @param int|object $post
 	 * @param string $context
-	 * @return array
+	 * @return false|array
 	 */
-	public static function summary( $post, $context = NULL )
+	public static function summary( int|object|null $post, ?string $context = NULL ): false|array
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -398,19 +406,25 @@ class Post extends Core\Base
 	 *
 	 * @param string $title
 	 * @param string|array $posttype
+	 * @param string $fields
 	 * @param string|array $status
 	 * @return array
 	 */
-	public static function getByTitle( $title, $posttype = 'any', $fields = 'ids', $status = 'all' )
-	{
+	public static function getByTitle(
+		string $title,
+		string|array|null $posttype = NULL,
+		?string $fields = NULL,
+		string|array|null $status = NULL,
+	): array {
+
 		if ( ! $title = trim( $title ) )
 			return [];
 
 		$args = [
 			'title'          => $title,
-			'fields'         => $fields,
-			'post_type'      => $posttype,
-			'post_status'    => $status,
+			'fields'         => $fields ?? 'ids',
+			'post_type'      => $posttype ?? 'any',
+			'post_status'    => $status ?? 'all',
 			'orderby'        => 'post_date ID',
 			'order'          => 'ASC',
 			'posts_per_page' => -1,
@@ -426,7 +440,7 @@ class Post extends Core\Base
 	}
 
 	// @old: `WordPress\PostType::getIDbySlug()`
-	public static function getIDbyURL( $url, $posttype = 'post' )
+	public static function getIDbyURL( $url, $posttype = 'post' ): false|int
 	{
 		if ( ! $url = trim( $url ?: '' ) )
 			return FALSE;
@@ -438,7 +452,7 @@ class Post extends Core\Base
 	}
 
 	// @old: `WordPress\PostType::getIDbySlug()`
-	public static function getIDbySlug( $slug, $posttype = 'post' )
+	public static function getIDbySlug( string $slug, string $posttype = 'post' ): false|int
 	{
 		static $cache = [];
 
@@ -457,18 +471,18 @@ class Post extends Core\Base
 			AND post_type = %s
 		", $slug, $posttype ) );
 
-		return $cache[$posttype][$slug] = $id;
+		return $cache[$posttype][$slug] = $id ?: FALSE;
 	}
 
 	// @old: `WordPress\PostType::getLastRevisionID()`
-	public static function getLastRevisionID( $post )
+	public static function getLastRevisionID( mixed $post ): false|int
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
 
 		global $wpdb;
 
-		return $wpdb->get_var(
+		$id = $wpdb->get_var(
 			$wpdb->prepare( "
 				SELECT ID
 				FROM {$wpdb->posts}
@@ -478,6 +492,8 @@ class Post extends Core\Base
 				ORDER BY post_date DESC
 			", $post->ID )
 		);
+
+		return $id ?: FALSE;
 	}
 
 	/**
@@ -487,11 +503,11 @@ class Post extends Core\Base
 	 *
 	 * @source `set_post_type()`
 	 *
-	 * @param int|object $post
+	 * @param mixed $post
 	 * @param string|object $posttype
 	 * @return bool
 	 */
-	public static function setPostType( $post, $posttype )
+	public static function setPostType( mixed $post, string|object $posttype ): bool
 	{
 		global $wpdb;
 
@@ -511,7 +527,7 @@ class Post extends Core\Base
 
 		clean_post_cache( $post );
 
-		return $success;
+		return (bool) $success;
 	}
 
 	/**
@@ -519,7 +535,7 @@ class Post extends Core\Base
 	 *
 	 * @return array
 	 */
-	public static function props()
+	public static function props(): array
 	{
 		return [
 			'ID'                    => NULL,
@@ -551,10 +567,10 @@ class Post extends Core\Base
 	/**
 	 * Retrieves post rest route given a post ID or post object.
 	 *
-	 * @param int|object $post
+	 * @param mixed $post
 	 * @return false|string
 	 */
-	public static function getRestRoute( $post = NULL )
+	public static function getRestRoute( mixed $post = NULL ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -580,7 +596,7 @@ class Post extends Core\Base
 	 * @param string $separator
 	 * @return string
 	 */
-	public static function fullTitle( $post, $linked = FALSE, $separator = NULL )
+	public static function fullTitle( $post, $linked = FALSE, $separator = NULL ): string
 	{
 		if ( ! $post = self::get( $post ) )
 			return '';
@@ -612,7 +628,7 @@ class Post extends Core\Base
 	 * @param string $separator
 	 * @return string
 	 */
-	public static function getParentTitles( $post, $suffix = '', $linked = FALSE, $separator = NULL )
+	public static function getParentTitles( $post, $suffix = '', $linked = FALSE, $separator = NULL ): string
 	{
 		if ( ! $post = self::get( $post ) )
 			return $suffix;
@@ -664,9 +680,9 @@ class Post extends Core\Base
 	 * @param object|int $post
 	 * @param bool|array $keys `false` for all meta
 	 * @param bool $single
-	 * @return array
+	 * @return false|array
 	 */
-	public static function getMeta( $post, $keys = FALSE, $single = TRUE )
+	public static function getMeta( $post, $keys = FALSE, $single = TRUE ): false|array
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -705,7 +721,7 @@ class Post extends Core\Base
 	 * @param bool $single Optional. Whether to return an array of single values. Default false.
 	 * @return WP_Error|array Will be an array with either scalars or arrays based on `$single`. Contains the individual meta_value results of get_post_meta. Will be WP_Error in case the regular expression fails to validate.
 	 */
-	public static function getMetaByRegexp( $post_id, $regexp, $single = FALSE )
+	public static function getMetaByRegexp( int $post_id, string $regexp, bool $single = FALSE ): object|array
 	{
 		global $wpdb;
 
@@ -740,7 +756,7 @@ class Post extends Core\Base
 	}
 
 	// @old: `WordPress\PostType::getParentPostID()`
-	public static function getParent( $post = NULL, $object = TRUE )
+	public static function getParent( $post = NULL, $object = TRUE ): false|int
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -763,7 +779,7 @@ class Post extends Core\Base
 	 * @param bool $checks
 	 * @return bool
 	 */
-	public static function setParent( $post_id, $parent_id, $checks = TRUE )
+	public static function setParent( int $post_id, int $parent_id, bool $checks = TRUE ): bool
 	{
 		global $wpdb;
 
@@ -788,7 +804,7 @@ class Post extends Core\Base
 	}
 
 	// @old: `WordPress\PostType::newPostFromTerm()`
-	public static function newByTerm( $term, $taxonomy = NULL, $posttype = 'post', $user_id = NULL )
+	public static function newByTerm( $term, $taxonomy = NULL, $posttype = 'post', $user_id = NULL ): int|object
 	{
 		if ( ! $term = Term::get( $term, $taxonomy ?: '' ) )
 			return FALSE;
@@ -805,7 +821,7 @@ class Post extends Core\Base
 		return wp_insert_post( $new_post );
 	}
 
-	public static function image( $post, $context = NULL, $size = NULL, $thumbnail_id = NULL )
+	public static function image( $post, $context = NULL, $size = NULL, $thumbnail_id = NULL ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -840,7 +856,7 @@ class Post extends Core\Base
 	 * @param string $posttype
 	 * @return object
 	 */
-	public static function defaultToEdit( $posttype )
+	public static function defaultToEdit( string $posttype ): object
 	{
 		$post                 = new \stdClass();
 		$post->ID             = 0;
@@ -870,7 +886,7 @@ class Post extends Core\Base
 	}
 
 	// OLD: `WordPress\PostType::supportBlocksByPost()`
-	public static function supportBlocks( $post )
+	public static function supportBlocks( $post ): bool
 	{
 		if ( ! function_exists( 'use_block_editor_for_post' ) )
 			return FALSE;
@@ -881,7 +897,7 @@ class Post extends Core\Base
 		return use_block_editor_for_post( $post );
 	}
 
-	public static function publishedInLast( $post, $in, $modulus = NULL )
+	public static function publishedInLast( $post, $in, $modulus = NULL ): bool
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
