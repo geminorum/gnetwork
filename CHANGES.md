@@ -1,3 +1,13 @@
+### [3.19.1] - 2026-07-30
+* module/blog: remove privacy cleanup hook
+* module/commerce: filter for validate phone hook
+* module/debug: support new core constants
+* module/feed: disable feed by constant
+* module/image: strip meta-data on resizes
+* module/images: also apply `jpeg` default quality to the old hook
+* module/images: customize `avif` quality
+* module/uptime: better handling api constant
+
 ## [3.19.0] - 2026-06-27
 * 🔧 min php 8.3
 * 🔧 change license to GPLv2 or later
