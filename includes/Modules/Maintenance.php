@@ -30,12 +30,12 @@ class Maintenance extends gNetwork\Module
 		}
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Maintenance', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'access_site'   => 'none', // maintenance_site
@@ -47,7 +47,7 @@ class Maintenance extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -101,7 +101,7 @@ class Maintenance extends gNetwork\Module
 		];
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		if ( is_main_site() ) {
 

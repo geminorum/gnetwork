@@ -18,12 +18,12 @@ class Optimize extends gNetwork\Module
 		$this->action( 'plugins_loaded', 0, 1 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Optimize', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'jquery_enhanced' => '0',
@@ -33,7 +33,7 @@ class Optimize extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_jquery' => [
@@ -198,7 +198,7 @@ class Optimize extends gNetwork\Module
 		$scripts->add( 'jquery', FALSE, $deps, $versions['core'][$latest], $bottom );
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		echo self::summaryjQuery();
 	}

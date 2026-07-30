@@ -33,12 +33,12 @@ class Widgets extends gNetwork\Module
 			add_action( 'wp_dashboard_setup', [ $this, 'disable_dashboard_widgets' ], 100 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Widgets', 'Modules: Menu Name', 'gnetwork-admin' ), NULL, 9, 'edit_theme_options' );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'register_sidebar_widgets'   => '0',
@@ -47,7 +47,7 @@ class Widgets extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [

@@ -73,7 +73,6 @@ class Locale extends gNetwork\Module
 		return (array) $this->filters( 'bypassed_domains', [
 			'gnetwork',
 			'geditorial',
-			'geditorial-admin',
 			'gpersiandate',
 			'gpeople',
 			'gplugin',
@@ -93,7 +92,10 @@ class Locale extends gNetwork\Module
 		if ( in_array( $domain, $this->get_bypassed_domains( $context ) ) )
 			return TRUE;
 
-		if ( Core\Text::starts( $domain, 'geditorial-' ) )
+		if ( Core\Text::starts( $domain, [
+			'gnetwork-',
+			'geditorial-',
+		] ) )
 			return TRUE;
 
 		return FALSE;
@@ -537,7 +539,13 @@ class Locale extends gNetwork\Module
 			return $current;
 
 		$list = $this->filters( 'whitelist', [
-			'bp-tools' => 'page',
+
+			/// `BuddyPress`
+			'available-tools'        => 'page',
+			'bp-tools'               => 'page',
+			'bp-members-invitations' => 'page',
+			'bp-optouts'             => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $base, $current );

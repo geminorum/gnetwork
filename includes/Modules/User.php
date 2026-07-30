@@ -12,6 +12,7 @@ class User extends gNetwork\Module
 {
 	protected $key  = 'user';
 	protected $cron = TRUE;
+	protected $icon = 'businessperson';
 
 	protected function setup_actions()
 	{
@@ -72,7 +73,7 @@ class User extends gNetwork\Module
 		$this->action( 'update_network_counts' );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'User', 'Modules: Menu Name', 'gnetwork-admin' ) );
 
@@ -83,7 +84,7 @@ class User extends gNetwork\Module
 			$this->register_tool( _x( 'Network Roles', 'Modules: Menu Name', 'gnetwork-admin' ), 'roles' );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'site_user_id'      => '0',      // `GNETWORK_SITE_USER_ID`
@@ -101,7 +102,7 @@ class User extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings  = array_fill_keys( [ '_general', '_username', '_search', '_dashboard' ], [] );
 		$multisite = is_multisite();
@@ -216,7 +217,7 @@ class User extends gNetwork\Module
 		return $settings;
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		$emtpy = TRUE;
 
@@ -417,7 +418,7 @@ class User extends gNetwork\Module
 		];
 	}
 
-	public function admin_head()
+	public function admin_head(): void
 	{
 		if ( GNETWORK_DISABLE_ALL_HELP_TABS )
 			get_current_screen()->remove_help_tabs();
@@ -723,7 +724,7 @@ class User extends gNetwork\Module
 
 	// Adopted from: `WP User Edit` by `John James Jacoby` v0.1.0 - 2017-11-16
 	// @REF: https://github.com/stuttter/wp-user-edit
-	public function map_meta_cap( $caps = [], $cap = '', $user_id = 0, $args = [] )
+	public function map_meta_cap( array $caps, string $cap, int $user_id, array $args ): array
 	{
 		switch ( $cap ) {
 
@@ -774,7 +775,7 @@ class User extends gNetwork\Module
 	}
 
 	// @SEE: https://make.wordpress.org/core/2022/10/09/introducing-wp_list_tableget_views_links-in-wordpress-6-1/
-	public function views_users_network( $views )
+	public function views_users_network( array $views ): array
 	{
 		// FIXME: remove current class from other views
 		$class = isset( $_GET['spam'] ) ? ' class="current"' : '';
@@ -798,7 +799,7 @@ class User extends gNetwork\Module
 		return array_merge( $views, [ 'spam' => $view ] );
 	}
 
-	public function users_list_table_query_args( $args )
+	public function users_list_table_query_args( array $args ):array
 	{
 		if ( isset( $_GET['spam'] ) )
 			$this->action( 'pre_user_query', 1, 10, 'query_spam' );
@@ -815,7 +816,7 @@ class User extends gNetwork\Module
 		return $args;
 	}
 
-	public function pre_user_query_query_spam( &$user_query )
+	public function pre_user_query_query_spam( object &$user_query ): void
 	{
 		global $wpdb;
 
@@ -823,7 +824,7 @@ class User extends gNetwork\Module
 	}
 
 	// NOTE: default columns: `cb`, `username`, `name`, `email`, `registered`, `blogs`
-	public function wpmu_users_columns( $columns )
+	public function wpmu_users_columns( array $columns ): array
 	{
 		$columns = Core\Arraay::insert( $columns, [
 			'extra' => _x( 'Extra', 'Modules: User', 'gnetwork-admin' ),
@@ -949,7 +950,7 @@ class User extends gNetwork\Module
 		echo $html;
 	}
 
-	public function manage_users_network_sortable_columns( $sortable_columns )
+	public function manage_users_network_sortable_columns( array $sortable_columns ): array
 	{
 		return array_merge( $sortable_columns, [
 			'timestamps' => 'user_registered',
@@ -959,7 +960,7 @@ class User extends gNetwork\Module
 
 	// @SOURCE: Better Admin Users Search by `Applelo` - 1.2.0 - 20221211
 	// @REF: https://wordpress.org/plugins/better-admin-users-search/
-	public function pre_user_query_enhanced_search( &$user_query )
+	public function pre_user_query_enhanced_search( object &$user_query ): void
 	{
 		global $wpdb;
 
@@ -972,7 +973,7 @@ class User extends gNetwork\Module
 			return;
 
 		$where  = 'WHERE 1=1';
-		$search = htmlspecialchars( '%'.trim( $user_query->query_vars['search'], '*' ).'%' );
+		$search = Core\Coding::entityEncodeQUOTES( '%'.trim( $user_query->query_vars['search'], '*' ).'%' );
 
 		if ( count( $this->options['search_values'] ) + count( $this->options['search_metas'] ) > 0 )
 			$where .= ' AND (';

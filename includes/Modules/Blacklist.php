@@ -27,7 +27,7 @@ class Blacklist extends gNetwork\Module
 			add_action( $this->hook( 'resync_remote' ), [ $this, 'resync_remote' ] );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Blacklist', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
@@ -38,7 +38,7 @@ class Blacklist extends gNetwork\Module
 			wp_die( $this->options['blacklisted_notice'], 403 );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'check_ip'           => '0',
@@ -47,7 +47,7 @@ class Blacklist extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -81,7 +81,7 @@ class Blacklist extends gNetwork\Module
 		];
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		if ( class_exists( __NAMESPACE__.'\\Debug' ) )
 			Debug::summaryIPs( _x( 'Your IP Summary', 'Modules: Blacklist: Settings', 'gnetwork-admin' ), FALSE );

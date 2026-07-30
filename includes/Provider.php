@@ -100,12 +100,12 @@ class Provider extends Core\Base
 		// WILL BE OVERRIDDEN
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [];
 	}
@@ -159,7 +159,7 @@ class Provider extends Core\Base
 		];
 	}
 
-	public static function getTypeGeneralSettings( $type, $current = [] )
+	public static function getTypeGeneralSettings( string $type, array $current = [] ): array
 	{
 		$providers = empty( $current['load_providers'] )
 			? []
@@ -207,7 +207,7 @@ class Provider extends Core\Base
 		];
 	}
 
-	public static function getSetting_log_to_private( $type )
+	public static function getSetting_log_to_private( string $type ): array
 	{
 		return [
 			'field'       => 'log_to_private',
@@ -216,24 +216,24 @@ class Provider extends Core\Base
 		];
 	}
 
-	public function providerEnabled()
+	public function providerEnabled(): bool
 	{
-		return $this->enabled;
+		return (bool) $this->enabled;
 	}
 
 	public function providerBalance() {}
 
-	public function providerName()
+	public function providerName(): string
 	{
 		return '[UNDEFINED]';
 	}
 
-	public function providerStatus()
+	public function providerStatus(): false|array
 	{
 		return FALSE; // [ 'class', 'message', 'link' ]
 	}
 
-	protected function apiEndpoint( ...$args )
+	protected function apiEndpoint( mixed ...$args ): false|string
 	{
 		if ( $this->api_uri )
 			return sprintf( $this->api_uri, $this->api_key )

@@ -402,7 +402,7 @@ class Navigation extends gNetwork\Module
 		return $menu_item;
 	}
 
-	public function wp_nav_menu_items( $items, $args )
+	public function wp_nav_menu_items( string $items, object $args ): string
 	{
 		$current = Core\URL::current();
 

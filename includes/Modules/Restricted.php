@@ -54,12 +54,12 @@ class Restricted extends gNetwork\Module
 		}
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Restricted', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'access_site'        => 'none',   // restricted_site
@@ -71,7 +71,7 @@ class Restricted extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -138,7 +138,7 @@ class Restricted extends gNetwork\Module
 		];
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		if ( $layout = Utilities::getLayout( 'status.403' ) ) {
 
@@ -464,8 +464,8 @@ class Restricted extends gNetwork\Module
 
 			// TODO: use `_xml_wp_die_handler()` @since WP 5.2.0
 
-			$message = htmlspecialchars( _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', 'gnetwork' ) );
-			$title   = htmlspecialchars( Core\HTTP::getStatusDesc( $this->status_code ) );
+			$message = Core\Coding::entityEncodeQUOTES( _x( 'You are not authorized to access this site\'s feed.', 'Modules: Restricted', 'gnetwork' ) );
+			$title   = Core\Coding::entityEncodeQUOTES( Core\HTTP::getStatusDesc( $this->status_code ) );
 
 			$xml = <<<EOD
 <error>

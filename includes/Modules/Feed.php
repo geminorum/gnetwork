@@ -25,12 +25,12 @@ class Feed extends gNetwork\Module
 			$this->filter( 'posts_where', 2 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Feed', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'json_feed'     => '0',
@@ -39,7 +39,7 @@ class Feed extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [

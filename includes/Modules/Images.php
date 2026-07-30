@@ -44,12 +44,12 @@ class Images extends gNetwork\Module
 			$this->filter( 'the_content', 1, 22, 'paragraps' );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Images', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'skip_exifmeta'     => '1',
@@ -64,7 +64,7 @@ class Images extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [

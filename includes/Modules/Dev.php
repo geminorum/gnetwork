@@ -41,7 +41,7 @@ class Dev extends gNetwork\Module
 		// remove_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		// $this->register_tool( _x( 'Dev Tools', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}

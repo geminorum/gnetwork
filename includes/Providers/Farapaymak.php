@@ -12,7 +12,7 @@ class Farapaymak extends gNetwork\Provider
 	protected $key  = 'farapaymak';
 	protected $type = 'sms';
 
-	public function providerName()
+	public function providerName(): string
 	{
 		return _x( 'Farapaymak', 'Provider: Farapaymak', 'gnetwork-admin' );
 	}
@@ -31,7 +31,7 @@ class Farapaymak extends gNetwork\Provider
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'wsdl' => [

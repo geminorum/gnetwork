@@ -18,7 +18,7 @@ class SMS extends gNetwork\Module
 	protected $icon = 'buddicons-pm';
 	protected $beta = TRUE; // FIXME
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'SMS', 'Modules: Menu Name', 'gnetwork-admin' ) );
 
@@ -26,19 +26,19 @@ class SMS extends gNetwork\Module
 			$this->register_tool( _x( 'SMS Logs', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return Provider::getTypeDefaultOptions( $this->key );
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings = [ '_general' => Provider::getTypeGeneralSettings( $this->key, $this->options ) ];
 
 		return $settings;
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		if ( GNETWORK_SMS_LOG_DIR && $this->options['log_data'] ) {
 

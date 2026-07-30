@@ -48,9 +48,9 @@ class Player extends gNetwork\Module
 	 * @param string $tag
 	 * @return string
 	 */
-	public function shortcode_audio_go( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_audio_go( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'to'       => '0',
 			'instance' => '0',
 			/* translators: `%s`: number of seconds */
@@ -76,9 +76,9 @@ class Player extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'audio-go', $args, FALSE );
 	}
 
-	public function shortcode_circular( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_circular( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'src'     => FALSE,
 			'size'    => NULL, // KNOWN-BUG: unable to change the size once is set
 			'context' => NULL,
@@ -115,9 +115,9 @@ class Player extends gNetwork\Module
 	 * @param string $tag
 	 * @return string
 	 */
-	public function shortcode_audio( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_audio( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'playbackspeed' => FALSE,
 			'download'      => FALSE,
 			'filename'      => NULL,           // @REF: http://davidwalsh.name/download-attribute

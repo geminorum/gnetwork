@@ -27,12 +27,12 @@ class OpenSearch extends gNetwork\Module
 		$this->filter( 'redirect_canonical', 2 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'OpenSearch', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'opensearch'  => '0',
@@ -47,7 +47,7 @@ class OpenSearch extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$name = get_bloginfo( 'name', 'display' );
 
@@ -135,7 +135,7 @@ class OpenSearch extends gNetwork\Module
 		];
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		if ( $this->options['opensearch'] ) {
 

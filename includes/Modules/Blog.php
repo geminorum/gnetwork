@@ -120,12 +120,12 @@ class Blog extends gNetwork\Module
 		$this->filter_false( 'jetpack_show_promotions', 20 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'General', 'Modules: Menu Name', 'gnetwork-admin' ), NULL, 5 );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'ssl_support'          => 0, // for non-multi-site only
@@ -161,7 +161,7 @@ class Blog extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings  = array_fill_keys( [ '_general', '_admin', '_economics', '_services', '_front', '_login', '_overrides', '_misc' ], [] );
 		$multisite = is_multisite();
@@ -916,7 +916,7 @@ class Blog extends gNetwork\Module
 	}
 
 	/**
-	 * Adopted from: `Disable Privacy Tools` by Dominik Schilling v1.1
+	 * Adopted from: `Disable Privacy Tools` by `Dominik Schilling` v1.1
 	 * @source https://github.com/ocean90/wp-disable-privacy-tools
 	 */
 	private function _setup_disable_privacytools()

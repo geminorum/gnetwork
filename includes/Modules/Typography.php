@@ -54,13 +54,13 @@ class Typography extends gNetwork\Module
 		add_filter( $this->hook(), [ $this, 'the_content_late' ] );               // only applies enabled
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Typography', 'Modules: Menu Name', 'gnetwork-admin' ) );
 		$this->register_tool( _x( 'Titles', 'Modules: Menu Name', 'gnetwork-admin' ), 'titles' );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'tools_accesscap'      => 'edit_others_posts',
@@ -80,7 +80,7 @@ class Typography extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -584,9 +584,9 @@ class Typography extends gNetwork\Module
 	}
 
 	// @SEE: https://wordpress.org/plugins/wikilinker/
-	public function shortcode_wiki( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_wiki( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'slug'    => NULL,
 			'lang'    => NULL,
 			'domain'  => 'wikipedia.org/wiki',
@@ -627,9 +627,9 @@ class Typography extends gNetwork\Module
 	}
 
 	// @REF: https://unicode-table.com/en/FDFD/
-	public function shortcode_bismillah( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_bismillah( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'markup'  => NULL,
 			'context' => NULL,
 			'wrap'    => TRUE,
@@ -641,7 +641,7 @@ class Typography extends gNetwork\Module
 			return NULL;
 
 		return self::shortcodeWrap(
-			$args['markup'] ?? html_entity_decode( '&#65021;', ENT_QUOTES, 'UTF-8' ),
+			$args['markup'] ?? Core\Coding::entityDecode( '&#65021;' ),
 			'bismillah',
 			$args
 		);
@@ -652,12 +652,12 @@ class Typography extends gNetwork\Module
 	// @SEE: https://spec.commonmark.org/0.31.2/#thematic-breaks
 	// `***`/`---`/`___`
 	// `+++`/`===`
-	public function shortcode_three_asterisks( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_three_asterisks( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		return self::shortcodeWrap( '&#x274b;&nbsp;&#x274b;&nbsp;&#x274b;', 'asterisks', [ 'wrap' => TRUE ] );
 	}
 
-	public function shortcode_numeral_section_title( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_numeral_section_title( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( is_null( $content ) || ! is_singular() )
 			return NULL;
@@ -671,7 +671,7 @@ class Typography extends gNetwork\Module
 	}
 
 	// FIXME: use entities in tel short code
-	public function shortcode_ltr( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_ltr( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( is_null( $content ) )
 			return $content;
@@ -679,11 +679,11 @@ class Typography extends gNetwork\Module
 		return '<span class="ltr" dir="ltr">'.apply_shortcodes( $content, TRUE ).'</span>';
 	}
 
-	public function shortcode_pad( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_pad( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( isset( $atts['space'] ) ) {
 
-			$args = shortcode_atts( [
+			$args = WordPress\ShortCode::attributes( [
 				'space'   => 3,
 				'class'   => 'typography-pad',
 				'context' => NULL,
@@ -713,11 +713,11 @@ class Typography extends gNetwork\Module
 		], $html );
 	}
 
-	public function shortcode_spacer( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_spacer( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( isset( $atts['space'] ) ) {
 
-			$args = shortcode_atts( [
+			$args = WordPress\ShortCode::attributes( [
 				'space'   => 10,
 				'class'   => 'typography-spacer',
 				'id'      => FALSE,
@@ -740,9 +740,9 @@ class Typography extends gNetwork\Module
 		return Core\HTML::tag( 'div', $args, NULL );
 	}
 
-	public function shortcode_clearleft( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_clearleft( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'class'   => 'typography-clearleft',
 			'id'      => FALSE,
 			'span'    => FALSE,
@@ -759,9 +759,9 @@ class Typography extends gNetwork\Module
 		return Core\HTML::tag( $tag, $args, NULL );
 	}
 
-	public function shortcode_clearright( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_clearright( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'class'   => 'typography-clearright',
 			'id'      => FALSE,
 			'span'    => FALSE,
@@ -778,9 +778,9 @@ class Typography extends gNetwork\Module
 		return Core\HTML::tag( $tag, $args, NULL );
 	}
 
-	public function shortcode_clearboth( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_clearboth( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'class'   => 'typography-clearboth',
 			'id'      => FALSE,
 			'span'    => FALSE,

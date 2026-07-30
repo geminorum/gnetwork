@@ -77,12 +77,12 @@ class Themes extends gNetwork\Module
 		$this->filter_true( 'should_load_separate_core_block_assets' );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Themes', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'disable_themes'   => '1',
@@ -97,7 +97,7 @@ class Themes extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings = [
 			'_general' => [

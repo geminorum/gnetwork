@@ -58,12 +58,12 @@ class Notify extends gNetwork\Module
 		$this->filter_false( 'auto_theme_update_send_email' );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Notify', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'disable_new_site_email'       => 0,
@@ -79,7 +79,7 @@ class Notify extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings = [
 			'_general' => [
@@ -169,7 +169,7 @@ class Notify extends gNetwork\Module
 		return $settings;
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		echo $this->wrap_open_buttons();
 

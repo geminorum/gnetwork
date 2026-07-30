@@ -69,12 +69,12 @@ class Search extends gNetwork\Module
 		$this->filter( 'get_search_form' );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Search', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'search_disabled'     => '0',
@@ -89,7 +89,7 @@ class Search extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -170,7 +170,7 @@ class Search extends gNetwork\Module
 		];
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		$page = WordPress\URL::search();
 
@@ -446,9 +446,9 @@ class Search extends gNetwork\Module
 		return $html;
 	}
 
-	public function shortcode_search_form( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_search_form( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'theme'   => FALSE,
 			'context' => NULL,
 		], $atts, $tag );

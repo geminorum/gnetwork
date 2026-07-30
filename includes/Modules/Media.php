@@ -43,7 +43,7 @@ class Media extends gNetwork\Module
 		// add_filter( 'wp_image_editors', function() { return [ 'WP_Image_Editor_GD', 'WP_Image_Editor_Imagick' ]; } );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Media', 'Modules: Menu Name', 'gnetwork-admin' ) );
 		$this->register_tool( _x( 'Images', 'Modules: Menu Name', 'gnetwork-admin' ), 'images' );
@@ -54,14 +54,14 @@ class Media extends gNetwork\Module
 		$this->_hook_ajax();
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'tools_accesscap' => 'edit_others_posts',
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -76,7 +76,7 @@ class Media extends gNetwork\Module
 		];
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		self::summaryAttachments();
 	}

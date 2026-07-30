@@ -43,13 +43,13 @@ class Commerce extends gNetwork\Module
 			require_once GNETWORK_DIR.'includes/Misc/CommercePluggable.php';
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Commerce', 'Modules: Menu Name', 'gnetwork-admin' ) );
 		$this->register_tool( _x( 'Products', 'Modules: Menu Name', 'gnetwork-admin' ), 'products', 12, 'edit_others_products' );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'hide_price_on_outofstock' => '0',
@@ -64,7 +64,7 @@ class Commerce extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			// move to wc-tweaks

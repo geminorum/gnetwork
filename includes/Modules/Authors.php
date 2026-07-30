@@ -42,13 +42,13 @@ class Authors extends gNetwork\Module
 			$this->filter( 'map_meta_cap', 4, 9 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Authors', 'Modules: Menu Name', 'gnetwork-admin' ) );
 		$this->register_tool( _x( 'Authors', 'Modules: Menu Name', 'gnetwork-admin' ), NULL, 9, 'edit_users' );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'force_multi_author'   => '1',
@@ -61,7 +61,7 @@ class Authors extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -108,7 +108,7 @@ class Authors extends gNetwork\Module
 		];
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		self::summarySiteUser();
 	}
@@ -327,7 +327,7 @@ class Authors extends gNetwork\Module
 	}
 
 	// @REF: https://make.wordpress.org/core/2016/10/28/fine-grained-capabilities-for-taxonomy-terms-in-4-7/
-	public function map_meta_cap( $caps = [], $cap = '', $user_id = 0, $args = [] )
+	public function map_meta_cap( array $caps, string $cap, int $user_id, array $args ): array
 	{
 		switch ( $cap ) {
 			case 'manage_post_tags':
@@ -348,9 +348,9 @@ class Authors extends gNetwork\Module
 		];
 	}
 
-	public function shortcode_logged_in( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_logged_in( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'text'    => NULL,
 			'cap'     => NULL,
 			'context' => NULL,
@@ -370,9 +370,9 @@ class Authors extends gNetwork\Module
 		return apply_shortcodes( $content );
 	}
 
-	public function shortcode_not_logged_in( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_not_logged_in( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'text'    => NULL,
 			'context' => NULL,
 		], $atts, $tag );

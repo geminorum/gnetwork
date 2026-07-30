@@ -76,7 +76,7 @@ class Debug extends gNetwork\Module
 		$this->_fix_ob_end_flush_all();
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_tool( _x( 'Remote Tests', 'Modules: Menu Name', 'gnetwork-admin' ), 'remotetests' );
 

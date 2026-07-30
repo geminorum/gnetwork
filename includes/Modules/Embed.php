@@ -45,12 +45,12 @@ class Embed extends gNetwork\Module
 		$this->filter( 'embed_oembed_html', 4, 99 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Embed', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'load_defaults'          => 0,
@@ -71,7 +71,7 @@ class Embed extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings = [
 			'_general' => [
@@ -332,10 +332,11 @@ class Embed extends gNetwork\Module
 				return $this->options['error_message'];
 			}
 
-			$layout = '<div class="-item"><div class="-preview">%s</div><div class="-description"><h4 class="-title"><a href="%s">%s</a></h4><span class="-date">%s</span>%s</div></div>';
-			$width  = (int) ( ( 40 / 100 ) * $attr['width'] ); // css layout is 40% iframe
-			$height = (int) ( 9 * $width / 16 ); // aparat is 16:9
 			$html   = '';
+			$layout = '<div class="-item"><div class="-preview">%s</div><div class="-description"><h4 class="-title"><a href="%s">%s</a></h4><span class="-date">%s</span>%s</div></div>';
+
+			$width  = (int) ( ( 40 / 100 ) * $attr['width'] );  // CSS layout is `40%` iframe
+			$height = (int) ( 9 * $width / 16 );                // `Aparat` is `16:9`
 
 			foreach ( $rss->get_items( 0, $count ) as $item ) {
 
@@ -359,8 +360,11 @@ class Embed extends gNetwork\Module
 
 				$date = gNetwork\Datetime::dateFormat( $item->get_date( 'U' ) );
 
-				$desc = @html_entity_decode( $item->get_description(), ENT_QUOTES, get_option( 'blog_charset' ) );
-				$desc = wp_trim_words( $desc, apply_filters( 'excerpt_length', 55 ), apply_filters( 'excerpt_more', ' &hellip;' ) );
+				$desc = Core\Coding::entityDecode( $item->get_description() );
+				$desc = wp_trim_words( $desc,
+					apply_filters( 'excerpt_length', 55 ),
+					apply_filters( 'excerpt_more', ' &hellip;' )
+				);
 
 				$html.= sprintf( $layout, $video, $link, Utilities::prepTitle( $title ), $date, Utilities::prepDescription( $desc ) );
 			}

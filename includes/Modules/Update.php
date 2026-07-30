@@ -25,7 +25,7 @@ class Update extends gNetwork\Module
 			$this->filter_true( 'automatic_updater_disabled' );
 			$this->filter_false( 'auto_update_core' );
 
-			$this->filter( 'map_meta_cap', 2, 9 );
+			$this->filter( 'map_meta_cap', 4, 9 );
 			$this->filter( 'site_status_tests' );
 
 			return FALSE;
@@ -64,12 +64,12 @@ class Update extends gNetwork\Module
 		$this->action( '_core_updated_successfully' );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Update', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'disable_autoupdates'  => '0',
@@ -156,7 +156,7 @@ class Update extends gNetwork\Module
 		);
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		echo $this->wrap_open_buttons();
 
@@ -811,7 +811,7 @@ class Update extends gNetwork\Module
 				delete_site_transient( $this->hash( 'package', $package, NULL ) );
 	}
 
-	public function map_meta_cap( $caps, $cap )
+	public function map_meta_cap( array $caps, string $cap, int $user_id, array $args ): array
 	{
 		if ( in_array( $cap, [ 'update_plugins', 'update_themes', 'update_core' ] ) )
 			$caps[] = 'do_not_allow';

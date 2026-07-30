@@ -29,12 +29,12 @@ class Lockdown extends gNetwork\Module
 		$this->filter( 'shake_error_codes' ); // FIXME: must be on login only?
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Lockdown', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'record_attempts'   => '0',
@@ -46,7 +46,7 @@ class Lockdown extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [

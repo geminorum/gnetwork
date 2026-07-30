@@ -24,12 +24,12 @@ class Legal extends gNetwork\Module
 		}
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Legal', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'tos_display' => '0',
@@ -41,7 +41,7 @@ class Legal extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_tos' => [
@@ -98,7 +98,7 @@ class Legal extends gNetwork\Module
 	}
 
 	// @SEE: https://wordpress.org/plugins/ads-txt/
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		echo $this->wrap_open_buttons();
 

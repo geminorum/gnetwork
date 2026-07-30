@@ -35,20 +35,20 @@ class Rewrite extends gNetwork\Module
 		$this->filter_module( 'dashboard', 'pointers', 1, -10 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork-admin' ) );
 		$this->register_tool( _x( 'Rewrite Rules', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'remove_category_base' => '0',
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -71,7 +71,7 @@ class Rewrite extends gNetwork\Module
 		wp_cache_delete( 'rewrite_rules', 'options' );
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		if ( WordPress\URL::maybeFlushRules() )
 			Core\HTML::desc( _x( 'You need to flush rewrite rules!', 'Modules: Rewrite', 'gnetwork-admin' ), TRUE, '-color-danger' );

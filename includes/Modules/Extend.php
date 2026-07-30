@@ -22,7 +22,7 @@ class Extend extends gNetwork\Module
 			return FALSE; // disable menus
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_tool( _x( 'Extend', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}

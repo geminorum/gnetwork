@@ -30,12 +30,12 @@ class Tracking extends gNetwork\Module
 		$this->action_module( 'restricted', 'template_after', 0, 15 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Tracking', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'register_shortcodes' => '0',
@@ -49,7 +49,7 @@ class Tracking extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -140,9 +140,9 @@ class Tracking extends gNetwork\Module
 		];
 	}
 
-	public function shortcode_ga_beacon( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_ga_beacon( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'server'  => 'https://ga-beacon.appspot.com/',
 			'beacon'  => $this->options['ga_beacon'],
 			'domain'  => Core\URL::domain( $this->options['primary_domain'] ),

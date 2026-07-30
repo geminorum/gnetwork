@@ -207,7 +207,7 @@ class ShortCodes extends gNetwork\Module
 		] );
 	}
 
-	public function tinymce_strings( $strings )
+	public function tinymce_strings( array $strings ): array
 	{
 		$new = [
 			'gnetworkref-title' => _x( 'Cite This', 'TinyMCE Strings: Ref', 'gnetwork-admin' ),
@@ -248,14 +248,14 @@ class ShortCodes extends gNetwork\Module
 		return $prepared;
 	}
 
-	public function shortcode_return_content( $atts, $content = NULL, $tag = '' )
+	public function shortcode_return_content( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		return $content;
 	}
 
-	public function shortcode_children( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_children( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'      => get_queried_object_id(),
 			'type'    => 'page',
 			'context' => NULL,
@@ -286,9 +286,9 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( '<ul>'.$children.'</ul>', 'children', $args );
 	}
 
-	public function shortcode_siblings( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_siblings( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'parent'  => NULL,
 			'type'    => 'page',
 			'ex'      => NULL,
@@ -336,11 +336,11 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: move to gEditorial Terms (using api)
 	// USAGE: [in-term tax="category" slug="uncategorized" order="menu_order" /]
 	// EDITED: 4/5/2016, 5:03:30 PM
-	public function shortcode_in_term( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_in_term( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		global $post;
 
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'            => FALSE,
 			'slug'          => FALSE,
 			'tax'           => 'category',
@@ -514,9 +514,9 @@ class ShortCodes extends gNetwork\Module
 	// FIXME: move to `gEditorial` Terms (using API)
 	// FIXME: working draft
 	// EDITED: 4/5/2016, 5:01:31 PM
-	public function shortcode_all_terms( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_all_terms( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'      => get_queried_object_id(),
 			'tax'     => NULL,
 			'context' => NULL,
@@ -559,7 +559,7 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// NOTE: DEPRECATED: not registered here and it's for BACK-COMPATIBILITY
-	public function shortcode_last_edited( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_last_edited( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( ! function_exists( 'gEditorial' ) )
 			return $content;
@@ -570,9 +570,9 @@ class ShortCodes extends gNetwork\Module
 		return gEditorial()->module( 'modified' )->post_modified_shortcode( $atts, $content, $tag );
 	}
 
-	public function shortcode_menu( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_menu( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'menu'            => '',
 			'container'       => '',
 			'container_class' => '',
@@ -617,9 +617,9 @@ class ShortCodes extends gNetwork\Module
 		return self::blockWrap( $html, 'post-title', $attributes, FALSE );
 	}
 
-	public function shortcode_post_title( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_post_title( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'post'    => NULL,
 			'link'    => TRUE,
 			'context' => NULL,
@@ -648,9 +648,9 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'post-title', $args, FALSE );
 	}
 
-	public function shortcode_permalink( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_permalink( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'post'      => NULL,
 			'slug'      => FALSE,
 			'type'      => 'page', // only with slug
@@ -705,9 +705,9 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// TODO: more cases
-	public function shortcode_back( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_back( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'      => get_queried_object_id(),
 			'to'      => 'parent',
 			'html'    => _x( 'Back', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
@@ -769,9 +769,9 @@ class ShortCodes extends gNetwork\Module
 		return $html ? self::shortcodeWrap( $html, 'back', $args ) : $content;
 	}
 
-	public function shortcode_button( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_button( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'url'       => FALSE,
 			'genericon' => FALSE,
 			'class'     => '',
@@ -810,9 +810,9 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'button', $args, FALSE );
 	}
 
-	public function shortcode_image( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_image( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'        => FALSE,      // attachment id
 			'src'       => FALSE,      // raw url
 			'link'      => NULL,       // `page`/`parent`/`image`/`FALSE`
@@ -917,9 +917,9 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'image', $args );
 	}
 
-	public function shortcode_iframe( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_iframe( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'url'     => FALSE,
 			'width'   => '100%',
 			'height'  => '520',
@@ -958,9 +958,9 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// @REF: https://codex.wordpress.org/Javascript_Reference/ThickBox
-	public function shortcode_thickbox( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_thickbox( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'url'     => FALSE,
 			'title'   => NULL,
 			'width'   => NULL,
@@ -1007,9 +1007,9 @@ class ShortCodes extends gNetwork\Module
 	// [email subject="Email Subject"]you@you.com[/email]
 	// http://www.cubetoon.com/2008/how-to-enter-line-break-into-mailto-body-command/
 	// https://css-tricks.com/snippets/html/mailto-links/
-	public function shortcode_email( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_email( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'subject'  => FALSE,
 			'title'    => FALSE,
 			'email'    => FALSE, // override
@@ -1044,9 +1044,9 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// @REF: http://stackoverflow.com/a/13662220
-	public function shortcode_tel( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_tel( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'number'  => NULL,
 			'title'   => FALSE,
 			'context' => NULL,
@@ -1077,9 +1077,9 @@ class ShortCodes extends gNetwork\Module
 
 	// @REF: http://stackoverflow.com/a/19126326
 	// @TEST: http://bradorego.com/test/sms.html
-	public function shortcode_sms( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_sms( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'number'  => NULL,
 			'body'    => FALSE,
 			'title'   => FALSE,
@@ -1114,9 +1114,9 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'sms', $args, FALSE );
 	}
 
-	public function shortcode_qrcode( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_qrcode( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'size'    => NULL,
 			'data'    => NULL,
 			'type'    => NULL,
@@ -1174,9 +1174,9 @@ class ShortCodes extends gNetwork\Module
 		);
 	}
 
-	public function shortcode_search( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_search( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'for'     => FALSE, // override
 			'url'     => FALSE, // override
 			/* translators: `%s`: search criteria */
@@ -1204,9 +1204,9 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'search', $args, FALSE );
 	}
 
-	public function shortcode_google_form( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_google_form( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'key'      => NULL,
 			// 'template' => 'https://spreadsheets.google.com/embeddedform?formkey=%s',
 			'template' => 'https://docs.google.com/forms/d/e/%s/viewform?embedded=true',
@@ -1234,9 +1234,9 @@ class ShortCodes extends gNetwork\Module
 		] ), $content, $tag );
 	}
 
-	public function shortcode_markdown( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_markdown( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'      => FALSE,
 			'url'     => FALSE,
 			'path'    => FALSE,     // without `ABSPATH`
@@ -1267,9 +1267,9 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( Utilities::mdExtra( $markdown ), 'markdown', $args );
 	}
 
-	public function shortcode_raw( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_raw( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'      => FALSE,
 			'url'     => FALSE,
 			'path'    => FALSE,     // without `ABSPATH`
@@ -1302,9 +1302,9 @@ class ShortCodes extends gNetwork\Module
 
 	// TODO: download option
 	// @REF: https://github.com/pipwerks/PDFObject
-	public function shortcode_pdf( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_pdf( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'       => FALSE,
 			'url'      => FALSE,
 			'title'    => NULL,  // NULL to fallback to attachment title
@@ -1360,9 +1360,9 @@ class ShortCodes extends gNetwork\Module
 		return self::shortcodeWrap( '<div id="'.$selector.'"></div>', 'pdf', $args );
 	}
 
-	public function shortcode_csv( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_csv( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'           => FALSE,
 			'url'          => FALSE,
 			'columns'      => NULL,
@@ -1492,9 +1492,9 @@ class ShortCodes extends gNetwork\Module
 		return $data ? Core\HTML::escape( apply_filters( 'html_format_i18n', $data ) ) : $fallback;
 	}
 
-	public function shortcode_redirect( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_redirect( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'duration' => '',
 			'location' => '',
 			/* translators: `%s`: redirect URL */
@@ -1518,9 +1518,9 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// @EXAMPLE: `[bloginfo key='name']`
-	public function shortcode_bloginfo( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_bloginfo( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'key'     => '',      // @SEE: https://codex.wordpress.org/Template_Tags/bloginfo
 			'class'   => '',      // OR: `key-%s`
 			'context' => NULL,
@@ -1545,7 +1545,7 @@ class ShortCodes extends gNetwork\Module
 	// TODO: suffix post id from current post
 	// TODO: cache MD5 of ref content for comparison
 	// MAYBE: run the short-code manually before core on post_content
-	public function shortcode_ref( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_ref( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( is_null( $content ) || ! is_singular() )
 			return NULL;
@@ -1555,7 +1555,7 @@ class ShortCodes extends gNetwork\Module
 			return NULL;
 		}
 
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'url'       => FALSE,
 			// 'url_text'  => is_rtl() ? '[&#8620;]' : '[&#8619;]',
 			'url_text'  => is_rtl()
@@ -1624,7 +1624,7 @@ class ShortCodes extends gNetwork\Module
 		return '&#xfeff;'.'<sup class="ref reference '.$args['class'].'" id="citeref-'.$key.'" data-ref="'.$key.'">'.$html.'</sup>'.' '; // plus extra space
 	}
 
-	public function shortcode_reflist( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_reflist( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( $this->ref_list )
 			return NULL;
@@ -1637,7 +1637,7 @@ class ShortCodes extends gNetwork\Module
 			return Core\HTML::tag( 'p', _x( 'See the footnotes on the site.', 'Shortcodes Module: Defaults', 'gnetwork' ) );
 		}
 
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'title'        => $this->filters( 'reflist_title', '', $atts, $content, $tag ),
 			'columns'      => FALSE, // '20em' // @REF: http://en.wikipedia.org/wiki/Help:Footnotes#Reference_lists:_columns
 			'number'       => FALSE,
@@ -1738,7 +1738,7 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// FIXME: check this!
-	public function shortcode_ref_manual( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_ref_manual( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( is_null( $content ) || ! is_singular() || WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return NULL;
@@ -1747,7 +1747,7 @@ class ShortCodes extends gNetwork\Module
 		// [ref-m 0 "Caption Title"]
 		if ( isset( $atts['id'] ) ) {
 
-			$args = shortcode_atts( [
+			$args = WordPress\ShortCode::attributes( [
 				'id'            => 0,
 				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', 'gnetwork' ),
 				'class'         => 'ref-anchor',
@@ -1773,7 +1773,7 @@ class ShortCodes extends gNetwork\Module
 	}
 
 	// FIXME: check this!
-	public function shortcode_reflist_manual( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_reflist_manual( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		if ( WordPress\IsIt::xml() || WordPress\IsIt::rest() )
 			return NULL;
@@ -1782,7 +1782,7 @@ class ShortCodes extends gNetwork\Module
 		// [reflist-m 0 "Caption Title"]
 		if ( isset( $atts['id'] ) ) {
 
-			$args = shortcode_atts( [
+			$args = WordPress\ShortCode::attributes( [
 				'id'            => 0,
 				'title'         => _x( 'See the Footnote', 'Shortcodes Module: Defaults', 'gnetwork' ),
 				'class'         => 'ref-anchor',
@@ -1813,9 +1813,9 @@ class ShortCodes extends gNetwork\Module
 				.'</a></span><span class="ref-text"><span class="citation" id="citenote-'.$args['id'].'-m">&nbsp;</span></span></span>';
 	}
 
-	public function shortcode_person( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_person( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'      => FALSE,
 			'name'    => FALSE,
 			'context' => NULL,

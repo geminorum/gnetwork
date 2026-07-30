@@ -323,7 +323,7 @@ class Module extends WordPress\Module
 		return gNetwork()->base;
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [];
 	}

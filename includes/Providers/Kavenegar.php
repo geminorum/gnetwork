@@ -21,7 +21,7 @@ class Kavenegar extends gNetwork\Provider
 	protected $api_uri    = 'https://api.kavenegar.com/v1/%s/';
 	protected $api_suffix = '.json';
 
-	public function providerName()
+	public function providerName(): string
 	{
 		return _x( 'Kavenegar', 'Provider: Kavenegar', 'gnetwork-admin' );
 	}
@@ -37,7 +37,7 @@ class Kavenegar extends gNetwork\Provider
 		add_filter( $this->base.'_sms_recieve_args', [ $this, 'sms_recieve_args' ] );
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'api_key' => [
@@ -105,7 +105,7 @@ class Kavenegar extends gNetwork\Provider
 		return FALSE;
 	}
 
-	public function providerStatus()
+	public function providerStatus(): false|array
 	{
 		if ( $balance = $this->providerBalance() )
 			return [

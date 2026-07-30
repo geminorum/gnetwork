@@ -20,12 +20,12 @@ class Code extends gNetwork\Module
 		add_filter( $this->hook( 'markdown_to_html' ), [ $this, 'markdown_to_html' ], 10, 3 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Code', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'register_shortcodes' => '0',
@@ -33,7 +33,7 @@ class Code extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [
@@ -85,9 +85,9 @@ class Code extends gNetwork\Module
 
 	// TODO: use github conversion api instead of ParsedownExtra
 	// @REF: https://developer.github.com/v3/
-	public function shortcode_github_readme( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_github_readme( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'repo'    => 'geminorum/gnetwork',
 			'branch'  => 'master',
 			'type'    => 'readme', // 'readme', 'changelog', 'markdown', 'wiki'
@@ -202,9 +202,9 @@ class Code extends gNetwork\Module
 
 	// @REF: https://github.com/bvanderhoof/gist-embed
 	// @REF: http://blairvanderhoof.com/gist-embed/
-	public function shortcode_github_gist( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_github_gist( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'id'                => FALSE,
 			'hide-line-numbers' => FALSE,
 			'hide-footer'       => TRUE,
@@ -241,9 +241,9 @@ class Code extends gNetwork\Module
 		return self::shortcodeWrap( $html, 'github-gist', $args, TRUE, [ 'data-github-gist' => $args['id'] ] );
 	}
 
-	public function shortcode_textarea( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_textarea( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'js'       => TRUE,
 			'readonly' => TRUE,
 			'class'    => 'large-text',
@@ -269,9 +269,9 @@ class Code extends gNetwork\Module
 	}
 
 	// @SEE: http://shields.io/
-	public function shortcode_shields_io( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_shields_io( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'link'      => 'https://geminorum.ir',
 			'subject'   => "it's a",
 			'status'    => 'geminorum project',
@@ -301,9 +301,9 @@ class Code extends gNetwork\Module
 	}
 
 	// also works with empty content
-	public function shortcode_prismjs( $atts = [], $content = NULL, $tag = '' )
+	public function shortcode_prismjs( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
-		$args = shortcode_atts( [
+		$args = WordPress\ShortCode::attributes( [
 			'language' => 'php',
 			'height'   => '',
 			'filename' => '',

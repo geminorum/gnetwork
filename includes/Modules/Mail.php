@@ -35,7 +35,7 @@ class Mail extends gNetwork\Module
 			$this->filter( 'is_email_address_unsafe', 2, 9 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Mail', 'Modules: Menu Name', 'gnetwork-admin' ) );
 		$this->register_tool( _x( 'Test Mail', 'Modules: Menu Name', 'gnetwork-admin' ), 'testmail', 16 );
@@ -44,7 +44,7 @@ class Mail extends gNetwork\Module
 			$this->register_tool( _x( 'Email Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'emaillogs', 15, NULL, FALSE );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'disposable_check' => '1',
@@ -61,7 +61,7 @@ class Mail extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings = [
 			'_general' => [
@@ -205,7 +205,7 @@ class Mail extends gNetwork\Module
 		];
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		echo $this->wrap_open_buttons();
 

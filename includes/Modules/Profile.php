@@ -69,12 +69,12 @@ class Profile extends gNetwork\Module
 		add_filter( 'get_user_option_comment_shortcuts', [ $this, 'get_user_option_option' ], 8, 3 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Profile', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'display_name_per_site'  => '0',
@@ -90,7 +90,7 @@ class Profile extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings  = array_fill_keys( [ '_general', '_signup' ], [] );
 		$multisite = is_multisite();
@@ -183,7 +183,7 @@ class Profile extends gNetwork\Module
 		return $settings;
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		$wpupload = WordPress\Media::upload();
 

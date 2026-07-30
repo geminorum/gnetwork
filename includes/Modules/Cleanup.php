@@ -16,12 +16,12 @@ class Cleanup extends gNetwork\Module
 	protected $front   = FALSE;
 	protected $icon    = 'trash';
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_tool( _x( 'Cleanup', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings   = [];
 		$confirm    = Settings::getButtonConfirm();

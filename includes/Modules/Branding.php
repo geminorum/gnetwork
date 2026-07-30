@@ -54,12 +54,12 @@ class Branding extends gNetwork\Module
 		$this->action_module( 'restricted', 'template_before', 0, 5 );
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Branding', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'brand_name'         => '',
@@ -84,7 +84,7 @@ class Branding extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings  = [];
 		$multisite = is_multisite();
@@ -274,7 +274,7 @@ class Branding extends gNetwork\Module
 		Scripts::enqueueCodeEditor();
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		if ( $this->options['network_sitelogo'] ) {
 

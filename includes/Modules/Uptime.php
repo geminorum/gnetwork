@@ -23,12 +23,12 @@ class Uptime extends gNetwork\Module
 			$this->api_key = $this->options['uptimerobot_apikey'];
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Uptime', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'dashboard_widget'    => '0',
@@ -37,7 +37,7 @@ class Uptime extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		return [
 			'_general' => [

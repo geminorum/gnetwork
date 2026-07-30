@@ -44,12 +44,12 @@ class Site extends gNetwork\Module
 		}
 	}
 
-	public function setup_menu( $context )
+	public function setup_menu( ?string $context ): void
 	{
 		$this->register_menu( _x( 'Global', 'Modules: Menu Name', 'gnetwork-admin' ) );
 	}
 
-	public function default_options()
+	public function default_options(): array
 	{
 		return [
 			'ssl_support'       => '0',
@@ -72,7 +72,7 @@ class Site extends gNetwork\Module
 		];
 	}
 
-	public function default_settings()
+	public function default_settings(): array
 	{
 		$settings = [];
 
@@ -238,7 +238,7 @@ class Site extends gNetwork\Module
 		Settings::fieldSection( _x( 'Dashboard Access', 'Modules: Site: Settings', 'gnetwork-admin' ) );
 	}
 
-	public function settings_sidebox( $sub, $uri )
+	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
 		$sitemeta = is_site_meta_supported();
 

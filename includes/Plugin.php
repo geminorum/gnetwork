@@ -387,4 +387,11 @@ class Plugin extends WordPress\Plugin
 			? Core\HTML::tag( $wrap, [ 'title' => __( 'Not Available', 'gnetwork' ) ], __( 'N/A', 'gnetwork' ) )
 			: __( 'N/A', 'gnetwork' );
 	}
+
+	public static function nojs( false|string $wrap = 'p' ): string
+	{
+		// $message = __( 'This requires JavaScript.', 'gnetwork' );
+		$message = __( 'You have to enable JavaScript!', 'gnetwork' );
+		return $wrap ? Core\HTML::tag( $wrap, [ 'class' => [ 'description', '-description', '-empty', '-nojs-available' ] ], $message ) : $message;
+	}
 }

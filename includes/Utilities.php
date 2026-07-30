@@ -213,7 +213,7 @@ class Utilities extends Core\Base
 	}
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki
-	public static function getMustache( $base = GNETWORK_DIR )
+	public static function getMustache( string $base = GNETWORK_DIR ): object
 	{
 		global $gNetworkMustache;
 
@@ -229,7 +229,7 @@ class Utilities extends Core\Base
 			'loader'          => new \Mustache\Loader\FilesystemLoader( $base.'assets/views' ),
 			'partials_loader' => new \Mustache\Loader\FilesystemLoader( $base.'assets/views/partials' ),
 			'escape'          => static function ( $value ) {
-				return htmlspecialchars( $value, ENT_COMPAT, 'UTF-8' );
+				return Core\Coding::entityEncodeCOMPAT( $value );
 			},
 		] );
 
@@ -238,7 +238,7 @@ class Utilities extends Core\Base
 
 	// @SEE: https://github.com/bobthecow/mustache.php/wiki/Mustache-Tags
 	// TODO: drop mustache for `gNetwork`
-	public static function renderMustache( $part, $data = [], $verbose = TRUE )
+	public static function renderMustache( string $part, array $data = [], bool $verbose = TRUE ): true|string
 	{
 		$mustache = self::getMustache();
 		$template = $mustache->loadTemplate( $part );
@@ -248,9 +248,10 @@ class Utilities extends Core\Base
 			return $html;
 
 		echo $html;
+		return TRUE;
 	}
 
-	public static function joinItems( $items )
+	public static function joinItems( array $items ): string
 	{
 		return
 			_x( '&rdquo;', 'Utilities: Join Items Helper', 'gnetwork' )
@@ -262,7 +263,7 @@ class Utilities extends Core\Base
 			._x( '&ldquo;', 'Utilities: Join Items Helper', 'gnetwork' ).'.';
 	}
 
-	public static function getJoined( $items, $before = '', $after = '', $empty = '' )
+	public static function getJoined( array $items, string $before = '', string $after = '', string $empty = '' ): string
 	{
 		if ( $items && count( $items ) )
 			return $before.implode( WordPress\Strings::separator(), $items ).$after;
@@ -270,12 +271,12 @@ class Utilities extends Core\Base
 		return $empty;
 	}
 
-	public static function getCounted( $count, $template = '%s' )
+	public static function getCounted( int $count, string $template = '%s' ): string
 	{
 		return sprintf( $template, '<span class="-count" data-count="'.$count.'">'.Core\Number::format( $count ).'</span>' );
 	}
 
-	public static function getLayout( $name, $require = FALSE, $no_cache = FALSE )
+	public static function getLayout( string $name, bool $require = FALSE, bool $no_cache = FALSE ): string
 	{
 		$content = WP_CONTENT_DIR.'/'.$name.'.php';
 		$plugin  = GNETWORK_DIR.'includes/Layouts/'.$name.'.php';
@@ -292,16 +293,16 @@ class Utilities extends Core\Base
 
 		if ( $require && $layout )
 			require_once $layout;
-		else
-			return $layout;
+
+		return $layout;
 	}
 
-	public static function linkStyleSheet( $css, $version = NULL, $media = 'all', $verbose = TRUE )
+	public static function linkStyleSheet( string $css, $version = NULL, $media = 'all', bool $verbose = TRUE )
 	{
 		return Core\HTML::linkStyleSheet( GNETWORK_URL.'assets/css/'.$css.( is_rtl() ? '-rtl' : '' ).'.css', $version ?? GNETWORK_HASH, $media, $verbose );
 	}
 
-	public static function customStyleSheet( $css, $link = TRUE, $version = NULL )
+	public static function customStyleSheet( string $css, $link = TRUE, $version = NULL )
 	{
 		$file = WordPress\Site::customFile( $css, FALSE );
 
