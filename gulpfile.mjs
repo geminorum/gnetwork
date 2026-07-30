@@ -379,8 +379,8 @@ task('github:package', function (done) {
     '--latest' + ' ' + // default: automatic based on date and version
     '--title "' + pkg.version + '" ' +
     // '--notes "' + normalizeEOL(changes.versions[0].rawNote.toString()) + '" ' +
-    '--notes-from-tag ' +
-    '--fail-on-no-commits ' + // Create a release only if there are new commits available since the last release
+    // '--notes-from-tag ' +
+    // '--fail-on-no-commits ' + // Create a release only if there are new commits available since the last release
     '',
   done);
 });
