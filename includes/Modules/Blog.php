@@ -934,6 +934,9 @@ class Blog extends gNetwork\Module
 		// Removes the hook attached to the default scheduled event for removing old export files.
 		remove_action( 'wp_privacy_delete_old_export_files', 'wp_privacy_delete_old_export_files' );
 
+		// @ticket https://core.trac.wordpress.org/ticket/56694
+		remove_action( 'before_delete_post', '_reset_privacy_policy_page_for_post' );
+
 		$this->filter( 'map_meta_cap', 2, 12, 'disable_privacytools' );
 	}
 
