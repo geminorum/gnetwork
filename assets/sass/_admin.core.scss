@@ -60,7 +60,7 @@ $spacer: 1rem !default;
       margin-left: -1em; // better to be `em`
 
       > .notice {
-        margin-left: calc( 35px + #{($spacer)} );
+        margin-left: calc( 35px + #{($spacer)} ) !important;
       }
 
       .side-nav-content {
@@ -78,7 +78,7 @@ $spacer: 1rem !default;
         // top: calc( ( var(--side-nav-title-length, 10) * 1ch ) );
         width: 32px;
 
-        span.-nav-link-title {
+        span.-nav-link-text {
           @include theme-visually-hidden;
           display: inline-block;
         }
@@ -92,6 +92,24 @@ $spacer: 1rem !default;
         }
       }
     }
+
+    div.wrap > a.page-title-action.-has-icon:not(.-only-icon) {
+      padding-left: 6px;
+      padding-right: 6px;
+
+      .-iconsvg {
+        padding-right: $spacer * .25;
+      }
+
+      .dashicons {
+        margin-right: 0;
+      }
+
+      span.-text {
+        @include theme-visually-hidden;
+        display: inline-block;
+      }
+    }
   }
 }
 
@@ -103,7 +121,7 @@ $spacer: 1rem !default;
       margin-left: 0;
 
       > .notice {
-        margin-left: calc( 35px + #{($spacer * .5)} );
+        margin-left: calc( 35px + #{($spacer * .5)} ) !important;
       }
     }
 
@@ -118,6 +136,11 @@ $spacer: 1rem !default;
       > h3 {
         margin-top: .5em;
       }
+    }
+
+    div.wrap > a.page-title-action.-has-icon:not(.-only-icon) {
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
 

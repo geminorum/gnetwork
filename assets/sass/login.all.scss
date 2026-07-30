@@ -104,8 +104,9 @@ body.login {
   }
 
   div.privacy-policy-page-link {
-    margin: 0 0 ($spacer * 1) !important;
-    padding: 0 ($spacer * 1);
+    box-sizing: border-box;
+    margin: ($spacer * 1) 0 ($spacer * 1) !important;
+    padding: 0 ($spacer * .5);
     font-size: smaller;
 
     > a:not(:hover) {
@@ -144,7 +145,12 @@ body.rtl {
     }
 
     &.-badge {
-      margin: 1em 0 .5em;
+      margin: ($spacer * 1) 0 0 0;
+      padding-bottom: ($spacer * 1); // the last item of the page!
+
+      a {
+        display: inline-block;
+      }
 
       a:focus {
         box-shadow: none;

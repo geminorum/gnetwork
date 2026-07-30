@@ -41,7 +41,7 @@ $font-family-head: $font-family-bold;
 ////////////////////////////////////////////////////////////////////////////////
 #wpadminbar *,
 button:not(.dashicons,.qt-dfw),
-span:not(.dashicons),
+span:not(.dashicons,.bp-badge),
 option:not(.code),
 input:not(.code),
 textarea:not(.code),

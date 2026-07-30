@@ -21,12 +21,18 @@
   // }
 
   .page-title-action { // wp core class
+
     // &:active {
     //   margin-left: unset;
     // }
 
     // margin-left: 0;
     // margin-right: $spacer * .25;
+
+    // no space after the inserted second button
+    &:nth-of-type(2) {
+      margin-left: 0;
+    }
 
     // NOTE: better not to have space between icon and text
     .dashicons {

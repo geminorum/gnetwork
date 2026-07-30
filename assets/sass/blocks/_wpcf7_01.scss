@@ -9,6 +9,10 @@ div.wpcf7 {
   margin: 0;
   padding: 0;
 
+  .hidden-fields-container {
+    display: none;
+  }
+
   .wpcf7-response-output {
     margin: 2em 0.5em 1em;
     padding: 0.4em 0.5em 0.2em;

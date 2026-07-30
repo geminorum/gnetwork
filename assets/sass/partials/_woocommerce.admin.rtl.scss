@@ -240,6 +240,16 @@ body.woocommerce_page_wc-settings {
     font-family: $font-family-regular !important;
   }
 
+  select#webhook_api_version,
+  input#webhook_delivery_url,
+  input#webhook_secret,
+  input#woocommerce_pos_store_phone,
+  input#woocommerce_pos_store_email,
+  input[type="email"],
+  input[type="url"] {
+    direction: ltr;
+  }
+
   #checkout_endpoint_options-description + table,
   #account_endpoint_options-description + table {
     input[type="text"] {
@@ -247,3 +257,8 @@ body.woocommerce_page_wc-settings {
     }
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// .woocommerce-quick-links__item .woocommerce-quick-links__item-link .woocommerce-quick-links__item-link__text {
+//   margin: 0 16px 0 0;
+// }

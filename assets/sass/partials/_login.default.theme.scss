@@ -15,7 +15,14 @@ body.login.logindefault {
 
     form {
       box-shadow: none;
+      margin: ($spacer * 1) 0 0 0;
     }
+  }
+
+  #nav,
+  #backtoblog {
+    margin: ($spacer * .5) 0 0 0;
+    padding: 0 ($spacer * .5);
   }
 
   #login form,
