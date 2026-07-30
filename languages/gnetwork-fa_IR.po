@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gNetwork\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
-"POT-Creation-Date: 2026-06-27T08:22:50+00:00\n"
-"PO-Revision-Date: 2026-06-27 11:53+0330\n"
+"POT-Creation-Date: 2026-07-30T15:39:24+00:00\n"
+"PO-Revision-Date: 2026-07-30 19:10+0330\n"
 "Last-Translator: geminorum <contact@geminorum.ir>\n"
 "Language-Team: \n"
 "Language: fa_IR\n"
@@ -149,33 +149,33 @@ msgid "Last Modified on %s"
 msgstr "آخرین تغییر در %s"
 
 #. translators: `%s`: time string
-#: includes/Datetime.php:156
+#: includes/Datetime.php:167
 #, php-format
 msgctxt "Datetime: Human Time Ago"
 msgid "%s ago"
 msgstr "%s پیش"
 
-#: includes/Datetime.php:188
+#: includes/Datetime.php:199
 msgctxt "Datetime: Human Time Diff"
 msgid "Now"
 msgstr "همین حالا"
 
 #. translators: `%s`: time string
-#: includes/Datetime.php:190
+#: includes/Datetime.php:201
 #, php-format
 msgctxt "Datetime: Human Time Diff"
 msgid "%s ago"
 msgstr "%s پیش"
 
 #. translators: `%s`: time string
-#: includes/Datetime.php:192
+#: includes/Datetime.php:203
 #, php-format
 msgctxt "Datetime: Human Time Diff"
 msgid "in %s"
 msgstr "%s دیگر"
 
 #. translators: `%s`: number of minutes
-#: includes/Datetime.php:195
+#: includes/Datetime.php:206
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s min"
@@ -184,7 +184,7 @@ msgstr[0] "%s دقیقه"
 msgstr[1] "%s دقیقه"
 
 #. translators: `%s`: number of hours
-#: includes/Datetime.php:197
+#: includes/Datetime.php:208
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s hour"
@@ -193,7 +193,7 @@ msgstr[0] "%s ساعت"
 msgstr[1] "%s ساعت"
 
 #. translators: `%s`: number of days
-#: includes/Datetime.php:199
+#: includes/Datetime.php:210
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s day"
@@ -202,7 +202,7 @@ msgstr[0] "%s روز"
 msgstr[1] "%s روز"
 
 #. translators: `%s`: number of weeks
-#: includes/Datetime.php:201
+#: includes/Datetime.php:212
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s week"
@@ -211,7 +211,7 @@ msgstr[0] "%s هفته"
 msgstr[1] "%s هفته"
 
 #. translators: `%s`: number of months
-#: includes/Datetime.php:203
+#: includes/Datetime.php:214
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s month"
@@ -220,7 +220,7 @@ msgstr[0] "%s ماه"
 msgstr[1] "%s ماه"
 
 #. translators: `%s`: number of years
-#: includes/Datetime.php:205
+#: includes/Datetime.php:216
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s year"
@@ -229,7 +229,7 @@ msgstr[0] "%s سال"
 msgstr[1] "%s سال"
 
 #. translators: `%s`: number of seconds
-#: includes/Datetime.php:225
+#: includes/Datetime.php:236
 #, php-format
 msgctxt "Datetime: From Seconds: Noop"
 msgid "%s second"
@@ -238,7 +238,7 @@ msgstr[0] "%s ثانیه"
 msgstr[1] "%s ثانیه"
 
 #. translators: `%s`: number of minutes
-#: includes/Datetime.php:227
+#: includes/Datetime.php:238
 #, php-format
 msgctxt "Datetime: From Seconds: Noop"
 msgid "%s min"
@@ -247,7 +247,7 @@ msgstr[0] "%s دقیقه"
 msgstr[1] "%s دقیقه"
 
 #. translators: `%s`: number of hours
-#: includes/Datetime.php:229
+#: includes/Datetime.php:240
 #, php-format
 msgctxt "Datetime: From Seconds: Noop"
 msgid "%s hour"
@@ -256,7 +256,7 @@ msgstr[0] "%s ساعت"
 msgstr[1] "%s ساعت"
 
 #. translators: `%s`: number of days
-#: includes/Datetime.php:231
+#: includes/Datetime.php:242
 #, php-format
 msgctxt "Datetime: From Seconds: Noop"
 msgid "%s day"
@@ -264,127 +264,127 @@ msgid_plural "%s days"
 msgstr[0] "%s روز"
 msgstr[1] "%s روز"
 
-#: includes/Datetime.php:244
+#: includes/Datetime.php:255
 msgctxt "Datetime: Date: Moment"
 msgid "Now"
 msgstr "همین حالا"
 
-#: includes/Datetime.php:245
+#: includes/Datetime.php:256
 msgctxt "Datetime: Date: Moment"
 msgid "Just now"
 msgstr "چند لحظه پیش"
 
-#: includes/Datetime.php:246
+#: includes/Datetime.php:257
 msgctxt "Datetime: Date: Moment"
 msgid "One minute ago"
 msgstr "یک دقیقه پیش"
 
 #. translators: `%s`: number of minutes
-#: includes/Datetime.php:248
+#: includes/Datetime.php:259
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "%s minutes ago"
 msgstr "%s دقیقه پیش"
 
-#: includes/Datetime.php:249
+#: includes/Datetime.php:260
 msgctxt "Datetime: Date: Moment"
 msgid "One hour ago"
 msgstr "یک ساعت پیش"
 
 #. translators: `%s`: number of hours
-#: includes/Datetime.php:251
+#: includes/Datetime.php:262
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "%s hours ago"
 msgstr "%s ساعت پیش"
 
-#: includes/Datetime.php:252
+#: includes/Datetime.php:263
 msgctxt "Datetime: Date: Moment"
 msgid "Yesterday"
 msgstr "دیروز"
 
 #. translators: `%s`: number of days
-#: includes/Datetime.php:254
+#: includes/Datetime.php:265
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "%s days ago"
 msgstr "%s روز پیش"
 
 #. translators: `%s`: number of weeks
-#: includes/Datetime.php:256
+#: includes/Datetime.php:267
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "%s weeks ago"
 msgstr "%s هفته پیش"
 
-#: includes/Datetime.php:257
+#: includes/Datetime.php:268
 msgctxt "Datetime: Date: Moment"
 msgid "Last month"
 msgstr "یک ماه پیش"
 
-#: includes/Datetime.php:258
+#: includes/Datetime.php:269
 msgctxt "Datetime: Date: Moment"
 msgid "Last year"
 msgstr "یک سال پیش"
 
-#: includes/Datetime.php:259
+#: includes/Datetime.php:270
 msgctxt "Datetime: Date: Moment"
 msgid "in a minute"
 msgstr "تا یک دقیقه دیگر"
 
 #. translators: `%s`: number of minutes
-#: includes/Datetime.php:261
+#: includes/Datetime.php:272
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "in %s minutes"
 msgstr "تا %s دقیقه دیگر"
 
-#: includes/Datetime.php:262
+#: includes/Datetime.php:273
 msgctxt "Datetime: Date: Moment"
 msgid "in an hour"
 msgstr "تا یک ساعت دیگر"
 
 #. translators: `%s`: number of hours
-#: includes/Datetime.php:264
+#: includes/Datetime.php:275
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "in %s hours"
 msgstr "تا %s ساعت دیگر"
 
-#: includes/Datetime.php:265
+#: includes/Datetime.php:276
 msgctxt "Datetime: Date: Moment"
 msgid "Tomorrow"
 msgstr "فردا"
 
-#: includes/Datetime.php:266
+#: includes/Datetime.php:277
 msgctxt "Datetime: Date: Moment"
 msgid "next week"
 msgstr "در هفته بعد"
 
 #. translators: `%s`: number of weeks
-#: includes/Datetime.php:268
+#: includes/Datetime.php:279
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "in %s weeks"
 msgstr "تا %s هفته دیگر"
 
-#: includes/Datetime.php:269
+#: includes/Datetime.php:280
 msgctxt "Datetime: Date: Moment"
 msgid "next month"
 msgstr "در ماه بعد"
 
-#: includes/Datetime.php:270
+#: includes/Datetime.php:281
 msgctxt "Datetime: Date: Moment"
 msgid "l"
 msgstr ""
 
-#: includes/Datetime.php:271
+#: includes/Datetime.php:282
 msgctxt "Datetime: Date: Moment"
 msgid "F Y"
 msgstr ""
 
 #. translators: `%s`: year number
-#: includes/Datetime.php:470
+#: includes/Datetime.php:481
 #, php-format
 msgctxt "Datetime: Age Title Attr"
 msgid "%s year old"
@@ -392,31 +392,31 @@ msgid_plural "%s years old"
 msgstr[0] "%s ساله"
 msgstr[1] "%s ساله"
 
-#: includes/Datetime.php:502
+#: includes/Datetime.php:513
 msgctxt "Datetime: Title Attribute"
 msgid "Birthed"
 msgstr ""
 
-#: includes/Datetime.php:503
+#: includes/Datetime.php:514
 msgctxt "Datetime: Title Attribute"
 msgid "Deceased"
 msgstr ""
 
 #. translators: `%s`: decade number
-#: includes/Datetime.php:511
+#: includes/Datetime.php:522
 #, php-format
 msgctxt "Datetime: Decade Prefix"
 msgid "Decade %s"
 msgstr ""
 
 #. translators: `%s`: year number
-#: includes/Datetime.php:535
+#: includes/Datetime.php:546
 #, php-format
 msgctxt "Datetime: Year Prefix"
 msgid "Year %s"
 msgstr ""
 
-#: includes/Datetime.php:685
+#: includes/Datetime.php:696
 msgctxt "Datetime: Re-Schedule Post"
 msgid "Something is wrong with the new date."
 msgstr "انگار چیزی درباره تاریخ جدید اشتباه است."
@@ -512,219 +512,219 @@ msgctxt "Modules: Debug: QM Output"
 msgid "Current Object Comments"
 msgstr ""
 
-#: includes/Modules/Admin.php:601
+#: includes/Modules/Admin.php:584
 msgctxt "Modules: Admin: Chosen"
 msgid "No results match"
 msgstr "بدون نتیجه برای"
 
-#: includes/Modules/AdminBar.php:228
+#: includes/Modules/AdminBar.php:234
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Flush Cache for This Page"
 msgstr "دورریزی و بازسازی مجدد انبان داده‌ها برای این صفحه"
 
-#: includes/Modules/AdminBar.php:262
+#: includes/Modules/AdminBar.php:268
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Display Errors"
 msgstr "دیدن خطاهای این صفحه"
 
-#: includes/Modules/AdminBar.php:264
+#: includes/Modules/AdminBar.php:270
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Display debug info for the current page"
 msgstr "دیدن داده‌های اشکال‌زدایی برای این صفحه"
 
-#: includes/Modules/AdminBar.php:270
+#: includes/Modules/AdminBar.php:276
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Flush Cached"
 msgstr "دورریزی انباشت داده‌ها"
 
-#: includes/Modules/AdminBar.php:272
+#: includes/Modules/AdminBar.php:278
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Flush cached data for the current page"
 msgstr "دورریزی و بازسازی مجدد انبان داده‌ها برای این صفحه"
 
-#: includes/Modules/AdminBar.php:278
+#: includes/Modules/AdminBar.php:284
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Flush Permalinks"
 msgstr "بازسازی پایاپیوندها"
 
-#: includes/Modules/AdminBar.php:280
+#: includes/Modules/AdminBar.php:286
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Removes rewrite rules and then recreate rewrite rules"
 msgstr "حذف و دوباره‌سازی قوانین بازنویسی برای پیوند‌های پایدار"
 
-#: includes/Modules/AdminBar.php:291
+#: includes/Modules/AdminBar.php:297
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Change Locale"
 msgstr "تغییر زبان"
 
-#: includes/Modules/AdminBar.php:293
+#: includes/Modules/AdminBar.php:299
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Quickly change current blog language"
 msgstr "به سرعت زبان این سایت را تغییر دهید"
 
-#: includes/Modules/AdminBar.php:322
+#: includes/Modules/AdminBar.php:328
 msgctxt "Modules: AdminBar: Nodes"
 msgid "HTTP Calls"
 msgstr "درخواست‌های HTTP"
 
-#: includes/Modules/AdminBar.php:354
+#: includes/Modules/AdminBar.php:360
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Current Post"
 msgstr "نوشته کنونی"
 
-#: includes/Modules/AdminBar.php:361
+#: includes/Modules/AdminBar.php:367
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Rest Endpoint"
 msgstr "پایانه REST"
 
-#: includes/Modules/AdminBar.php:368
+#: includes/Modules/AdminBar.php:374
 msgctxt "Modules: AdminBar: Nodes"
 msgid "JSON Endpoint"
 msgstr "پایانه JSON"
 
-#: includes/Modules/AdminBar.php:375
+#: includes/Modules/AdminBar.php:381
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Embed Endpoint"
 msgstr "پایانه Embed"
 
-#: includes/Modules/AdminBar.php:393
+#: includes/Modules/AdminBar.php:399
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Reset Sidebars"
 msgstr "بازنشانی ستون‌های کناری"
 
-#: includes/Modules/AdminBar.php:395
+#: includes/Modules/AdminBar.php:401
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Deletes settings of all current sidebar widgets, be careful!"
 msgstr "مراقب باشید، این کار همه تنظیمات ابزارک‌های کنونی را حذف می‌کند!"
 
-#: includes/Modules/AdminBar.php:402
+#: includes/Modules/AdminBar.php:408
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Reset Messages"
 msgstr "بازنشانی پیام‌ها"
 
-#: includes/Modules/AdminBar.php:404
+#: includes/Modules/AdminBar.php:410
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Resets all saved messages for this form, be careful!"
 msgstr "مراقب باشید، این کار همه پیام‌های این فرم را بازنشانی می‌کند!"
 
-#: includes/Modules/AdminBar.php:428
+#: includes/Modules/AdminBar.php:434
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Check System Logs"
 msgstr "بررسی لاگ‌های سیستم"
 
-#: includes/Modules/AdminBar.php:441
+#: includes/Modules/AdminBar.php:447
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Queries | Timer Stop | Memory Usage"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:456 includes/Modules/AdminBar.php:457
+#: includes/Modules/AdminBar.php:462 includes/Modules/AdminBar.php:463
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Search"
 msgstr "جست‌وجو"
 
-#: includes/Modules/AdminBar.php:491
+#: includes/Modules/AdminBar.php:497
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Shortlink"
 msgstr "پیوند کوتاه"
 
-#: includes/Modules/AdminBar.php:504
+#: includes/Modules/AdminBar.php:510
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Contact Form"
 msgstr "ویرایش فرم ارتباط"
 
-#: includes/Modules/AdminBar.php:506
+#: includes/Modules/AdminBar.php:512
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Current embeded contact form on admin"
 msgstr "ویرایش فرم ارتباط جاسازشده کنونی در بخش مدیریت"
 
-#: includes/Modules/AdminBar.php:531
+#: includes/Modules/AdminBar.php:537
 msgctxt "Modules: AdminBar: Nodes"
 msgid "My Sites"
 msgstr "وب‌گاه‌های من"
 
-#: includes/Modules/AdminBar.php:544 includes/Modules/AdminBar.php:757
+#: includes/Modules/AdminBar.php:550 includes/Modules/AdminBar.php:763
 msgctxt "Modules: AdminBar: Nodes"
 msgid "My Dashboard"
 msgstr "پیشخوان من"
 
-#: includes/Modules/AdminBar.php:553 includes/Modules/AdminBar.php:766
+#: includes/Modules/AdminBar.php:559 includes/Modules/AdminBar.php:772
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Network Admin"
 msgstr "مدیریت شبکه"
 
-#: includes/Modules/AdminBar.php:561
+#: includes/Modules/AdminBar.php:567
 msgctxt "Modules: AdminBar: Nodes"
 msgid "System Report"
 msgstr "گزارشات"
 
-#: includes/Modules/AdminBar.php:570 includes/Modules/AdminBar.php:775
+#: includes/Modules/AdminBar.php:576 includes/Modules/AdminBar.php:781
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Sites"
 msgstr "سایت‌ها"
 
-#: includes/Modules/AdminBar.php:580 includes/Modules/AdminBar.php:674
-#: includes/Modules/AdminBar.php:785 includes/Modules/AdminBar.php:885
+#: includes/Modules/AdminBar.php:586 includes/Modules/AdminBar.php:680
+#: includes/Modules/AdminBar.php:791 includes/Modules/AdminBar.php:891
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Users"
 msgstr "کاربران"
 
-#: includes/Modules/AdminBar.php:590 includes/Modules/AdminBar.php:795
+#: includes/Modules/AdminBar.php:596 includes/Modules/AdminBar.php:801
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Themes"
 msgstr "پوسته‌ها"
 
-#: includes/Modules/AdminBar.php:600 includes/Modules/AdminBar.php:805
+#: includes/Modules/AdminBar.php:606 includes/Modules/AdminBar.php:811
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Plugins"
 msgstr "افزونه‌ها"
 
-#: includes/Modules/AdminBar.php:610 includes/Modules/AdminBar.php:681
-#: includes/Modules/AdminBar.php:815 includes/Modules/AdminBar.php:892
+#: includes/Modules/AdminBar.php:616 includes/Modules/AdminBar.php:687
+#: includes/Modules/AdminBar.php:821 includes/Modules/AdminBar.php:898
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Settings"
 msgstr "تنظیمات"
 
-#: includes/Modules/AdminBar.php:617 includes/Modules/AdminBar.php:822
+#: includes/Modules/AdminBar.php:623 includes/Modules/AdminBar.php:828
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Extras"
 msgstr "افزوده‌ها"
 
-#: includes/Modules/AdminBar.php:626 includes/Modules/AdminBar.php:832
+#: includes/Modules/AdminBar.php:632 includes/Modules/AdminBar.php:838
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Updates"
 msgstr "به‌روزرسانی‌ها"
 
-#: includes/Modules/AdminBar.php:657 includes/Modules/AdminBar.php:868
+#: includes/Modules/AdminBar.php:663 includes/Modules/AdminBar.php:874
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Dashboard"
 msgstr "پیشخوان"
 
-#: includes/Modules/AdminBar.php:667 includes/Modules/AdminBar.php:878
+#: includes/Modules/AdminBar.php:673 includes/Modules/AdminBar.php:884
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Posts"
 msgstr "نوشته‌ها"
 
-#: includes/Modules/AdminBar.php:688 includes/Modules/AdminBar.php:899
+#: includes/Modules/AdminBar.php:694 includes/Modules/AdminBar.php:905
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Site"
 msgstr "ویرایش سایت"
 
-#: includes/Modules/AdminBar.php:695 includes/Modules/AdminBar.php:906
+#: includes/Modules/AdminBar.php:701 includes/Modules/AdminBar.php:912
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Themes"
 msgstr "ویرایش پوسته‌ها"
 
-#: includes/Modules/AdminBar.php:703 includes/Modules/AdminBar.php:914
+#: includes/Modules/AdminBar.php:709 includes/Modules/AdminBar.php:920
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Visit Site"
 msgstr "دیدن سایت"
 
-#: includes/Modules/AdminBar.php:982
+#: includes/Modules/AdminBar.php:988
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Log in"
 msgstr "وارد شوید"
 
-#: includes/Modules/AdminBar.php:990
+#: includes/Modules/AdminBar.php:996
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Register"
 msgstr "نام‌نویسی کنید"
@@ -841,73 +841,73 @@ msgctxt "TinyMCE Strings: PrismJS"
 msgid "File Name"
 msgstr "نام پرونده"
 
-#: includes/Modules/Comments.php:302
+#: includes/Modules/Comments.php:303
 msgctxt "Modules: Comments"
 msgid "Your attempt to add this comment has failed."
 msgstr "تلاش شما برای افزودن این نظر ناموفق بود."
 
 #. translators: `%s`: comment links count
-#: includes/Modules/Comments.php:401
+#: includes/Modules/Comments.php:402
 #, php-format
 msgctxt "Modules: Comments"
 msgid "Comment has <strong>over %s links</strong>. Please reduce number of those."
 msgstr ""
 
-#: includes/Modules/Comments.php:416 includes/Modules/Comments.php:458
+#: includes/Modules/Comments.php:417 includes/Modules/Comments.php:459
 msgctxt "Modules: Comments"
 msgid "Duplicate comment content. Please rephrase."
 msgstr ""
 
-#: includes/Modules/Comments.php:430
+#: includes/Modules/Comments.php:431
 msgctxt "Modules: Comments"
 msgid "Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin."
 msgstr ""
 
-#: includes/Modules/Comments.php:444
+#: includes/Modules/Comments.php:445
 msgctxt "Modules: Comments"
 msgid "Your IP is in list of known spam sources. If you believe this to be an error please contact site admin."
 msgstr ""
 
 #. translators: `%s`: price x quantity total
-#: includes/Modules/Commerce.php:401
+#: includes/Modules/Commerce.php:403
 #, php-format
 msgctxt "Modules: Commerce"
 msgid "Total: %s"
 msgstr "مجموع: %s"
 
-#: includes/Modules/Commerce.php:435
+#: includes/Modules/Commerce.php:437
 msgctxt "Modules: Commerce"
 msgid "For calling on land-line"
 msgstr "برای تماس با تلفن ثابت"
 
-#: includes/Modules/Commerce.php:445 includes/Modules/Commerce.php:572
-#: includes/Modules/Commerce.php:619 includes/Modules/Commerce.php:631
+#: includes/Modules/Commerce.php:447 includes/Modules/Commerce.php:591
+#: includes/Modules/Commerce.php:638 includes/Modules/Commerce.php:650
 msgctxt "Modules: Commerce"
 msgid "Mobile"
 msgstr "همراه"
 
-#: includes/Modules/Commerce.php:446 includes/Modules/Commerce.php:573
-#: includes/Modules/Commerce.php:632
+#: includes/Modules/Commerce.php:448 includes/Modules/Commerce.php:592
+#: includes/Modules/Commerce.php:651
 msgctxt "Modules: Commerce"
 msgid "For short message purposes"
 msgstr "برای ارسال پیام کوتاه"
 
-#: includes/Modules/Commerce.php:486 includes/Modules/Commerce.php:598
+#: includes/Modules/Commerce.php:488 includes/Modules/Commerce.php:617
 msgctxt "Modules: Commerce"
 msgid "Mobile Number cannot be empty."
 msgstr "شماره همراه نمی‌تواند خالی باشد."
 
-#: includes/Modules/Commerce.php:490 includes/Modules/Commerce.php:603
+#: includes/Modules/Commerce.php:492 includes/Modules/Commerce.php:622
 msgctxt "Modules: Commerce"
 msgid "Mobile Number is not valid."
 msgstr "شماره همراه نامعتبر است."
 
-#: includes/Modules/Commerce.php:494 includes/Modules/Commerce.php:609
+#: includes/Modules/Commerce.php:496 includes/Modules/Commerce.php:628
 msgctxt "Modules: Commerce"
 msgid "Mobile Number is already registered."
 msgstr "شماره همراه پیش از این ثبت شده است."
 
-#: includes/Modules/Commerce.php:556
+#: includes/Modules/Commerce.php:559
 msgctxt "Modules: Commerce"
 msgid "Mobile Number"
 msgstr "شماره همراه"
@@ -978,7 +978,7 @@ msgid "Once Monthly"
 msgstr "ماهانه یک بار"
 
 #. translators: `%s`: homepage URL
-#: includes/Modules/Feed.php:108
+#: includes/Modules/Feed.php:109
 #, php-format
 msgctxt "Modules: Feed: Disabled Message"
 msgid "There are no feeds available, please visit the <a href=\"%s\">homepage</a>!"
@@ -1056,12 +1056,12 @@ msgctxt "Modules: Login"
 msgid "You are already logged in."
 msgstr "شما هم‌اکنون وارد شده‌اید."
 
-#: includes/Modules/Login.php:830
+#: includes/Modules/Login.php:831
 msgctxt "Modules: Login"
 msgid "Full URL to the current login style file"
 msgstr ""
 
-#: includes/Modules/Login.php:832
+#: includes/Modules/Login.php:833
 msgctxt "Modules: Login"
 msgid "Login Style"
 msgstr "سبک ورود"
@@ -1184,37 +1184,37 @@ msgctxt "Modules: Profile: User Contact Method"
 msgid "Telegram"
 msgstr "تلگرام"
 
-#: includes/Modules/Restricted.php:445 includes/Modules/Restricted.php:461
+#: includes/Modules/Restricted.php:451 includes/Modules/Restricted.php:467
 msgctxt "Modules: Restricted"
 msgid "You are not authorized to access this site's feed."
 msgstr "برای دسترسی به خوراک این سایت، احتیاج به کلید دسترسی دارید."
 
-#: includes/Modules/Restricted.php:591
+#: includes/Modules/Restricted.php:597
 msgctxt "Modules: Restricted"
 msgid "Home Page"
 msgstr "صفحه اصلی"
 
-#: includes/Modules/Restricted.php:598
+#: includes/Modules/Restricted.php:604
 msgctxt "Modules: Restricted"
 msgid "View and update your profile"
 msgstr "نمایه خود را مشاهده و ویرایش کنید"
 
-#: includes/Modules/Restricted.php:599
+#: includes/Modules/Restricted.php:605
 msgctxt "Modules: Restricted"
 msgid "Your Profile"
 msgstr "نمایه شما"
 
-#: includes/Modules/Restricted.php:604
+#: includes/Modules/Restricted.php:610
 msgctxt "Modules: Restricted"
 msgid "Log-out of this site"
 msgstr "از این سایت خارج شوید"
 
-#: includes/Modules/Restricted.php:605
+#: includes/Modules/Restricted.php:611
 msgctxt "Modules: Restricted"
 msgid "Log Out"
 msgstr "خارج شوید"
 
-#: includes/Modules/Restricted.php:614
+#: includes/Modules/Restricted.php:620
 msgctxt "Modules: Restricted"
 msgid "You do not have sufficient access level."
 msgstr "محتوای این صفحه برای شما قابل دسترسی نیست."
@@ -1375,33 +1375,33 @@ msgctxt "Modules: Support: Ajax"
 msgid "E-mail could not be sent, please contact support directly: %s"
 msgstr "امکان ارسال ایمیل وجود ندارد، لطفاً مستقیماً با پشتیبانی تماس بگیرید: %s"
 
-#: includes/Modules/Themes.php:724
+#: includes/Modules/Themes.php:734
 msgctxt "Modules: Themes"
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 msgstr "ادامه&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 
 #. translators: `%s`: post title
-#: includes/Modules/Themes.php:727
+#: includes/Modules/Themes.php:737
 #, php-format
 msgctxt "Modules: Themes"
 msgid "Continue reading &ldquo;%s&rdquo; &hellip;"
 msgstr "ادامهٔ &raquo;%s&laquo; را مطالعه کنید &hellip;"
 
 #. translators: `%s`: author name
-#: includes/Modules/Themes.php:737
+#: includes/Modules/Themes.php:747
 #, php-format
 msgctxt "Modules: Themes"
 msgid "by %s"
 msgstr "%s"
 
 #. translators: `%s`: author name
-#: includes/Modules/Themes.php:739
+#: includes/Modules/Themes.php:749
 #, php-format
 msgctxt "Modules: Themes"
 msgid "View all posts by %s"
 msgstr "دیدن همهٔ نوشته‌های %s"
 
-#: includes/Modules/Tracking.php:320
+#: includes/Modules/Tracking.php:325
 msgctxt "Modules: Tracking"
 msgid "Follow Us"
 msgstr "دنبال کنید"
@@ -1411,13 +1411,17 @@ msgctxt "Modules: Typography: Shortcode Defaults"
 msgid "View Wikipedia page"
 msgstr "دیدن صفحه ویکی‌پدیا"
 
-#: includes/Plugin.php:388
+#: includes/Plugin.php:390
 msgid "Not Available"
 msgstr "خارج از دسترس"
 
-#: includes/Plugin.php:388 includes/Plugin.php:389
+#: includes/Plugin.php:390 includes/Plugin.php:391
 msgid "N/A"
 msgstr "خ/د"
+
+#: includes/Plugin.php:397
+msgid "You have to enable JavaScript!"
+msgstr "باید جاواسکریپت را فعال کنید!"
 
 #. translators: `%s`: playback speed rate
 #: includes/Scripts.php:192
@@ -1578,237 +1582,237 @@ msgid "Cheatin&#8217; uh?"
 msgstr "کلک میزنی؟!"
 
 #. translators: `%s`: message
-#: includes/Settings.php:204
+#: includes/Settings.php:206
 #, php-format
 msgctxt "Settings: Message"
 msgid "huh? %s"
 msgstr "ها؟ %s"
 
-#: includes/Settings.php:208
+#: includes/Settings.php:210
 msgctxt "Settings: Message"
 msgid "huh?"
 msgstr "ها؟"
 
-#: includes/Settings.php:230
+#: includes/Settings.php:232
 msgctxt "Settings: Confirm"
 msgid "Are you sure? This operation can not be undone."
 msgstr "مطمئنید؟ این دستور قابل بازگشت نیست."
 
-#: includes/Settings.php:242
+#: includes/Settings.php:244
 msgctxt "Settings: Button"
 msgid "Reset Settings"
 msgstr "بازنشانی تنظیمات اولیه"
 
-#: includes/Settings.php:243
+#: includes/Settings.php:245
 msgctxt "Settings: Button"
 msgid "Save Changes"
 msgstr "ذخیره تغییرات"
 
-#: includes/Settings.php:303
+#: includes/Settings.php:305
 msgctxt "Settings"
 msgid "Full URL to the current login logo image"
 msgstr ""
 
-#: includes/Settings.php:305
+#: includes/Settings.php:307
 msgctxt "Settings"
 msgid "Login Logo"
 msgstr "لوگوی صفحه ورود"
 
-#: includes/Settings.php:326
+#: includes/Settings.php:328
 msgctxt "Settings"
 msgid "See More Information"
 msgstr "برای اطلاعات بیشتر"
 
-#: includes/Settings.php:347
+#: includes/Settings.php:349
 msgctxt "Settings"
 msgid "Currently defined constant"
 msgstr "ثابت تعریف شده"
 
-#: includes/Settings.php:377
+#: includes/Settings.php:379
 msgctxt "Settings"
 msgid "Add New Post Type"
 msgstr "افزودن نوع جدید نوشته"
 
-#: includes/Settings.php:395
+#: includes/Settings.php:397
 msgctxt "Settings"
 msgid "Supported Place-holders"
 msgstr "جانماهای پشتیبانی‌شده"
 
-#: includes/Settings.php:418
+#: includes/Settings.php:420
 msgctxt "Fields: Role Dropdown"
 msgid "&ndash; No One &ndash;"
 msgstr "&ndash; هیچ &ndash;"
 
-#: includes/Settings.php:421
+#: includes/Settings.php:423
 msgctxt "Fields: Role Dropdown"
 msgid "Administrators"
 msgstr "مدیران"
 
-#: includes/Settings.php:422
+#: includes/Settings.php:424
 msgctxt "Fields: Role Dropdown"
 msgid "Editors"
 msgstr "ویرایشگرها"
 
-#: includes/Settings.php:423
+#: includes/Settings.php:425
 msgctxt "Fields: Role Dropdown"
 msgid "Authors"
 msgstr "نویسنده‌ها"
 
-#: includes/Settings.php:424
+#: includes/Settings.php:426
 msgctxt "Fields: Role Dropdown"
 msgid "Contributors"
 msgstr "مشارکت‌کننده‌ها"
 
-#: includes/Settings.php:430
+#: includes/Settings.php:432
 msgctxt "Fields: Role Dropdown"
 msgid "Site Users"
 msgstr "اعضای سایت"
 
-#: includes/Settings.php:433
+#: includes/Settings.php:435
 msgctxt "Fields: Role Dropdown"
 msgid "Super Admins"
 msgstr "مدیران ارشد"
 
-#: includes/Settings.php:437
+#: includes/Settings.php:439
 msgctxt "Fields: Role Dropdown"
 msgid "Network Users"
 msgstr "اعضای شبکه"
 
-#: includes/Settings.php:476
+#: includes/Settings.php:478
 msgctxt "Settings: Option: Time in Minutes"
 msgid "5 Minutes"
 msgstr "۵ دقیقه"
 
-#: includes/Settings.php:477
+#: includes/Settings.php:479
 msgctxt "Settings: Option: Time in Minutes"
 msgid "10 Minutes"
 msgstr "۱۰ دقیقه"
 
-#: includes/Settings.php:478
+#: includes/Settings.php:480
 msgctxt "Settings: Option: Time in Minutes"
 msgid "15 Minutes"
 msgstr "۱۵ دقیقه"
 
-#: includes/Settings.php:479
+#: includes/Settings.php:481
 msgctxt "Settings: Option: Time in Minutes"
 msgid "30 Minutes"
 msgstr "۳۰ دقیقه"
 
-#: includes/Settings.php:480
+#: includes/Settings.php:482
 msgctxt "Settings: Option: Time in Minutes"
 msgid "60 Minutes"
 msgstr "۶۰ دقیقه"
 
-#: includes/Settings.php:481
+#: includes/Settings.php:483
 msgctxt "Settings: Option: Time in Minutes"
 msgid "2 Hours"
 msgstr "۲ ساعت"
 
-#: includes/Settings.php:482
+#: includes/Settings.php:484
 msgctxt "Settings: Option: Time in Minutes"
 msgid "3 Hours"
 msgstr "۳ ساعت"
 
-#: includes/Settings.php:483
+#: includes/Settings.php:485
 msgctxt "Settings: Option: Time in Minutes"
 msgid "4 Hours"
 msgstr "۴ ساعت"
 
-#: includes/Settings.php:484
+#: includes/Settings.php:486
 msgctxt "Settings: Option: Time in Minutes"
 msgid "8 Hours"
 msgstr "۸ ساعت"
 
-#: includes/Settings.php:485
+#: includes/Settings.php:487
 msgctxt "Settings: Option: Time in Minutes"
 msgid "24 Hours"
 msgstr "۲۴ ساعت"
 
 #. translators: `%s`: options
-#: includes/Settings.php:494
+#: includes/Settings.php:496
 #, php-format
 msgctxt "Settings: Dropdown Select Option None"
 msgid "&ndash; Select %s &ndash;"
 msgstr "&ndash; انتخاب %s &ndash;"
 
-#: includes/Settings.php:498
+#: includes/Settings.php:500
 msgctxt "Settings: Dropdown Select Option None"
 msgid "&ndash; Select &ndash;"
 msgstr "&ndash; انتخاب &ndash;"
 
 #. translators: `%s`: options
-#: includes/Settings.php:506
+#: includes/Settings.php:508
 #, php-format
 msgctxt "Settings: Dropdown Select Option All"
 msgid "&ndash; All %s &ndash;"
 msgstr "&ndash; همه %s &ndash;"
 
-#: includes/Settings.php:510
+#: includes/Settings.php:512
 msgctxt "Settings: Dropdown Select Option All"
 msgid "&ndash; All &ndash;"
 msgstr "&ndash; همه &ndash;"
 
-#: includes/Settings.php:516 includes/Settings.php:634
+#: includes/Settings.php:518 includes/Settings.php:636
 msgctxt "Settings"
 msgid "Enabled"
 msgstr "فعال"
 
-#: includes/Settings.php:517 includes/Settings.php:633
+#: includes/Settings.php:519 includes/Settings.php:635
 msgctxt "Settings"
 msgid "Disabled"
 msgstr "غیرفعال"
 
-#: includes/Settings.php:636
+#: includes/Settings.php:638
 msgctxt "Settings"
 msgid "No options!"
 msgstr "بدون گزینه!"
 
-#: includes/Settings.php:637
+#: includes/Settings.php:639
 msgctxt "Settings"
 msgid "You do not have access to change this option."
 msgstr "شما دسترسی لازم برای تغییر این گزینه را ندارید."
 
-#: includes/Utilities.php:106
+#: includes/Utilities.php:114
 msgctxt "Utilities: Post Title"
 msgid "(untitled)"
 msgstr "(بدون عنوان)"
 
-#: includes/Utilities.php:197
+#: includes/Utilities.php:205
 msgctxt "Helper: Title Attribute"
 msgid "No Count"
 msgstr "بدون شمارش"
 
-#: includes/Utilities.php:204
+#: includes/Utilities.php:212
 msgctxt "Helper: Title Attribute"
 msgid "No Order"
 msgstr ""
 
-#: includes/Utilities.php:248
+#: includes/Utilities.php:257
 msgctxt "Utilities: Join Items Helper"
 msgid "&rdquo;"
 msgstr "&laquo;"
 
-#: includes/Utilities.php:249
+#: includes/Utilities.php:258
 msgctxt "Utilities: Join Items Helper"
 msgid "&ldquo; and &rdquo;"
 msgstr "&raquo; و &laquo;"
 
-#: includes/Utilities.php:251
+#: includes/Utilities.php:260
 msgctxt "Utilities: Join Items Helper"
 msgid "&ldquo;, &rdquo;"
 msgstr "&raquo;، &laquo;"
 
-#: includes/Utilities.php:254
+#: includes/Utilities.php:263
 msgctxt "Utilities: Join Items Helper"
 msgid "&ldquo;"
 msgstr "&raquo;"
 
-#: includes/Utilities.php:440
+#: includes/Utilities.php:449
 msgctxt "Utilities: Title"
 msgid "SSL Enabled"
 msgstr "SSL فعال"
 
-#: includes/Utilities.php:444
+#: includes/Utilities.php:453
 msgctxt "Utilities: Title"
 msgid "SSL Disabled"
 msgstr "SSL غیرفعال"

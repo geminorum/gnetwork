@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: gNetwork 3.18.0\n"
+"Project-Id-Version: gNetwork 3.19.0\n"
 "Report-Msgid-Bugs-To: https://github.com/geminorum/gnetwork/issues\n"
 "Last-Translator: NULL\n"
 "Language-Team: NULL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-27T08:22:50+00:00\n"
+"POT-Creation-Date: 2026-07-30T15:39:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gnetwork\n"
@@ -145,33 +145,33 @@ msgid "Last Modified on %s"
 msgstr ""
 
 #. translators: `%s`: time string
-#: includes/Datetime.php:156
+#: includes/Datetime.php:167
 #, php-format
 msgctxt "Datetime: Human Time Ago"
 msgid "%s ago"
 msgstr ""
 
-#: includes/Datetime.php:188
+#: includes/Datetime.php:199
 msgctxt "Datetime: Human Time Diff"
 msgid "Now"
 msgstr ""
 
 #. translators: `%s`: time string
-#: includes/Datetime.php:190
+#: includes/Datetime.php:201
 #, php-format
 msgctxt "Datetime: Human Time Diff"
 msgid "%s ago"
 msgstr ""
 
 #. translators: `%s`: time string
-#: includes/Datetime.php:192
+#: includes/Datetime.php:203
 #, php-format
 msgctxt "Datetime: Human Time Diff"
 msgid "in %s"
 msgstr ""
 
 #. translators: `%s`: number of minutes
-#: includes/Datetime.php:195
+#: includes/Datetime.php:206
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s min"
@@ -180,7 +180,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of hours
-#: includes/Datetime.php:197
+#: includes/Datetime.php:208
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s hour"
@@ -189,7 +189,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of days
-#: includes/Datetime.php:199
+#: includes/Datetime.php:210
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s day"
@@ -198,7 +198,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of weeks
-#: includes/Datetime.php:201
+#: includes/Datetime.php:212
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s week"
@@ -207,7 +207,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of months
-#: includes/Datetime.php:203
+#: includes/Datetime.php:214
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s month"
@@ -216,7 +216,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of years
-#: includes/Datetime.php:205
+#: includes/Datetime.php:216
 #, php-format
 msgctxt "Datetime: Human Time Diff: Noop"
 msgid "%s year"
@@ -225,7 +225,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of seconds
-#: includes/Datetime.php:225
+#: includes/Datetime.php:236
 #, php-format
 msgctxt "Datetime: From Seconds: Noop"
 msgid "%s second"
@@ -234,7 +234,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of minutes
-#: includes/Datetime.php:227
+#: includes/Datetime.php:238
 #, php-format
 msgctxt "Datetime: From Seconds: Noop"
 msgid "%s min"
@@ -243,7 +243,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of hours
-#: includes/Datetime.php:229
+#: includes/Datetime.php:240
 #, php-format
 msgctxt "Datetime: From Seconds: Noop"
 msgid "%s hour"
@@ -252,7 +252,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: `%s`: number of days
-#: includes/Datetime.php:231
+#: includes/Datetime.php:242
 #, php-format
 msgctxt "Datetime: From Seconds: Noop"
 msgid "%s day"
@@ -260,127 +260,127 @@ msgid_plural "%s days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Datetime.php:244
+#: includes/Datetime.php:255
 msgctxt "Datetime: Date: Moment"
 msgid "Now"
 msgstr ""
 
-#: includes/Datetime.php:245
+#: includes/Datetime.php:256
 msgctxt "Datetime: Date: Moment"
 msgid "Just now"
 msgstr ""
 
-#: includes/Datetime.php:246
+#: includes/Datetime.php:257
 msgctxt "Datetime: Date: Moment"
 msgid "One minute ago"
 msgstr ""
 
 #. translators: `%s`: number of minutes
-#: includes/Datetime.php:248
+#: includes/Datetime.php:259
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "%s minutes ago"
 msgstr ""
 
-#: includes/Datetime.php:249
+#: includes/Datetime.php:260
 msgctxt "Datetime: Date: Moment"
 msgid "One hour ago"
 msgstr ""
 
 #. translators: `%s`: number of hours
-#: includes/Datetime.php:251
+#: includes/Datetime.php:262
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "%s hours ago"
 msgstr ""
 
-#: includes/Datetime.php:252
+#: includes/Datetime.php:263
 msgctxt "Datetime: Date: Moment"
 msgid "Yesterday"
 msgstr ""
 
 #. translators: `%s`: number of days
-#: includes/Datetime.php:254
+#: includes/Datetime.php:265
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "%s days ago"
 msgstr ""
 
 #. translators: `%s`: number of weeks
-#: includes/Datetime.php:256
+#: includes/Datetime.php:267
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "%s weeks ago"
 msgstr ""
 
-#: includes/Datetime.php:257
+#: includes/Datetime.php:268
 msgctxt "Datetime: Date: Moment"
 msgid "Last month"
 msgstr ""
 
-#: includes/Datetime.php:258
+#: includes/Datetime.php:269
 msgctxt "Datetime: Date: Moment"
 msgid "Last year"
 msgstr ""
 
-#: includes/Datetime.php:259
+#: includes/Datetime.php:270
 msgctxt "Datetime: Date: Moment"
 msgid "in a minute"
 msgstr ""
 
 #. translators: `%s`: number of minutes
-#: includes/Datetime.php:261
+#: includes/Datetime.php:272
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "in %s minutes"
 msgstr ""
 
-#: includes/Datetime.php:262
+#: includes/Datetime.php:273
 msgctxt "Datetime: Date: Moment"
 msgid "in an hour"
 msgstr ""
 
 #. translators: `%s`: number of hours
-#: includes/Datetime.php:264
+#: includes/Datetime.php:275
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "in %s hours"
 msgstr ""
 
-#: includes/Datetime.php:265
+#: includes/Datetime.php:276
 msgctxt "Datetime: Date: Moment"
 msgid "Tomorrow"
 msgstr ""
 
-#: includes/Datetime.php:266
+#: includes/Datetime.php:277
 msgctxt "Datetime: Date: Moment"
 msgid "next week"
 msgstr ""
 
 #. translators: `%s`: number of weeks
-#: includes/Datetime.php:268
+#: includes/Datetime.php:279
 #, php-format
 msgctxt "Datetime: Date: Moment"
 msgid "in %s weeks"
 msgstr ""
 
-#: includes/Datetime.php:269
+#: includes/Datetime.php:280
 msgctxt "Datetime: Date: Moment"
 msgid "next month"
 msgstr ""
 
-#: includes/Datetime.php:270
+#: includes/Datetime.php:281
 msgctxt "Datetime: Date: Moment"
 msgid "l"
 msgstr ""
 
-#: includes/Datetime.php:271
+#: includes/Datetime.php:282
 msgctxt "Datetime: Date: Moment"
 msgid "F Y"
 msgstr ""
 
 #. translators: `%s`: year number
-#: includes/Datetime.php:470
+#: includes/Datetime.php:481
 #, php-format
 msgctxt "Datetime: Age Title Attr"
 msgid "%s year old"
@@ -388,31 +388,31 @@ msgid_plural "%s years old"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/Datetime.php:502
+#: includes/Datetime.php:513
 msgctxt "Datetime: Title Attribute"
 msgid "Birthed"
 msgstr ""
 
-#: includes/Datetime.php:503
+#: includes/Datetime.php:514
 msgctxt "Datetime: Title Attribute"
 msgid "Deceased"
 msgstr ""
 
 #. translators: `%s`: decade number
-#: includes/Datetime.php:511
+#: includes/Datetime.php:522
 #, php-format
 msgctxt "Datetime: Decade Prefix"
 msgid "Decade %s"
 msgstr ""
 
 #. translators: `%s`: year number
-#: includes/Datetime.php:535
+#: includes/Datetime.php:546
 #, php-format
 msgctxt "Datetime: Year Prefix"
 msgid "Year %s"
 msgstr ""
 
-#: includes/Datetime.php:685
+#: includes/Datetime.php:696
 msgctxt "Datetime: Re-Schedule Post"
 msgid "Something is wrong with the new date."
 msgstr ""
@@ -508,236 +508,236 @@ msgctxt "Modules: Debug: QM Output"
 msgid "Current Object Comments"
 msgstr ""
 
-#: includes/Modules/Admin.php:601
+#: includes/Modules/Admin.php:584
 msgctxt "Modules: Admin: Chosen"
 msgid "No results match"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:228
+#: includes/Modules/AdminBar.php:234
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Flush Cache for This Page"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:262
+#: includes/Modules/AdminBar.php:268
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Display Errors"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:264
+#: includes/Modules/AdminBar.php:270
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Display debug info for the current page"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:270
+#: includes/Modules/AdminBar.php:276
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Flush Cached"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:272
+#: includes/Modules/AdminBar.php:278
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Flush cached data for the current page"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:278
+#: includes/Modules/AdminBar.php:284
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Flush Permalinks"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:280
+#: includes/Modules/AdminBar.php:286
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Removes rewrite rules and then recreate rewrite rules"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:291
+#: includes/Modules/AdminBar.php:297
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Change Locale"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:293
+#: includes/Modules/AdminBar.php:299
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Quickly change current blog language"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:322
+#: includes/Modules/AdminBar.php:328
 msgctxt "Modules: AdminBar: Nodes"
 msgid "HTTP Calls"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:354
+#: includes/Modules/AdminBar.php:360
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Current Post"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:361
+#: includes/Modules/AdminBar.php:367
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Rest Endpoint"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:368
+#: includes/Modules/AdminBar.php:374
 msgctxt "Modules: AdminBar: Nodes"
 msgid "JSON Endpoint"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:375
+#: includes/Modules/AdminBar.php:381
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Embed Endpoint"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:393
+#: includes/Modules/AdminBar.php:399
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Reset Sidebars"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:395
+#: includes/Modules/AdminBar.php:401
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Deletes settings of all current sidebar widgets, be careful!"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:402
+#: includes/Modules/AdminBar.php:408
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Reset Messages"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:404
+#: includes/Modules/AdminBar.php:410
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Resets all saved messages for this form, be careful!"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:428
+#: includes/Modules/AdminBar.php:434
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Check System Logs"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:441
+#: includes/Modules/AdminBar.php:447
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Queries | Timer Stop | Memory Usage"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:456
-#: includes/Modules/AdminBar.php:457
+#: includes/Modules/AdminBar.php:462
+#: includes/Modules/AdminBar.php:463
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Search"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:491
+#: includes/Modules/AdminBar.php:497
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Shortlink"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:504
+#: includes/Modules/AdminBar.php:510
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Contact Form"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:506
+#: includes/Modules/AdminBar.php:512
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Current embeded contact form on admin"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:531
+#: includes/Modules/AdminBar.php:537
 msgctxt "Modules: AdminBar: Nodes"
 msgid "My Sites"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:544
-#: includes/Modules/AdminBar.php:757
+#: includes/Modules/AdminBar.php:550
+#: includes/Modules/AdminBar.php:763
 msgctxt "Modules: AdminBar: Nodes"
 msgid "My Dashboard"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:553
-#: includes/Modules/AdminBar.php:766
+#: includes/Modules/AdminBar.php:559
+#: includes/Modules/AdminBar.php:772
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Network Admin"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:561
+#: includes/Modules/AdminBar.php:567
 msgctxt "Modules: AdminBar: Nodes"
 msgid "System Report"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:570
-#: includes/Modules/AdminBar.php:775
+#: includes/Modules/AdminBar.php:576
+#: includes/Modules/AdminBar.php:781
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Sites"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:580
-#: includes/Modules/AdminBar.php:674
-#: includes/Modules/AdminBar.php:785
-#: includes/Modules/AdminBar.php:885
+#: includes/Modules/AdminBar.php:586
+#: includes/Modules/AdminBar.php:680
+#: includes/Modules/AdminBar.php:791
+#: includes/Modules/AdminBar.php:891
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Users"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:590
-#: includes/Modules/AdminBar.php:795
+#: includes/Modules/AdminBar.php:596
+#: includes/Modules/AdminBar.php:801
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Themes"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:600
-#: includes/Modules/AdminBar.php:805
+#: includes/Modules/AdminBar.php:606
+#: includes/Modules/AdminBar.php:811
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Plugins"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:610
-#: includes/Modules/AdminBar.php:681
-#: includes/Modules/AdminBar.php:815
-#: includes/Modules/AdminBar.php:892
+#: includes/Modules/AdminBar.php:616
+#: includes/Modules/AdminBar.php:687
+#: includes/Modules/AdminBar.php:821
+#: includes/Modules/AdminBar.php:898
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Settings"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:617
-#: includes/Modules/AdminBar.php:822
+#: includes/Modules/AdminBar.php:623
+#: includes/Modules/AdminBar.php:828
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Extras"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:626
-#: includes/Modules/AdminBar.php:832
+#: includes/Modules/AdminBar.php:632
+#: includes/Modules/AdminBar.php:838
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Updates"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:657
-#: includes/Modules/AdminBar.php:868
+#: includes/Modules/AdminBar.php:663
+#: includes/Modules/AdminBar.php:874
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Dashboard"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:667
-#: includes/Modules/AdminBar.php:878
+#: includes/Modules/AdminBar.php:673
+#: includes/Modules/AdminBar.php:884
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Posts"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:688
-#: includes/Modules/AdminBar.php:899
+#: includes/Modules/AdminBar.php:694
+#: includes/Modules/AdminBar.php:905
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Site"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:695
-#: includes/Modules/AdminBar.php:906
+#: includes/Modules/AdminBar.php:701
+#: includes/Modules/AdminBar.php:912
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Edit Themes"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:703
-#: includes/Modules/AdminBar.php:914
+#: includes/Modules/AdminBar.php:709
+#: includes/Modules/AdminBar.php:920
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Visit Site"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:982
+#: includes/Modules/AdminBar.php:988
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Log in"
 msgstr ""
 
-#: includes/Modules/AdminBar.php:990
+#: includes/Modules/AdminBar.php:996
 msgctxt "Modules: AdminBar: Nodes"
 msgid "Register"
 msgstr ""
@@ -854,80 +854,80 @@ msgctxt "TinyMCE Strings: PrismJS"
 msgid "File Name"
 msgstr ""
 
-#: includes/Modules/Comments.php:302
+#: includes/Modules/Comments.php:303
 msgctxt "Modules: Comments"
 msgid "Your attempt to add this comment has failed."
 msgstr ""
 
 #. translators: `%s`: comment links count
-#: includes/Modules/Comments.php:401
+#: includes/Modules/Comments.php:402
 #, php-format
 msgctxt "Modules: Comments"
 msgid "Comment has <strong>over %s links</strong>. Please reduce number of those."
 msgstr ""
 
-#: includes/Modules/Comments.php:416
-#: includes/Modules/Comments.php:458
+#: includes/Modules/Comments.php:417
+#: includes/Modules/Comments.php:459
 msgctxt "Modules: Comments"
 msgid "Duplicate comment content. Please rephrase."
 msgstr ""
 
-#: includes/Modules/Comments.php:430
+#: includes/Modules/Comments.php:431
 msgctxt "Modules: Comments"
 msgid "Your URL or domain is in list of known spam-promoted sites. If you believe this to be an error please contact site admin."
 msgstr ""
 
-#: includes/Modules/Comments.php:444
+#: includes/Modules/Comments.php:445
 msgctxt "Modules: Comments"
 msgid "Your IP is in list of known spam sources. If you believe this to be an error please contact site admin."
 msgstr ""
 
 #. translators: `%s`: price x quantity total
-#: includes/Modules/Commerce.php:401
+#: includes/Modules/Commerce.php:403
 #, php-format
 msgctxt "Modules: Commerce"
 msgid "Total: %s"
 msgstr ""
 
-#: includes/Modules/Commerce.php:435
+#: includes/Modules/Commerce.php:437
 msgctxt "Modules: Commerce"
 msgid "For calling on land-line"
 msgstr ""
 
-#: includes/Modules/Commerce.php:445
-#: includes/Modules/Commerce.php:572
-#: includes/Modules/Commerce.php:619
-#: includes/Modules/Commerce.php:631
+#: includes/Modules/Commerce.php:447
+#: includes/Modules/Commerce.php:591
+#: includes/Modules/Commerce.php:638
+#: includes/Modules/Commerce.php:650
 msgctxt "Modules: Commerce"
 msgid "Mobile"
 msgstr ""
 
-#: includes/Modules/Commerce.php:446
-#: includes/Modules/Commerce.php:573
-#: includes/Modules/Commerce.php:632
+#: includes/Modules/Commerce.php:448
+#: includes/Modules/Commerce.php:592
+#: includes/Modules/Commerce.php:651
 msgctxt "Modules: Commerce"
 msgid "For short message purposes"
 msgstr ""
 
-#: includes/Modules/Commerce.php:486
-#: includes/Modules/Commerce.php:598
+#: includes/Modules/Commerce.php:488
+#: includes/Modules/Commerce.php:617
 msgctxt "Modules: Commerce"
 msgid "Mobile Number cannot be empty."
 msgstr ""
 
-#: includes/Modules/Commerce.php:490
-#: includes/Modules/Commerce.php:603
+#: includes/Modules/Commerce.php:492
+#: includes/Modules/Commerce.php:622
 msgctxt "Modules: Commerce"
 msgid "Mobile Number is not valid."
 msgstr ""
 
-#: includes/Modules/Commerce.php:494
-#: includes/Modules/Commerce.php:609
+#: includes/Modules/Commerce.php:496
+#: includes/Modules/Commerce.php:628
 msgctxt "Modules: Commerce"
 msgid "Mobile Number is already registered."
 msgstr ""
 
-#: includes/Modules/Commerce.php:556
+#: includes/Modules/Commerce.php:559
 msgctxt "Modules: Commerce"
 msgid "Mobile Number"
 msgstr ""
@@ -998,7 +998,7 @@ msgid "Once Monthly"
 msgstr ""
 
 #. translators: `%s`: homepage URL
-#: includes/Modules/Feed.php:108
+#: includes/Modules/Feed.php:109
 #, php-format
 msgctxt "Modules: Feed: Disabled Message"
 msgid "There are no feeds available, please visit the <a href=\"%s\">homepage</a>!"
@@ -1076,12 +1076,12 @@ msgctxt "Modules: Login"
 msgid "You are already logged in."
 msgstr ""
 
-#: includes/Modules/Login.php:830
+#: includes/Modules/Login.php:831
 msgctxt "Modules: Login"
 msgid "Full URL to the current login style file"
 msgstr ""
 
-#: includes/Modules/Login.php:832
+#: includes/Modules/Login.php:833
 msgctxt "Modules: Login"
 msgid "Login Style"
 msgstr ""
@@ -1206,38 +1206,38 @@ msgctxt "Modules: Profile: User Contact Method"
 msgid "Telegram"
 msgstr ""
 
-#: includes/Modules/Restricted.php:445
-#: includes/Modules/Restricted.php:461
+#: includes/Modules/Restricted.php:451
+#: includes/Modules/Restricted.php:467
 msgctxt "Modules: Restricted"
 msgid "You are not authorized to access this site's feed."
 msgstr ""
 
-#: includes/Modules/Restricted.php:591
+#: includes/Modules/Restricted.php:597
 msgctxt "Modules: Restricted"
 msgid "Home Page"
 msgstr ""
 
-#: includes/Modules/Restricted.php:598
+#: includes/Modules/Restricted.php:604
 msgctxt "Modules: Restricted"
 msgid "View and update your profile"
 msgstr ""
 
-#: includes/Modules/Restricted.php:599
+#: includes/Modules/Restricted.php:605
 msgctxt "Modules: Restricted"
 msgid "Your Profile"
 msgstr ""
 
-#: includes/Modules/Restricted.php:604
+#: includes/Modules/Restricted.php:610
 msgctxt "Modules: Restricted"
 msgid "Log-out of this site"
 msgstr ""
 
-#: includes/Modules/Restricted.php:605
+#: includes/Modules/Restricted.php:611
 msgctxt "Modules: Restricted"
 msgid "Log Out"
 msgstr ""
 
-#: includes/Modules/Restricted.php:614
+#: includes/Modules/Restricted.php:620
 msgctxt "Modules: Restricted"
 msgid "You do not have sufficient access level."
 msgstr ""
@@ -1401,33 +1401,33 @@ msgctxt "Modules: Support: Ajax"
 msgid "E-mail could not be sent, please contact support directly: %s"
 msgstr ""
 
-#: includes/Modules/Themes.php:724
+#: includes/Modules/Themes.php:734
 msgctxt "Modules: Themes"
 msgid "Read more&nbsp;<span class=\"excerpt-link-hellip\">&hellip;</span>"
 msgstr ""
 
 #. translators: `%s`: post title
-#: includes/Modules/Themes.php:727
+#: includes/Modules/Themes.php:737
 #, php-format
 msgctxt "Modules: Themes"
 msgid "Continue reading &ldquo;%s&rdquo; &hellip;"
 msgstr ""
 
 #. translators: `%s`: author name
-#: includes/Modules/Themes.php:737
+#: includes/Modules/Themes.php:747
 #, php-format
 msgctxt "Modules: Themes"
 msgid "by %s"
 msgstr ""
 
 #. translators: `%s`: author name
-#: includes/Modules/Themes.php:739
+#: includes/Modules/Themes.php:749
 #, php-format
 msgctxt "Modules: Themes"
 msgid "View all posts by %s"
 msgstr ""
 
-#: includes/Modules/Tracking.php:320
+#: includes/Modules/Tracking.php:325
 msgctxt "Modules: Tracking"
 msgid "Follow Us"
 msgstr ""
@@ -1437,13 +1437,17 @@ msgctxt "Modules: Typography: Shortcode Defaults"
 msgid "View Wikipedia page"
 msgstr ""
 
-#: includes/Plugin.php:388
+#: includes/Plugin.php:390
 msgid "Not Available"
 msgstr ""
 
-#: includes/Plugin.php:388
-#: includes/Plugin.php:389
+#: includes/Plugin.php:390
+#: includes/Plugin.php:391
 msgid "N/A"
+msgstr ""
+
+#: includes/Plugin.php:397
+msgid "You have to enable JavaScript!"
 msgstr ""
 
 #. translators: `%s`: playback speed rate
@@ -1605,239 +1609,239 @@ msgid "Cheatin&#8217; uh?"
 msgstr ""
 
 #. translators: `%s`: message
-#: includes/Settings.php:204
+#: includes/Settings.php:206
 #, php-format
 msgctxt "Settings: Message"
 msgid "huh? %s"
 msgstr ""
 
-#: includes/Settings.php:208
+#: includes/Settings.php:210
 msgctxt "Settings: Message"
 msgid "huh?"
 msgstr ""
 
-#: includes/Settings.php:230
+#: includes/Settings.php:232
 msgctxt "Settings: Confirm"
 msgid "Are you sure? This operation can not be undone."
 msgstr ""
 
-#: includes/Settings.php:242
+#: includes/Settings.php:244
 msgctxt "Settings: Button"
 msgid "Reset Settings"
 msgstr ""
 
-#: includes/Settings.php:243
+#: includes/Settings.php:245
 msgctxt "Settings: Button"
 msgid "Save Changes"
 msgstr ""
 
-#: includes/Settings.php:303
+#: includes/Settings.php:305
 msgctxt "Settings"
 msgid "Full URL to the current login logo image"
 msgstr ""
 
-#: includes/Settings.php:305
+#: includes/Settings.php:307
 msgctxt "Settings"
 msgid "Login Logo"
 msgstr ""
 
-#: includes/Settings.php:326
+#: includes/Settings.php:328
 msgctxt "Settings"
 msgid "See More Information"
 msgstr ""
 
-#: includes/Settings.php:347
+#: includes/Settings.php:349
 msgctxt "Settings"
 msgid "Currently defined constant"
 msgstr ""
 
-#: includes/Settings.php:377
+#: includes/Settings.php:379
 msgctxt "Settings"
 msgid "Add New Post Type"
 msgstr ""
 
-#: includes/Settings.php:395
+#: includes/Settings.php:397
 msgctxt "Settings"
 msgid "Supported Place-holders"
 msgstr ""
 
-#: includes/Settings.php:418
+#: includes/Settings.php:420
 msgctxt "Fields: Role Dropdown"
 msgid "&ndash; No One &ndash;"
 msgstr ""
 
-#: includes/Settings.php:421
+#: includes/Settings.php:423
 msgctxt "Fields: Role Dropdown"
 msgid "Administrators"
 msgstr ""
 
-#: includes/Settings.php:422
+#: includes/Settings.php:424
 msgctxt "Fields: Role Dropdown"
 msgid "Editors"
 msgstr ""
 
-#: includes/Settings.php:423
+#: includes/Settings.php:425
 msgctxt "Fields: Role Dropdown"
 msgid "Authors"
 msgstr ""
 
-#: includes/Settings.php:424
+#: includes/Settings.php:426
 msgctxt "Fields: Role Dropdown"
 msgid "Contributors"
 msgstr ""
 
-#: includes/Settings.php:430
+#: includes/Settings.php:432
 msgctxt "Fields: Role Dropdown"
 msgid "Site Users"
 msgstr ""
 
-#: includes/Settings.php:433
+#: includes/Settings.php:435
 msgctxt "Fields: Role Dropdown"
 msgid "Super Admins"
 msgstr ""
 
-#: includes/Settings.php:437
+#: includes/Settings.php:439
 msgctxt "Fields: Role Dropdown"
 msgid "Network Users"
 msgstr ""
 
-#: includes/Settings.php:476
+#: includes/Settings.php:478
 msgctxt "Settings: Option: Time in Minutes"
 msgid "5 Minutes"
 msgstr ""
 
-#: includes/Settings.php:477
+#: includes/Settings.php:479
 msgctxt "Settings: Option: Time in Minutes"
 msgid "10 Minutes"
 msgstr ""
 
-#: includes/Settings.php:478
+#: includes/Settings.php:480
 msgctxt "Settings: Option: Time in Minutes"
 msgid "15 Minutes"
 msgstr ""
 
-#: includes/Settings.php:479
+#: includes/Settings.php:481
 msgctxt "Settings: Option: Time in Minutes"
 msgid "30 Minutes"
 msgstr ""
 
-#: includes/Settings.php:480
+#: includes/Settings.php:482
 msgctxt "Settings: Option: Time in Minutes"
 msgid "60 Minutes"
 msgstr ""
 
-#: includes/Settings.php:481
+#: includes/Settings.php:483
 msgctxt "Settings: Option: Time in Minutes"
 msgid "2 Hours"
 msgstr ""
 
-#: includes/Settings.php:482
+#: includes/Settings.php:484
 msgctxt "Settings: Option: Time in Minutes"
 msgid "3 Hours"
 msgstr ""
 
-#: includes/Settings.php:483
+#: includes/Settings.php:485
 msgctxt "Settings: Option: Time in Minutes"
 msgid "4 Hours"
 msgstr ""
 
-#: includes/Settings.php:484
+#: includes/Settings.php:486
 msgctxt "Settings: Option: Time in Minutes"
 msgid "8 Hours"
 msgstr ""
 
-#: includes/Settings.php:485
+#: includes/Settings.php:487
 msgctxt "Settings: Option: Time in Minutes"
 msgid "24 Hours"
 msgstr ""
 
 #. translators: `%s`: options
-#: includes/Settings.php:494
+#: includes/Settings.php:496
 #, php-format
 msgctxt "Settings: Dropdown Select Option None"
 msgid "&ndash; Select %s &ndash;"
 msgstr ""
 
-#: includes/Settings.php:498
+#: includes/Settings.php:500
 msgctxt "Settings: Dropdown Select Option None"
 msgid "&ndash; Select &ndash;"
 msgstr ""
 
 #. translators: `%s`: options
-#: includes/Settings.php:506
+#: includes/Settings.php:508
 #, php-format
 msgctxt "Settings: Dropdown Select Option All"
 msgid "&ndash; All %s &ndash;"
 msgstr ""
 
-#: includes/Settings.php:510
+#: includes/Settings.php:512
 msgctxt "Settings: Dropdown Select Option All"
 msgid "&ndash; All &ndash;"
 msgstr ""
 
-#: includes/Settings.php:516
-#: includes/Settings.php:634
+#: includes/Settings.php:518
+#: includes/Settings.php:636
 msgctxt "Settings"
 msgid "Enabled"
 msgstr ""
 
-#: includes/Settings.php:517
-#: includes/Settings.php:633
+#: includes/Settings.php:519
+#: includes/Settings.php:635
 msgctxt "Settings"
 msgid "Disabled"
 msgstr ""
 
-#: includes/Settings.php:636
+#: includes/Settings.php:638
 msgctxt "Settings"
 msgid "No options!"
 msgstr ""
 
-#: includes/Settings.php:637
+#: includes/Settings.php:639
 msgctxt "Settings"
 msgid "You do not have access to change this option."
 msgstr ""
 
-#: includes/Utilities.php:106
+#: includes/Utilities.php:114
 msgctxt "Utilities: Post Title"
 msgid "(untitled)"
 msgstr ""
 
-#: includes/Utilities.php:197
+#: includes/Utilities.php:205
 msgctxt "Helper: Title Attribute"
 msgid "No Count"
 msgstr ""
 
-#: includes/Utilities.php:204
+#: includes/Utilities.php:212
 msgctxt "Helper: Title Attribute"
 msgid "No Order"
 msgstr ""
 
-#: includes/Utilities.php:248
+#: includes/Utilities.php:257
 msgctxt "Utilities: Join Items Helper"
 msgid "&rdquo;"
 msgstr ""
 
-#: includes/Utilities.php:249
+#: includes/Utilities.php:258
 msgctxt "Utilities: Join Items Helper"
 msgid "&ldquo; and &rdquo;"
 msgstr ""
 
-#: includes/Utilities.php:251
+#: includes/Utilities.php:260
 msgctxt "Utilities: Join Items Helper"
 msgid "&ldquo;, &rdquo;"
 msgstr ""
 
-#: includes/Utilities.php:254
+#: includes/Utilities.php:263
 msgctxt "Utilities: Join Items Helper"
 msgid "&ldquo;"
 msgstr ""
 
-#: includes/Utilities.php:440
+#: includes/Utilities.php:449
 msgctxt "Utilities: Title"
 msgid "SSL Enabled"
 msgstr ""
 
-#: includes/Utilities.php:444
+#: includes/Utilities.php:453
 msgctxt "Utilities: Title"
 msgid "SSL Disabled"
 msgstr ""
