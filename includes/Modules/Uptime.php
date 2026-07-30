@@ -9,6 +9,8 @@ use geminorum\gNetwork\WordPress;
 
 class Uptime extends gNetwork\Module
 {
+	const API_KEY_CONSTANT = 'UPTIMEROBOT_APIKEY';
+
 	protected $key     = 'uptime';
 	protected $network = FALSE;
 
@@ -16,11 +18,10 @@ class Uptime extends gNetwork\Module
 
 	protected function setup_actions()
 	{
-		if ( defined( 'UPTIMEROBOT_APIKEY' ) && UPTIMEROBOT_APIKEY )
-			$this->api_key = UPTIMEROBOT_APIKEY;
-
-		else if ( isset( $this->options['uptimerobot_apikey'] ) )
-			$this->api_key = $this->options['uptimerobot_apikey'];
+		$this->api_key = self::const(
+			static::API_KEY_CONSTANT,
+			$this->options['uptimerobot_apikey']
+		);
 	}
 
 	public function setup_menu( ?string $context ): void
@@ -46,7 +47,7 @@ class Uptime extends gNetwork\Module
 					'type'        => 'text',
 					'title'       => _x( 'API Key', 'Modules: Uptime: Settings', 'gnetwork-admin' ),
 					'description' => _x( 'Key for communication between this site and UptimeRobot.com', 'Modules: Uptime: Settings', 'gnetwork-admin' ),
-					'constant'    => 'UPTIMEROBOT_APIKEY',
+					'constant'    => static::API_KEY_CONSTANT,
 					'field_class' => [ 'regular-text', 'code-text' ],
 				],
 				'dashboard_widget',
