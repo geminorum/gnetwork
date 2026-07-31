@@ -1380,6 +1380,13 @@ class ShortCodes extends gNetwork\Module
 		if ( FALSE === $args['context'] )
 			return NULL;
 
+		// The attachment exists?!
+		if ( $args['id'] && ( $attachment = WordPress\Post::get( $args['id'] ) ) )
+			$args['id'] = $attachment->ID;
+
+		else
+			$args['id'] = FALSE;
+
 		if ( ! $args['id'] && ! $args['url'] )
 			return $content;
 
