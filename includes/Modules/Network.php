@@ -131,7 +131,7 @@ class Network extends gNetwork\Module
 
 		gNetwork()->network->menus['tools'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
-			'icon'  => $icon ? Core\HTML::getDashicon( $icon ) : NULL,
+			'icon'  => Core\HTML::getDashicon( $icon ?? 'admin-tools' ),
 			'cap'   => $capability ?? 'manage_network_options',
 		];
 

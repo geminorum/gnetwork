@@ -107,6 +107,7 @@ class Dev extends gNetwork\Module
 			return $trigger;
 
 		if ( in_array( $function_name, [
+			'themes_api',
 			'plugins_api',
 			'get_core_checksums',
 			'wp_version_check',

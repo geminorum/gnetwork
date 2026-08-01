@@ -208,7 +208,7 @@ class Admin extends gNetwork\Module
 
 		gNetwork()->admin->menus['tools'][( (int) $priority )][$sub] = [
 			'title' => $title ? $title : $sub,
-			'icon'  => $icon ? Core\HTML::getDashicon( $icon ) : NULL,
+			'icon'  => Core\HTML::getDashicon( $icon ?? 'admin-tools' ),
 			'cap'   => $capability ?? 'manage_options',
 		];
 

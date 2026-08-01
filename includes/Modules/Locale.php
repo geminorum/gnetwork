@@ -95,6 +95,7 @@ class Locale extends gNetwork\Module
 		if ( Core\Text::starts( $domain, [
 			'gnetwork-',
 			'geditorial-',
+			'gtheme-',
 		] ) )
 			return TRUE;
 
