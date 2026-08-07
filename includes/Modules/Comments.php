@@ -482,7 +482,7 @@ class Comments extends gNetwork\Module
 	 */
 	private function is_known_spam_domain( $url )
 	{
-		$host = Core\URL::parse( $url, PHP_URL_HOST );
+		$host = WordPress\URL::parse( $url, PHP_URL_HOST );
 
 		if ( empty( $host ) )
 			return FALSE;

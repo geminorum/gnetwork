@@ -74,7 +74,7 @@ class Settings extends Core\Base
 		$extra = [ 'style' => sprintf( '--side-nav-title-length: %d', Core\Text::utf8Len( $title ) ) ];
 
 		Core\HTML::h2( $title, '-title' );
-		Core\HTML::headerNav( $uri, $active, $subs, $extra, 'side-nav', 'ul', 'li' );
+		Core\HTML::headerNav( $uri, $active, $subs, $extra, 'side-nav', 'ul', 'li', FALSE );
 
 		echo '<div class="side-nav-content">';
 

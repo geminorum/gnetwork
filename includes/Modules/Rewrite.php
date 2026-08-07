@@ -157,7 +157,7 @@ class Rewrite extends gNetwork\Module
 		echo '</span>';
 	}
 
-	public function table_list_row_class( $row_class, $row, $index, $args )
+	public function table_list_row_class( array $row_class, array|object $row, int|string $index, array $args ): array
 	{
 		$row_class[] = 'code';
 
@@ -257,8 +257,8 @@ class Rewrite extends gNetwork\Module
 
 		if ( ! empty( $req_search ) ) {
 
-			$match_path = Core\URL::parse( esc_url( $req_search ), PHP_URL_PATH );
-			$wordpress  = Core\URL::parse( home_url(), PHP_URL_PATH );
+			$match_path = WordPress\URL::parse( esc_url( $req_search ), PHP_URL_PATH );
+			$wordpress  = WordPress\URL::parse( home_url(), PHP_URL_PATH );
 
 			if ( ! empty( $wordpress ) )
 				$match_path = str_replace( $wordpress, '', $match_path ?: '' );

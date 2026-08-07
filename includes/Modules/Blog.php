@@ -815,7 +815,8 @@ class Blog extends gNetwork\Module
 
 	public function wp_get_attachment_url( $url, $post_ID )
 	{
-		return str_replace( 'http://', 'https://', $url );
+		// `return str_replace( 'http://', 'https://', $url );`
+		return Core\URL::toScheme( $url, 'https' );
 	}
 
 	public function pre_get_posts( $wp_query )
@@ -823,14 +824,14 @@ class Blog extends gNetwork\Module
 		$wp_query->set( 'no_found_rows', TRUE );
 	}
 
-	// uses the query parts to run a custom count(*) query against the database
-	// then constructs and sets the pagination results for this wp_query
+	// Uses the query parts to run a custom count(*) query against the database.
+	// Then constructs and sets the pagination results for this `wp_query`.
 	// @REF: https://wpartisan.me/?p=166
 	public function posts_clauses( $clauses, $wp_query )
 	{
 		global $wpdb;
 
-		// don't proceed if it's a singular page
+		// Don't proceed if it's a singular page!
 		if ( $wp_query->is_singular() )
 			return $clauses;
 
@@ -838,11 +839,11 @@ class Blog extends gNetwork\Module
 		$join  = isset( $clauses[ 'join' ] )     ? $clauses[ 'join' ]     : '';
 		$dist  = isset( $clauses[ 'distinct' ] ) ? $clauses[ 'distinct' ] : '';
 
-		// construct and run the query. Set the result as the 'found_posts'
-		// param on the main query we want to run
+		// Construct and run the query. Set the result as the `found_posts`
+		// param on the main query we want to run.
 		$wp_query->found_posts = $wpdb->get_var( "SELECT {$dist} COUNT(*) FROM {$wpdb->posts} {$join} WHERE 1=1 {$where}" );
 
-		// work out how many posts per page there should be
+		// Work out how many posts per page there should be.
 		$posts_per_page = empty( $wp_query->query_vars['posts_per_page'] )
 			? absint( get_option( 'posts_per_page' ) )
 			: absint( $wp_query->query_vars['posts_per_page'] );
@@ -852,7 +853,7 @@ class Blog extends gNetwork\Module
 		return $clauses;
 	}
 
-	// does not apply the `autop()` to the form content
+	// Does not apply the `autop()` to the form content.
 	// ADOPTED FROM: Contact Form 7 Controls - v0.6.1 - 2018-10-15
 	// @SOURCE: https://github.com/kasparsd/contact-form-7-extras
 	public function wpcf7_form_elements( $form )

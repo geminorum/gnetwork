@@ -25,7 +25,7 @@ class Media extends gNetwork\Module
 		$this->action( 'init', 0, 999, 'late' );
 
 		// @REF: https://core.trac.wordpress.org/ticket/57913
-		$this->filter_false( 'pre_option_wp_attachment_pages_enabled' );
+		$this->filter_false( 'pre_option_wp_attachment_pages_enabled', 8 );
 
 		if ( ! WordPress\IsIt::compatWP( '6.1' ) ) // @since before WP 6.1.0
 			$this->filter( 'wp_handle_upload_prefilter', 1, 1 );

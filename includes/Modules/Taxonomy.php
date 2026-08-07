@@ -1570,7 +1570,7 @@ JS;
 
 			foreach ( $new_terms as $new_term_id => $new_term ) {
 
-				// needs to be set before our action fired
+				// Needs to be set before our action fired.
 				foreach ( $old_objects as $old_object )
 					wp_set_object_terms( $old_object, (int) $new_term_id, $taxonomy, TRUE );
 
@@ -1581,11 +1581,11 @@ JS;
 				$this->actions( 'term_merged', $taxonomy, $new_term, $old_term, $old_meta );
 			}
 
-			// late delete to avoid losing relation data!
+			// Late delete to avoid losing relation data!
 			$deleted = wp_delete_term( $term_id, $taxonomy );
 
 			if ( ! $deleted || self::isError( $deleted ) )
-				return FALSE; // bail if something's wrong!
+				return FALSE; // Bail if something's wrong!
 		}
 
 		// flush the deferred term counts
@@ -1662,7 +1662,7 @@ JS;
 				if ( ! $new_term = WordPress\Taxonomy::getTargetTerm( $target, $taxonomy ) )
 					continue;
 
-				// needs to be set before our action fired
+				// Needs to be set before our action fired.
 				foreach ( $old_objects as $old_object )
 					wp_set_object_terms( $old_object, $new_term->term_id, $taxonomy, TRUE );
 
@@ -1673,7 +1673,7 @@ JS;
 				$this->actions( 'term_splited', $taxonomy, $new_term, $old_term, $old_meta );
 			}
 
-			// late delete to avoid losing relation data!
+			// Late delete to avoid losing relation data!
 			$deleted = wp_delete_term( $term_id, $taxonomy );
 
 			if ( ! $deleted || self::isError( $deleted ) )

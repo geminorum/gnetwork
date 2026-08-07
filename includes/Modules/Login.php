@@ -222,7 +222,7 @@ class Login extends gNetwork\Module
 		if ( ! is_multisite() && Core\Text::has( $_SERVER['REQUEST_URI'], [ 'wp-signup', 'wp-activate' ] ) )
 			wp_die( _x( 'Move along, nothing to see here!', 'Modules: Login', 'gnetwork' ), 403 );
 
-		if ( ! $request = Core\URL::parse( $_SERVER['REQUEST_URI'] ) )
+		if ( ! $request = WordPress\URL::parse( $_SERVER['REQUEST_URI'] ) )
 			return;
 
 		if ( empty( $request['path'] ) )
@@ -250,7 +250,7 @@ class Login extends gNetwork\Module
 	{
 		global $pagenow;
 
-		$request = Core\URL::parse( $_SERVER['REQUEST_URI'] );
+		$request = WordPress\URL::parse( $_SERVER['REQUEST_URI'] );
 
 		$this->check_admin_page( $request, $pagenow );
 
