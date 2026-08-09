@@ -49,7 +49,7 @@ class Debug extends gNetwork\Module
 				$this->filter_false( 'deprecated_argument_trigger_error' );
 			}
 
-			// akismet will log all the http_reqs!!
+			// Akismet will log all the `http_reqs`!!
 			$this->filter_false( 'akismet_debug_log', 20 );
 		}
 
@@ -59,7 +59,7 @@ class Debug extends gNetwork\Module
 			 * WordPress Core does *not* use sessions. All "user state" is
 			 * managed via cookies. This is a Core design decision.
 			 * However, some plugins or themes will use `session_start()`
-			 * or PHP's `$_SESSION` superglobal.
+			 * or PHP's `$_SESSION` super-global.
 			 *
 			 * @source https://docs.pantheon.io/guides/php/wordpress-sessions
 			 */
@@ -115,6 +115,7 @@ class Debug extends gNetwork\Module
 				'menu'    => _x( 'Error Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
 				'path'    => GNETWORK_DEBUG_LOG,
 			],
+
 			'systemlogs' => [
 				/* translators: `%s`: log file size */
 				'pointer' => _x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
@@ -122,6 +123,7 @@ class Debug extends gNetwork\Module
 				'menu'    => _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
 				'path'    => GNETWORK_SYSTEM_LOG,
 			],
+
 			'monologlogs' => [
 				/* translators: `%s`: log file size */
 				'pointer' => _x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
@@ -129,6 +131,7 @@ class Debug extends gNetwork\Module
 				'menu'    => _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
 				'path'    => GNETWORK_MONOLOG_LOG,
 			],
+
 			'analoglogs' => [
 				/* translators: `%s`: log file size */
 				'pointer' => _x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
@@ -136,6 +139,7 @@ class Debug extends gNetwork\Module
 				'menu'    => _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
 				'path'    => GNETWORK_ANALOG_LOG,
 			],
+
 			'failedlogs' => [
 				/* translators: `%s`: log file size */
 				'pointer' => _x( '%s in Failed Logs', 'Modules: Debug', 'gnetwork-admin' ),
@@ -143,6 +147,7 @@ class Debug extends gNetwork\Module
 				'menu'    => _x( 'Failed Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
 				'path'    => GNETWORK_FAILED_LOG,
 			],
+
 			'notfoundlogs' => [
 				/* translators: `%s`: log file size */
 				'pointer' => _x( '%s in Not-Found Logs', 'Modules: Debug', 'gnetwork-admin' ),

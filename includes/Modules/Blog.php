@@ -730,7 +730,7 @@ class Blog extends gNetwork\Module
 	{
 		$singular = is_singular();
 
-		Core\Third::htmlThemeColor( $this->options['theme_color'] ?: gNetwork()->option( 'theme_color', 'branding' ) );
+		Core\Color::htmlThemeColor( $this->options['theme_color'] ?: gNetwork()->option( 'theme_color', 'branding' ) );
 
 		if ( gNetwork()->option( 'opensearch', 'opensearch' ) )
 			gNetwork()->opensearch->do_link_tag();

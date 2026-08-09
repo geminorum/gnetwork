@@ -1138,11 +1138,11 @@ class ShortCodes extends gNetwork\Module
 		$data = $args['data'] ?? Core\Text::trim( $content );
 
 		$supported = [
-			'url'     => [ '\geminorum\gNetwork\Core\URL',    'sanitize' ],
-			'email'   => [ '\geminorum\gNetwork\Core\Email',  'sanitize' ],
-			'phone'   => [ '\geminorum\gNetwork\Core\Phone',  'sanitize' ],
-			'sms'     => [ '\geminorum\gNetwork\Core\Mobile', 'sanitize' ],
-			'contact' => [ '\geminorum\gNetwork\Core\Text',   'trim'     ],
+			'url'     => [ Core\URL::class,    'sanitize' ],
+			'email'   => [ Core\Email::class,  'sanitize' ],
+			'phone'   => [ Core\Phone::class,  'sanitize' ],
+			'sms'     => [ Core\Mobile::class, 'sanitize' ],
+			'contact' => [ Core\Text::class,   'trim'     ],
 		];
 
 		foreach ( $supported as $datatype => $sanitizer ) {
@@ -1177,10 +1177,9 @@ class ShortCodes extends gNetwork\Module
 	public function shortcode_search( string|array|null $atts = [], ?string $content = NULL, string $tag = '' ): mixed
 	{
 		$args = WordPress\ShortCode::attributes( [
-			'for'     => FALSE, // override
-			'url'     => FALSE, // override
-			/* translators: `%s`: search criteria */
-			'title'   => _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
+			'for'     => FALSE,   // override
+			'url'     => FALSE,   // override
+			'title'   => NULL,
 			'context' => NULL,
 			'wrap'    => TRUE,
 			'before'  => '',
@@ -1198,7 +1197,11 @@ class ShortCodes extends gNetwork\Module
 
 		$html = Core\HTML::tag( 'a', [
 			'href'  => WordPress\URL::search( $for, $args['url'] ),
-			'title' => sprintf( $args['title'], $for ),
+			'title' => sprintf(
+				/* translators: `%s`: search criteria */
+				$args['title'] ?? _x( 'Search this site for &ldquo;%s&rdquo;', 'Modules: ShortCodes: Defaults', 'gnetwork' ),
+				$for
+			),
 		], $text );
 
 		return self::shortcodeWrap( $html, 'search', $args, FALSE );
