@@ -16,7 +16,14 @@ class Text extends Base
 
 	public static function glued( array $args, string $with = ' ' )
 	{
+		if ( empty( $args ) )
+			return '';
+
+		$args  = array_values( $args );
 		$parts = [];
+
+		$multi = $with === ' ' || 1 !== strlen( $with );
+		$start = ! $multi && str_starts_with( $args[0], $with );
 
 		foreach ( $args as $arg )
 
@@ -26,9 +33,9 @@ class Text extends Base
 			else if ( $arg && TRUE !== $arg )
 				$parts[] = trim( $arg );
 
-		return $with === ' ' || 1 !== strlen( $with )
+		return ( $start ? $with : '' ).( $multi
 			? self::trim( implode( $with, $parts ) )
-			: self::trim( implode( $with, $parts ), $with );
+			: self::trim( implode( $with, $parts ), $with ) );
 	}
 
 	public static function gluedNBSP()
@@ -2250,7 +2257,7 @@ class Text extends Base
 		///```
 		// $search = array('\\', ';', ',', "\r\n", "\n", "\r");
 		// $replace = array('\\\\', '\;', '\,', '\n', '\n', '\n');
-		// $text = str_replace($search, $replace, $text);
+		// $text = str_replace( $search, $replace, $text );
 		///```
 
 		///```
@@ -2258,7 +2265,7 @@ class Text extends Base
 		// Note the mixture of single and double quotes for the line break (Double quotes interpret the line breaks whereas single ones don't)
 		// $search = array('/',';',',',"\N","\n");
 		// $replace = array('\/','\;','\,','\n','\n');
-		// $text = str_replace($search,$replace,$text);
+		// $text = str_replace( $search,$replace,$text );
 		///```
 
 		return self::trim( $text );

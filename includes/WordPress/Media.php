@@ -449,7 +449,7 @@ class Media extends Core\Base
 			Core\Arraay::reKey( $attachments, 'ID' ),
 			array(
 				'name'       => $name,
-				'none_title' => __( 'Select an item' ), // `Settings::showOptionNone(),`
+				'none_title' => __( 'Select' ), // `Settings::showOptionNone(),`
 				'class'      => '-attachment',
 				'selected'   => $selected,
 				'prop'       => 'post_title',
@@ -778,5 +778,48 @@ class Media extends Core\Base
 	{
 		add_filter( 'intermediate_image_sizes', '__return_empty_array', 99 );
 		add_filter( 'intermediate_image_sizes_advanced', '__return_empty_array', 99 );
+	}
+
+	/**
+	 * Return all images sizes register by `add_image_size()` merged with
+	 * WordPress default image sizes.
+	 * @link https://codex.wordpress.org/Function_Reference/get_intermediate_image_sizes
+	 * @source https://gist.github.com/DevWael/3d282de8879e3bf35d5f426d87647f92
+	 *
+	 * @param false|string $size
+	 * @return false|array
+	 */
+	public static function getImageSizes( false|string $size = FALSE ): false|array
+	{
+		global $_wp_additional_image_sizes;
+
+		$list = [];
+
+		// Create the full array with sizes and crop info
+		foreach ( get_intermediate_image_sizes() as $_size ) {
+
+			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+
+				$list[$_size]['width']  = get_option( $_size.'_size_w' );
+				$list[$_size]['height'] = get_option( $_size.'_size_h' );
+				$list[$_size]['crop']   = (bool) get_option( $_size.'_crop' );
+
+			} else if ( isset( $_wp_additional_image_sizes[$_size] ) ) {
+
+				$list[$_size] = [
+					'width'  => $_wp_additional_image_sizes[$_size]['width'],
+					'height' => $_wp_additional_image_sizes[$_size]['height'],
+					'crop'   => $_wp_additional_image_sizes[$_size]['crop']
+				];
+			}
+		}
+
+		// Get only 1 size if found
+		if ( ! $size )
+			return $list;
+
+		return array_key_exists( $size, $list )
+			? $list[$size]
+			: FALSE;
 	}
 }

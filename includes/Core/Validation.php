@@ -5,51 +5,51 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Validation extends Base
 {
 
+	#[\Deprecated('USE `Core\PostCode::sanitize()`')]
 	public static function sanitizePostCode( $input )
 	{
-		self::_dep( 'Core\PostCode::sanitize()' );
 		return PostCode::sanitize( $input );
 	}
 
+	#[\Deprecated('USE `Core\PostCode::is()`')]
 	public static function isPostCode( $input )
 	{
-		self::_dep( 'Core\PostCode::is()' );
 		return PostCode::is( $input );
 	}
 
+	#[\Deprecated('USE `Core\PostCode::isIranPostCode()`')]
 	public static function isIranPostCode( $input )
 	{
-		self::_dep( 'Core\PostCode::isIranPostCode()' );
 		return PostCode::isIranPostCode( $input );
 	}
 
+	#[\Deprecated('USE `Core\Mobile::getHTMLPattern()`')]
 	public static function getMobileHTMLPattern()
 	{
-		self::_dep( 'Core\Mobile::getHTMLPattern()' );
 		return Mobile::getHTMLPattern();
 	}
 
+	#[\Deprecated('USE `Core\Phone::sanitize()`')]
 	public static function sanitizePhoneNumber( $input )
 	{
-		self::_dep( 'Core\Phone::sanitize()' );
 		return Phone::sanitize( $input );
 	}
 
+	#[\Deprecated('USE `Core\Phone::is()`')]
 	public static function isPhoneNumber( $input )
 	{
-		self::_dep( 'Core\Phone::is()' );
 		return Phone::is( $input );
 	}
 
+	#[\Deprecated('USE `Core\Mobile::sanitize()`')]
 	public static function sanitizeMobileNumber( $input )
 	{
-		self::_dep( 'Core\Mobile::sanitize()' );
 		return Mobile::sanitize( $input );
 	}
 
+	#[\Deprecated('USE `Core\Mobile::is()`')]
 	public static function isMobileNumber( $input )
 	{
-		self::_dep( 'Core\Mobile::is()' );
 		return Mobile::is( $input );
 	}
 

@@ -914,13 +914,16 @@ class HTML extends Base
 		string $prefix = 'nav-tab',
 		string $wrap = 'h3',
 		string $item = '',
+		bool $horizontal = TRUE,
 	): void {
 
 		if ( empty( $subs ) )
 			return;
 
 		$html = '';
-		$pos  = L10n::rtl() ? 'left' : 'right';
+		$pos  = L10n::rtl()
+			? ( $horizontal ? 'up-right' : 'left' )
+			: ( $horizontal ? 'up-left' : 'right' );
 
 		foreach ( $subs as $slug => $page ) {
 
@@ -933,6 +936,10 @@ class HTML extends Base
 
 				$args = empty( $page['args'] ) ? [ 'sub' => $slug ] : $page['args'];
 				$hint = empty( $page['hint'] ) ? ( empty( $page['title'] ) ? $slug : $page['title'] ) : $page['hint'];
+
+				// NOTE: avoid hint as same as the title
+				if ( $hint && ( ( ! empty( $page['title'] ) && $hint === $page['title'] ) || $hint === $slug ) )
+					$hint = FALSE;
 
 				if ( $hint ) {
 
@@ -1192,6 +1199,9 @@ class HTML extends Base
 					continue;
 
 				$row_class = [ '-row', '-row-'.$index ];
+
+				if ( self::empty( $row ) )
+					$row_class[] = '-row-is-empty';
 
 				if ( $alt )
 					$row_class[] = 'alternate';

@@ -15,7 +15,7 @@ class Taxonomy extends Core\Base
 			return FALSE;
 
 		if ( $taxonomy_or_term instanceof \WP_Term )
-			return get_taxonomy( $taxonomy_or_term->taxonomy );
+			return get_taxonomy( $taxonomy_or_term->taxonomy ) ?: FALSE;
 
 		if ( $taxonomy_or_term instanceof \WP_Taxonomy )
 			return $taxonomy_or_term;
@@ -182,16 +182,16 @@ class Taxonomy extends Core\Base
 	 *
 	 * @param int $mod
 	 * @param array $args
-	 * @param bool|string $object
+	 * @param false|string|array $object
 	 * @param null|string $capability
 	 * @param null|int $user_id
 	 * @return array
 	 */
-	public static function get( int $mod = 0, array $args = [], false|string $object = FALSE, ?string $capability = NULL, ?int $user_id = NULL )
+	public static function get( int $mod = 0, array $args = [], false|string|array $object = FALSE, ?string $capability = NULL, ?int $user_id = NULL )
 	{
 		$list = [];
 
-		if ( FALSE === $object || 'any' == $object )
+		if ( FALSE === $object || 'any' === $object )
 			$objects = get_taxonomies( $args, 'objects' );
 		else
 			$objects = Core\Arraay::filter( get_object_taxonomies( $object, 'objects' ), $args );
@@ -615,7 +615,7 @@ class Taxonomy extends Core\Base
 		if ( in_array( $fields, [ 'ids', 'tt_ids' ], TRUE ) )
 			$type = 'array';
 
-		else if ( Core\Text::starts( $fields, 'id=>' ) )
+		else if ( $fields && Core\Text::starts( $fields, 'id=>' ) )
 			$type = 'assoc';
 
 		foreach ( $terms as $index => $data ) {
@@ -712,7 +712,7 @@ class Taxonomy extends Core\Base
 	// NOTE: hits cached terms for the post
 	public static function theTermCount( string $taxonomy, null|int|object $post = NULL )
 	{
-		if ( ! empty( $taxonomy ) )
+		if ( empty( $taxonomy ) )
 			return 0;
 
 		$terms = get_the_terms( $post, $taxonomy );
@@ -945,6 +945,10 @@ class Taxonomy extends Core\Base
 		} else if ( $term = term_exists( Core\Text::nameFamilyLast( $target ), $taxonomy ) ) {
 
 			return get_term( $term['term_id'], $taxonomy );
+
+		} else if ( $filtred = apply_filters( 'nucleus_taxonomy_target_term', NULL, $target, $taxonomy, $args ) ) {
+
+			return Term::get( $filtred, $taxonomy );
 		}
 
 		// avoid filtering the new term

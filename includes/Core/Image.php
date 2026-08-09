@@ -152,14 +152,14 @@ class Image extends Base
 		if ( FALSE === $wmark )
 			return FALSE;
 
-		// $sx = imagesx($wmark);
-		// $sy = imagesy($wmark);
+		// `$sx = imagesx( $wmark );`
+		// `$sy = imagesy( $wmark );`
 
 		imagecopy(
 			$image,
 			$wmark,
-			//imagesx($image) - $sx - $margin_right,
-			//imagesy($image) - $sy - $margin_bottom,
+			// `imagesx( $image ) - $sx - $margin_right,`
+			// `imagesy( $image ) - $sy - $margin_bottom,`
 			$margin_right,
 			$margin_bottom,
 			0,

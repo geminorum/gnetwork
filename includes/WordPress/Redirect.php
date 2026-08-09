@@ -30,6 +30,7 @@ class Redirect extends Core\Base
 		] ) ) );
 	}
 
+	// @see `wp_removable_query_args()`
 	// wrapper for `wp_get_referer()`
 	public static function getReferer(): string
 	{

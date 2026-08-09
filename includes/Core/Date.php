@@ -19,6 +19,7 @@ class Date extends Base
 
 	const MYSQL_FORMAT = 'Y-m-d H:i:s';
 	const MYSQL_EMPTY  = '0000-00-00 00:00:00';
+	const POT_EMPTY    = 'YEAR-MO-DA HO:MI+ZONE';
 
 	/**
 	 * Retrieves the date, in localized format.

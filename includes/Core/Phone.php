@@ -219,7 +219,7 @@ class Phone extends Base
 
 	// @REF: https://www.abstractapi.com/guides/validate-phone-number-javascript
 	// @SEE: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel
-	public static function getHTMLPattern()
+	public static function getHTMLPattern(): string|false
 	{
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹]{3}-[0-9۰-۹]{3}-[0-9۰-۹]{4}';

@@ -78,7 +78,7 @@ class Mobile extends Base
 		return $value;
 	}
 
-	public static function getHTMLPattern()
+	public static function getHTMLPattern(): string|false
 	{
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹+]{11,}';

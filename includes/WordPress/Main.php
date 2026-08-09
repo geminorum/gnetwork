@@ -128,12 +128,12 @@ class Main extends Core\Base
 		return $results;
 	}
 
-	protected static function getString( string $string, string $posttype = 'post', ?string $group = 'titles', mixed $fallback = FALSE, ?string $module = NULL ): null|false|string
+	protected static function getString( string $string, string|false $subgroup = 'post', string $group = 'titles', string|false|null $fallback = FALSE, ?string $module = NULL ): null|false|string
 	{
 		if ( ! $module = $module ?? static::MODULE )
 			return $fallback;
 
-		return static::factory()->module( $module )->get_string( $string, $posttype, $group, $fallback );
+		return static::factory()->module( $module )->get_string( $string, $subgroup, $group, $fallback );
 	}
 
 	protected static function getPostMeta( int $post_id, string|false $field = FALSE, mixed $default = [], ?string $metakey = NULL, ?string $module = NULL ): mixed

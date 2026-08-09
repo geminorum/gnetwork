@@ -2,19 +2,22 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
+use geminorum\gNetwork\WordPress;
+
 class URL extends Base
 {
 
 	/**
 	 * Sanitizes a URL for storage or redirect.
-	 * @source `sanitize_url()`
+	 * @source `sanitize_url()`/`esc_url_raw()`
 	 *
-	 * @param string $url
+	 * @param mixed $input
 	 * @return string
 	 */
-	public static function sanitize( $url )
+	public static function sanitize( mixed $input ): string
 	{
-		$sanitized = Text::trim( $url );
+		if ( ! $sanitized = Text::force( $input ) )
+			return '';
 
 		// @SEE: `esc_url()`
 		if ( $sanitized && ! preg_match( '/^http(s)?:\/\//', $sanitized ) )
@@ -23,8 +26,33 @@ class URL extends Base
 		return esc_url( $sanitized, NULL, 'db' );
 	}
 
+	// TODO: support schemes: `geo:`
+	public static function sanitizeForStorage( mixed $input ): string
+	{
+		$raw = $input;
+
+		if ( ! $sanitized = Text::force( $input ) )
+			return '';
+
+		$sanitized = Text::trim( rawurldecode( $sanitized ) );
+
+		if ( self::isRelative( $sanitized ) )
+			$sanitized = sanitize_url( $sanitized ); // avoid forced scheme
+
+		else if ( self::isLocal( $sanitized ) )
+			$sanitized = sanitize_url( self::relative( $sanitized ) ); // avoid forced scheme
+
+		else
+			$sanitized = self::sanitize( $sanitized );
+
+		return apply_filters( 'nucleus_url_sanitize',
+			$sanitized,
+			$raw,
+		);
+	}
+
 	// @SOURCE: http://stackoverflow.com/a/8891890
-	public static function current( $trailingslashit = FALSE, $forwarded_host = FALSE )
+	public static function current( bool $trailingslashit = FALSE, bool $forwarded_host = FALSE ): string
 	{
 		$ssl = ( ! empty( $_SERVER['HTTPS'] ) && 'on' == $_SERVER['HTTPS'] );
 
@@ -42,20 +70,20 @@ class URL extends Base
 	}
 
 	// like twitter links
-	public static function prepTitle( $url, $convert_slash = FALSE )
+	public static function prepTitle( string $url, bool $convert_slash = FALSE ): string
 	{
 		$title = preg_replace( '|^http(s)?://(www\.)?|i', '', $url );
 		$title = self::untrail( $title );
 		return $convert_slash ? str_ireplace( [ '/', '\/' ], '-', $title ) : $title;
 	}
 
-	public static function prepTitleQuery( $string )
+	public static function prepTitleQuery( string $string ): string
 	{
 		return str_ireplace( [ '_', '-' ], ' ', urldecode( $string ) );
 	}
 
-	// wrapper for `wp_parse_url()`
-	public static function parse( $url, $component = -1 )
+	#[\Deprecated('USE `WordPress\URL::parse()`')]
+	public static function parse( string $url, int $component = -1 ): mixed
 	{
 		return wp_parse_url( $url, $component );
 	}
@@ -110,7 +138,7 @@ class URL extends Base
 	 */
 	public static function stripFragment( string $url ): string
 	{
-		$parsed = self::parse( $url );
+		$parsed = WordPress\URL::parse( $url );
 
 		if ( empty( $parsed['host'] ) )
 			return $url;
@@ -158,6 +186,13 @@ class URL extends Base
 		return $path ? rtrim( $path, '/\\' ) : $path;
 	}
 
+	// https://wp-mix.com/wordpress-remove-query-strings-scripts-styles/
+	// https://wordpress.stackexchange.com/a/224300
+	public static function unquery( string $input ): string
+	{
+		return explode( '?', $input, 2 )[0] ?? $input;
+	}
+
 	// FIXME: strip all the path
 	public static function domain( $path )
 	{
@@ -168,9 +203,18 @@ class URL extends Base
 		return strtolower( $parts[0] );
 	}
 
-	// @SOURCE: `wp_make_link_relative()`
-	public static function relative( $url )
+	/**
+	 * Converts full URL paths to absolute paths.
+	 * @source `wp_make_link_relative()`
+	 *
+	 * @param mixed $input
+	 * @return string
+	 */
+	public static function relative( mixed $input ): string
 	{
+		if ( ! $url = Text::force( $input ) )
+			return '';
+
 		return preg_replace( '|^(https?:)?//[^/]+(/?.*)|i', '$2', $url );
 	}
 
@@ -181,7 +225,7 @@ class URL extends Base
 		return dirname( $parsed ['path'] ).'/'.rawurlencode( basename( $parsed['path'] ) );
 	}
 
-	public static function fromPath( $path, $base = ABSPATH )
+	public static function fromPath( string $path, string $base = ABSPATH ): string
 	{
 		return str_ireplace(
 			File::normalize( $base ),
@@ -191,7 +235,7 @@ class URL extends Base
 		);
 	}
 
-	public static function toPath( $url, $base = ABSPATH )
+	public static function toPath( string $url, string $base = ABSPATH ): string
 	{
 		return str_ireplace(
 			self::trail( get_bloginfo( 'url' ) ),
@@ -213,13 +257,13 @@ class URL extends Base
 	// Checks whether the given URL belongs to this site.
 	public static function isLocal( string $url, $domain = NULL ): bool
 	{
-		return self::parse( $url, PHP_URL_HOST ) === self::parse( ( is_null( $domain ) ? home_url() : $domain ), PHP_URL_HOST );
+		return parse_url( $url, PHP_URL_HOST ) === parse_url( ( is_null( $domain ) ? home_url() : $domain ), PHP_URL_HOST );
 	}
 
 	// Checks whether the given URL is relative or not.
 	public static function isRelative( string $url ): bool
 	{
-		$parsed = self::parse( $url );
+		$parsed = parse_url( $url );
 		return empty( $parsed['host'] ) && empty( $parsed['scheme'] );
 	}
 
@@ -332,11 +376,19 @@ class URL extends Base
 		return $target ?: FALSE;
 	}
 
-	// converts a URL to just the domain
-	// @SOURCE: https://gist.github.com/davejamesmiller/1965937
-	public static function getDomain( $url )
+	/**
+	 * Converts a URL to just the domain.
+	 * @source: https://gist.github.com/davejamesmiller/1965937
+	 *
+	 * @param mixed $input
+	 * @return string
+	 */
+	public static function getDomain( mixed $input ): string
 	{
-		$host = self::parse( $url, PHP_URL_HOST );
+		if ( ! $url = Text::force( $input ) )
+			return '';
+
+		$host = parse_url( $url, PHP_URL_HOST );
 
 		if ( ! $host )
 			$host = $url;

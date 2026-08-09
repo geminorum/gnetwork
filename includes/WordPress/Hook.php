@@ -9,18 +9,18 @@ class Hook extends Core\Base
 
 	// @SEE: https://github.com/Rarst/advanced-hooks-api
 
-	public static function logFilter( $hook, $args = 1, $priority = NULL )
+	public static function logFilter( string $hook, int $args = 1, ?int $priority = NULL )
 	{
 		add_filter( $hook,
 			static function () use ( $hook ) {
-				$args = func_get_args();
-				self::_log( array_merge( [ $hook ], $args ) );
-				return $args[0];
-			}, $priority ?? \PHP_INT_MAX, 1 );
+				$_args = func_get_args();
+				self::_log( array_merge( [ $hook ], $_args ) );
+				return $_args[0];
+			}, $priority ?? \PHP_INT_MAX, $args );
 	}
 
 	// Shows all the `filters` currently attached to a hook
-	public static function filters( $hook, $verbose = TRUE )
+	public static function filters( string $hook, bool $verbose = TRUE )
 	{
 		global $wp_filter;
 

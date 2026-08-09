@@ -2,13 +2,8 @@
 
 defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
-use geminorum\gNetwork\WordPress;
-
-class Third extends Base
+class Socials extends Base
 {
-
-	// TODO: move to `Misc\ThirdParty`
-
 	public static function getHandleURL( $string, $service, $prefix = '@' )
 	{
 		$url = $string;
@@ -94,7 +89,7 @@ class Third extends Base
 	// @REF: https://gist.github.com/boonebgorges/5537311
 	public static function getHandle( $string, $url = FALSE, $base = '', $prefix = '@' )
 	{
-		$parts = URL::parse( $string );
+		$parts = parse_url( $string );
 
 		if ( empty( $parts['host'] ) )
 			$handle = 0 === strpos( $string, '@' ) ? substr( $string, 1 ) : $string;
@@ -145,11 +140,10 @@ class Third extends Base
 	 * @param string $base prefix if the URL
 	 * @return string handle or the URL
 	 */
+	#[\Deprecated('USE `Core\Socials::getHandle()`')]
 	public static function getTwitter( $string, $url = FALSE, $base = 'https://x.com/' )
 	{
-		self::_dep( 'Third::getHandle()' );
-
-		$parts = URL::parse( $string );
+		$parts = parse_url( $string );
 
 		if ( empty( $parts['host'] ) )
 			$handle = 0 === strpos( $string, '@' ) ? substr( $string, 1 ) : $string;
@@ -157,49 +151,5 @@ class Third extends Base
 			$handle = trim( $parts['path'], '/\\' );
 
 		return $url ? URL::trail( $base.$handle ) : '@'.$handle;
-	}
-
-	// @REF: https://developers.google.com/google-apps/calendar/
-	// @SOURCE: https://wordpress.org/plugins/gcal-events-list/
-	public static function getGoogleCalendarEvents( $atts )
-	{
-		$args = self::parsed( [
-			'calendar_id' => FALSE,
-			'api_key'     => '',
-			'time_min'    => '',
-			'max_results' => 5,
-		], $atts );
-
-		if ( ! $args['calendar_id'] )
-			return FALSE;
-
-		$time = $args['time_min'] && Date::isInFormat( $args['time_min'] ) ? $args['time_min'] : date( 'Y-m-d' );
-
-		$url = 'https://www.googleapis.com/calendar/v3/calendars/'
-			.urlencode( $args['calendar_id'] )
-			.'/events?key='.$args['api_key']
-			.'&maxResults='.$args['max_results']
-			.'&orderBy=startTime'
-			.'&singleEvents=true'
-			.'&timeMin='.$time.'T00:00:00Z';
-
-		return WordPress\Remote::getJSON( $url, [], FALSE );
-	}
-
-	// @REF: https://generatewp.com/easy-custom-mobile-chrome-address-bar-colors-wordpress/
-	// @REF: `rest_parse_hex_color()`
-	public static function htmlThemeColor( $color )
-	{
-		if ( ! $color )
-			return;
-
-		if ( ! preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $color, $matches ) )
-			return;
-
-		echo '<meta name="theme-color" content="'.$color.'" />'."\n";
-		echo '<meta name="msapplication-navbutton-color" content="'.$color.'">'."\n";
-		// echo '<meta name="apple-mobile-web-app-capable" content="yes">'."\n"; // DEPRECATED
-		echo '<meta name="mobile-web-app-capable" content="yes">'."\n";
-		echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'."\n";
 	}
 }

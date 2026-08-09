@@ -21,7 +21,10 @@ class WooCommerce extends Core\Base
 	];
 
 	const TERM_IMAGE_METAKEY = 'thumbnail_id';
-	const GTIN_METAKEY       = '_global_unique_id';
+	const UNIQUEID_METAKEY   = '_global_unique_id';
+
+	#[\Deprecated('USE `WordPress\WooCommerce::UNIQUEID_METAKEY`')]
+	const GTIN_METAKEY = '_global_unique_id';
 
 	public static function isActive(): bool
 	{

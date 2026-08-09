@@ -20,7 +20,7 @@ class Arraay extends Base
 		if ( empty( $input ) )
 			return [];
 
-		return array_map( [ __CALSS__, 'prepString' ], $input );
+		return array_map( [ __CLASS__, 'prepString' ], $input );
 	}
 
 	public static function prepNumeral()
@@ -38,7 +38,7 @@ class Arraay extends Base
 		if ( empty( $input ) )
 			return [];
 
-		return array_map( [ __CALSS__, 'prepNumeral' ], $input );
+		return array_map( [ __CLASS__, 'prepNumeral' ], $input );
 	}
 
 	public static function prepSplitters( ?string $text, string $default = '|' ): ?array

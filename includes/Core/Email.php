@@ -26,10 +26,10 @@ class Email extends Base
 	 * Strips out all characters that are not allowable in an email.
 	 * NOTE: wrapper for WordPress core `sanitize_email()`
 	 *
-	 * @param  mixed       $input
-	 * @param  mixed       $default
-	 * @param  array|null  $field
-	 * @param  string|null $context
+	 * @param mixed $input
+	 * @param mixed $default
+	 * @param array $field
+	 * @param string $context
 	 * @return mixed
 	 */
 	public static function sanitize( mixed $input, mixed $default = '', ?array $field = [], ?string $context = 'save' ): mixed
@@ -60,10 +60,10 @@ class Email extends Base
 	/**
 	 * Prepares a value as email address for the given context.
 	 *
-	 * @param  mixed       $value
-	 * @param  array|null  $field
-	 * @param  string|null $context
-	 * @param  mixed       $icon
+	 * @param mixed $value
+	 * @param array $field
+	 * @param string $context
+	 * @param mixed $icon
 	 * @return string
 	 */
 	public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string
@@ -90,12 +90,12 @@ class Email extends Base
 		}
 	}
 
-	public static function getHTMLPattern()
+	public static function getHTMLPattern(): string|false
 	{
 		return FALSE; // FIXME!
 	}
 
-	public static function toUsername( $email, $strict = TRUE )
+	public static function toUsername( string $email, bool $strict = TRUE ): string
 	{
 		return preg_replace( '/\s+/', '', sanitize_user( preg_replace( '/([^@]*).*/', '$1', $email ), $strict ) );
 	}

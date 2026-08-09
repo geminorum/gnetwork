@@ -38,7 +38,7 @@ class PostCode extends Base
 		return TRUE;
 	}
 
-	public static function getHTMLPattern()
+	public static function getHTMLPattern(): string|false
 	{
 		return FALSE; // FIXME
 	}

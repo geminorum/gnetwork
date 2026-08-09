@@ -16,7 +16,7 @@ class PostType extends Core\Base
 			return FALSE;
 
 		if ( $type_or_post instanceof \WP_Post )
-			return get_post_type_object( $type_or_post->post_type );
+			return get_post_type_object( $type_or_post->post_type ) ?: FALSE;
 
 		if ( $type_or_post instanceof \WP_Post_Type )
 			return $type_or_post;
@@ -806,7 +806,7 @@ class PostType extends Core\Base
 		if ( in_array( $fields, [ 'ids' ], TRUE ) )
 			$type = 'array';
 
-		else if ( Core\Text::starts( $fields, 'id=>' ) )
+		else if ( $fields && Core\Text::starts( $fields, 'id=>' ) )
 			$type = 'assoc';
 
 		foreach ( $posts as $index => $data ) {

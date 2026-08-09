@@ -24,7 +24,7 @@ abstract class DataType extends Core\Base
 	// abstract public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string;
 	// abstract public static function sanitize( mixed $input, mixed $default = '', ?array $field = [], ?string $context = 'save' ): mixed;
 	// abstract public static function discovery( $criteria );
-	// abstract public static function getHTMLPattern();
+	// abstract public static function getHTMLPattern(): string|false;
 	// abstract public static function pattern();
 
 	public static function is( mixed $input ): bool

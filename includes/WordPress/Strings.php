@@ -55,6 +55,7 @@ class Strings extends Core\Base
 
 	/**
 	 * Checks if the given input has truthy value.
+	 * NOTE: returns `FALSE` on unrelated strings!
 	 *
 	 * @param mixed $input
 	 * @param array|string $reference
@@ -62,11 +63,11 @@ class Strings extends Core\Base
 	 */
 	public static function isTruthy( mixed $input, array|string|null $reference = NULL ): bool
 	{
-		if ( self::empty( $input ) )
-			return FALSE;
-
 		if ( TRUE === $input || 1 === $input )
 			return TRUE;
+
+		if ( self::empty( $input ) || ! is_scalar( $input ) )
+			return FALSE;
 
 		if ( ! $trimmed = Core\Text::trim( (string) $input ) )
 			return FALSE;

@@ -334,7 +334,10 @@ class Color extends Base
 
 	public static function get( $color = '#ffffff' )
 	{
-		return \geminorum\gEditorial\Misc\ColorCalc::newColor( $color, 'auto' );
+		if ( ! class_exists( 'geminorum\\gEditorial\\Misc\\ColorCalc' ) )
+			return \geminorum\gEditorial\Misc\ColorCalc::newColor( $color, 'auto' );
+
+		return FALSE;
 	}
 
 	// returns a CSS value, using the auto-detected mode
@@ -606,7 +609,7 @@ class Color extends Base
 	 * @param mixed $color
 	 * @return bool
 	 */
-	public static function hexIsLight( $color )
+	public static function hexIsLight( string $color ): bool
 	{
 		$hex = str_replace( '#', '', $color );
 
@@ -630,19 +633,19 @@ class Color extends Base
 	 *                      Defaults to '#FFFFFF'.
 	 * @return string
 	 */
-	public static function lightOrDark( $hex, $dark = '#000000', $light = '#FFFFFF' )
+	public static function lightOrDark( string $hex, string $dark = '#000000', string $light = '#FFFFFF' ): string
 	{
 		return self::hexIsLight( $hex ) ? $dark : $light;
 	}
 
 	/**
-	 * Format string as hex.
+	 * Formats string as hex color.
 	 * @source `wc_format_hex()`
 	 *
 	 * @param string $hex HEX color.
 	 * @return string|null
 	 */
-	public static function formatHex( $hex )
+	public static function formatHex( string $hex ): string
 	{
 		$hex = trim( str_replace( '#', '', $hex ) );
 
@@ -656,10 +659,11 @@ class Color extends Base
 	 * Color Difference
 	 *
 	 * This is a very simple algorithm that works by summing up the
-	 * differences between the three color components red, green and
+	 * differences between the three color components red, green, and
 	 * blue. A value higher than 500 is recommended for good
 	 * readability.
 	 *
+	 * @author Andreas Gohr
 	 * @source https://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
 	 *
 	 * @param int $r1
@@ -685,6 +689,7 @@ class Color extends Base
 	 * recommended. Combining it with the color difference above might
 	 * make sense.
 	 *
+	 * @author Andreas Gohr
 	 * @source https://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
 	 *
 	 * @param int $r1
@@ -709,6 +714,7 @@ class Color extends Base
 	 * the given colors. The returned value should be bigger than 5
 	 * for best readability.
 	 *
+	 * @author Andreas Gohr
 	 * @source https://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
 	 *
 	 * @param int $r1
@@ -737,15 +743,15 @@ class Color extends Base
 	/**
 	 * Pythagorean Distance
 	 *
-	 * Manni suggested to use the Pythagorean Distance in the comments.
 	 * I ported his code to PHP. However, I found it hard to find a
 	 * good threshold. Sometimes well contrasting colors return a very
 	 * low value, sometimes their value is very high. I settled for
 	 * a threshold of 250 in my script, but suggest to use the
 	 * luminosity contrast function above instead.
 	 *
-	 * @see https://en.wikipedia.org/wiki/Pythagorean_theorem
+	 * @author Andreas Gohr
 	 * @source https://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
+	 * @see https://en.wikipedia.org/wiki/Pythagorean_theorem
 	 *
 	 * @param int $r1
 	 * @param int $g1
@@ -765,18 +771,18 @@ class Color extends Base
 	}
 
 	/**
-	 * YIQ algorithm (less precise)
+	 * `YIQ` algorithm (less precise)
 	 *
-	 * Another simplest and less precise way called YIQ,
-	 * because it converts the RGB color space into YIQ.
+	 * Another simplest and less precise way called `YIQ`,
+	 * because it converts the RGB color space into `YIQ`.
 	 *
 	 * @see https://en.wikipedia.org/wiki/YIQ
 	 * @source https://stackoverflow.com/a/42921358
 	 *
-	 * @param string $hexcolor
+	 * @param string $hex
 	 * @return string
 	 */
-	public static function yiqDiff( $hex, $dark = '#000000', $light = '#FFFFFF' )
+	public static function yiqDiff( string $hex, string $dark = '#000000', string $light = '#FFFFFF' ): string
 	{
 		$r = hexdec( substr( $hex, 1, 2 ) );
 		$g = hexdec( substr( $hex, 3, 2 ) );
@@ -795,9 +801,9 @@ class Color extends Base
 	 * @param string $hex
 	 * @return string
 	 */
-	public static function luminosityContrast( $hex, $dark = '#000000', $light = '#FFFFFF' )
+	public static function luminosityContrast( string $hex, string $dark = '#000000', string $light = '#FFFFFF' ): string
 	{
-		// hexColor RGB
+		// hex-Color RGB
 		$R1 = hexdec( substr( $hex, 1, 2 ) );
 		$G1 = hexdec( substr( $hex, 3, 2 ) );
 		$B1 = hexdec( substr( $hex, 5, 2 ) );
@@ -808,7 +814,7 @@ class Color extends Base
 		$G2BlackColor = hexdec( substr( $blackColor, 3, 2 ) );
 		$B2BlackColor = hexdec( substr( $blackColor, 5, 2 ) );
 
-		// Calc contrast ratio
+		// Calculate contrast ratio
 		$L1 = 0.2126 * pow( $R1 / 255, 2.2 ) +
 			  0.7152 * pow( $G1 / 255, 2.2 ) +
 			  0.0722 * pow( $B1 / 255, 2.2 );
@@ -824,6 +830,23 @@ class Color extends Base
 			$contrastRatio = (int) ( ( $L2 + 0.05 ) / ( $L1 + 0.05 ) );
 
 		return $contrastRatio > 5 ? $dark : $light;
+	}
+
+	// @REF: https://generatewp.com/easy-custom-mobile-chrome-address-bar-colors-wordpress/
+	// @REF: `rest_parse_hex_color()`
+	public static function htmlThemeColor( $color )
+	{
+		if ( ! $color )
+			return;
+
+		if ( ! preg_match( '|^#([A-Fa-f0-9]{3}){1,2}$|', $color, $matches ) )
+			return;
+
+		echo '<meta name="theme-color" content="'.$color.'" />'."\n";
+		echo '<meta name="msapplication-navbutton-color" content="'.$color.'">'."\n";
+		// echo '<meta name="apple-mobile-web-app-capable" content="yes">'."\n"; // DEPRECATED
+		echo '<meta name="mobile-web-app-capable" content="yes">'."\n";
+		echo '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'."\n";
 	}
 }
 
