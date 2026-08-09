@@ -83,26 +83,82 @@ class Debug extends gNetwork\Module
 		if ( ! is_multisite() )
 			Admin::registerTool( 'systemreport', _x( 'System Report', 'Modules: Menu Name', 'gnetwork-admin' ) );
 
-		if ( GNETWORK_DEBUG_LOG )
-			$this->register_tool( _x( 'Error Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'errorlogs', 20, NULL, FALSE );
+		foreach ( $this->_get_supported_logs( FALSE ) as $log => $details )
+			if ( ! empty( $details['path'] ) )
+				$this->register_tool(
+					$details['menu'],
+					$log,
+					20,
+					NULL,
+					FALSE,
+				);
+	}
 
-		if ( GNETWORK_SYSTEM_LOG )
-			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'systemlogs', 20, NULL, FALSE );
+	private function _get_supported_logs( $lite = TRUE )
+	{
+		if ( $lite )
+			return [
+				'errorlogs'    => GNETWORK_DEBUG_LOG,
+				'systemlogs'   => GNETWORK_SYSTEM_LOG,
+				'monologlogs'  => GNETWORK_MONOLOG_LOG,
+				'analoglogs'   => GNETWORK_ANALOG_LOG,
+				'failedlogs'   => GNETWORK_FAILED_LOG,
+				'notfoundlogs' => GNETWORK_NOTFOUND_LOG,
+				'searchlogs'   => GNETWORK_SEARCH_LOG,
+			];
 
-		if ( GNETWORK_MONOLOG_LOG )
-			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'monologlogs', 20, NULL, FALSE );
+		return [
+			'errorlogs' => [
+				/* translators: `%s`: log file size */
+				'pointer' => _x( '%s in Error Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'button'  => _x( 'Check Error Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'menu'    => _x( 'Error Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
+				'path'    => GNETWORK_DEBUG_LOG,
+			],
+			'systemlogs' => [
+				/* translators: `%s`: log file size */
+				'pointer' => _x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'button'  => _x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'menu'    => _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
+				'path'    => GNETWORK_SYSTEM_LOG,
+			],
+			'monologlogs' => [
+				/* translators: `%s`: log file size */
+				'pointer' => _x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'button'  => _x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'menu'    => _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
+				'path'    => GNETWORK_MONOLOG_LOG,
+			],
+			'analoglogs' => [
+				/* translators: `%s`: log file size */
+				'pointer' => _x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'button'  => _x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'menu'    => _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
+				'path'    => GNETWORK_ANALOG_LOG,
+			],
+			'failedlogs' => [
+				/* translators: `%s`: log file size */
+				'pointer' => _x( '%s in Failed Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'button'  => _x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'menu'    => _x( 'Failed Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
+				'path'    => GNETWORK_FAILED_LOG,
+			],
+			'notfoundlogs' => [
+				/* translators: `%s`: log file size */
+				'pointer' => _x( '%s in Not-Found Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'button'  => _x( 'Check Not-Found Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'menu'    => _x( 'Not-Found Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
+				'path'    => GNETWORK_NOTFOUND_LOG,
+			],
 
-		if ( GNETWORK_ANALOG_LOG )
-			$this->register_tool( _x( 'System Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'analoglogs', 20, NULL, FALSE );
-
-		if ( GNETWORK_FAILED_LOG )
-			$this->register_tool( _x( 'Failed Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'failedlogs', 20, NULL, FALSE );
-
-		if ( GNETWORK_NOTFOUND_LOG )
-			$this->register_tool( _x( 'Not-Found Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'notfoundlogs', 20, NULL, FALSE );
-
-		if ( GNETWORK_SEARCH_LOG )
-			$this->register_tool( _x( 'Search Logs', 'Modules: Menu Name', 'gnetwork-admin' ), 'searchlogs', 20, NULL, FALSE );
+			'searchlogs' => [
+				/* translators: `%s`: log file size */
+				'pointer' => _x( '%s in Search Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'button'  => _x( 'Check Search Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'menu'    => _x( 'Search Logs', 'Modules: Menu Name', 'gnetwork-admin' ),
+				'path'    => GNETWORK_SEARCH_LOG,
+			],
+		];
 	}
 
 	public function setup_dashboard()
@@ -113,13 +169,16 @@ class Debug extends gNetwork\Module
 
 	public function tools( $sub = NULL, $key = NULL )
 	{
-		if ( in_array( $sub, [ 'systemreport', 'remotetests', 'errorlogs', 'analoglogs', 'failedlogs', 'notfoundlogs', 'searchlogs' ] ) )
+		if ( array_key_exists( $sub, $this->_get_supported_logs() ) || in_array( $sub, [
+			'systemreport',
+			'remotetests',
+		], TRUE ) )
 			parent::tools( $sub, TRUE );
 	}
 
 	protected function tools_buttons( $sub = NULL )
 	{
-		if ( in_array( $sub, [ 'errorlogs', 'analoglogs', 'failedlogs', 'notfoundlogs', 'searchlogs' ] ) ) {
+		if ( array_key_exists( $sub, $this->_get_supported_logs() ) ) {
 			$this->register_button( 'clear_logs', _x( 'Clear Logs', 'Modules: Debug', 'gnetwork-admin' ) );
 			$this->register_button( 'download_logs', _x( 'Download Logs', 'Modules: Debug', 'gnetwork-admin' ) );
 		}
@@ -131,49 +190,22 @@ class Debug extends gNetwork\Module
 
 			$this->check_referer( $sub, 'tools' );
 
-			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
-				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_DEBUG_LOG ) ? 'purged' : 'error' ) );
+			foreach ( $this->_get_supported_logs() as $log_key => $log_path )
+				if ( $log_path && $log_key === $sub )
+					WordPress\Redirect::doReferer( ( @unlink( $log_path ) ? 'purged' : 'error' ) );
 
-			else if ( GNETWORK_SYSTEM_LOG && 'systemlogs' == $sub )
-				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_SYSTEM_LOG ) ? 'purged' : 'error' ) );
-
-			else if ( GNETWORK_MONOLOG_LOG && 'monologlogs' == $sub )
-				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_MONOLOG_LOG ) ? 'purged' : 'error' ) );
-
-			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
-				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_ANALOG_LOG ) ? 'purged' : 'error' ) );
-
-			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
-				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_FAILED_LOG ) ? 'purged' : 'error' ) );
-
-			else if ( GNETWORK_NOTFOUND_LOG && 'notfoundlogs' == $sub )
-				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_NOTFOUND_LOG ) ? 'purged' : 'error' ) );
-
-			else if ( GNETWORK_SEARCH_LOG && 'searchlogs' == $sub )
-				WordPress\Redirect::doReferer( ( @unlink( GNETWORK_SEARCH_LOG ) ? 'purged' : 'error' ) );
+			WordPress\Redirect::doReferer( 'wrong' );
 
 		} else if ( isset( $_POST['download_logs'] ) ) {
 
-			if ( GNETWORK_DEBUG_LOG && 'errorlogs' == $sub )
-				Core\File::download( GNETWORK_DEBUG_LOG, Core\File::prepName( 'debug.log' ) );
+			$this->check_referer( $sub, 'tools' );
 
-			else if ( GNETWORK_SYSTEM_LOG && 'systemlogs' == $sub )
-				Core\File::download( GNETWORK_SYSTEM_LOG, Core\File::prepName( 'system.log' ) );
-
-			else if ( GNETWORK_MONOLOG_LOG && 'monologlogs' == $sub )
-				Core\File::download( GNETWORK_MONOLOG_LOG, Core\File::prepName( 'monolog.log' ) );
-
-			else if ( GNETWORK_ANALOG_LOG && 'analoglogs' == $sub )
-				Core\File::download( GNETWORK_ANALOG_LOG, Core\File::prepName( 'analog.log' ) );
-
-			else if ( GNETWORK_FAILED_LOG && 'failedlogs' == $sub )
-				Core\File::download( GNETWORK_FAILED_LOG, Core\File::prepName( 'failed.log' ) );
-
-			else if ( GNETWORK_NOTFOUND_LOG && 'notfoundlogs' == $sub )
-				Core\File::download( GNETWORK_NOTFOUND_LOG, Core\File::prepName( 'notfound.log' ) );
-
-			else if ( GNETWORK_SEARCH_LOG && 'searchlogs' == $sub )
-				Core\File::download( GNETWORK_SEARCH_LOG, Core\File::prepName( 'search.log' ) );
+			foreach ( $this->_get_supported_logs() as $log_key => $log_path )
+				if ( $log_path && $log_key === $sub )
+					Core\File::download(
+						$log_path,
+						Core\File::prepName( $log_key.'.log' )
+					);
 
 			WordPress\Redirect::doReferer( 'wrong' );
 		}
@@ -194,17 +226,9 @@ class Debug extends gNetwork\Module
 
 		} else {
 
-			$map = [
-				'errorlogs'    => GNETWORK_DEBUG_LOG,
-				'systemlogs'   => GNETWORK_SYSTEM_LOG,
-				'monologlogs'  => GNETWORK_MONOLOG_LOG,
-				'analoglogs'   => GNETWORK_ANALOG_LOG,
-				'failedlogs'   => GNETWORK_FAILED_LOG,
-				'notfoundlogs' => GNETWORK_NOTFOUND_LOG,
-				'searchlogs'   => GNETWORK_SEARCH_LOG,
-			];
+			$supported = $this->_get_supported_logs();
 
-			if ( self::displayLogs( $map[$sub] ) )
+			if ( self::displayLogs( $supported[$sub] ) )
 				$this->render_form_buttons( $sub );
 		}
 
@@ -267,7 +291,7 @@ class Debug extends gNetwork\Module
 	}
 
 	// TODO: add limit/length input
-	private static function displayLogs( $file )
+	private static function displayLogs( false|string $file ): bool
 	{
 		if ( $file && is_readable( $file ) ) {
 
@@ -1025,65 +1049,29 @@ class Debug extends gNetwork\Module
 
 	public function dashboard_pointers( array $items ): array
 	{
-		$quota = 2 * MB_IN_BYTES;  // TODO: customize this
-		$logs  = [
-			'errorlogs' => [
-				GNETWORK_DEBUG_LOG,
-				/* translators: `%s`: log file size */
-				_x( '%s in Error Logs', 'Modules: Debug', 'gnetwork-admin' ),
-			],
-			'systemlogs' => [
-				GNETWORK_SYSTEM_LOG,
-				/* translators: `%s`: log file size */
-				_x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
-			],
-			'monologlogs' => [
-				GNETWORK_MONOLOG_LOG,
-				/* translators: `%s`: log file size */
-				_x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
-			],
-			'analoglogs' => [
-				GNETWORK_ANALOG_LOG,
-				/* translators: `%s`: log file size */
-				_x( '%s in System Logs', 'Modules: Debug', 'gnetwork-admin' ),
-			],
-			'failedlogs' => [
-				GNETWORK_FAILED_LOG,
-				/* translators: `%s`: log file size */
-				_x( '%s in Failed Logs', 'Modules: Debug', 'gnetwork-admin' ),
-			],
-			'notfoundlogs' => [
-				GNETWORK_NOTFOUND_LOG,
-				/* translators: `%s`: log file size */
-				_x( '%s in Not-Found Logs', 'Modules: Debug', 'gnetwork-admin' ),
-			],
-			'searchlogs'   => [
-				GNETWORK_SEARCH_LOG,
-				/* translators: `%s`: log file size */
-				_x( '%s in Search Logs', 'Modules: Debug', 'gnetwork-admin' ),
-			],
-		];
+		$quota     = 2 * MB_IN_BYTES; // TODO: customize this
+		$supported = $this->_get_supported_logs( FALSE );
 
 		if ( defined( 'WC_LOG_DIR' ) )
-			$logs['wc-logs'] = [
-				WC_LOG_DIR,
+			$supported['wc-logs'] = [
 				/* translators: `%s`: log file size */
-				_x( '%s in WooCommerce Logs', 'Modules: Debug', 'gnetwork-admin' ),
-				add_query_arg( [ 'page' => 'wc-settings' ], admin_url( 'admin.php' ) ),
-				TRUE, // Is it folder?
+				'pointer' => _x( '%s in WooCommerce Logs', 'Modules: Debug', 'gnetwork-admin' ),
+				'link'    => add_query_arg( [ 'page' => 'wc-settings' ], admin_url( 'admin.php' ) ),
+				'path'    => WC_LOG_DIR,
+				'folder'  => TRUE,
 			];
 
-		foreach ( $logs as $sub => $log ) {
+		foreach ( $supported as $log => $details ) {
 
-			if ( ! $log[0] )
+			if ( empty( $details['path'] ) )
 				continue;
 
-			if ( ! is_readable( $log[0] ) )
+			if ( ! is_readable( $details['path'] ) )
 				continue;
 
-			$size = empty( $log[3] )
-				? Core\File::getSize( $log[0], FALSE )
-				: Core\File::getFolderSize( $log[0], FALSE );
+			$size = empty( $details['folder'] )
+				? Core\File::getSize( $details['path'], FALSE )
+				: Core\File::getFolderSize( $details['path'], FALSE );
 
 			if ( ! $size )
 				continue;
@@ -1105,10 +1093,10 @@ class Debug extends gNetwork\Module
 				$classes[] = 'warning';
 
 			$items[] = Core\HTML::tag( 'a', [
-				'href'  => empty( $log[2] ) ? $this->get_menu_url( $sub, 'network', 'tools' ) : $log[2],
+				'href'  => $details['link'] ?? $this->get_menu_url( $log, 'network', 'tools' ),
 				'title' => $title,
 				'class' => $classes,
-			], sprintf( $log[1], Core\HTML::wrapLTR( Core\File::formatSize( $size ) ) ) );
+			], sprintf( $details['pointer'], Core\HTML::wrapLTR( Core\File::formatSize( $size ) ) ) );
 		}
 
 		return $items;
@@ -1116,54 +1104,19 @@ class Debug extends gNetwork\Module
 
 	public function core_upgrade_preamble()
 	{
-		if ( ! GNETWORK_DEBUG_LOG && ! GNETWORK_ANALOG_LOG && ! GNETWORK_FAILED_LOG && ! GNETWORK_NOTFOUND_LOG && ! GNETWORK_SEARCH_LOG )
+		if ( empty( array_filter( $this->_get_supported_logs() ) ) )
 			return;
 
 		Core\HTML::h2( _x( 'Extras', 'Modules: Debug', 'gnetwork-admin' ) );
 
 		echo $this->wrap_open_buttons();
 
-			if ( GNETWORK_DEBUG_LOG )
-				echo Core\Link::button(
-					_x( 'Check Error Logs', 'Modules: Debug', 'gnetwork-admin' ),
-					$this->get_menu_url( 'errorlogs', 'network', 'tools' )
-				);
-
-			if ( GNETWORK_SYSTEM_LOG )
-				echo Core\Link::button(
-					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
-					$this->get_menu_url( 'systemlogs', 'network', 'tools' )
-				);
-
-			if ( GNETWORK_MONOLOG_LOG )
-				echo Core\Link::button(
-					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
-					$this->get_menu_url( 'monologlogs', 'network', 'tools' )
-				);
-
-			if ( GNETWORK_ANALOG_LOG )
-				echo Core\Link::button(
-					_x( 'Check System Logs', 'Modules: Debug', 'gnetwork-admin' ),
-					$this->get_menu_url( 'analoglogs', 'network', 'tools' )
-				);
-
-			if ( GNETWORK_FAILED_LOG )
-				echo Core\Link::button(
-					_x( 'Check Failed Logs', 'Modules: Debug', 'gnetwork-admin' ),
-					$this->get_menu_url( 'failedlogs', 'network', 'tools' )
-				);
-
-			if ( GNETWORK_NOTFOUND_LOG )
-				echo Core\Link::button(
-					_x( 'Check Not-Found Logs', 'Modules: Debug', 'gnetwork-admin' ),
-					$this->get_menu_url( 'notfoundlogs', 'network', 'tools' )
-				);
-
-			if ( GNETWORK_SEARCH_LOG )
-				echo Core\Link::button(
-					_x( 'Check Search Logs', 'Modules: Debug', 'gnetwork-admin' ),
-					$this->get_menu_url( 'searchlogs', 'network', 'tools' )
-				);
+			foreach ( $this->_get_supported_logs( FALSE ) as $log => $details )
+				if ( ! empty( $details['path'] ) )
+					echo Core\Link::button(
+						$details['button'],
+						$this->get_menu_url( $log, 'network', 'tools' )
+					);
 
 		echo '</p>';
 	}
