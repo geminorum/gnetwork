@@ -7,14 +7,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 .wrap { // wp core class
 
-  // body.wp-admin.edit-php & {
-  //   .wp-heading-inline { // wp core class
-  //     + .page-title-action {
-  //       margin-right: 0; // needed only on edit-posts, not edit-tags!
-  //     }
-  //   }
-  // }
-
   // WooCommerce
   // h2.wc-shipping-zones-heading > span {
   //   margin-right: 5px;
@@ -30,7 +22,10 @@
     // margin-right: $spacer * .25;
 
     // no space after the inserted second button
-    &:nth-of-type(2) {
+    // on already had a button page!
+    body.edit-php:not(.edit-product) &:nth-of-type(2),
+    body.edit-php.edit-product &:nth-of-type(4),
+    body.post-php &:nth-of-type(2) {
       margin-left: 0;
     }
 

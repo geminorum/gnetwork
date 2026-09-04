@@ -25,7 +25,7 @@ body.locale-fa-ir {
   .wp-editor-area,
   span.postbox-title-action {
     // @include theme-fonts-core-native;
-    font-family: $font-family-base;
+    // font-family: $font-family-base; // NO NEED
   }
 
   ol:not(.-toc, .wc-progress-steps) {

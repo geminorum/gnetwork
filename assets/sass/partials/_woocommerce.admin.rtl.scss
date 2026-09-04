@@ -220,12 +220,24 @@ body.woocommerce-admin-page {
   }
 
   .woocommerce_options_panel {
+    input#product_width,
+    input#product_height,
+    input#product_length,
+    input#_weight,
+    // input#_stock,
+    // input#_low_stock_amount,
     input#_sku,
     input#_global_unique_id,
     input#_product_url,
+    input#_cogs_value,
     input#_sale_price,
     input#_regular_price {
       direction: ltr;
+
+      &::placeholder {
+        direction: rtl;
+        text-align: right; // for firefox
+      }
     }
   }
 
@@ -262,3 +274,16 @@ body.woocommerce_page_wc-settings {
 // .woocommerce-quick-links__item .woocommerce-quick-links__item-link .woocommerce-quick-links__item-link__text {
 //   margin: 0 16px 0 0;
 // }
+
+////////////////////////////////////////////////////////////////////////////////
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 38px !important;
+}
+
+.wc-wp-version-gte-70 .tablenav .select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 30px !important;
+}
+
+.wc-wp-version-gte-53 .select2-container--default .select2-selection--single .select2-selection__rendered {
+   line-height: 28px !important;
+}

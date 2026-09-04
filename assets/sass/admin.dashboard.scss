@@ -11,10 +11,10 @@
 // #dashboard_right_now .inside .versions span,
 // #dashboard_right_now .inside p.musub,
 // #dashboard_right_now h3.mu-storage,
-#dashboard_activity #future-posts h3,
-#dashboard_activity #published-posts h3 {
-  display: none !important;
-}
+// #dashboard_activity #future-posts h3,
+// #dashboard_activity #published-posts h3 {
+//   display: none !important;
+// }
 
 ////////////////////////////////////////////////////////////////////////////////
 #dashboard_right_now {
@@ -31,6 +31,47 @@
   div.sub {
     ul:not(:empty) {
       margin-bottom: -10px;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+#dashboard_activity {
+  > div {
+    + div {
+      margin-top: $spacer * .5;
+    }
+  }
+
+  #future-posts,
+  #published-posts {
+    padding-bottom: 0;
+
+    h3 {
+      font-size: smaller;
+      margin-bottom: 0;
+    }
+  }
+
+  ul {
+    > li {
+      &:last-of-type {
+        margin-bottom: 0;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+#wc-recent-reviews-widget-content {
+  > ul {
+    margin-bottom: 0;
+    > li {
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
   }
 }

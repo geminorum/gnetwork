@@ -102,7 +102,7 @@ table.wp-list-table { // WordPress Core
   > thead {
     position: sticky;
     background-color: inherit; // #fff;
-    z-index: 1; // 999;
+    z-index: 2; // 999;
     top: 0;
 
     body.admin-bar & {
@@ -110,7 +110,8 @@ table.wp-list-table { // WordPress Core
     }
 
     body.woocommerce-admin-page & {
-      top: calc( 32px + 60px ); // plus wc layout header
+      // top: calc( 32px + 60px ); // plus wc layout header
+      top: calc( 32px + 32px ); // plus wc layout header
     }
 
     th.sortable {

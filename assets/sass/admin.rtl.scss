@@ -12,6 +12,34 @@ $font-family-base: $font-family-regular;
 $font-family-head: $font-family-bold;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+#wpadminbar *,
+button:not(.dashicons,.qt-dfw),
+span:not(.dashicons,.bp-badge),
+option:not(.code),
+input:not(.code),
+textarea:not(.code),
+body {
+  font-family: $font-family-regular !important;
+}
+
+#woocommerce_dashboard_recent_reviews .star-rating,
+#woocommerce_dashboard_recent_reviews .star-rating span::before {
+  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+  font-family: WooCommerce !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-bold !important;
+  font-weight: 700;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 @import "partials/admin.rtl";
 @import "partials/adminmenu.rtl";
 @import "partials/customize.rtl";
@@ -39,26 +67,6 @@ $font-family-head: $font-family-bold;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-#wpadminbar *,
-button:not(.dashicons,.qt-dfw),
-span:not(.dashicons,.bp-badge),
-option:not(.code),
-input:not(.code),
-textarea:not(.code),
-body {
-  font-family: $font-family-regular !important;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: $font-family-bold !important;
-  font-weight: 700;
-}
-
 // #future-posts li,
 // #published-posts li {
 //   // line-height: initial;
@@ -70,6 +78,7 @@ h6 {
   font-family: Consolas, Monaco, monospace !important; // must force this!
 }
 
+////////////////////////////////////////////////////////////////////////////////
 #wpadminbar {
   * {
     line-height: 2.75;

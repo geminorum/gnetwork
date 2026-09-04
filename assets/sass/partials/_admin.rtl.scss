@@ -7,6 +7,7 @@
 $spacer: 1rem !default;
 
 ////////////////////////////////////////////////////////////////////////////////
+.postbox-container div#slim-seo > div.inside,
 body.debug-bar-maximized #querylist,
 body.options-permalink-php .form-table .sptp-fieldset, // Simple Post Type Permalinks
 .fixed.users-network td.column-email,
@@ -486,4 +487,9 @@ body.user-new-php {
 [data-tooltip]::after {
   padding: ($spacer * .5) ($spacer * .75);
   line-height: 1.5;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+.wp-tooltip .wp-tooltip__bubble {
+  text-align: right;
 }
