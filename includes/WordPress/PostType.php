@@ -67,6 +67,23 @@ class PostType extends Core\Base
 	}
 
 	/**
+	 * Determines whether the post-type object is hierarchical.
+	 * Also accepts post-type object.
+	 *
+	 * @source `is_post_type_hierarchical()`
+	 *
+	 * @param mixed $posttype
+	 * @return bool
+	 */
+	public static function hierarchical( mixed $posttype ): bool
+	{
+		if ( $object = self::object( $posttype ) )
+			return (bool) $object->hierarchical;
+
+		return FALSE;
+	}
+
+	/**
 	 * Checks for post-type capability.
 	 * NOTE: caches the result
 	 *
@@ -865,5 +882,68 @@ class PostType extends Core\Base
 			return array_column( Core\Arraay::sortByPriority( $list, $prop ), 'data', 'post_id' );
 
 		return Core\Arraay::sortObjectByPriority( $list, $prop );
+	}
+
+	/**
+	 * Retrieves or displays a list of posts as a dropdown.
+	 * NOTE: `wp_dropdown_pages()` does not do hierarchical!
+	 * @source `wp_dropdown_pages()`
+	 *
+	 * @param array $arguments
+	 * @return bool|string
+	 */
+	public static function dropdown( $arguments = [] ): bool|string
+	{
+		$args = wp_parse_args( $arguments, [
+			'depth'                 => 0,
+			'child_of'              => 0,
+			'selected'              => 0,
+			'echo'                  => 1,
+			'name'                  => 'post_id', // `page_id`
+			'id'                    => '',
+			'class'                 => '',
+			'show_option_none'      => '',
+			'show_option_no_change' => '',
+			'option_none_value'     => '',
+			'value_field'           => 'ID',
+			'suppress_filters'      => TRUE,
+		] );
+
+		// Existence of the `name` will search for post-titles on `get_posts()`
+		$_name = $args['name'];
+		unset( $args['name'] );
+
+		$pages  = get_posts( $args );
+		$output = '';
+
+		$args['name'] = $_name;
+
+		if ( ! empty( $pages ) ) {
+
+			$class = '';
+
+			if ( ! empty( $args['class'] ) )
+				$class.= " class='".esc_attr( $args['class'] )."'";
+
+			$output = "<select name='".esc_attr( $args['name'] )."'".$class." id='".esc_attr( $args['id'] )."'>\n";
+
+			if ( $args['show_option_no_change'] )
+				$output.= "\t<option value=\"-1\">".$args['show_option_no_change']."</option>\n";
+
+			if ( $args['show_option_none'] )
+				$output.= "\t<option value=\"".esc_attr( $args['option_none_value'] ).'">'.$args['show_option_none']."</option>\n";
+
+			$output.= walk_page_dropdown_tree( $pages, $args['depth'], $args );
+			$output.= "</select>\n";
+		}
+
+		// NOTE: core filter
+		$html = apply_filters( 'wp_dropdown_pages', $output, $args, $pages );
+
+		if ( ! $args['echo'] )
+			return $html;
+
+		echo $html;
+		return TRUE;
 	}
 }

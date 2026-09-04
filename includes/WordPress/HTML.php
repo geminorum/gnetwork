@@ -114,7 +114,7 @@ class HTML extends Core\Base
 		return $html;
 	}
 
-	public static function extractAttribute( mixed $input, string $target_attribute, ?string $tag_name = NULL ): string|false 
+	public static function extractAttribute( mixed $input, string $target_attribute, ?string $tag_name = NULL ): false|string 
 	{
 		if ( ! $html = Core\Text::force( $input ) )
 			return $input;

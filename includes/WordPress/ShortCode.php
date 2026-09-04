@@ -13,13 +13,13 @@ class ShortCode extends Core\Base
 	 * Combines user attributes with known attributes and fill in defaults when needed.
 	 * NOTE: wrapper for `shortcode_atts()` with string handling
 	 *
-	 * @param string|array|null $input
+	 * @param null|string|array $input
 	 * @param array $defaults
 	 * @param string $shortcode
 	 * @param string $single_fallback
 	 * @return array
 	 */
-	public static function attributes( string|array|null $input, array $defaults, string $shortcode = '', $single_fallback = '' ): array
+	public static function attributes( null|string|array $input, array $defaults, string $shortcode = '', $single_fallback = '' ): array
 	{
 		$attributes = [];
 

@@ -505,7 +505,7 @@ class HTTP extends Base
 
 	// @SEE: https://stackoverflow.com/a/12628971
 	// @REF: https://stackoverflow.com/a/12629254
-	public static function getStatus( string|false|null $url ): false|int
+	public static function getStatus( null|false|string $url ): false|int
 	{
 		if ( self::empty( $url ) || ! extension_loaded( 'curl' ) )
 			return FALSE;

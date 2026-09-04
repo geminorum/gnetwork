@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Arraay extends Base
 {
 
-	public static function prepString()
+	public static function prepString(): array
 	{
 		$input = array_map( function ( $value ) {
 			return $value ? (array) $value : [];
@@ -15,9 +15,9 @@ class Arraay extends Base
 	}
 
 	// NOTE: preserves the top level keys.
-	public static function prepItemsString( mixed $input )
+	public static function prepItemsString( mixed $input ): array
 	{
-		if ( empty( $input ) )
+		if ( self::empty( $input ) )
 			return [];
 
 		return array_map( [ __CLASS__, 'prepString' ], $input );
@@ -33,15 +33,15 @@ class Arraay extends Base
 	}
 
 	// NOTE: preserves the top level keys.
-	public static function prepItemsNumeral( mixed $input )
+	public static function prepItemsNumeral( mixed $input ): array
 	{
-		if ( empty( $input ) )
+		if ( self::empty( $input ) )
 			return [];
 
 		return array_map( [ __CLASS__, 'prepNumeral' ], $input );
 	}
 
-	public static function prepSplitters( ?string $text, string $default = '|' ): ?array
+	public static function prepSplitters( ?string $text, string $default = '|' ): null|array
 	{
 		if ( is_null( $text ) )
 			return NULL;
@@ -49,10 +49,10 @@ class Arraay extends Base
 		return empty( $text ) ? [ $default ] : self::prepString( preg_split( '//u', $text, -1, PREG_SPLIT_NO_EMPTY ), [ $default ] );
 	}
 
-	public static function trimText( mixed $input, bool $filter = TRUE, mixed $additional = NULL )
+	public static function trimText( mixed $input, bool $filter = TRUE, mixed $additional = NULL ): array
 	{
-		if ( empty( $input ) )
-			return $input;
+		if ( self::empty( $input ) )
+			return [];
 
 		$array = array_map(
 			static function ( $value ) use ( $additional ) {
@@ -64,10 +64,10 @@ class Arraay extends Base
 			: $array;
 	}
 
-	public static function trimTextQuotes( mixed $input, bool $filter = TRUE, mixed $list = NULL )
+	public static function trimTextQuotes( mixed $input, bool $filter = TRUE, mixed $list = NULL ): array
 	{
-		if ( empty( $input ) )
-			return $input;
+		if ( self::empty( $input ) )
+			return [];
 
 		$array = array_map(
 			static function ( $value ) use ( $list ) {
@@ -80,8 +80,11 @@ class Arraay extends Base
 	}
 
 	// deep `array_filter()`
-	public static function filterArray( array $input, ?callable $callback = NULL )
+	public static function filterArray( array $input, ?callable $callback = NULL ): array
 	{
+		if ( self::empty( $input ) )
+			return [];
+
 		foreach ( $input as &$value )
 			if ( is_array( $value ) )
 				$value = self::filterArray( $value, $callback );
@@ -89,9 +92,9 @@ class Arraay extends Base
 		return $callback ? array_filter( $input, $callback ) : array_filter( $input );
 	}
 
-	public static function splitValues( mixed $input, string $splitter = '|' )
+	public static function splitValues( mixed $input, string $splitter = '|' ): array
 	{
-		if ( empty( $input ) )
+		if ( self::empty( $input ) )
 			return [];
 
 		$splitted = array_map( function ( $value ) use ( $splitter ) {
@@ -110,9 +113,12 @@ class Arraay extends Base
 	 * @param string $prefix
 	 * @return array
 	 */
-	public static function prefixValues( array $input, string $prefix )
+	public static function prefixValues( array $input, string $prefix ): array
 	{
-		if ( empty( $prefix ) || empty( $input ) )
+		if ( self::empty( $input ) )
+			return [];
+
+		if ( empty( $prefix ) )
 			return $input;
 
 		return preg_filter( '/^/', $prefix, $input );
@@ -125,9 +131,12 @@ class Arraay extends Base
 	 * @param string $prefix
 	 * @return array
 	 */
-	public static function prefixKeys( array $input, string $prefix )
+	public static function prefixKeys( array $input, string $prefix ): array
 	{
-		if ( empty( $prefix ) || empty( $input ) )
+		if ( self::empty( $input ) )
+			return [];
+
+		if ( empty( $prefix ) )
 			return $input;
 
 		$keys = array_keys( $input );
@@ -145,14 +154,18 @@ class Arraay extends Base
 		return $rounded;
 	}
 
-	public static function reKey( array $list, string $key )
+	public static function reKey( array $input, string $key ): array
 	{
-		if ( ! empty( $list ) ) {
-			$ids  = self::pluck( $list, $key );
-			$list = array_combine( $ids, $list );
-		}
+		if ( self::empty( $input ) )
+			return [];
 
-		return $list;
+		if ( empty( $key ) )
+			return $input;
+
+		return array_combine(
+			self::pluck( $input, $key ),
+			$input,
+		);
 	}
 
 	// OR: `array_combine( $array, $array );`
@@ -181,23 +194,25 @@ class Arraay extends Base
 
 	// @SOURCE: http://stackoverflow.com/a/24436324
 	// USAGE: `Arraay::replaceKeys( $array, [ 'old_key_1' => 'new_key_1', 'old_key_2' => 'new_key_2' ] );`
-	public static function replaceKeys( $array, $keys_map )
+	public static function replaceKeys( array $input, array $map ): array
 	{
-		$keys = array_keys( $array );
+		if ( self::empty( $input ) )
+			return [];
 
-		foreach ( $keys_map as $old_key => $new_key ) {
+		if ( empty( $map ) )
+			return $input;
 
-			if ( FALSE === $index = array_search( $old_key, $keys ) )
-				continue;
+		$keys = array_keys( $input );
 
-			$keys[$index] = $new_key;
-		}
+		foreach ( $map as $old_key => $new_key )
+			if ( FALSE !== ( $index = array_search( $old_key, $keys ) ) )
+				$keys[$index] = $new_key;
 
-		return array_combine( $keys, array_values( $array ) );
+		return array_combine( $keys, array_values( $input ) );
 	}
 
 	// @REF: https://stackoverflow.com/a/6252803
-	public static function equalKeys( $one, $two )
+	public static function equalKeys( array $one, array $two ): bool
 	{
 		return ! array_diff_key( $one, $two ) && ! array_diff_key( $two, $one );
 	}
@@ -221,7 +236,7 @@ class Arraay extends Base
 	 * @param array $b
 	 * @return bool
 	 */
-	public static function equalValues( $a, $b )
+	public static function equalValues( array $a, array $b ): bool
 	{
 		$x = array_values( $a );
 		$y = array_values( $b );
@@ -251,7 +266,7 @@ class Arraay extends Base
 	 * @param array $b
 	 * @return bool
 	 */
-	public static function identicalValues( $a, $b )
+	public static function identicalValues( array $a, array $b ): bool
 	{
 		$x = array_values( $a );
 		$y = array_values( $b );
@@ -271,18 +286,18 @@ class Arraay extends Base
 	// `$a == $b` TRUE if `$a` and `$b` have the same key/value pairs
 	// `$a === $b` TRUE if `$a` and `$b` have the same key/value pairs in the same order and of the same types
 	// @REF: https://stackoverflow.com/a/5678990
-	public static function equalAssoc( $one, $two )
+	public static function equalAssoc( array $a, array $b ): bool
 	{
-		return ( $one == $two );
+		return ( $a == $b );
 	}
 
-	public static function equalNoneAssoc( $one, $two )
+	public static function equalNoneAssoc( array $a, array $b ): bool
 	{
-		// return ( [] == array_diff( $one, $two ) && [] == array_diff( $two, $one) ); // @REF: https://stackoverflow.com/a/57330018
-		return ( $one === array_intersect( $one, $two ) && $two === array_intersect( $two, $one ) ); // @REF: https://stackoverflow.com/a/32811051
+		// return ( [] == array_diff( $a, $b ) && [] == array_diff( $b, $a ) ); // @REF: https://stackoverflow.com/a/57330018
+		return ( $a === array_intersect( $a, $b ) && $b === array_intersect( $b, $a ) ); // @REF: https://stackoverflow.com/a/32811051
 	}
 
-	public static function range( $start, $end, $step = 1, $format = TRUE )
+	public static function range( int $start, int $end, int $step = 1, bool $format = TRUE ): array
 	{
 		$array = [];
 
@@ -294,14 +309,40 @@ class Arraay extends Base
 
 	// for using with `$('form').serializeArray();`
 	// @REF: http://api.jquery.com/serializeArray/
-	// @INPUT: [{name:"a",value:"1"},{name:"b",value:"2"}]
-	// @OLD: `parseJSArray()`
-	public static function parseSerialized( $array, $name = 'name', $value = 'value' )
+	// @INPUT: `[{name:"a",value:"1"},{name:"b",value:"2"}]`
+	// @OLD: `::parseJSArray()`
+	public static function parseSerialized( array $input, string $name_key = 'name', string $value_key = 'value' ): array
 	{
+		if ( self::empty( $input ) )
+			return [];
+
 		$parsed = [];
 
-		foreach ( $array as $part )
-			$parsed[$part[$name]] = $part[$value];
+		foreach ( $input as $part )
+			$parsed[$part[$name_key]] = $part[$value_key];
+
+		return $parsed;
+	}
+
+	public static function parseInputGroups( array $input ): array
+	{
+		if ( self::empty( $input ) )
+			return [];
+
+		$parsed = [];
+		$keys   = array_keys( $input );
+
+		foreach ( $input[$keys[0]] as $offset => $first ) {
+
+			$group = [];
+
+			foreach ( $keys as $key )
+				if ( ! empty( $input[$key][$offset] ) )
+					$group[$key] = $input[$key][$offset];
+
+			if ( $group )
+				$parsed[] = $group;
+		}
 
 		return $parsed;
 	}
@@ -310,10 +351,13 @@ class Arraay extends Base
 	// array map, but maps values to new keys instead of new values
 	// @REF: https://gist.github.com/abiusx/4ed90007ca693802cc7a56446cfd9394
 	// @SEE: https://ryanwinchester.ca/posts/php-array-map-with-keys
-	public static function mapKeys( $callback, $array )
+	public static function mapKeys( callable $callback, array $input ): array
 	{
-		return array_reduce( $array,
-			static function ( $key, $value ) use ( $array, $callback ) {
+		if ( self::empty( $input ) )
+			return [];
+
+		return array_reduce( $input,
+			static function ( $key, $value ) use ( $callback ) {
 				return [ call_user_func( $callback, $key, $value ) => $value ];
 			}
 		);
@@ -321,64 +365,83 @@ class Arraay extends Base
 
 	// array map for keys, php > 5.6
 	// @SEE: https://stackoverflow.com/a/43004994
-	public static function mapAssoc( $callback, $array )
+	public static function mapAssoc( callable $callback, array $input ): array
 	{
-		return array_merge( ...array_map( $callback, array_keys( $array ), $array ) );
+		return array_merge( ...array_map( $callback, array_keys( $input ), $input ) );
 	}
 
-	// NOTE: DEPRECATED: use `Core\Text::has()`
-	public static function strposArray( $needles, $haystack )
+	// NOTE: returns key of the needle founded
+	#[\Deprecated('USE `Core\Text::has()`')]
+	public static function strposArray( array $needles, string $haystack ): string
 	{
-		foreach ( (array) $needles as $key => $needle )
+		foreach ( $needles as $key => $needle )
 			if ( FALSE !== strpos( $haystack, $needle ) )
 				return $key;
 
 		return FALSE;
 	}
 
-	public static function stripDefaults( $atts, $defaults = [] )
+	public static function stripDefaults( array $input, array $defaults ): array
 	{
-		foreach ( $defaults as $key => $value )
-			if ( isset( $atts[$key] ) && $value === $atts[$key] )
-				unset( $atts[$key] );
+		if ( self::empty( $input ) )
+			return [];
 
-		return $atts;
+		if ( empty( $defaults ) )
+			return $input;
+
+		foreach ( $defaults as $key => $value )
+			if ( isset( $input[$key] ) && $value === $input[$key] )
+				unset( $input[$key] );
+
+		return $input;
 	}
 
 	// @REF: http://stackoverflow.com/a/11026840#comment44080768_11026840
-	public static function stripByValue( $array, $value, $strict = FALSE )
+	public static function stripByValue( array $input, mixed $value, $strict = FALSE )
 	{
-		if ( empty( $array ) || empty( $value ) )
-			return $array;
+		if ( self::empty( $input ) )
+			return [];
 
-		return array_diff_key( $array, array_flip( array_keys( $array, $value, $strict ) ) );
+		if ( empty( $value ) )
+			return $input;
+
+		return array_diff_key( $input, array_flip( array_keys( $input, $value, $strict ) ) );
 	}
 
-	//@RF: https://stackoverflow.com/a/11026840
-	public static function stripByKeys( $array, $keys )
+	//@REF: https://stackoverflow.com/a/11026840
+	public static function stripByKeys( array $input, array $keys ): array
 	{
-		if ( empty( $array ) || empty( $keys ) )
-			return $array;
+		if ( self::empty( $input ) )
+			return [];
 
-		return array_diff_key( $array, array_flip( $keys ) );
+		if ( empty( $keys ) )
+			return $input;
+
+		return array_diff_key( $input, array_flip( $keys ) );
 	}
 
 	// @REF: https://stackoverflow.com/a/34575007
 	// @SEE: `wp_array_slice_assoc()`
-	public static function keepByKeys( $array, $keys )
+	public static function keepByKeys( array $input, array $keys ): array
 	{
-		if ( empty( $array ) || empty( $keys ) )
+		if ( self::empty( $input ) )
 			return [];
 
-		return array_intersect_key( $array, array_flip( $keys ) );
+		if ( empty( $keys ) )
+			return [];
+
+		return array_intersect_key( $input, array_flip( $keys ) );
 	}
 
-	public static function keepByValue( $array, $values )
+	public static function keepByValue( array $input, array $values ): array
 	{
-		if ( empty( $array ) || empty( $values ) )
+		if ( self::empty( $input ) )
 			return [];
 
-		return array_intersect( $array, $values );
+		if ( empty( $values ) )
+			return [];
+
+		return array_intersect( $input, $values );
 	}
 
 	// @REF: WooCommerce: `_sort_priority_callback()`

@@ -23,7 +23,7 @@ class User extends Core\Base
 	}
 
 	// OLD: `WordPress::getUsers()`
-	public static function get( bool $all_fields = FALSE, bool $network = FALSE, array $extra = [], string|false $rekey = 'ID' ): array
+	public static function get( bool $all_fields = FALSE, bool $network = FALSE, array $extra = [], false|string $rekey = 'ID' ): array
 	{
 		$users = get_users( array_merge( [
 			'orderby' => 'display_name',

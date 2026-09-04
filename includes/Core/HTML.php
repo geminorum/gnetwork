@@ -50,32 +50,32 @@ class HTML extends Base
 			], $link ? self::link( $html, $link ) : $html );
 	}
 
-	public static function h1( mixed $html, string|array|null $class = '', string $link = '' ): void
+	public static function h1( mixed $html, null|string|array $class = '', string $link = '' ): void
 	{
 		self::heading( '1', $html, $class ?: FALSE, $link );
 	}
 
-	public static function h2( mixed $html, string|array|null $class = '', string $link = '' ): void
+	public static function h2( mixed $html, null|string|array $class = '', string $link = '' ): void
 	{
 		self::heading( '2', $html, $class ?: FALSE, $link );
 	}
 
-	public static function h3( mixed $html, string|array|null $class = '', string $link = '' ): void
+	public static function h3( mixed $html, null|string|array $class = '', string $link = '' ): void
 	{
 		self::heading( '3', $html, $class ?: FALSE, $link );
 	}
 
-	public static function h4( mixed $html, string|array|null $class = '', string $link = '' ): void
+	public static function h4( mixed $html, null|string|array $class = '', string $link = '' ): void
 	{
 		self::heading( '4', $html, $class ?: FALSE, $link );
 	}
 
-	public static function h5( mixed $html, string|array|null $class = '', string $link = '' ): void
+	public static function h5( mixed $html, null|string|array $class = '', string $link = '' ): void
 	{
 		self::heading( '5', $html, $class ?: FALSE, $link );
 	}
 
-	public static function h6( mixed $html, string|array|null $class = '', string $link = '' ): void
+	public static function h6( mixed $html, null|string|array $class = '', string $link = '' ): void
 	{
 		self::heading( '6', $html, $class ?: FALSE, $link );
 	}
@@ -234,7 +234,8 @@ class HTML extends Base
 		string|array $class = '',
 		mixed $data = [],
 		string|false $tag = 'ul',
-		string|false $sub_tag = 'li'
+		string|false $sub_tag = 'li',
+		string|array $sub_class = '',
 	): string {
 
 		if ( empty( $rows ) )
@@ -246,7 +247,7 @@ class HTML extends Base
 
 		foreach ( $rows as $row )
 			if ( $row )
-				$html.= self::row( $row, '', [], $sub_tag );
+				$html.= self::row( $row, $sub_class, [], $sub_tag );
 
 		return $html.'</'.( $tag ?: 'div' ).'>';
 	}
@@ -285,9 +286,10 @@ class HTML extends Base
 	public static function inputHidden(
 		string $name,
 		string|int $value = '',
+		string|array $class = '',
 	): void {
 
-		echo '<input type="hidden" name="'.self::escape( $name ).'" value="'.self::escape( $value ).'" />';
+		echo '<input type="hidden" name="'.self::escape( $name ).'" value="'.self::escape( $value ).'" class="'.self::prepClass( $class ).'"/>';
 	}
 
 	// @REF: https://gist.github.com/eric1234/5802030
@@ -1278,12 +1280,18 @@ class HTML extends Base
 					echo '<'.$cell.' class="'.self::prepClass( '-cell', '-cell-'.$key, $class ).'">';
 
 					if ( $callback )
-						echo call_user_func_array( $callback,
-							array( $value, $row, $column, $index, $key, $args ) );
+						echo call_user_func_array(
+							$callback,
+							// `( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args )`
+							[ $value, $row, $column, $index, $key, $args ]
+						);
 
 					else if ( $args['callback'] && '_cb' !== $key )
-						echo call_user_func_array( $args['callback'],
-							array( $value, $row, $column, $index, $key, $args ) );
+						echo call_user_func_array(
+							$args['callback'],
+							// `( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args )`
+							[ $value, $row, $column, $index, $key, $args ]
+						);
 
 					else if ( $args['sanitize'] && '_cb' !== $key )
 						echo self::sanitizeDisplay( $value );
@@ -2065,5 +2073,24 @@ class HTML extends Base
 			$result.= '</'.array_pop( $tags ).'>';
 
 		return $result;
+	}
+
+	/**
+	 * Returns `RegEx` body to liberally match an opening HTML tag.
+	 * @source `get_tag_regex()`
+	 *
+	 * Matches an opening HTML tag that is self-closing or Has no body but
+	 * has a closing tag of the same name or contains a body and a closing
+	 * tag of the same name.
+	 *
+	 * @param string $tag
+	 * @return string
+	 */
+	public static function getRegEx( string $tag ): string
+	{
+		return sprintf(
+			'<%1$s[^<]*?(?:>[\s\S]*?<\/%1$s>|\s*\/>)',
+			self::sanitizeTag( $tag )
+		);
 	}
 }

@@ -20,13 +20,12 @@ class URL extends Base
 			return '';
 
 		// @SEE: `esc_url()`
-		if ( $sanitized && ! preg_match( '/^http(s)?:\/\//', $sanitized ) )
+		if ( $sanitized && ! preg_match( '/^http(s)?:\/\//i', $sanitized ) )
 			$sanitized = 'https://'.$sanitized;
 
 		return esc_url( $sanitized, NULL, 'db' );
 	}
 
-	// TODO: support schemes: `geo:`
 	public static function sanitizeForStorage( mixed $input ): string
 	{
 		$raw = $input;
@@ -36,7 +35,10 @@ class URL extends Base
 
 		$sanitized = Text::trim( rawurldecode( $sanitized ) );
 
-		if ( self::isRelative( $sanitized ) )
+		if ( Text::starts( $sanitized, 'geo:' ) )
+			$sanitized = Number::translate( self::unquery( $sanitized ) );
+
+		else if ( self::isRelative( $sanitized ) )
 			$sanitized = sanitize_url( $sanitized ); // avoid forced scheme
 
 		else if ( self::isLocal( $sanitized ) )
@@ -44,6 +46,9 @@ class URL extends Base
 
 		else
 			$sanitized = self::sanitize( $sanitized );
+
+		if ( Text::has( $sanitized, '?' ) )
+			$sanitized = remove_query_arg( Socials::TRACKING_PARAMS, $sanitized );
 
 		return apply_filters( 'nucleus_url_sanitize',
 			$sanitized,
@@ -72,7 +77,8 @@ class URL extends Base
 	// like twitter links
 	public static function prepTitle( string $url, bool $convert_slash = FALSE ): string
 	{
-		$title = preg_replace( '|^http(s)?://(www\.)?|i', '', $url );
+		// $title = preg_replace( '|^http(s)?://(www\.)?|i', '', $url );
+		$title = preg_replace( '/^https?:\/\/(www\.)?/i', '', $url );
 		$title = self::untrail( $title );
 		return $convert_slash ? str_ireplace( [ '/', '\/' ], '-', $title ) : $title;
 	}
@@ -188,19 +194,20 @@ class URL extends Base
 
 	// https://wp-mix.com/wordpress-remove-query-strings-scripts-styles/
 	// https://wordpress.stackexchange.com/a/224300
-	public static function unquery( string $input ): string
+	public static function unquery( string $input, ?string $fallback = NULL ): string
 	{
-		return explode( '?', $input, 2 )[0] ?? $input;
+		return explode( '?', $input, 2 )[0] ?? $fallback ?? $input;
 	}
 
 	// FIXME: strip all the path
-	public static function domain( $path )
+	public static function domain( string $path ): string
 	{
 		if ( FALSE === strpos( $path, '.' ) )
 			return $path;
 
-		$parts = explode( '.', $path );
-		return strtolower( $parts[0] );
+		$path = self::unquery( $path );
+
+		return strtolower( explode( '.', $path, 2 )[0] ?? $path );
 	}
 
 	/**

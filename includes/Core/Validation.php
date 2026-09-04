@@ -285,6 +285,54 @@ class Validation extends Base
 		return TRUE;
 	}
 
+	// @source https://stackoverflow.com/a/76133178
+	// @REF http://en.wikipedia.org/wiki/Vehicle_identification_number#Check_digit_calculation
+	public static function validateVIN( mixed $input ): bool
+	{
+		if ( self::empty( $input ) )
+			return FALSE;
+
+		$sanitized = Number::translate( Text::trim( $input ) );
+		$sanitized = strtolower( str_replace( ' ', '', $sanitized ) );
+
+		if ( ! preg_match( '/^[^\Wioq]{17}$/', $sanitized ) )
+			return FALSE;
+
+		$weights   = [8, 7, 6, 5, 4, 3, 2, 10, 0, 9, 8, 7, 6, 5, 4, 3, 2];
+		$translits = [
+			"a" => 1, "b" => 2, "c" => 3, "d" => 4,
+			"e" => 5, "f" => 6, "g" => 7, "h" => 8,
+			"j" => 1, "k" => 2, "l" => 3, "m" => 4,
+			"n" => 5, "p" => 7, "r" => 9, "s" => 2,
+			"t" => 3, "u" => 4, "v" => 5, "w" => 6,
+			"x" => 7, "y" => 8, "z" => 9,
+		];
+
+		$sum = 0;
+
+		// loop through characters of VIN
+		for ( $i = 0; $i < strlen( $sanitized ); $i++ ) {
+
+			// add transliterations * weight of their positions to get the sum
+			$check_char = substr( $sanitized, $i, 1 );
+
+			if( ! is_numeric( $check_char ) )
+				$sum += $translits[$check_char] * $weights[$i];
+
+			else
+				$sum += $check_char * $weights[$i];
+		}
+
+		// find check-digit by taking the mod of the sum
+		$checkdigit = $sum % 11;
+
+		// check-digit of 10 is represented by "X"
+		if ( $checkdigit == 10)
+			$checkdigit = "x";
+
+		return $checkdigit == substr($sanitized, 8, 1 );
+	}
+
 	public static function getVINHTMLPattern()
 	{
 		return FALSE; // FIXME!

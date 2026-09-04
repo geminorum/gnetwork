@@ -1443,14 +1443,13 @@ class Taxonomy extends Core\Base
 		}, self::listTerms( $taxonomy, 'all', $extra ) );
 	}
 
-	// NOTE: DEPRECATED: use `Term::getMeta()`
-	#[\Deprecated()]
-	public static function getTermMeta( $term, $keys = FALSE, $single = TRUE )
+	#[\Deprecated('USE `WordPress\Term::getMeta()`')]
+	public static function getTermMeta( mixed $term, $keys = FALSE, $single = TRUE )
 	{
 		return Term::getMeta( $term, $keys, $single );
 	}
 
-	public static function addSupport( string $taxonomy, string|array $features )
+	public static function addSupport( string $taxonomy, string|array $features ): void
 	{
 		global $NucleusTaxonomyFeatures;
 
@@ -1463,7 +1462,7 @@ class Taxonomy extends Core\Base
 				$NucleusTaxonomyFeatures[$taxonomy][$feature] = array_slice( func_get_args(), 2 );
 	}
 
-	public static function removeSupport( string $taxonomy, string $feature )
+	public static function removeSupport( string $taxonomy, string $feature ): void
 	{
 		global $NucleusTaxonomyFeatures;
 
@@ -1549,17 +1548,15 @@ class Taxonomy extends Core\Base
 		);
 	}
 
-	#[\Deprecated()]
+	#[\Deprecated('USE `WordPress\Taxonomy::link()`')]
 	public static function getArchiveLink( string $taxonomy )
 	{
-		self::_dep( 'WordPress\Taxonomy::link()' );
 		return self::link( $taxonomy );
 	}
 
-	#[\Deprecated()]
+	#[\Deprecated('USE `WordPress\Term::title()`')]
 	public static function getTermTitle( int $term, mixed $fallback = NULL, bool $filter = TRUE )
 	{
-		self::_dep( 'Term::title()' );
 		return Term::title( $term, $fallback, $filter );
 	}
 
@@ -1602,5 +1599,40 @@ class Taxonomy extends Core\Base
 		} );
 
 		return $terms;
+	}
+
+	public static function wipeOut( string $taxonomy ): void
+	{
+		global $wpdb;
+
+		// phpcs:ignore: WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$terms = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT t.*, tt.* FROM {$wpdb->terms} AS t " .
+				"INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id " .
+				'WHERE tt.taxonomy IN (%s) ' .
+				'ORDER BY t.name ASC',
+				$taxonomy
+			)
+		);
+
+		if ( ! empty( $terms ) ) {
+			foreach ( $terms as $term ) {
+
+				// phpcs:ignore: WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$wpdb->delete( $wpdb->term_taxonomy, [ 'term_taxonomy_id' => $term->term_taxonomy_id ] );
+
+				// phpcs:ignore: WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$wpdb->delete( $wpdb->term_relationships, [ 'term_taxonomy_id' => $term->term_taxonomy_id ] );
+
+				// phpcs:ignore: WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$wpdb->delete( $wpdb->terms, [ 'term_id' => $term->term_id ] );
+			}
+		}
+
+		// phpcs:ignore: WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->delete( $wpdb->term_taxonomy, [ 'taxonomy' => $taxonomy ], [ '%s' ] );
+
+		// `flush_rewrite_rules();`
 	}
 }

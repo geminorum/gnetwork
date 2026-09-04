@@ -58,10 +58,10 @@ class Strings extends Core\Base
 	 * NOTE: returns `FALSE` on unrelated strings!
 	 *
 	 * @param mixed $input
-	 * @param array|string $reference
+	 * @param string|array $reference
 	 * @return bool
 	 */
-	public static function isTruthy( mixed $input, array|string|null $reference = NULL ): bool
+	public static function isTruthy( mixed $input, null|string|array $reference = NULL ): bool
 	{
 		if ( TRUE === $input || 1 === $input )
 			return TRUE;
@@ -83,7 +83,7 @@ class Strings extends Core\Base
 		return in_array( $trimmed, (array) $reference, TRUE );
 	}
 
-	public static function isEmpty( string $string, array|string|null $reference = NULL ): bool
+	public static function isEmpty( string $string, null|string|array $reference = NULL ): bool
 	{
 		if ( self::empty( $string ) )
 			return TRUE;
@@ -141,7 +141,7 @@ class Strings extends Core\Base
 		return FALSE;
 	}
 
-	public static function filterEmpty( array $strings, array|string|null $reference = NULL ): array
+	public static function filterEmpty( array $strings, null|string|array $reference = NULL ): array
 	{
 		return array_filter( $strings,
 			static function ( $value )
@@ -168,7 +168,7 @@ class Strings extends Core\Base
 	 * @param string $delimiter
 	 * @return array
 	 */
-	public static function getSeparated( mixed $string, string|array|null $delimiters = NULL, ?int $limit = NULL, ?string $delimiter = NULL ): array
+	public static function getSeparated( mixed $string, null|string|array $delimiters = NULL, ?int $limit = NULL, ?string $delimiter = NULL ): array
 	{
 		if ( '0' === $string || 0 === $string )
 			return [ '0' ];
@@ -402,7 +402,7 @@ class Strings extends Core\Base
 		$upper = array_map( 'strtoupper', $words );
 
 		foreach ( (array) $keys as $key )
-			$list[$key] = str_ireplace( $words, $upper, Core\Text::titleCase( str_replace( '_', ' ', $key ) ) );
+			$list[$key] = str_ireplace( $words, $upper, Core\Text::titleCase( str_replace( [ '_', '-' ], ' ', $key ) ) );
 
 		return $list;
 	}

@@ -4,6 +4,48 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 
 class Socials extends Base
 {
+	const TRACKING_PARAMS = [
+
+		/// Instagram
+		'igsh', // @REF: https://sleek-ly.com/blog/what-is-igsh-instagram-links
+
+		/// Facebook
+		'fbclid',
+
+		/// IMDB.com
+		'ref_',
+
+		// @REF https://www.mtu.edu/umc/services/websites/advertising/utm/
+		// @REF: https://en.wikipedia.org/wiki/UTM_parameters
+		'utm_campaign',
+		'utm_source',
+		'utm_medium',
+		'utm_content',
+		'utm_term',
+	];
+
+	// NOTE: link or handle!
+	public static function sanitize( mixed $input, ?string $service = NULL ): string
+	{
+		if ( ! $sanitized = Text::force( $input ) )
+			return '';
+
+		$sanitized = Number::translate( Text::trim( $sanitized ) );
+
+		if ( Text::starts( $sanitized, '@' ) )
+			return URL::unquery( Text::stripPrefix( $sanitized, '@' ) );
+
+		if ( URL::isValid( $sanitized ) ) {
+			$sanitized = preg_replace( '/^(https?:\/\/)(www\.)?/i', '$1', $sanitized );  // remove `www.`
+			$sanitized = preg_replace( '/^(http:\/\/)/i', 'https://', $sanitized );      // force `https`
+		}
+
+		if ( Text::has( $sanitized, '?' ) )
+			$sanitized = remove_query_arg( static::TRACKING_PARAMS, $sanitized );
+
+		return $sanitized;
+	}
+
 	public static function getHandleURL( $string, $service, $prefix = '@' )
 	{
 		$url = $string;
@@ -87,27 +129,35 @@ class Socials extends Base
 	}
 
 	// @REF: https://gist.github.com/boonebgorges/5537311
-	public static function getHandle( $string, $url = FALSE, $base = '', $prefix = '@' )
+	public static function getHandle( mixed $input, bool $url = FALSE, string $base = '', string $prefix = '@' ): false|string
 	{
+		if ( ! $string = Text::force( $input ) )
+			return FALSE;
+
 		$parts = parse_url( $string );
 
 		if ( empty( $parts['host'] ) )
-			$handle = 0 === strpos( $string, '@' ) ? substr( $string, 1 ) : $string;
+			$handle = Text::stripPrefix( $string, '@' );
 		else
 			$handle = trim( $parts['path'], '/\\' );
 
 		return $url ? URL::trail( $base.$handle ) : $prefix.$handle;
 	}
 
-	public static function htmlHandle( $string, $service )
+	public static function htmlHandle( mixed $input, ?string $service = NULL ): false|string
 	{
-		return HTML::link( HTML::wrapLTR( self::getHandle( $string ) ), self::getHandle( $string, TRUE, $service ) );
+		return HTML::link(
+			HTML::wrapLTR( self::getHandle( $input ) ),
+			self::getHandle( $input, TRUE, $service )
+		);
 	}
 
-	public static function htmlTwitterIntent( $string, $thickbox = FALSE )
+	public static function htmlTwitterIntent( mixed $input, bool $thickbox = FALSE ): string
 	{
-		$handle = self::getHandle( $string );
-		$url    = self::getHandleURL( $string, 'twitter' );
+		if ( ! $handle = self::getHandle( $input ) )
+			return '';
+
+		$url = self::getHandleURL( $input, 'twitter' );
 
 		if ( $thickbox ) {
 
@@ -123,7 +173,10 @@ class Socials extends Base
 
 		} else {
 
-			$args = [ 'href' => $url, 'class' => '-twitter' ];
+			$args = [
+				'href'  => $url,
+				'class' => '-twitter',
+			];
 		}
 
 		return HTML::tag( 'a', $args, HTML::wrapLTR( $handle ) );

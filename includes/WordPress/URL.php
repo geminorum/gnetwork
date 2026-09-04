@@ -35,19 +35,19 @@ class URL extends Core\Base
 	 * NOTE: wrapper for `wp_parse_url()`
 	 *
 	 * Components:
-	 * - `PHP_URL_SCHEME`: `scheme`
-	 * - `PHP_URL_HOST`: `host`
-	 * - `PHP_URL_PORT`: `port`
-	 * - `PHP_URL_USER`: `user`
-	 * - `PHP_URL_PASS`: `pass`
-	 * - `PHP_URL_PATH`: `path`
-	 * - `PHP_URL_QUERY`: `query`
+	 * - `PHP_URL_SCHEME`  : `scheme`
+	 * - `PHP_URL_HOST`    : `host`
+	 * - `PHP_URL_PORT`    : `port`
+	 * - `PHP_URL_USER`    : `user`
+	 * - `PHP_URL_PASS`    : `pass`
+	 * - `PHP_URL_PATH`    : `path`
+	 * - `PHP_URL_QUERY`   : `query`
 	 * - `PHP_URL_FRAGMENT`: `fragment`
 	 *
 	 * @example
-	 * - [scheme] => https
-	 * - [host] => developer.wordpress.org
-	 * - [path] => /reference/functions/wp_parse_url/
+	 * - [scheme] => `https`
+	 * - [host]   => `developer.wordpress.org`
+	 * - [path]   => `/reference/functions/wp_parse_url/`
 	 *
 	 * @param mixed $input
 	 * @param int $component
@@ -203,6 +203,9 @@ class URL extends Core\Base
 		if ( $posttype instanceof \WP_Post_Type )
 			$posttype = $posttype->name;
 
+		else if ( $posttype instanceof \WP_Post )
+			$posttype = $posttype->post_type;
+
 		$args = 'post' === $posttype ? [] : [
 			'post_type' => $posttype,
 		];
@@ -217,6 +220,9 @@ class URL extends Core\Base
 		if ( $taxonomy instanceof \WP_Taxonomy )
 			$taxonomy = $taxonomy->name;
 
+		else if ( $taxonomy instanceof \WP_Term )
+			$taxonomy = $taxonomy->taxonomy;
+
 		$args = [ 'taxonomy' => $taxonomy ];
 
 		return add_query_arg( array_merge( $args, $extra ), admin_url( 'edit-tags.php' ) );
@@ -225,7 +231,7 @@ class URL extends Core\Base
 	// @REF: `network_admin_url()`
 	// like core's but with custom network
 	// OLD: `Core\WordPress::networkAdminURL()`
-	public static function networkAdmin( int|object|null $network = NULL, string $path = '', ?string $scheme = 'admin' ): string
+	public static function networkAdmin( null|int|object $network = NULL, string $path = '', ?string $scheme = 'admin' ): string
 	{
 		if ( ! is_multisite() )
 			return admin_url( $path, $scheme );
@@ -241,7 +247,7 @@ class URL extends Core\Base
 	// @REF: `user_admin_url()`
 	// like core's but with custom network
 	// OLD: `Core\WordPress::userAdminURL()`
-	public static function userAdmin( int|object|null $network = NULL, string $path = '', ?string $scheme = 'admin' ): string
+	public static function userAdmin( null|int|object $network = NULL, string $path = '', ?string $scheme = 'admin' ): string
 	{
 		$url = self::networkSite( $network, 'wp-admin/user/', $scheme );
 
@@ -254,7 +260,7 @@ class URL extends Core\Base
 	// @REF: `network_site_url()`
 	// like core's but with custom network
 	// OLD: `Core\WordPress::networkSiteURL()`
-	public static function networkSite( int|object|null $network = NULL, string $path = '', ?string $scheme = NULL ): string
+	public static function networkSite( null|int|object $network = NULL, string $path = '', ?string $scheme = NULL ): string
 	{
 		if ( ! is_multisite() || ! function_exists( 'get_network' ) )
 			return site_url( $path, $scheme );
@@ -277,7 +283,7 @@ class URL extends Core\Base
 	// @REF: `network_home_url()`
 	// like core's but with custom network
 	// OLD: `Core\WordPress::networkHomeURL()`
-	public static function networkHome( int|object|null $network = NULL, string $path = '', ?string $scheme = NULL ): string
+	public static function networkHome( null|int|object $network = NULL, string $path = '', ?string $scheme = NULL ): string
 	{
 		if ( ! is_multisite() || ! function_exists( 'get_network' ) )
 			return home_url( $path, $scheme );

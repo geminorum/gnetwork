@@ -501,7 +501,7 @@ class Text extends Base
 	 * @param string $class
 	 * @return string
 	 */
-	public static function replaceImageP( mixed $text, string|false $tag = 'figure', string $class = '' ): string
+	public static function replaceImageP( mixed $text, false|string $tag = 'figure', string $class = '' ): string
 	{
 		if ( ! $text = self::force( $text ) )
 			return '';

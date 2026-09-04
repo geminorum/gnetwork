@@ -159,7 +159,7 @@ class Post extends Core\Base
 	 * @old `PostType::getPostLink()`
 	 *
 	 * @param mixed $post
-	 * @param string|false $fallback
+	 * @param false|string $fallback
 	 * @param string|array $statuses
 	 * @return false|string
 	 */
@@ -346,7 +346,7 @@ class Post extends Core\Base
 	 * @param string $context
 	 * @return false|string
 	 */
-	public static function overview( int|object|null $post, ?string $context = NULL ): false|string
+	public static function overview( null|int|object $post, ?string $context = NULL ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -372,7 +372,7 @@ class Post extends Core\Base
 	 * @param string $context
 	 * @return false|array
 	 */
-	public static function summary( int|object|null $post, ?string $context = NULL ): false|array
+	public static function summary( null|int|object $post, ?string $context = NULL ): false|array
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -821,7 +821,7 @@ class Post extends Core\Base
 		return wp_insert_post( $new_post );
 	}
 
-	public static function image( $post, $context = NULL, $size = NULL, $thumbnail_id = NULL ): false|string
+	public static function image( mixed $post, ?string $context = NULL, $size = NULL, ?int $thumbnail_id = NULL ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;

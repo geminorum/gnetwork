@@ -24,6 +24,11 @@ class Base
 		return Text::glued( func_get_args(), '_' );
 	}
 
+	public static function nbs(): string
+	{
+		return Text::glued( func_get_args(), '&nbsp;' );
+	}
+
 	// NOTE: pseudo magic method!
 	public function setVars( array $args ): array
 	{

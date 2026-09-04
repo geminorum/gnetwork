@@ -128,7 +128,7 @@ class Main extends Core\Base
 		return $results;
 	}
 
-	protected static function getString( string $string, string|false $subgroup = 'post', string $group = 'titles', string|false|null $fallback = FALSE, ?string $module = NULL ): null|false|string
+	protected static function getString( string $string, false|string $subgroup = 'post', string $group = 'titles', null|false|string $fallback = FALSE, ?string $module = NULL ): null|false|string
 	{
 		if ( ! $module = $module ?? static::MODULE )
 			return $fallback;
@@ -136,7 +136,7 @@ class Main extends Core\Base
 		return static::factory()->module( $module )->get_string( $string, $subgroup, $group, $fallback );
 	}
 
-	protected static function getPostMeta( int $post_id, string|false $field = FALSE, mixed $default = [], ?string $metakey = NULL, ?string $module = NULL ): mixed
+	protected static function getPostMeta( int $post_id, false|string $field = FALSE, mixed $default = [], ?string $metakey = NULL, ?string $module = NULL ): mixed
 	{
 		if ( ! $module = $module ?? static::MODULE )
 			return $default;
@@ -146,7 +146,7 @@ class Main extends Core\Base
 			: static::factory()->module( $module )->get_postmeta_field( $post_id, $field, $default, $metakey );
 	}
 
-	protected static function posttypes( string|array|null $posttypes = NULL, bool $check = FALSE, ?string $module = NULL ): array
+	protected static function posttypes( null|string|array $posttypes = NULL, bool $check = FALSE, ?string $module = NULL ): array
 	{
 		if ( ! $module = $module ?? static::MODULE )
 			return [];
