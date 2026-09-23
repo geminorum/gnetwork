@@ -256,6 +256,14 @@ class Images extends gNetwork\Module
 		if ( '0' === $this->options['bigsize_threshold'] )
 			return FALSE;
 
+ 		$mime_types = [
+			'image/png',
+			'image/gif',
+		];
+
+    	if ( in_array( get_post_mime_type( $attachment_id ), $mime_types, TRUE ) )
+        	return FALSE;
+
 		return intval( $this->options['bigsize_threshold'] ) ?: $threshold;
 	}
 
