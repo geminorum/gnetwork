@@ -188,6 +188,10 @@ class Plugin extends WordPress\Plugin
 			'Profile',
 			// 'Roles',
 			'Rewrite',
+			// 'Sitemap',
+			// 'Htaccess',
+			// 'Security',
+			// 'Signup',
 		];
 
 		if ( 'production' == WP_STAGE )

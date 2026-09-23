@@ -95,29 +95,29 @@ class Taxonomy extends gNetwork\Module
 		];
 	}
 
-	protected function setup_ajax( $request )
+	protected function setup_ajax( array $request )
 	{
-		if ( ( $taxnow = empty( $request['taxonomy'] ) ? FALSE : $request['taxonomy'] ) ) {
+		if ( $taxonomy ??= $request['taxonomy'] ?? FALSE ) {
 			$this->action( 'edited_term', 3, 10, 'description' );
-			add_filter( 'manage_edit-'.$taxnow.'_columns', [ $this, 'manage_edit_columns' ], 5 );
-			add_filter( 'manage_'.$taxnow.'_custom_column', [ $this, 'manage_custom_column' ], 10, 3 );
+			add_filter( 'manage_edit-'.$taxonomy.'_columns', [ $this, 'manage_edit_columns' ], 5 );
+			add_filter( 'manage_'.$taxonomy.'_custom_column', [ $this, 'manage_custom_column' ], 10, 3 );
 		}
 	}
 
 	public function setup_screen( object $screen ): void
 	{
-		if ( 'edit-tags' == $screen->base
-			|| 'term' == $screen->base ) {
+		if ( 'edit-tags' === $screen->base
+			|| 'term' === $screen->base ) {
 
 			$this->filter_append_string( 'admin_body_class', $this->classs() );
 
 			if ( $this->options['management_tools'] )
-				$this->management_tools( $screen );
+				$this->_setup_screen_management_tools( $screen );
 
 			if ( $this->options['taxonomy_tabs'] )
-				$this->taxonomy_tabs( $screen );
+				$this->_setup_screen_taxonomy_tabs( $screen );
 
-			if ( 'edit-tags' == $screen->base ) {
+			if ( 'edit-tags' === $screen->base ) {
 
 				if ( $this->options['description_column'] ) {
 					add_filter( 'manage_edit-'.$screen->taxonomy.'_columns', [ $this, 'manage_edit_columns' ], 5 );
@@ -132,15 +132,15 @@ class Taxonomy extends gNetwork\Module
 
 				add_action( 'after-'.$screen->taxonomy.'-table', [ $this, 'render_info_default_term' ], 12 );
 
-			} else if ( 'term' == $screen->base ) {
+			} else if ( 'term' === $screen->base ) {
 
 				if ( $this->options['term_tabs'] )
-					$this->term_tabs( $screen );
+					$this->_setup_screen_term_tabs( $screen );
 			}
 		}
 	}
 
-	public function manage_edit_columns( $columns )
+	public function manage_edit_columns( array $columns ): array
 	{
 		$new = [];
 
@@ -156,21 +156,23 @@ class Taxonomy extends gNetwork\Module
 		return $new;
 	}
 
-	public function manage_custom_column( $string, $column_name, $term_id )
+	public function manage_custom_column( string $string, string $column_name, int $term_id ): string
 	{
 		if ( 'gnetwork_description' !== $column_name )
 			return $string;
 
-		if ( ! $term = get_term( (int) $term_id ) )
+		if ( ! $term = WordPress\Term::get( (int) $term_id ) )
 			return $string;
 
 		echo sanitize_term_field( 'description', $term->description, $term->term_id, $term->taxonomy, 'display' );
 		echo '<div class="hidden">'.$term->description.'</div>';
+
+		return '';
 	}
 
-	public function quick_edit_custom_box( $column_name, $screen, $taxonomy )
+	public function quick_edit_custom_box( string $column_name, string $posttype, string $taxonomy ): void
 	{
-		if ( 'gnetwork_description' != $column_name )
+		if ( 'gnetwork_description' !== $column_name )
 			return;
 
 		if ( ! current_user_can( get_taxonomy( $taxonomy )->cap->edit_terms ) )
@@ -194,7 +196,7 @@ JS;
 	}
 
 	// WTF: has to be `edited_term` not `edit_term`
-	public function edited_term_description( $term_id, $tt_id, $taxonomy )
+	public function edited_term_description( int $term_id, int $tt_id, string $taxonomy ): void
 	{
 		if ( ! isset( $_POST['gnetwork-description'] ) )
 			return;
@@ -209,7 +211,7 @@ JS;
 		] );
 	}
 
-	public function get_terms_args( $args, $taxonomies )
+	public function get_terms_args( array $args, $taxonomies ): array
 	{
 		if ( ! empty( $args['search'] ) ) {
 			$this->_terms_search = $args['search'];
@@ -219,7 +221,7 @@ JS;
 		return $args;
 	}
 
-	public function terms_clauses( $clauses, $taxonomies, $args )
+	public function terms_clauses( array $clauses, $taxonomies, $args ): array
 	{
 		if ( ! empty( $this->_terms_search ) ) {
 
@@ -235,18 +237,18 @@ JS;
 		return $clauses;
 	}
 
-	private function term_tabs( $screen )
+	private function _setup_screen_term_tabs( object $screen ): bool
 	{
-		if ( 'term' != $screen->base )
+		if ( empty( $screen->taxonomy ) || 'term' !== $screen->base )
 			return FALSE;
 
-		$object = get_taxonomy( $screen->taxonomy );
+		add_action( $screen->taxonomy.'_term_edit_form_top', [ $this, 'term_edit_form_top' ], 1, 2 );
+		add_action( $screen->taxonomy.'_edit_form', [ $this, 'term_edit_form' ], 99, 2 );
 
-		add_action( $object->name.'_term_edit_form_top', [ $this, 'term_edit_form_top' ], 1, 2 );
-		add_action( $object->name.'_edit_form', [ $this, 'term_edit_form' ], 99, 2 );
+		return TRUE;
 	}
 
-	private function get_term_tabs( $taxonomy, $term )
+	private function get_term_tabs( string $taxonomy, ?object $term = NULL ): array
 	{
 		$tabs = [];
 
@@ -266,7 +268,7 @@ JS;
 		return $this->filters( 'term_tabs', $tabs, $taxonomy, $term );
 	}
 
-	public function term_edit_form_top( $term, $taxonomy )
+	public function term_edit_form_top( object $term, string $taxonomy ): void
 	{
 		$object = get_taxonomy( $taxonomy );
 		$tabs   = $this->get_term_tabs( $taxonomy, $term );
@@ -280,7 +282,7 @@ JS;
 		echo '<div class="nav-tab-content -content nav-tab-active -active" data-tab="edititem">';
 	}
 
-	public function term_edit_form( $term, $taxonomy )
+	public function term_edit_form( object $term, string $taxonomy ): void
 	{
 		echo '</div>'; // `.div.nav-tab-content`
 
@@ -306,7 +308,7 @@ JS;
 	}
 
 	// TODO: search for similar name on *post-types*
-	public function callback_term_tab_content_search( $taxonomy, $tab, $object, $term )
+	public function callback_term_tab_content_search( string $taxonomy, string $tab, object $object, object $term ): void
 	{
 		$this->actions( 'term_tab_search_content_before', $taxonomy, $object, $term );
 
@@ -360,12 +362,12 @@ JS;
 		$this->actions( 'term_tab_search_content', $taxonomy, $object, $term );
 	}
 
-	public function callback_term_tab_content_maintenance( $taxonomy, $tab, $object, $term )
+	public function callback_term_tab_content_maintenance( string $taxonomy, string $tab, object $object, object $term ): void
 	{
 		$this->actions( 'term_tab_maintenance_content', $taxonomy, $object, $term );
 	}
 
-	public function callback_term_tab_content_metadata( $taxonomy, $tab, $object, $term )
+	public function callback_term_tab_content_metadata( string $taxonomy, string $tab, object $object, object $term ): void
 	{
 		$this->actions( 'term_tab_metadata_content_before', $taxonomy, $object, $term );
 
@@ -374,7 +376,7 @@ JS;
 		$this->actions( 'term_tab_metadata_content', $taxonomy, $object, $term );
 	}
 
-	public function callback_term_tab_content_posts( $taxonomy, $tab, $object, $term )
+	public function callback_term_tab_content_posts( string $taxonomy, string $tab, object $object, object $term ): void
 	{
 		$this->actions( 'term_tab_posts_content_before', $taxonomy, $object, $term );
 
@@ -411,19 +413,19 @@ JS;
 		$this->actions( 'term_tab_posts_content', $taxonomy, $object, $term );
 	}
 
-	public function callback_term_tab_content_tools( $taxonomy, $tab, $object, $term )
+	public function callback_term_tab_content_tools( string $taxonomy, string $tab, object $object, object $term ): void
 	{
 		$this->actions( 'term_tab_tools_content_before', $taxonomy, $object, $term );
 
 		$this->actions( 'term_tab_tools_content', $taxonomy, $object, $term );
 	}
 
-	public function callback_term_tab_content_extras( $taxonomy, $tab, $object, $term )
+	public function callback_term_tab_content_extras( string $taxonomy, string $tab, object $object, object $term ): void
 	{
 		$this->actions( 'term_tab_extra_content', $taxonomy, $object, $term );
 	}
 
-	private function taxonomy_tabs( $screen )
+	private function _setup_screen_taxonomy_tabs( $screen )
 	{
 		if ( 'edit-tags' != $screen->base || empty( $screen->taxonomy ) )
 			return FALSE;
@@ -454,7 +456,7 @@ JS;
 		$this->action_self( 'tab_console_content', 2, 12, 'taxonomy_object' );
 	}
 
-	private function get_taxonomy_tabs( $taxonomy )
+	private function get_taxonomy_tabs( string $taxonomy ): array
 	{
 		$tabs = [];
 
@@ -475,7 +477,7 @@ JS;
 	}
 
 	// @HOOK: `{$taxonomy}_pre_add_form`
-	public function edittags_pre_add_form( $taxonomy )
+	public function edittags_pre_add_form( string $taxonomy ): void
 	{
 		$object = get_taxonomy( $taxonomy );
 		$tabs   = $this->get_taxonomy_tabs( $taxonomy );
@@ -490,7 +492,7 @@ JS;
 	}
 
 	// @HOOK: `{$taxonomy}_add_form`
-	public function edittags_add_form( $taxonomy )
+	public function edittags_add_form( string $taxonomy ): void
 	{
 		echo '</form></div></div>';
 
@@ -516,7 +518,7 @@ JS;
 	}
 
 	// FIXME: redirect messages wont appear on the edit-tags screen
-	private function handle_tab_content_actions( $taxonomy )
+	private function handle_tab_content_actions( string $taxonomy ): void
 	{
 		if ( self::req( $this->classs( 'do-default-terms' ) ) ) {
 
@@ -567,9 +569,9 @@ JS;
 
 			$this->nonce_check( 'do-delete-terms' );
 
-			// no need, we check the nounce
-			// if ( ! current_user_can( get_taxonomy( $taxonomy )->cap->delete_terms ) )
-			// 	WordPress\Redirect::doReferer( 'noaccess' );
+			// no need, we check the nonce
+			// `if ( ! current_user_can( get_taxonomy( $taxonomy )->cap->delete_terms ) )`
+			// 	`WordPress\Redirect::doReferer( 'noaccess' );`
 
 			if ( $taxonomy !== self::req( $this->classs( 'do-delete-confirm' ) ) )
 				WordPress\Redirect::doReferer( 'huh' );
@@ -617,7 +619,7 @@ JS;
 	 * @param bool $check_description
 	 * @return false|array
 	 */
-	private function _get_empty_terms( $taxonomy, $check_description = TRUE )
+	private function _get_empty_terms( string|object $taxonomy, bool $check_description = TRUE ): false|array
 	{
 		if ( ! $object = WordPress\Taxonomy::object( $taxonomy ) )
 			return FALSE;
@@ -643,7 +645,7 @@ JS;
 	 * @param bool $check_description
 	 * @return false|array
 	 */
-	private function _get_onesie_terms( $taxonomy, $check_description = TRUE )
+	private function _get_onesie_terms( string|object $taxonomy, bool $check_description = TRUE ): false|array
 	{
 		if ( ! $object = WordPress\Taxonomy::object( $taxonomy ) )
 			return FALSE;
@@ -665,18 +667,17 @@ JS;
 	/**
 	 * Handles empty terms deletion.
 	 *
-	 * @param string|object $taxonomy
+	 * @param string $taxonomy
 	 * @param null|array $term_ids
 	 * @param bool $include_default
 	 * @return int
 	 */
-	private function _handle_delete_empty_terms( $taxonomy, $term_ids = NULL, $include_default = FALSE )
+	private function _handle_delete_empty_terms( string $taxonomy, ?array $term_ids = NULL, bool $include_default = FALSE ): int
 	{
 		$count   = 0;
 		$default = WordPress\Taxonomy::getDefaultTermID( $taxonomy );
 
-		if ( is_null( $term_ids ) )
-			$term_ids = $this->_get_empty_terms( $taxonomy );
+		$term_ids ??= $this->_get_empty_terms( $taxonomy );
 
 		if ( ! $term_ids )
 			return $count;
@@ -691,7 +692,7 @@ JS;
 			if ( ! current_user_can( 'delete_term', $term_id ) )
 				continue;
 
-			// Manually re-count to skip if the term has relationships.
+			// Manually recount to skip if the term has relationships.
 			if ( WordPress\Taxonomy::countTermObjects( $term_id, $taxonomy ) )
 				continue;
 
@@ -710,18 +711,17 @@ JS;
 	/**
 	 * Handles onesie terms deletion.
 	 *
-	 * @param string|object $taxonomy
+	 * @param string $taxonomy
 	 * @param null|array $term_ids
 	 * @param bool $include_default
 	 * @return int
 	 */
-	private function _handle_delete_onesie_terms( $taxonomy, $term_ids = NULL, $include_default = FALSE )
+	private function _handle_delete_onesie_terms( string $taxonomy, ?array $term_ids = NULL, bool $include_default = FALSE ): int
 	{
 		$count   = 0;
 		$default = WordPress\Taxonomy::getDefaultTermID( $taxonomy );
 
-		if ( is_null( $term_ids ) )
-			$term_ids = $this->_get_onesie_terms( $taxonomy );
+		$term_ids ??= $this->_get_onesie_terms( $taxonomy );
 
 		if ( ! $term_ids )
 			return $count;
@@ -736,7 +736,7 @@ JS;
 			if ( ! current_user_can( 'delete_term', $term_id ) )
 				continue;
 
-			// Manually re-count: skip if the term has relationships
+			// Manually recount: skip if the term has relationships
 			if ( WordPress\Taxonomy::countTermObjects( $term_id, $taxonomy ) > 1 )
 				continue;
 
@@ -754,7 +754,7 @@ JS;
 		return $count;
 	}
 
-	private function _handle_delete_terms( $taxonomy, $force = FALSE, $include_default = FALSE )
+	private function _handle_delete_terms( string $taxonomy, bool $force = FALSE, bool $include_default = FALSE ): int
 	{
 		$count = 0;
 		$terms = get_terms( [
@@ -804,7 +804,7 @@ JS;
 	// TODO: ajax search
 	// TODO: suggestion: misspelled
 	// TODO: suggestion: i18n variations
-	public function callback_tab_content_search( $taxonomy, $tab, $object )
+	public function callback_tab_content_search( string $taxonomy, string $tab, object $object ): void
 	{
 		$this->actions( 'tab_search_content_before', $taxonomy, $object );
 
@@ -815,7 +815,7 @@ JS;
 		$this->actions( 'tab_search_content', $taxonomy, $object );
 	}
 
-	public function callback_tab_content_tools( $taxonomy, $tab, $object )
+	public function callback_tab_content_tools( string $taxonomy, string $tab, object $object ): void
 	{
 		$this->actions( 'tab_tools_content_before', $taxonomy, $object );
 
@@ -828,10 +828,10 @@ JS;
 	}
 
 	// TODO: indicate that default terms may already installed
-	private function _tab_content_tools_defaults( $taxonomy, $object )
+	private function _tab_content_tools_defaults( string $taxonomy, object $object ): void
 	{
 		if ( ! current_user_can( $object->cap->edit_terms ) )
-			return FALSE;
+			return;
 
 		echo $this->wrap_open( '-tab-tools-defaults card -toolbox-card' );
 			Core\HTML::h4( _x( 'Default Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
@@ -869,7 +869,7 @@ JS;
 		echo '</div>';
 	}
 
-	private function _tab_content_tools_import( $taxonomy, $object )
+	private function _tab_content_tools_import( string $taxonomy, object $object ): void
 	{
 		echo $this->wrap_open( '-tab-tools-import card -toolbox-card' );
 			Core\HTML::h4( _x( 'Import Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
@@ -902,7 +902,7 @@ JS;
 		echo '</div>';
 	}
 
-	private function _tab_content_tools_export( $taxonomy, $object )
+	private function _tab_content_tools_export( string $taxonomy, object $object ): void
 	{
 		echo $this->wrap_open( '-tab-tools-export card -toolbox-card' );
 			Core\HTML::h4( _x( 'Export Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
@@ -927,10 +927,10 @@ JS;
 		echo '</div>';
 	}
 
-	private function _tab_content_tools_delete( $taxonomy, $object )
+	private function _tab_content_tools_delete( string $taxonomy, object $object ): void
 	{
 		if ( ! current_user_can( $object->cap->delete_terms ) )
-			return FALSE;
+			return;
 
 		echo $this->wrap_open( '-tab-tools-delete card -toolbox-card' );
 			Core\HTML::h4( _x( 'Delete Terms', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
@@ -972,15 +972,15 @@ JS;
 	// TODO: card: delete terms with single post
 	// TODO: card: apply i18n on all titles
 	// TODO: card: merge i18n same titles
-	public function callback_tab_content_maintenance( $taxonomy, $tab, $object )
+	public function callback_tab_content_maintenance( string $taxonomy, string $tab, object $object ): void
 	{
 		$this->actions( 'tab_maintenance_content', $taxonomy, $object );
 	}
 
-	public function tab_maintenance_content_delete_empties( $taxonomy, $object )
+	public function tab_maintenance_content_delete_empties( string $taxonomy, object $object ): void
 	{
 		if ( ! current_user_can( $object->cap->delete_terms ) )
-			return FALSE;
+			return;
 
 		echo $this->wrap_open( '-tab-tools-delete-empties card -toolbox-card' );
 			Core\HTML::h4( _x( 'Delete Empties', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
@@ -1017,10 +1017,10 @@ JS;
 		echo '</div>';
 	}
 
-	public function tab_maintenance_content_delete_onesies( $taxonomy, $object )
+	public function tab_maintenance_content_delete_onesies( string $taxonomy, object $object ): void
 	{
 		if ( ! current_user_can( $object->cap->delete_terms ) )
-			return FALSE;
+			return;
 
 		echo $this->wrap_open( '-tab-tools-delete-onesies card -toolbox-card' );
 			Core\HTML::h4( _x( 'Delete Onesies', 'Modules: Taxonomy: Tab Tools', 'gnetwork-admin' ), 'title' );
@@ -1057,12 +1057,12 @@ JS;
 		echo '</div>';
 	}
 
-	public function callback_tab_content_extras( $taxonomy, $tab, $object )
+	public function callback_tab_content_extras( string $taxonomy, string $tab, object $object ): void
 	{
 		$this->actions( 'tab_extra_content', $taxonomy, $object );
 	}
 
-	public function tab_extra_content_i18n_reports( $taxonomy, $object )
+	public function tab_extra_content_i18n_reports( string $taxonomy, object $object ): void
 	{
 		echo $this->wrap_open( '-tab-extras-i18n-reports card -toolbox-card' );
 			Core\HTML::h4( _x( 'i18n Reports', 'Modules: Taxonomy: Tab Extra', 'gnetwork-admin' ), 'title' );
@@ -1073,7 +1073,7 @@ JS;
 	}
 
 	// TODO: count by meta fields
-	public function tab_extra_content_terms_stats( $taxonomy, $object )
+	public function tab_extra_content_terms_stats( string $taxonomy, object $object ): void
 	{
 		echo $this->wrap_open( '-tab-extras-terms-stats card -toolbox-card' );
 			Core\HTML::h4( _x( 'Terms Stats', 'Modules: Taxonomy: Tab Extra', 'gnetwork-admin' ), 'title' );
@@ -1084,7 +1084,7 @@ JS;
 	// FIXME: maybe move to `maintenance` tab
 	// FIXME: must be link button to edit the default term
 	// FIXME: unset default term button
-	public function tab_extra_content_default_term( $taxonomy, $object )
+	public function tab_extra_content_default_term( string $taxonomy, object $object ): void
 	{
 		echo $this->wrap_open( '-tab-extras-default-term card -toolbox-card' );
 			Core\HTML::h4( _x( 'Default Term', 'Modules: Taxonomy: Tab Extra', 'gnetwork-admin' ), 'title' );
@@ -1096,33 +1096,26 @@ JS;
 	}
 
 	// ACTION HOOK: `after_{$taxonomy}_table`
-	public function render_info_default_term( $taxonomy )
+	public function render_info_default_term( string $taxonomy ): bool
 	{
-		$default = WordPress\Taxonomy::getDefaultTermID( $taxonomy );
-
-		if ( empty( $default ) )
-			return;
-
-		$term = get_term( $default, $taxonomy );
-
-		if ( ! $term || self::isError( $term ) )
-			return;
+		if ( ! $term = WordPress\Term::get( WordPress\Taxonomy::getDefaultTermID( $taxonomy ), $taxonomy ) )
+			return FALSE;
 
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: default term name */
 			_x( 'The default term for this taxonomy is &ldquo;%s&rdquo;.', 'Modules: Taxonomy: Info', 'gnetwork-admin' ),
-			'<i>'.$term->name.'</i>'
+			Core\HTML::em( $term->name ),
 		) );
 
 		return TRUE;
 	}
 
-	public function callback_tab_content_console( $taxonomy, $tab, $object )
+	public function callback_tab_content_console( string $taxonomy, string $tab, object $object ): void
 	{
 		$this->actions( 'tab_console_content', $taxonomy, $object );
 	}
 
-	public function tab_console_content_taxonomy_object( $taxonomy, $object )
+	public function tab_console_content_taxonomy_object( string $taxonomy, object $object ): void
 	{
 		echo $this->wrap_open( '-tab-console-taxonomy-object card -toolbox-card' );
 			Core\HTML::h4( _x( 'Taxonomy Object', 'Modules: Taxonomy: Tab Extra', 'gnetwork-admin' ), 'title' );
@@ -1137,7 +1130,7 @@ JS;
 // @REF: https://github.com/scribu/wp-term-management-tools
 // @REF: https://wordpress.org/plugins/term-management-tools/
 
-	private function management_tools( $screen )
+	private function _setup_screen_management_tools( $screen )
 	{
 		if ( 'term' == $screen->base ) {
 
@@ -1284,7 +1277,7 @@ JS;
 		echo '</td></tr>';
 	}
 
-	public function edited_term_actions( $term_id, $tt_id, $taxonomy )
+	public function edited_term_actions( int $term_id, int $tt_id, string $taxonomy ): void
 	{
 		$name = $this->classs( 'action' );
 
@@ -1317,7 +1310,7 @@ JS;
 		if ( empty( $GLOBALS['taxonomy'] ) )
 			return $location;
 
-		$results = $this->delegate_handling( $action, $GLOBALS['taxonomy'], $term_ids );
+		$results = $this->delegate_handling( $action, $GLOBALS['taxonomy'], (array) $term_ids );
 
 		if ( is_null( $results ) )
 			return $location;
@@ -1339,19 +1332,24 @@ JS;
 		return add_query_arg( $query, $location ?: 'edit-tags.php' );
 	}
 
-	private function delegate_handling( $action, $taxonomy, $term_ids, $actions = NULL )
+	private function delegate_handling( string $action, string $taxonomy, array $term_ids, ?array $actions = NULL ): ?bool
 	{
-		if ( is_null( $actions ) )
-			$actions = $this->get_actions( $taxonomy );
+		foreach ( array_keys( $actions ?? $this->get_actions( $taxonomy ) ) as $key ) {
 
-		foreach ( array_keys( $actions ) as $key ) {
+			if ( self::dsh( 'extra', $key ) === $action ) {
 
-			if ( 'extra-'.$key == $action ) {
-
-				$callback = $this->filters( 'bulk_callback', [ $this, 'handle_'.$key ], $key, $taxonomy );
+				$callback = $this->filters( 'bulk_callback',
+					[ $this, self::und( 'handle', $key ) ],
+					$key,
+					$taxonomy,
+				);
 
 				if ( $callback && is_callable( $callback ) )
-					return \call_user_func_array( $callback, [ $term_ids, $taxonomy, $key ] );
+					return (bool) \call_user_func_array( $callback, [
+						$term_ids,
+						$taxonomy,
+						$key,
+					] );
 			}
 		}
 
@@ -1734,9 +1732,7 @@ JS;
 
 		foreach ( (array) $term_ids as $term_id ) {
 
-			$term = get_term( $term_id, $old_tax );
-
-			if ( ! $term || self::isError( $term ) )
+			if ( ! $term = WordPress\Term::get( $term_id, $old_tax ) )
 				continue;
 
 			if ( $already = get_term_by( 'slug', $term->slug, $new_tax ) )
@@ -2134,7 +2130,7 @@ JS;
 	}
 
 	// NOTE: may the taxonomy no longer registered
-	public function renderSimilarTermTableList( $terms, $empty = NULL, $description = TRUE )
+	public function renderSimilarTermTableList( array $terms, ?string $empty = NULL, bool $description = TRUE )
 	{
 		if ( empty( $terms ) )
 			return Core\HTML::desc( $empty ?? gNetwork()->na( FALSE ), TRUE, '-empty' );

@@ -193,7 +193,7 @@ class Login extends gNetwork\Module
 							'network_siteicon',
 						] ),
 					],
-					'values'      => [ 'mode' => 'css' ],
+					'values' => [ 'mode' => 'css' ],
 				],
 			],
 		];

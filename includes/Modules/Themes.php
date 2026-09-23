@@ -689,7 +689,7 @@ class Themes extends gNetwork\Module
 		}
 	}
 
-	public function isTheme( string $theme, $except_stylesheet = NULL )
+	public function isTheme( string $theme, ?string $except_stylesheet = NULL ): bool
 	{
 		if ( is_null( $this->theme ) )
 			$this->theme = wp_get_theme();
@@ -703,7 +703,7 @@ class Themes extends gNetwork\Module
 		return ( $theme == $template || $theme == $stylesheet );
 	}
 
-	public function the_content_actions( ?string $content ): string
+	public function the_content_actions( ?string $content ): ?string
 	{
 		if ( self::const( 'GNETWORK_DISABLE_CONTENT_ACTIONS' ) )
 			return $content;

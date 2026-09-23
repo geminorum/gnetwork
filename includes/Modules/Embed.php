@@ -180,7 +180,7 @@ class Embed extends gNetwork\Module
 		return $settings;
 	}
 
-	public function settings_section_instagram()
+	public function settings_section_instagram(): void
 	{
 		Settings::fieldSection(
 			_x( 'Instagram', 'Modules: Embed: Settings', 'gnetwork-admin' ),
@@ -192,7 +192,7 @@ class Embed extends gNetwork\Module
 		);
 	}
 
-	public function plugins_loaded()
+	public function plugins_loaded(): void
 	{
 		if ( $this->options['load_docs_pdf'] )
 			wp_embed_register_handler( 'pdf', '#(^(https?)\:\/\/.+\.pdf$)#i', [ $this, 'handle_docs_pdf' ] );
@@ -226,7 +226,7 @@ class Embed extends gNetwork\Module
 	 * @param string $content
 	 * @return string
 	 */
-	public function the_content( $content )
+	public function the_content( ?string $content ): ?string
 	{
 		return $content ? preg_replace_callback(
 			'|^\s*<p>(https?://[^\s"]+)</p>\s*$|im',
@@ -240,7 +240,7 @@ class Embed extends gNetwork\Module
 		return $this->wrap( $html );
 	}
 
-	public function handle_docs_pdf( $matches, $attr, $url, $rawattr )
+	public function handle_docs_pdf( array $matches, array $attr, string $url, array $rawattr ): string
 	{
 		$html = Core\HTML::tag( 'iframe', [
 			'src'             => sprintf( 'https://docs.google.com/viewer?url=%s&embedded=true', urlencode( $url ) ),
@@ -256,7 +256,7 @@ class Embed extends gNetwork\Module
 	}
 
 	// @REF: https://www.instagram.com/developer/embedding/
-	public function handle_instagram( $matches, $attr, $url, $rawattr )
+	public function handle_instagram( array $matches, array $attr, string $url, array $rawattr ): string
 	{
 		$url = add_query_arg( [
 			'url'         => 'https://www.instagram.com/p/'.str_replace( '/', '', $matches[1] ),
@@ -287,7 +287,7 @@ class Embed extends gNetwork\Module
 		return $this->filters( 'instagram', $html, $matches, $attr, $url, $rawattr );
 	}
 
-	public function handle_aparat_video( $matches, $attr, $url, $rawattr )
+	public function handle_aparat_video( array $matches, array $attr, string $url, array $rawattr ): string
 	{
 		$html = Core\HTML::tag( 'iframe', [
 			'src'             => sprintf( 'https://www.aparat.com/video/video/embed/videohash/%s/vt/frame', $matches[1] ),
@@ -304,7 +304,7 @@ class Embed extends gNetwork\Module
 		return $this->filters( 'aparat_video', $html, $matches, $attr, $url, $rawattr );
 	}
 
-	public function handle_aparat_channel( $matches, $attr, $url, $rawattr )
+	public function handle_aparat_channel( array $matches, array $attr, string $url, array $rawattr ): string
 	{
 		$count = empty( $rawattr['count'] ) ? $this->options['count_channel'] : $rawattr['count'];
 		$key   = $this->hash( 'aparatchannel', $url, $count, $attr, $rawattr );
@@ -379,8 +379,8 @@ class Embed extends gNetwork\Module
 		return $this->filters( 'aparat_channel', $html, $matches, $attr, $url, $rawattr );
 	}
 
-	// NOTE: balad default is 600x450 (4x3)
-	public function handle_balad( $matches, $attr, $url, $rawattr )
+	// NOTE: `Balad` default is `600x450`/`(4x3)`
+	public function handle_balad( array $matches, array $attr, string $url, array $rawattr ): string
 	{
 		$html = Core\HTML::tag( 'iframe', [
 			'src'             => sprintf( 'https://balad.ir/embed?p=%s', $matches[1] ),
@@ -401,7 +401,7 @@ class Embed extends gNetwork\Module
 	}
 
 	// @REF: https://github.com/TweetPressFr/wp-giphy-oembed
-	public function handle_giphy( $matches, $attr, $url, $rawattr )
+	public function handle_giphy( array $matches, array $attr, string $url, array $rawattr ): string
 	{
 		$html = Core\HTML::tag( 'iframe', [
 			'src'             => add_query_arg( 'html5', TRUE, trailingslashit( 'https://giphy.com/embed/' ).$matches[1] ),

@@ -540,7 +540,7 @@ class Typography extends gNetwork\Module
 		return Core\Text::formatSlug( $name );
 	}
 
-	public function the_content_early( ?string $content ): string
+	public function the_content_early( ?string $content ): ?string
 	{
 		// $content = str_ireplace(
 		// 	'<p style="text-align: center;">***</p>',
@@ -552,7 +552,7 @@ class Typography extends gNetwork\Module
 		return $content;
 	}
 
-	public function the_content( ?string $content ): string
+	public function the_content( ?string $content ): ?string
 	{
 		if ( $this->options['remove_empty_p'] )
 			$content = Core\Text::noEmptyP( $content );
@@ -563,7 +563,7 @@ class Typography extends gNetwork\Module
 		return $content;
 	}
 
-	public function the_content_late( ?string $content ): string
+	public function the_content_late( ?string $content ): ?string
 	{
 		if ( self::const( 'GTHEME_IS_SYSTEM_PAGE' ) )
 			return $content;

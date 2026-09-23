@@ -188,7 +188,7 @@ class Images extends gNetwork\Module
 						_x( 'Sets %s as default format for selected image sub-sizes.', 'Modules: Images: Settings', 'gnetwork-admin' ),
 						Core\HTML::code( 'WebP' )
 					),
-					// 'after'  => Settings::fieldAfterIcon( 'https://caniuse.com/webp' ), // `checkboxes` type does not support `after` styles yet!
+					// `'after'  => Settings::fieldAfterIcon( 'https://caniuse.com/webp' ),` // `checkboxes` type does not support `after` styles yet!
 					'dir'    => 'ltr',
 					'values' => [
 						'jpeg'   => 'JPEG',
@@ -211,7 +211,7 @@ class Images extends gNetwork\Module
 	 * @param string $context
 	 * @return int
 	 */
-	public function jpeg_quality( $quality, $context )
+	public function jpeg_quality( int $quality, ?string $context ): int
 	{
 		return (int) $this->options['quality_jpeg'] ?: $quality;
 	}
@@ -224,7 +224,7 @@ class Images extends gNetwork\Module
 	 * @param array $size
 	 * @return int
 	 */
-	public function wp_editor_set_quality( $quality, $mime_type, $size = [] )
+	public function wp_editor_set_quality( int $quality, string $mime_type, array $size = [] ): int
 	{
 		switch ( $mime_type ) {
 			case 'image/jpeg': return $this->options['quality_jpeg'] ?: $quality;
@@ -237,7 +237,7 @@ class Images extends gNetwork\Module
 
 	// @REF: https://core.trac.wordpress.org/ticket/52867
 	// @REF: https://github.com/adamsilverstein/modern-images-wp
-	public function image_editor_output_format( $map, $filename, $mime_type )
+	public function image_editor_output_format( array $map, $filename, $mime_type ): array
 	{
 		foreach ( $this->options['output_format'] as $format )
 			$map['image/'.$format] = 'image/webp';
@@ -245,13 +245,13 @@ class Images extends gNetwork\Module
 		return $map;
 	}
 
-	public function wp_update_attachment_metadata( $data, $post_id )
+	public function wp_update_attachment_metadata( array $data, int $post_id ): array
 	{
 		unset( $data['image_meta'] );
 		return $data;
 	}
 
-	public function big_image_size_threshold( $threshold, $imagesize, $file, $attachment_id )
+	public function big_image_size_threshold( int $threshold, array $imagesize, string $file, int $attachment_id ): false|int
 	{
 		if ( '0' === $this->options['bigsize_threshold'] )
 			return FALSE;
@@ -267,7 +267,7 @@ class Images extends gNetwork\Module
 		return intval( $this->options['bigsize_threshold'] ) ?: $threshold;
 	}
 
-	public function the_content_css_class( $content )
+	public function the_content_css_class( ?string $content ): ?string
 	{
 		return Core\Text::addImageClass(
 			$content,
@@ -275,7 +275,7 @@ class Images extends gNetwork\Module
 		);
 	}
 
-	public function the_content_paragraps( $content )
+	public function the_content_paragraps( ?string $content ): ?string
 	{
 		switch ( $this->options['content_paragraps'] ) {
 			case 'replace_with_figure': $content = Core\Text::replaceImageP( $content, 'figure' ); break;

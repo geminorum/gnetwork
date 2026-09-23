@@ -111,6 +111,7 @@ class Dev extends gNetwork\Module
 			'plugins_api',
 			'get_core_checksums',
 			'wp_version_check',
+			'wp_update_plugins',
 		], TRUE ) )
 			return FALSE;
 
