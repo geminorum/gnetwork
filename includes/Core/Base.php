@@ -14,6 +14,16 @@ class Base
 		return Text::glued( func_get_args(), '.' );
 	}
 
+	public static function com(): string
+	{
+		return Text::glued( func_get_args(), ',' );
+	}
+
+	public static function pip(): string
+	{
+		return Text::glued( func_get_args(), '|' );
+	}
+
 	public static function dsh(): string
 	{
 		return Text::glued( func_get_args(), '-' );

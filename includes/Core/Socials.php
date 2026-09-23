@@ -8,6 +8,7 @@ class Socials extends Base
 
 		/// Instagram
 		'igsh', // @REF: https://sleek-ly.com/blog/what-is-igsh-instagram-links
+		'stkn',
 
 		/// Facebook
 		'fbclid',

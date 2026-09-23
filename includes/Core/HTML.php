@@ -34,7 +34,14 @@ class HTML extends Base
 		string $alt = '',
 	): string {
 
-		return $src ? '<img src="'.( (string) $src ).'" class="'.self::prepClass( $class ).'" alt="'.self::escape( $alt ).'" decoding="async" loading="lazy" />' : '';
+		return $src ?
+			'<img '.
+			'src="'.( (string) $src ).'" '.
+			'class="'.self::prepClass( $class ).'" '.
+			'alt="'.self::escape( $alt ).'" '.
+			'decoding="async" '.
+			'loading="lazy" '.
+			'/>' : '';
 	}
 
 	public static function heading(
@@ -179,7 +186,7 @@ class HTML extends Base
 			$tag = 'div';
 
 		echo '<'.$tag.' class="'.self::prepClass( 'description', '-description', $class ).'">'
-			// .Text::wordWrap( $nl2br ? nl2br( $string ) : $string ) // FIXME: messes with HTML attributes!
+			// `.Text::wordWrap( $nl2br ? nl2br( $string ) : $string )` // FIXME: messes with HTML attributes!
 			.( $nl2br ? nl2br( $html ) : $html )
 		.'</'.$tag.'>';
 
@@ -209,6 +216,39 @@ class HTML extends Base
 		echo $wrap
 			? self::tag( $wrap, $html )
 			: $html;
+	}
+
+	public static function checkBox(
+		string $title,
+		array $input_attributes = [],
+		false|string $wrap = 'p',
+		string|array $wrap_class = [],
+		false|array $label_attributes = [],
+		bool $verbose = TRUE,
+	): true|string {
+
+		$html = self::nbs( self::tag( 'input', array_merge( [
+			'type'    => 'checkbox',
+			'value'   => '1',
+			// 'checked' => FALSE, // no need
+		], $input_attributes ) ), $title );
+
+		if ( FALSE !== $label_attributes )
+			$html = self::tag( 'label', array_merge( [
+				'for'   => $input_attributes['id'] ?? FALSE,
+				'class' => 'form-label', // BS Class
+			], $label_attributes ), $html );
+
+		if ( $wrap )
+			$html = self::tag( $wrap, [
+				'class' => $wrap_class ?: FALSE,
+			], $html );
+
+		if ( ! $verbose )
+			return $html;
+
+		echo $html;
+		return TRUE;
 	}
 
 	public static function row(
@@ -584,7 +624,7 @@ class HTML extends Base
 		// strip out any % encoded octets
 		$sanitized = preg_replace( '/%[a-fA-F0-9][a-fA-F0-9]/', '', $data );
 
-		// limit to A-Z,a-z,0-9,_,-
+		// limit to `A-Z,a-z,0-9,_,-`
 		$sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '', $sanitized );
 
 		return $sanitized;
@@ -896,7 +936,7 @@ class HTML extends Base
 		$html = self::tag( 'link', [
 			'rel'   => 'stylesheet',
 			'href'  => $url,
-			// 'type'  => 'text/css', // @REF: https://core.trac.wordpress.org/ticket/64428
+			// `'type'  => 'text/css',` // @REF: https://core.trac.wordpress.org/ticket/64428
 			'media' => $media,
 		] )."\n";
 
@@ -1036,7 +1076,7 @@ class HTML extends Base
 		foreach ( $tabs as $tab => $tab_atts ) {
 
 			$tab_args = self::parsed( [
-				// 'active'  => FALSE, // not needed here, just for reference
+				// `'active'  => FALSE,` // not needed here, just for reference
 				'title'   => $tab,
 				'link'    => '#'.$tab,
 				'cb'      => FALSE,
@@ -1399,8 +1439,8 @@ class HTML extends Base
 			'filter'   => self::getDashicon( 'filter' ),
 			'last'     => self::getDashicon( $args['rtl'] ? 'controls-skipback' : 'controls-skipforward' ),
 			'first'    => self::getDashicon( $args['rtl'] ? 'controls-skipforward' : 'controls-skipback' ),
-			'next'     => self::getDashicon( $args['rtl'] ? 'controls-back' : 'controls-forward' ), // &rsaquo;
-			'previous' => self::getDashicon( $args['rtl'] ? 'controls-forward' : 'controls-back' ), // &lsaquo;
+			'next'     => self::getDashicon( $args['rtl'] ? 'controls-back' : 'controls-forward' ), // `&rsaquo;`
+			'previous' => self::getDashicon( $args['rtl'] ? 'controls-forward' : 'controls-back' ), // `&lsaquo;`
 			'refresh'  => self::getDashicon( 'controls-repeat' ),
 			'order'    => self::getDashicon( 'sort' ),
 		], $args['icons'] );
@@ -1511,7 +1551,7 @@ class HTML extends Base
 				], $icons['next'] );
 				echo '&nbsp;';
 
-				// when found count is not available
+				// When found count is not available!
 				if ( $args['pages'] )
 					echo self::tag( 'a', [
 						'href' => add_query_arg( array_merge( $args['extra'], [
@@ -1555,7 +1595,7 @@ class HTML extends Base
 			if ( $pagination['paged'] != 1 )
 				$pagination['previous'] = $pagination['paged'] - 1;
 
-			// if ( $pagination['paged'] != $pagination['pages'] )
+			// `if ( $pagination['paged'] != $pagination['pages'] )`
 				$pagination['next'] = $pagination['paged'] + 1;
 
 		} else if ( $pagination['pages'] > 1 ) {

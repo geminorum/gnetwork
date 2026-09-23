@@ -96,6 +96,18 @@ class Theme extends Core\Base
 		return $template ?: get_index_template();
 	}
 
+	/**
+	 * Returns the theme’s post templates for a given post type.
+	 *
+	 * @param string|null $posttype
+	 * @param mixed $post
+	 * @return array
+	 */
+	public static function getTemplates( ?string $posttype = NULL, mixed $post = NULL ): array
+	{
+		return wp_get_theme()->get_page_templates( $post, $posttype ?? 'page' );
+	}
+
 	public static function restPost( $data, $setup = FALSE, $network = FALSE )
 	{
 		$dummy = [

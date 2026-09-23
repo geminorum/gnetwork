@@ -1601,7 +1601,7 @@ class Taxonomy extends Core\Base
 		return $terms;
 	}
 
-	public static function wipeOut( string $taxonomy ): void
+	public static function wipeOut( string $taxonomy ): int
 	{
 		global $wpdb;
 
@@ -1634,5 +1634,7 @@ class Taxonomy extends Core\Base
 		$wpdb->delete( $wpdb->term_taxonomy, [ 'taxonomy' => $taxonomy ], [ '%s' ] );
 
 		// `flush_rewrite_rules();`
+
+		return count( $terms );
 	}
 }

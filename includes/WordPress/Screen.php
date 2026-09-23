@@ -74,4 +74,45 @@ class Screen extends Core\Base
 
 		return TRUE;
 	}
+
+	/**
+	 * Retrieves the markup for an accessible tooltip.
+	 * NOTE: wrapper for `wp_get_tooltip()`
+	 *
+	 * The required CSS for tooltips is loaded globally, but the JavaScript is
+	 * only loaded by default where post meta boxes are used and in the login screen.
+	 * @link https://make.wordpress.org/core/2026/08/03/introducing-name-and-informational-tool-tips-in-wordpress-7-1/
+	 * @ticket https://core.trac.wordpress.org/ticket/55343
+	 *
+	 * @param string $content
+	 * @param array $arguments
+	 * @return string
+	 */
+	public static function tooltip( string $content, array $arguments = [] ): string
+	{
+		if ( function_exists( 'wp_get_tooltip' ) )  // @since WP 7.1.0
+			return wp_get_tooltip( $content, $arguments );
+
+		// TODO: WTF: fallback!
+
+		return $content;
+	}
+
+	/**
+	 * Retrieves the markup for an accessible toggle tip.
+	 * NOTE: wrapper for `wp_get_toggletip()`
+	 *
+	 * @param string $content
+	 * @param array $arguments
+	 * @return string
+	 */
+	public static function toggletip( string $content, array $arguments = [] ): string
+	{
+		if ( function_exists( 'wp_get_toggletip' ) )  // @since WP 7.1.0
+			return wp_get_toggletip( $content, $arguments );
+
+		// TODO: WTF: fallback!
+
+		return $content;
+	}
 }

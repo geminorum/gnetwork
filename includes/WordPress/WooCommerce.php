@@ -72,6 +72,10 @@ class WooCommerce extends Core\Base
 
 			// 'cart_checkout_blocks' => TRUE,
 			// 'product_block_editor' => TRUE,
+
+			// @SEE https://developer.woocommerce.com/2026/01/19/experimental-product-object-caching-in-woocommerce-10-5/
+			// @SEE https://developer.woocommerce.com/2026/06/17/product-object-caching/
+			// 'product_instance_caching' => TRUE,
 		];
 
 		if ( empty( $plugin_file ) || empty( $features ) )

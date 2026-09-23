@@ -143,8 +143,6 @@ class User extends Core\Base
 		], $extra ), $network
 			? network_admin_url( 'user-edit.php' )
 			: admin_url( 'user-edit.php' ) );
-
-		return FALSE;
 	}
 
 	public static function getTitleRow( mixed $user, string $fallback = '', ?string $template = NULL ): string
