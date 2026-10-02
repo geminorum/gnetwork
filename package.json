@@ -20,7 +20,6 @@
   "scripts": {
     "gulp": "./node_modules/gulp/bin/gulp.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:old": "md .build && cd .build && git clone https://github.com/geminorum/gnetwork . && composer install --no-dev --optimize-autoloader --prefer-dist -v && yarn install && gulp build",
     "build": "md .build && cd .build && git clone https://github.com/geminorum/gnetwork . && composer install --no-dev --optimize-autoloader --prefer-dist -v && npm install --legacy-peer-deps && gulp build",
     "ready": "gulp ready dev:scripts i18n:core",
     "refresh": "gulp dev:styles dev:scripts i18n:core  --stack-size=1000",
@@ -50,15 +49,15 @@
     "git:gc": "git gc --prune=now"
   },
   "devDependencies": {
-    "@wordpress/babel-preset-default": "^8.52.0",
-    "@wordpress/browserslist-config": "^6.52.0",
-    "@wordpress/stylelint-config": "^24.1.0",
-    "autoprefixer": "^10.5.4",
-    "browserslist": "^4.28.7",
-    "cssnano": "^8.0.2",
+    "@wordpress/babel-preset-default": "^8.56.0",
+    "@wordpress/browserslist-config": "^6.56.0",
+    "@wordpress/stylelint-config": "^26.0.0",
+    "autoprefixer": "^10.6.1",
+    "browserslist": "^4.29.3",
+    "cssnano": "^9.2.0",
     "del": "^8.0.1",
     "fancy-log": "^2.0.0",
-    "fs-extra": "^11.4.0",
+    "fs-extra": "^11.4.1",
     "gulp": "^5.0.1",
     "gulp-bump": "^3.2.0",
     "gulp-changed-in-place": "^2.3.0",
@@ -78,20 +77,20 @@
     "gulp-tap": "^2.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-zip": "^6.1.0",
-    "js-yaml": "^5.2.2",
+    "js-yaml": "^5.4.2",
     "merge-json": "^0.1.0-b.3",
     "multipipe": "^4.0.0",
     "parse-changelog": "^1.0.2",
-    "postcss": "^8.5.25",
+    "postcss": "^8.5.28",
     "rtlcss": "^4.3.0",
     "semistandard": "^17.0.0",
-    "stylelint": "^17.14.1",
-    "stylelint-scss": "^7.2.0",
+    "stylelint": "^17.16.0",
+    "stylelint-scss": "^7.3.0",
     "xtend": "^4.0.2"
   },
   "optionalDependencies": {
     "autosize": "^6.0.1",
-    "chosen-jjj": "^3.0.0",
+    "chosen-jjj": "^3.0.4",
     "chosen-js": "^1.8.7",
     "github-markdown-css": "^5.9.0",
     "jquery": "^4.0.0",
@@ -111,16 +110,21 @@
   ],
   "semistandard": {
     "ignore": [
+      "/assets/packages/",
       "/assets/js/vendor/",
       "*.min.js"
     ],
     "globals": [
       "gNetwork",
-      "autosize",
       "jQuery",
+      "Vue",
       "wp",
-      "_",
-      "ajaxurl"
+      "ajaxurl",
+      "autosize",
+      "confirm",
+      "alert",
+      "top",
+      "self"
     ]
   },
   "readme": "ERROR: No README data found!",

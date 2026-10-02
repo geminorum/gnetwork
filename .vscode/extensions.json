@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "standard.vscode-standard",
+    "stylelint.vscode-stylelint",
+    "vivaxy.vscode-conventional-commits"
+  ]
+}

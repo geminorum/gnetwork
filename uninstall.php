@@ -20,6 +20,7 @@ if ( is_multisite() ) {
 	}
 
 } else {
+
 	delete_option( 'gnetwork_blog' );
 }
 

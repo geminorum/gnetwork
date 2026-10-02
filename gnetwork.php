@@ -19,7 +19,7 @@ Release Asset: true
 Requires WP: 5.9.0
 Requires at least: 5.9.0
 Requires PHP: 8.3
-Tested up to: 7.0
+Tested up to: 7.1
 */
 
 define( 'GNETWORK_VERSION', '3.19.1' );

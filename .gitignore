@@ -5,6 +5,7 @@
 .temp
 .todos
 .TODOs
+.test
 
 /assets/bin
 /assets/css/*.css
