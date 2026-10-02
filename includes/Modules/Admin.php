@@ -428,7 +428,7 @@ class Admin extends gNetwork\Module
 			self::summaryAttachments();
 		}
 
-		if ( class_exists( __NAMESPACE__.'\\Themes' )
+		if ( class_exists( __NAMESPACE__.'\\Optimize' )
 			&& current_user_can( 'edit_theme_options' ) ) {
 
 			self::summaryjQuery();

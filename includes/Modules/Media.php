@@ -261,6 +261,7 @@ class Media extends gNetwork\Module
 
 		if ( empty( $_wp_additional_image_sizes ) )
 			Core\HTML::desc( _x( 'No additional image size registered.', 'Modules: Media', 'gnetwork-admin' ) );
+
 		else
 			Core\HTML::tableSide( $_wp_additional_image_sizes );
 	}

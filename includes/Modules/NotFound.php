@@ -112,7 +112,7 @@ class NotFound extends gNetwork\Module
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: not-found location */
 				_x( 'Current Location: %s', 'Modules: NotFound: Settings', 'gnetwork-admin' ),
-				Core\HTML::code( Core\HTML::link(
+				Core\HTML::code( Core\Link::get(
 					Core\URL::relative( $location ),
 					$location,
 					TRUE

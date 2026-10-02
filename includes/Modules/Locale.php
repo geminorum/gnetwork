@@ -528,6 +528,7 @@ class Locale extends gNetwork\Module
 			'woo-sync-hub'              => 'page',
 
 			'list-all-urls' => 'page',
+			'wp-sweep'      => 'page',
 
 		], $current );
 

@@ -144,7 +144,7 @@ class OpenSearch extends gNetwork\Module
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: manifest link */
 				_x( 'Current Manifest: %s', 'Modules: OpenSearch: Settings', 'gnetwork-admin' ),
-				Core\HTML::code( Core\HTML::link(
+				Core\HTML::code( Core\Link::get(
 					Core\URL::relative( $manifest ),
 					$manifest,
 					TRUE
@@ -164,7 +164,7 @@ class OpenSearch extends gNetwork\Module
 				'id'      => $this->classs( 'help' ),
 				'title'   => _x( 'OpenSearch', 'Modules: OpenSearch: Help Tab Title', 'gnetwork-admin' ),
 				'content' => '<p>OpenSearch is a collection of simple formats for the sharing of search results.</p>
-					<p>This site\'s OpenSearch description file is located on:<br />'.Core\HTML::link( NULL, self::getManifestURL() ).'</p>
+					<p>This site\'s OpenSearch description file is located on:<br />'.Core\Link::get( NULL, self::getManifestURL() ).'</p>
 				<p>Fore more information:<br />
 					<a href="https://github.com/dewitt/opensearch" target="_blank">OpenSearch Documentation</a><br />
 					<a href="https://developer.mozilla.org/en-US/docs/Web/OpenSearch" target="_blank">OpenSearch on MDN</a><br />

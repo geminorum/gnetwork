@@ -156,7 +156,7 @@ class Taxonomy extends gNetwork\Module
 		return $new;
 	}
 
-	public function manage_custom_column( string $string, string $column_name, int $term_id ): string
+	public function manage_custom_column( mixed $string, string $column_name, int $term_id ): mixed
 	{
 		if ( 'gnetwork_description' !== $column_name )
 			return $string;
@@ -503,8 +503,7 @@ JS;
 			if ( FALSE === $callback )
 				continue;
 
-			if ( is_null( $callback ) )
-				$callback = [ $this, 'callback_tab_content_'.$tab ];
+			$callback ??= [ $this, self::und( 'callback', 'tab_content', $tab ) ];
 
 			if ( ! is_callable( $callback ) )
 				continue;
@@ -1184,7 +1183,7 @@ JS;
 		$screen->add_help_tab( [
 			'id'      => $this->classs( 'help-bulk-actions' ),
 			'title'   => _x( 'Extra Actions', 'Modules: Taxonomy: Help Tab Title', 'gnetwork-admin' ),
-			'content' => '<p>'.$intro.'</p>'.Core\HTML::renderList( $actions ),
+			'content' => '<p>'.$intro.'</p>'.Core\HTML::rows( $actions ),
 		] );
 
 		wp_localize_script( Scripts::enqueueScript( 'admin.taxonomy.actions' ), 'gNetworkTaxonomyActions', $actions );
@@ -1192,7 +1191,7 @@ JS;
 		return TRUE;
 	}
 
-	private function get_actions( $taxonomy )
+	private function get_actions( string $taxonomy ): array
 	{
 		static $filtered = [];
 
@@ -1237,14 +1236,12 @@ JS;
 		return $filtered[$taxonomy];
 	}
 
-	public function edit_form_fields_default( $term, $taxonomy )
+	public function edit_form_fields_default( object $term, string $taxonomy ): void
 	{
-		$default = WordPress\Taxonomy::getDefaultTermID( $taxonomy );
-
-		if ( empty( $default ) )
+		if ( ! $default = WordPress\Taxonomy::getDefaultTermID( $taxonomy ) )
 			return;
 
-		if ( $term->term_id != $default )
+		if ( $term->term_id !== (int) $default )
 			return;
 
 		$object = get_taxonomy( $taxonomy );
@@ -1257,13 +1254,13 @@ JS;
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: taxonomy label */
 				_x( 'This is the default term for &ldquo;%s&rdquo; taxonomy.', 'Modules: Taxonomy: Info', 'gnetwork-admin' ),
-				'<strong>'.$object->label.'</strong>'
+				Core\HTML::strong( $object->label )
 			) );
 
 		echo '</td></tr>';
 	}
 
-	public function edit_form_fields_actions( $term, $taxonomy )
+	public function edit_form_fields_actions( object $term, string $taxonomy ): void
 	{
 		echo '<tr class="form-field term-actions-wrap actions">';
 			echo '<th scope="row" valign="top"><label for="extra-action-selector">';
@@ -2101,7 +2098,7 @@ JS;
 				'class'    => '-results-rowtype',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return post_type_exists( $row->post_type )
-						? Core\HTML::link(
+						? Core\Link::get(
 							WordPress\PostType::object( $row->post_type )->labels->singular_name,
 							WordPress\URL::editPostType( $row->post_type ),
 							TRUE
@@ -2142,7 +2139,7 @@ JS;
 				'class'    => '-results-rowtype',
 				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
 					return taxonomy_exists( $row->taxonomy )
-						? Core\HTML::link(
+						? Core\Link::get(
 							WordPress\Taxonomy::object( $row->taxonomy )->labels->singular_name,
 							WordPress\URL::editTaxonomy( $row->taxonomy ),
 							TRUE

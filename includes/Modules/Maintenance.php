@@ -123,7 +123,7 @@ class Maintenance extends gNetwork\Module
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: maintenance page path */
 				_x( 'Current Layout: %s', 'Modules: Maintenance: Settings', 'gnetwork-admin' ),
-				Core\HTML::code( Core\HTML::link(
+				Core\HTML::code( Core\Link::get(
 					Core\File::normalize( $layout ),
 					Core\URL::fromPath( $layout ),
 					TRUE

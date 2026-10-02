@@ -113,9 +113,9 @@ class Blog extends gNetwork\Module
 
 		$this->filter_empty_array( 'jetpack_get_default_modules' );
 
-		// ADOPTED FROM: Jetpack Without Promotions v1.0.0 by required
+		// ADOPTED FROM: Jetpack Without Promotions 1.0.0 by required
 		// @REF: https://github.com/wearerequired/hide-jetpack-promotions
-		// $this->filter_false( 'can_display_jetpack_manage_notice', 20 );
+		// `$this->filter_false( 'can_display_jetpack_manage_notice', 20 );`
 		$this->filter_false( 'jetpack_just_in_time_msgs', 20 );
 		$this->filter_false( 'jetpack_show_promotions', 20 );
 	}
@@ -495,7 +495,7 @@ class Blog extends gNetwork\Module
 			$this->action( 'wp', 0, 40 );
 			$this->filter( 'wp_headers', 1, 9, 'ssl' );
 			$this->action( 'wp_print_scripts' );
-			// $this->action( 'rest_api_init', 0, -999 ); // WTF: redirects in `POST` is discouraged
+			// `$this->action( 'rest_api_init', 0, -999 );` // WTF: redirects in `POST` is discouraged
 			$this->filter( 'wp_get_attachment_url', 2, -999 );
 			$this->filter_true( 'wp_should_replace_insecure_home_url' );
 
@@ -572,7 +572,7 @@ class Blog extends gNetwork\Module
 				remove_action( 'wp_head', 'rsd_link' );
 
 			if ( ! $this->options['wlw_enabled'] )
-				remove_action( 'wp_head', 'wlwmanifest_link' ); // @since WP6.3.0 removed from core
+				remove_action( 'wp_head', 'wlwmanifest_link' ); // @since WordPress 6.3.0 removed from core
 		}
 	}
 

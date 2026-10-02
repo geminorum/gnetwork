@@ -154,7 +154,7 @@ class SMS extends gNetwork\Module
 
 					if ( ! empty( $row['user'] ) )
 						$html.= '<code title="'._x( 'User', 'Modules: SMS: Email Logs Table', 'gnetwork-admin' )
-							.'">'.Core\HTML::link( get_user_by( 'id', $row['user'] )->user_login, WordPress\User::edit( $row['user'] ) ).'</code> @ ';
+							.'">'.Core\Link::get( get_user_by( 'id', $row['user'] )->user_login, WordPress\User::edit( $row['user'] ) ).'</code> @ ';
 
 					if ( ! empty( $row['site'] ) )
 						$html.= '<code title="'._x( 'Site', 'Modules: SMS: Email Logs Table', 'gnetwork-admin' )

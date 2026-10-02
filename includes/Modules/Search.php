@@ -177,7 +177,7 @@ class Search extends gNetwork\Module
 		Core\HTML::desc( sprintf(
 			/* translators: `%s`: search page path */
 			_x( 'Current Page: %s', 'Modules: Search: Settings', 'gnetwork-admin' ),
-			Core\HTML::code( Core\HTML::link(
+			Core\HTML::code( Core\Link::get(
 				Core\URL::relative( $page ),
 				$page,
 				TRUE

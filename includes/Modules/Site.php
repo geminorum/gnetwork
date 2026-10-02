@@ -407,9 +407,9 @@ class Site extends gNetwork\Module
 
 		foreach ( $blogs as $blog ) {
 			$html.= '<tr><td>'.$blog->blogname.'</td><td>';
-			$html.= Core\HTML::link( _x( 'Visit Dashboard', 'Modules: Site: User Sites', 'gnetwork-admin' ), get_admin_url( $blog->userblog_id ) );
+			$html.= Core\Link::get( _x( 'Visit Dashboard', 'Modules: Site: User Sites', 'gnetwork-admin' ), get_admin_url( $blog->userblog_id ) );
 			$html.= ' | ';
-			$html.= Core\HTML::link( _x( 'View Site', 'Modules: Site: User Sites', 'gnetwork-admin' ), $blog->siteurl );
+			$html.= Core\Link::get( _x( 'View Site', 'Modules: Site: User Sites', 'gnetwork-admin' ), $blog->siteurl );
 			$html.= '</td></tr>';
 		}
 

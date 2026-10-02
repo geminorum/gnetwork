@@ -899,7 +899,7 @@ class User extends gNetwork\Module
 		if ( $user->user_url ) {
 			echo '<li class="-row -url">';
 				echo $this->get_column_icon( FALSE, 'admin-links', _x( 'URL', 'Modules: User', 'gnetwork-admin' ) );
-				echo Core\HTML::link( Core\URL::prepTitle( $user->user_url ), $user->user_url );
+				echo Core\Link::get( Core\URL::prepTitle( $user->user_url ), $user->user_url );
 			echo '</li>';
 		}
 

@@ -251,7 +251,7 @@ class Authors extends gNetwork\Module
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: site-user */
 				_x( 'Site-User for current network is: %s', 'Modules: Authors: Settings', 'gnetwork-admin' ),
-				$edit ? Core\HTML::link( $name, $edit, TRUE ) : $name )
+				$edit ? Core\Link::get( $name, $edit, TRUE ) : $name )
 			);
 
 		} else {

@@ -439,7 +439,7 @@ class Typography extends gNetwork\Module
 			$content = preg_replace_callback(
 				'/<a href="\/\/search_hashtag\?hashtag=(.*?)">#(.*?)<\/a>/miu',
 				static function ( $matched ) {
-					return Core\HTML::link(
+					return Core\Link::get(
 						sprintf( '#%s', str_replace( '_', ' ', $matched[2] ) ),
 						WordPress\URL::search( '#'.$matched[2] )
 					);

@@ -181,16 +181,14 @@ class Module extends WordPress\Module
 
 	public function get_menu_url( $sub = NULL, $admin = 'admin', $context = 'settings', $extra = [], $scheme = 'admin', $network = NULL )
 	{
-		if ( is_null( $sub ) )
-			$sub = $this->key;
-
-		if ( is_null( $admin ) )
-			$admin = $this->is_network() ? 'network' : 'admin';
+		$sub   ??= $this->key;
+		$admin ??= $this->is_network() ? 'network' : 'admin';
+		$url     = '';
 
 		switch ( $admin ) {
-			case 'admin'  : $url = Modules\Admin::menuURL( TRUE, $context, $scheme, $network ); break;
+			case 'admin'  : $url = Modules\Admin::menuURL( TRUE, $context, $scheme, $network );   break;
 			case 'network': $url = Modules\Network::menuURL( TRUE, $context, $scheme, $network ); break;
-			case 'user'   : $url = Modules\User::menuURL( TRUE, $context, $scheme, $network ); break;
+			case 'user'   : $url = Modules\User::menuURL( TRUE, $context, $scheme, $network );    break;
 		}
 
 		return add_query_arg( array_merge( [ 'sub' => $sub ], $extra ), $url );
@@ -1112,7 +1110,7 @@ class Module extends WordPress\Module
 			return '';
 
 		$html = ' <span class="postbox-title-action" data-tooltip="'.Core\Text::wordWrap( $info ).'"';
-		$html.= ' data-tooltip-pos="'.( Core\HTML::rtl() ? 'down-left' : 'down-right' ).'"';
+		$html.= ' data-tooltip-pos="'.( Core\L10n::rtl() ? 'down-left' : 'down-right' ).'"';
 		$html.= ' data-tooltip-length="medium">'.Core\HTML::getDashicon( 'info' ).'</span>';
 
 		return $html;

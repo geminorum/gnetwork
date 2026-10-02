@@ -7,19 +7,21 @@ class Settings extends Core\Base
 
 	const BASE = 'gnetwork';
 
-	public static function sub( $default = 'overview' )
+	public static function sub( ?string $default = NULL ): string
 	{
-		return trim( self::req( 'sub', $default ) );
+		return trim( self::req( 'sub', $default ?? 'overview' ) );
 	}
 
 	// FIXME: check for network/admin
-	public static function getScreenHook( $network = TRUE )
+	public static function getScreenHook( $network = TRUE ): string
 	{
 		return 'toplevel_page_'.static::BASE;
 	}
 
-	public static function wrapOpen( $sub, $context = 'settings' )
+	public static function wrapOpen( string $sub, ?string $context = NULL ): void
 	{
+		$context ??= 'settings';
+
 		echo '<div id="'.static::BASE.'-'.$context.'" class="'.Core\HTML::prepClass(
 			'wrap',
 			'-settings-wrap',
@@ -30,12 +32,12 @@ class Settings extends Core\Base
 		).'">';
 	}
 
-	public static function wrapClose()
+	public static function wrapClose(): void
 	{
 		echo '<div class="clear"></div></div>';
 	}
 
-	public static function wrapError( $message, $title = NULL )
+	public static function wrapError( string $message, ?string $title = NULL ): void
 	{
 		self::wrapOpen( 'error' );
 			self::headerTitle( $title );
@@ -45,10 +47,9 @@ class Settings extends Core\Base
 
 	// @REF: `get_admin_page_title()`
 	// $after: `<span class="subtitle">Subtitle</span>`
-	public static function headerTitle( $title = NULL, $after = '', $tag = 'h1' )
+	public static function headerTitle( ?string $title = NULL, false|string $after = '', false|string $tag = 'h1' ): void
 	{
-		if ( is_null( $title ) )
-			$title = _x( 'Network Extras', 'Settings: Header Title', 'gnetwork-admin' );
+		$title ??= _x( 'Network Extras', 'Settings: Header Title', 'gnetwork-admin' );
 
 		echo '<'.$tag.' class="wp-heading-inline settings-title">'.$title.'</'.$tag.'>';
 
@@ -66,8 +67,14 @@ class Settings extends Core\Base
 		echo '<hr class="wp-header-end">';
 	}
 
-	public static function sideOpen( $title = NULL, $uri = '', $active = '', $subs = [], $heading = NULL )
-	{
+	public static function sideOpen(
+		?string $title = NULL,
+		?string $uri = '',
+		?string $active = '',
+		array $subs = [],
+		null|false|string $heading = NULL,
+	): void {
+
 		echo '<div class="side-nav-wrap">';
 
 		$title = $title ?? _x( 'Extras', 'Settings: Header Title', 'gnetwork-admin' );
@@ -100,14 +107,14 @@ class Settings extends Core\Base
 		echo '<hr class="wp-header-end">';
 	}
 
-	public static function sideClose()
+	public static function sideClose(): void
 	{
 		// echo '</div><div class="clear"></div></div>';
 		echo '</div></div>';
 	}
 
 	// @SEE: `wp_removable_query_args()`
-	public static function messages()
+	public static function messages(): array
 	{
 		return [
 			'resetting' => self::success( _x( 'Settings reset.', 'Settings: Message', 'gnetwork' ) ),
@@ -145,7 +152,7 @@ class Settings extends Core\Base
 		];
 	}
 
-	public static function messageExtra()
+	public static function messageExtra(): string
 	{
 		$extra = [];
 
@@ -159,27 +166,27 @@ class Settings extends Core\Base
 		return count( $extra ) ? ' ('.implode( WordPress\Strings::separator(), $extra ).')' : '';
 	}
 
-	public static function error( $message, $dismissible = TRUE )
+	public static function error( string $message, bool $dismissible = TRUE ): string
 	{
 		return Core\HTML::error( $message.self::messageExtra(), $dismissible );
 	}
 
-	public static function success( $message, $dismissible = TRUE )
+	public static function success( string $message, bool $dismissible = TRUE ): string
 	{
 		return Core\HTML::success( $message.self::messageExtra(), $dismissible );
 	}
 
-	public static function warning( $message, $dismissible = TRUE )
+	public static function warning( string $message, bool $dismissible = TRUE ): string
 	{
 		return Core\HTML::warning( $message.self::messageExtra(), $dismissible );
 	}
 
-	public static function info( $message, $dismissible = TRUE )
+	public static function info( string $message, bool $dismissible = TRUE ): string
 	{
 		return Core\HTML::info( $message.self::messageExtra(), $dismissible );
 	}
 
-	public static function counted( $message = NULL, $count = NULL, $class = 'updated' )
+	public static function counted( ?string $message = NULL, null|int|string $count = NULL, string $class = 'updated' ): string
 	{
 		return Core\HTML::notice(
 			sprintf(
@@ -198,7 +205,7 @@ class Settings extends Core\Base
 		return FALSE; // help the caller
 	}
 
-	public static function huh( $message = NULL )
+	public static function huh( ?string $message = NULL ): string
 	{
 		if ( $message )
 			return sprintf(
@@ -210,26 +217,24 @@ class Settings extends Core\Base
 		return _x( 'huh?', 'Settings: Message', 'gnetwork' );
 	}
 
-	public static function message( $messages = NULL )
+	public static function message( ?array $messages = NULL ): void
 	{
-		if ( is_null( $messages ) )
-			$messages = self::messages();
+		if ( ! isset( $_GET['message'] ) )
+			return;
 
-		if ( isset( $_GET['message'] ) ) {
+		$messages ??= self::messages();
 
-			if ( isset( $messages[$_GET['message']] ) )
-				echo $messages[$_GET['message']];
-			else
-				echo Core\HTML::warning( $_GET['message'] );
+		if ( isset( $messages[$_GET['message']] ) )
+			echo $messages[$_GET['message']];
+		else
+			echo Core\HTML::warning( $_GET['message'] );
 
-			$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'message', 'count' ], $_SERVER['REQUEST_URI'] );
-		}
+		$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'message', 'count' ], $_SERVER['REQUEST_URI'] );
 	}
 
 	public static function getButtonConfirm( $message = NULL )
 	{
-		if ( is_null( $message ) )
-			$message = _x( 'Are you sure? This operation can not be undone.', 'Settings: Confirm', 'gnetwork' );
+		$message ??= _x( 'Are you sure? This operation can not be undone.', 'Settings: Confirm', 'gnetwork' );
 
 		return [ 'onclick' => sprintf( 'return confirm(\'%s\')', Core\HTML::escape( $message ) ) ];
 	}
@@ -290,7 +295,7 @@ class Settings extends Core\Base
 		], $context ) );
 	}
 
-	public static function getLoginLogoLink( $text = FALSE, $filename = GNETWORK_LOGO )
+	public static function getLoginLogoLink( false|string $text = FALSE, false|string $filename = GNETWORK_LOGO ): false|string
 	{
 		$logo = gNetwork()->option( 'network_sitelogo', 'branding' );
 
@@ -340,26 +345,23 @@ class Settings extends Core\Base
 		return '<span class="-field-after -icon-wrap">'.$html.'</span>';
 	}
 
-	public static function fieldAfterConstant( $constant, $title = NULL, $class = '-constant-wrap' )
+	public static function fieldAfterConstant( string $constant, null|false|string $title = NULL, string|array $class = '-constant-wrap' ): string
 	{
 		if ( ! defined( $constant ) )
 			return '';
 
-		if ( is_null( $title ) )
-			$title = _x( 'Currently defined constant', 'Settings', 'gnetwork' );
-
 		return Core\HTML::tag( 'span', [
 			'class' => Core\HTML::attrClass( '-field-after', $class ),
 			'data'  => [
-				'tooltip'     => $title,
-				'tooltip-pos' => Core\HTML::rtl() ? 'left' : 'right',
+				'tooltip'     => $title ?? _x( 'Currently defined constant', 'Settings', 'gnetwork' ),
+				'tooltip-pos' => Core\L10n::rtl() ? 'left' : 'right',
 			],
 		], Core\HTML::code( $constant ).' : '.Core\HTML::code( constant( $constant ) ) );
 	}
 
 	public static function fieldAfterLink( $link = '', $class = '' )
 	{
-		return $link ? ( '<code class="'.Core\HTML::prepClass( '-field-after', '-link-wrap', $class ).'">'.Core\HTML::link( Core\URL::prepTitle( $link ), $link, TRUE ).'</code>' ) : '';
+		return $link ? ( '<code class="'.Core\HTML::prepClass( '-field-after', '-link-wrap', $class ).'">'.Core\Link::get( Core\URL::prepTitle( $link ), $link, TRUE ).'</code>' ) : '';
 	}
 
 	public static function fieldAfterEmail( $email = '', $class = '' )
@@ -380,7 +382,7 @@ class Settings extends Core\Base
 	}
 
 	// @REF: `Text::replaceTokens()`
-	public static function fieldDescPlaceholders( $items, $title = NULL )
+	public static function fieldDescPlaceholders( string|array $items, ?string $title = NULL ): string
 	{
 		$list  = [];
 		$assoc = Core\Arraay::isAssoc( $items );
@@ -393,12 +395,12 @@ class Settings extends Core\Base
 		if ( ! count( $list ) )
 			return '';
 
-		if ( is_null( $title ) )
-			$title = _x( 'Supported Place-holders', 'Settings', 'gnetwork' );
+		$html = Core\HTML::tag( 'h5', $title ?? _x( 'Supported Place-holders', 'Settings', 'gnetwork' ) );
 
-		$html = $title ? Core\HTML::tag( 'h5', $title ) : '';
-
-		return Core\HTML::wrap( $html.Core\HTML::renderList( $list ), '-field-after-placeholders' );
+		return Core\HTML::wrap(
+			$html.Core\HTML::rows( $list ),
+			'-field-after-placeholders',
+		);
 	}
 
 	/**
@@ -410,14 +412,14 @@ class Settings extends Core\Base
 	 * @param bool $pseudo_caps
 	 * @param string $none_title
 	 * @param string $none_value
-	 * @return array|string
+	 * @return string|array
 	 */
-	public static function getUserCapList( $single_title = NULL, $pseudo_caps = NULL, $none_title = NULL, $none_value = NULL )
+	public static function getUserCapList( ?string $single_title = NULL, ?bool $pseudo_caps = NULL, ?string $none_title = NULL, ?string $none_value = NULL ): string|array
 	{
 		$multisite   = is_multisite();
-		$pseudo_caps = $pseudo_caps ?? $multisite;
-		$none_value  = $none_value  ?? 'none';
-		$none_title  = $none_title  ?? _x( '&ndash; No One &ndash;', 'Fields: Role Dropdown', 'gnetwork' );
+		$pseudo_caps ??= $multisite;
+		$none_value  ??= 'none';
+		$none_title  ??= _x( '&ndash; No One &ndash;', 'Fields: Role Dropdown', 'gnetwork' );
 
 		$list = [
 			'edit_theme_options'   => _x( 'Administrators', 'Fields: Role Dropdown', 'gnetwork' ),
@@ -458,7 +460,10 @@ class Settings extends Core\Base
 		$list = [];
 
 		foreach ( $statuses as $status )
-			$list[$status] = $status.' '.Core\HTTP::getStatusDesc( $status );
+			$list[$status] = Core\Text::glued( [
+				$status,
+				Core\HTTP::getStatusDesc( $status ),
+			] );
 
 		return $list;
 	}
@@ -488,7 +493,7 @@ class Settings extends Core\Base
 		];
 	}
 
-	public static function showOptionNone( $text = NULL )
+	public static function showOptionNone( ?string $text = NULL ): string
 	{
 		if ( $text )
 			return sprintf(
@@ -500,7 +505,7 @@ class Settings extends Core\Base
 		return _x( '&ndash; Select &ndash;', 'Settings: Dropdown Select Option None', 'gnetwork' );
 	}
 
-	public static function showOptionAll( $text = NULL )
+	public static function showOptionAll( ?string $text = NULL ): string
 	{
 		if ( $text )
 			return sprintf(
@@ -586,7 +591,7 @@ class Settings extends Core\Base
 		$html = '';
 
 		foreach ( $list as $link )
-			$html.= '<li>'.Core\HTML::link( $link['title'], $link['url'], TRUE ).'</li>';
+			$html.= '<li>'.Core\Link::get( $link['title'], $link['url'], TRUE ).'</li>';
 
 		return $html ? Core\HTML::wrap( '<ul>'.$html.'</ul>', '-help-sidebar' ) : FALSE;
 	}
@@ -1180,7 +1185,7 @@ class Settings extends Core\Base
 
 					$args['field_class'] = Core\HTML::attrClass( $args['field_class'], 'textarea-quicktags', 'code' );
 
-					if ( ! $args['dir'] && Core\HTML::rtl() )
+					if ( ! $args['dir'] && Core\L10n::rtl() )
 						$args['field_class'][] = 'quicktags-rtl';
 
 					if ( ! $args['values'] )
@@ -1198,7 +1203,7 @@ class Settings extends Core\Base
 
 					$args['field_class'] = Core\HTML::attrClass( $args['field_class'], 'textarea-quicktags', 'code' );
 
-					if ( ! $args['dir'] && Core\HTML::rtl() )
+					if ( ! $args['dir'] && Core\L10n::rtl() )
 						$args['field_class'][] = 'quicktags-rtl';
 
 					if ( ! $args['values'] )

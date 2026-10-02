@@ -21,7 +21,7 @@ class Utilities extends Core\Base
 			echo Core\HTML::info( sprintf(
 				/* translators: `%1$s`: plugin name, `%2$s`: version number */
 				_x( 'A new version of %1$s is available. Please update to version %2$s to ensure compatibility with your WordPress.', 'Utilities: Update Notice', 'gnetwork-admin' ),
-				Core\HTML::link( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
+				Core\Link::get( $updates[$plugin]->Name, $updates[$plugin]->PluginURI, TRUE ),
 				$updates[$plugin]->update->new_version
 			) );
 
@@ -177,7 +177,7 @@ class Utilities extends Core\Base
 			$prepared = Core\Link::mailto( $value, FALSE, $title );
 
 		else if ( Core\URL::isValid( $value ) )
-			$prepared = Core\HTML::link( $title, Core\URL::untrail( $value ) );
+			$prepared = Core\Link::get( $title, Core\URL::untrail( $value ) );
 
 		else if ( is_numeric( str_ireplace( [ '+', '-', '.' ], '', $value ) ) )
 			$prepared = Core\Link::tel( $value, FALSE, $title );
@@ -475,7 +475,7 @@ class Utilities extends Core\Base
 			'class'  => '-icon-wrap',
 			'data'  => [
 				'tooltip'     => _x( 'See the remote content.', 'Utilities: Remote Content', 'gnetwork-admin' ),
-				'tooltip-pos' => Core\HTML::rtl() ? 'left' : 'right',
+				'tooltip-pos' => Core\L10n::rtl() ? 'left' : 'right',
 			],
 		], Core\HTML::getDashicon( 'external' ) );
 

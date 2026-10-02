@@ -232,8 +232,8 @@ class Dashboard extends gNetwork\Module
 		}
 
 		// NOTE: filters the array of extra elements to list in the 'At a Glance' dashboard widget
-		if ( $elements = apply_filters( 'dashboard_glance_items', [] ) )
-			$html.= Core\HTML::renderList( $elements, FALSE, FALSE );
+		foreach ( (array) apply_filters( 'dashboard_glance_items', [] ) as $element )
+			$html.= Core\HTML::row( $element );
 
 		if ( $num_comm = wp_count_comments() ) {
 
@@ -420,7 +420,7 @@ class Dashboard extends gNetwork\Module
 		echo '</div>';
 	}
 
-	public function render_widget_logins()
+	public function render_widget_logins(): void
 	{
 		if ( $this->check_hidden_metabox( 'logins' ) )
 			return;
@@ -497,7 +497,7 @@ class Dashboard extends gNetwork\Module
 	}
 
 	// @REF: `update_right_now_message()`
-	public function dashboard_pointers_update( $items )
+	public function dashboard_pointers_update( array $items ): array
 	{
 		$preferred = get_preferred_from_update_core();
 
@@ -514,7 +514,7 @@ class Dashboard extends gNetwork\Module
 	}
 
 	// Checks if search engines are asked not to index this site
-	public function dashboard_pointers_public( $items )
+	public function dashboard_pointers_public( array $items ): array
 	{
 		if ( '0' != get_option( 'blog_public' ) )
 			return $items;
@@ -532,7 +532,7 @@ class Dashboard extends gNetwork\Module
 		return $items;
 	}
 
-	public function dashboard_pointers_quota( $items )
+	public function dashboard_pointers_quota( array $items ): array
 	{
 		if ( get_network_option( NULL, 'upload_space_check_disabled' )  )
 			return $items;
@@ -565,13 +565,11 @@ class Dashboard extends gNetwork\Module
 		return $items;
 	}
 
-	public function activity_box_end()
+	public function activity_box_end(): void
 	{
-		if ( empty( $items = $this->filters( 'pointers', [] ) ) )
-			return;
-
-		echo '<ul class="-pointers">';
-			echo Core\HTML::renderList( $items, FALSE, FALSE );
-		echo '</ul>';
+		echo Core\HTML::rows(
+			(array) $this->filters( 'pointers', [] ),
+			'-pointers',
+		);
 	}
 }

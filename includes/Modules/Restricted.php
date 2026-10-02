@@ -145,7 +145,7 @@ class Restricted extends gNetwork\Module
 			Core\HTML::desc( sprintf(
 				/* translators: `%s`: restricted page path */
 				_x( 'Current Layout: %s', 'Modules: Restricted: Settings', 'gnetwork-admin' ),
-				Core\HTML::code( Core\HTML::link(
+				Core\HTML::code( Core\Link::get(
 					Core\File::normalize( $layout ),
 					Core\URL::fromPath( $layout ),
 					TRUE

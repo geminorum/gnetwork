@@ -358,7 +358,7 @@ class Cron extends gNetwork\Module
 		);
 
 		$message = get_option( $this->hook( 'status' ) );
-		$message.= '<p>'.Core\HTML::link( _x( 'View the current cron scheduled tasks', 'Modules: CRON', 'gnetwork' ), $this->get_menu_url( 'cron', 'admin', 'tools' ) ).'</p>';
+		$message.= '<p>'.Core\Link::get( _x( 'View the current cron scheduled tasks', 'Modules: CRON', 'gnetwork' ), $this->get_menu_url( 'cron', 'admin', 'tools' ) ).'</p>';
 
 		if ( Core\L10n::rtl() )
 			$message = '<div dir="rtl">'.$message.'</div>';

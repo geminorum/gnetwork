@@ -640,10 +640,10 @@ class ShortCodes extends gNetwork\Module
 		$html = Utilities::prepTitle( $post->post_title, $post->ID );
 
 		if ( TRUE === $args['link'] )
-			$html = Core\HTML::link( $html, apply_filters( 'the_permalink', get_permalink( $post ), $post ) );
+			$html = Core\Link::get( $html, apply_filters( 'the_permalink', get_permalink( $post ), $post ) );
 
 		else if ( $args['link'] )
-			$html = Core\HTML::link( $html, $args['link'] );
+			$html = Core\Link::get( $html, $args['link'] );
 
 		return self::shortcodeWrap( $html, 'post-title', $args, FALSE );
 	}
@@ -896,7 +896,7 @@ class ShortCodes extends gNetwork\Module
 		] );
 
 		if ( $args['link'] && ! in_array( $args['link'], [ 'full', 'image', 'parent', 'page' ], TRUE ) )
-			$html = Core\HTML::link( $html, $args['link'] );
+			$html = Core\Link::get( $html, $args['link'] );
 
 		if ( is_null( $args['figure'] ) && $args['caption'] )
 			$args['figure'] = TRUE;
@@ -1403,7 +1403,7 @@ class ShortCodes extends gNetwork\Module
 
 			return $args['id']
 				? WordPress\Media::htmlAttachmentShortLink( $args['id'], $args['string_view'] )
-				: Core\HTML::link( $args['string_view'], $args['url'] );
+				: Core\Link::get( $args['string_view'], $args['url'] );
 		}
 
 		$key = $this->hash( 'csv', $args );
@@ -1450,7 +1450,7 @@ class ShortCodes extends gNetwork\Module
 
 				} else {
 
-					return $content ?: ( $args['string_view'] ? Core\HTML::link( $args['string_view'], $args['url'] ) : NULL );
+					return $content ?: ( $args['string_view'] ? Core\Link::get( $args['string_view'], $args['url'] ) : NULL );
 				}
 			}
 
