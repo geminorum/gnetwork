@@ -10,13 +10,13 @@ class File extends Base
 	 * NOTE: wraps `file_exists()` and uses current install absolute path.
 	 * @SEE: `clearstatcache()`
 	 *
-	 * @param string $path
+	 * @param mixed $path
 	 * @param string $base
 	 * @return bool
 	 */
-	public static function exists( $path, $base = NULL )
+	public static function exists( mixed $path, ?string $base = NULL ): bool
 	{
-		if ( empty( $path ) )
+		if ( ! $path = Text::force( $path ) )
 			return FALSE;
 
 		$base = is_null( $base ) ? ABSPATH : self::trail( $base ?: '' );
@@ -27,12 +27,12 @@ class File extends Base
 	/**
 	 * Tells whether a file exists and is readable.
 	 *
-	 * @param string $path
+	 * @param mixed $path
 	 * @return bool
 	 */
-	public static function readable( $path )
+	public static function readable( mixed $path ): bool
 	{
-		if ( empty( $path ) )
+		if ( ! $path = Text::force( $path ) )
 			return FALSE;
 
 		return @is_readable( $path );
@@ -42,12 +42,12 @@ class File extends Base
 	 * Tells whether the filename is writable.
 	 * NOTE: wraps the `wp_is_writable()` with fallback to `is_writable()`
 	 *
-	 * @param string $path
+	 * @param mixed $path
 	 * @return bool
 	 */
-	public static function writable( $path )
+	public static function writable( mixed $path ): bool
 	{
-		if ( empty( $path ) )
+		if ( ! $path = Text::force( $path ) )
 			return FALSE;
 
 		if ( function_exists( 'wp_is_writable' ) )
@@ -64,7 +64,7 @@ class File extends Base
 	 * @param array $mimes
 	 * @return array
 	 */
-	public static function type( $filename, $mimes = NULL )
+	public static function type( string $filename, ?array $mimes = NULL ): array
 	{
 		return wp_check_filetype( $filename, $mimes ?? wp_get_mime_types() );
 	}
@@ -79,7 +79,7 @@ class File extends Base
 	 * @param string $path
 	 * @return string
 	 */
-	public static function trail( $path )
+	public static function trail( string $path ): string
 	{
 		return $path ? ( self::untrail( $path ).\DIRECTORY_SEPARATOR ) : $path;
 	}
@@ -91,7 +91,7 @@ class File extends Base
 	 * @param string $path
 	 * @return string
 	 */
-	public static function untrail( $path )
+	public static function untrail( string $path ): string
 	{
 		return $path ? rtrim( $path, '/\\' ) : $path;
 	}
@@ -109,14 +109,12 @@ class File extends Base
 	 *
 	 * @source: `wp_normalize_path()`
 	 *
-	 * @param string $path
+	 * @param mixed $path
 	 * @return string
 	 */
-	public static function normalize( $path )
+	public static function normalize( mixed $path ): string
 	{
-		$path = (string) $path;
-
-		if ( empty( $path ) )
+		if ( ! $path = Text::force( $path ) )
 			return '';
 
 		$path = str_replace( '\\', '/', $path );
@@ -144,13 +142,16 @@ class File extends Base
 	 *
 	 * @source https://www.php.net/manual/en/function.realpath.php#84012
 	 *
-	 * @param string $path
-	 * @param string $separator
+	 * @param mixed $path
+	 * @param string|null $separator
 	 * @return string
 	 */
-	public static function absolutePath( $path, $separator = NULL )
+	public static function absolutePath( mixed $path, ?string $separator = NULL ): string
 	{
-		$separator = $separator ?? DIRECTORY_SEPARATOR;
+		if ( ! $path = Text::force( $path ) )
+			return '';
+
+		$separator ??= DIRECTORY_SEPARATOR;
 
 		$path      = preg_replace( '/[\/\]+/', '/', $path );
 		$path      = str_replace( [ '/', '\\' ], $separator, $path );
@@ -178,13 +179,13 @@ class File extends Base
 	 * NOTE: I18N friendly version of `basename()`
 	 * @source `wp_basename()`
 	 *
-	 * @param string $path
+	 * @param mixed $path
 	 * @param string $suffix
 	 * @return string
 	 */
-	public static function basename( $path, $suffix = '' )
+	public static function basename( mixed $path, string $suffix = '' ): string
 	{
-		if ( empty( $path ) )
+		if ( ! $path = Text::force( $path ) )
 			return '';
 
 		return urldecode( basename( str_replace( [ '%2F', '%5C' ], '/', urlencode( $path ) ), $suffix ) );
@@ -193,13 +194,13 @@ class File extends Base
 	/**
 	 * Retrieves filename from given path or URL.
 	 *
-	 * @param string $path
+	 * @param mixed $path
 	 * @param array $mimes
 	 * @return string
 	 */
-	public static function filename( $path, $mimes = NULL )
+	public static function filename( mixed $path, ?array $mimes = NULL ): string
 	{
-		if ( empty( $path ) )
+		if ( ! $path = Text::force( $path ) )
 			return '';
 
 		$type = self::type( self::basename( $path ), $mimes ?? wp_get_mime_types() );
@@ -212,9 +213,9 @@ class File extends Base
 	 * @param string $filepath
 	 * @return false|string
 	 */
-	public static function fileExt( $filepath )
+	public static function fileExt( mixed $filepath ): false|string|null
 	{
-		if ( ! $filepath )
+		if ( ! $filepath = Text::force( $filepath ) )
 			return FALSE;
 
 		preg_match( '/\.[^\.]+$/i', trim( $filepath ), $extension );
@@ -224,7 +225,7 @@ class File extends Base
 
 	/**
 	 * Returns a filename of a temporary unique file.
-	 * NOTE: doesn’t delete the file/can’t use extensions.
+	 * NOTE: does not delete the file/can not use extensions.
 	 * @source `wp_tempnam()` without length checks
 	 *
 	 * Please note that the calling function must delete or move the file.
@@ -236,7 +237,7 @@ class File extends Base
 	 * @param string $directory
 	 * @return string
 	 */
-	public static function tempName( $name = '', $directory = '' )
+	public static function tempName( string $name = '', string $directory = '' ): string
 	{
 		$directory = $directory ?: get_temp_dir();
 
@@ -277,10 +278,9 @@ class File extends Base
 	 * @param string $content
 	 * @return string
 	 */
-	public static function sysTempName( $name, $content )
+	public static function sysTempName( string $name, string $content ): string
 	{
-		$sep = DIRECTORY_SEPARATOR;
-
+		$sep  = DIRECTORY_SEPARATOR;
 		$file = $sep.trim( sys_get_temp_dir(), $sep ).$sep.ltrim( $name, $sep );
 
 		@file_put_contents( $file, $content );
@@ -301,7 +301,7 @@ class File extends Base
 	 * @param string $path
 	 * @return string
 	 */
-	public static function join( $base, $path )
+	public static function join( string $base, string $path ): string
 	{
 		return self::isAbsolute( $path )
 			? $path
@@ -316,7 +316,7 @@ class File extends Base
 	 * @param string $path
 	 * @return bool
 	 */
-	public static function isAbsolute( $path )
+	public static function isAbsolute( string $path ): bool
 	{
 		// Check to see if the path is a stream and check to see if it's an actual
 		// path or file as `realpath()` does not support stream wrappers.
@@ -345,18 +345,18 @@ class File extends Base
 
 	// http://stackoverflow.com/a/4994188
 	// core has `sanitize_file_name()` but with certain mime types
-	public static function escFilename( $path )
+	public static function escFilename( mixed $path ): string
 	{
-		if ( empty( $path ) )
+		if ( ! $path = Text::force( $path ) )
 			return '';
 
 		// Everything to lower and no spaces begin or end
 		$path = strtolower( trim( $path ) );
 
-		// adding - for spaces and union characters
+		// Adding `-` for spaces and union characters.
 		$path = str_replace( [ ' ', '&', '\r\n', '\n', '+', ',' ], '-', $path );
 
-		// delete and replace rest of special chars
+		// Delete and replace rest of special chars
 		$path = preg_replace( [ '/[^a-z0-9\-<>]/', '/[\-]+/', '/<[^>]*>/' ], [ '', '-', '' ], $path );
 
 		return $path;
@@ -365,7 +365,7 @@ class File extends Base
 	// ORIGINALLY BASED ON: `Secure Folder wp-content/uploads` v1.2
 	// BY: Daniel Satria : http://ruanglaba.com
 	// puts `index.html` on given folder and subs
-	public static function putIndexHTML( $base, $index )
+	public static function putIndexHTML( string $base, string $index ): void
 	{
 		copy( $index, $base.'/index.html' );
 
@@ -385,7 +385,7 @@ class File extends Base
 	 * @param bool $force_overwrite
 	 * @return bool
 	 */
-	public static function putDoNotBackup( $path, $check_folder = TRUE, $force_overwrite = FALSE )
+	public static function putDoNotBackup( string $path, bool $check_folder = TRUE, bool $force_overwrite = FALSE ): bool
 	{
 		if ( ! $force_overwrite && self::exists( '.donotbackup', $path ) )
 			return TRUE;
@@ -407,7 +407,7 @@ class File extends Base
 	 * @param bool $force_overwrite
 	 * @return bool
 	 */
-	public static function putHTAccessDeny( $path, $check_folder = TRUE, $force_overwrite = FALSE )
+	public static function putHTAccessDeny( string $path, bool $check_folder = TRUE, bool $force_overwrite = FALSE ): bool
 	{
 		if ( ! $force_overwrite && self::exists( '.htaccess', $path ) )
 			return TRUE;
@@ -429,12 +429,12 @@ class File extends Base
 	 * @REF: https://github.com/markjaquith/feedback/issues/33
 	 * @REF: `$wp_filesystem->get_contents()`
 	 *
-	 * @param string $filename
+	 * @param mixed $filename
 	 * @return string
 	 */
-	public static function getContents( $filename )
+	public static function getContents( mixed $filename ): string
 	{
-		if ( empty( $filename ) )
+		if ( ! $filename = Text::force( $filename ) )
 			return '';
 
 		return @file_get_contents( $filename );

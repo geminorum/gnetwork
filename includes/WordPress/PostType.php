@@ -205,16 +205,16 @@ class PostType extends Core\Base
 	 * 	`_builtin` Boolean: If true, will return WordPress default post types. Use false to return only custom post types.
 	 *
 	 * @param int $mod
-	 * @param array $args
+	 * @param array $arguments
 	 * @param string $capability
 	 * @param int $user_id
 	 * @return array
 	 */
-	public static function get( $mod = 0, $args = [ 'public' => TRUE ], $capability = NULL, $user_id = NULL )
+	public static function get( $mod = 0, $arguments = [ 'public' => TRUE ], $capability = NULL, $user_id = NULL )
 	{
 		$list = [];
 
-		foreach ( get_post_types( $args, 'objects' ) as $posttype => $posttype_obj ) {
+		foreach ( get_post_types( $arguments, 'objects' ) as $posttype => $posttype_obj ) {
 
 			if ( ! self::can( $posttype_obj, $capability, $user_id ) )
 				continue;
@@ -305,7 +305,7 @@ class PostType extends Core\Base
 
 	// OLD: `Core\WordPress::getAuthorEditHTML()`
 	// OLD: `WordPress\PostType::authorLink()`
-	public static function authorEditMarkup( $posttype, $author, $extra = [] )
+	public static function authorEditMarkup( string $posttype, int $author, array $extra = [] ): false|string
 	{
 		if ( $author_data = get_user_by( 'id', $author ) )
 			return Core\HTML::tag( 'a', [
@@ -323,7 +323,7 @@ class PostType extends Core\Base
 	// @REF: https://stackoverflow.com/questions/4829199/sql-is-there-a-way-to-get-the-average-number-of-characters-for-a-field
 	// `SELECT AVG(CHAR_LENGTH(<column>)) AS avgLength FROM <table>`
 	// `select sum(len(theTextColumn)) / count(*) from theTable;`
-	public static function getMetaAverageDataLength( $metakey, $fallback = FALSE )
+	public static function getMetaAverageDataLength( string $metakey, mixed $fallback = FALSE ): mixed
 	{
 		global $wpdb;
 
@@ -339,100 +339,22 @@ class PostType extends Core\Base
 		return $wpdb->get_var( $query ) ?: $fallback;
 	}
 
-	// TODO: support regex on meta-keys
-	// @SEE: https://tommcfarlin.com/get-post-id-by-meta-value/
-	public static function getIDbyMeta( $key, $value, $single = TRUE )
+	#[\Deprecated('USE `WordPress\PostMeta::getID()`')]
+	public static function getIDbyMeta( string $key, mixed $value, bool $single = TRUE ): false|int|array
 	{
-		global $wpdb, $NucleusPostIDbyMeta;
-
-		if ( empty( $key ) || empty( $value ) )
-			return FALSE;
-
-		if ( empty( $NucleusPostIDbyMeta ) )
-			$NucleusPostIDbyMeta = [];
-
-		$group = $single ? 'single' : 'all';
-
-		if ( isset( $NucleusPostIDbyMeta[$key][$group][$value] ) )
-			return $NucleusPostIDbyMeta[$key][$group][$value];
-
-		$query = $wpdb->prepare( "
-			SELECT post_id
-			FROM {$wpdb->postmeta}
-			WHERE meta_key = %s
-			AND meta_value = %s
-		", $key, $value );
-
-		$results = $single
-			? $wpdb->get_var( $query )
-			: $wpdb->get_col( $query );
-
-		return $NucleusPostIDbyMeta[$key][$group][$value] = $results;
+		return PostMeta::getID( $key, $value, $single );
 	}
 
-	public static function getIDListbyMeta( $meta, $values )
+	#[\Deprecated('USE `WordPress\PostMeta::getIDList()`')]
+	public static function getIDListbyMeta( string $meta_key, array $values ): false|array
 	{
-		global $wpdb, $NucleusPostIDbyMeta;
-
-		if ( empty( $meta ) )
-			return FALSE;
-
-		$filtered = array_filter( (array) $values );
-
-		if ( empty( $filtered ) )
-			return FALSE;
-
-		$query = $wpdb->prepare( "
-			SELECT post_id, meta_value
-			FROM {$wpdb->postmeta}
-			WHERE meta_key = %s
-			AND meta_value IN ( '".implode( "', '", esc_sql( $filtered ) )."' )
-		", $meta );
-
-		$results = $wpdb->get_results( $query, ARRAY_A );
-
-		if ( empty( $results ) )
-			return [];
-
-		$list = Core\Arraay::pluck( $results, 'post_id', 'meta_value' );
-
-		if ( empty( $NucleusPostIDbyMeta ) )
-			$NucleusPostIDbyMeta = [];
-
-		// update cache
-		foreach ( $filtered as $value )
-			$NucleusPostIDbyMeta[$meta]['single'][$value] = array_key_exists( $value, $list ) ? $list[$value] : FALSE;
-
-		return $list;
+		return PostMeta::getIDList( $meta_key, $values );
 	}
 
-	public static function invalidateIDbyMeta( $meta, $value = FALSE )
+	#[\Deprecated('USE `WordPress\PostMeta::invalidateID()`')]
+	public static function invalidateIDbyMeta( string|array $meta_keys, mixed $value = FALSE ): bool
 	{
-		global $NucleusPostIDbyMeta;
-
-		if ( empty( $meta ) )
-			return TRUE;
-
-		if ( empty( $NucleusPostIDbyMeta ) )
-			return TRUE;
-
-		if ( FALSE === $value ) {
-
-			// clear all meta by key
-			foreach ( (array) $meta as $key ) {
-				unset( $NucleusPostIDbyMeta[$key]['all'] );
-				unset( $NucleusPostIDbyMeta[$key]['single'] );
-			}
-
-		} else {
-
-			foreach ( (array) $meta as $key ) {
-				unset( $NucleusPostIDbyMeta[$key]['all'][$value] );
-				unset( $NucleusPostIDbyMeta[$key]['single'][$value] );
-			}
-		}
-
-		return TRUE;
+		return PostMeta::invalidateID( $meta_keys, $value );
 	}
 
 	// WTF: `WP_Query` does not support `id=>name` as fields
@@ -522,8 +444,8 @@ class PostType extends Core\Base
 	public static function getLastMenuOrder(
 		string|array $posttype = 'post',
 		string|array $exclude = '',
-		string|false $prop = 'menu_order',
-		string|array|null $statuses = NULL,
+		false|string $prop = 'menu_order',
+		null|string|array $statuses = NULL,
 	): false|int|string|object {
 
 		$post = get_posts( [
@@ -557,7 +479,7 @@ class PostType extends Core\Base
 		string|array $posttype,
 		bool $has_thumbnail = FALSE,
 		bool $object = FALSE,
-		string|array|null $statuses = 'publish',
+		null|string|array $statuses = 'publish',
 	): false|int {
 
 		$args = [

@@ -19,18 +19,19 @@ class Status extends Core\Base
 	 * - `future`: a post to publish in the future
 	 * - `private`: not visible to users who are not logged in
 	 * - `inherit`: a revision. @see `get_children()`.
-	 * - `trash`: post is in trash-bin. added with WP2.9
+	 * - `trash`: post is in trash-bin. Added @since WP 2.9
 	 *
 	 * @param int $mod
+	 * @param array $arguments
 	 * @param string $capability
 	 * @param int $user_id
 	 * @return array
 	 */
-	public static function get( $mod = 0, $args = [] )
+	public static function get( $mod = 0, $arguments = [], $capability = NULL, $user_id = NULL )
 	{
 		$list = [];
 
-		foreach ( get_post_stati( $args, 'objects' ) as $object ) {
+		foreach ( get_post_stati( $arguments, 'objects' ) as $object ) {
 
 			// just the name!
 			if ( -1 === $mod )
@@ -58,12 +59,11 @@ class Status extends Core\Base
 	 */
 	public static function available( $posttype, $excludes = NULL )
 	{
-		if ( is_null( $excludes ) )
-			$excludes = [
-				'trash',
-				'private',
-				'auto-draft',
-			];
+		$excludes ??= [
+			'trash',
+			'private',
+			'auto-draft',
+		];
 
 		$statuses = IsIt::advancedCache()
 			? get_available_post_statuses( $posttype )

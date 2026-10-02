@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Browser extends Base
 {
 
-	public static function getAgent()
+	public static function getAgent(): false|string
 	{
 		if ( empty( $_SERVER['HTTP_USER_AGENT'] ) )
 			return FALSE;
@@ -14,7 +14,7 @@ class Browser extends Base
 	}
 
 	// @REF: https://wp-mix.com/php-detect-all-versions-ie/
-	public static function isIE()
+	public static function isIE(): bool
 	{
 		if ( ! $agent = self::getAgent() )
 			return FALSE;
@@ -29,7 +29,7 @@ class Browser extends Base
 	}
 
 	// @REF: `wp_is_mobile()`
-	public static function isMobile()
+	public static function isMobile(): bool
 	{
 		if ( ! $agent = self::getAgent() )
 			return FALSE;

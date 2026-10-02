@@ -177,7 +177,7 @@ class Term extends Core\Base
 
 			if ( $object && $object->parent )
 				$parents[] = $linked && $link
-					? Core\HTML::link( self::title( $object->parent ), $link )
+					? Core\Link::get( self::title( $object->parent ), $link )
 					: self::title( $object->parent );
 
 			else

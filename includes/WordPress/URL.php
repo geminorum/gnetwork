@@ -30,7 +30,7 @@ class URL extends Core\Base
 	}
 
 	/**
-	 * A wrapper for PHP’s `parse_url()` function that handles consistency
+	 * A wrapper for PHP's `parse_url()` function that handles consistency
 	 * in the return values across PHP versions.
 	 * NOTE: wrapper for `wp_parse_url()`
 	 *

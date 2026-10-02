@@ -132,7 +132,7 @@ class Post extends Core\Base
 	 */
 	public static function title(
 		mixed $post = NULL,
-		string|false|null $fallback = NULL,
+		null|false|string $fallback = NULL,
 		bool $filter = TRUE,
 	): string {
 
@@ -165,8 +165,8 @@ class Post extends Core\Base
 	 */
 	public static function link(
 		mixed             $post     = NULL,
-		string|false      $fallback = FALSE,
-		string|array|null $statuses = NULL,
+		false|string      $fallback = FALSE,
+		null|string|array $statuses = NULL,
 	): false|string {
 
 		if ( ! $post = self::get( $post ) )
@@ -342,11 +342,11 @@ class Post extends Core\Base
 	/**
 	 * Retrieves a contextual link given a post ID or post object.
 	 *
-	 * @param int|object $post
+	 * @param mixed $post
 	 * @param string $context
 	 * @return false|string
 	 */
-	public static function overview( null|int|object $post, ?string $context = NULL ): false|string
+	public static function overview( mixed $post, ?string $context = NULL ): false|string
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -368,11 +368,11 @@ class Post extends Core\Base
 	/**
 	 * Retrieves a contextual summary given a post ID or post object.
 	 *
-	 * @param int|object $post
+	 * @param mixed $post
 	 * @param string $context
 	 * @return false|array
 	 */
-	public static function summary( null|int|object $post, ?string $context = NULL ): false|array
+	public static function summary( mixed $post, ?string $context = NULL ): false|array
 	{
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
@@ -412,9 +412,9 @@ class Post extends Core\Base
 	 */
 	public static function getByTitle(
 		string $title,
-		string|array|null $posttype = NULL,
+		null|string|array $posttype = NULL,
 		?string $fields = NULL,
-		string|array|null $status = NULL,
+		null|string|array $status = NULL,
 	): array {
 
 		if ( ! $title = trim( $title ) )
@@ -610,10 +610,10 @@ class Post extends Core\Base
 			], $title );
 
 		else if ( 'edit' === $linked )
-			$title = Core\HTML::link( $title, get_edit_post_link( $post, 'edit' ) );
+			$title = Core\Link::get( $title, get_edit_post_link( $post, 'edit' ) );
 
 		else if ( $linked )
-			$title = Core\HTML::link( $title, self::link( $post ) );
+			$title = Core\Link::get( $title, self::link( $post ) );
 
 		return self::getParentTitles( $post, $title, $linked, $separator );
 	}
@@ -658,7 +658,7 @@ class Post extends Core\Base
 
 			if ( $object && $object->post_parent )
 				$parents[] = $linked && $link
-					? Core\HTML::link( self::title( $object->post_parent ), $link )
+					? Core\Link::get( self::title( $object->post_parent ), $link )
 					: self::title( $object->post_parent );
 
 			else

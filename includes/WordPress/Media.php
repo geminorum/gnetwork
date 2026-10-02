@@ -41,7 +41,7 @@ class Media extends Core\Base
 			ORDER BY post_mime_type ASC
 		", $posttype );
 
-		return (array) $wpdb->get_col( $query );
+		return array_filter( (array) $wpdb->get_col( $query ) );
 	}
 
 	/**
@@ -112,8 +112,8 @@ class Media extends Core\Base
 			'w' => 0,
 			'h' => 0,
 			'c' => 0,
-			'p' => [ 'post' ],                                 // posttype: TRUE: all/array: posttypes/FALSE: none
-			't' => FALSE,                                      // taxonomy: TRUE: all/array: taxes/FALSE: none
+			'p' => [ 'post' ],                                 // `posttype`: TRUE: all/array: post-types/FALSE: none
+			't' => FALSE,                                      // `taxonomy`: TRUE: all/array: taxes/FALSE: none
 			'f' => empty( $atts['s'] ) ? FALSE : $atts['s'],   // featured
 		], $atts );
 
@@ -224,7 +224,7 @@ class Media extends Core\Base
 
 	// @REF: `wp_import_handle_upload()`
 	// NOTE: for upload see `settings_render_upload_field()`
-	public static function handleImportUpload( string $name = 'import', bool $cleanup = TRUE )
+	public static function handleImportUpload( string $name = 'import', bool $cleanup = TRUE ): false|array
 	{
 		if ( ! isset( $_FILES[$name] ) )
 			return FALSE;
@@ -255,7 +255,7 @@ class Media extends Core\Base
 		return [ 'file' => $upload['file'], 'id' => $id ];
 	}
 
-	public static function handleSideload( array $file, int $post_id, ?string $desc = NULL, array $data = [] )
+	public static function handleSideload( array $file, int $post_id, ?string $desc = NULL, array $data = [] ): int|object
 	{
 		if ( ! function_exists( 'media_handle_upload' ) ) {
 			require_once ABSPATH.'wp-admin/includes/image.php';
@@ -266,8 +266,13 @@ class Media extends Core\Base
 		return media_handle_sideload( $file, $post_id, $desc, $data );
 	}
 
-	public static function sideloadImageData( string $name, mixed $data, int $post_id = 0, array $extra = [] )
-	{
+	public static function sideloadImageData(
+		string $name,
+		mixed $data,
+		int $post_id = 0,
+		array $extra = [],
+	): false|int|object {
+
 		if ( ! $temp = Core\File::tempName( $name ) )
 			return FALSE; // `new WP_Error( 'http_no_file', __( 'Could not create Temporary file.' ) );`
 
@@ -291,13 +296,25 @@ class Media extends Core\Base
 	}
 
 	// @REF: `media_sideload_image()`
-	public static function sideloadImageURL( string $url, int $post_id = 0, array $extra = [] )
-	{
-		if ( empty( $url ) )
+	public static function sideloadImageURL(
+		mixed $url,
+		int $post_id = 0,
+		array $extra = [],
+	): false|int|object {
+
+		if ( ! $url = Core\Text::force( $url ) )
 			return FALSE;
 
 		// Filters the list of allowed file extensions when sideloading an image from a URL. @since WP 5.6.0
-		$extensions = apply_filters( 'image_sideload_extensions', [ 'jpg', 'jpeg', 'jpe', 'png', 'gif', 'webp', 'avif' ], $url );
+		$extensions = apply_filters( 'image_sideload_extensions', [
+			'jpg',
+			'jpeg',
+			'jpe',
+			'png',
+			'gif',
+			'webp',
+			'avif',
+		], $url );
 
 		// Sets variables for storage, fix file filename for query strings.
 		preg_match( '/[^\?]+\.('.implode( '|', array_map( 'preg_quote', $extensions ) ).')\b/i', $url, $matches );
@@ -331,8 +348,13 @@ class Media extends Core\Base
 		return $attachment;
 	}
 
-	public static function getUploadDirectory( string $sub = '', bool $create = FALSE, bool $htaccess = TRUE, bool $donotbackup = FALSE )
-	{
+	public static function getUploadDirectory(
+		string $sub = '',
+		bool $create = FALSE,
+		bool $htaccess = TRUE,
+		bool $donotbackup = FALSE,
+	): false|string {
+
 		$upload = wp_upload_dir( NULL, FALSE, FALSE );
 
 		if ( ! $sub )
@@ -369,7 +391,7 @@ class Media extends Core\Base
 		return $folder;
 	}
 
-	public static function getUploadURL( string $sub = '' )
+	public static function getUploadURL( string $sub = '' ): string
 	{
 		$upload = wp_upload_dir( NULL, FALSE, FALSE );
 		$base   = IsIt::ssl() ? str_ireplace( 'http://', 'https://', $upload['baseurl'] ) : $upload['baseurl'];
@@ -377,19 +399,21 @@ class Media extends Core\Base
 	}
 
 	#[\Deprecated('USE `WordPress\Attachment::list()`')]
-	public static function getAttachments( int $post_id, string $mime_type = 'image' )
+	public static function getAttachments( int $post_id, string $mime_type = 'image' ): array
 	{
 		return Attachment::list( $post_id, $mime_type );
 	}
 
 	// TODO: get title if HTML is empty
-	public static function htmlAttachmentShortLink( int|object $id, string $html, string|array $extra = '', string $rel = 'attachment' )
+	public static function htmlAttachmentShortLink( int|object $id, string $html, string|array $extra = '', string $rel = 'attachment' ): string
 	{
 		return Core\HTML::tag( 'a', [
 			'href'  => Post::shortlink( $id ),
 			'rel'   => $rel,
 			'class' => Core\HTML::attrClass( $extra, '-attachment' ),
-			'data'  => [ 'id' => $id ],
+			'data'  => [
+				'id' => $id,
+			],
 		], $html );
 	}
 
@@ -410,13 +434,13 @@ class Media extends Core\Base
 		if ( get_post_meta( $attachment_id, '_wp_attachment_is_term_image', TRUE ) )
 			return 'term_image';
 
-		if ( $attachment_id == get_option( 'site_icon' ) )
+		if ( $attachment_id === (int) get_option( 'site_icon' ) )
 			return 'site_icon';
 
-		if ( $attachment_id == get_theme_mod( 'custom_logo' ) )
+		if ( $attachment_id === (int) get_theme_mod( 'custom_logo' ) )
 			return 'custom_logo';
 
-		if ( $attachment_id == get_theme_mod( 'site_logo' ) )
+		if ( $attachment_id === (int) get_theme_mod( 'site_logo' ) )
 			return 'site_logo';
 
 		return FALSE;
@@ -427,7 +451,7 @@ class Media extends Core\Base
 	// `CSV`: `application/vnd.ms-excel`
 	public static function selectAttachment(
 		int $selected = 0,
-		string|array|null $mime = NULL,
+		null|string|array $mime = NULL,
 		string $name = 'attach_id',
 		mixed $empty = '',
 	): bool|string {
@@ -547,12 +571,12 @@ class Media extends Core\Base
 	public static function getAttachmentImageDefaultSize(
 		?string $perent_posttype = NULL,
 		?string $perent_taxonomy = NULL,
-		string|array|false|null $fallback = 'thumbnail',
-	): string|array|false|null {
+		null|false|string|array $fallback = 'thumbnail',
+	): null|false|string|array {
 
 		$size     = NULL;
 		$sizes    = wp_get_additional_image_sizes();
-		$template = $fallback ? ( '%s-'.$fallback ) : '%s-thumbnail';
+		$template = self::dsh( '%s', $fallback ?: 'thumbnail' );
 		$posttype = $perent_posttype ? sprintf( $template, $perent_posttype ) : FALSE;
 		$taxonomy = $perent_taxonomy ? sprintf( $template, $perent_taxonomy ) : FALSE;
 
@@ -673,8 +697,8 @@ class Media extends Core\Base
 		return $mime;
 	}
 
-	#[\Deprecated('WordPress\Media::deleteImageSizes()')]
-	public static function deleteAttachmentThumbnails( int $attachment_id )
+	#[\Deprecated('USE `WordPress\Media::deleteImageSizes()`')]
+	public static function deleteAttachmentThumbnails( int $attachment_id ): bool
 	{
 		return self::deleteImageSizes( $attachment_id );
 	}
@@ -750,7 +774,7 @@ class Media extends Core\Base
 		int $attachment_id,
 		bool $format = FALSE,
 		?string $template = NULL,
-		string|false $fallback = ''
+		false|string $fallback = '',
 	): false|string|int {
 
 		if ( ! $filesize = Core\File::size( get_attached_file( $attachment_id ) ) )
@@ -789,6 +813,7 @@ class Media extends Core\Base
 	 * @param false|string $size
 	 * @return false|array
 	 */
+	#[\Deprecated('USE `wp_get_registered_image_subsizes()`')]
 	public static function getImageSizes( false|string $size = FALSE ): false|array
 	{
 		global $_wp_additional_image_sizes;

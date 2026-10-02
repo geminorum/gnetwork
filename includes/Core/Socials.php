@@ -147,7 +147,7 @@ class Socials extends Base
 
 	public static function htmlHandle( mixed $input, ?string $service = NULL ): false|string
 	{
-		return HTML::link(
+		return Link::get(
 			HTML::wrapLTR( self::getHandle( $input ) ),
 			self::getHandle( $input, TRUE, $service )
 		);

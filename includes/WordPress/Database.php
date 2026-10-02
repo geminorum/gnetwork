@@ -481,4 +481,30 @@ class Database extends Core\Base
 	{
 		return WordPress\PostMeta::changeKey( $from, $to );
 	}
+
+	/**
+	 * Retrieves the total weight of autoloaded options in the Database.
+	 *
+	 * NOTE: The recommendation is to stay under `800KB`. Above `1MB`, it's a problem.
+	 * - Under `800KB`: normal, no issue
+	 * - `800KB` to `1MB`: worth monitoring
+	 * - Over `1MB`: cleanup needed
+	 * - Over `3MB`: probably one of your sites biggest bottlenecks
+	 *
+	 * @source https://kinsta.com/blog/wp-options-autoloaded-data/
+	 * @link https://wba.fr/en/blog/autoloaded-options-wordpress-woocommerce/
+	 * @link https://wba.fr/en/blog/woocommerce-performance-audit/
+	 *
+	 * @return string
+	 */
+	public static function autoloadOptionsSize(): string
+	{
+		global $wpdb;
+
+		return $wpdb->get_var( "
+			SELECT SUM(LENGTH(option_value)) AS autoload_size
+			FROM {$wpdb->options}
+			WHERE autoload = 'yes';
+		" );
+	}
 }

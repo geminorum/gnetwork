@@ -777,7 +777,7 @@ class Module extends Core\Base
 		int $count = 1,
 		int $per = 60,
 		?string $context = NULL,
-	): int|string|false {
+	): false|int|string {
 
 		$limit = $count ? ( 300 + ( $per * $count ) ) : 0;
 

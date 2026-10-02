@@ -32,13 +32,9 @@ class HTTP extends Base
 		if ( ! $code )
 			return '';
 
-		if ( is_null( $title ) )
-			$title = self::getStatusDesc( $code );
-
-		if ( is_null( $template ) )
-			$template = '<small><code class="-status" title="%s" style="color:%s">%s</code></small>&nbsp;';
-
-		$code = absint( $code );
+		$code       = absint( $code );
+		$title    ??= self::getStatusDesc( $code );
+		$template ??= '<small><code class="-status" title="%s" style="color:%s">%s</code></small>&nbsp;';
 
 		if ( 200 == $code )
 			$color = 'green';

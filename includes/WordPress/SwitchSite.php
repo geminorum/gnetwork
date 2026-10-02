@@ -12,7 +12,7 @@ class SwitchSite extends Core\Base
 	 * @param int $site_id
 	 * @return bool
 	 */
-	public static function to( $site_id )
+	public static function to( int $site_id ): bool
 	{
 		return switch_to_blog( $site_id );
 	}

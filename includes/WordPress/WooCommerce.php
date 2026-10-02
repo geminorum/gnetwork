@@ -66,7 +66,7 @@ class WooCommerce extends Core\Base
 	public static function declareCompat( string $plugin_file, ?array $features = NULL ): bool
 	{
 		$features = $features ?? [
-			// Declares whether it’s compatible with `HPOS` or not.
+			// Declares whether it's compatible with `HPOS` or not.
 			// https://developer.woocommerce.com/docs/hpos-extension-recipe-book/
 			'custom_order_tables' => TRUE,
 

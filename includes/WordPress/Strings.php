@@ -224,7 +224,7 @@ class Strings extends Core\Base
 		return self::getJoined( $items, $before, $after, $empty, $separator ?? '|' );
 	}
 
-	public static function getCounted( int $count, string|bool|null $template = '%s', string $title = '' ): string
+	public static function getCounted( int $count, null|bool|string $template = '%s', string $title = '' ): string
 	{
 		if ( TRUE === $template )
 			$template = ' <span class="-count-wrap">(%s)</span>';

@@ -60,8 +60,8 @@ class Link extends Base
 
 	public static function button(
 		mixed $html,
-		string|false $link = '#',
-		string|false $title = FALSE,
+		false|string $link = '#',
+		false|string $title = FALSE,
 		bool $icon = FALSE,
 		mixed $data = [],
 		string $id = '',

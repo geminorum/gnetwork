@@ -97,7 +97,7 @@ class Theme extends Core\Base
 	}
 
 	/**
-	 * Returns the theme’s post templates for a given post type.
+	 * Returns the theme's post templates for a given post type.
 	 *
 	 * @param string|null $posttype
 	 * @param mixed $post
@@ -185,17 +185,17 @@ class Theme extends Core\Base
 		];
 	}
 
-	public static function restPost_thumbnailHTML( $html, $post_id, $post_thumbnail_id, $size, $attr )
+	public static function restPost_thumbnailHTML( string $html, $post_id, $post_thumbnail_id, $size, $attr ): string
 	{
 		$alt = empty( $GLOBALS['post']->_thumbnail->caption )
 			? $GLOBALS['post']->post_title
 			: $GLOBALS['post']->_thumbnail->caption;
 
 		if ( $size && isset( $GLOBALS['post']->_thumbnail->sizes->{$size} ) )
-			return Core\HTML::link( Core\HTML::img( $GLOBALS['post']->_thumbnail->sizes->{$size}, '-thumbnail', $alt ), $GLOBALS['post']->_permalink );
+			return Core\Link::get( Core\HTML::img( $GLOBALS['post']->_thumbnail->sizes->{$size}, '-thumbnail', $alt ), $GLOBALS['post']->_permalink );
 
 		if ( ! empty( $GLOBALS['post']->_thumbnail->url ) )
-			return Core\HTML::link( Core\HTML::img( $GLOBALS['post']->_thumbnail->url, '-thumbnail', $alt ), $GLOBALS['post']->_permalink );
+			return Core\Link::get( Core\HTML::img( $GLOBALS['post']->_thumbnail->url, '-thumbnail', $alt ), $GLOBALS['post']->_permalink );
 
 		return $html;
 	}

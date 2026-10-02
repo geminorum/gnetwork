@@ -435,22 +435,23 @@ class Taxonomy extends Core\Base
 		return $query->query( array_merge( $args, $extra ) );
 	}
 
-	// NOTE: DEPRECATED: use `Term::taxonomy()`
-	#[\Deprecated()]
+	#[\Deprecated('USE `WordPress\Term::taxonomy()`')]
 	public static function getTermTaxonomy( int|object $term_or_id, mixed $fallback = FALSE )
 	{
 		return Term::taxonomy( $term_or_id ) ?: $fallback;
 	}
 
-	// NOTE: DEPRECATED: use `Term::get()`
-	#[\Deprecated()]
+	#[\Deprecated('USE `WordPress\Term::get()`')]
 	public static function getTerm( int|object $term_or_id, string $taxonomy = '' )
 	{
 		return Term::get( $term_or_id, $taxonomy );
 	}
 
-	public static function getTheTermRows( string $taxonomy, null|int|object $post = NULL )
+	public static function getTheTermRows( string $taxonomy, mixed $post = NULL )
 	{
+		if ( ! $post = Post::get( $post ) )
+			return '';
+
 		if ( ! $terms = self::getPostTerms( $taxonomy, $post ) )
 			return '';
 
@@ -466,8 +467,11 @@ class Taxonomy extends Core\Base
 	}
 
 	// @REF: `get_the_term_list()`
-	public static function getTheTermList( string $taxonomy, null|int|object $post = NULL, string $before = '', string $after = '' )
+	public static function getTheTermList( string $taxonomy, mixed $post = NULL, string $before = '', string $after = '' )
 	{
+		if ( ! $post = Post::get( $post ) )
+			return [];
+
 		if ( ! $terms = self::getPostTerms( $taxonomy, $post ) )
 			return [];
 
@@ -698,8 +702,11 @@ class Taxonomy extends Core\Base
 	}
 
 	// NOTE: hits cached terms for the post
-	public static function theTerm( string $taxonomy, null|int|object $post = NULL, bool $object = FALSE )
+	public static function theTerm( string $taxonomy, mixed $post = NULL, bool $object = FALSE )
 	{
+		if ( ! $post = Post::get( $post ) )
+			return '0';
+
 		$terms = get_the_terms( $post, $taxonomy );
 
 		if ( $terms && ! is_wp_error( $terms ) )
@@ -710,9 +717,12 @@ class Taxonomy extends Core\Base
 	}
 
 	// NOTE: hits cached terms for the post
-	public static function theTermCount( string $taxonomy, null|int|object $post = NULL )
+	public static function theTermCount( string $taxonomy, mixed $post = NULL )
 	{
 		if ( empty( $taxonomy ) )
+			return 0;
+
+		if ( ! $post = Post::get( $post ) )
 			return 0;
 
 		$terms = get_the_terms( $post, $taxonomy );
@@ -723,8 +733,7 @@ class Taxonomy extends Core\Base
 		return count( $terms );
 	}
 
-	// NOTE: DEPRECATED: use `Term::add()`
-	#[\Deprecated()]
+	#[\Deprecated('USE `WordPress\Term::add()`')]
 	public static function addTerm( mixed $term, mixed $taxonomy, bool $sanitize = TRUE )
 	{
 		return Term::add( $term, $taxonomy, $sanitize );
@@ -989,7 +998,7 @@ class Taxonomy extends Core\Base
 	 * NOTE: THE OLD VERSION OF `term_exists()`
 	 * @SEE: https://make.wordpress.org/core/2022/04/28/taxonomy-performance-improvements-in-wordpress-6-0/
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global object $wpdb WordPress database abstraction object.
 	 *
 	 * @param int|string $term: The term to check. Accepts term ID, slug, or name.
 	 * @param string $taxonomy: Optional. The taxonomy name to use.
@@ -1371,14 +1380,17 @@ class Taxonomy extends Core\Base
 	 * NOTE: hits cached terms for the post.
 	 *
 	 * @param string $taxonomy
-	 * @param null|int|object $post
+	 * @param mixed $post
 	 * @param bool $object
 	 * @param false|string $key
 	 * @param null|string $index_key
 	 * @return array
 	 */
-	public static function getPostTerms( string $taxonomy, null|int|object $post = NULL, bool $object = TRUE, false|string $key = FALSE, ?string $index_key = NULL )
+	public static function getPostTerms( string $taxonomy, mixed $post = NULL, bool $object = TRUE, false|string $key = FALSE, ?string $index_key = NULL )
 	{
+		if ( ! $post = Post::get( $post ) )
+			return [];
+
 		$terms = get_the_terms( $post, $taxonomy );
 
 		if ( empty( $terms ) || is_wp_error( $terms ) )

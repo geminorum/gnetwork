@@ -5,12 +5,12 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class DataCode extends Base
 {
 
-	public static function prepDataURL( $url )
+	public static function prepDataURL( string $url ): string
 	{
 		return preg_match( '#^https?\:\/\/#', $url ) ? $url : "http://{$url}";
 	}
 
-	public static function prepDataEmail( $data )
+	public static function prepDataEmail( array $data ): string
 	{
 		$args = self::parsed( [
 			'email'   => '',
@@ -21,12 +21,12 @@ class DataCode extends Base
 		return "MATMSG:TO:{$args['email']};SUB:{$args['subject']};BODY:{$args['body']};;";
 	}
 
-	public static function prepDataPhone( $phone )
+	public static function prepDataPhone( string $phone ): string
 	{
 		return "TEL:{$phone}";
 	}
 
-	public static function prepDataSMS( $data )
+	public static function prepDataSMS( array $data ): string
 	{
 		$args = self::parsed( [
 			'mobile'  => '',
@@ -36,7 +36,7 @@ class DataCode extends Base
 		return "SMSTO:{$args['mobile']}:{$args['message']}";
 	}
 
-	public static function prepDataContact( $data )
+	public static function prepDataContact( array $data ): string
 	{
 		$args = self::parsed( [
 			'name'    => '',
@@ -49,7 +49,7 @@ class DataCode extends Base
 	}
 
 	// @REF: https://goqr.me/api/doc/create-qr-code/
-	public static function getQRCode( $data, $atts = [] )
+	public static function getQRCode( string $data, array $atts = [] ): string
 	{
 		$args = self::parsed( [
 			'tag'        => TRUE,
@@ -85,7 +85,7 @@ class DataCode extends Base
 		] );
 	}
 
-	public static function cacheQRCode( $filepath, $data, $atts = [] )
+	public static function cacheQRCode( string $filepath, string $data, array $atts = [] ): false|int
 	{
 		if ( self::empty( $filepath ) || ! extension_loaded( 'curl' ) )
 			return FALSE;

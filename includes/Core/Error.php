@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class Error extends \WP_Error
 {
 
-	public function __tostring()
+	public function __tostring(): string
 	{
 		return $this->get_error_message();
 	}

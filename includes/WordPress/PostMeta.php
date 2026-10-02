@@ -125,4 +125,121 @@ class PostMeta extends Core\Base
 
 		return $wpdb->get_results( $query, ARRAY_A );
 	}
+
+	/**
+	 * Retrieves the post-id given meta-key and value.
+	 * @old `WordPress\PostType::getIDbyMeta()`
+	 * @SEE: https://tommcfarlin.com/get-post-id-by-meta-value/
+	 * TODO: support regex on meta-keys
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 * @param bool $single
+	 * @return false|int|array
+	 */
+	public static function getID( string $key, mixed $value, bool $single = TRUE ): false|int|array
+	{
+		global $wpdb, $NucleusPostIDbyMeta;
+
+		if ( self::empty( $value ) )
+			return FALSE;
+
+		if ( ! $key = Core\Text::force( $key ) )
+			return FALSE;
+
+		if ( empty( $NucleusPostIDbyMeta ) )
+			$NucleusPostIDbyMeta = [];
+
+		$group = $single ? 'single' : 'all';
+
+		if ( isset( $NucleusPostIDbyMeta[$key][$group][$value] ) )
+			return $NucleusPostIDbyMeta[$key][$group][$value];
+
+		$query = $wpdb->prepare( "
+			SELECT post_id
+			FROM {$wpdb->postmeta}
+			WHERE meta_key = %s
+			AND meta_value = %s
+		", $key, $value );
+
+		$results = $single
+			? $wpdb->get_var( $query )
+			: $wpdb->get_col( $query );
+
+		return $NucleusPostIDbyMeta[$key][$group][$value] = $results;
+	}
+
+	/**
+	 * Retrieves a list of post-ids given meta-key and values.
+	 * @OLD: `WordPress\PostType::getIDListbyMeta()`
+	 *
+	 * @param string $meta_key
+	 * @param array $values
+	 * @return false|array
+	 */
+	public static function getIDList( string $meta_key, array $values ): false|array
+	{
+		global $wpdb, $NucleusPostIDbyMeta;
+
+		if ( ! $meta_key = Core\Text::force( $meta_key ) )
+			return FALSE;
+
+		$filtered = array_filter( (array) $values );
+
+		if ( empty( $filtered ) )
+			return FALSE;
+
+		$query = $wpdb->prepare( "
+			SELECT post_id, meta_value
+			FROM {$wpdb->postmeta}
+			WHERE meta_key = %s
+			AND meta_value IN ( '".implode( "', '", esc_sql( $filtered ) )."' )
+		", $meta_key );
+
+		$results = $wpdb->get_results( $query, ARRAY_A );
+
+		if ( empty( $results ) )
+			return [];
+
+		$list = Core\Arraay::pluck( $results, 'post_id', 'meta_value' );
+
+		if ( empty( $NucleusPostIDbyMeta ) )
+			$NucleusPostIDbyMeta = [];
+
+		// update cache
+		foreach ( $filtered as $value )
+			$NucleusPostIDbyMeta[$meta_key]['single'][$value] = array_key_exists( $value, $list ) ? $list[$value] : FALSE;
+
+		return $list;
+	}
+
+	// OLD: `WordPress\PostType::invalidateIDbyMeta()`
+	public static function invalidateID( string|array $meta_keys, mixed $value = FALSE ): bool
+	{
+		global $NucleusPostIDbyMeta;
+
+		if ( empty( $NucleusPostIDbyMeta ) )
+			return TRUE;
+
+		if ( empty( $meta_keys ) )
+			return FALSE;
+
+		if ( FALSE === $value ) {
+
+			// clear all meta by key
+			foreach ( (array) $meta_keys as $key ) {
+				unset( $NucleusPostIDbyMeta[$key]['all'] );
+				unset( $NucleusPostIDbyMeta[$key]['single'] );
+			}
+
+		} else {
+
+			foreach ( (array) $meta_keys as $key ) {
+				unset( $NucleusPostIDbyMeta[$key]['all'][$value] );
+				unset( $NucleusPostIDbyMeta[$key]['single'][$value] );
+			}
+		}
+
+		return TRUE;
+	}
 }
