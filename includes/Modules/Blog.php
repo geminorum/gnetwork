@@ -482,6 +482,8 @@ class Blog extends gNetwork\Module
 
 	public function init()
 	{
+		$this->_init_disable_emojis();
+
 		if ( $this->options['blog_redirect'] && WordPress\Screen::mustRegisterUI() )
 			$this->blog_redirect();
 
@@ -503,41 +505,6 @@ class Blog extends gNetwork\Module
 
 			$this->filter_false( 'wp_should_replace_insecure_home_url' );
 			$this->filter_false( 'https_local_ssl_verify' );
-		}
-
-		// originally from: Disable Emojis v1.7.2 - 2018-10-03
-		// @SOURCE: https://wordpress.org/plugins/disable-emojis/
-		if ( $this->options['disable_emojis'] ) {
-
-			remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-			remove_action( 'embed_head', 'print_emoji_detection_script' );
-			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-			remove_action( 'wp_print_styles', 'print_emoji_styles' );
-			remove_action( 'admin_print_styles', 'print_emoji_styles' );
-
-			remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-			remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
-			remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
-
-			add_filter( 'tiny_mce_plugins', static function ( $plugins ) {
-				return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
-			} );
-
-			add_filter( 'wp_resource_hints', static function ( $urls, $relation_type ) {
-
-				if ( 'dns-prefetch' !== $relation_type )
-					return $urls;
-
-				if ( $filtered = apply_filters( 'emoji_svg_url', FALSE ) )
-					$urls = array_diff( $urls, [ $filtered ] );
-
-				foreach ( $urls as $key => $url )
-					// Strip out any URLs referencing the WordPress.org emoji location
-					if ( Core\Text::has( $url, 'https://s.w.org/images/core/emoji/' ) )
-						unset( $urls[$key] );
-
-				return $urls;
-			}, 10, 2 );
 		}
 
 		if ( $this->options['content_width'] )
@@ -594,6 +561,67 @@ class Blog extends gNetwork\Module
 
 			$this->filter_false( 'wpcf7_load_css', 15 );
 		}
+	}
+
+	/**
+	 * Disables Emojis in WordPress!
+	 *
+	 * @link https://smartwp.com/disable-emojis-wordpress/
+	 * @link https://wordpress.org/plugins/disable-emojis/
+	 *
+	 * @return bool
+	 */
+	private function _init_disable_emojis(): bool
+	{
+		if ( ! $this->options['disable_emojis'] )
+			return FALSE;
+
+		// Feeds and outgoing email
+		remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+
+		if ( ! WordPress\Screen::mustRegisterUI( FALSE ) )
+			return TRUE;
+
+		// Front-end and admin
+		remove_action( 'wp_enqueue_scripts', 'wp_enqueue_emoji_styles' );
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+		remove_action( 'admin_print_styles', 'print_emoji_styles' );
+		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+		remove_action( 'wp_print_styles', 'print_emoji_styles' );
+		remove_action( 'admin_enqueue_scripts', 'wp_enqueue_emoji_styles' );
+
+		// `oEmbed` iframes load their own copies. Most snippets miss these two.
+		remove_action( 'embed_head', 'print_emoji_detection_script' );
+		remove_action( 'enqueue_embed_scripts', 'wp_enqueue_emoji_styles' );
+
+		// Classic editor plugin
+		add_filter( 'tiny_mce_plugins', static function ( $plugins ) {
+			return is_array( $plugins ) ? array_diff( $plugins, [ 'wpemoji' ] ) : [];
+		} );
+
+		return TRUE;
+
+		// NOTE: has had nothing to strip @since WordPress 6.0
+		// @ticket https://core.trac.wordpress.org/ticket/40426
+		add_filter( 'wp_resource_hints', static function ( $urls, $relation_type ) {
+
+			if ( 'dns-prefetch' !== $relation_type )
+				return $urls;
+
+			if ( $filtered = apply_filters( 'emoji_svg_url', FALSE ) )
+				$urls = array_diff( $urls, [ $filtered ] );
+
+			foreach ( $urls as $key => $url )
+				// Strip out any URLs referencing the WordPress.org emoji location
+				if ( Core\Text::has( $url, 'https://s.w.org/images/core/emoji/' ) )
+					unset( $urls[$key] );
+
+			return $urls;
+		}, 10, 2 );
+
+		return TRUE;
 	}
 
 	private function blog_redirect( $check = TRUE )
