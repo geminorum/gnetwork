@@ -442,6 +442,12 @@ class Admin extends gNetwork\Module
 			Debug::cacheStats();
 		}
 
+		if ( class_exists( __NAMESPACE__.'\\DB' )
+			&& current_user_can( 'manage_options' ) ) {
+
+			DB::summaryTables();
+		}
+
 		$this->actions( 'currents' );
 
 		echo '</div>';

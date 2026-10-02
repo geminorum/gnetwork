@@ -158,7 +158,7 @@ class Plugin extends WordPress\Plugin
 			'Navigation',
 			'Themes',
 			'Extend',
-			// 'DB',
+			'DB',
 			'Media',
 			'Mimes',
 			'Images',
