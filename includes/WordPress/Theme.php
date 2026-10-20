@@ -13,7 +13,7 @@ class Theme extends Core\Base
 	 * @source `get_template_part()`
 	 *
 	 * @param string $slug
-	 * @param string|null $name
+	 * @param null|string $name
 	 * @param bool $locate
 	 * @param array $args
 	 * @return void|array
@@ -99,7 +99,7 @@ class Theme extends Core\Base
 	/**
 	 * Returns the theme's post templates for a given post type.
 	 *
-	 * @param string|null $posttype
+	 * @param null|string $posttype
 	 * @param mixed $post
 	 * @return array
 	 */

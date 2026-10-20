@@ -161,11 +161,11 @@ class PostType extends Core\Base
 	 * Retrieves the capability assigned to the post-type.
 	 *
 	 * @param mixed $posttype
-	 * @param string|null $capability
-	 * @param bool|string|null $fallback
-	 * @return bool|string|null
+	 * @param null|string $capability
+	 * @param null|bool|string $fallback
+	 * @return null|bool|string
 	 */
-	public static function cap( mixed $posttype, ?string $capability = 'edit_posts', bool|string|null $fallback = NULL ): bool|string|null
+	public static function cap( mixed $posttype, ?string $capability = 'edit_posts', null|bool|string $fallback = NULL ): null|bool|string
 	{
 		if ( is_null( $capability ) )
 			return TRUE;
@@ -205,16 +205,16 @@ class PostType extends Core\Base
 	 * 	`_builtin` Boolean: If true, will return WordPress default post types. Use false to return only custom post types.
 	 *
 	 * @param int $mod
-	 * @param array $arguments
-	 * @param string $capability
-	 * @param int $user_id
+	 * @param null|array $arguments
+	 * @param null|string $capability
+	 * @param null|int $user_id
 	 * @return array
 	 */
-	public static function get( $mod = 0, $arguments = [ 'public' => TRUE ], $capability = NULL, $user_id = NULL )
+	public static function get( int $mod = 0, ?array $arguments = NULL, ?string $capability = NULL, ?int $user_id = NULL )
 	{
 		$list = [];
 
-		foreach ( get_post_types( $arguments, 'objects' ) as $posttype => $posttype_obj ) {
+		foreach ( get_post_types( $arguments ?? [ 'public' => TRUE ], 'objects' ) as $posttype => $posttype_obj ) {
 
 			if ( ! self::can( $posttype_obj, $capability, $user_id ) )
 				continue;

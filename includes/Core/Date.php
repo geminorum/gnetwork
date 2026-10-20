@@ -37,15 +37,15 @@ class Date extends Base
 	 * @return string
 	 */
 	public static function get(
-		string $format,
-		mixed $datetime = NULL,
+		string  $format,
+		mixed   $datetime        = NULL,
 		?string $timezone_string = NULL,
 	): string {
 
 		return \wp_date(
 			$format,
 			self::timestamp( $datetime, $timezone_string, NULL ),
-			$timezone_string ? new \DateTimeZone( $timezone_string ) : NULL
+			$timezone_string ? new \DateTimeZone( $timezone_string ) : NULL,
 		);
 	}
 
@@ -60,12 +60,16 @@ class Date extends Base
 	 * @return string
 	 */
 	public static function get_Legacy(
-		string $format,
+		string    $format,
 		int|false $timestamp_with_offset = FALSE,
-		bool $gmt = FALSE,
+		bool      $gmt                   = FALSE,
 	): string {
 
-		return \date_i18n( $format, $timestamp_with_offset, $gmt );
+		return \date_i18n(
+			$format,
+			$timestamp_with_offset,
+			$gmt,
+		);
 	}
 
 	/**
@@ -87,8 +91,8 @@ class Date extends Base
 		?string $locale = NULL,
 	): false|string {
 
-		$format        = $format        ?? 'm/d/Y';
-		$calendar_type = $calendar_type ?? L10n::calendar( $locale );
+		$format        ??= 'm/d/Y';
+		$calendar_type ??= L10n::calendar( $locale );
 
 		if ( 'gregorian' === $calendar_type ) {
 
@@ -107,7 +111,7 @@ class Date extends Base
 			return self::get(
 				$format,
 				$input,
-				$timezone_string
+				$timezone_string,
 			);
 
 		return self::formatByIntl(
@@ -115,7 +119,7 @@ class Date extends Base
 			$input,
 			$calendar_type,
 			$timezone_string,
-			$locale
+			$locale,
 		);
 	}
 
@@ -129,8 +133,8 @@ class Date extends Base
 	 * @return false|object
 	 */
 	public static function getObject(
-		string $datetime_string,
-		?string $format = NULL,
+		string  $datetime_string,
+		?string $format          = NULL,
 		?string $timezone_string = NULL,
 	): false|object {
 
@@ -138,7 +142,7 @@ class Date extends Base
 		$datetime = \date_create_immutable_from_format(
 			$format ?? static::MYSQL_FORMAT,
 			$datetime_string,
-			$timezone
+			$timezone,
 		);
 
 		if ( FALSE === $datetime )
@@ -350,11 +354,12 @@ class Date extends Base
 	}
 
 	public static function makeFromInput(
-		mixed $input,
-		?string $calendar_type = NULL,
+		mixed   $input,
+		?string $calendar_type   = NULL,
 		?string $timezone_string = NULL,
-		mixed $fallback = '',
-	) {
+		mixed   $fallback        = '',
+	): string {
+
 		if ( empty( $input ) )
 			return $fallback;
 
@@ -362,23 +367,23 @@ class Date extends Base
 		$parts = explode( '/', Number::translate( (string) $input ) );
 
 		return self::make(
-			0,
-			0,
-			0,
-			$parts[1],
-			$parts[2],
-			$parts[0],
+			0,                      // hour
+			0,                      // minute
+			0,                      // second
+			(int) $parts[1] ?? 0,   // month
+			(int) $parts[2] ?? 0,   // day
+			(int) $parts[0] ?? 0,   // year
 			$calendar_type,
-			$timezone_string
+			$timezone_string,
 		);
 	}
 
 	public static function makeMySQLFromArray(
-		array $input = [],
-		?string $format = NULL,
-		mixed $fallback = '',
-	)
-	{
+		array   $input    = [],
+		?string $format   = NULL,
+		mixed   $fallback = '',
+	): string {
+
 		$parts = self::parsed( [
 			'year'     => 1,
 			'month'    => 1,
@@ -407,11 +412,11 @@ class Date extends Base
 	}
 
 	public static function makeMySQLFromInput(
-		string $input,
-		?string $format = NULL,
+		string  $input,
+		?string $format        = NULL,
 		?string $calendar_type = NULL,
-		?string $timezone = NULL,
-		mixed $fallback = '',
+		?string $timezone      = NULL,
+		mixed   $fallback      = '',
 	) {
 		if ( empty( $input ) )
 			return $fallback;
@@ -450,8 +455,12 @@ class Date extends Base
 		] : $start;
 	}
 
-	public static function calculateAge( $datetime_string, $calendar_type = NULL, $timezone_string = NULL )
-	{
+	public static function calculateAge(
+		mixed   $datetime_string,
+		?string $calendar_type   = NULL,
+		?string $timezone_string = NULL,
+	): false|array {
+
 		if ( empty( $datetime_string ) )
 			return FALSE;
 
@@ -467,8 +476,13 @@ class Date extends Base
 		];
 	}
 
-	public static function isUnderAged( $datetime_string, $age_of_majority = 18, $calendar_type = NULL, $timezone_string = NULL )
-	{
+	public static function isUnderAged(
+		mixed   $datetime_string,
+		int     $age_of_majority = 18,
+		?string $calendar_type   = NULL,
+		?string $timezone_string = NULL,
+	): bool {
+
 		if ( empty( $datetime_string ) )
 			return FALSE;
 
@@ -487,9 +501,10 @@ class Date extends Base
 		int $month,
 		int $day,
 		int $year,
-		?string $calendar_type = NULL,
-		?string $timezone_string = NULL
-	) {
+		?string $calendar_type   = NULL,
+		?string $timezone_string = NULL,
+	): false|string {
+
 		$time = $year.'-'.sprintf( '%02d', $month ).'-'.sprintf( '%02d', $day ).' ';
 		$time.= sprintf( '%02d', $hour ).':'.sprintf( '%02d', $minute ).':'.sprintf( '%02d', $second );
 
@@ -516,10 +531,14 @@ class Date extends Base
 	 * @param mixed $datetime
 	 * @param string $timezone_string
 	 * @param string $fallback
-	 * @return int
+	 * @return null|int|string
 	 */
-	public static function timestamp( $datetime = NULL, $timezone_string = NULL, $fallback = '' )
-	{
+	public static function timestamp(
+		mixed   $datetime        = NULL,
+		?string $timezone_string = NULL,
+		?string $fallback        = '',
+	): null|int|string {
+
 		if ( ! $datetime && ! is_null( $datetime ) )
 			return $fallback;
 

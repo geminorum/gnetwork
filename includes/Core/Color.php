@@ -16,8 +16,8 @@ class Color extends Base
 	 * Prepares a value as color for the given context.
 	 *
 	 * @param  mixed       $value
-	 * @param  array|null  $field
-	 * @param  string|null $context
+	 * @param  null|array  $field
+	 * @param  null|string $context
 	 * @param  mixed       $icon
 	 * @return string
 	 */

@@ -38,14 +38,14 @@ class PostCode extends Base
 		return TRUE;
 	}
 
-	public static function getHTMLPattern(): string|false
+	public static function getHTMLPattern(): false|string
 	{
 		return FALSE; // FIXME
 	}
 
 	// @REF: https://github.com/VahidN/DNTPersianUtils.Core/blob/master/src/DNTPersianUtils.Core/Validators/IranCodesUtils.cs#L13
 	// @REF: https://www.dotnettips.info/newsarchive/details/14187
-	public static function isIranPostCode( $input )
+	public static function isIranPostCode( mixed $input ): bool
 	{
 		$sanitized = str_ireplace( [ '-', ' ' ], '', $input );
 		$sanitized = Number::translate( Text::trim( $sanitized ) );

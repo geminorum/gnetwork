@@ -22,12 +22,12 @@ class Status extends Core\Base
 	 * - `trash`: post is in trash-bin. Added @since WP 2.9
 	 *
 	 * @param int $mod
-	 * @param array $arguments
-	 * @param string $capability
-	 * @param int $user_id
+	 * @param null|array $arguments
+	 * @param null|string $capability
+	 * @param null|int $user_id
 	 * @return array
 	 */
-	public static function get( $mod = 0, $arguments = [], $capability = NULL, $user_id = NULL )
+	public static function get( int $mod = 0, ?array $arguments = NULL, ?string $capability = NULL, ?int $user_id = NULL )
 	{
 		$list = [];
 
@@ -53,11 +53,11 @@ class Status extends Core\Base
 	 * Retrieves available post statuses for given post-type.
 	 * TODO: https://developer.wordpress.org/apis/transients/
 	 *
-	 * @param string $posttype
+	 * @param string|array $posttypes
 	 * @param array $excludes
 	 * @return array
 	 */
-	public static function available( $posttype, $excludes = NULL )
+	public static function available( string|array $posttypes, ?array $excludes = NULL ): array
 	{
 		$excludes ??= [
 			'trash',
@@ -65,12 +65,19 @@ class Status extends Core\Base
 			'auto-draft',
 		];
 
-		$statuses = IsIt::advancedCache()
-			? get_available_post_statuses( $posttype )
-			// : [ 'publish', 'future', 'draft' ];
-			: [ 'publish', 'future' ];
+		$statuses = [];
 
-		return array_diff_key( $statuses, (array) $excludes );
+		if ( IsIt::advancedCache() )
+			foreach ( (array) $posttypes as $posttype )
+				$statuses = array_merge( $statuses, get_available_post_statuses( $posttype ) );
+
+		else
+			$statuses = [
+				'publish',
+				'future',
+			];
+
+		return array_diff_key( Core\Arraay::prepString( $statuses ), (array) $excludes );
 	}
 
 	/**
@@ -105,7 +112,7 @@ class Status extends Core\Base
 		];
 
 		// @SEE: `WordPress\Database::getExcludeStatuses()`
-		$excludes = $excludes ?? is_admin() ? [] : [
+		$excludes ??= is_admin() ? [] : [
 			'pending',
 			'draft',
 		];

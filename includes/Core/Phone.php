@@ -141,10 +141,10 @@ class Phone extends Base
 	/**
 	 * Prepares a value as phone number for the given context.
 	 *
-	 * @param string $value
-	 * @param array $field
-	 * @param string $context
-	 * @param string $icon
+	 * @param  mixed       $value
+	 * @param  null|array  $field
+	 * @param  null|string $context
+	 * @param  mixed       $icon
 	 * @return string
 	 */
 	public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string
@@ -185,9 +185,9 @@ class Phone extends Base
 	 * Tries to discover if given criteria is supported.
 	 *
 	 * @param string $criteria
-	 * @return string|false
+	 * @return false|string
 	 */
-	public static function discovery( $criteria )
+	public static function discovery( mixed $criteria ): false|string
 	{
 		if ( ! $sanitized = self::sanitize( $criteria ) )
 			return FALSE;
@@ -219,7 +219,7 @@ class Phone extends Base
 
 	// @REF: https://www.abstractapi.com/guides/validate-phone-number-javascript
 	// @SEE: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel
-	public static function getHTMLPattern(): string|false
+	public static function getHTMLPattern(): false|string
 	{
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹]{3}-[0-9۰-۹]{3}-[0-9۰-۹]{4}';

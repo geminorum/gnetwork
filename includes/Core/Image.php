@@ -212,7 +212,7 @@ class Image extends Base
 		return $created;
 	}
 
-	public static function remoteSize( $url )
+	public static function remoteSize( string $url ): array
 	{
 		$ch = curl_init();
 
@@ -231,7 +231,7 @@ class Image extends Base
 
 		if ( $http_status != 200 ) {
 			echo 'http status['.$http_status.'] errno ['.$curl_errno.']';
-			return [0,0];
+			return [ 0, 0 ];
 		}
 
 		$image = imagecreatefromstring( $data );
@@ -319,29 +319,28 @@ class Image extends Base
 			imagedestroy($resized);
 		}
 
-		if (empty($images)) {
+		if ( empty( $images ) )
 			return;
-		}
 
-		$icon_dir_count = count($images);
-		$offset = 6 + (16 * $icon_dir_count);
-		$ico = pack('vvv', 0, 1, $icon_dir_count);
-		$data_sections = '';
+		$icon_dir_count = count( $images );
+		$offset         = 6 + ( 16 * $icon_dir_count );
+		$ico            = pack( 'vvv', 0, 1, $icon_dir_count );
+		$data_sections  = '';
 
-		foreach ($images as $img) {
-			$size = $img['size'] >= 256 ? 0 : $img['size'];
-			$data_len = strlen($img['data']);
-			$ico .= pack('CCCCvvVV', $size, $size, 0, 0, 1, 32, $data_len, $offset);
+		foreach ( $images as $img ) {
+			$size           = $img['size'] >= 256 ? 0 : $img['size'];
+			$data_len       = strlen( $img['data'] );
+			$ico           .= pack( 'CCCCvvVV', $size, $size, 0, 0, 1, 32, $data_len, $offset );
 			$data_sections .= $img['data'];
-			$offset += $data_len;
+			$offset        += $data_len;
 		}
 
-		$ico .= $data_sections;
-		file_put_contents($destination . '/favicon.ico', $ico);
+		$ico.= $data_sections;
 
-		// Clean up temporary 16px file.
-		if ($ico_16_path && file_exists($ico_16_path)) {
-			wp_delete_file($ico_16_path);
-		}
+		file_put_contents( $destination.'/favicon.ico', $ico );
+
+		// Clean up temporary `16px` file.
+		if ( $ico_16_path && file_exists( $ico_16_path ) )
+			wp_delete_file( $ico_16_path );
 	}
 }

@@ -83,7 +83,7 @@ class Strings extends Core\Base
 		return in_array( $trimmed, (array) $reference, TRUE );
 	}
 
-	public static function isEmpty( string $string, null|string|array $reference = NULL ): bool
+	public static function isEmpty( mixed $string, null|string|array $reference = NULL ): bool
 	{
 		if ( self::empty( $string ) )
 			return TRUE;

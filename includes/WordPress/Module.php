@@ -7,11 +7,41 @@ use geminorum\gNetwork\Core;
 class Module extends Core\Base
 {
 
+	/**
+	 * Holds the current system base identifier.
+	 *
+	 * @var string
+	 */
 	protected $base = NULL;
-	protected $key  = NULL;
+
+	/**
+	 * Holds the current module key identifier.
+	 *
+	 * @var string
+	 */
+	protected $key = NULL;
+
+	/**
+	 * Holds the current module path directory.
+	 *
+	 * @var string
+	 */
 	protected $path = NULL;
+
+	/**
+	 * Holds the current site ID.
+	 *
+	 * @var int
+	 */
 	protected $site = NULL;
-	protected $icon = NULL; // `Dashicons` only
+
+	/**
+	 * Holds the current module icon identifier.
+	 * NOTE: `Dashicons` only!
+	 *
+	 * @var string
+	 */
+	protected $icon = NULL;
 
 	public static function factory()
 	{
@@ -511,6 +541,7 @@ class Module extends Core\Base
 		};
 	}
 
+	// @SEE https://www.malcare.com/blog/wordpress-nonce/
 	protected function nonce_create( ?string $context = NULL, ?string $key = NULL ): string
 	{
 		return wp_create_nonce( self::dsh(
@@ -522,27 +553,27 @@ class Module extends Core\Base
 
 	protected function nonce_verify( ?string $context = NULL, ?string $nonce = NULL, ?string $key = NULL ): int|false
 	{
-		$key     = $key     ?? $this->key;
-		$context = $context ?? 'settings';
-		$nonce   = $nonce   ?? self::req( '_'.self::dsh( $this->base, $key, $context ), NULL );  // OLD: `$_REQUEST['_wpnonce']`
+		$key     ??= $this->key;
+		$context ??= 'settings';
+		$nonce   ??= self::req( '_'.self::dsh( $this->base, $key, $context ), NULL );  // OLD: `$_REQUEST['_wpnonce']`
 
 		return wp_verify_nonce( $nonce, self::dsh( $this->base, $key, $context ) );
 	}
 
 	protected function nonce_field( ?string $context = NULL, ?string $key = NULL, ?string $name = NULL ): string
 	{
-		$key     = $key     ?? $this->key;
-		$context = $context ?? 'settings';
-		$name    = $name    ?? '_'.self::dsh( $this->base, $key, $context );  // OLD: `_wpnonce`
+		$key     ??= $this->key;
+		$context ??= 'settings';
+		$name    ??= ( '_'.self::dsh( $this->base, $key, $context ) );  // OLD: `_wpnonce`
 
 		return wp_nonce_field( self::dsh( $this->base, $key, $context ), $name, FALSE, TRUE );
 	}
 
 	protected function nonce_check( ?string $context = NULL, ?string $key = NULL, ?string $name = NULL ): int|false
 	{
-		$key     = $key     ?? $this->key;
-		$context = $context ?? 'settings';
-		$name    = $name    ?? '_'.self::dsh( $this->base, $key, $context );  // OLD: `_wpnonce`
+		$key     ??= $this->key;
+		$context ??= 'settings';
+		$name    ??= ( '_'.self::dsh( $this->base, $key, $context ) );  // OLD: `_wpnonce`
 
 		return check_admin_referer( self::dsh( $this->base, $key, $context ), $name );
 	}
@@ -566,7 +597,7 @@ class Module extends Core\Base
 
 	protected function remove_request_action( string|array $extra = [], ?string $url = NULL ): string
 	{
-		$url = $url ?? Core\URL::current();
+		$url ??= Core\URL::current();
 
 		if ( is_array( $extra ) )
 			$remove = $extra;
@@ -580,8 +611,8 @@ class Module extends Core\Base
 
 	protected function get_sub_limit_option( ?string $sub = NULL, ?string $context = NULL, ?int $default = NULL, string $key = 'limit', string $option = 'per_page' ): int
 	{
-		$sub      = $sub     ?? $this->key;
-		$context  = $context ?? 'tools';
+		$sub      ??= $this->key;
+		$context  ??= 'tools';
 		$per_page = (int) get_user_option( $this->hook_base( $sub, $context, $option ) );
 
 		if ( empty( $per_page ) || $per_page < 1 )
@@ -592,11 +623,11 @@ class Module extends Core\Base
 
 	// NOTE: `add_screen_option()` only accept 2 options: `per_page` and `layout_columns`
 	protected function add_sub_screen_option(
-		?string $sub = NULL,
-		?string $context = NULL,
-		null|bool|string $option = TRUE,
-		?int $default = NULL,
-		?string $label = NULL,
+		?string          $sub     = NULL,
+		?string          $context = NULL,
+		null|bool|string $option  = TRUE,
+		?int             $default = NULL,
+		?string          $label   = NULL,
 	): void {
 
 		if ( FALSE === $option )
@@ -605,9 +636,9 @@ class Module extends Core\Base
 		if ( TRUE === $option )
 			$option = 'per_page';
 
-		$sub     = $sub     ?? $this->key;
-		$context = $context ?? 'tools';
-		$option  = $option  ?? 'per_page';
+		$sub     ??= $this->key;
+		$context ??= 'tools';
+		$option  ??= 'per_page';
 
 		$args = [
 			'option' => $this->hook_base( $sub, $context, $option ), // NOTE: must always ends with `per_page`!
@@ -722,9 +753,9 @@ class Module extends Core\Base
 
 	protected function wrap_open(
 		string|array $class = '',
-		bool $block = TRUE,
-		string $id = '',
-		bool $hide = FALSE,
+		bool         $block = TRUE,
+		string       $id    = '',
+		bool         $hide  = FALSE,
 	): string {
 
 		return $block
@@ -782,8 +813,8 @@ class Module extends Core\Base
 		$limit = $count ? ( 300 + ( $per * $count ) ) : 0;
 
 		@set_time_limit( $limit );
-		// @ini_set( 'max_execution_time', $limit ); // maybe `-1`
-		// @ini_set( 'max_input_time', $limit ); // maybe `-1`
+		// `@ini_set( 'max_execution_time', $limit );` // maybe `-1`
+		// `@ini_set( 'max_input_time', $limit );` // maybe `-1`
 
 		return wp_raise_memory_limit( $context ?? $this->base );
 	}

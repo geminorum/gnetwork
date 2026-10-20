@@ -40,6 +40,7 @@ class Plugin extends Core\Base
 		?string $ver  = NULL,
 		?string $hash = NULL,
 	): void {
+
 		$this->__dir  = $dir  ?? '';
 		$this->__url  = $url  ?? '';
 		$this->__file = $file ?? '';
@@ -68,7 +69,7 @@ class Plugin extends Core\Base
 
 	public function files( string|array $stack, ?string $base = NULL, bool $check = TRUE ): void
 	{
-		$base = $base ?? $this->__dir;
+		$base ??= $this->__dir;
 
 		foreach ( (array) $stack as $path )
 

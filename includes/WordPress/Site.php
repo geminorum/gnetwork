@@ -8,14 +8,14 @@ class Site extends Core\Base
 {
 	// @SEE `nocache_headers()`
 	// OLD: `Core\WordPress::doNotCache()`
-	public static function doNotCache()
+	public static function doNotCache(): void
 	{
 		self::define( 'DONOTCACHEPAGE', TRUE );
 	}
 
 	// mocking `get_sites()` results
 	// OLD: `Core\WordPress::getAllSites()`
-	public static function get( $user_id = FALSE, $network = NULL, $retrieve_url = TRUE, $orderby_path = FALSE )
+	public static function get( int $user_id = 0, null|true|int $network = NULL, bool $retrieve_url = TRUE, bool $orderby_path = FALSE ): array
 	{
 		global $wpdb;
 
@@ -79,13 +79,13 @@ class Site extends Core\Base
 	}
 
 	// OLD: `Core\WordPress::getSiteURL()`
-	public static function url( $blog_id, $switch = FALSE )
+	public static function url( int $blog_id, bool $switch = FALSE ): false|string
 	{
 		$url = FALSE;
 
 		// WORKING BUT DISABLED!
-		// if ( function_exists( 'bp_blogs_get_blogmeta' ) )
-		// 	$url = bp_blogs_get_blogmeta( $blog_id, 'url', TRUE );
+		// `if ( function_exists( 'bp_blogs_get_blogmeta' ) )`
+		// 	`$url = bp_blogs_get_blogmeta( $blog_id, 'url', TRUE );`
 
 		if ( ! $url && function_exists( 'get_site_meta' ) )
 			$url = get_site_meta( $blog_id, 'siteurl', TRUE );
@@ -104,7 +104,7 @@ class Site extends Core\Base
 	}
 
 	// OLD: `Core\WordPress::getHostName()`
-	public static function hostname()
+	public static function hostname(): string
 	{
 		return is_multisite() && function_exists( 'get_network' )
 			? get_network()->domain
@@ -113,31 +113,31 @@ class Site extends Core\Base
 
 	// OLD: `getBlogNameforEmail()`
 	// OLD: `Core\WordPress::getSiteNameforEmail()`
-	public static function nameforEmail( $site = FALSE )
+	public static function nameforEmail( bool $site = FALSE ): string
 	{
 		if ( ! $site && is_multisite() && function_exists( 'get_network' ) )
 			return get_network()->site_name;
 
 		// The `blogname` option is escaped with `esc_html()` on the way into the database
-		// in sanitize_option we want to reverse this for the plain text arena of emails.
+		// in sanitize_option we want to reverse this for the plaintext arena of emails.
 		return wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 	}
 
 	// OLD: `currentBlog()`
 	// OLD: `Core\WordPress::currentSiteName()`
-	public static function name( $convert_slash = TRUE )
+	public static function name( bool $convert_slash = TRUE ): string
 	{
 		return Core\URL::prepTitle( get_option( 'home' ), $convert_slash );
 	}
 
 	// OLD: `Core\WordPress::getSiteName()`
-	public static function title( $blog_id, $switch = FALSE )
+	public static function title( int $blog_id, bool $switch = FALSE ): false|string
 	{
 		$name = FALSE;
 
 		// WORKING BUT DISABLED!
-		// if ( function_exists( 'bp_blogs_get_blogmeta' ) )
-		// 	$name = bp_blogs_get_blogmeta( $blog_id, 'name', TRUE );
+		// `if ( function_exists( 'bp_blogs_get_blogmeta' ) )`
+		// 	`$name = bp_blogs_get_blogmeta( $blog_id, 'name', TRUE );`
 
 		if ( ! $name && function_exists( 'get_site_meta' ) )
 			$name = get_site_meta( $blog_id, 'blogname', TRUE );
@@ -157,17 +157,16 @@ class Site extends Core\Base
 
 	// @SOURCE: `wp-load.php`
 	// OLD: `Core\WordPress::getConfigPHP()`
-	public static function getConfigPHP( $base = NULL, $filename = NULL )
+	public static function getConfigPHP( ?string $base = NULL, ?string $filename = NULL ): false|string
 	{
-		$base     = $base     ?? ABSPATH;
-		$filename = $filename ?? 'wp-config.php';
+		$base     ??= ABSPATH;
+		$filename ??= 'wp-config.php';
 
-		// The config file resides in `ABSPATH`.
+		// The configuration file resides in `ABSPATH`.
 		if ( Core\File::exists( $filename, $base ) )
 			return $base.$filename;
 
-		// The config file resides one level above `ABSPATH`
-		// but is not part of another install.
+		// The configuration file resides one level above `ABSPATH` but is not part of another install.
 		$above = dirname( $base );
 
 		if ( Core\File::exists( $filename, $above ) && ! Core\File::exists( 'wp-settings.php', $above ) )
@@ -177,7 +176,7 @@ class Site extends Core\Base
 	}
 
 	// OLD: `Core\WordPress::definedConfigPHP()`
-	public static function definedConfigPHP( $constant = 'WP_DEBUG' )
+	public static function definedConfigPHP( string $constant = 'WP_DEBUG' ): bool
 	{
 		if ( ! $file = self::getConfigPHP() )
 			return FALSE;
@@ -194,7 +193,7 @@ class Site extends Core\Base
 	}
 
 	// OLD: `Core\WordPress::customFile()`
-	public static function customFile( $filename, $path = FALSE )
+	public static function customFile( string $filename, bool $path = FALSE ): false|string
 	{
 		$stylesheet = Core\File::trail( get_stylesheet_directory() );
 

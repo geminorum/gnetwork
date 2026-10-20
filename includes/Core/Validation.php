@@ -6,49 +6,49 @@ class Validation extends Base
 {
 
 	#[\Deprecated('USE `Core\PostCode::sanitize()`')]
-	public static function sanitizePostCode( $input )
+	public static function sanitizePostCode( mixed $input ): string
 	{
 		return PostCode::sanitize( $input );
 	}
 
 	#[\Deprecated('USE `Core\PostCode::is()`')]
-	public static function isPostCode( $input )
+	public static function isPostCode( mixed $input ): bool
 	{
 		return PostCode::is( $input );
 	}
 
 	#[\Deprecated('USE `Core\PostCode::isIranPostCode()`')]
-	public static function isIranPostCode( $input )
+	public static function isIranPostCode( mixed $input ): bool
 	{
 		return PostCode::isIranPostCode( $input );
 	}
 
 	#[\Deprecated('USE `Core\Mobile::getHTMLPattern()`')]
-	public static function getMobileHTMLPattern()
+	public static function getMobileHTMLPattern(): false|string
 	{
 		return Mobile::getHTMLPattern();
 	}
 
 	#[\Deprecated('USE `Core\Phone::sanitize()`')]
-	public static function sanitizePhoneNumber( $input )
+	public static function sanitizePhoneNumber( mixed $input ): string
 	{
 		return Phone::sanitize( $input );
 	}
 
 	#[\Deprecated('USE `Core\Phone::is()`')]
-	public static function isPhoneNumber( $input )
+	public static function isPhoneNumber( mixed $input ): bool
 	{
 		return Phone::is( $input );
 	}
 
 	#[\Deprecated('USE `Core\Mobile::sanitize()`')]
-	public static function sanitizeMobileNumber( $input )
+	public static function sanitizeMobileNumber( mixed $input ): string
 	{
 		return Mobile::sanitize( $input );
 	}
 
 	#[\Deprecated('USE `Core\Mobile::is()`')]
-	public static function isMobileNumber( $input )
+	public static function isMobileNumber( mixed $input ): bool
 	{
 		return Mobile::is( $input );
 	}
@@ -56,7 +56,7 @@ class Validation extends Base
 	// @SEE: http://www.aliarash.com/article/shenasameli/shenasa_meli.htm
 	// @SEE: https://github.com/whatwg/html/issues/5740
 	// ^(\d{7}|\d{10})$
-	public static function getIdentityNumberHTMLPattern()
+	public static function getIdentityNumberHTMLPattern(): false|string
 	{
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹]{10}';
@@ -68,7 +68,7 @@ class Validation extends Base
 
 	// TODO: must rename to `NIN`: National identification number
 	// @SEE: https://en.wikipedia.org/wiki/National_identification_number
-	public static function isIdentityNumber( $input )
+	public static function isIdentityNumber( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -83,7 +83,7 @@ class Validation extends Base
 		return TRUE;
 	}
 
-	public static function sanitizeIdentityNumber( $input )
+	public static function sanitizeIdentityNumber( mixed $input ): string
 	{
 		$sanitized = Number::translate( Text::trim( $input ) );
 
@@ -101,7 +101,7 @@ class Validation extends Base
 	// @SEE: http://www.aliarash.com/article/codemeli/codemeli.htm
 	// @SEE: https://en.wikipedia.org/wiki/Luhn_algorithm
 	// FIXME: Check for the first 3 digits @see persiantools.js
-	public static function isIranNationalCode( $input )
+	public static function isIranNationalCode( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -123,14 +123,14 @@ class Validation extends Base
 		return FALSE;
 	}
 
-	public static function getIBANHTMLPattern()
+	public static function getIBANHTMLPattern(): false|string
 	{
 		return FALSE; // FIXME!
 	}
 
 	// @SEE: https://fa.wikipedia.org/wiki/%D8%B4%D8%A8%D8%A7
 	// @SEE: https://gist.github.com/mhf-ir/c17374fae395a57c9f8e5fe7a92bbf23
-	public static function sanitizeIBAN( $input )
+	public static function sanitizeIBAN( mixed $input ): string
 	{
 		$sanitized = Number::translate( Text::trim( $input ) );
 
@@ -140,7 +140,7 @@ class Validation extends Base
 		return $sanitized;
 	}
 
-	public static function isIBAN( $input )
+	public static function isIBAN( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -161,7 +161,7 @@ class Validation extends Base
 	// @SOURCE: https://3v4l.org/fDgfo
 	// @REF: https://stackoverflow.com/questions/20983339/validate-iban-php#comment119408175_32612548
 	// @SEE: https://en.wikipedia.org/wiki/International_Bank_Account_Number#Validating_the_IBAN
-	public static function checkIBAN( $input )
+	public static function checkIBAN( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -185,12 +185,12 @@ class Validation extends Base
 		return ( 98 - $checksum ) == $check;
 	}
 
-	public static function getCardNumberHTMLPattern()
+	public static function getCardNumberHTMLPattern(): false|string
 	{
 		return FALSE; // FIXME!
 	}
 
-	public static function sanitizeCardNumber( $input )
+	public static function sanitizeCardNumber( mixed $input ): string
 	{
 		$sanitized = Number::translate( Text::trim( $input ) );
 
@@ -205,7 +205,7 @@ class Validation extends Base
 	}
 
 	// https://github.com/persian-tools/php-persian-tools/blob/master/src/Traits/VerifyCardNumber.php
-	public static function isCardNumber( $input )
+	public static function isCardNumber( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -228,11 +228,12 @@ class Validation extends Base
 
 	// @REF: https://www.webhostingtalk.ir/showthread.php?t=202847
 	// @SEE: http://www.aliarash.com/article/creditcart/credit-debit-cart.htm
-	public static function isIranCardNumber( $input, $iranian = TRUE )
+	public static function isIranCardNumber( mixed $input ): bool
 	{
-		$input  = (string) preg_replace( '/\D/','', $input );
-		$strlen = strlen( $input );
-		$res    = [];
+		$iranian = TRUE;
+		$input   = (string) preg_replace( '/\D/','', $input );
+		$strlen  = strlen( $input );
+		$res     = [];
 
 		if ( $iranian && 16 !== $strlen )
 			return FALSE;
@@ -258,7 +259,7 @@ class Validation extends Base
 		return array_sum( $res ) % 10 == 0;
 	}
 
-	public static function sanitizeVIN( $input )
+	public static function sanitizeVIN( mixed $input ): string
 	{
 		$sanitized = Number::translate( Text::trim( $input ) );
 		$sanitized = strtoupper( str_replace( ' ', '', $sanitized ) );
@@ -269,7 +270,7 @@ class Validation extends Base
 		return $sanitized;
 	}
 
-	public static function isVIN( $input )
+	public static function isVIN( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -333,12 +334,12 @@ class Validation extends Base
 		return $checkdigit == substr($sanitized, 8, 1 );
 	}
 
-	public static function getVINHTMLPattern()
+	public static function getVINHTMLPattern(): false|string
 	{
 		return FALSE; // FIXME!
 	}
 
-	public static function sanitizeCountry( $input, $skip_base = FALSE )
+	public static function sanitizeCountry( mixed $input, bool $skip_base = FALSE ): string
 	{
 		if ( self::empty( $input ) )
 			return '';
@@ -357,7 +358,7 @@ class Validation extends Base
 		return $sanitized;
 	}
 
-	public static function isBibliographic( $input )
+	public static function isBibliographic( mixed $input ): bool
 	{
 		if ( ! Number::is( Text::stripAllSpaces( $input ) ) )
 			return FALSE;
@@ -368,7 +369,7 @@ class Validation extends Base
 	// @SEE: https://en.wikipedia.org/wiki/Vehicle_registration_plate
 	// @SEE: https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Iran
 	// @SEE: https://en.wikipedia.org/wiki/European_vehicle_registration_plate
-	public static function sanitizePlateNumber( $input )
+	public static function sanitizePlateNumber( mixed $input ): string
 	{
 		$sanitized = Number::translate( Text::trim( $input ) );
 		$sanitized = strtoupper( str_replace( ' ', '', $sanitized ) );
@@ -401,7 +402,7 @@ class Validation extends Base
 	// 	provinceCode: "50",
 	// 	plateCharacter: "الف",
 	// },
-	public static function isPlateNumber( $input )
+	public static function isPlateNumber( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
@@ -409,7 +410,7 @@ class Validation extends Base
 		return TRUE; // FIXME!
 	}
 
-	public static function getPlateHTMLPattern()
+	public static function getPlateHTMLPattern(): false|string
 	{
 		return FALSE; // FIXME!
 	}

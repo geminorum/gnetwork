@@ -96,7 +96,7 @@ class Text extends Base
 	// NOTE: the list must **not** be quoted!
 	public static function trimQuotes( string $text, $list = NULL ): string
 	{
-		$list = $list ?? [
+		$list ??= [
 			",", "،", //  Arabic Comma
 			"'", "\"",
 			"*",

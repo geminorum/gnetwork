@@ -9,70 +9,67 @@ use geminorum\gNetwork\Core;
 abstract class DataType extends Core\Base
 {
 	// abstract public static function is( mixed $input ): bool;
-	// abstract public static function validate( $data );
-	// abstract public static function extract( $data );
-
-	/**
-	 * Prepares a value for the given context.
-	 *
-	 * @param string $value
-	 * @param array $field
-	 * @param string $context
-	 * @param string $icon
-	 * @return string
-	 */
+	// abstract public static function validate( mixed $data ): int;
+	// abstract public static function extract( mixed $input ): false|array;
 	// abstract public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string;
 	// abstract public static function sanitize( mixed $input, mixed $default = '', ?array $field = [], ?string $context = 'save' ): mixed;
 	// abstract public static function discovery( $criteria );
-	// abstract public static function getHTMLPattern(): string|false;
-	// abstract public static function pattern();
+	// abstract public static function getHTMLPattern(): false|string;
 
 	public static function is( mixed $input ): bool
 	{
 		if ( self::empty( $input ) )
 			return FALSE;
 
-		return TRUE;
+		return (bool) self::validate( $input );
 	}
 
-	public static function validate( $data )
+	public static function validate( mixed $data ): int
 	{
-		return self::is( $data );
+		return self::is( $data ) ? 1 : 0;
 	}
 
-	public static function extract( $data )
+	public static function extract( mixed $input ): false|array
 	{
-		return $data;
+		return FALSE;
 	}
 
 	/**
 	 * Prepares a value for the given context.
 	 *
-	 * @param string $value
-	 * @param array $field
-	 * @param string $context
-	 * @param string $icon
+	 * @param  mixed       $value
+	 * @param  null|array  $field
+	 * @param  null|string $context
+	 * @param  mixed       $icon
 	 * @return string
 	 */
 	public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string
 	{
-		return $value;
+		return (string) $value;
 	}
 
 	public static function sanitize( mixed $input, mixed $default = '', ?array $field = [], ?string $context = 'save' ): mixed
 	{
-		$sanitized = Core\Text::trim( $input );
-		$sanitized = Core\Number::translate( $sanitized );
+		if ( ! $input = Core\Text::force( $input ) )
+			return $default;
 
-		return $sanitized;
+		$sanitized = Core\Text::trim( Core\Number::translate( $input ) );
+
+		return $sanitized ?: $default;
 	}
 
-	public static function discovery( $criteria )
+	/**
+	 * Tries to discover if given criteria is supported.
+	 *
+	 * @param mixed $criteria
+	 * @return false|string
+	 */
+	public static function discovery( mixed $criteria ): false|string
 	{
 		return self::sanitize( $criteria );
 	}
 
-	public static function pattern()
+	public static function getHTMLPattern(): false|string
 	{
 		return FALSE;
 	}

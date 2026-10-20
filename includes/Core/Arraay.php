@@ -92,6 +92,37 @@ class Arraay extends Base
 		return $callback ? array_filter( $input, $callback ) : array_filter( $input );
 	}
 
+	/**
+	 * Filters elements of an array using a callback function, from the End!
+	 *
+	 * @param  array         $input
+	 * @param  null|callable $callback
+	 * @return array
+	 */
+	public static function filterFromEnd( array $input, ?callable $callback = NULL ): array
+	{
+		if ( self::empty( $input ) )
+			return [];
+
+		$key   = NULL;
+		$value = '';
+
+		$callback ??= [ __CLASS__, 'empty' ];
+
+		while ( call_user_func( $callback, $value ) ) {
+
+			if ( ! is_null( $key ) )
+				unset( $input[$key] );
+
+			if ( NULL === ( $key = array_key_last( $input ) ) )
+				return [];
+
+			$value = $input[$key];
+		}
+
+		return $input;
+	}
+
 	public static function splitValues( mixed $input, string $splitter = '|' ): array
 	{
 		if ( self::empty( $input ) )

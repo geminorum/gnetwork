@@ -7,22 +7,26 @@ use geminorum\gNetwork\Core;
 class Attachment extends Core\Base
 {
 	/**
-	 * Retrieves attachments for a parent post given mime type.
+	 * Retrieves attachments for a parent post given mime-type.
 	 * @old `Media::getAttachments()`
 	 * @old `Attachment::get()`
 	 *
-	 * @param null|int|object $parent
-	 * @param string $mime
-	 * @param mixed $fallback
-	 * @return array
+	 * @param mixed $parent
+	 * @param null|string $mime_type
+	 * @param null|array $fallback
+	 * @return null|array
 	 */
-	public static function list( $parent = NULL, $mime = 'image', $fallback = [] )
-	{
+	public static function list(
+		mixed   $parent    = NULL,
+		?string $mime_type = NULL,
+		?array  $fallback  = [],
+	): ?array {
+
 		if ( ! $post = Post::get( $parent ) )
 			return $fallback;
 
 		return get_children( [
-			'post_mime_type' => $mime,
+			'post_mime_type' => $mime_type ?? 'image',
 			'post_parent'    => $post->ID,
 			'post_type'      => 'attachment',
 			'post_status'    => 'inherit',
@@ -32,24 +36,29 @@ class Attachment extends Core\Base
 		] );
 	}
 
-	// public static function viewable( $attachment ) {}
-	// public static function link( $attachment ) {}
-	// public static function shortlink( $attachment ) {}
-	// public static function summary( $attachment, $context = NULL ) {}
-	// public static function select( $mime = NULL, $context = NULL ) {} // Media::selectAttachment();
+	// `public static function viewable( $attachment ) {}`
+	// `public static function link( $attachment ) {}`
+	// `public static function shortlink( $attachment ) {}`
+	// `public static function summary( $attachment, $context = NULL ) {}`
+	// `public static function select( $mime = NULL, $context = NULL ) {} // Media::selectAttachment();`
 
 	/**
 	 * Retrieves the user capability for a given attachment.
 	 * NOTE: caches the result
 	 *
-	 * @param int|object $attachment
-	 * @param null|string $capability
-	 * @param null|int|object $user_id
+	 * @param mixed $attachment
+	 * @param string $capability
+	 * @param int|object $user_id
 	 * @param bool $fallback
 	 * @return bool
 	 */
-	public static function can( $attachment, $capability, $user_id = NULL, $fallback = FALSE )
-	{
+	public static function can(
+		mixed   $attachment,
+		?string $capability,
+		?int    $user_id  = NULL,
+		bool    $fallback = FALSE,
+	): bool {
+
 		return Post::can( $attachment, $capability, $user_id, $fallback );
 	}
 
@@ -111,5 +120,36 @@ class Attachment extends Core\Base
 	public static function getRestRoute( mixed $post = NULL ): false|string
 	{
 		return Post::getRestRoute( $post );
+	}
+
+	// old: `->get_attachment_urls()`
+	public static function getURLs(
+		mixed   $parent    = NULL,
+		?string $mime_type = 'image',
+		?array  $wpupload  = NULL,
+	): array {
+
+		$wpupload ??= wp_get_upload_dir();
+		$list     = [];
+
+		foreach ( self::list( $parent, $mime_type ) as $attachment ) {
+
+			if ( ! $file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) )
+				continue;
+
+			if ( Core\Text::has( $file, $wpupload['basedir'] ) )
+				$url = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
+
+			else
+				$url = $wpupload['baseurl']."/$file";
+
+			$list[] = [
+				'ID'   => $attachment->ID,
+				'file' => $file,
+				'url'  => apply_filters( 'wp_get_attachment_url', $url, $attachment->ID ),
+			];
+		}
+
+		return $list;
 	}
 }

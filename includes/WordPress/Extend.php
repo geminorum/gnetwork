@@ -47,4 +47,12 @@ class Extend extends Core\Base
 			update_option( 'active_plugins', $active );
 		}
 	}
+
+	public static function installPluginLink( string $plugin_slug, array $extra = [] ): string
+	{
+		return wp_nonce_url( add_query_arg( array_merge( [
+			'action' => 'install-plugin',
+			'plugin' => $plugin_slug,
+		], $extra ), admin_url( 'update.php' ) ) );
+	}
 }

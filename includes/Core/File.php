@@ -143,7 +143,7 @@ class File extends Base
 	 * @source https://www.php.net/manual/en/function.realpath.php#84012
 	 *
 	 * @param mixed $path
-	 * @param string|null $separator
+	 * @param null|string $separator
 	 * @return string
 	 */
 	public static function absolutePath( mixed $path, ?string $separator = NULL ): string

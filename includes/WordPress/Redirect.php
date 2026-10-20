@@ -13,7 +13,7 @@ class Redirect extends Core\Base
 	 * @param bool|string $location
 	 * @return bool|string
 	 */
-	public static function sanitize( bool|string|null $location ): bool|string
+	public static function sanitize( null|bool|string $location ): bool|string
 	{
 		return wp_sanitize_redirect( $location ?? self::getReferer() );
 	}

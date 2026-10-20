@@ -9,18 +9,18 @@ class Taxonomy extends Core\Base
 
 	const NAME_INPUT_PATTERN = '[-a-zA-Z0-9_]{3,32}';
 
-	public static function object( mixed $taxonomy_or_term ): false|object
+	public static function object( mixed $data ): false|object
 	{
-		if ( ! $taxonomy_or_term )
+		if ( ! $data )
 			return FALSE;
 
-		if ( $taxonomy_or_term instanceof \WP_Term )
-			return get_taxonomy( $taxonomy_or_term->taxonomy ) ?: FALSE;
+		if ( $data instanceof \WP_Term )
+			return get_taxonomy( $data->taxonomy ) ?: FALSE;
 
-		if ( $taxonomy_or_term instanceof \WP_Taxonomy )
-			return $taxonomy_or_term;
+		if ( $data instanceof \WP_Taxonomy )
+			return $data;
 
-		return get_taxonomy( $taxonomy_or_term ) ?: FALSE;
+		return get_taxonomy( $data ) ?: FALSE;
 	}
 
 	/**
@@ -95,10 +95,10 @@ class Taxonomy extends Core\Base
 	 * @return bool
 	 */
 	public static function can(
-		mixed $taxonomy,
+		mixed   $taxonomy,
 		?string $capability = 'manage_terms',
-		?int $user_id = NULL,
-		bool $fallback = FALSE,
+		?int    $user_id    = NULL,
+		bool    $fallback   = FALSE,
 	): bool {
 
 		static $cache = [];
@@ -136,11 +136,11 @@ class Taxonomy extends Core\Base
 	 * Retrieves the capability assigned to the taxonomy.
 	 *
 	 * @param mixed $taxonomy
-	 * @param string|null $capability
-	 * @param bool|string|null $fallback
+	 * @param null|string $capability
+	 * @param null|bool|string $fallback
 	 * @return bool|string
 	 */
-	public static function cap( mixed $taxonomy, ?string $capability = 'manage_terms', bool|string|null $fallback = NULL ): bool|string|null
+	public static function cap( mixed $taxonomy, ?string $capability = 'manage_terms', null|bool|string $fallback = NULL ): null|bool|string
 	{
 		if ( is_null( $capability ) )
 			return TRUE;
@@ -181,20 +181,20 @@ class Taxonomy extends Core\Base
 	 * `_builtin`
 	 *
 	 * @param int $mod
-	 * @param array $args
+	 * @param array $arguments
 	 * @param false|string|array $object
 	 * @param null|string $capability
 	 * @param null|int $user_id
 	 * @return array
 	 */
-	public static function get( int $mod = 0, array $args = [], false|string|array $object = FALSE, ?string $capability = NULL, ?int $user_id = NULL )
+	public static function get( int $mod = 0, array $arguments = [], false|string|array $object = FALSE, ?string $capability = NULL, ?int $user_id = NULL )
 	{
 		$list = [];
 
 		if ( FALSE === $object || 'any' === $object )
-			$objects = get_taxonomies( $args, 'objects' );
+			$objects = get_taxonomies( $arguments, 'objects' );
 		else
-			$objects = Core\Arraay::filter( get_object_taxonomies( $object, 'objects' ), $args );
+			$objects = Core\Arraay::filter( get_object_taxonomies( $object, 'objects' ), $arguments );
 
 		foreach ( $objects as $taxonomy => $taxonomy_obj ) {
 
@@ -1445,7 +1445,7 @@ class Taxonomy extends Core\Base
 
 	public static function listTermsJS( string $taxonomy, ?array $fields = NULL, array $extra = [] )
 	{
-		$fields = $fields ?? [
+		$fields ??= [
 			'term_id',
 			'name',
 		];
@@ -1516,7 +1516,7 @@ class Taxonomy extends Core\Base
 			return FALSE;
 
 		$query = new \WP_Term_Query( [
-			// 'taxonomy'   => (array) $taxonomy,
+			// `'taxonomy'   => (array) $taxonomy,`
 			'orderby'     => 'none',
 			'meta_query'  => [ [
 				'value'   => $attachment_id,
@@ -1533,10 +1533,10 @@ class Taxonomy extends Core\Base
 	// NOTE: must add `add_thickbox()` for thick-box
 	// @SEE: `Scripts::enqueueThickBox()`
 	public static function htmlFeaturedImage(
-		int $term_id,
-		null|string|array $size = NULL,
-		bool $link = TRUE,
-		?string $meta_key = NULL
+		int               $term_id,
+		null|string|array $size     = NULL,
+		bool              $link     = TRUE,
+		?string           $meta_key = NULL
 	): string {
 
 		$size = $size ?? Media::getAttachmentImageDefaultSize( NULL, Term::taxonomy( $term_id ) ?: NULL );
@@ -1546,7 +1546,7 @@ class Taxonomy extends Core\Base
 			$size,
 			$link,
 			[ 'term' => $term_id ],
-			'-featured'
+			'-featured',
 		);
 	}
 
@@ -1556,7 +1556,7 @@ class Taxonomy extends Core\Base
 		// @old `geditorial_get_term_thumbnail_id`
 		return apply_filters( 'term_thumbnail_id',
 			( (int) get_term_meta( $term_id, $metakey ?? 'image', TRUE ) ) ?: FALSE,
-			get_term( $term_id )
+			get_term( $term_id ),
 		);
 	}
 

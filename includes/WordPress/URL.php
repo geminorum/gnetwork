@@ -138,7 +138,9 @@ class URL extends Core\Base
 	// OLD: `Core\WordPress::getAdminPageLink()`
 	public static function admin( string $page, array $extra = [], ?string $base = NULL ): string
 	{
-		return add_query_arg( array_merge( [ 'page' => $page ], $extra ), admin_url( $base ?? 'admin.php' ) );
+		return add_query_arg( array_merge( [
+			'page' => $page,
+		], $extra ), admin_url( $base ?? 'admin.php' ) );
 	}
 
 	/**
@@ -151,10 +153,12 @@ class URL extends Core\Base
 	 */
 	public static function adminPOST( string $action, array $extra = [] ): string
 	{
-		return add_query_arg( array_merge( [ 'action' => $action ], $extra ), admin_url( 'admin-post.php' ) );
+		return add_query_arg( array_merge( [
+			'action' => $action,
+		], $extra ), admin_url( 'admin-post.php' ) );
 	}
 
-	public static function searchAdminTerm( string $criteria, string|object $taxonomy, array $extra = [] ): string|false
+	public static function searchAdminTerm( string $criteria, string|object $taxonomy, array $extra = [] ): false|string
 	{
 		if ( ! Taxonomy::can( $taxonomy, 'manage_terms' ) )
 			return FALSE;
@@ -169,7 +173,7 @@ class URL extends Core\Base
 	}
 
 	// OLD: `Core\WordPress::getAdminSearchLink()`
-	public static function searchAdmin( string $criteria, string|object $posttype, array $extra = [] ): string|false
+	public static function searchAdmin( string $criteria, string|object $posttype, array $extra = [] ): false|string
 	{
 		if ( $posttype instanceof \WP_Post_Type )
 			$posttype = $posttype->name;

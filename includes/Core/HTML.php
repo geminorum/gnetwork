@@ -1352,6 +1352,7 @@ class HTML extends Base
 					if ( $actions )
 						self::tableActions( call_user_func_array(
 							$actions,
+							// `( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args )`
 							[ $value, $row, $column, $index, $key, $args ]
 						) );
 

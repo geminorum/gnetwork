@@ -42,7 +42,7 @@ class Screen extends Core\Base
 		if ( empty( $posttype ) )
 			return FALSE;
 
-		if ( ! $screen = $screen ?? get_current_screen() )
+		if ( ! $screen ??= get_current_screen() )
 			return FALSE;
 
 		if ( $posttype instanceof \WP_Post_Type )
@@ -61,7 +61,7 @@ class Screen extends Core\Base
 		if ( empty( $taxonomy ) )
 			return FALSE;
 
-		if ( ! $screen = $screen ?? get_current_screen() )
+		if ( ! $screen ??= get_current_screen() )
 			return FALSE;
 
 		if ( $taxonomy instanceof \WP_Taxonomy )

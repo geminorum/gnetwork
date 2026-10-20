@@ -130,11 +130,11 @@ class Number extends Base
 		if ( ! $sanitized = self::intval( $number ) )
 			return $number;
 
-		$locale = $locale ?? L10n::locale();
+		$locale ??= L10n::locale();
 
 		if ( class_exists( 'NumberFormatter' ) ) {
 
-			// $formatter = new \NumberFormatter( $locale, \NumberFormatter::ORDINAL );
+			// `$formatter = new \NumberFormatter( $locale, \NumberFormatter::ORDINAL );`
 
 			// @REF: https://stackoverflow.com/a/19411974
 			$formatter = new \NumberFormatter( $locale, \NumberFormatter::SPELLOUT );
@@ -172,12 +172,12 @@ class Number extends Base
 		return date( 'S', mktime( 1, 1, 1, 1, ( ( ( $n >= 10 ) + ( $n >= 20 ) + ( $n == 0 ) ) * 10 + $n % 10 ) ) );
 	}
 
-	public static function toWords( $number, $locale = NULL )
+	public static function toWords( mixed $number, $locale = NULL )
 	{
 		if ( ! $sanitized = self::intval( $number ) )
 			return $number;
 
-		$locale = $locale ?? L10n::locale();
+		$locale ??= L10n::locale();
 
 		if ( class_exists( 'NumberFormatter' ) ) {
 
@@ -383,7 +383,7 @@ class Number extends Base
 	}
 
 	// @REF: http://php.net/manual/en/function.number-format.php#89655
-	public static function formatOrdinal_en( $number )
+	public static function formatOrdinal_en( int $number ): string
 	{
 		// special case "tenth"
 		if ( ( $number / 10 ) % 10 != 1 ) {
@@ -404,7 +404,7 @@ class Number extends Base
 	// FIXME: localize
 	// FIXME: maybe case insensitive `strtr()`, SEE: `Text::strtr()`
 	// @REF: https://www.irwebdesign.ir/work-with-number-or-int-varible-in-php/
-	public static function wordsToNumber( $string )
+	public static function wordsToNumber( string $string ): int
 	{
 		// Replaces all number words with an equivalent numeric value.
 		$string = strtr( $string, [
@@ -446,12 +446,12 @@ class Number extends Base
 		] );
 
 		// coerce all tokens to numbers
-		$parts = array_map( function ( $value ) {
+		$parts = array_map( static function ( $value ) {
 			return floatval( $value );
-		}, preg_split('/[\s-]+/', $string ) );
+		}, preg_split( '/[\s-]+/', $string ) );
 
-		$stack = new \SplStack(); // current work stack
-		$sum   = 0; // running total
+		$stack = new \SplStack();  // current work stack
+		$sum   = 0;                // running total
 		$last  = NULL;
 
 		foreach ( $parts as $part ) {

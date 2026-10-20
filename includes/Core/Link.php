@@ -61,7 +61,7 @@ class Link extends Base
 	public static function button(
 		mixed $html,
 		false|string $link = '#',
-		false|string $title = FALSE,
+		null|false|string $title = '',
 		bool $icon = FALSE,
 		mixed $data = [],
 		string $id = '',
@@ -73,7 +73,7 @@ class Link extends Base
 		return HTML::tag( $link ? 'a' : 'span', [
 			'id'     => $id ?: FALSE,
 			'href'   => $link ?: FALSE,
-			'title'  => $title,
+			'title'  => $title ?: FALSE,
 			'class'  => self::buttonClass( TRUE, $icon ? '-button-icon' : [] ),
 			'data'   => $data,
 			// 'target' => '_blank',
@@ -83,7 +83,7 @@ class Link extends Base
 	// @SEE: https://github.com/zxing/zxing/wiki/Barcode-Contents#e-mail-address
 	public static function mailto(
 		string $email,
-		string $title = '',
+		null|false|string $title = '',
 		?string $content = NULL,
 		string|array $class = '',
 	): string {
@@ -97,7 +97,7 @@ class Link extends Base
 
 	public static function tel(
 		string $number,
-		string $title = '',
+		null|false|string $title = '',
 		?string $content = NULL,
 		string|array $class = '',
 	): string {
@@ -112,7 +112,7 @@ class Link extends Base
 
 	public static function geo(
 		string $data,
-		string $title = '',
+		null|false|string $title = '',
 		?string $content = NULL,
 		string|array $class = '',
 	): string {

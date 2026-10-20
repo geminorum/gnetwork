@@ -6,6 +6,50 @@ use geminorum\gNetwork\Core;
 
 class PostMeta extends Core\Base
 {
+	public static function get( string $key = '', mixed $object = NULL, mixed $default = NULL ): mixed
+	{
+		if ( ! $post = Post::get( $object ) )
+			return FALSE;
+
+		if ( FALSE === ( $value = get_post_meta( $post->ID, $key, TRUE ) ) )
+			return $default;
+
+		return $value;
+	}
+
+	public static function delete( string $key = '', mixed $object = NULL, mixed $default = '' ): bool
+	{
+		if ( ! $key )
+			return FALSE;
+
+		if ( ! $post = Post::get( $object ) )
+			return FALSE;
+
+		return (bool) delete_metadata( 'post', $post->ID, $key, $default, TRUE );
+	}
+
+	public static function deleteAll( string $key, mixed $value ): bool
+	{
+		if ( ! $key )
+			return FALSE;
+
+		return (bool) delete_metadata( 'post', NULL, $key, $value, TRUE );
+	}
+
+	public static function store( string $key, mixed $value, mixed $object = NULL, mixed $default = FALSE ): bool
+	{
+		if ( ! $key )
+			return FALSE;
+
+		if ( ! $post = Post::get( $object ) )
+			return FALSE;
+
+		if ( $value === $default )
+			return (bool) delete_metadata( 'post', $post->ID, $key );
+
+		return (bool) update_post_meta( $post->ID, $key, $value );
+	}
+
 	// @REF: https://github.com/scribu/wp-custom-field-taxonomies
 	// FIXME: must limit to the selected post-types
 	// @OLD: `WordPress\Database::getPostMetaKeys()`

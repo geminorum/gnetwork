@@ -38,10 +38,10 @@ class Mobile extends Base
 	/**
 	 * Prepares a value as mobile number for the given context.
 	 *
-	 * @param string $value
-	 * @param array $field
-	 * @param string $context
-	 * @param string $icon
+	 * @param  mixed       $value
+	 * @param  null|array  $field
+	 * @param  null|string $context
+	 * @param  mixed       $icon
 	 * @return string
 	 */
 	public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string
@@ -78,7 +78,7 @@ class Mobile extends Base
 		return $value;
 	}
 
-	public static function getHTMLPattern(): string|false
+	public static function getHTMLPattern(): false|string
 	{
 		if ( 'fa_IR' === self::const( 'GNETWORK_WPLANG' ) )
 			return '[0-9۰-۹+]{11,}';

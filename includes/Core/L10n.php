@@ -31,7 +31,7 @@ class L10n extends Base
 	 */
 	public static function available( $supported, $fallback = 'en', $locale = NULL )
 	{
-		$locale = $locale ?? self::locale( TRUE );
+		$locale ??= self::locale( TRUE );
 
 		if ( '' === $locale )
 			$locale = 'en_US';
@@ -152,7 +152,7 @@ class L10n extends Base
 	 */
 	public static function getISO639( $locale = NULL )
 	{
-		$locale = $locale ?? self::locale();
+		$locale ??= self::locale();
 
 		if ( ! $locale )
 			return 'en';

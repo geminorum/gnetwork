@@ -115,7 +115,7 @@ class Main extends Core\Base
 
 	protected static function path( ?string $context = NULL, ?string $module = NULL, mixed $fallback = FALSE ): null|false|string
 	{
-		if ( ! $module = $module ?? static::MODULE )
+		if ( ! $module ??= static::MODULE )
 			return $fallback;
 
 		return static::factory()->module( $module )->get_module_path( $context );
@@ -130,7 +130,7 @@ class Main extends Core\Base
 
 	protected static function getString( string $string, false|string $subgroup = 'post', string $group = 'titles', null|false|string $fallback = FALSE, ?string $module = NULL ): null|false|string
 	{
-		if ( ! $module = $module ?? static::MODULE )
+		if ( ! $module ??= static::MODULE )
 			return $fallback;
 
 		return static::factory()->module( $module )->get_string( $string, $subgroup, $group, $fallback );
@@ -138,7 +138,7 @@ class Main extends Core\Base
 
 	protected static function getPostMeta( int $post_id, false|string $field = FALSE, mixed $default = [], ?string $metakey = NULL, ?string $module = NULL ): mixed
 	{
-		if ( ! $module = $module ?? static::MODULE )
+		if ( ! $module ??= static::MODULE )
 			return $default;
 
 		return FALSE === $field
@@ -148,7 +148,7 @@ class Main extends Core\Base
 
 	protected static function posttypes( null|string|array $posttypes = NULL, bool $check = FALSE, ?string $module = NULL ): array
 	{
-		if ( ! $module = $module ?? static::MODULE )
+		if ( ! $module ??= static::MODULE )
 			return [];
 
 		if ( $check && ! static::factory()->enabled( $module ) )

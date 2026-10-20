@@ -60,10 +60,10 @@ class Email extends Base
 	/**
 	 * Prepares a value as email address for the given context.
 	 *
-	 * @param mixed $value
-	 * @param array $field
-	 * @param string $context
-	 * @param mixed $icon
+	 * @param  mixed       $value
+	 * @param  null|array  $field
+	 * @param  null|string $context
+	 * @param  mixed       $icon
 	 * @return string
 	 */
 	public static function prep( mixed $value, ?array $field = [], ?string $context = 'display', mixed $icon = NULL ): string
@@ -90,7 +90,7 @@ class Email extends Base
 		}
 	}
 
-	public static function getHTMLPattern(): string|false
+	public static function getHTMLPattern(): false|string
 	{
 		return FALSE; // FIXME!
 	}

@@ -7,34 +7,33 @@ use geminorum\gNetwork\Core;
 class Post extends Core\Base
 {
 	/**
-	 * Retrieves post data given a post ID or post object.
-	 * NOTE: simplified version of `get_post()`
-	 * @old `PostType::getPost()`
+	 * Retrieves the post object given relative data.
 	 *
-	 * @param mixed $post
-	 * @param string $output
-	 * @param string $filter
-	 * @return false|object|null
+	 * @param mixed $data
+	 * @return false|object
 	 */
-	public static function get( mixed $post = NULL, $output = OBJECT, $filter = 'raw' ): false|object|null
+	public static function get( mixed $data = NULL ): false|object
 	{
-		if ( FALSE === $post )
-			return $post;
+		if ( FALSE === $data || 0 === $data )
+			return FALSE;
 
-		if ( $post instanceof \WP_Post )
-			return $post;
+		if ( $data instanceof \WP_Post )
+			return $data;
+
+		if ( is_wp_error( $data ) )
+			return FALSE;
 
 		// handling dummy posts!
-		if ( '-9999' == $post )
-			$post = NULL;
+		if ( '-9999' == $data )
+			$data = NULL;
 
-		if ( $_post = get_post( $post, $output, $filter ) )
-			return $_post;
+		if ( $post = get_post( $data ) )
+			return $post;
 
-		if ( is_null( $post ) && is_admin() && ( $query = self::req( 'post' ) ) )
-			return get_post( $query, $output, $filter );
+		if ( is_null( $data ) && is_admin() && ( $query = (int) self::req( 'post' ) ) )
+			return get_post( $query );
 
-		return NULL;
+		return FALSE;
 	}
 
 	/**
@@ -79,8 +78,13 @@ class Post extends Core\Base
 	 * @param bool $fallback
 	 * @return bool
 	 */
-	public static function can( mixed $post, ?string $capability, ?int $user_id = NULL, bool $fallback = FALSE ): bool
-	{
+	public static function can(
+		mixed   $post,
+		?string $capability,
+		?int    $user_id  = NULL,
+		bool    $fallback = FALSE,
+	): bool {
+
 		static $cache = [];
 
 		if ( is_null( $capability ) )
@@ -131,9 +135,9 @@ class Post extends Core\Base
 	 * @return string
 	 */
 	public static function title(
-		mixed $post = NULL,
+		mixed             $post     = NULL,
 		null|false|string $fallback = NULL,
-		bool $filter = TRUE,
+		bool              $filter   = TRUE,
 	): string {
 
 		if ( ! $post = self::get( $post ) )
@@ -721,7 +725,7 @@ class Post extends Core\Base
 	 * @param bool $single Optional. Whether to return an array of single values. Default false.
 	 * @return WP_Error|array Will be an array with either scalars or arrays based on `$single`. Contains the individual meta_value results of get_post_meta. Will be WP_Error in case the regular expression fails to validate.
 	 */
-	public static function getMetaByRegexp( int $post_id, string $regexp, bool $single = FALSE ): object|array
+	public static function getMetaByRegexp( int $post_id, string $regexp, bool $single = FALSE ): array|object
 	{
 		global $wpdb;
 
@@ -821,24 +825,31 @@ class Post extends Core\Base
 		return wp_insert_post( $new_post );
 	}
 
-	public static function image( mixed $post, ?string $context = NULL, $size = NULL, ?int $thumbnail_id = NULL ): false|string
-	{
+	public static function image(
+		mixed   $post,
+		?string $context      = NULL,
+		mixed   $size         = NULL,
+		?int    $thumbnail_id = NULL,
+	): false|string {
+
 		if ( ! $post = self::get( $post ) )
 			return FALSE;
 
-		$filtered = apply_filters( 'nucleus_post_image_pre_src', NULL, $post, $context, $size, $thumbnail_id );
+		$filtered = apply_filters( 'nucleus_post_image_pre_src',
+			NULL,
+			$post,
+			$context,
+			$size,
+			$thumbnail_id,
+		);
 
 		if ( ! is_null( $filtered ) )
 			return $filtered;
 
-		if ( is_null( $thumbnail_id ) )
-			$thumbnail_id = PostType::getThumbnailID( $post->ID );
-
-		if ( ! $thumbnail_id )
+		if ( ! $thumbnail_id ??= PostType::getThumbnailID( $post->ID ) )
 			return FALSE;
 
-		if ( is_null( $size ) )
-			$size = Media::getAttachmentImageDefaultSize( $post->post_type );
+		$size ??= Media::getAttachmentImageDefaultSize( $post->post_type );
 
 		if ( ! $image = image_downsize( $thumbnail_id, $size ) )
 			return FALSE;

@@ -6,6 +6,34 @@ use geminorum\gNetwork\Core;
 
 class User extends Core\Base
 {
+	/**
+	 * Retrieves the user object given relative data.
+	 *
+	 * @param mixed $data
+	 * @return false|object
+	 */
+	public static function get( mixed $data = NULL ): false|object
+	{
+		if ( FALSE === $data || 0 === $data )
+			return FALSE;
+
+		if ( $data instanceof \WP_User )
+			return $data;
+
+		if ( is_wp_error( $data ) )
+			return FALSE;
+
+		if ( is_null( $data ) )
+			return wp_get_current_user();
+
+		if ( is_int( $data ) )
+			return get_user_by( 'id', $data );
+
+		if ( is_string( $data ) )
+			return get_user_by( 'login', $data );
+
+		return FALSE;
+	}
 
 	public static function option( string $option_key, ?int $user = NULL ): mixed
 	{
@@ -23,7 +51,8 @@ class User extends Core\Base
 	}
 
 	// OLD: `WordPress::getUsers()`
-	public static function get( bool $all_fields = FALSE, bool $network = FALSE, array $extra = [], false|string $rekey = 'ID' ): array
+	// OLD: `WordPress\User::get()`
+	public static function list( bool $all_fields = FALSE, bool $network = FALSE, array $extra = [], false|string $rekey = 'ID' ): array
 	{
 		$users = get_users( array_merge( [
 			'orderby' => 'display_name',
@@ -66,7 +95,7 @@ class User extends Core\Base
 		return $blogs;
 	}
 
-	// MAYBE: rename to `object`
+	// MAYBE: rename to `field`
 	public static function user( mixed $field, string $key = '' ): false|object
 	{
 		if ( 0 === $field || '0' === $field || FALSE === $field )

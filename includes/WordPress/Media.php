@@ -6,7 +6,6 @@ use geminorum\gNetwork\Core;
 
 class Media extends Core\Base
 {
-
 	public static function upload( mixed $post = FALSE ): array
 	{
 		if ( FALSE === $post )
@@ -29,7 +28,7 @@ class Media extends Core\Base
 	 * @param string|array $excludes
 	 * @return array
 	 */
-	public static function availableMIMETypes( string $posttype = 'attachment', $excludes = NULL ): array
+	public static function availableMIMETypes( string $posttype = 'attachment', string|array $excludes = [] ): array
 	{
 		global $wpdb;
 
@@ -49,6 +48,7 @@ class Media extends Core\Base
 	 *
 	 * @param string $mime_type
 	 * @param null|array $extensions
+	 * @param bool $uppercase
 	 * @return string
 	 */
 	public static function getExtension( string $mime_type, ?array $extensions = NULL, bool $uppercase = TRUE ): string
@@ -269,8 +269,8 @@ class Media extends Core\Base
 	public static function sideloadImageData(
 		string $name,
 		mixed $data,
-		int $post_id = 0,
-		array $extra = [],
+		int   $post_id = 0,
+		array $extra   = [],
 	): false|int|object {
 
 		if ( ! $temp = Core\File::tempName( $name ) )
@@ -298,8 +298,8 @@ class Media extends Core\Base
 	// @REF: `media_sideload_image()`
 	public static function sideloadImageURL(
 		mixed $url,
-		int $post_id = 0,
-		array $extra = [],
+		int   $post_id = 0,
+		array $extra   = [],
 	): false|int|object {
 
 		if ( ! $url = Core\Text::force( $url ) )
@@ -349,10 +349,10 @@ class Media extends Core\Base
 	}
 
 	public static function getUploadDirectory(
-		string $sub = '',
-		bool $create = FALSE,
-		bool $htaccess = TRUE,
-		bool $donotbackup = FALSE,
+		string $sub         = '',
+		bool   $create      = FALSE,
+		bool   $htaccess    = TRUE,
+		bool   $donotbackup = FALSE,
 	): false|string {
 
 		$upload = wp_upload_dir( NULL, FALSE, FALSE );
@@ -571,8 +571,8 @@ class Media extends Core\Base
 	public static function getAttachmentImageDefaultSize(
 		?string $perent_posttype = NULL,
 		?string $perent_taxonomy = NULL,
-		null|false|string|array $fallback = 'thumbnail',
-	): null|false|string|array {
+		mixed   $fallback        = 'thumbnail',
+	): mixed {
 
 		$size     = NULL;
 		$sizes    = wp_get_additional_image_sizes();
@@ -597,16 +597,16 @@ class Media extends Core\Base
 	}
 
 	#[\Deprecated('USE `WordPress\Media::getAttachmentSrc()`')]
-	public static function htmlAttachmentSrc( int $attachment_id, ?string $size = NULL, mixed $fallback = '' ): string
+	public static function htmlAttachmentSrc( int $attachment_id, ?string $size = NULL, string $fallback = '' ): string
 	{
 		return self::getAttachmentSrc( $attachment_id, $size, $fallback );
 	}
 
 	public static function getAttachmentSrc(
 		int $attachment_id,
-		null|string|array $size = NULL,
-		mixed $fallback = '',
-	): mixed {
+		null|string|array $size     = NULL,
+		string            $fallback = '',
+	): string {
 
 		$img  = NULL;
 		$src  = $fallback;
@@ -618,21 +618,26 @@ class Media extends Core\Base
 				$src = $img[0];
 		}
 
-		return apply_filters( 'nucleus_get_thumbnail_src', $src, $attachment_id, $img, $fallback );
+		return apply_filters( 'nucleus_get_thumbnail_src',
+			$src,
+			$attachment_id,
+			$img,
+			$fallback,
+		);
 	}
 
 	public static function htmlAttachmentImage(
 		int $attachment_id,
-		null|string|array $size = NULL,
-		bool $link = TRUE,
-		array $data = [],
-		string|array $class = '-attachment-image',
+		null|string|array $size  = NULL,
+		bool              $link  = TRUE,
+		array             $data  = [],
+		string|array      $class = '-attachment-image',
 	): string {
 
 		if ( empty( $attachment_id ) )
 			return '';
 
-		if ( ! $src = self::getAttachmentSrc( $attachment_id, $size, FALSE ) )
+		if ( ! $src = self::getAttachmentSrc( $attachment_id, $size ) )
 			return '';
 
 		if ( empty( $data['attachment'] ) )

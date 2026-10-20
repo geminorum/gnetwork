@@ -6,6 +6,50 @@ use geminorum\gNetwork\Core;
 
 class TermMeta extends Core\Base
 {
+	public static function get( string $key = '', mixed $object = NULL, mixed $default = NULL ): mixed
+	{
+		if ( ! $term = Term::get( $object ) )
+			return FALSE;
+
+		if ( FALSE === ( $value = get_term_meta( $term->term_id, $key, TRUE ) ) )
+			return $default;
+
+		return $value;
+	}
+
+	public static function delete( string $key = '', mixed $object = NULL, mixed $default = '' ): bool
+	{
+		if ( ! $key )
+			return FALSE;
+
+		if ( ! $term = Term::get( $object ) )
+			return FALSE;
+
+		return (bool) delete_metadata( 'term', $term->term_id, $key, $default, TRUE );
+	}
+
+	public static function deleteAll( string $key, mixed $value ): bool
+	{
+		if ( ! $key )
+			return FALSE;
+
+		return (bool) delete_metadata( 'term', NULL, $key, $value, TRUE );
+	}
+
+	public static function store( string $key, mixed $value, mixed $object = NULL, mixed $default = FALSE ): bool
+	{
+		if ( ! $key )
+			return FALSE;
+
+		if ( ! $term = Term::get( $object ) )
+			return FALSE;
+
+		if ( $value === $default )
+			return (bool) delete_term_meta( $term->term_id, $key );
+
+		return (bool) update_term_meta( $term->term_id, $key, $value );
+	}
+
 	public static function listAvailable( bool $include_private = FALSE ): array
 	{
 		global $wpdb;

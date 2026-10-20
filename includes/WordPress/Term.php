@@ -10,28 +10,28 @@ class Term extends Core\Base
 	// TODO: `Term::setParent()`
 
 	/**
-	 * Gets all term data.
+	 * Retrieves the term object given relative data.
 	 *
-	 * @param mixed $term_or_id
+	 * @param mixed $data
 	 * @param string $taxonomy
 	 * @return false|object
 	 */
-	public static function get( mixed $term_or_id = NULL, string $taxonomy = '' ): false|object
+	public static function get( mixed $data = NULL, string $taxonomy = '' ): false|object
 	{
-		if ( FALSE === $term_or_id || 0 === $term_or_id )
+		if ( FALSE === $data || 0 === $data )
 			return FALSE;
 
-		if ( $term_or_id instanceof \WP_Term )
-			return $term_or_id;
+		if ( $data instanceof \WP_Term )
+			return $data;
 
-		if ( is_wp_error( $term_or_id ) )
+		if ( is_wp_error( $data ) )
 			return FALSE;
 
-		if ( ! $term_or_id ) {
+		if ( ! $data ) {
 
 			if ( is_admin() ) {
 
-				if ( is_null( $term_or_id ) && ( $query = self::req( 'tag_ID' ) ) )
+				if ( is_null( $data ) && ( $query = self::req( 'tag_ID' ) ) )
 					return self::get( (int) $query, $taxonomy );
 
 				return FALSE;
@@ -47,19 +47,19 @@ class Term extends Core\Base
 				&& ! is_tax( $taxonomy ) )
 					return FALSE;
 
-			if ( ! $term_or_id = get_queried_object_id() )
+			if ( ! $data = get_queried_object_id() )
 				return FALSE;
 		}
 
-		if ( is_numeric( $term_or_id ) )
-			// $term = get_term_by( 'id', $term_or_id, $taxonomy );
-			$term = get_term( (int) $term_or_id, $taxonomy ); // allows for empty taxonomy
+		if ( is_numeric( $data ) )
+			// $term = get_term_by( 'id', $data, $taxonomy );
+			$term = get_term( (int) $data, $taxonomy ); // allows for empty taxonomy
 
 		else if ( $taxonomy )
-			$term = get_term_by( 'slug', $term_or_id, $taxonomy );
+			$term = get_term_by( 'slug', $data, $taxonomy );
 
 		else
-			$term = get_term( $term_or_id, $taxonomy ); // allows for empty taxonomy
+			$term = get_term( $data, $taxonomy ); // allows for empty taxonomy
 
 		if ( ! $term || is_wp_error( $term ) )
 			return FALSE;
@@ -72,7 +72,7 @@ class Term extends Core\Base
 	 * NOTE: caches the results
 	 *
 	 * @param  mixed       $term
-	 * @param  string|null $capability
+	 * @param  null|string $capability
 	 * @param  int|null    $user_id
 	 * @param  bool        $fallback
 	 * @return bool
