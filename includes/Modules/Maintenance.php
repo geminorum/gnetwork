@@ -103,7 +103,8 @@ class Maintenance extends gNetwork\Module
 
 	public function settings_sidebox( ?string $sub, ?string $uri ): void
 	{
-		if ( is_main_site() ) {
+		if ( is_main_site()
+			&& ! Core\File::readable( WP_CONTENT_DIR.'/maintenance.php' ) ) {
 
 			echo $this->wrap_open_buttons();
 
