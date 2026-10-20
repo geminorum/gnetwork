@@ -125,7 +125,7 @@ class Authors extends gNetwork\Module
 			'all'  => Settings::showOptionAll(),
 		];
 
-		foreach ( WordPress\User::get() as $user_id => $user )
+		foreach ( WordPress\User::list() as $user_id => $user )
 			$users[$user_id] = sprintf( '%1$s (%2$s)', $user->display_name, $user->user_login );
 
 		Settings::headerTitle( _x( 'Author Tools', 'Modules: Authors', 'gnetwork-admin' ) );

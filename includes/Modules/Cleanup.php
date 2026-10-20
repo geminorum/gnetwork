@@ -185,7 +185,7 @@ class Cleanup extends gNetwork\Module
 			'type'        => 'button',
 			'title'       => _x( 'Terms', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'description' => _x( 'Removes orphaned term relationships from database.', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
-			'default'     => _x( 'Purge Orphaned Terms', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
+			'default'     => _x( 'Purge Orphaned Relations', 'Modules: Cleanup: Settings', 'gnetwork-admin' ),
 			'values'      => $confirm,
 		];
 

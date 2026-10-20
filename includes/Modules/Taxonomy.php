@@ -2096,7 +2096,7 @@ JS;
 			'posttype' => [
 				'title'    => _x( 'Post-Type', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 				'class'    => '-results-rowtype',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return post_type_exists( $row->post_type )
 						? Core\Link::get(
 							WordPress\PostType::object( $row->post_type )->labels->singular_name,
@@ -2108,7 +2108,7 @@ JS;
 			],
 			'title' => [
 				'title'    => _x( 'Post', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args )
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args )
 					use ( $description ) {
 
 					$html = post_type_exists( $row->post_type )
@@ -2137,7 +2137,7 @@ JS;
 			'taxonomy' => [
 				'title'    => _x( 'Taxonomy', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
 				'class'    => '-results-rowtype',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return taxonomy_exists( $row->taxonomy )
 						? Core\Link::get(
 							WordPress\Taxonomy::object( $row->taxonomy )->labels->singular_name,
@@ -2149,7 +2149,7 @@ JS;
 			],
 			'name' => [
 				'title'    => _x( 'Term', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args )
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args )
 					use ( $description ) {
 
 					$html = taxonomy_exists( $row->taxonomy )
@@ -2164,7 +2164,7 @@ JS;
 			],
 			'count' => [
 				'title'    => _x( 'Count', 'Modules: Taxonomy: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return Utilities::htmlCount( $row->count );
 				},
 			],

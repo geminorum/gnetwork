@@ -740,7 +740,7 @@ class Update extends gNetwork\Module
 		return NULL;
 	}
 
-	private function get_package_version( $package, $local = NULL )
+	private function get_package_version( array $package, ?object $local = NULL ): string
 	{
 		$version = '0.0.0';
 
@@ -766,9 +766,12 @@ class Update extends gNetwork\Module
 			if ( isset( $local['Version'] ) )
 				return $local['Version'];
 
-		} else if ( in_array( $package['type'], [ 'github_theme', 'gitlab_theme' ], TRUE ) ) {
+		} else if ( in_array( $package['type'], [
+			'github_theme',
+			'gitlab_theme',
+		], TRUE ) ) {
 
-			$local = $local ?? wp_get_theme( $package['slug'] );
+			$local ??= wp_get_theme( $package['slug'] );
 
 			if ( $local->exists() )
 				return $local->get( 'Version' );

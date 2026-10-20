@@ -8,7 +8,6 @@ use geminorum\gNetwork\WordPress;
 
 class Locale extends gNetwork\Module
 {
-
 	protected $key  = 'locale';
 	protected $ajax = TRUE;
 
@@ -32,12 +31,12 @@ class Locale extends gNetwork\Module
 		}
 	}
 
-	public static function loadedMOs()
+	public static function loadedMOs(): void
 	{
 		Core\HTML::tableSide( gNetwork()->locale->loaded );
 	}
 
-	public static function changeLocale( $locale = NULL )
+	public static function changeLocale( ?string $locale = NULL ): bool
 	{
 		if ( ! WordPress\User::cuc( 'manage_options' ) )
 			return FALSE;
@@ -52,7 +51,7 @@ class Locale extends gNetwork\Module
 	}
 
 	// TODO: get by localized names
-	public static function available()
+	public static function available(): array
 	{
 		$languages = get_available_languages();
 
@@ -62,13 +61,13 @@ class Locale extends gNetwork\Module
 		return $languages;
 	}
 
-	public function core_version_check_locale( $locale )
+	public function core_version_check_locale( string $locale ): string
 	{
 		return self::getDefault( $locale );
 	}
 
 	// TODO: must convert to regex
-	private function get_bypassed_domains( $context = NULL )
+	private function get_bypassed_domains( ?string $context = NULL ): array
 	{
 		return (array) $this->filters( 'bypassed_domains', [
 			'gnetwork',
@@ -84,9 +83,12 @@ class Locale extends gNetwork\Module
 		], $context );
 	}
 
-	private function bypass_domain( $domain, $context = NULL )
+	private function bypass_domain( mixed $domain, ?string $context = NULL ): bool
 	{
-		if ( empty( $domain ) || 'default' == $domain )
+		if ( empty( $domain ) || 'default' === $domain )
+			return FALSE;
+
+		if ( ! $domain = Core\Text::force( $domain ) )
 			return FALSE;
 
 		if ( in_array( $domain, $this->get_bypassed_domains( $context ) ) )
@@ -104,7 +106,7 @@ class Locale extends gNetwork\Module
 
 	// @SEE: `pre_load_textdomain` filter: https://make.wordpress.org/core/2023/07/14/i18n-improvements-in-6-3/
 	// @SEE: `pre_load_script_translations` filter
-	public function load_textdomain_mofile( $mofile, $domain )
+	public function load_textdomain_mofile( string $mofile, string $domain ): string
 	{
 		static $filtered = [];
 
@@ -151,7 +153,7 @@ class Locale extends gNetwork\Module
 		return $filtered[$locale][$domain] = $target;
 	}
 
-	public function load_script_translation_file( $file, $handle, $domain )
+	public function load_script_translation_file( false|string $file, string $handle, string $domain ): false|string
 	{
 		static $filtered = [];
 
@@ -191,7 +193,7 @@ class Locale extends gNetwork\Module
 		return $filtered[$locale][$domain][$handle] = $target;
 	}
 
-	public function network_new_blog_options( $new_options )
+	public function network_new_blog_options( array $new_options ): array
 	{
 		if ( 'fa_IR' == self::const( 'GNETWORK_WPLANG' ) )
 			return array_merge( $new_options, [
@@ -205,12 +207,12 @@ class Locale extends gNetwork\Module
 		return $new_options;
 	}
 
-	public static function getDefault( $default = 'en_US' )
+	public static function getDefault( string $default = 'en_US' ): string
 	{
 		return self::const( 'GNETWORK_WPLANG' ) ?: $default;
 	}
 
-	public function locale( $locale )
+	public function locale( string $locale ): string
 	{
 		global $gNetworkCurrentLocale;
 
@@ -224,7 +226,7 @@ class Locale extends gNetwork\Module
 			if ( FALSE !== strpos( $referer, '/wp-admin/network/' ) )
 				return $gNetworkCurrentLocale = gNetwork()->option( 'admin_locale', 'site', 'en_US' );
 
-			// frontend AJAX calls are mistaken for admin calls
+			// NOTE: frontend Ajax calls are mistaken for admin calls.
 			if ( FALSE === strpos( $referer, '/wp-admin/' ) )
 				return $gNetworkCurrentLocale = $locale;
 		}
@@ -258,7 +260,7 @@ class Locale extends gNetwork\Module
 		return $gNetworkCurrentLocale = $this->blackListAdmin( $locale );
 	}
 
-	private function blackListAdmin( $current, $base = 'en_US' )
+	private function blackListAdmin( string $current, string $base = 'en_US' ): string
 	{
 		if ( $current == $base )
 			return $current;
@@ -386,14 +388,14 @@ class Locale extends gNetwork\Module
 			'ef-user-groups-settings'        => 'page',
 
 			// [WP-DBManager](https://wordpress.org/plugins/wp-dbmanager/)
-			'wp-dbmanager/wp-dbmanager.php'      => 'page',
-			'wp-dbmanager/database-manager.php'  => 'page',
-			'wp-dbmanager/database-backup.php'   => 'page',
-			'wp-dbmanager/database-manage.php'   => 'page',
-			'wp-dbmanager/database-optimize.php' => 'page',
-			'wp-dbmanager/database-repair.php'   => 'page',
-			'wp-dbmanager/database-empty.php'    => 'page',
-			'wp-dbmanager/database-run.php'      => 'page',
+			'wp-dbmanager'          => 'page',
+			'wp-dbmanager-options'  => 'page',
+			'wp-dbmanager-backup'   => 'page',
+			'wp-dbmanager-manage'   => 'page',
+			'wp-dbmanager-optimize' => 'page',
+			'wp-dbmanager-repair'   => 'page',
+			'wp-dbmanager-empty'    => 'page',
+			'wp-dbmanager-run'      => 'page',
 
 			// [WP-Sweep](https://wordpress.org/plugins/wp-sweep/)
 			'wp-sweep/admin.php' => 'page',
@@ -530,12 +532,17 @@ class Locale extends gNetwork\Module
 			'list-all-urls' => 'page',
 			'wp-sweep'      => 'page',
 
+			// [External files in Media Library](https://wordpress.org/plugins/external-files-in-media-library/)
+			'eml_settings' => 'page',
+
+			'add-external-media-without-import' => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );
 	}
 
-	private function whiteListNetworkAdmin( $current, $base = 'en_US' )
+	private function whiteListNetworkAdmin( string $current, string $base = 'en_US' ): string
 	{
 		if ( $current == $base )
 			return $current;
@@ -553,7 +560,7 @@ class Locale extends gNetwork\Module
 		return $this->check_request( $list, $base, $current );
 	}
 
-	private function blackListNetworkAdmin( $current, $base = 'en_US' )
+	private function blackListNetworkAdmin( string $current, string $base = 'en_US' ): string
 	{
 		if ( $current == $base )
 			return $current;
@@ -582,7 +589,7 @@ class Locale extends gNetwork\Module
 		return $this->check_request( $list, $current, $base );
 	}
 
-	private function check_request( $list, $locale, $target )
+	private function check_request( array $list, string $locale, string $target ): string
 	{
 		foreach ( array_unique( $list ) as $value => $key )
 			if ( isset( $_REQUEST[$key] )

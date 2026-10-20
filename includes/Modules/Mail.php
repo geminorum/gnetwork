@@ -585,19 +585,19 @@ class Mail extends gNetwork\Module
 
 			echo '<hr />';
 
-			Core\HTML::desc( _x('The SMTP debugging output:', 'Modules: Mail', 'gnetwork-admin' ) );
+			Core\HTML::desc( _x( 'The SMTP debugging output:', 'Modules: Mail', 'gnetwork-admin' ) );
 			echo Core\HTML::wrap( $smtp_debug, '-debug-wrap' );
 
 			echo '<hr />';
 
-			Core\HTML::desc( _x('The full phpmailer object properties:', 'Modules: Mail', 'gnetwork-admin' ) );
+			Core\HTML::desc( _x( 'The full phpmailer object properties:', 'Modules: Mail', 'gnetwork-admin' ) );
 			Core\HTML::tableSide( $phpmailer );
 
 			unset( $phpmailer );
 		}
 	}
 
-	public function phpmailer_init_debug( &$phpmailer )
+	public function phpmailer_init_debug( object &$phpmailer ): void
 	{
 		$phpmailer->SMTPDebug = TRUE;
 	}
@@ -615,7 +615,7 @@ class Mail extends gNetwork\Module
 			'info' => [
 				'title'    => _x( 'Whom, When', 'Modules: Mail: Email Logs Table Column', 'gnetwork-admin' ),
 				'class'    => '-column-info',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					$html = '';
 
 					if ( ! empty( $row['to'] ) ) {
@@ -681,7 +681,7 @@ class Mail extends gNetwork\Module
 
 					return Core\HTML::wrap( $html, '-info' );
 				},
-				'actions' => function ( $value, $row, $column, $index, $key, $args ) {
+				'actions' => function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 
 					return [
 						'download' => Core\HTML::tag( 'a', [
@@ -700,7 +700,7 @@ class Mail extends gNetwork\Module
 			'content' => [
 				'title'    => _x( 'What', 'Modules: Mail: Email Logs Table Column', 'gnetwork-admin' ),
 				'class'    => '-column-content',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					$content   = '';
 					$direction = empty( $row['rtl'] ) ? '' : ' style="direction:rtl"';
 

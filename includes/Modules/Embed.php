@@ -120,7 +120,7 @@ class Embed extends gNetwork\Module
 					'field'       => 'load_balad',
 					'title'       => _x( 'Load Balad Embeds', 'Modules: Embed: Settings', 'gnetwork-admin' ),
 					'description' => _x( 'Whether to load Balad.ir embed handlers on this site.', 'Modules: Embed: Settings', 'gnetwork-admin' ),
-					'after'       => Settings::fieldAfterIcon('https://balad.ir/blog/embed-balad-map/' ),
+					'after'       => Settings::fieldAfterIcon( 'https://balad.ir/blog/embed-balad-map/' ),
 				],
 				[
 					'field'       => 'load_kavimo',
@@ -187,32 +187,66 @@ class Embed extends gNetwork\Module
 			sprintf(
 				/* translators: `%s`: minimum pixels placeholder */
 				_x( 'There is no height setting because the height will adjust automatically based on the width. Instagram only allow a minimum width of %s pixels. Using a lower value will break the embed.', 'Modules: Embed: Settings', 'gnetwork-admin' ),
-				Core\HTML::code( Core\Number::localize( 320 ) )
-			)
+				Core\HTML::code( Core\Number::localize( 320 ) ),
+			),
 		);
 	}
 
 	public function plugins_loaded(): void
 	{
+		$this->_register_handlers();
+	}
+
+	public function _register_handlers(): bool
+	{
 		if ( $this->options['load_docs_pdf'] )
-			wp_embed_register_handler( 'pdf', '#(^(https?)\:\/\/.+\.pdf$)#i', [ $this, 'handle_docs_pdf' ] );
+			wp_embed_register_handler( 'pdf',
+				'#(^(https?)\:\/\/.+\.pdf$)#i',
+				[ $this, 'handle_docs_pdf' ],
+			);
 
 		if ( $this->options['load_instagram'] )
-			wp_embed_register_handler( 'instagram', '/https?\:\/\/(?:www.)?instagram.com\/p\/(.+)/', [ $this, 'handle_instagram' ] );
+			wp_embed_register_handler( 'instagram',
+				'/https?\:\/\/(?:www.)?instagram.com\/p\/(.+)/',
+				[ $this, 'handle_instagram' ],
+			);
 
 		if ( $this->options['load_aparat'] ) {
-			wp_embed_register_handler( 'aparat', '#https?://(?:www.)?aparat\.com\/v\/(.*?)\/?$#i', [ $this, 'handle_aparat_video' ], 5 );
-			wp_embed_register_handler( 'aparat', '#https?://(?:www.)?aparat\.com\/(.*?)\/?$#i', [ $this, 'handle_aparat_channel' ], 20 );
+
+			wp_embed_register_handler( 'aparat',
+				'#https?://(?:www.)?aparat\.com\/v\/(.*?)\/?$#i',
+				[ $this, 'handle_aparat_video' ],
+				5,
+			);
+
+			wp_embed_register_handler( 'aparat',
+				'#https?://(?:www.)?aparat\.com\/(.*?)\/?$#i',
+				[ $this, 'handle_aparat_channel' ],
+				20,
+			);
 		}
 
 		if ( $this->options['load_balad'] )
-			wp_embed_register_handler('balad', '#https?://(?:www.)?balad\.ir\/p\/(.*?)\/?$#i', [ $this, 'handle_balad' ], 5 );
-
-		if ( $this->options['load_kavimo'] )
-			wp_oembed_add_provider( '/https?\:\/\/(.+)?(kavimo\.com)\/.*/', 'https://kavimo.com/oembed-provider', TRUE );
+			wp_embed_register_handler( 'balad',
+				'#https?://(?:www.)?balad\.ir\/p\/(.*?)\/?$#i',
+				[ $this, 'handle_balad' ],
+				5,
+			);
 
 		if ( $this->options['load_giphy'] )
-			wp_embed_register_handler( 'giphy', '~https?://(?|media\.giphy\.com/media/([^ /]+)/giphy\.gif|i\.giphy\.com/([^ /]+)\.gif|giphy\.com/gifs/(?:.*-)?([^ /]+))~i', [ $this, 'handle_giphy' ] );
+			wp_embed_register_handler( 'giphy',
+				'~https?://(?|media\.giphy\.com/media/([^ /]+)/giphy\.gif|i\.giphy\.com/([^ /]+)\.gif|giphy\.com/gifs/(?:.*-)?([^ /]+))~i',
+				[ $this, 'handle_giphy' ],
+			);
+
+		if ( $this->options['load_kavimo'] )
+			wp_oembed_add_provider(
+				'/https?\:\/\/(.+)?(kavimo\.com)\/.*/',
+				'https://kavimo.com/oembed-provider',
+				TRUE,
+			);
+
+		return TRUE;
 	}
 
 	/**
@@ -235,9 +269,18 @@ class Embed extends gNetwork\Module
 		) : $content;
 	}
 
-	public function embed_oembed_html( $html, $url, $attr, $post_ID )
+	/**
+	 * Wraps the cached `oEmbed` HTML.
+	 *
+	 * @param string $cache
+	 * @param string $url
+	 * @param array $attribute
+	 * @param int $post_id
+	 * @return string
+	 */
+	public function embed_oembed_html( string $cache, string $url, array $attribute, int $post_id ): string
 	{
-		return $this->wrap( $html );
+		return $this->wrap( $cache );
 	}
 
 	public function handle_docs_pdf( array $matches, array $attr, string $url, array $rawattr ): string

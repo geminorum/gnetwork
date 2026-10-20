@@ -207,7 +207,7 @@ class Commerce extends gNetwork\Module
 			'status' => [
 				'title'    => _x( 'Status', 'Modules: Commerce: Column Title', 'gnetwork-admin' ),
 				'args'     => [ 'statuses' => WordPress\Status::get() ],
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
 
@@ -221,7 +221,7 @@ class Commerce extends gNetwork\Module
 			],
 			'stock' => [
 				'title'    => _x( 'Stock', 'Modules: Commerce: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					if ( ! $product = wc_get_product( $row->ID ) )
 						return Utilities::htmlEmpty();
 
@@ -237,7 +237,7 @@ class Commerce extends gNetwork\Module
 			],
 			'title' => [
 				'title'    => _x( 'Title', 'Modules: Commerce: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return Utilities::getPostTitle( $row );
 				},
 			],

@@ -140,7 +140,7 @@ class Optimize extends gNetwork\Module
 	}
 
 	// LAST-CHECKED: 2026-07-25: `7.1-beta3-62828-src`
-	private static function getjQueryVersions()
+	private static function getjQueryVersions(): array
 	{
 		return [
 			'core'    => [ '3.7.1', '4.0.0' ],
@@ -149,14 +149,14 @@ class Optimize extends gNetwork\Module
 		];
 	}
 
-	public function wp_resource_hints( $urls, $relation_type )
+	public function wp_resource_hints( array $urls, string $relation_type ): array
 	{
 		return in_array( $relation_type, [ 'preconnect', 'dns-prefetch' ], TRUE )
 			? array_merge( $urls, [ 'href' =>'https://code.jquery.com/', 'crossorigin' ] )
 			: $urls;
 	}
 
-	public function wp_default_scripts_admin( &$scripts )
+	public function wp_default_scripts_admin( object &$scripts ): void
 	{
 		if ( empty( $scripts->registered['jquery'] ) )
 			return;
@@ -167,7 +167,7 @@ class Optimize extends gNetwork\Module
 		$scripts->registered['jquery']->deps = array_diff( $scripts->registered['jquery']->deps, [ 'jquery-migrate' ] );
 	}
 
-	public function wp_default_scripts_front( &$scripts )
+	public function wp_default_scripts_front( object &$scripts ): void
 	{
 		$variant  = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 		$disable  = ( ! defined( 'GNETWORK_DISABLE_JQUERY_MIGRATE' ) || GNETWORK_DISABLE_JQUERY_MIGRATE );
@@ -203,7 +203,7 @@ class Optimize extends gNetwork\Module
 		echo self::summaryjQuery();
 	}
 
-	public static function summaryjQuery( $caption = FALSE )
+	public static function summaryjQuery( bool $caption = FALSE ): string
 	{
 		$versions = self::getjQueryVersions();
 

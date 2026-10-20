@@ -503,7 +503,7 @@ class Cron extends gNetwork\Module
 
 			'next' => [
 				'title'    => _x( 'Next', 'Modules: CRON', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return Utilities::getDateEditRow( $index );
 				},
 			],
@@ -511,7 +511,7 @@ class Cron extends gNetwork\Module
 			'tasks' => [
 				'title'    => _x( 'Tasks', 'Modules: CRON', 'gnetwork-admin' ),
 				'args'     => [ 'schedules' => wp_get_schedules() ],
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 
 					$html = '';
 

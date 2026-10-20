@@ -277,7 +277,7 @@ class Typography extends gNetwork\Module
 
 			'date' => [
 				'title'    => _x( 'Date', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return gNetwork\Datetime::humanTimeDiffRound( $row->post_date );
 				},
 			],
@@ -285,7 +285,7 @@ class Typography extends gNetwork\Module
 			'type' => [
 				'title'    => _x( 'Type', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
 				'args'     => [ 'post_types' => WordPress\PostType::get( 2 ) ],
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
 						? $column['args']['post_types'][$row->post_type]
 						: $row->post_type;
@@ -293,21 +293,21 @@ class Typography extends gNetwork\Module
 			],
 			'slug' => [
 				'title'    => _x( 'Slug', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
-				// 'class'    => '-ltr',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				// `'class'    => '-ltr',`
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					// TODO: must warn for customized slugs
 					// TODO: title attribute for more info
 					return Core\HTML::code( urldecode( $row->post_name ) )
 						.'<br />'.Core\HTML::code( urldecode( Core\Text::formatSlug( $row->post_title ) ) );
-						// .'<br />'.Core\HTML::code( urldecode( sanitize_title( Number::translate( $row->post_title ) ) ) );
+						// `.'<br />'.Core\HTML::code( urldecode( sanitize_title( Number::translate( $row->post_title ) ) ) );`
 				},
 			],
 			'title' => [
 				'title'    => _x( 'Title', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return Utilities::getPostTitle( $row );
 				},
-				'actions' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'actions' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					$list = [];
 
 					if ( current_user_can( 'edit_post', $row->ID ) )

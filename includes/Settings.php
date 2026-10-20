@@ -1401,7 +1401,7 @@ class Settings extends Core\Base
 			case 'user':
 
 				if ( ! $args['values'] )
-					$args['values'] = WordPress\User::get( FALSE, FALSE, $args['extra'] );
+					$args['values'] = WordPress\User::list( FALSE, FALSE, $args['extra'] );
 
 				if ( ! is_null( $args['none_title'] ) ) {
 

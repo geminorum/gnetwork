@@ -136,7 +136,7 @@ class SMS extends gNetwork\Module
 			'info' => [
 				'title'    => _x( 'Whom, When', 'Modules: SMS: Data Logs Table Column', 'gnetwork-admin' ),
 				'class'    => '-column-info',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					$html = $target = '';
 
 					if ( ! empty( $row['type'] ) && 'received' == $row['type'] && ! empty( $row['from'] ) )
@@ -162,7 +162,7 @@ class SMS extends gNetwork\Module
 
 					return $html;
 				},
-				'actions' => function ( $value, $row, $column, $index, $key, $args ) {
+				'actions' => function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 
 					return [
 						'download' => Core\HTML::tag( 'a', [
@@ -181,7 +181,7 @@ class SMS extends gNetwork\Module
 			'content' => [
 				'title'    => _x( 'What', 'Modules: SMS: Data Logs Table Column', 'gnetwork-admin' ),
 				'class'    => '-column-content',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					$content   = $target = '';
 					$direction = empty( $row['rtl'] ) ? '' : ' style="direction:rtl"';
 

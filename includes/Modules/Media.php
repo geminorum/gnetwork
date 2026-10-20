@@ -40,7 +40,7 @@ class Media extends gNetwork\Module
 		}
 
 		// https://wordpress.stackexchange.com/a/425695
-		// add_filter( 'wp_image_editors', function() { return [ 'WP_Image_Editor_GD', 'WP_Image_Editor_Imagick' ]; } );
+		// `add_filter( 'wp_image_editors', function() { return [ 'WP_Image_Editor_GD', 'WP_Image_Editor_Imagick' ]; } );`
 	}
 
 	public function setup_menu( ?string $context ): void
@@ -284,7 +284,7 @@ class Media extends gNetwork\Module
 
 			'date' => [
 				'title'    => _x( 'Date', 'Modules: Media: Column Title', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return gNetwork\Datetime::humanTimeDiffRound( $row->post_date );
 				},
 			],
@@ -292,7 +292,7 @@ class Media extends gNetwork\Module
 			'type' => [
 				'title'    => _x( 'Type', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 				'args'     => [ 'post_types' => WordPress\PostType::get( 2 ) ],
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return isset( $column['args']['post_types'][$row->post_type] )
 						? $column['args']['post_types'][$row->post_type]
 						: $row->post_type;
@@ -306,12 +306,12 @@ class Media extends gNetwork\Module
 					'admin' => admin_url( 'post.php' ),
 					'ajax'  => admin_url( 'admin-ajax.php' ),
 				],
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return Utilities::getPostTitle( $row )
 						.get_the_term_list( $row->ID, 'post_tag',
 							'<div><small>', WordPress\Strings::separator(), '</small></div>' );
 				},
-				'actions' => function ( $value, $row, $column, $index, $key, $args ) {
+				'actions' => function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					$query = [
 						'post_id' => $row->ID,
 						'action'  => $this->hook(),
@@ -365,11 +365,15 @@ class Media extends gNetwork\Module
 				'title'    => _x( 'Attached Media', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 				'class'    => '-attached-media -has-list -has-list-ltr',
 				'args'     => [ 'wpupload' => wp_get_upload_dir() ],
-				'callback' => function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 
-					// TODO: check for all attachment types, use wp icons
-					// TODO: attachment title as attr
-					$attachments = $this->get_attachment_urls( $row->ID, 'image', $column['args']['wpupload'] );
+					// TODO: check for all attachment types, use WP-icons
+					// TODO: attachment title as attribute
+					$attachments = WordPress\Attachment::getURLs(
+						$row,
+						'image',
+						$column['args']['wpupload'],
+					);
 
 					if ( empty( $attachments ) )
 						return Utilities::htmlEmpty();
@@ -427,7 +431,7 @@ class Media extends gNetwork\Module
 			'content' => [
 				'title'    => _x( 'In Content', 'Modules: Media: Column Title', 'gnetwork-admin' ),
 				'class'    => '-media-in-content -has-list -has-list-ltr',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 
 					if ( ! $extracted = Core\Text::extractImageURLs( $row->post_content ) )
 						return Utilities::htmlEmpty();
@@ -467,35 +471,6 @@ class Media extends gNetwork\Module
 			'empty'      => Core\HTML::warning( _x( 'No Posts!', 'Modules: Media', 'gnetwork-admin' ) ),
 			'pagination' => $pagination,
 		] );
-	}
-
-	// TODO: move-up: maybe: `WordPress\Media::getAttachments()`
-	public function get_attachment_urls( $parent_id, $mime_type = 'image', $wpupload = NULL )
-	{
-		if ( is_null( $wpupload ) )
-			$wpupload = wp_get_upload_dir();
-
-		$list = [];
-
-		foreach ( WordPress\Attachment::list( $parent_id, $mime_type ) as $attachment ) {
-
-			if ( ! $file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) )
-				continue;
-
-			if ( Core\Text::has( $file, $wpupload['basedir'] ) )
-				$url = str_replace( $wpupload['basedir'], $wpupload['baseurl'], $file );
-
-			else
-				$url = $wpupload['baseurl']."/$file";
-
-			$list[] = [
-				'ID'   => $attachment->ID,
-				'file' => $file,
-				'url'  => apply_filters( 'wp_get_attachment_url', $url, $attachment->ID ),
-			];
-		}
-
-		return $list;
 	}
 
 	// FIXME: switch to `wp_media_attach_action` action @since WP 5.5.0
@@ -928,7 +903,7 @@ class Media extends gNetwork\Module
 		return $this->get_menu_url( 'images', NULL, 'tools', [ 'id' => $ids ] );
 	}
 
-	public function media_row_actions( $actions, $post, $detached )
+	public function media_row_actions( array $actions, object $post, bool $detached ): array
 	{
 		if ( WordPress\User::cuc( $this->options['tools_accesscap'] )
 			&& wp_attachment_is( 'image', $post->ID ) ) {
@@ -1036,8 +1011,18 @@ class Media extends gNetwork\Module
 
 	// TODO: make this optional via settings
 	// Overrides the attachment URL with short-link
-	public function image_send_to_editor( $html, $id, $caption, $title, $align, $url, $size, $alt, $rel = '' )
-	{
+	public function image_send_to_editor(
+		string $html,
+		int $id,
+		string $caption,
+		string $title,
+		string $align,
+		string $url,
+		string|array $size,
+		string $alt,
+		string $rel = '',
+	): string {
+
 		// TODO: use `[image id="'.$id.'" link="page" alignment="'.$align.'" wrap="0" /]`
 		// TODO: use `WordPress\ShortCode::build( 'image', [] )`
 		if ( strpos( $url, 'attachment_id' ) || $url == get_attachment_link( $id ) )
@@ -1047,7 +1032,7 @@ class Media extends gNetwork\Module
 		return $html;
 	}
 
-	public function media_send_to_editor( $html, $id, $data )
+	public function media_send_to_editor( string $html, int $id, array $data ): string
 	{
 		if ( ! $attachment = get_post( $id ) )
 			return $html;
@@ -1058,24 +1043,33 @@ class Media extends gNetwork\Module
 			// TODO: must use filter system
 
 			// FIXME: not working!!
-			if ( 'text/csv' == $attachment->post_mime_type )
-				return '[csv id="'.$id.'"]'
-					.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/csv]';
+			if ( 'text/csv' === $attachment->post_mime_type )
+				return sprintf( '[csv id="%s"]%s[/csv]',
+					$id,
+					WordPress\Media::htmlAttachmentShortLink( $id, $html ),
+				);
 
 			if ( 'text/markdown' === $attachment->post_mime_type )
-				return '[markdown id="'.$id.'"]'
-					.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/markdown]';
+				return sprintf( '[markdown id="%s"]%s[/markdown]',
+					$id,
+					WordPress\Media::htmlAttachmentShortLink( $id, $html ),
+				);
 
 			// WORKING BUT DISABLED: short-code not supported, yet!
-			// if ( 'application/epub+zip' == $attachment->post_mime_type )
-			// 	return '[epub id="'.$id.'"]'
-			// 		.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/epub]';
+			if ( 'application/epub+zip' === $attachment->post_mime_type )
+				return sprintf( '[epub id="%s"]%s[/epub]',
+					$id,
+					WordPress\Media::htmlAttachmentShortLink( $id, $html ),
+				);
 
-			if ( 'application/pdf' == $attachment->post_mime_type )
-				return '[pdf url="'.wp_get_attachment_url( $id ).'"]'
-					.WordPress\Media::htmlAttachmentShortLink( $id, $html ).'[/pdf]';
+			if ( 'application/pdf' === $attachment->post_mime_type )
+				return sprintf( '[pdf id="%s" url="%s"]%s[/pdf]',
+					$id,
+					wp_get_attachment_url( $id ),
+					WordPress\Media::htmlAttachmentShortLink( $id, $html ),
+				);
 
-			// bail if no link
+			// bail if no link!
 			return $html;
 		}
 

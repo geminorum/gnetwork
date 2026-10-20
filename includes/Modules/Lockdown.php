@@ -19,8 +19,8 @@ class Lockdown extends gNetwork\Module
 		if ( ! $this->options['record_attempts'] )
 			return;
 
-		// Originally based on : Simple Login Lockdown v1.1
-		// BY: chrisguitarguy http://www.pwsausa.org/
+		// Originally based on : Simple Login Lockdown 1.1
+		// BY: `chrisguitarguy` http://www.pwsausa.org/
 		// SEE: https://github.com/chrisguitarguy/simple-login-lockdown
 
 		$this->filter( 'authenticate', 1, 1 );

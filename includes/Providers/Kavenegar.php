@@ -12,6 +12,8 @@ class Kavenegar extends gNetwork\Provider
 
 	// https://kavenegar.com/rest.html
 	// @SEE: https://github.com/kavenegar/kavenegar-php
+	// @package `kavenegar/php`
+
 	// https://github.com/kavenegar/kavenegar-examples-php/
 	// @SEE: https://github.com/MahdiMajidzadeh/laravel-kavenegar
 

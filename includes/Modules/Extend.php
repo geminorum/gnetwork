@@ -65,7 +65,7 @@ class Extend extends gNetwork\Module
 		return Core\HTML::tableList( [
 			'site' => [
 				'title'    => _x( 'Site', 'Modules: Extend', 'gnetwork-admin' ),
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return '<code title="'.Core\HTML::escape( $row['blogname'] ).'">'.
 						Core\URL::untrail( $row['_site']->domain.$row['_site']->path ).
 					'</code>';
@@ -78,7 +78,7 @@ class Extend extends gNetwork\Module
 			'plugins' => [
 				'title'    => _x( 'Plugins', 'Modules: Extend', 'gnetwork-admin' ),
 				'class'    => '-extend-plugins -has-list -has-list-ltr',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					$list = [];
 
 					foreach ( (array) $value as $path ) {
@@ -93,7 +93,7 @@ class Extend extends gNetwork\Module
 			'editorial' => [
 				'title'    => _x( 'Editorial', 'Modules: Extend', 'gnetwork-admin' ),
 				'class'    => '-extend-editorial -has-list -has-list-ltr',
-				'callback' => static function ( $value, $row, $column, $index, $key, $args ) {
+				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					return empty( $value )
 						? Utilities::htmlEmpty()
 						: Core\HTML::rows( array_map( [ gNetwork\Core\HTML::class, 'code' ], $value ) );

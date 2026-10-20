@@ -61,7 +61,7 @@ class Mimes extends gNetwork\Module
 		}
 	}
 
-	public function media_row_actions( $actions, $post, $detached )
+	public function media_row_actions( array $actions, object $post, bool $detached ): array
 	{
 		$url  = wp_get_attachment_url( $post->ID );
 		$link = Core\HTML::tag( 'a', [
@@ -81,9 +81,9 @@ class Mimes extends gNetwork\Module
 		return $actions;
 	}
 
-	private function _get_media_type_label( $post_id, $mimetype = NULL )
+	private function _get_media_type_label( int $post_id, ?string $mimetype = NULL ): string
 	{
-		$mimetype = $mimetype ?? get_post_mime_type( $post_id );
+		$mimetype ??= get_post_mime_type( $post_id );
 
 		switch ( $mimetype ) {
 
@@ -163,13 +163,13 @@ class Mimes extends gNetwork\Module
 		);
 	}
 
-	public static function allowedMimeTypes()
+	public static function allowedMimeTypes(): void
 	{
 		Core\HTML::tableSide( get_allowed_mime_types() );
 	}
 
 	// @REF: https://core.trac.wordpress.org/ticket/38195
-	public function post_mime_types( $post_mime_types )
+	public function post_mime_types( array $post_mime_types ): array
 	{
 		return array_merge( $post_mime_types, [
 			'text' => [
@@ -230,7 +230,7 @@ class Mimes extends gNetwork\Module
 	 * @param string[] $mimes
 	 * @return array
 	 */
-	public function mime_types( $mimes )
+	public function mime_types( array $mimes ): array
 	{
 		// Reduce the array to only the first mime-type
 		// and merge the additional with the existing mimes.
@@ -248,7 +248,7 @@ class Mimes extends gNetwork\Module
 	 * @param mixed $user
 	 * @return array
 	 */
-	public function upload_mimes( $mimes, $user )
+	public function upload_mimes( array $mimes, mixed $user ): array
 	{
 		$unfiltered = FALSE;
 
@@ -260,7 +260,7 @@ class Mimes extends gNetwork\Module
 		if ( $unfiltered )
 			return $mimes;
 
-		// unset( $mimes['md|markdown'] );
+		// `unset( $mimes['md|markdown'] );`
 		unset( $mimes['mht|mhtml'] );
 
 		return $mimes;
@@ -272,7 +272,7 @@ class Mimes extends gNetwork\Module
 	 * @param string $option_value Space separated list of allowed file-types (extensions).
 	 * @return string
 	 */
-	public function site_option_upload_filetypes( $option_value )
+	public function site_option_upload_filetypes( string $option_value ): string
 	{
 		return implode( ' ', Core\Arraay::prepString(
 			explode( ' ', $option_value ?: '' ),
