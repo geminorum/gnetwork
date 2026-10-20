@@ -70,6 +70,23 @@ class Extend extends gNetwork\Module
 						Core\URL::untrail( $row['_site']->domain.$row['_site']->path ).
 					'</code>';
 				},
+				'actions' => function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
+					$url = WordPress\Site::url( $row['_site']->blog_id );
+					return [
+
+						'dashboard' => Core\HTML::tag( 'a', [
+							'href'   => Core\URL::untrail( $url ).'/wp-admin/',
+							'class'  => '-link -row-link -row-link-edit',
+							'target' => '_blank',
+						], _x( 'Dashboard', 'Modules: Extend: Row Action', 'gnetwork-admin' ) ),
+
+						'visit' => Core\HTML::tag( 'a', [
+							'href'   => $url,
+							'class'  => '-link -row-link -row-link-edit',
+							'target' => '_blank',
+						], _x( 'Visit', 'Modules: Extend: Row Action', 'gnetwork-admin' ) ),
+					];
+				},
 			],
 
 			'stylesheet' => [ 'title' => _x( 'Theme', 'Modules: Extend', 'gnetwork-admin' ) ],
