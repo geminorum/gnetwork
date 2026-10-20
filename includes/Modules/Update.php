@@ -742,9 +742,26 @@ class Update extends gNetwork\Module
 
 	private function get_package_version( $package, $local = NULL )
 	{
-		if ( in_array( $package['type'], [ 'github_plugin', 'gitlab_plugin' ], TRUE ) ) {
+		$version = '0.0.0';
 
-			$local = $local ?? get_plugin_data( WP_PLUGIN_DIR.'/'.$package['path'] );
+		if ( in_array( $package['type'], [
+			'github_plugin',
+			'gitlab_plugin',
+		], TRUE ) ) {
+
+			if ( is_null( $local ) ) {
+
+				$path = sprintf( '%s%s%s',
+					WP_PLUGIN_DIR,
+					DIRECTORY_SEPARATOR,
+					$package['path'],
+				);
+
+				if ( ! Core\File::readable( $path ) )
+					return $version;
+
+				$local = get_plugin_data( $path );
+			}
 
 			if ( isset( $local['Version'] ) )
 				return $local['Version'];
@@ -757,7 +774,7 @@ class Update extends gNetwork\Module
 				return $local->get( 'Version' );
 		}
 
-		return '0.0.0';
+		return $version;
 	}
 
 	// https://api.wordpress.org/plugins/info/1.0/{slug}.json
