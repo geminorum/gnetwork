@@ -204,18 +204,18 @@ class AdminBar extends gNetwork\Module
 		return $out;
 	}
 
-	public static function removeMenus( $nodes )
+	#[\Deprecated('USE `gNetwork()->remove_menus()`')]
+	public static function removeMenus( string|array $nodes ): bool
 	{
-		foreach ( (array) $nodes as $node )
-			gNetwork()->adminbar->remove_nodes[] = $node;
+		return gNetwork()->remove_menus( $nodes );
 	}
 
 	// NOTE: do not use this for adding nodes!
-	public function wp_before_admin_bar_render()
+	public function wp_before_admin_bar_render(): void
 	{
 		global $wp_admin_bar;
 
-		foreach ( $this->remove_nodes as $node )
+		foreach ( Core\Arraay::prepString( $this->remove_nodes ) as $node )
 			$wp_admin_bar->remove_node( $node );
 	}
 

@@ -385,6 +385,17 @@ class Plugin extends WordPress\Plugin
 		return '';
 	}
 
+	public function remove_menus( string|array $nodes ): bool
+	{
+		if ( ! $this->module( 'adminbar' ) )
+			return FALSE;
+
+		foreach ( (array) $nodes as $node )
+			$this->adminbar->remove_nodes[] = $node;
+
+		return TRUE;
+	}
+
 	public function na( false|string $wrap = 'code' ): string
 	{
 		return $wrap

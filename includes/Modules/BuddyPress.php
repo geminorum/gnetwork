@@ -335,7 +335,7 @@ class BuddyPress extends gNetwork\Module
 
 	public function bp_setup_admin_bar()
 	{
-		AdminBar::removeMenus( [
+		gNetwork()->remove_menus( [
 			'bp-about',
 			'bp-register',
 			'bp-login',

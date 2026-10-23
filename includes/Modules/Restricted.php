@@ -267,7 +267,7 @@ class Restricted extends gNetwork\Module
 
 			// do nothing
 
-			AdminBar::removeMenus( [
+			gNetwork()->remove_menus( [
 				'site-name',
 				'my-sites',
 				'blog-'.get_current_blog_id(),
