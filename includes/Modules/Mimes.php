@@ -74,7 +74,10 @@ class Mimes extends gNetwork\Module
 			],
 		], $this->_get_media_type_label( $post->ID ) );
 
-		$link.= '<div class="media-url-box hidden"><input type="text" class="widefat media-url-field" value="'.esc_url( $url ).'" readonly></div>';
+		// NOTE: Must be a `div` block!
+		$link.= '<div class="media-url-box hidden">';
+			$link.= '<input type="text" class="media-url-field widefat urlfield code" value="'.esc_url( $url ).'" readonly>';
+		$link.= '</div>';
 
 		$actions['media-url'] = $link;
 

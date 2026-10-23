@@ -10,14 +10,13 @@ class Plugin extends WordPress\Plugin
 	protected function early_constants(): array
 	{
 		return [
-			// 'GNETWORK_TEXTDOMAIN'   => $this->base,
-			'GNETWORK_MAIN_NETWORK' => get_main_network_id(), // set FALSE to disable multi-network enhancements
+			'GNETWORK_MAIN_NETWORK' => get_main_network_id(),   // set FALSE to disable multi-network enhancements
 
-			// 'GNETWORK_WPLANG'       => 'en_US', // define if necessary
-			// 'GNETWORK_WPLANG_ADMIN' => FALSE, // define if necessary
+			// `'GNETWORK_WPLANG'              => 'en_US',           // define if necessary`
+			// `'GNETWORK_WPLANG_ADMIN'        => FALSE,             // define if necessary`
+			// `'GNETWORK_TRACKING_GA_ACCOUNT' => 'UA-XXXXXXXX-X',   // define if necessary`
 
-			// 'GNETWORK_TRACKING_GA_ACCOUNT'      => 'UA-XXXXXXXX-X', // define if necessary
-			// 'GNETWORK_BLACKLIST_REMOTE_CONTENT' => 'https://gist.githubusercontent.com/{user}/{gist_id}/raw', // define if necessary
+			// `'GNETWORK_BLACKLIST_REMOTE_CONTENT' => 'https://gist.githubusercontent.com/{user}/{gist_id}/raw', // define if necessary`
 
 			'GNETWORK_SEARCH_URL'            => home_url( '/' ),
 			'GNETWORK_SEARCH_REDIRECT'       => FALSE,                      // Set `TRUE` to redirect all searches to the network search URL
@@ -55,8 +54,8 @@ class Plugin extends WordPress\Plugin
 			'GNETWORK_DEBUG_LOG'    => WP_DEBUG_LOG && TRUE !== WP_DEBUG_LOG ? WP_DEBUG_LOG : WP_CONTENT_DIR.'/debug.log', // `FALSE` to disable
 
 			'GNETWORK_SYSTEM_LOG'   => WP_CONTENT_DIR.'/system.log',     // `FALSE` to disable
-			'GNETWORK_MONOLOG_LOG'  => FALSE, // WP_CONTENT_DIR.'/monolog.log',    // `FALSE` to disable
-			'GNETWORK_ANALOG_LOG'   => FALSE, // WP_CONTENT_DIR.'/analog.log',     // `FALSE` to disable
+			'GNETWORK_MONOLOG_LOG'  => FALSE, // `WP_CONTENT_DIR.'/monolog.log',` // `FALSE` to disable
+			'GNETWORK_ANALOG_LOG'   => FALSE, // `WP_CONTENT_DIR.'/analog.log',` // `FALSE` to disable
 			'GNETWORK_FAILED_LOG'   => WP_CONTENT_DIR.'/failed.log',     // `FALSE` to disable
 			'GNETWORK_SEARCH_LOG'   => WP_CONTENT_DIR.'/search.log',     // `FALSE` to disable
 			'GNETWORK_NOTFOUND_LOG' => WP_CONTENT_DIR.'/notfound.log',   // `FALSE` to disable
@@ -98,7 +97,7 @@ class Plugin extends WordPress\Plugin
 
 			// reset some stuff
 			'WP_STAGE'       => 'production',
-			// 'NOBLOGREDIRECT' => '%siteurl%', // @SEE: https://core.trac.wordpress.org/ticket/21573
+			// `'NOBLOGREDIRECT' => '%siteurl%',` // @SEE: https://core.trac.wordpress.org/ticket/21573
 			'SAVEQUERIES'    => FALSE,
 			'ERRORLOGFILE'   => WP_CONTENT_DIR.'/dberror.log',
 
@@ -288,7 +287,7 @@ class Plugin extends WordPress\Plugin
 		return $languages;
 	}
 
-	public function module( $module, $object = FALSE )
+	public function module( string $module, bool $object = FALSE ): bool|object
 	{
 		if ( ! isset( $this->{$module} ) )
 			return FALSE;
@@ -299,7 +298,7 @@ class Plugin extends WordPress\Plugin
 		return $this->{$module};
 	}
 
-	public function option( $key, $module = 'network', $default = FALSE )
+	public function option( string $key, string $module = 'network', mixed $default = FALSE ): mixed
 	{
 		if ( isset( $this->{$module}->options[$key] ) )
 			return $this->{$module}->options[$key];
@@ -307,7 +306,7 @@ class Plugin extends WordPress\Plugin
 		return $default;
 	}
 
-	public function providers( $type = 'sms', $pre = [] )
+	public function providers( string $type = 'sms', array $pre = [] ): array
 	{
 		if ( isset( $this->{$type} ) && $this->{$type}->options['load_providers'] )
 			foreach ( $this->{$type}->providers as $name => &$provider )
@@ -405,8 +404,12 @@ class Plugin extends WordPress\Plugin
 
 	public static function nojs( false|string $wrap = 'p' ): string
 	{
-		// $message = __( 'This requires JavaScript.', 'gnetwork' );
 		$message = __( 'You have to enable JavaScript!', 'gnetwork' );
-		return $wrap ? Core\HTML::tag( $wrap, [ 'class' => [ 'description', '-description', '-empty', '-nojs-available' ] ], $message ) : $message;
+		return $wrap ? Core\HTML::tag( $wrap, [ 'class' => [
+			'description',
+			'-description',
+			'-empty',
+			'-nojs-available',
+		] ], $message ) : $message;
 	}
 }

@@ -238,7 +238,7 @@ class Commerce extends gNetwork\Module
 			'title' => [
 				'title'    => _x( 'Title', 'Modules: Commerce: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
-					return Utilities::getPostTitle( $row );
+					return WordPress\Post::title( $row );
 				},
 			],
 		], $posts, [
@@ -670,6 +670,6 @@ class Commerce extends gNetwork\Module
 	// @REF: https://www.cssigniter.com/upgrade-your-woocommerce-no-products-found-page/
 	public function woocommerce_no_products_found()
 	{
-		echo Utilities::prepDescription( $this->options['no_products_found'] );
+		echo WordPress\Strings::prepDescription( $this->options['no_products_found'] );
 	}
 }

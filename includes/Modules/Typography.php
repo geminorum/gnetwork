@@ -305,7 +305,7 @@ class Typography extends gNetwork\Module
 			'title' => [
 				'title'    => _x( 'Title', 'Modules: Typography: Column Title', 'gnetwork-admin' ),
 				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
-					return Utilities::getPostTitle( $row );
+					return WordPress\Post::title( $row );
 				},
 				'actions' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
 					$list = [];

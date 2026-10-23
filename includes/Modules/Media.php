@@ -307,7 +307,7 @@ class Media extends gNetwork\Module
 					'ajax'  => admin_url( 'admin-ajax.php' ),
 				],
 				'callback' => static function ( mixed $value, mixed $row, string|array $column, int|string $index, int|string $key, array $args ) {
-					return Utilities::getPostTitle( $row )
+					return WordPress\Post::title( $row )
 						.get_the_term_list( $row->ID, 'post_tag',
 							'<div><small>', WordPress\Strings::separator(), '</small></div>' );
 				},

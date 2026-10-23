@@ -59,7 +59,7 @@ class ShortCodes extends gNetwork\Module
 
 			$this->filter( [
 				// no need for editorial
-				'gnetwork_prep_contact',
+				'nucleus_strings_prep_contact',
 				'gtheme_prep_contact',
 			], 3, 12 );
 
@@ -235,7 +235,7 @@ class ShortCodes extends gNetwork\Module
 		return array_merge( $strings, $new );
 	}
 
-	public function gnetwork_prep_contact( $prepared, $value, $title = NULL )
+	public function nucleus_strings_prep_contact( string $prepared, string $value, ?string $title = NULL ): string
 	{
 		if ( is_email( $value ) )
 			return $this->shortcode_email( [
@@ -637,7 +637,7 @@ class ShortCodes extends gNetwork\Module
 		if ( empty( $post->post_title ) )
 			return $content;
 
-		$html = Utilities::prepTitle( $post->post_title, $post->ID );
+		$html = WordPress\Strings::prepTitle( $post->post_title, $post->ID );
 
 		if ( TRUE === $args['link'] )
 			$html = Core\Link::get( $html, apply_filters( 'the_permalink', get_permalink( $post ), $post ) );
@@ -686,7 +686,7 @@ class ShortCodes extends gNetwork\Module
 			$text = Core\Text::wordWrap( $content );
 
 		else if ( ! empty( $post->post_title ) )
-			$text = Utilities::prepTitle( $post->post_title, $post->ID );
+			$text = WordPress\Strings::prepTitle( $post->post_title, $post->ID );
 
 		else
 			return $content;
@@ -1584,7 +1584,7 @@ class ShortCodes extends gNetwork\Module
 		$key = $ref = $title = $url = FALSE;
 
 		if ( $content ) {
-			$content = Utilities::kses( $content, 'text' );
+			$content = WordPress\Strings::kses( $content, 'custom-listitem' );
 			$content = apply_filters( 'html_format_i18n', $content );
 			$title   = Core\Text::trim( strip_tags( $content ) );
 			$ref     = Core\Text::wordWrap( trim( $content ) );

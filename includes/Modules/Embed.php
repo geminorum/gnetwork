@@ -398,7 +398,9 @@ class Embed extends gNetwork\Module
 					'height'          => $height,
 					'style'           => 'border:none',
 					'allowfullscreen' => 'true',
-					'data'            => [ 'source' => $link ],
+					'data'            => [
+						'source' => $link,
+					],
 				], NULL );
 
 				$date = gNetwork\Datetime::dateFormat( $item->get_date( 'U' ) );
@@ -406,10 +408,16 @@ class Embed extends gNetwork\Module
 				$desc = Core\Coding::entityDecode( $item->get_description() );
 				$desc = wp_trim_words( $desc,
 					apply_filters( 'excerpt_length', 55 ),
-					apply_filters( 'excerpt_more', ' &hellip;' )
+					apply_filters( 'excerpt_more', ' &hellip;' ),
 				);
 
-				$html.= sprintf( $layout, $video, $link, Utilities::prepTitle( $title ), $date, Utilities::prepDescription( $desc ) );
+				$html.= sprintf( $layout,
+					$video,
+					$link,
+					WordPress\Strings::prepTitle( $title ),
+					$date,
+					WordPress\Strings::prepDescription( $desc ),
+				);
 			}
 
 			$rss->__destruct();

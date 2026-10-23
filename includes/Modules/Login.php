@@ -808,7 +808,7 @@ class Login extends gNetwork\Module
 
 	public function lost_password_html_link( $html_link )
 	{
-		return Utilities::prepDescription( $this->options['reset_message'], TRUE, FALSE );
+		return WordPress\Strings::prepDescription( $this->options['reset_message'], TRUE, FALSE );
 	}
 
 	public static function getLoginStyleLink( $style = NULL, $text = FALSE )

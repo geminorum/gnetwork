@@ -220,7 +220,7 @@ class AdminBar extends gNetwork\Module
 	}
 
 	// NOTE: `flushsubmenu` is for super admins only and hides on mobile!
-	public function add_extra_nodes_publishers( &$wp_admin_bar )
+	public function add_extra_nodes_publishers( object &$wp_admin_bar ): void
 	{
 		if ( ! current_user_can( 'publish_posts' ) )
 			return;

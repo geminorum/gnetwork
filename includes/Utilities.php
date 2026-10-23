@@ -36,10 +36,10 @@ class Utilities extends Core\Base
 		return $filter ? apply_filters( self::BASE.'_get_feeds', $feeds ) : $feeds;
 	}
 
-	public static function highlightTime( $string, $limit = NULL )
+	public static function highlightTime( ?string $string, ?int $limit = NULL ): string
 	{
 		if ( empty( $string ) )
-			return $string;
+			return '';
 
 		return preg_replace_callback( '/\[([^\]]+)\]/',
 			static function ( $matches ) {
@@ -50,10 +50,10 @@ class Utilities extends Core\Base
 			}, $string, $limit ?? -1 );
 	}
 
-	public static function highlightIP( $string, $limit = NULL )
+	public static function highlightIP( ?string $string, ?int $limit = NULL ): string
 	{
 		if ( empty( $string ) )
-			return $string;
+			return '';
 
 		// @REF: http://regexr.com/35833
 		$pattern = "/((((25[0-5])|(2[0-4]\d)|([01]?\d?\d)))\.){3}((((25[0-5])|(2[0-4]\d)|([01]?\d?\d))))/i";
@@ -64,7 +64,7 @@ class Utilities extends Core\Base
 			}, $string, $limit ?? -1 );
 	}
 
-	public static function getDateEditRow( $timestamp, $class = FALSE )
+	public static function getDateEditRow( mixed $timestamp, string|array $class = '' ): string
 	{
 		if ( ! $timestamp = Core\Date::timestamp( $timestamp ) )
 			return self::htmlEmpty();
@@ -81,7 +81,7 @@ class Utilities extends Core\Base
 		return $class ? '<span class="'.Core\HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
 	}
 
-	public static function getModifiedEditRow( $post, $class = FALSE )
+	public static function getModifiedEditRow( object $post, string|array $class = '' ): string
 	{
 		if ( empty( $post->post_modified ) )
 			return self::htmlEmpty();
@@ -100,92 +100,34 @@ class Utilities extends Core\Base
 		return $class ? '<span class="'.Core\HTML::prepClass( $class ).'">'.$html.'</span>' : $html;
 	}
 
-	public static function getPostTitle( $post, $fallback = NULL )
+	#[\Deprecated('USE `WordPress\Post::title()`')]
+	public static function getPostTitle( object $post, null|false|string $fallback = NULL ): string
 	{
-		$title = apply_filters( 'the_title', $post->post_title, $post->ID );
-
-		if ( ! empty( $title ) )
-			return $title;
-
-		if ( FALSE === $fallback )
-			return '';
-
-		if ( is_null( $fallback ) )
-			return _x( '(untitled)', 'Utilities: Post Title', 'gnetwork' );
-
-		return $fallback;
+		return WordPress\Post::title( $post, $fallback );
 	}
 
-	public static function kses( $text, $context = 'none', $allowed = NULL )
+	#[\Deprecated('USE `WordPress\Strings::kses()`')]
+	public static function kses( ?string $text, ?string $context = 'none', ?array $allowed = NULL ): ?string
 	{
-		if ( is_null( $allowed ) ) {
-
-			if ( 'text' == $context )
-				$allowed = [
-					'a'       => [ 'class' => TRUE, 'title' => TRUE, 'href' => TRUE ],
-					'abbr'    => [ 'class' => TRUE, 'title' => TRUE ],
-					'acronym' => [ 'class' => TRUE, 'title' => TRUE ],
-					'code'    => [ 'class' => TRUE ],
-					'em'      => [ 'class' => TRUE ],
-					'strong'  => [ 'class' => TRUE ],
-					'i'       => [ 'class' => TRUE ],
-					'b'       => [ 'class' => TRUE ],
-					'span'    => [ 'class' => TRUE ],
-					'br'      => [],
-				];
-
-			else if ( 'html' == $context )
-				$allowed = wp_kses_allowed_html();
-
-			else if ( 'none' == $context )
-				$allowed = [];
-		}
-
-		return apply_filters( static::BASE.'_kses', wp_kses( $text, $allowed ), $allowed, $context );
+		return WordPress\Strings::kses( $text, $context, $allowed );
 	}
 
-	public static function prepTitle( $text, $post_id = 0 )
+	#[\Deprecated('USE `WordPress\Strings::prepTitle()`')]
+	public static function prepTitle( ?string $text, ?int $post_id = 0 ): string
 	{
-		if ( ! $text )
-			return '';
-
-		$text = apply_filters( 'the_title', $text, $post_id );
-		$text = apply_filters( 'string_format_i18n', $text );
-		$text = apply_filters( 'gnetwork_typography', $text );
-
-		return trim( $text );
+		return WordPress\Strings::prepTitle( $text, $post_id );
 	}
 
-	public static function prepDescription( $text, $shortcode = TRUE, $autop = TRUE )
+	#[\Deprecated('USE `WordPress\Strings::prepDescription()`')]
+	public static function prepDescription( string $text, bool $shortcode = TRUE, bool $autop = TRUE ): string
 	{
-		if ( ! $text )
-			return '';
-
-		if ( $shortcode )
-			$text = apply_shortcodes( $text, TRUE );
-
-		$text = apply_filters( 'geditorial_markdown_to_html', $text, $autop );
-		$text = apply_filters( 'html_format_i18n', $text );
-		$text = apply_filters( 'gnetwork_typography', $text );
-
-		return $autop ? wpautop( $text ) : $text;
+		return WordPress\Strings::prepDescription( $text, $shortcode, $autop );
 	}
 
-	public static function prepContact( $value, $title = NULL )
+	#[\Deprecated('USE `WordPress\Strings::prepContact()`')]
+	public static function prepContact( string $value, ?string $title = NULL ): string
 	{
-		if ( Core\Email::is( $value ) )
-			$prepared = Core\Link::mailto( $value, FALSE, $title );
-
-		else if ( Core\URL::isValid( $value ) )
-			$prepared = Core\Link::get( $title, Core\URL::untrail( $value ) );
-
-		else if ( is_numeric( str_ireplace( [ '+', '-', '.' ], '', $value ) ) )
-			$prepared = Core\Link::tel( $value, FALSE, $title );
-
-		else
-			$prepared = Core\HTML::escape( $value );
-
-		return apply_filters( static::BASE.'_prep_contact', $prepared, $value, $title );
+		return WordPress\Strings::prepContact( $value, $title );
 	}
 
 	public static function htmlEmpty( $class = '', $title_attr = NULL )
@@ -195,7 +137,7 @@ class Utilities extends Core\Base
 			: sprintf( '<span title="%s" class="'.Core\HTML::prepClass( '-empty', $class ).'">&mdash;</span>', $title_attr );
 	}
 
-	public static function htmlCount( $count, $title = NULL, $empty = NULL )
+	public static function htmlCount( int|array $count, ?string $title = NULL, ?string $empty = NULL ): string
 	{
 		if ( is_array( $count ) )
 			$count = count( $count );
@@ -205,7 +147,7 @@ class Utilities extends Core\Base
 			: $empty ?? self::htmlEmpty( 'column-count-empty', $title ?? _x( 'No Count', 'Helper: Title Attribute', 'gnetwork' ) );
 	}
 
-	public static function htmlOrder( $order, $title = NULL )
+	public static function htmlOrder( int $order, ?string $title = NULL ): string
 	{
 		return $order
 			? Core\Number::localize( $order )
