@@ -269,7 +269,7 @@ $spacer: 1rem !default;
     }
 
     code {
-      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     table caption {
@@ -298,7 +298,7 @@ $spacer: 1rem !default;
         font-size: 12px;
         height: 26px;
         line-height: 24px;
-        margin: 0 2px 0 0;
+        margin: 0 2px 2px 0;
       }
     }
 

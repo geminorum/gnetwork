@@ -29,6 +29,10 @@
       margin-left: 0;
     }
 
+    code {
+      font-size: smaller;
+    }
+
     // NOTE: better not to have space between icon and text
     .dashicons {
       vertical-align: middle;
@@ -78,6 +82,10 @@
         margin: 0;
       }
     }
+  }
+
+  span.subtitle + .page-title-action { // wp core class
+    margin-left: $spacer * .25 !important;
   }
 }
 

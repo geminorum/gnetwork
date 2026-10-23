@@ -18,11 +18,12 @@ body.options-permalink-php .form-table .sptp-fieldset, // Simple Post Type Perma
 #bp-groups-permalink-box,
 #poststuff input#post_name,
 div#wp-cron-pixie.postbox div.inside, // WP Cron Pixie
-// #qm, /* Query Monitor */
+// #qm, // Query Monitor
 .user-mobile-wrap input#mobile,
 .user-twitter-wrap input#twitter,
 .user-telegram-wrap input#telegram,
 .user-facebook-wrap input#facebook,
+.user-instagram-wrap input#instagram,
 #nav-menu-header input#menu-name,
 .inline-edit-col input[name="slug"],
 input[type="password"],
@@ -89,7 +90,7 @@ input#user_login {
 }
 
 .drag-drop-inside p.drag-drop-info,
-.wrap .subtitle,
+// .wrap .subtitle,
 #dashboard-widgets h4,
 #dashboard-widgets h3,
 #dashboard_quick_press .drafts h2,
@@ -107,7 +108,7 @@ input#user_login {
 
 #qni-introduction,
 .col-wrap h2,
-.wrap .subtitle,
+// .wrap .subtitle,
 #dashboard-widgets h4,
 #dashboard-widgets h3,
 #dashboard_quick_press .drafts h2,
@@ -426,10 +427,12 @@ body.edit-php {
   // FIXME: make a mixin!
   &::before {
     content: "\200f";
+    width: 0;
   }
 
   &::after {
     content: "\200e";
+    width: 0;
   }
 }
 
@@ -439,10 +442,12 @@ body.edit-php {
   // FIXME: make a mixin!
   &::before {
     content: "\200e";
+    width: 0;
   }
 
   &::after {
     content: "\200f";
+    width: 0;
   }
 }
 

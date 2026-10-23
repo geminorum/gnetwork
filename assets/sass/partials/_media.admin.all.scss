@@ -5,7 +5,8 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-table.media {
+
+table.wp-list-table.media {
   a.media-url-attachment {
     outline: 0 none;
   }
@@ -15,9 +16,10 @@ table.media {
   }
 
   input.media-url-field {
-
-    /*rtl:ignore*/
-    direction: ltr;
+    height: 32px;
+    min-height: unset;
+    padding-inline-start: $spacer * .5;
+    margin: 0;
 
     &:focus {
       box-shadow: none;

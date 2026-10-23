@@ -110,6 +110,23 @@ $spacer: 1rem !default;
         display: inline-block;
       }
     }
+
+    #screen-options-link-wrap {
+      #show-settings-link {
+        font-size: 0;
+        padding: 0 6px 0 6px;
+
+        &::before {
+          content: "\f180";
+          /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+          font: 400 20px / 1.5 dashicons;
+          display: inline-block;
+          padding: 5px 0 0 5px;
+          vertical-align: top;
+          -webkit-font-smoothing: antialiased;
+        }
+      }
+    }
   }
 }
 

@@ -80,6 +80,29 @@
     width: 100%;
     max-width: unset;
   }
+
+  .quicktags-toolbar {
+    min-height: 30px;
+    position: relative;
+
+    input.button.button-small {
+      font-size: 12px;
+      height: 26px;
+      line-height: 24px;
+      margin: 0 2px 2px 0;
+    }
+  }
+
+  .quicktags-rtl {
+
+    /*rtl:ignore*/
+    direction: rtl;
+  }
+
+  .CodeMirror-wrap {
+    border: 1px solid #949494;
+    height: 115px;
+  }
 }
 
 .wp-list-table .inline-edit-col .input-text-wrap .-description.-empty,

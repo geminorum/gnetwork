@@ -72,6 +72,21 @@ h6 {
 //   // line-height: initial;
 // }
 
+.rtl .media-modal,
+.rtl .media-frame,
+.rtl .media-frame .search,
+.rtl .media-frame input[type="text"],
+.rtl .media-frame input[type="password"],
+.rtl .media-frame input[type="number"],
+.rtl .media-frame input[type="search"],
+.rtl .media-frame input[type="email"],
+.rtl .media-frame input[type="url"],
+.rtl .media-frame input[type="tel"],
+.rtl .media-frame textarea,
+.rtl .media-frame select {
+  font-family: $font-family-regular;
+}
+
 .tablenav-pages input.current-page,
 .tablenav .tablenav-pages .button,
 .tablenav .tablenav-pages .tablenav-pages-navspan {

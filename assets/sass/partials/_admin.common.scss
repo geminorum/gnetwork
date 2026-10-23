@@ -84,17 +84,6 @@ body.hide-admin-menu {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-/// WORDPRESS EDIT TAGS --------------------------------------------------------
-
-// body.edit-tags-php {
-//   .form-wrap.edit-term-notes {
-//     display: none;
-//   }
-// }
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 /// WORDPRESS POST PAGE --------------------------------------------------------
 
 ul.categorychecklist {
@@ -120,6 +109,19 @@ ul.categorychecklist {
 
   .misc-pub-section {
     > a.hide-if-no-js {
+      font-size: smaller;
+    }
+
+    // &.misc-pub-download,
+    &.misc-pub-filename,
+    &.misc-pub-filetype,
+    &.misc-pub-filesize,
+    &.misc-pub-dimensions,
+    // &.misc-pub-audio,
+    &.misc-pub-codec,
+    &.misc-pub-mime-meta,
+    // &.misc-pub-length_formatted,
+    &.misc-pub-attachment {
       font-size: smaller;
     }
   }
