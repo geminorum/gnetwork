@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || die( header( 'HTTP/1.0 403 Forbidden' ) );
 class HTML extends Base
 {
 
-	#[\Deprecated('USE `Core\L10n::rtl()`')]
+	#[\Deprecated( 'USE `Core\L10n::rtl()`' )]
 	public static function rtl(): bool
 	{
 		return L10n::rtl();
@@ -16,7 +16,7 @@ class HTML extends Base
 		return L10n::rtl() ? 'rtl' : 'ltr';
 	}
 
-	#[\Deprecated('USE `Core\Link::get()`')]
+	#[\Deprecated( 'USE `Core\Link::get()`' )]
 	public static function link(
 		?string $html = NULL,
 		string $link = '#',
@@ -592,7 +592,7 @@ class HTML extends Base
 			: '';
 	}
 
-	#[\Deprecated('USE `Core\HTML::escape()`')]
+	#[\Deprecated( 'USE `Core\HTML::escape()`' )]
 	public static function escapeAttr( ?string $data ): string
 	{
 		return self::escape( $data );
@@ -640,7 +640,7 @@ class HTML extends Base
 		return preg_replace( '/[^a-zA-Z0-9_:]/', '', $data );
 	}
 
-	#[\Deprecated('USE `Core\HTML::parseAtts()`')]
+	#[\Deprecated( 'USE `Core\HTML::parseAtts()`' )]
 	public static function getAtts( string $string, array $expecting = [] ): array
 	{
 		return self::parseAtts( $string, $expecting );
@@ -674,7 +674,7 @@ class HTML extends Base
 		if ( ! $array )
 			return '';
 
-		$row  = $row ?? '<code title="%2$s">%1$s</code>';
+		$row  ??= '<code title="%2$s">%1$s</code>';
 		$html = '<ul class="base-list-code">';
 
 		if ( FALSE !== $first )
@@ -1723,13 +1723,13 @@ class HTML extends Base
 
 	// @REF: https://developer.wordpress.org/resource/dashicons/
 	public static function getDashicon(
-		?string $icon = NULL,
-		string $title = '',
+		?string      $icon  = NULL,
+		string       $title = '',
 		string|array $class = '',
-		array $atts = [],
+		array        $atts  = [],
 	): string {
 
-		$icon = $icon ?? 'wordpress-alt';
+		$icon ??= 'wordpress-alt';
 
 		if ( ! Text::starts( $icon, 'dashicons-' ) )
 			$icon = self::dsh( 'dashicons', $icon );
@@ -1996,7 +1996,7 @@ class HTML extends Base
 		return self::wrap( $html, '-multiselect-wrap'.( $args['panel'] ? ' wp-tab-panel' : '' ) );
 	}
 
-	#[\Deprecated('USE `Core\HTML::rows()`')]
+	#[\Deprecated( 'USE `Core\HTML::rows()`' )]
 	public static function renderList( array $items, bool $keys = FALSE, string $list = 'ul' ): string
 	{
 		return $items ? self::tag( $list, '<li>'.implode( '</li><li>', $keys ? array_keys( $items ) : array_filter( $items ) ).'</li>' ) : '';

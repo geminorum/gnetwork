@@ -492,7 +492,7 @@ class Base
 	}
 
 	// @REF: `shortcode_atts()`
-	#[\Deprecated('USE `Core\Base::parsed()`')]
+	#[\Deprecated( 'USE `Core\Base::parsed()`' )]
 	public static function atts( array $pairs, array $atts ): array
 	{
 		$out = [];
@@ -663,7 +663,7 @@ class Base
 		} );
 	}
 
-	#[\Deprecated('USE `Core\Base::bool()`')]
+	#[\Deprecated( 'USE `Core\Base::bool()`' )]
 	public static function validateBoolean( mixed $var ): bool
 	{
 		return self::bool( $var );

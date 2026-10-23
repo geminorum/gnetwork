@@ -339,19 +339,19 @@ class PostType extends Core\Base
 		return $wpdb->get_var( $query ) ?: $fallback;
 	}
 
-	#[\Deprecated('USE `WordPress\PostMeta::getID()`')]
+	#[\Deprecated( 'USE `WordPress\PostMeta::getID()`' )]
 	public static function getIDbyMeta( string $key, mixed $value, bool $single = TRUE ): false|int|array
 	{
 		return PostMeta::getID( $key, $value, $single );
 	}
 
-	#[\Deprecated('USE `WordPress\PostMeta::getIDList()`')]
+	#[\Deprecated( 'USE `WordPress\PostMeta::getIDList()`' )]
 	public static function getIDListbyMeta( string $meta_key, array $values ): false|array
 	{
 		return PostMeta::getIDList( $meta_key, $values );
 	}
 
-	#[\Deprecated('USE `WordPress\PostMeta::invalidateID()`')]
+	#[\Deprecated( 'USE `WordPress\PostMeta::invalidateID()`' )]
 	public static function invalidateIDbyMeta( string|array $meta_keys, mixed $value = FALSE ): bool
 	{
 		return PostMeta::invalidateID( $meta_keys, $value );

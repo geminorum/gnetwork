@@ -114,7 +114,7 @@ class HTML extends Core\Base
 		return $html;
 	}
 
-	public static function extractAttribute( mixed $input, string $target_attribute, ?string $tag_name = NULL ): false|string 
+	public static function extractAttribute( mixed $input, string $target_attribute, ?string $tag_name = NULL ): false|string
 	{
 		if ( ! $html = Core\Text::force( $input ) )
 			return $input;
@@ -140,7 +140,7 @@ class HTML extends Core\Base
 
 		$data      = [];
 		$processor = new \WP_HTML_Tag_Processor( $html );
-		$tag_query = $tag_query ?? [
+		$tag_query ??= [
 			'tag_name'    => 'DIV',
 			'breadcrumbs' => [ 'HTML', 'BODY' ],
 		];

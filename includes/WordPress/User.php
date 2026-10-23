@@ -42,7 +42,7 @@ class User extends Core\Base
 
 	public static function colorScheme( ?int $user = NULL, ?string $fallback = NULL ): string
 	{
-		$fallback = $fallback ?? 'modern'; // NOTE: default @since WP 7.0.0
+		$fallback ??= 'modern';  // NOTE: default @since WP 7.0.0
 
 		if ( ! $user && ! is_user_logged_in() )
 			return $fallback;

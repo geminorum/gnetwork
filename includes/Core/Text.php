@@ -345,7 +345,7 @@ class Text extends Base
 		if ( empty( $text ) )
 			return $text;
 
-		$separator = $separator ?? ', ';
+		$separator ??= ', ';
 
 		// already formatted
 		if ( FALSE !== stripos( $text, trim( $separator ) ) )
@@ -365,7 +365,7 @@ class Text extends Base
 		if ( empty( $text ) )
 			return $text;
 
-		$separator = $separator ?? ', ';
+		$separator ??= ', ';
 
 		return preg_replace( '/(.*), (.*)/', '$2 $1', self::trim( $text ) );
 		// `return preg_replace( '/(.*)([,،;؛]) (.*)/u', '$3'.$separator.'$1', self::trim( $text ) ); // Wrong!`
@@ -1276,7 +1276,7 @@ class Text extends Base
 		foreach ( $matches[0] as &$tag )
 			$title = substr_replace( $title, $tag[0], $tag[1], 0 );
 
-		return $title;
+		return self::trim( $title );
 	}
 
 	/**
@@ -1751,13 +1751,13 @@ class Text extends Base
 		return $html;
 	}
 
-	#[\Deprecated('USE `Core\Crypto::hash()`')]
+	#[\Deprecated( 'USE `Core\Crypto::hash()`' )]
 	public static function hash( string $salt ): string
 	{
 		return Crypto::hash( $salt );
 	}
 
-	#[\Deprecated('USE `Core\Crypto::hashLimited()`')]
+	#[\Deprecated( 'USE `Core\Crypto::hashLimited()`' )]
 	public static function hashLimited( ?int $start = NULL, ?int $end = 0, bool $hash = FALSE, bool $prefix = FALSE ): string
 	{
 		return Crypto::hashLimited( $start, $end, $hash, $prefix );

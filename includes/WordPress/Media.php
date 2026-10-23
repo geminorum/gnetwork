@@ -53,7 +53,7 @@ class Media extends Core\Base
 	 */
 	public static function getExtension( string $mime_type, ?array $extensions = NULL, bool $uppercase = TRUE ): string
 	{
-		$extensions = $extensions ?? wp_get_mime_types();
+		$extensions ??= wp_get_mime_types();
 
 		if ( FALSE === ( $key = array_search( $mime_type, $extensions ) ) )
 			return FALSE;
@@ -398,7 +398,7 @@ class Media extends Core\Base
 		return $sub ? $base.'/'.$sub : $base;
 	}
 
-	#[\Deprecated('USE `WordPress\Attachment::list()`')]
+	#[\Deprecated( 'USE `WordPress\Attachment::list()`' )]
 	public static function getAttachments( int $post_id, string $mime_type = 'image' ): array
 	{
 		return Attachment::list( $post_id, $mime_type );
@@ -596,7 +596,7 @@ class Media extends Core\Base
 		return $size ?: $fallback;
 	}
 
-	#[\Deprecated('USE `WordPress\Media::getAttachmentSrc()`')]
+	#[\Deprecated( 'USE `WordPress\Media::getAttachmentSrc()`' )]
 	public static function htmlAttachmentSrc( int $attachment_id, ?string $size = NULL, string $fallback = '' ): string
 	{
 		return self::getAttachmentSrc( $attachment_id, $size, $fallback );
@@ -610,7 +610,7 @@ class Media extends Core\Base
 
 		$img  = NULL;
 		$src  = $fallback;
-		$size = $size ?? self::getAttachmentImageDefaultSize();
+		$size ??= self::getAttachmentImageDefaultSize();
 
 		if ( ! empty( $attachment_id ) ) {
 
@@ -702,7 +702,7 @@ class Media extends Core\Base
 		return $mime;
 	}
 
-	#[\Deprecated('USE `WordPress\Media::deleteImageSizes()`')]
+	#[\Deprecated( 'USE `WordPress\Media::deleteImageSizes()`' )]
 	public static function deleteAttachmentThumbnails( int $attachment_id ): bool
 	{
 		return self::deleteImageSizes( $attachment_id );
@@ -818,7 +818,7 @@ class Media extends Core\Base
 	 * @param false|string $size
 	 * @return false|array
 	 */
-	#[\Deprecated('USE `wp_get_registered_image_subsizes()`')]
+	#[\Deprecated( 'USE `wp_get_registered_image_subsizes()`' )]
 	public static function getImageSizes( false|string $size = FALSE ): false|array
 	{
 		global $_wp_additional_image_sizes;

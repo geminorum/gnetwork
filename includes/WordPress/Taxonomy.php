@@ -435,13 +435,13 @@ class Taxonomy extends Core\Base
 		return $query->query( array_merge( $args, $extra ) );
 	}
 
-	#[\Deprecated('USE `WordPress\Term::taxonomy()`')]
+	#[\Deprecated( 'USE `WordPress\Term::taxonomy()`' )]
 	public static function getTermTaxonomy( int|object $term_or_id, mixed $fallback = FALSE )
 	{
 		return Term::taxonomy( $term_or_id ) ?: $fallback;
 	}
 
-	#[\Deprecated('USE `WordPress\Term::get()`')]
+	#[\Deprecated( 'USE `WordPress\Term::get()`' )]
 	public static function getTerm( int|object $term_or_id, string $taxonomy = '' )
 	{
 		return Term::get( $term_or_id, $taxonomy );
@@ -733,7 +733,7 @@ class Taxonomy extends Core\Base
 		return count( $terms );
 	}
 
-	#[\Deprecated('USE `WordPress\Term::add()`')]
+	#[\Deprecated( 'USE `WordPress\Term::add()`' )]
 	public static function addTerm( mixed $term, mixed $taxonomy, bool $sanitize = TRUE )
 	{
 		return Term::add( $term, $taxonomy, $sanitize );
@@ -1455,7 +1455,7 @@ class Taxonomy extends Core\Base
 		}, self::listTerms( $taxonomy, 'all', $extra ) );
 	}
 
-	#[\Deprecated('USE `WordPress\Term::getMeta()`')]
+	#[\Deprecated( 'USE `WordPress\Term::getMeta()`' )]
 	public static function getTermMeta( mixed $term, $keys = FALSE, $single = TRUE )
 	{
 		return Term::getMeta( $term, $keys, $single );
@@ -1539,13 +1539,15 @@ class Taxonomy extends Core\Base
 		?string           $meta_key = NULL
 	): string {
 
-		$size = $size ?? Media::getAttachmentImageDefaultSize( NULL, Term::taxonomy( $term_id ) ?: NULL );
+		$size ??= Media::getAttachmentImageDefaultSize( NULL, Term::taxonomy( $term_id ) ?: NULL );
 
 		return Media::htmlAttachmentImage(
 			self::getThumbnailID( $term_id, $meta_key ),
 			$size,
 			$link,
-			[ 'term' => $term_id ],
+			[
+				'term' => $term_id,
+			],
 			'-featured',
 		);
 	}
@@ -1560,13 +1562,13 @@ class Taxonomy extends Core\Base
 		);
 	}
 
-	#[\Deprecated('USE `WordPress\Taxonomy::link()`')]
+	#[\Deprecated( 'USE `WordPress\Taxonomy::link()`' )]
 	public static function getArchiveLink( string $taxonomy )
 	{
 		return self::link( $taxonomy );
 	}
 
-	#[\Deprecated('USE `WordPress\Term::title()`')]
+	#[\Deprecated( 'USE `WordPress\Term::title()`' )]
 	public static function getTermTitle( int $term, mixed $fallback = NULL, bool $filter = TRUE )
 	{
 		return Term::title( $term, $fallback, $filter );

@@ -186,25 +186,25 @@ class HTTP extends Base
 		return FALSE; // help the caller
 	}
 
-	#[\Deprecated('USE `WordPress\Remote::getJSON()`')]
+	#[\Deprecated( 'USE `WordPress\Remote::getJSON()`' )]
 	public static function getJSON( false|string $url, array $atts = [], bool $assoc = TRUE ): false|array|object
 	{
 		return WordPress\Remote::getJSON( $url, $atts, $assoc );
 	}
 
-	#[\Deprecated('USE `WordPress\Remote::postJSON()`')]
+	#[\Deprecated( 'USE `WordPress\Remote::postJSON()`' )]
 	public static function postJSON( mixed $body, false|string $url, array $atts = [], bool $assoc = TRUE ): false|array|object
 	{
 		return WordPress\Remote::postJSON( $body, $url, $atts, $assoc );
 	}
 
-	#[\Deprecated('USE `WordPress\Remote::getHTML()`')]
+	#[\Deprecated( 'USE `WordPress\Remote::getHTML()`' )]
 	public static function getHTML( false|string $url, array $atts = [] ): false|string
 	{
 		return WordPress\Remote::getHTML( $url, $atts );
 	}
 
-	#[\Deprecated('USE `WordPress\Remote::getContents()`')]
+	#[\Deprecated( 'USE `WordPress\Remote::getContents()`' )]
 	public static function getContents( false|string $url, array $atts = [] ): false|string
 	{
 		return WordPress\Remote::getContents( $url, $atts );

@@ -179,7 +179,7 @@ class Strings extends Core\Base
 		if ( is_array( $string ) )
 			return Core\Arraay::prepString( $string );
 
-		$delimiter = $delimiter ?? '|';
+		$delimiter ??= '|';
 
 		if ( is_null( $delimiters ) )
 			$delimiters = [
@@ -307,25 +307,44 @@ class Strings extends Core\Base
 
 		if ( is_null( $allowed ) ) {
 
-			if ( 'text' == $context )
+			if ( 'custom-listitem' === $context )
+				$allowed = [
+					'a'       => [ 'class' => TRUE, 'title' => TRUE, 'href' => TRUE ],
+					'abbr'    => [ 'class' => TRUE, 'title' => TRUE ],
+					'acronym' => [ 'class' => TRUE, 'title' => TRUE ],
+					'code'    => [ 'class' => TRUE ],
+					'em'      => [ 'class' => TRUE ],
+					'strong'  => [ 'class' => TRUE ],
+					'i'       => [ 'class' => TRUE ],
+					'b'       => [ 'class' => TRUE ],
+					'span'    => [ 'class' => TRUE ],
+					'br'      => [],
+				];
+
+			else if ( 'text' === $context )
 				/**
 				 * Allows all most inline elements and strips all
 				 * block level elements except `blockquote`
 				 */
 				$allowed = wp_kses_allowed_html( 'data' );
 
-			else if ( 'html' == $context )
+			else if ( 'html' === $context )
 				/**
 				 * Very permissive: allows pretty much all HTML to pass.
 				 * Same as what's normally applied to `the_content` by default.
 				 */
 				$allowed = wp_kses_allowed_html( 'post' );
 
-			else if ( 'none' == $context )
+			else if ( 'none' === $context )
 				$allowed = [];
 		}
 
-		return Core\Text::trim( wp_kses( $text, $allowed ) );
+		return apply_filters( 'nucleus_strings_kses',
+			Core\Text::trim( wp_kses( $text, $allowed ) ),
+			$allowed,
+			$context,
+			$text,
+		);
 	}
 
 	public static function ksesArray( array $array, string $context = 'none', ?array $allowed = NULL ): array
@@ -402,9 +421,18 @@ class Strings extends Core\Base
 		$upper = array_map( 'strtoupper', $words );
 
 		foreach ( (array) $keys as $key )
-			$list[$key] = str_ireplace( $words, $upper, Core\Text::titleCase( str_replace( [ '_', '-' ], ' ', $key ) ) );
+			$list[$key] = str_ireplace( $words, $upper, self::makeLabel( $key ) );
 
 		return $list;
+	}
+
+	public static function makeLabel( string $text ): string
+	{
+		return Core\Text::titleCase( str_replace( [
+			'_',
+			'-',
+			'.',
+		], ' ', $text ) );
 	}
 
 	public static function prepTitle( string $text, int $post_id = 0 ): string
@@ -433,6 +461,27 @@ class Strings extends Core\Base
 		$text = apply_filters( 'gnetwork_typography', $text );
 
 		return $autop ? wpautop( $text ) : Core\Text::trim( $text );
+	}
+
+	public static function prepContact( string $value, ?string $title = NULL ): string
+	{
+		if ( Core\Email::is( $value ) )
+			$prepared = Core\Link::mailto( $value, FALSE, $title );
+
+		else if ( Core\URL::isValid( $value ) )
+			$prepared = Core\Link::get( $title, Core\URL::untrail( $value ) );
+
+		else if ( is_numeric( str_ireplace( [ '+', '-', '.' ], '', $value ) ) )
+			$prepared = Core\Link::tel( $value, FALSE, $title );
+
+		else
+			$prepared = Core\HTML::escape( $value );
+
+		return apply_filters( 'nucleus_strings_prep_contact',
+			$prepared,
+			$value,
+			$title,
+		);
 	}
 
 	public static function stripByProp( array $data, string $key, array $list, string $subkey ): array

@@ -68,7 +68,7 @@ class URL extends Base
 		$port = ( ( ! $ssl && '80' == $port ) || ( $ssl && '443' == $port ) ) ? '' : ':'.$port;
 
 		$host = ( $forwarded_host && isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) ) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ( isset( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : NULL );
-		$host = $host ?? $_SERVER['SERVER_NAME'].$port;
+		$host ??= $_SERVER['SERVER_NAME'].$port;
 
 		$current = $protocol.'://'.$host.$_SERVER['REQUEST_URI'];
 		return $trailingslashit ? self::trail( $current ) : $current;
@@ -88,7 +88,7 @@ class URL extends Base
 		return str_ireplace( [ '_', '-' ], ' ', urldecode( $string ) );
 	}
 
-	#[\Deprecated('USE `WordPress\URL::parse()`')]
+	#[\Deprecated( 'USE `WordPress\URL::parse()`' )]
 	public static function parse( string $url, int $component = -1 ): mixed
 	{
 		return wp_parse_url( $url, $component );

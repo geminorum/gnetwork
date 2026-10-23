@@ -188,12 +188,12 @@ class Image extends Base
 		if ( FALSE === $image )
 			return FALSE;
 
-		$fontcolor = $fontcolor ?? [ 255, 255, 255 ];
+		$fontcolor ??= [ 255, 255, 255 ];
 
 		if ( ! is_array( $fontcolor ) )
 			$fontcolor = Color::hex2rgb( $fontcolor );
 
-		// $_fontcolor = imagecolorallocate( $image, 255, 255, 255 );
+		// `$_fontcolor = imagecolorallocate( $image, 255, 255, 255 );`
 
 		imagestring(
 			$image,

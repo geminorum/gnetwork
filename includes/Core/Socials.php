@@ -194,7 +194,7 @@ class Socials extends Base
 	 * @param string $base prefix if the URL
 	 * @return string handle or the URL
 	 */
-	#[\Deprecated('USE `Core\Socials::getHandle()`')]
+	#[\Deprecated( 'USE `Core\Socials::getHandle()`' )]
 	public static function getTwitter( $string, $url = FALSE, $base = 'https://x.com/' )
 	{
 		$parts = parse_url( $string );

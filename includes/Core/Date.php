@@ -1099,7 +1099,7 @@ class Date extends Base
 				new \DateTimeZone( $timezone_string ?? self::currentTimeZone() )
 			);
 
-		$format = $format ?? 'Y-m-d';
+		$format ??= 'Y-m-d';
 
 		return $datetime_from->format( $format ) === $datetime_to->format( $format );
 	}
@@ -1137,7 +1137,7 @@ class Date extends Base
 		?string $locale = NULL,
 	) {
 
-		$locale   = $locale ?? L10n::locale( TRUE );
+		$locale   ??= L10n::locale( TRUE );
 		$fallback = L10n::calendar( $locale );
 		$timezone = new \DateTimeZone( $timezone_string ?? self::currentTimeZone() );
 		$calendar = self::sanitizeCalendar( $calendar_type ?? $fallback, $fallback );
@@ -1169,7 +1169,7 @@ class Date extends Base
 
 	// @REF: https://unicode-org.github.io/icu/userguide/format_parse/datetime/#date-field-symbol-table
 	const FORMAT_PHP_TO_ISO = [
-		'Y' => 'yyyy',   // A full numeric representation of a year, at least 4 digits, with `-` for years B.C: -0055, 0787, 1999, 2003, 10191
+		'Y' => 'yyyy',   // A full numeric representation of a year, at least 4 digits, with `-` for years `B.C`: -0055, 0787, 1999, 2003, 10191
 		'd' => 'dd',     // Day of the month, 2 digits with leading zeros: `01` to `31`
 		'n' => 'M',      // Numeric representation of a month, without leading zeros: `1` through `12`
 		'm' => 'MM',     // Numeric representation of a month, with leading zeros: `01` through `12`
@@ -1179,8 +1179,8 @@ class Date extends Base
 		'G' => 'H',      // 24-hour format of an hour without leading zeros: `0` through `23`
 		'H' => 'HH',     // 24-hour format of an hour with leading zeros: `00` through `23`
 		'i' => 'mm',     // Minutes with leading zeros: `00` to `59`
-		'a' => 'aa',     // Lowercase Ante-meridiem and Post-meridiem: `am` or `pm` // NOTE: not supported
-		'A' => 'aa',     // Uppercase Ante-meridiem and Post-meridiem: `AM` or `PM`
+		'a' => 'aa',     // Lowercase `Ante-meridiem` and `Post-meridiem`: `am` or `pm` // NOTE: not supported
+		'A' => 'aa',     // Uppercase `Ante-meridiem` and `Post-meridiem`: `AM` or `PM`
 		's' => 'ss',     // Seconds with leading zeros: `00` through `59`
 	];
 
@@ -1222,7 +1222,7 @@ class Date extends Base
 		mixed $fallback = NULL,
 		array $extra = [],
 	) {
-		$fallback  = $fallback ?? L10n::calendar();
+		$fallback  ??= L10n::calendar();
 		$sanitized = $calendar_type;
 
 		if ( ! $calendar_type )

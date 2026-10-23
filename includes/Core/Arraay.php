@@ -402,7 +402,7 @@ class Arraay extends Base
 	}
 
 	// NOTE: returns key of the needle founded
-	#[\Deprecated('USE `Core\Text::has()`')]
+	#[\Deprecated( 'USE `Core\Text::has()`' )]
 	public static function strposArray( array $needles, string $haystack ): string
 	{
 		foreach ( $needles as $key => $needle )

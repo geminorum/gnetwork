@@ -292,7 +292,7 @@ class URL extends Core\Base
 		if ( ! is_multisite() || ! function_exists( 'get_network' ) )
 			return home_url( $path, $scheme );
 
-		$network         = $network ?? get_network();
+		$network         ??= get_network();
 		$original_scheme = $scheme;
 
 		if ( ! in_array( $scheme, [ 'http', 'https', 'relative' ], TRUE ) )
