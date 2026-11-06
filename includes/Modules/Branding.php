@@ -490,10 +490,14 @@ class Branding extends gNetwork\Module
 		$width  = get_theme_support( 'custom-logo', 'width' );
 		$height = get_theme_support( 'custom-logo', 'height' );
 
-		$image = Core\HTML::tag( 'img', [
-			'src'   => $this->options['network_sitelogo'],
+		// NOTE: core hook @since WP 5.5.0
+		$attributes = apply_filters( 'get_custom_logo_image_attributes', [
 			'alt'   => $unlink ? FALSE : ( $this->options['brand_name'] ?: get_bloginfo( 'name', 'display' ) ),
-			'class' => [ 'custom-logo' ],
+			'class' => 'custom-logo', // must be string
+		], 0, $blog_id );
+
+		$image = Core\HTML::tag( 'img', array_merge( $attributes, [
+			'src'   => $this->options['network_sitelogo'],
 			'style' => vsprintf( 'width:%1$s%2$s;height:%3$s%4$s;', [
 				$width  ? $width  : '100',
 				$width  ? 'px'    : '%',
