@@ -249,26 +249,26 @@ class Branding extends gNetwork\Module
 		return $settings;
 	}
 
-	public function settings_section_webapp()
+	public function settings_section_webapp(): void
 	{
 		Settings::fieldSection(
 			_x( 'Web App', 'Modules: Branding: Settings', 'gnetwork-admin' ),
 			sprintf(
 				/* translators: `%s`: link URL */
 				_x( 'Web app manifests provide the ability to save a site bookmark to a device\'s home screen. <a href="%s">Read More</a>', 'Modules: Branding: Settings', 'gnetwork-admin' ),
-				'https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest'
+				'https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest',
 			)
 		);
 	}
 
-	public function settings_section_texts()
+	public function settings_section_texts(): void
 	{
 		Settings::fieldSection(
 			_x( 'Notices', 'Modules: Branding: Settings', 'gnetwork-admin' )
 		);
 	}
 
-	protected function settings_setup( $sub = NULL )
+	protected function settings_setup( $sub = NULL ): void
 	{
 		Scripts::enqueueColorPicker();
 		Scripts::enqueueCodeEditor();
@@ -299,7 +299,7 @@ class Branding extends gNetwork\Module
 		}
 	}
 
-	public function do_link_tag()
+	public function do_link_tag(): void
 	{
 		if ( ! $this->webapp_manifest_enabled() )
 			return;
@@ -311,7 +311,7 @@ class Branding extends gNetwork\Module
 		echo '<link rel="manifest" href="'.$this->url_manifest().'" />'."\n";
 	}
 
-	public function parse_request( $request )
+	public function parse_request( object $request ): void
 	{
 		if ( $this->options['network_siteicon'] )
 			foreach ( static::ICONFILE_URLS as $iconfile )
@@ -388,7 +388,7 @@ class Branding extends gNetwork\Module
 	 * `display`: `minimal-ui` is used as the default.
 	 * `icons`: the site icon via `get_site_icon_url()`.
 	*/
-	private function _render_manifest()
+	private function _render_manifest(): void
 	{
 		$data = [
 			'start_url'  => get_bloginfo( 'url' ),
@@ -454,7 +454,7 @@ class Branding extends gNetwork\Module
 
 	// @REF: https://github.com/GoogleChromeLabs/pwa-wp/wiki/Web-App-Manifest
 	// TODO: add icons
-	public function web_app_manifest( $manifest )
+	public function web_app_manifest( array $manifest ): array
 	{
 		if ( $this->options['webapp_longname'] )
 			$manifest['name'] = $this->options['webapp_longname'];
@@ -481,7 +481,7 @@ class Branding extends gNetwork\Module
 	 * @param int $blog_id
 	 * @return string
 	 */
-	public function get_custom_logo( $html, $blog_id )
+	public function get_custom_logo( string $html, int $blog_id ): string
 	{
 		if ( $html )
 			return $html; // already has custom logo!
@@ -504,7 +504,7 @@ class Branding extends gNetwork\Module
 				$height ? $height : 'auto',
 				$height ? 'px'    : '',
 			] ),
-		] );
+		] ) );
 
 		if ( $unlink && is_front_page() && ! is_paged() )
 			return sprintf( '<span class="custom-logo-link">%1$s</span>', $image );
@@ -517,13 +517,13 @@ class Branding extends gNetwork\Module
 	}
 
 	// @hook: `theme_mod_accent_color`
-	public function accent_color_fallback_colors( $value )
+	public function accent_color_fallback_colors( mixed $value ): mixed
 	{
 		return $value ?: $this->options['theme_color'];
 	}
 
 	// @hook: `geditorial_adminscreen_colors`
-	public function adminscreen_colors_fallback_colors( $colors )
+	public function adminscreen_colors_fallback_colors( array $colors ): array
 	{
 		if ( $this->options['theme_color'] )
 			$colors[] = "\t".sprintf( '--%s-custom-color: %s;', 'brand-color', $this->options['theme_color'] );
@@ -535,7 +535,7 @@ class Branding extends gNetwork\Module
 	}
 
 	// @hook: `gtheme_colors_extra`
-	public function colors_extra_fallback_colors( $colors )
+	public function colors_extra_fallback_colors( array $colors ): array
 	{
 		if ( $this->options['theme_color'] )
 			$colors['brand-color'] = $this->options['theme_color'];
@@ -547,7 +547,7 @@ class Branding extends gNetwork\Module
 	}
 
 	// @hook: `gtheme_colors_custom_palette`
-	public function colors_custom_palette_fallback_colors( $palette, $defaults, $accent )
+	public function colors_custom_palette_fallback_colors( array $palette, array $defaults, ?string $accent ): array
 	{
 		if ( $this->options['theme_color'] && $accent !== $this->options['theme_color'] )
 			$palette[] = [
@@ -593,12 +593,12 @@ class Branding extends gNetwork\Module
 	}
 
 	// @REF: https://make.wordpress.org/core/2020/02/19/enhancements-to-favicon-handling-in-wordpress-5-4/
-	public function do_faviconico()
+	public function do_faviconico(): void
 	{
 		WordPress\Redirect::doWP( $this->options['network_siteicon'] );
 	}
 
-	public function do_adminbar_styles()
+	public function do_adminbar_styles(): void
 	{
 		printf( "<style>\n%s\n</style>\n",
 			Core\Text::replaceTokens( $this->options['adminbar_styles'], [
@@ -610,13 +610,13 @@ class Branding extends gNetwork\Module
 		);
 	}
 
-	public function network_credits()
+	public function network_credits(): void
 	{
 		gnetwork_credits();
 	}
 
 	// without default fallback
-	public function gtheme_copyright( $copyright, $context )
+	public function gtheme_copyright( string $copyright, ?string $context ): string
 	{
 		if ( $blog = gNetwork()->option( 'text_copyright', 'blog' ) )
 			return $blog;
@@ -624,7 +624,7 @@ class Branding extends gNetwork\Module
 		return $this->options['text_copyright'] ?: $copyright;
 	}
 
-	public function maintenance_template_before()
+	public function maintenance_template_before(): void
 	{
 		if ( $this->options['network_sitelogo'] )
 			echo Core\HTML::img( $this->options['network_sitelogo'] );
@@ -633,7 +633,7 @@ class Branding extends gNetwork\Module
 			echo self::getLogo( FALSE, FALSE );
 	}
 
-	public function restricted_template_before()
+	public function restricted_template_before(): void
 	{
 		if ( $this->options['network_sitelogo'] )
 			echo Core\HTML::img( $this->options['network_sitelogo'] );
@@ -642,7 +642,7 @@ class Branding extends gNetwork\Module
 			echo self::getLogo( FALSE, FALSE );
 	}
 
-	public function webapp_manifest_enabled()
+	public function webapp_manifest_enabled(): bool
 	{
 		if ( self::const( 'PWA_VERSION' ) )
 			return FALSE;
@@ -655,7 +655,7 @@ class Branding extends gNetwork\Module
 	}
 
 	// FIXME: get from site logo / not used yet
-	public static function getLogo( $wrap = FALSE, $fallback = TRUE, $logo = NULL )
+	public static function getLogo( false|string $wrap = FALSE, bool $fallback = TRUE, ?string $logo = NULL ): string
 	{
 		$brand_name = gNetwork()->brand( 'name' );
 		$brand_url  = gNetwork()->brand( 'url' );

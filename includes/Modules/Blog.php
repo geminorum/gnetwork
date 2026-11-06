@@ -43,6 +43,7 @@ class Blog extends gNetwork\Module
 				$this->filter_true( 'disable_months_dropdown', 5 );
 				$this->filter_false( 'media_library_show_audio_playlist', 5 );
 				$this->filter_false( 'media_library_show_video_playlist', 5 );
+				$this->filter_false( 'wp_admin_bar_show_site_icons' );  // @REF: https://core.trac.wordpress.org/ticket/54447
 				$this->filter_empty_array( 'media_library_months_with_files', 5 );
 				$this->filter_empty_array( 'get_available_post_mime_types', 5 );
 				$this->filter_empty_array( 'pre_get_available_post_mime_types', 5 );

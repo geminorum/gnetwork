@@ -57,7 +57,7 @@ class AdminBar extends gNetwork\Module
 		add_filter( 'wp_admin_bar_class', __NAMESPACE__.'\\wp_admin_bar_class' );
 
 		$this->action( 'wp_before_admin_bar_render' );
-		$this->filter_false( 'wp_admin_bar_show_site_icons' ); // @REF: https://core.trac.wordpress.org/ticket/54447
+		// $this->filter_false( 'wp_admin_bar_show_site_icons' ); // @REF: https://core.trac.wordpress.org/ticket/54447
 	}
 
 	// Overrides to avoid `get_blogs_of_user()`
@@ -245,7 +245,7 @@ class AdminBar extends gNetwork\Module
 			return;
 
 		$current_url = Core\URL::current();
-		// $network_url = Network::menuURL();
+		// `$network_url = Network::menuURL();`
 		$admin_url   = Admin::menuURL();
 
 		$parent_id = static::BASE.'-info';

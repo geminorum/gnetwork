@@ -545,7 +545,7 @@ JS;
 			if ( ! $file || isset( $file['error'] ) || empty( $file['file'] ) )
 				WordPress\Redirect::doReferer( 'wrong' );
 
-			$count = $this->import_terms_csv( $file['file'], $taxonomy );
+			$count = $this->_import_terms_csv( $file['file'], $taxonomy );
 
 			WordPress\Redirect::doReferer( [
 				'message'    => 'imported',
@@ -558,7 +558,7 @@ JS;
 			$this->nonce_check( 'do-export-terms' );
 
 			$fields = self::req( $this->classs( 'do-export-fields' ), [] );
-			$data   = $this->get_csv_terms( $taxonomy, ( $fields ? array_keys( $fields ) : NULL ) );
+			$data   = $this->_get_csv_terms( $taxonomy, ( $fields ? array_keys( $fields ) : NULL ) );
 
 			Core\Text::download( $data, Core\File::prepName( sprintf( '%s.csv', $taxonomy ) ) );
 
@@ -909,7 +909,7 @@ JS;
 			$this->render_form_start( NULL, 'export', 'download', 'tabs', FALSE );
 				$this->nonce_field( 'do-export-terms' );
 
-				echo Core\HTML::multiSelect( $this->get_export_term_fields( $taxonomy ), [
+				echo Core\HTML::multiSelect( $this->_get_export_term_fields( $taxonomy ), [
 					'name'     => $this->classs( 'do-export-fields' ),
 					'selected' => TRUE,
 					'panel'    => TRUE,
@@ -1302,15 +1302,19 @@ JS;
 		WordPress\Redirect::doWP( add_query_arg( $query, WordPress\Redirect::getReferer() ) );
 	}
 
-	public function handle_bulk_actions( $location, $action, $term_ids )
+	public function handle_bulk_actions( string $sendback, string $doaction, array $items ): string
 	{
 		if ( empty( $GLOBALS['taxonomy'] ) )
-			return $location;
+			return $sendback;
 
-		$results = $this->delegate_handling( $action, $GLOBALS['taxonomy'], (array) $term_ids );
+		$results = $this->delegate_handling(
+			$doaction,
+			$GLOBALS['taxonomy'],
+			$items,
+		);
 
 		if ( is_null( $results ) )
-			return $location;
+			return $sendback;
 
 		$query = [
 			'taxonomy'  => $GLOBALS['taxonomy'],
@@ -1320,13 +1324,13 @@ JS;
 			's'         => self::req( 's', FALSE ),
 		];
 
-		if ( 'post' == $query['post_type'] )
+		if ( 'post' === $query['post_type'] )
 			unset( $query['post_type'] );
 
-		if ( '1' == $query['paged'] )
+		if ( '1' === $query['paged'] )
 			unset( $query['paged'] );
 
-		return add_query_arg( $query, $location ?: 'edit-tags.php' );
+		return add_query_arg( $query, $sendback ?: 'edit-tags.php' );
 	}
 
 	private function delegate_handling( string $action, string $taxonomy, array $term_ids, ?array $actions = NULL ): ?bool
@@ -1353,7 +1357,7 @@ JS;
 		return NULL;
 	}
 
-	public function admin_notices()
+	public function admin_notices(): void
 	{
 		if ( ! isset( $_GET['message'] ) )
 			return;
@@ -1371,7 +1375,7 @@ JS;
 		}
 	}
 
-	public function handle_assign_parents( $term_ids, $taxonomy )
+	public function handle_assign_parents( array $term_ids, string $taxonomy ): bool
 	{
 		WordPress\Taxonomy::disableTermCounting();
 
@@ -1390,7 +1394,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_empty_posts( $term_ids, $taxonomy )
+	public function handle_empty_posts( array $term_ids, string $taxonomy ): bool
 	{
 		WordPress\Taxonomy::disableTermCounting();
 
@@ -1404,7 +1408,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_rewrite_slug( $term_ids, $taxonomy )
+	public function handle_rewrite_slug( array $term_ids, string $taxonomy ): bool
 	{
 		foreach ( $term_ids as $term_id ) {
 
@@ -1428,17 +1432,17 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_delete_onesie( $term_ids, $taxonomy )
+	public function handle_delete_onesie( array $term_ids, string $taxonomy ): bool
 	{
 		return $this->_handle_delete_onesie_terms( $taxonomy, $term_ids );
 	}
 
-	public function handle_delete_empty( $term_ids, $taxonomy )
+	public function handle_delete_empty( array $term_ids, string $taxonomy ): bool
 	{
 		return $this->_handle_delete_empty_terms( $taxonomy, $term_ids );
 	}
 
-	public function handle_downcode_slug( $term_ids, $taxonomy )
+	public function handle_downcode_slug( array $term_ids, string $taxonomy ): bool
 	{
 		foreach ( $term_ids as $term_id ) {
 
@@ -1459,7 +1463,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_empty_desc( $term_ids, $taxonomy )
+	public function handle_empty_desc( array $term_ids, string $taxonomy ): bool
 	{
 		foreach ( $term_ids as $term_id ) {
 
@@ -1474,12 +1478,12 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_update_count( $term_ids, $taxonomy )
+	public function handle_update_count( array $term_ids, string $taxonomy ): bool
 	{
-		return wp_update_term_count_now( $term_ids, $taxonomy );
+		return (bool) wp_update_term_count_now( $term_ids, $taxonomy );
 	}
 
-	public function handle_format_i18n( $term_ids, $taxonomy )
+	public function handle_format_i18n( array $term_ids, string $taxonomy ): bool
 	{
 		foreach ( $term_ids as $term_id ) {
 
@@ -1510,7 +1514,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_format_ordinal( $term_ids, $taxonomy )
+	public function handle_format_ordinal( array $term_ids, string $taxonomy ): bool
 	{
 		foreach ( $term_ids as $term_id ) {
 
@@ -1529,7 +1533,7 @@ JS;
 	}
 
 	// Separated because we have to keep the connected object list
-	public function handle_multiple_merge( $targets, $term_ids, $taxonomy )
+	public function handle_multiple_merge( string|array $targets, array $term_ids, string $taxonomy ): bool
 	{
 		global $wpdb;
 
@@ -1589,7 +1593,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_merge( $term_ids, $taxonomy, $action = 'merge', $to = NULL )
+	public function handle_merge( array $term_ids, string $taxonomy, string $action = 'merge', ?string $to = NULL ): bool
 	{
 		if ( ! ( $target = $to ?? self::req( $this->classs( 'bulk-merge' ) ) ) )
 			return FALSE;
@@ -1632,7 +1636,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_split( $term_ids, $taxonomy )
+	public function handle_split( array $term_ids, string $taxonomy ): bool
 	{
 		global $wpdb;
 
@@ -1678,7 +1682,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_set_default( $term_ids, $taxonomy )
+	public function handle_set_default( array $term_ids, string $taxonomy ): bool
 	{
 		foreach ( $term_ids as $term_id ) {
 
@@ -1690,12 +1694,12 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_unset_default( $term_ids, $taxonomy )
+	public function handle_unset_default( array $term_ids, string $taxonomy ): bool
 	{
 		return delete_option( WordPress\Taxonomy::getDefaultTermOptionKey( $taxonomy ) );
 	}
 
-	public function handle_set_parent( $term_ids, $taxonomy )
+	public function handle_set_parent( array $term_ids, string $taxonomy ): bool
 	{
 		$parent_id = self::req( $this->classs( 'parent-id' ) );
 
@@ -1712,7 +1716,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_change_tax( $term_ids, $taxonomy )
+	public function handle_change_tax( array $term_ids, string $taxonomy ): bool
 	{
 		global $wpdb;
 
@@ -1780,7 +1784,7 @@ JS;
 		return TRUE;
 	}
 
-	public function handle_clone_tax( $term_ids, $taxonomy )
+	public function handle_clone_tax( array $term_ids, string $taxonomy ): bool
 	{
 		global $wpdb;
 
@@ -1798,10 +1802,14 @@ JS;
 		foreach ( $term_ids as $term_id ) {
 
 			$current_term = get_term( $term_id, $current_tax );
-			$cloned_args  = [ 'slug' => $current_term->slug, 'description' => $current_term->description ]; // not supporting parents
+			$cloned_args  = [
+				// not supporting parents
+				'slug'        => $current_term->slug,
+				'description' => $current_term->description,
+			];
 
 			$current_meta = get_term_meta( $term_id );
-			$cloned_meta  = []; // empty( $current_meta ) ? [] : array_combine( Core\Arraay::pluck( $current_meta, 0 ), array_keys( $current_meta ) ); // added manually later
+			$cloned_meta  = []; // `empty( $current_meta ) ? [] : array_combine( Core\Arraay::pluck( $current_meta, 0 ), array_keys( $current_meta ) );` // added manually later
 
 			if ( ! $cloned_term = WordPress\Taxonomy::getTargetTerm( $current_term->name, $cloned_tax, $cloned_args, $cloned_meta ) )
 				continue;
@@ -1811,7 +1819,7 @@ JS;
 				WHERE term_taxonomy_id = %d
 			", $current_term->term_taxonomy_id ) );
 
-			// needs to be set before our action fired
+			// NOTE: needs to be set before our action fired.
 			foreach ( $current_objects as $current_object )
 				wp_set_object_terms( $current_object, $cloned_term->term_id, $cloned_tax, TRUE );
 
@@ -1828,17 +1836,24 @@ JS;
 		return TRUE;
 	}
 
-	public function admin_footer()
+	public function admin_footer(): void
 	{
 		if ( ! empty( $GLOBALS['taxonomy'] ) )
-			$this->render_secondary_inputs( $GLOBALS['taxonomy'], $this->get_actions( $GLOBALS['taxonomy'] ) );
+			$this->_render_secondary_inputs(
+				$GLOBALS['taxonomy'],
+				$this->get_actions( $GLOBALS['taxonomy'] ),
+			);
 	}
 
-	private function render_secondary_inputs( $taxonomy, $actions )
+	private function _render_secondary_inputs( string $taxonomy, array $actions ): void
 	{
 		foreach ( array_keys( $actions ) as $action ) {
 
-			$callback = $this->filters( 'bulk_input', [ $this, 'secondary_input_'.$action ], $action, $taxonomy );
+			$callback = $this->filters( 'bulk_input',
+				[ $this, 'secondary_input_'.$action ],
+				$action,
+				$taxonomy,
+			);
 
 			if ( $callback && is_callable( $callback ) ) {
 
@@ -1851,7 +1866,7 @@ JS;
 		}
 	}
 
-	private function secondary_input_merge( $taxonomy )
+	private function secondary_input_merge( string $taxonomy ): void
 	{
 		/* translators: `%s`: merge/split into input */
 		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork-admin' ),
@@ -1859,7 +1874,7 @@ JS;
 			._x( 'Name, Slug or ID', 'Modules: Taxonomy', 'gnetwork-admin' ).'" />' );
 	}
 
-	private function secondary_input_split( $taxonomy )
+	private function secondary_input_split( string $taxonomy ): void
 	{
 		/* translators: `%s`: merge/split into input */
 		printf( _x( 'into: %s', 'Modules: Taxonomy', 'gnetwork-admin' ),
@@ -1867,7 +1882,7 @@ JS;
 			._x( 'Delimiter', 'Modules: Taxonomy', 'gnetwork-admin' ).'" />' );
 	}
 
-	private function secondary_input_change_tax( $taxonomy )
+	private function secondary_input_change_tax( string $taxonomy ): void
 	{
 		$args = current_user_can( 'import' ) ?  [] : [ 'show_ui' => TRUE ];
 		$list = get_taxonomies( $args, 'objects' );
@@ -1885,7 +1900,7 @@ JS;
 		echo '</select>';
 	}
 
-	private function secondary_input_clone_tax( $taxonomy )
+	private function secondary_input_clone_tax( string $taxonomy ): void
 	{
 		$args = current_user_can( 'import' ) ?  [] : [ 'show_ui' => TRUE ];
 		$list = get_taxonomies( $args, 'objects' );
@@ -1903,7 +1918,7 @@ JS;
 		echo '</select>';
 	}
 
-	private function secondary_input_set_parent( $taxonomy )
+	private function secondary_input_set_parent( string $taxonomy ): void
 	{
 		wp_dropdown_categories( [
 			'hide_empty'       => 0,
@@ -1916,7 +1931,7 @@ JS;
 		] );
 	}
 
-	private function get_export_term_fields( $taxonomy )
+	private function _get_export_term_fields( string $taxonomy ): array
 	{
 		return $this->filters( 'export_term_fields', [
 			'name'        => _x( 'Name', 'Modules: Taxonomy: Term Field', 'gnetwork-admin' ),
@@ -1929,7 +1944,7 @@ JS;
 		], $taxonomy );
 	}
 
-	private function get_export_term_meta( $taxonomy )
+	private function _get_export_term_meta( string $taxonomy ): array
 	{
 		return $this->filters( 'export_term_meta', [
 			// `'example' => _x( 'Example', 'Modules: Taxonomy: Term Meta', 'gnetwork-admin' ),`
@@ -1937,15 +1952,15 @@ JS;
 	}
 
 	// FIXME: deal with line-breaks on descriptions
-	private function get_csv_terms( $taxonomy, $fields = NULL, $metas = NULL )
+	private function _get_csv_terms( string $taxonomy, ?array $fields = NULL, ?array $metas = NULL ): string
 	{
 		global $wpdb;
 
 		if ( is_null( $fields ) )
-			$fields = array_keys( $this->get_export_term_fields( $taxonomy ) );
+			$fields = array_keys( $this->_get_export_term_fields( $taxonomy ) );
 
 		if ( is_null( $metas ) )
-			$metas = array_keys( $this->get_export_term_meta( $taxonomy ) );
+			$metas = array_keys( $this->_get_export_term_meta( $taxonomy ) );
 
 		$raw = $wpdb->get_results( $wpdb->prepare( "
 			SELECT * FROM {$wpdb->term_taxonomy}
@@ -1983,13 +1998,13 @@ JS;
 
 			$saved = get_term_meta( $term->term_id );
 
-			foreach ( $metas as $meta ) {
-
-				$row_cell = empty( $saved[$meta][0] ) ? '' : trim( $saved[$meta][0] );
-				$filtered = $this->filters( 'export_term_meta_data', $row_cell, $meta, $taxonomy, $term );
-
-				$row[] = $filtered ?: '';
-			}
+			foreach ( $metas as $meta )
+				$row[] = $this->filters( 'export_term_meta_data',
+					empty( $saved[$meta][0] ) ? '' : trim( $saved[$meta][0] ),
+					$meta,
+					$taxonomy,
+					$term,
+				) ?: '';
 
 			$data[] = $row;
 		}
@@ -1997,7 +2012,7 @@ JS;
 		return Core\Text::toCSV( $data );
 	}
 
-	private function import_terms_csv( $file_path, $taxonomy )
+	private function _import_terms_csv( string $file_path, string $taxonomy ): int
 	{
 		$count = 0;
 
@@ -2036,7 +2051,13 @@ JS;
 			foreach ( $meta as $meta_key => $meta_value )
 				add_term_meta( $term->term_id, $meta_key, $meta_value, TRUE );
 
-			$this->actions( 'import_terms_csv', $term, $taxonomy, $meta, $row, $file_path );
+			$this->actions( 'import_terms_csv',
+				$term,
+				$taxonomy,
+				$meta,
+				$row,
+				$file_path,
+			);
 
 			$count++;
 		}
@@ -2044,13 +2065,13 @@ JS;
 		return $count;
 	}
 
-	public function init_redirect_terms()
+	public function init_redirect_terms(): void
 	{
 		add_rewrite_tag( '%t%', '([^&]+)' );
 		add_rewrite_rule( '^t/([^/]*)/?', 'index.php?t=$matches[1]', 'top' );
 	}
 
-	public function template_redirect_redirect_terms()
+	public function template_redirect_redirect_terms(): void
 	{
 		if ( ! is_home() )
 			return;
@@ -2069,7 +2090,7 @@ JS;
 		WordPress\Redirect::doWP( get_term_link( $term ), 301 );
 	}
 
-	public function tag_row_actions_redirect_terms( $actions, $term )
+	public function tag_row_actions_redirect_terms( array $actions, object $term ): array
 	{
 		if ( is_taxonomy_viewable( $term->taxonomy ) )
 			$actions['shortlink'] = sprintf(
@@ -2086,7 +2107,7 @@ JS;
 		return $actions;
 	}
 
-	public function renderConnectedTermTableList( $posts, $empty = NULL, $description = TRUE )
+	public function renderConnectedTermTableList( array $posts, ?string $empty = NULL, bool $description = TRUE ): bool
 	{
 		if ( empty( $posts ) )
 			return Core\HTML::desc( $empty ?? gNetwork()->na( FALSE ), TRUE, '-empty' );
@@ -2123,11 +2144,11 @@ JS;
 			],
 		];
 
-		Core\HTML::tableList( $columns, $posts );
+		return Core\HTML::tableList( $columns, $posts );
 	}
 
 	// NOTE: may the taxonomy no longer registered
-	public function renderSimilarTermTableList( array $terms, ?string $empty = NULL, bool $description = TRUE )
+	public function renderSimilarTermTableList( array $terms, ?string $empty = NULL, bool $description = TRUE ): bool
 	{
 		if ( empty( $terms ) )
 			return Core\HTML::desc( $empty ?? gNetwork()->na( FALSE ), TRUE, '-empty' );
@@ -2170,6 +2191,6 @@ JS;
 			],
 		];
 
-		Core\HTML::tableList( $columns, $terms );
+		return Core\HTML::tableList( $columns, $terms );
 	}
 }

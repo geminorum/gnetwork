@@ -597,7 +597,7 @@ class Site extends gNetwork\Module
 		update_site_meta( get_current_blog_id(), 'wp_db_version', $wp_db_version );
 	}
 
-	public function wp_initialize_site_sync( $new_site, $args )
+	public function wp_initialize_site_sync( object $new_site, $args ): void
 	{
 		WordPress\SwitchSite::to( $new_site->id );
 
@@ -606,12 +606,10 @@ class Site extends gNetwork\Module
 		WordPress\SwitchSite::restore();
 	}
 
-	public function delete_sitemeta( $site_id = NULL )
+	public function delete_sitemeta( ?int $site_id = NULL ): int
 	{
-		if ( is_null( $site_id ) )
-			$site_id = get_current_blog_id();
-
-		$count = 0;
+		$site_id ??= get_current_blog_id();
+		$count   = 0;
 
 		foreach ( $this->get_filters() as $filter )
 			if ( delete_site_meta( $site_id, $filter ) )
@@ -623,7 +621,7 @@ class Site extends gNetwork\Module
 		return $count;
 	}
 
-	public function resync_sitemeta()
+	public function resync_sitemeta(): void
 	{
 		$all_option = wp_load_alloptions();
 		$blog_id    = get_current_blog_id();
@@ -633,10 +631,10 @@ class Site extends gNetwork\Module
 				update_site_meta( $blog_id, $filter, maybe_unserialize( $all_option[$filter] ) );
 
 		// extras!
-		update_site_meta( $blog_id, 'site_icon_url', get_site_icon_url() );
+		update_site_meta( $blog_id, 'site_icon_url', WordPress\Site::icon() ?: '' );
 	}
 
-	public function switch_blog( $blog_id )
+	public function switch_blog( int $blog_id ): void
 	{
 		if ( $blog_id == 1 )
 			return;
@@ -700,13 +698,13 @@ class Site extends gNetwork\Module
 		return $count;
 	}
 
-	private function get_filters()
+	private function get_filters(): array
 	{
-		return $this->filters( 'meta_filters', $this->filters );
+		return (array) $this->filters( 'meta_filters', $this->filters );
 	}
 
-	private function check_option( $option )
+	private function check_option( string $option ): bool
 	{
-		return in_array( $option, $this->get_filters( ) );
+		return in_array( $option, $this->get_filters(), TRUE );
 	}
 }
