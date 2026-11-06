@@ -566,15 +566,30 @@ class Branding extends gNetwork\Module
 		return $palette;
 	}
 
-	// @SOURCE: https://github.com/kraftbj/default-site-icon
-	public function get_site_icon_url( $url, $size, $blog_id )
+	/**
+	 * Filters the site icon URL.
+	 * @source: https://github.com/kraftbj/default-site-icon
+	 *
+	 * @param mixed $url
+	 * @param int $size
+	 * @param int $blog_id
+	 * @return mixed
+	 */
+	public function get_site_icon_url( mixed $url, int $size, int $blog_id ): mixed
 	{
+		// Must check for empty string only!
 		if ( '' !== $url )
 			return $url;
 
-		$site = get_site_icon_url( $size, FALSE, get_main_site_id() );
+		// REST or already switched!
+		if ( WordPress\IsIt::rest() || WordPress\SwitchSite::is() )
+			return $url;
 
-		return FALSE === $site ? '' : $site;
+		// Avoids infinite loops!
+		if ( $blog_id === ( $main = get_main_site_id() ) )
+			return $url;
+
+		return WordPress\Site::icon( $size, $main ) ?: '';
 	}
 
 	// @REF: https://make.wordpress.org/core/2020/02/19/enhancements-to-favicon-handling-in-wordpress-5-4/
