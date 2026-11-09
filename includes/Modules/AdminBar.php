@@ -44,7 +44,7 @@ class AdminBar extends gNetwork\Module
 
 			$this->setup_adminbar();
 
-			// $this->filter( 'shortcode_atts_wpcf7', 4 );
+			// `$this->filter( 'shortcode_atts_wpcf7', 4 );`
 
 		} else {
 
@@ -57,7 +57,7 @@ class AdminBar extends gNetwork\Module
 		add_filter( 'wp_admin_bar_class', __NAMESPACE__.'\\wp_admin_bar_class' );
 
 		$this->action( 'wp_before_admin_bar_render' );
-		// $this->filter_false( 'wp_admin_bar_show_site_icons' ); // @REF: https://core.trac.wordpress.org/ticket/54447
+		// `$this->filter_false( 'wp_admin_bar_show_site_icons' );` // @REF: https://core.trac.wordpress.org/ticket/54447
 	}
 
 	// Overrides to avoid `get_blogs_of_user()`
@@ -67,15 +67,19 @@ class AdminBar extends gNetwork\Module
 		$user = new \stdClass();
 
 		if ( is_multisite() && ( $user_id = get_current_user_id() ) ) {
+
 			$super_admin       = WordPress\User::isSuperAdmin();
 			$user->blogs       = WordPress\Site::get( ( $super_admin ? FALSE : $user_id ), $super_admin );
 			$user->active_blog = get_user_meta( $user_id, 'primary_blog', TRUE );
+
 		} else {
+
 			$user->blogs       = [];
 			$user->active_blog = FALSE;
 		}
 
 		if ( current_theme_supports( 'admin-bar' ) ) {
+
 			$admin_bar_args = get_theme_support( 'admin-bar' );
 
 			if ( ! empty( $admin_bar_args[0]['callback'] ) )
@@ -185,7 +189,7 @@ class AdminBar extends gNetwork\Module
 		$this->wpcf7_admin = TRUE;
 	}
 
-	public function wpcf7_contact_form_properties( $properties, $wpcf7 )
+	public function wpcf7_contact_form_properties( array $properties, $wpcf7 ): array
 	{
 		foreach ( wpcf7_messages() as $key => $args )
 			$properties['messages'][$key] = $args['default'];
@@ -193,8 +197,8 @@ class AdminBar extends gNetwork\Module
 		return $properties;
 	}
 
-	// FIXME: not working anymore, short-codes are too late for `admin_bar_menu` hook @since WP v5.4.0
-	public function shortcode_atts_wpcf7( $out, $pairs, $atts, $shortcode )
+	// FIXME: not working anymore, short-codes are too late for `admin_bar_menu` hook @since WP 5.4.0
+	public function shortcode_atts_wpcf7( array $out, array $pairs, array $atts, string $shortcode ): array
 	{
 		if ( ! empty( $atts['id'] ) && current_user_can( 'wpcf7_edit_contact_form' ) ) {
 			$this->wpcf7_shortcode = $atts['id'];
@@ -237,7 +241,7 @@ class AdminBar extends gNetwork\Module
 		] );
 	}
 
-	public function add_extra_nodes_superadmin( $wp_admin_bar )
+	public function add_extra_nodes_superadmin( object $wp_admin_bar ): void
 	{
 		global $pagenow;
 
@@ -295,7 +299,7 @@ class AdminBar extends gNetwork\Module
 				'parent' => $parent_id,
 				'id'     => static::BASE.'-locale',
 				'title'  => _x( 'Change Locale', 'Modules: AdminBar: Nodes', 'gnetwork' ),
-				'href'   => FALSE, // $this->get_menu_url( 'locale' ),
+				'href'   => FALSE, // `$this->get_menu_url( 'locale' ),`
 				'meta'   => [ 'title' => _x( 'Quickly change current blog language', 'Modules: AdminBar: Nodes', 'gnetwork' ) ],
 			] );
 
@@ -452,7 +456,7 @@ class AdminBar extends gNetwork\Module
 		] );
 	}
 
-	public function wp_admin_bar_search_menu( $wp_admin_bar )
+	public function wp_admin_bar_search_menu( object $wp_admin_bar ): void
 	{
 		if ( is_admin() )
 			return;
@@ -474,7 +478,7 @@ class AdminBar extends gNetwork\Module
 		] );
 	}
 
-	public function wp_admin_bar_shortlink_menu( $wp_admin_bar )
+	public function wp_admin_bar_shortlink_menu( object $wp_admin_bar ): void
 	{
 		if ( defined( 'GNETWORK_IS_CUSTOM_404' ) && GNETWORK_IS_CUSTOM_404 )
 			return;
@@ -500,7 +504,7 @@ class AdminBar extends gNetwork\Module
 		] );
 	}
 
-	public function wp_admin_bar_wpcf7_shortcode( $wp_admin_bar )
+	public function wp_admin_bar_wpcf7_shortcode( object $wp_admin_bar ): void
 	{
 		if ( is_admin() || ! is_singular() || is_front_page() )
 			return;
@@ -514,7 +518,7 @@ class AdminBar extends gNetwork\Module
 	}
 
 	// TODO: merge with multi-network
-	public function wp_admin_bar_my_sites_menu( $wp_admin_bar )
+	public function wp_admin_bar_my_sites_menu( object $wp_admin_bar ): void
 	{
 		if ( ! is_user_logged_in() )
 			return;
@@ -712,14 +716,16 @@ class AdminBar extends gNetwork\Module
 		}
 	}
 
-	public function wp_admin_bar_my_network_menu( $wp_admin_bar )
+	public function wp_admin_bar_my_network_menu( object $wp_admin_bar ): void
 	{
 		if ( ! is_user_logged_in() )
 			return;
 
 		// fallback
-		if ( ! $networks = user_has_networks() )
-			return $this->wp_admin_bar_my_sites_menu( $wp_admin_bar );
+		if ( ! $networks = user_has_networks() ) {
+			$this->wp_admin_bar_my_sites_menu( $wp_admin_bar );
+			return;
+		}
 
 		// NOTE: Assumed the list from `user_has_networks()` have privileges!
 		$super_admin = WordPress\User::isSuperAdmin();
@@ -923,11 +929,13 @@ class AdminBar extends gNetwork\Module
 		}
 	}
 
-	public function wp_admin_bar_wp_menu( $wp_admin_bar )
+	public function wp_admin_bar_wp_menu( object $wp_admin_bar ): void
 	{
 		// Custom menu by filter, it's better because there are no default WP menu.
-		if ( $custom = apply_filters( static::BASE.'_adminbar_custom', NULL ) )
-			return call_user_func_array( $custom, [ &$wp_admin_bar ] );
+		if ( $custom = apply_filters( static::BASE.'_adminbar_custom', NULL ) ) {
+			call_user_func_array( $custom, [ &$wp_admin_bar ] );
+			return;
+		}
 
 		self::addMainLogo( $wp_admin_bar );
 
@@ -939,8 +947,15 @@ class AdminBar extends gNetwork\Module
 
 			foreach ( $menu as $item_id => $item ) {
 
+				$parent = 'wp-logo-external';
+
+				if ( ! empty( $item->target ) )
+					$parent = $item->menu_item_parent
+						? self::dsh( 'network-menu', $item->menu_item_parent )
+						: 'wp-logo';
+
 				$wp_admin_bar->add_node( [
-					'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
+					'parent' => $parent,
 					'id'     => 'network-menu-'.$item->ID,
 					'title'  => $item->title,
 					'href'   => $item->url,
@@ -955,7 +970,7 @@ class AdminBar extends gNetwork\Module
 		self::addLoginRegister( $wp_admin_bar );
 	}
 
-	public static function addMainLogo( $wp_admin_bar, $id = 'wp-logo', $title = NULL )
+	public static function addMainLogo( object $wp_admin_bar, ?string $id = 'wp-logo', ?string $title = NULL ): void
 	{
 		$brand = gNetwork()->brand( 'name' );
 		$url   = gNetwork()->brand( 'url' );
@@ -974,7 +989,7 @@ class AdminBar extends gNetwork\Module
 		] );
 	}
 
-	public static function addLoginRegister( $wp_admin_bar, $parent = 'wp-logo-external' )
+	public static function addLoginRegister( object $wp_admin_bar, string $parent = 'wp-logo-external' ): void
 	{
 		if ( ! GNETWORK_ADMINBAR_LOGIN )
 			return;
@@ -998,7 +1013,7 @@ class AdminBar extends gNetwork\Module
 			] );
 	}
 
-	public function wp_admin_bar_extra_menu( $wp_admin_bar )
+	public function wp_admin_bar_extra_menu( object $wp_admin_bar ): void
 	{
 		if ( ! class_exists( __NAMESPACE__.'\\Navigation' ) )
 			return;
@@ -1024,8 +1039,8 @@ class AdminBar extends gNetwork\Module
 				if ( ( empty( $item->xfn ) ?: current_user_can( $item->xfn ) ) ) {
 
 					$wp_admin_bar->add_node( [
-						// check target to place link on externals
-						// 'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),
+						// Check target to place link on externals.
+						// `'parent' => ( empty( $item->target ) ? ( empty( $item->menu_item_parent ) ? 'wp-logo' : 'network-menu-'.$item->menu_item_parent ) : 'wp-logo-external' ),`
 						'parent' => $parent,
 						'id'     => 'network-extramenu-'.$item->ID,
 						'title'  => $item->title,
@@ -1041,7 +1056,7 @@ class AdminBar extends gNetwork\Module
 	}
 
 	// NOTE: does not exists in core!
-	public function wp_admin_bar_posttypes( $wp_admin_bar )
+	public function wp_admin_bar_posttypes( object $wp_admin_bar ): void
 	{
 		$posttypes = get_post_types( [ 'show_in_admin_bar' => TRUE ], 'objects' );
 		$excludes  = [
@@ -1065,7 +1080,7 @@ class AdminBar extends gNetwork\Module
 		}
 	}
 
-	public static function getIcon( $icon, $style = FALSE )
+	public static function getIcon( string $icon, string $style = '' ): string
 	{
 		return Core\HTML::tag( 'span', [
 			'class' => [
@@ -1073,15 +1088,20 @@ class AdminBar extends gNetwork\Module
 				'dashicons',
 				'dashicons-'.$icon,
 			],
-			'style' => $style,
+			'style' => $style ?: FALSE,
 		], NULL );
 	}
 }
 
-function wp_admin_bar_class( $class ) {
+function wp_admin_bar_class( string $class ): string {
 
 	class WP_Admin_Bar extends \WP_Admin_Bar
 	{
+		/**
+		 * Current user information.
+		 *
+		 * @var object
+		 */
 		public $user;
 
 		public function initialize()

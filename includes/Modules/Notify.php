@@ -52,6 +52,8 @@ class Notify extends gNetwork\Module
 		// https://core.trac.wordpress.org/ticket/63927
 		// `wp_send_application_password_created_email`
 
+		// https://wpengineer.com/2822/customizing-the-user-registration-notification-emails/
+
 		// @REF: https://make.wordpress.org/core/2020/07/30/controlling-plugin-and-theme-auto-update-email-notifications-and-site-health-infos-in-wp-5-5/
 		// Disable auto-update email notifications for plugins.
 		$this->filter_false( 'auto_plugin_update_send_email' );

@@ -303,25 +303,26 @@ class Comments extends gNetwork\Module
 		return _x( 'Your attempt to add this comment has failed.', 'Modules: Comments', 'gnetwork' );
 	}
 
-	public function comments_template_query_args( $comment_args )
+	public function comments_template_query_args( array $comment_args ): array
 	{
 		if ( ! isset( $comment_args['type'] )
 			&& ! isset( $comment_args['type__in'] )
 			&& ! isset( $comment_args['type__not_in'] ) )
 				$comment_args['type'] = [
-					'comment',  // wp-core
-					'review',   // woo-commerce
-					// 'note',     // wp-core
+					'comment' ,  // wp-core
+					'review'  ,  // woo-commerce
+					// 'note'    ,  // wp-core
+					// 'reaction',  // wp-core
 				];
 
 		return $comment_args;
 	}
 
-	protected function get_count( $post_id )
+	protected function get_count( int $post_id ): int
 	{
 		$query = new \WP_Comment_Query();
 
-		return $query->query( [
+		return (int) $query->query( [
 			'post_id' => $post_id,
 			'status'  => 1,
 			'count'   => TRUE,
@@ -332,12 +333,12 @@ class Comments extends gNetwork\Module
 		] );
 	}
 
-	public function get_comments_number( $count, $post_id )
+	public function get_comments_number( int $count, int $post_id ): int
 	{
 		return $count ? $this->get_count( $post_id ) : $count;
 	}
 
-	public function the_posts( $posts )
+	public function the_posts( array $posts ): array
 	{
 		foreach ( $posts as $id => $post )
 			if ( $post->comment_count )
@@ -350,8 +351,8 @@ class Comments extends gNetwork\Module
 	public function close_ping()
 	{
 		// http://www.wpbeginner.com/wp-tutorials/how-to-disable-trackbacks-and-pings-on-existing-wordpress-posts/
-		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'post';
-		// UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'page';
+		// `UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'post';`
+		// `UPDATE wp_posts SET ping_status='closed' WHERE post_status = 'publish' AND post_type = 'page';`
 	}
 
 	// TODO: pie-chart

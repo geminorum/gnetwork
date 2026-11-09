@@ -723,6 +723,7 @@ class Blog extends gNetwork\Module
 
 	public function export_wp()
 	{
+		// phpcs:ignore: Squiz.PHP.DiscouragedFunctions.Discouraged
 		@set_time_limit( 0 );
 
 		self::define( 'GNETWORK_IS_WP_EXPORT', TRUE );

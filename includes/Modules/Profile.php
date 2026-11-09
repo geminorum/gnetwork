@@ -345,7 +345,7 @@ class Profile extends gNetwork\Module
 		return $count;
 	}
 
-	public function init()
+	public function init(): void
 	{
 		if ( ! is_user_logged_in() )
 			return;
@@ -363,7 +363,7 @@ class Profile extends gNetwork\Module
 		$this->filter_false( 'edit_profile_url', 12 );
 	}
 
-	public function admin_init_disable_edit()
+	public function admin_init_disable_edit(): void
 	{
 		if ( ! empty( $GLOBALS['menu'] ) )
 			remove_menu_page( 'profile.php' );
@@ -373,12 +373,14 @@ class Profile extends gNetwork\Module
 	}
 
 	// TODO: must check if user is member of the site
-	public function load_profile_php()
+	public function load_profile_php(): void
 	{
-		WordPress\Redirect::doWP( add_query_arg( [ static::BASE.'_action' => 'edit-profile-banned' ], admin_url( 'index.php' ) ) );
+		WordPress\Redirect::doWP( add_query_arg( [
+			static::BASE.'_action' => 'edit-profile-banned',
+		], admin_url( 'index.php' ) ) );
 	}
 
-	public function admin_notices()
+	public function admin_notices(): void
 	{
 		if ( $this->is_request_action( 'edit-profile-banned' ) )
 			echo Core\HTML::warning( _x( 'Sorry, you are not allowed to edit your profile.', 'Modules: Profile', 'gnetwork-admin' ) );
@@ -386,7 +388,13 @@ class Profile extends gNetwork\Module
 
 	public function setup_screen( object $screen ): void
 	{
-		if ( ! in_array( $screen->base, [ 'profile-user', 'profile-network', 'user-edit-network', 'profile', 'user-edit' ] ) )
+		if ( ! in_array( $screen->base, [
+			'profile-user',
+			'profile-network',
+			'user-edit-network',
+			'user-edit',
+			'profile',
+		], TRUE ) )
 			return;
 
 		$this->action( 'personal_options_update' );
@@ -394,7 +402,7 @@ class Profile extends gNetwork\Module
 		$this->action( 'user_edit_form_tag', 0, 999999 );
 	}
 
-	public function user_register( $user_id )
+	public function user_register( int $user_id ): void
 	{
 		if ( $this->options['store_signup_ip']
 			&& ( $ip = Core\HTTP::normalizeIP( $_SERVER['REMOTE_ADDR'] ) ) )
@@ -440,7 +448,7 @@ class Profile extends gNetwork\Module
 		return $this->options['redirect_signup_after'];
 	}
 
-	// filters whether to allow a password to be reset
+	// Filters whether to allow a password to be reset.
 	public function allow_password_reset( $allow, $user_id )
 	{
 		if ( get_user_meta( $user_id, 'disable_password_reset', TRUE ) )
@@ -449,12 +457,12 @@ class Profile extends gNetwork\Module
 		return $allow;
 	}
 
-	public function user_contactmethods( $contactmethods, $user )
+	public function user_contactmethods( array $contactmethods, $user ): array
 	{
 		return array_merge( Core\Arraay::stripByKeys( $contactmethods, [ 'aim', 'yim', 'jabber' ] ), [
 			'mobile'    => _x( 'Mobile Phone', 'Modules: Profile: User Contact Method', 'gnetwork' ), // @SEE: `GNETWORK_COMMERCE_MOBILE_METAKEY`
 			'twitter'   => _x( 'X (Twitter)', 'Modules: Profile: User Contact Method', 'gnetwork' ),
-			// 'facebook'  => _x( 'Facebook', 'Modules: Profile: User Contact Method', 'gnetwork' ), // DROP support
+			// `'facebook'  => _x( 'Facebook', 'Modules: Profile: User Contact Method', 'gnetwork' ),` // DROP support
 			'instagram' => _x( 'Instagram', 'Modules: Profile: User Contact Method', 'gnetwork' ),
 			'telegram'  => _x( 'Telegram', 'Modules: Profile: User Contact Method', 'gnetwork' ),
 		] );

@@ -1046,7 +1046,7 @@ class Cleanup extends gNetwork\Module
 			if ( ! file_exists( $path ) )
 				continue;
 
-			if ( TRUE !== unlink( $path ) )
+			if ( TRUE !== Core\File::unlink( $path ) )
 				continue;
 
 			if ( $verbose )

@@ -303,7 +303,7 @@ class Commerce extends gNetwork\Module
 			$this->filter( 'woocommerce_get_availability_text', 2, 8 );
 	}
 
-	public function admin_bar_menu( $wp_admin_bar )
+	public function admin_bar_menu( object $wp_admin_bar ): void
 	{
 		if ( is_admin() )
 			return;

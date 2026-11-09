@@ -197,7 +197,7 @@ class Debug extends gNetwork\Module
 
 			foreach ( $this->_get_supported_logs() as $log_key => $log_path )
 				if ( $log_path && $log_key === $sub )
-					WordPress\Redirect::doReferer( ( @unlink( $log_path ) ? 'purged' : 'error' ) );
+					WordPress\Redirect::doReferer( Core\File::unlink( $log_path ) ? 'purged' : 'error' );
 
 			WordPress\Redirect::doReferer( 'wrong' );
 

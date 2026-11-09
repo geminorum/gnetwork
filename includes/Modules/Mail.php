@@ -289,7 +289,7 @@ class Mail extends gNetwork\Module
 					$count = 0;
 
 					foreach ( $_POST['_cb'] as $log )
-						if ( TRUE === unlink( Core\File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' ) ) )
+						if ( Core\File::unlink( Core\File::join( GNETWORK_MAIL_LOG_DIR, $log.'.json' ) ) )
 							$count++;
 
 					WordPress\Redirect::doReferer( [
@@ -520,7 +520,7 @@ class Mail extends gNetwork\Module
 			break;
 			case 'delete':
 
-				if ( TRUE === unlink( $file ) )
+				if ( Core\File::unlink( $file ) )
 					WordPress\Redirect::doReferer( [ 'message' => 'deleted', 'count' => 1 ] );
 		}
 

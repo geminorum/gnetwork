@@ -441,7 +441,7 @@ class Media extends gNetwork\Module
 					$message   = sprintf(
 						'<small><code class="-external-resource" title="%s">%s</code></small>',
 						_x( 'External Resource', 'Modules: Media: Title Attr', 'gnetwork-admin' ),
-						_x( 'Ex', 'Modules: Media: External Resource', 'gnetwork-admin' )
+						_x( 'Ex', 'Modules: Media: External Resource', 'gnetwork-admin' ),
 					);
 
 					if ( FALSE === ( $checked = Core\HTTP::checkURLs( $extracted ) ) )
@@ -647,10 +647,9 @@ class Media extends gNetwork\Module
 		return $sizes;
 	}
 
-	// NOTE: DEPRECATED: use `WordPress\Media::registerImageSize()`
-	public static function registerImageSize( $name, $atts = [] )
+	#[\Deprecated( 'USE `WordPress\Media::registerImageSize()`' )]
+	public static function registerImageSize( string $name, array $atts = [] )
 	{
-		self::_dep( 'WordPress\Media::registerImageSize()' );
 		return WordPress\Media::registerImageSize( $name, $atts );
 	}
 
@@ -742,7 +741,7 @@ class Media extends gNetwork\Module
 		return $thumbs;
 	}
 
-	public function clean_attachment( $attachment_id, $regenerate = TRUE, $force = FALSE )
+	public function clean_attachment( int $attachment_id, bool $regenerate = TRUE, bool $force = FALSE ): bool
 	{
 		if ( $force || ! WordPress\Media::isCustom( $attachment_id ) ) {
 
@@ -760,27 +759,27 @@ class Media extends gNetwork\Module
 		return FALSE;
 	}
 
-	public function clean_attachments( $post_id, $force = FALSE )
+	public function clean_attachments( mixed $parent, bool $force = FALSE ): int
 	{
 		$count = 0;
 
-		foreach ( WordPress\Attachment::list( $post_id ) as $attachment )
+		foreach ( WordPress\Attachment::list( $parent ) as $attachment )
 			if ( $this->clean_attachment( $attachment->ID, TRUE, $force ) )
 				$count++;
 
 		return $count;
 	}
 
-	public function sync_attachments( $post )
+	public function sync_attachments( mixed $post )
 	{
 		global $wpdb;
 
-		if ( ! $post = get_post( $post ) )
+		if ( ! $post = WordPress\Post::get( $post ) )
 			return FALSE;
 
 		$clean = $moved = [];
 
-		foreach ( WordPress\Attachment::list( $post->ID ) as $attachment ) {
+		foreach ( WordPress\Attachment::list( $post ) as $attachment ) {
 			if ( $attached_file = get_post_meta( $attachment->ID, '_wp_attached_file', TRUE ) ) {
 				if ( ! str_replace( Core\File::basename( $attached_file ), '', $attached_file ) ) {
 					$clean[$attachment->ID] = $attached_file;
@@ -797,7 +796,7 @@ class Media extends gNetwork\Module
 
 		foreach ( $clean as $clean_id => $clean_file ) {
 
-			// $clean_upload = media_sideload_image( Core\URL::trail( $wpupload['baseurl'] ).$clean_file, $post->ID, NULL, 'src' );
+			// `$clean_upload = media_sideload_image( Core\URL::trail( $wpupload['baseurl'] ).$clean_file, $post->ID, NULL, 'src' );`
 
 			$clean_path = Core\File::join( $wpupload['basedir'], $clean_file );
 			$moved_path = Core\File::join( $wpupload['path'], $clean_file );
@@ -811,7 +810,7 @@ class Media extends gNetwork\Module
 				foreach ( $paths as $path )
 					$urls[] = str_replace( $wpupload['basedir'], $wpupload['baseurl'], Core\File::normalize( $path ) );
 
-				// also the original
+				// Also, the original!
 				$urls[] = Core\URL::trail( $wpupload['baseurl'] ).$clean_file;
 
 				foreach ( $urls as $url ) {
@@ -854,7 +853,7 @@ class Media extends gNetwork\Module
 		return TRUE;
 	}
 
-	public function purge_meta( $post_id )
+	public function purge_meta( int $post_id ): bool
 	{
 		delete_post_meta( $post_id, '_thumbnail_id' );
 		delete_post_meta( $post_id, '_gtheme_images' );
@@ -863,7 +862,7 @@ class Media extends gNetwork\Module
 		return TRUE;
 	}
 
-	public function single_post_title( $post_title, $post )
+	public function single_post_title( string $post_title, object $post ): string
 	{
 		if ( 'attachment' == $post->post_type ) {
 
@@ -877,12 +876,14 @@ class Media extends gNetwork\Module
 		return $post_title;
 	}
 
-	public function bulk_actions( $actions )
+	public function bulk_actions( array $actions ): array
 	{
-		return array_merge( $actions, [ 'cleanattachments' => _x( 'Clean Attachments', 'Modules: Media: Bulk Action', 'gnetwork-admin' ) ] );
+		return array_merge( $actions, [
+			'cleanattachments' => _x( 'Clean Attachments', 'Modules: Media: Bulk Action', 'gnetwork-admin' ),
+		] );
 	}
 
-	public function handle_bulk_actions( $redirect_to, $doaction, $post_ids )
+	public function handle_bulk_actions( string $redirect_to, string $doaction, array $post_ids ): string
 	{
 		if ( 'cleanattachments' != $doaction )
 			return $redirect_to;
@@ -1152,7 +1153,7 @@ class Media extends gNetwork\Module
 		$info = pathinfo( $filename );
 		$ext  = empty( $info['extension'] ) ? '' : sprintf( '.%s', $info['extension'] );
 
-		// $name = preg_replace( '/'.$ext.'$/', '', $filename );
+		// `$name = preg_replace( '/'.$ext.'$/', '', $filename );`
 		$name = Core\File::basename( $filename, $ext );
 
 		$name = remove_accents( $name );
@@ -1161,7 +1162,7 @@ class Media extends gNetwork\Module
 		$name = Core\Text::trim( $name );
 
 		$name = Utilities::URLifyDownCode( $name );
-		// $name = Utilities::URLifyFilter( trim( $name ) );
+		// `$name = Utilities::URLifyFilter( trim( $name ) );`
 
 		return Core\Text::strToLower( $name.$ext );
 	}

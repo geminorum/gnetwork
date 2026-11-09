@@ -537,6 +537,11 @@ class Locale extends gNetwork\Module
 
 			'add-external-media-without-import' => 'page',
 
+			/// [WordPress/plugin-check](https://github.com/WordPress/plugin-check)
+			'plugin-check'             => 'page',
+			'plugin-check-namer'       => 'page',
+			'plugin-check-svn-checker' => 'page',
+
 		], $current );
 
 		return $this->check_request( $list, $current, $base );
