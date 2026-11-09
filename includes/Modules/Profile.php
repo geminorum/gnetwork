@@ -353,12 +353,14 @@ class Profile extends gNetwork\Module
 		if ( $this->options['disable_colorschemes'] )
 			remove_all_actions( 'admin_color_scheme_picker' );
 
-		if ( ! current_user_can( 'edit_users' )
-			&& get_user_meta( get_current_user_id(), 'disable_edit', TRUE ) ) {
+		if ( current_user_can( 'edit_users' ) )
+			return;
 
-			$this->action( 'admin_init', 0, 12, 'disable_edit' );
-			$this->filter_false( 'edit_profile_url', 12 );
-		}
+		if ( ! WordPress\UserMeta::get( 'disable_edit' ) )
+			return;
+
+		$this->action( 'admin_init', 0, 12, 'disable_edit' );
+		$this->filter_false( 'edit_profile_url', 12 );
 	}
 
 	public function admin_init_disable_edit()
